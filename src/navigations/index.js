@@ -8,7 +8,7 @@ export const AppNavigator = StackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
 },{
-    initialRouteName  : 'Menu',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -45,7 +45,7 @@ export const actNav = {
             ]
         }))
     },
-    navigate: (navigator,route,params) => {
+    navigate: (navigator,route,params = {}) => {
         navigator.dispatch(NavigationActions.navigate({
             routeName: route,
             params: params
