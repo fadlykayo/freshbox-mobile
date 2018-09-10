@@ -1,14 +1,16 @@
 import { Animated, Easing } from 'react-native';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
 
-export const AppNavigator = StackNavigator({
+let _navigator;
+
+export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
 },{
-    initialRouteName  : 'Menu',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -36,17 +38,21 @@ export const AppNavigator = StackNavigator({
     }),
 });
 
+export const setNavigator = (navigatorRef) => {
+    _navigator = navigatorRef;
+}
+
 export const actNav = {
-    reset: (navigator,route) => {
-        navigator.dispatch(NavigationActions.reset({
+    reset: (route) => {
+        _navigator.dispatch(NavigationActions.reset({
             index: 0,
             actions: [
                 NavigationActions.navigate({ routeName: route})
             ]
         }))
     },
-    navigate: (navigator,route,params) => {
-        navigator.dispatch(NavigationActions.navigate({
+    navigate: (route,params = {}) => {
+        _navigator.dispatch(NavigationActions.navigate({
             routeName: route,
             params: params
         }))
