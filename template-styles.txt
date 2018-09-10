@@ -1,0 +1,10 @@
+import { Dimensions } from 'react-native';
+import { colour } from '@styles';
+
+const { width } = Dimensions.get('window');
+
+const styles = {
+    
+}
+
+export default styles;
