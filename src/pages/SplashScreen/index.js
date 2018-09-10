@@ -11,7 +11,7 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            actNav.navigate(this.props.navigation,'Menu');
+            actNav.navigate('Menu');
         },1000);
     }
 
