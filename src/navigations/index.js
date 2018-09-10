@@ -1,12 +1,12 @@
 import { Animated, Easing } from 'react-native';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
 
-const _navigator;
+let _navigator;
 
-export const AppNavigator = StackNavigator({
+export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
 },{
