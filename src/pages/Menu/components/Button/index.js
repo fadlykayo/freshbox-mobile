@@ -13,7 +13,7 @@ class Button extends PureComponent {
         switch(this.props.type){
             case 'get_started':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
                         <StaticText 
                             style={styles.content(this.props.type)}
                             property={'welcome.button.getStarted'}
@@ -22,7 +22,7 @@ class Button extends PureComponent {
                 )
             case 'facebook':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
                         <StaticText 
                             style={styles.content(this.props.type)}
                             property={'welcome.button.facebook'}
@@ -36,7 +36,7 @@ class Button extends PureComponent {
                 )
             case 'email':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
                         <StaticText 
                             style={styles.content(this.props.type)}
                             property={'welcome.button.email'}
@@ -50,7 +50,7 @@ class Button extends PureComponent {
                 )
             case 'google':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
                         <StaticText 
                             style={styles.content(this.props.type)}
                             property={'welcome.button.google'}
