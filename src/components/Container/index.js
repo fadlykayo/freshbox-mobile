@@ -3,6 +3,10 @@ import { View, Platform, KeyboardAvoidingView } from 'react-native';
 import styles from './styles';
 
 class Container extends PureComponent {
+    constructor(){
+        super();
+    }
+    
     render(){
         if(Platform.OS === 'ios'){
             return(
