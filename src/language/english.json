@@ -1,0 +1,11 @@
+{
+    "welcome":{
+        "button":{
+            "get_started":"Get Started",
+            "facebook":"Continue with Facebook",
+            "email":"Continue with Email",
+            "google":"Continue with Google"
+        },
+        "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+    }
+}
