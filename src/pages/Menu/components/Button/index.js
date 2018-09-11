@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { TouchableOpacity, Image, Text } from 'react-native';
+import StaticText from '@components/StaticText';
 import images from '@assets';
 import styles from './styles';
 
@@ -13,40 +14,52 @@ class Button extends PureComponent {
             case 'get_started':
                 return(
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Get Started</Text>
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.get_started'}
+                        />
                     </TouchableOpacity>
                 )
             case 'facebook':
                 return(
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Facebook</Text>
-                        {/* <Image
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.facebook'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_facebook}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             case 'email':
                 return(
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Email</Text>
-                        {/* <Image
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.email'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_mail}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             case 'google':
                 return(
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Google</Text>
-                        {/* <Image
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.google'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_google}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             default:
