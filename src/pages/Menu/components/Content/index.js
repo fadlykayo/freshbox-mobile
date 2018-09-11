@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import StaticText from '@components/StaticText';
 import Button from '../Button';
 import styles from './styles';
 
@@ -22,6 +23,10 @@ class Content extends PureComponent {
                 />
                 <Button 
                     type={'google'}
+                />
+                <StaticText 
+                    style={styles.termsAndCondition}
+                    property={'welcome.termsCondition'}
                 />
             </View>
         )
