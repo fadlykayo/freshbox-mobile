@@ -16,7 +16,7 @@ class Button extends PureComponent {
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
                         <StaticText 
                             style={styles.content(this.props.type)}
-                            property={'welcome.button.get_started'}
+                            property={'welcome.button.getStarted'}
                         />
                     </TouchableOpacity>
                 )

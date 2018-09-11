@@ -26,7 +26,7 @@ class Content extends PureComponent {
                 />
                 <StaticText 
                     style={styles.termsAndCondition}
-                    property={'welcome.termsCondition'}
+                    property={'welcome.content.termsCondition'}
                 />
             </View>
         )
