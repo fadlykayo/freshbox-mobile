@@ -1,6 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { View, Image } from 'react-native';
-import { actNav } from '@navigations';
+import { actNav, navConstant } from '@navigations';
 import images from '@assets';
 import styles from './styles';
 
@@ -11,7 +11,7 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            actNav.navigate('Menu');
+            actNav.navigate(navConstant.Menu);
         },1000);
     }
 

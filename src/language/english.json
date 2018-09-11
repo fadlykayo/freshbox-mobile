@@ -1,0 +1,27 @@
+{
+    "welcome":{
+        "button":{
+            "getStarted":"Get Started",
+            "facebook":"Continue with Facebook",
+            "email":"Continue with Email",
+            "google":"Continue with Google"
+        },
+        "content":{
+            "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+        }
+    },
+    "signIn":{
+        "navigationTitle": "Sign In",
+        "formLabel":{
+            "email": "Email",
+            "password": "Password"
+        },
+        "button":{
+            "signIn": "Sign In"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register"
+        }
+    }
+}

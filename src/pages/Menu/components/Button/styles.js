@@ -50,16 +50,24 @@ const styles = {
     content: (type) => {
         if(type == 'google'){
             return({
-                color: colour.darkGrey,
+                fontFamily: 'Avenir-Black',
                 fontSize: scaling.moderateScale(14),
+                color: colour.darkGrey,
             })
         } else {
             return({
-                color: colour.white,
+                fontFamily: 'Avenir-Black',
                 fontSize: scaling.moderateScale(14),
+                color: colour.white,
             })
         }
-    }
+    },
+    logo:{
+        position: 'absolute',
+        height: scaling.moderateScale(15),
+        width: scaling.moderateScale(15),
+        left: scaling.moderateScale(25),
+    },
 }
 
 export default styles;

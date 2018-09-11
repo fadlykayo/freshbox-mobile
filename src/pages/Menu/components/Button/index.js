@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { TouchableOpacity, Image, Text } from 'react-native';
+import StaticText from '@components/StaticText';
 import images from '@assets';
 import styles from './styles';
 
@@ -12,41 +13,53 @@ class Button extends PureComponent {
         switch(this.props.type){
             case 'get_started':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Get Started</Text>
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.getStarted'}
+                        />
                     </TouchableOpacity>
                 )
             case 'facebook':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Facebook</Text>
-                        {/* <Image
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.facebook'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_facebook}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             case 'email':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Email</Text>
-                        {/* <Image
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.email'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_mail}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             case 'google':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
-                        <Text style={styles.content(this.props.type)}>Continue with Google</Text>
-                        {/* <Image
+                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
+                        <StaticText 
+                            style={styles.content(this.props.type)}
+                            property={'welcome.button.google'}
+                        />
+                        <Image
                             resizeMode={'contain'} 
-                            source={images.icon_logo}
+                            source={images.icon_google}
                             style={styles.logo}
-                        /> */}
+                        />
                     </TouchableOpacity>
                 )
             default:
