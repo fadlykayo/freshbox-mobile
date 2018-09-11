@@ -32,6 +32,10 @@ class FormInput extends PureComponent {
         if(this.props.placeholder) this.getPlaceholder();
     }
 
+    componentWillUnmount(){
+        this.TextInput.blur();
+    }
+
     blur(){
         this.TextInput.blur();
         this.focusHandler();
@@ -54,6 +58,7 @@ class FormInput extends PureComponent {
 
     onSubmitEditing(){
         if(this.props.onSubmitEditing) this.props.onSubmitEditing();
+        this.blur();
     }
 
     getPlaceholder(){
