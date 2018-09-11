@@ -1,12 +1,12 @@
 import React,{ PureComponent } from 'react';
 import { View, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
+import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from './components/FormInput';
 import Button from './components/Button';
 import Register from './components/Register';
-import images from '@assets';
 import styles from './styles';
 
 class SignIn extends PureComponent {
@@ -19,6 +19,7 @@ class SignIn extends PureComponent {
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
+        this.submitEmail = this.submitEmail.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
     }
 
@@ -26,6 +27,20 @@ class SignIn extends PureComponent {
         let user = this.state.user;
         user[type] = value;
         this.setState({user});
+    }
+
+    submitEmail(){
+        let userEmail = this.state.user.email.trim();
+        if(userEmail.length > 0){
+            validation.email(userEmail)
+            .then(() => {
+                alert('success');
+                this.formPassword.focus();
+            })
+            .catch(() => {
+                alert('failure');
+            })
+        }
     }
 
     signInHandler(){
@@ -51,6 +66,7 @@ class SignIn extends PureComponent {
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.email'}
                         placeholder={'signIn.formLabel.email'}
+                        onSubmitEditing={this.submitEmail}
                     />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
@@ -60,6 +76,7 @@ class SignIn extends PureComponent {
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
+                        onSubmitEditing={this.signInHandler}
                     />
                     <Button 
                         title={'signIn.button.signIn'}
