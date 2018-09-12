@@ -23,5 +23,22 @@
             "newToFreshbox": "New to Freshbox? ",
             "register": "Register"
         }
+    },
+    "register":{
+        "navigationTitle": "Register",
+        "formLabel":{
+            "fullName": "Full Name",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "button":{
+            "register": "Register"
+        },
+        "content":{
+            "haveAnAccount": "Have an Account, ",
+            "signIn": "Sign In"
+        }
     }
 }

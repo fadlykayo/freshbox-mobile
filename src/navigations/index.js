@@ -4,6 +4,7 @@ import { createStackNavigator, NavigationActions } from 'react-navigation';
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
 import SignIn from '@pages/SignIn';
+import Register from '@pages/Register';
 
 let _navigator;
 
@@ -11,6 +12,7 @@ export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
     SignIn: {screen: SignIn},
+    Register: {screen: Register}
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -43,7 +45,8 @@ export const AppNavigator = createStackNavigator({
 export const navConstant = {
     SplashScreen: 'SplashScreen',
     Menu: 'Menu',
-    SignIn: 'SignIn'
+    SignIn: 'SignIn',
+    Register: 'Register',
 }
 
 export const setNavigator = (navigatorRef) => {

@@ -4,7 +4,7 @@ import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import FormInput from './components/FormInput';
+import FormInput from '@components/FormInput';
 import Button from './components/Button';
 import Register from './components/Register';
 import styles from './styles';
@@ -34,7 +34,6 @@ class SignIn extends PureComponent {
         if(userEmail.length > 0){
             validation.email(userEmail)
             .then(() => {
-                alert('success');
                 this.formPassword.focus();
             })
             .catch(() => {
@@ -44,7 +43,7 @@ class SignIn extends PureComponent {
     }
 
     signInHandler(){
-        alert('SignIn')
+        alert(`${this.state.user.email} => ${this.state.user.password}`)
     }
 
     render(){
@@ -62,6 +61,7 @@ class SignIn extends PureComponent {
                         ref={c => {this.formEmail = c}}
                         type={'email'}
                         autoFocus={true}
+                        keyboardType={'email-address'}
                         value={this.state.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.email'}
@@ -72,6 +72,7 @@ class SignIn extends PureComponent {
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         autoFocus={false}
+                        secureTextEntry={true}
                         value={this.state.password}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
@@ -83,7 +84,7 @@ class SignIn extends PureComponent {
                         onPress={this.signInHandler}
                     />
                     <Register 
-                        onPress={this.signInHandler}
+                        onPress={() => actNav.navigate(navConstant.Register)}
                     />
                 </ScrollView>
             </Container>
