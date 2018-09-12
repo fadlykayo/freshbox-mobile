@@ -29,7 +29,9 @@ class Button extends PureComponent {
                 )
             case 'email':
                 return(
-                    <TouchableOpacity style={[styles.container,styles.button(this.props.type)]}>
+                    <TouchableOpacity 
+                    onPress={() => {this.props.navigate.navigate('Login')}}
+                    style={[styles.container,styles.button(this.props.type)]}>
                         <Text style={styles.content(this.props.type)}>Continue with Email</Text>
                         {/* <Image
                             resizeMode={'contain'} 

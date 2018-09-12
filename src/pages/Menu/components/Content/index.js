@@ -17,7 +17,8 @@ class Content extends PureComponent {
                 <Button 
                     type={'facebook'}
                 />
-                <Button 
+                <Button
+                    navigate={this.props.navigate} 
                     type={'email'}
                 />
                 <Button 

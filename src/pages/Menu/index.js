@@ -19,7 +19,7 @@ class Menu extends PureComponent {
                     style={styles.background}
                 >
                     <Logo />
-                    <Content />
+                    <Content navigate={this.props.navigation} />
                 </ImageBackground>
             </View>
         )

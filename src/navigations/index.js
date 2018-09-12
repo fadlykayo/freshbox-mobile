@@ -3,12 +3,14 @@ import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
+import Login from '@pages/Login';
 
 let _navigator;
 
 export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
+    Login: {screen: Login}
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
