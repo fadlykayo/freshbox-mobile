@@ -1,14 +1,21 @@
 import { Dimensions } from 'react-native';
+import { scaling } from '@helpers';
+import { colour } from '@styles';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = {
     container:{
         flex: 2,
         alignItems: 'center',
     },
-    logo:{
-        width: width * 0.5,
+    termsAndCondition:{
+        fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12),
+        color: colour.white,
+        textAlign: 'center',
+        paddingLeft: width * 0.05,
+        paddingRight: width * 0.05,
     }
 }
 

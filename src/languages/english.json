@@ -1,0 +1,44 @@
+{
+    "welcome":{
+        "button":{
+            "getStarted":"Get Started",
+            "facebook":"Continue with Facebook",
+            "email":"Continue with Email",
+            "google":"Continue with Google"
+        },
+        "content":{
+            "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+        }
+    },
+    "signIn":{
+        "navigationTitle": "Sign In",
+        "formLabel":{
+            "email": "Email",
+            "password": "Password"
+        },
+        "button":{
+            "signIn": "Sign In"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register"
+        }
+    },
+    "register":{
+        "navigationTitle": "Register",
+        "formLabel":{
+            "fullName": "Full Name",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "button":{
+            "register": "Register"
+        },
+        "content":{
+            "haveAnAccount": "Have an Account, ",
+            "signIn": "Sign In"
+        }
+    }
+}
