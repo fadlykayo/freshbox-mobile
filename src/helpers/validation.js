@@ -4,24 +4,34 @@ const phoneRegex = /^[0-9]{10,12}$/;
 
 const validation = {};
 
-validation.email = (input) => new Promise((res,rej) => {
+validation.emailFormat = (input) => new Promise((res,rej) => {
     if(emailRegex.test(input) == true) res();
+    else rej();
+});
+
+validation.emailLength = (input) => new Promise((res,rej) => {
+    if(input.length > 0) res();
+    else rej();
+});
+
+validation.password = (input) => new Promise ((res,rej) => {
+    if(input.length > 0) res();
+    else rej();
+});
+
+validation.passwordLength = (input) => new Promise ((res,rej) => {
+    if(input.length > 7) res();
     else rej();
 });
 
 validation.phone = (input) => new Promise ((res,rej) => {
     if(phoneRegex.test(input) == true) res();
     else rej();
-})
-
-validation.password = (input) => new Promise ((res,rej) => {
-    if(input.length > 8) res();
-    else rej();
-})
+});
 
 validation.confirmPassword = (password, confirmPassword) => new Promise ((res,rej) => {
     if(password == confirmPassword) res();
     else rej();
-})
+});
 
 export default validation;

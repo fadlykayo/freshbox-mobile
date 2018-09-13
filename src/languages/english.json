@@ -16,6 +16,13 @@
             "email": "Email",
             "password": "Password"
         },
+        "validation":{
+            "email": "please input a valid email format",
+            "emailLength": "please input your email",
+            "password": "password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "login": "invalid email or password, please try again"
+        },
         "button":{
             "signIn": "Sign In"
         },

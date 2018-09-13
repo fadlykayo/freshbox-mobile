@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StatusBar, SafeAreaView } from 'react-native';
+import { Platform, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import { AppNavigator, setNavigator } from '@navigations';
 // import actions from '@action';
@@ -24,7 +24,7 @@ class App extends Component {
 
     render(){
         return(
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
                 <StatusBar
                     backgroundColor='black'
                     barStyle={Platform.OS == 'android' ? 'light-content' : 'dark-content'}
@@ -32,7 +32,7 @@ class App extends Component {
                 <AppNavigator
                     ref={navigatorRef => { setNavigator(navigatorRef) }}
                 />
-            </SafeAreaView>
+            </View>
         );
     }
 }
