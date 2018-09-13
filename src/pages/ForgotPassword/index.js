@@ -1,27 +1,38 @@
 import React,{ PureComponent } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, Text, Keyboard, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import Button from './components/Button';
-import Register from './components/Register';
-import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
+import Logo from './components/Logo';
+import ResetPasswordSuccess from './components/ResetPasswordSuccess';
 
-class SignIn extends PureComponent {
+class ForgotPassword extends PureComponent {
     constructor(){
         super();
         this.state={
             user:{
                 email: '',
-                password: ''
-            }
+                autoFocus: true,
+            },    
+            viewVisible: false,
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
+        this.setViewVisible = this.setViewVisible.bind(this);
+        this.hideView = this.hideView.bind(this)
+    }
+
+    setViewVisible(visible) {
+      this.setState({viewVisible: visible});
+    }
+
+    hideView() {
+        this.setViewVisible(!this.state.viewVisible);
     }
 
     onChangeText(type,value){
@@ -35,7 +46,8 @@ class SignIn extends PureComponent {
         if(userEmail.length > 0){
             validation.email(userEmail)
             .then(() => {
-                this.formPassword.focus();
+                this.setViewVisible(true)
+                this.signInHandler();
             })
             .catch(() => {
                 alert('failure');
@@ -44,56 +56,55 @@ class SignIn extends PureComponent {
     }
 
     signInHandler(){
-        alert(`${this.state.user.email} => ${this.state.user.password}`)
+        Keyboard.dismiss()
+        setTimeout(() => {
+            actNav.navigate(navConstant.Menu);
+        },3000);
     }
 
     render(){
         return(
             <Container>
                 <NavigationBar 
-                    title={'signIn.navigationTitle'}
+                    title={'forgotPassword.navigationTitle'}
                     onPress={actNav.goBack}
                 />
-                <ScrollView 
+
+                <View 
                     style={styles.container}
                     contentContainerStyle={styles.content}
+                >
+                    <Logo />
+                </View>
+                
+                <View 
+                style={styles.container}
+                contentContainerStyle={styles.content}
                 >
                     <FormInput 
                         ref={c => {this.formEmail = c}}
                         type={'email'}
-                        autoFocus={true}
+                        autoFocus={this.state.user.autoFocus}
                         keyboardType={'email-address'}
                         value={this.state.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'signIn.formLabel.email'}
-                        placeholder={'signIn.formLabel.email'}
+                        label={'forgotPassword.formLabel.email'}
+                        placeholder={'forgotPassword.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
                     />
-                    <FormInput 
-                        ref={c => {this.formPassword = c}}
-                        type={'password'}
-                        autoFocus={false}
-                        isPassword={true}
-                        value={this.state.password}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'signIn.formLabel.password'}
-                        placeholder={'signIn.formLabel.password'}
-                        onSubmitEditing={this.signInHandler}
-                    />
-                    <ForgotPassword 
-                        onPress={() => actNav.navigate(navConstant.ForgotPassword)}
-                    />
                     <Button 
-                        title={'signIn.button.signIn'}
-                        onPress={this.signInHandler}
+                        title={'forgotPassword.button.submit'}
+                        onPress={this.submitEmail}
                     />
-                    <Register 
-                        onPress={() => actNav.navigate(navConstant.Register)}
-                    />
-                </ScrollView>
+
+                </View>
+                <ResetPasswordSuccess
+                    viewVisible={this.state.viewVisible}
+                />
+                
             </Container>
         )
     }
 }
 
-export default SignIn;
+export default ForgotPassword;

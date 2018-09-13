@@ -21,7 +21,8 @@
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
-            "register": "Register"
+            "register": "Register",
+            "forgotPassword": "Forgot Password"
         }
     },
     "register":{
@@ -39,6 +40,23 @@
         "content":{
             "haveAnAccount": "Have an Account, ",
             "signIn": "Sign In"
+        }
+    },
+    "forgotPassword":{
+        "navigationTitle": "Forgot Password",
+        "formLabel":{
+            "email": "Email",
+            "password": "Password"
+        },
+        "button":{
+            "submit": "Submit"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register",
+            "forgotPassword": "Forgot Password",
+            "resetPasswordSuccess": "Reset Password Success!",
+            "checkEmail": "Please, check your email!"
         }
     }
 }

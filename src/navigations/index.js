@@ -5,6 +5,7 @@ import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
 import SignIn from '@pages/SignIn';
 import Register from '@pages/Register';
+import ForgotPassword from '@pages/ForgotPassword';
 
 let _navigator;
 
@@ -12,7 +13,8 @@ export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
     SignIn: {screen: SignIn},
-    Register: {screen: Register}
+    Register: {screen: Register},
+    ForgotPassword: {screen:ForgotPassword},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -47,6 +49,7 @@ export const navConstant = {
     Menu: 'Menu',
     SignIn: 'SignIn',
     Register: 'Register',
+    ForgotPassword: 'ForgotPassword',
 }
 
 export const setNavigator = (navigatorRef) => {

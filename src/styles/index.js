@@ -6,4 +6,5 @@ export const colour = {
     lightGrey: 'rgb(198,198,198)',
     transparentWhite: 'rgba(255,255,255,0.2)',
     shadowRed: 'rgba(179,0,31,0.68)',
+    black: 'rgb(0,0,0)'
 }
