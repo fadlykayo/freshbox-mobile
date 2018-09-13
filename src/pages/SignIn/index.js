@@ -8,6 +8,7 @@ import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
 
 class SignIn extends Component {
@@ -171,6 +172,7 @@ class SignIn extends Component {
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         autoFocus={false}
+
                         secureTextEntry={true}
                         value={this.state.user.password}
                         isPassword={true}
@@ -178,6 +180,10 @@ class SignIn extends Component {
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
                         onSubmitEditing={this.signInHandler}
+                    />
+
+                    <ForgotPassword 
+                        onPress={() => actNav.navigate(navConstant.ForgotPassword)}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.password}
