@@ -38,70 +38,67 @@ class Register extends PureComponent {
     }
 
     submitFullName(){
-      let userFullName = this.state.user.fullName.trim();
-      if(userFullName.length > 0) {
-        this.onChangeText('fullName', userFullName);
-        this.formEmail.focus()
-      }
-      else {
-        alert('failure name')
-      }
+        let userFullName = this.state.user.fullName.trim();
+        if(userFullName.length > 0) {
+            this.onChangeText('fullName', userFullName);
+            this.formEmail.focus();
+        }
+        else {
+            alert('failure name');
+        }
     }
 
     submitEmail(){
-      let userEmail = this.state.user.email.trim();
-      if(userEmail.length > 0){
-        validation.email(userEmail)
-          .then(() => {
-              this.formPhone.focus();
-          })
-          .catch(() => {
-              alert('failure email');
-          })
-      }
+        let userEmail = this.state.user.email.trim();
+        if(userEmail.length > 0){
+            validation.email(userEmail)
+            .then(() => {
+                this.formPhone.focus();
+            })
+            .catch(() => {
+                alert('failure email');
+            })
+        }
     }
 
     submitPhone(){
-      let userPhone = this.state.user.phone.trim();
-      if(userPhone.length > 0){
-        validation.phone(userPhone)
-          .then(() => {
-            this.formPassword.focus();
-          })
-
-          .catch(() => {
-            alert('failure phone number');
-          })
-      }
+        let userPhone = this.state.user.phone.trim();
+        if(userPhone.length > 0){
+            validation.phone(userPhone)
+            .then(() => {
+                this.formPassword.focus();
+            })
+            .catch(() => {
+                alert('failure phone number');
+            })
+        }
     }
 
     submitPassword(){
-      let userPassword = this.state.user.password.trim();
-      if(userPassword.length > 0){
-        validation.password(userPassword)
-          .then(() => {
-            this.formConfirmPassword.focus();
-          })
-
-          .catch(() => {
-            alert('failure password');
-          })
-      }
+        let userPassword = this.state.user.password.trim();
+        if(userPassword.length > 0){
+            validation.password(userPassword)
+            .then(() => {
+                this.formConfirmPassword.focus();
+            })
+            .catch(() => {
+                alert('failure password');
+            })
+        }
     }
 
     submitConfirmPassword() {
-      let userConfirmPassword = this.state.user.confirmPassword.trim();
-      if(userConfirmPassword.length > 0){
-        validation.confirmPassword(this.state.user.password, userConfirmPassword)
-          .then(() => {
-            this.onChangeText('comparePassword', true)
-            this.signInHandler();
-          })
-
-          .catch(() => {
-            alert('password doesn\'t match');
-          })
-      }
+        let userConfirmPassword = this.state.user.confirmPassword.trim();
+        if(userConfirmPassword.length > 0){
+            validation.confirmPassword(this.state.user.password, userConfirmPassword)
+            .then(() => {
+                this.onChangeText('comparePassword', true)
+                this.signInHandler();
+            })
+            .catch(() => {
+                alert('password doesn\'t match');
+            })
+        }
     }
 
     signInHandler(){
@@ -174,7 +171,7 @@ class Register extends PureComponent {
                         onPress={this.signInHandler}
                     />
                     <SignIn 
-                      onPress={actNav.goBack}
+                        onPress={actNav.goBack}
                     />
                 </ScrollView>
             </Container>
