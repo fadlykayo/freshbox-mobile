@@ -1,26 +1,36 @@
-import React,{ PureComponent } from 'react';
-import { View, ScrollView } from 'react-native';
+import React,{ Component } from 'react';
+import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
+import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import Register from './components/Register';
 import styles from './styles';
 
-class SignIn extends PureComponent {
+class SignIn extends Component {
     constructor(){
         super();
         this.state={
             user:{
                 email: '',
                 password: ''
+            },
+            validateStatus:{
+                email: true,
+                emailLength: true,
+                password: true,
+                passwordLength: true,
+                login: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
+        this.setValidation = this.setValidation.bind(this);
+        this.clearValidation = this.clearValidation.bind(this);
     }
 
     onChangeText(type,value){
@@ -29,21 +39,98 @@ class SignIn extends PureComponent {
         this.setState({user});
     }
 
+    setValidation(type,value){
+        let validateStatus = this.state.validateStatus;
+        validateStatus[type] = value;
+        this.setState({validateStatus});
+    }
+
+    clearValidation(){
+        let validateStatus = this.state.validateStatus;
+        validateStatus.email = true;
+        validateStatus.emailLength = true;
+        validateStatus.password = true;
+        validateStatus.passwordLength = true;
+        setTimeout(() => {
+            this.setState({validateStatus});
+        },1000)
+    }
+
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        if(userEmail.length > 0){
-            validation.email(userEmail)
+        validation.emailLength(userEmail)
+        .then(() => {
+            validation.emailFormat(userEmail)
             .then(() => {
+                this.onChangeText('email',userEmail);
                 this.formPassword.focus();
             })
             .catch(() => {
-                alert('failure');
+                this.setValidation('email',false);
+                this.clearValidation();
             })
-        }
+        })
+        .catch(() => {
+            this.setValidation('emailLength',false);
+            this.clearValidation();
+        });
+    }
+
+    submitPassword(){
+        let userPassword = this.state.user.password.trim();
+        validation.passwordLength(userPassword)
+        .then(() => {
+            validation.password(userPassword)
+            .then(() => {
+                this.onChangeText('password',userPassword);
+                this.formPassword.blur();
+                this.signInHandler();
+            })
+            .catch(() => {
+                this.setValidation('password',false);
+                this.clearValidation();
+            })
+        })
+        .catch(() => {
+            this.setValidation('passwordLength',false);
+            this.clearValidation();
+        });
     }
 
     signInHandler(){
-        alert(`${this.state.user.email} => ${this.state.user.password}`)
+        let userEmail = this.state.user.email.trim();
+        let userPassword = this.state.user.password.trim();
+        validation.emailLength(userEmail)
+        .then(() => {
+            validation.emailFormat(userEmail)
+            .then(() => {
+                this.onChangeText('email',userEmail);
+                validation.passwordLength(userPassword)
+                .then(() => {
+                    validation.password(userPassword)
+                    .then(() => {
+                        this.onChangeText('password',userPassword);
+                        alert('success')
+                    })
+                    .catch(() => {
+                        this.setValidation('password',false);
+                        this.clearValidation();
+                    })
+                })
+                .catch(() => {
+                    this.setValidation('passwordLength',false);
+                    this.clearValidation();
+                });
+            })
+            .catch(() => {
+                this.setValidation('email',false);
+                this.clearValidation();
+            })
+        })
+        .catch(() => {
+            this.setValidation('emailLength',false);
+            this.clearValidation();
+        });
     }
 
     render(){
@@ -62,22 +149,47 @@ class SignIn extends PureComponent {
                         type={'email'}
                         autoFocus={true}
                         keyboardType={'email-address'}
-                        value={this.state.email}
+                        value={this.state.user.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.email'}
                         placeholder={'signIn.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.emailLength}
+                        property={'signIn.validation.emailLength'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.email}
+                        property={'signIn.validation.email'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.login}
+                        property={'signIn.validation.login'}
                     />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         autoFocus={false}
                         secureTextEntry={true}
-                        value={this.state.password}
+                        value={this.state.user.password}
+                        isPassword={true}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
                         onSubmitEditing={this.signInHandler}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.password}
+                        property={'signIn.validation.password'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.passwordLength}
+                        property={'signIn.validation.passwordLength'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.login}
+                        property={'signIn.validation.login'}
                     />
                     <Button 
                         title={'signIn.button.signIn'}
