@@ -20,7 +20,7 @@ class SignIn extends Component {
                 password: ''
             },
             validateStatus:{
-                email: true,
+                emailFormat: true,
                 emailLength: true,
                 password: true,
                 passwordLength: true,
@@ -59,78 +59,50 @@ class SignIn extends Component {
 
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        validation.emailLength(userEmail)
-        .then(() => {
-            validation.emailFormat(userEmail)
-            .then(() => {
-                this.onChangeText('email',userEmail);
-                this.formPassword.focus();
-            })
-            .catch(() => {
-                this.setValidation('email',false);
-                this.clearValidation();
-            })
-        })
-        .catch(() => {
-            this.setValidation('emailLength',false);
-            this.clearValidation();
-        });
+        this.onChangeText('email',userEmail);
+        this.formPassword.focus();
     }
 
     submitPassword(){
         let userPassword = this.state.user.password.trim();
-        validation.passwordLength(userPassword)
-        .then(() => {
-            validation.password(userPassword)
-            .then(() => {
-                this.onChangeText('password',userPassword);
-                this.formPassword.blur();
-                this.signInHandler();
-            })
-            .catch(() => {
-                this.setValidation('password',false);
-                this.clearValidation();
-            })
-        })
-        .catch(() => {
-            this.setValidation('passwordLength',false);
-            this.clearValidation();
-        });
+        this.onChangeText('password',userPassword);
+        this.formPassword.blur();
+        this.signInHandler();
     }
 
     signInHandler(){
-        let userEmail = this.state.user.email.trim();
-        let userPassword = this.state.user.password.trim();
+        let userEmail = this.state.user.email;
+        let userPassword = this.state.user.password;
         validation.emailLength(userEmail)
         .then(() => {
+            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
             validation.emailFormat(userEmail)
             .then(() => {
-                this.onChangeText('email',userEmail);
+                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
                 validation.passwordLength(userPassword)
                 .then(() => {
                     validation.password(userPassword)
                     .then(() => {
-                        this.onChangeText('password',userPassword);
                         alert('success')
                     })
                     .catch(() => {
                         this.setValidation('password',false);
-                        this.clearValidation();
+                        // this.clearValidation();
                     })
                 })
                 .catch(() => {
                     this.setValidation('passwordLength',false);
-                    this.clearValidation();
+                    // this.clearValidation();
                 });
             })
             .catch(() => {
-                this.setValidation('email',false);
-                this.clearValidation();
+                this.setValidation('emailFormat',false);
+                // this.clearValidation();
             })
         })
         .catch(() => {
             this.setValidation('emailLength',false);
-            this.clearValidation();
+            // this.clearValidation();
         });
     }
 
@@ -144,6 +116,7 @@ class SignIn extends Component {
                 <ScrollView 
                     style={styles.container}
                     contentContainerStyle={styles.content}
+                    keyboardShouldPersistTaps={'always'}
                 >
                     <FormInput 
                         ref={c => {this.formEmail = c}}
@@ -161,7 +134,7 @@ class SignIn extends Component {
                         property={'signIn.validation.emailLength'}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.email}
+                        validation={this.state.validateStatus.emailFormat}
                         property={'signIn.validation.email'}
                     />
                     <VerificationText
