@@ -72,7 +72,11 @@
             "register": "Register",
             "forgotPassword": "Forgot Password",
             "resetPasswordSuccess": "Reset Password Success!",
-            "checkEmail": "Please, check your email!"
+            "checkEmail": "Please check your email"
+        },
+        "validation":{
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email"
         }
     }
 }
