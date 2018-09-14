@@ -4,8 +4,8 @@ import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
+import FormInput from '@components/FormInput';
 import Button from './components/Button';
 import styles from './styles';
 import Logo from './components/Logo';
@@ -18,6 +18,7 @@ class ForgotPassword extends Component {
             user:{
                 email: '',
                 autoFocus: true,
+
             }, 
             validateStatus:{
                 emailFormat: true,
@@ -42,6 +43,7 @@ class ForgotPassword extends Component {
         user[type] = value;
         this.setState({user});
     }
+
 
     setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;

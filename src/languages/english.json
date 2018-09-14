@@ -72,11 +72,28 @@
             "register": "Register",
             "forgotPassword": "Forgot Password",
             "resetPasswordSuccess": "Reset Password Success!",
+
             "checkEmail": "Please check your email"
         },
         "validation":{
             "emailFormat": "please input your email with a valid email format",
             "emailLength": "please input your email"
         }
+    },
+    "cart": {
+        "navigationTitle": "Cart",
+        "symbol": {
+            "minus": "-",
+            "plus": "+"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "content": {
+            "price": "IDR",
+            "subTotal": "Sub Total",
+            "pack": "/1 pack"
+        }
+
     }
 }

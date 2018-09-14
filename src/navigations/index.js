@@ -6,6 +6,7 @@ import Menu from '@pages/Menu';
 import SignIn from '@pages/SignIn';
 import Register from '@pages/Register';
 import ForgotPassword from '@pages/ForgotPassword';
+import Cart from '@pages/Cart';
 
 let _navigator;
 
@@ -15,8 +16,9 @@ export const AppNavigator = createStackNavigator({
     SignIn: {screen: SignIn},
     Register: {screen: Register},
     ForgotPassword: {screen:ForgotPassword},
+    Cart: {screen: Cart},
 },{
-    initialRouteName  : 'SplashScreen',
+    initialRouteName  : 'Cart',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -50,6 +52,7 @@ export const navConstant = {
     SignIn: 'SignIn',
     Register: 'Register',
     ForgotPassword: 'ForgotPassword',
+    Cart: 'Cart'
 }
 
 export const setNavigator = (navigatorRef) => {
