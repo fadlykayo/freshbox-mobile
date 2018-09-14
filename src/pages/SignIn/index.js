@@ -1,26 +1,41 @@
-import React,{ PureComponent } from 'react';
-import { View, ScrollView } from 'react-native';
+import React,{ Component } from 'react';
+import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import FormInput from './components/FormInput';
+import FormInput from '@components/FormInput';
+import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
 
-class SignIn extends PureComponent {
+class SignIn extends Component {
     constructor(){
         super();
         this.state={
             user:{
                 email: '',
                 password: ''
+            },
+            validateStatus:{
+                emailFormat: true,
+                emailLength: true,
+                password: true,
+                passwordLength: true,
+                login: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
+        this.submitPassword = this.submitPassword.bind(this);
+        this.signInValidation = this.signInValidation.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
+        this.setValidation = this.setValidation.bind(this);
+        this.clearValidation = this.clearValidation.bind(this);
+        this.navigateToRegister = this.navigateToRegister.bind(this);
+        this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
     }
 
     onChangeText(type,value){
@@ -29,22 +44,78 @@ class SignIn extends PureComponent {
         this.setState({user});
     }
 
+    setValidation(type,value){
+        let validateStatus = this.state.validateStatus;
+        validateStatus[type] = value;
+        this.setState({validateStatus});
+    }
+
+    clearValidation(){
+        let validateStatus = this.state.validateStatus;
+        validateStatus.emailFormat = true;
+        validateStatus.emailLength = true;
+        validateStatus.password = true;
+        validateStatus.passwordLength = true;
+        validateStatus.login = true;
+        this.setState({validateStatus});
+    }
+
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        if(userEmail.length > 0){
-            validation.email(userEmail)
+        this.clearValidation();
+        this.onChangeText('email',userEmail);
+        this.formPassword.focus();
+    }
+
+    submitPassword(){
+        let userPassword = this.state.user.password.trim();
+        this.clearValidation();
+        this.onChangeText('password',userPassword);
+        this.formPassword.blur();
+        this.signInValidation();
+    }
+
+    signInValidation(){
+        validation.emailLength(this.state.user.email)
+        .then(() => {
+            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
+            validation.emailFormat(this.state.user.email)
             .then(() => {
-                alert('success');
-                this.formPassword.focus();
+                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
+                validation.passwordLength(this.state.user.password)
+                .then(() => {
+                    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
+                    validation.password(this.state.user.password)
+                    .then(() => {
+                        this.signInHandler();
+                    })
+                    .catch(() => {
+                        this.setValidation('password',false);
+                    })
+                })
+                .catch(() => {
+                    this.setValidation('passwordLength',false);
+                });
             })
             .catch(() => {
-                alert('failure');
+                this.setValidation('emailFormat',false);
             })
-        }
+        })
+        .catch(() => {
+            this.setValidation('emailLength',false);
+        });
     }
 
     signInHandler(){
         alert('SignIn')
+    }
+
+    navigateToRegister(){
+        actNav.navigate(navConstant.Register);
+    }
+
+    navigateToForgotPassword(){
+        actNav.navigate(navConstant.ForgotPassword);
     }
 
     render(){
@@ -62,28 +133,60 @@ class SignIn extends PureComponent {
                         ref={c => {this.formEmail = c}}
                         type={'email'}
                         autoFocus={true}
-                        value={this.state.email}
+                        keyboardType={'email-address'}
+                        value={this.state.user.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.email'}
                         placeholder={'signIn.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
                     />
+                    <VerificationText
+                        validation={this.state.validateStatus.emailLength}
+                        property={'signIn.validation.emailLength'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.emailFormat}
+                        property={'signIn.validation.emailFormat'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.login}
+                        property={'signIn.validation.login'}
+                    />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         autoFocus={false}
-                        value={this.state.password}
+
+                        secureTextEntry={true}
+                        value={this.state.user.password}
+                        isPassword={true}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
-                        onSubmitEditing={this.signInHandler}
+                        onSubmitEditing={this.submitPassword}
+                    />
+
+                    <ForgotPassword 
+                        onPress={this.navigateToForgotPassword}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.password}
+                        property={'signIn.validation.password'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.passwordLength}
+                        property={'signIn.validation.passwordLength'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.login}
+                        property={'signIn.validation.login'}
                     />
                     <Button 
                         title={'signIn.button.signIn'}
-                        onPress={this.signInHandler}
+                        onPress={this.signInValidation}
                     />
                     <Register 
-                        onPress={this.signInHandler}
+                        onPress={this.navigateToRegister}
                     />
                 </ScrollView>
             </Container>

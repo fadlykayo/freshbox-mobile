@@ -7,7 +7,8 @@ const { width } = Dimensions.get('window');
 const styles = {
     container:{
         flex: -1,
-        marginBottom: scaling.moderateScale(20),
+        marginBottom: scaling.moderateScale(10),
+        marginTop: scaling.moderateScale(10),
     },
     label: {
         fontFamily: 'Avenir-Black',
@@ -27,6 +28,15 @@ const styles = {
         height: 1,
         borderTopWidth: 1,
         borderColor: colour.lightGrey,
+    },
+    showPasswordButton: {
+        position: 'absolute',
+        right: 0,
+        bottom: 10,
+    },
+    icon:{
+        height: scaling.moderateScale(20),
+        width: scaling.moderateScale(20),
     },
 }
 

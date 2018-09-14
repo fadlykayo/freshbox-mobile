@@ -5,19 +5,22 @@ import { colour } from '@styles';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    button:{
+    container:{
         height: scaling.moderateScale(50),
         width: width * 0.9,
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colour.red,
-        borderRadius: 8,
-        marginTop: scaling.moderateScale(10),
     },
-    title:{
-        fontFamily: 'Avenir-Black',
-        fontSize: scaling.moderateScale(14),
-        color: colour.white,
+    content:{
+        fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12),
+        color: colour.darkGrey,
+    },
+    signIn:{
+        fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12),
+        color: colour.red,
     }
 }
 

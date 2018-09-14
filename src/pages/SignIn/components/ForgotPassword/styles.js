@@ -5,19 +5,15 @@ import { colour } from '@styles';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    button:{
+    container:{
         height: scaling.moderateScale(50),
         width: width * 0.9,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colour.red,
-        borderRadius: 8,
-        marginTop: scaling.moderateScale(10),
+        flexDirection: 'row',
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Light',
         fontSize: scaling.moderateScale(14),
-        color: colour.white,
+        color: colour.darkGrey,
     }
 }
 

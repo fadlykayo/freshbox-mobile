@@ -16,12 +16,67 @@
             "email": "Email",
             "password": "Password"
         },
+        "validation":{
+            "emailFormat": "please input a valid email format",
+            "emailLength": "please input your email",
+            "password": "password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "login": "invalid email or password, please try again"
+        },
         "button":{
             "signIn": "Sign In"
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
+            "register": "Register",
+            "forgotPassword": "Forgot Password"
+        }
+    },
+    "register":{
+        "navigationTitle": "Register",
+        "formLabel":{
+            "fullName": "Full Name",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "button":{
             "register": "Register"
+        },
+        "content":{
+            "haveAnAccount": "Have an Account, ",
+            "signIn": "Sign In"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email",
+            "password": "your password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "phone": "please input your phone number at least between 9 to 15 digits number",
+            "confirmPassword": "your password did not match"
+        }
+    },
+    "forgotPassword":{
+        "navigationTitle": "Forgot Password",
+        "formLabel":{
+            "email": "Email",
+            "password": "Password"
+        },
+        "button":{
+            "submit": "Submit"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register",
+            "forgotPassword": "Forgot Password",
+            "resetPasswordSuccess": "Reset Password Success!",
+            "checkEmail": "Please check your email"
+        },
+        "validation":{
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email"
         }
     }
 }
