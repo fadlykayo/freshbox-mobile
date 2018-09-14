@@ -11,7 +11,7 @@ const styles = {
         paddingRight: width * 0.05,
     },
     content:{
-        justifyContent: 'center',
+        flex: 1,
     },
 }
 
