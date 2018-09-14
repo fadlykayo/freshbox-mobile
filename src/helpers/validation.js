@@ -15,12 +15,12 @@ validation.emailLength = (input) => new Promise((res,rej) => {
 });
 
 validation.password = (input) => new Promise ((res,rej) => {
-    if(input.length > 0) res();
+    if(input.length > 7) res();
     else rej();
 });
 
 validation.passwordLength = (input) => new Promise ((res,rej) => {
-    if(input.length > 7) res();
+    if(input.length > 0) res();
     else rej();
 });
 
@@ -29,9 +29,14 @@ validation.phone = (input) => new Promise ((res,rej) => {
     else rej();
 });
 
-validation.confirmPassword = (password, confirmPassword) => new Promise ((res,rej) => {
+validation.confirmPassword = (password,confirmPassword) => new Promise ((res,rej) => {
     if(password == confirmPassword) res();
     else rej();
 });
+
+validation.fullName = (input) => new Promise((res,rej) => {
+    if(input.length > 0) res();
+    else rej();
+})
 
 export default validation;
