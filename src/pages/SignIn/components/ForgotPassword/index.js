@@ -13,7 +13,7 @@ class Button extends PureComponent {
             <View style={styles.container}>
                 <TouchableOpacity onPress={this.props.onPress}>
                     <StaticText 
-                        style={styles.register}
+                        style={styles.title}
                         property={'signIn.content.forgotPassword'}
                     />
                 </TouchableOpacity>
