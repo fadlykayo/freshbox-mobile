@@ -32,6 +32,8 @@ class SignIn extends Component {
         this.signInHandler = this.signInHandler.bind(this);
         this.setValidation = this.setValidation.bind(this);
         this.clearValidation = this.clearValidation.bind(this);
+        this.navigateToRegister = this.navigateToRegister.bind(this);
+        this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
     }
 
     onChangeText(type,value){
@@ -106,6 +108,14 @@ class SignIn extends Component {
         });
     }
 
+    navigateToRegister(){
+        actNav.navigate(navConstant.Register);
+    }
+
+    navigateToForgotPassword(){
+        actNav.navigate(navConstant.ForgotPassword);
+    }
+
     render(){
         return(
             <Container>
@@ -156,7 +166,7 @@ class SignIn extends Component {
                     />
 
                     <ForgotPassword 
-                        onPress={() => actNav.navigate(navConstant.ForgotPassword)}
+                        onPress={this.navigateToForgotPassword}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.password}
@@ -175,7 +185,7 @@ class SignIn extends Component {
                         onPress={this.signInHandler}
                     />
                     <Register 
-                        onPress={() => actNav.navigate(navConstant.Register)}
+                        onPress={this.navigateToRegister}
                     />
                 </ScrollView>
             </Container>
