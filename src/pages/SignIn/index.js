@@ -128,7 +128,6 @@ class SignIn extends Component {
                 <ScrollView 
                     style={styles.container}
                     contentContainerStyle={styles.content}
-                    keyboardShouldPersistTaps={'always'}
                 >
                     <FormInput 
                         ref={c => {this.formEmail = c}}
