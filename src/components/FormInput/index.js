@@ -81,7 +81,7 @@ class FormInput extends Component {
     }
     
     _renderLabel(props){
-        if(this.state.isFocused == false) return null
+        if(this.state.isFocused == false && props.value.length == 0) return null;
         else return (
             <StaticText 
                 style={styles.label}
