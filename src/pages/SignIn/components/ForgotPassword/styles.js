@@ -10,9 +10,10 @@ const styles = {
         width: width * 0.9,
         flexDirection: 'row',
     },
-    register:{
+    title:{
         fontFamily: 'Avenir-Light',
         fontSize: scaling.moderateScale(14),
+        color: colour.darkGrey,
     }
 }
 

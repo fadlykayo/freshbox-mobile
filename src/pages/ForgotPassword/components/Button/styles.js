@@ -12,6 +12,7 @@ const styles = {
         justifyContent: 'center',
         backgroundColor: colour.red,
         borderRadius: 8,
+        marginTop: scaling.moderateScale(10),
     },
     title:{
         fontFamily: 'Avenir-Black',

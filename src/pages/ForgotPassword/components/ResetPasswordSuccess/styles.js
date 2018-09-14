@@ -5,36 +5,51 @@ import { colour } from '@styles';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-  overlay: {
-    justifyContent: 'center',
-    flex: 1,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    opacity: 0.9,
-    backgroundColor: colour.black,
-    width: width,
-    height: height,
-    alignItems: 'center',
-    justifyContent: 'center',
-},
-result: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: scaling.moderateScale(100),
-    width: width * 0.9,
-    borderWidth: 1,
-    borderColor: colour.white,
-    borderRadius: 8,
-    backgroundColor: colour.white,
-    marginBottom: scaling.moderateScale(10),
-},
-logo: {
-    position: 'absolute',
-    height: scaling.moderateScale(40),
-    width: scaling.moderateScale(40),
-    left: scaling.moderateScale(20),
-}
+    overlay: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width,
+        height: height,
+        backgroundColor: colour.darkGreyTransparent,
+    },
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: width * 0.9,
+        borderRadius: 8,
+        backgroundColor: colour.white,
+    },
+    subcontainer:{
+        left:{
+            flex: -1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: scaling.moderateScale(20),
+        },
+        right:{
+            flex: 1,
+        }
+    },
+    logo: {
+        height: scaling.moderateScale(40),
+        width: scaling.moderateScale(40),
+    },
+    title:{
+        fontFamily: 'Avenir-Black',
+        fontSize: scaling.moderateScale(12),
+        color: colour.darkGrey,
+    },
+    content:{
+        fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12),
+        color: colour.darkGrey,
+    },
 }
 
 export default styles;

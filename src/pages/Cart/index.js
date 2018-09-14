@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, FlatList, TouchableHighlight } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
+import Checkout from './components/Checkout';
+import CartComponent from './components/CartComponent';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
@@ -13,55 +15,124 @@ class Cart extends PureComponent {
     super(props);
     this.state = { 
       data: [{
+        id: 1,
         image: images.icon_forgot_password,
-        title: "wortel",
-        category: "sayur segar",
+        title: "Wortel",
+        category: "Sayur Segar",
         price: 21000,
         favorite: false,
-        counter: 0
+        counter: 1,
+        stock: 5
       },
       {
-        image: images.icon_forgot_password,
-        title: "wortel",
-        category: "sayur segar",
+        id: 2,
+        image: images.icon_forgot_password_success,
+        title: "Apel",
+        category: "Buah",
         price: 21000,
-        love: images.icon_favorite,
-        loved: images.icon_favorited,
         favorite: false,
-        counter: 0
+        counter: 1,
+        stock: 5
       },
       {
+        id: 3,
         image: images.icon_forgot_password,
-        title: "belimbing",
-        category: "buah",
+        title: "Belimbing",
+        category: "Buah",
         price: 21000,
-        love: images.icon_favorite,
-        loved: images.icon_favorited,
         favorite: false,
-        counter: 0
+        counter: 1,
+        stock: 5
       }
       ,{
+        id: 4,
+        image: images.icon_forgot_password,
+        title: "Mangga",
+        category: "Buah",
+        price: 21000,
+        favorite: false,
+        counter: 1,
+        stock: 5
+      },
+      {
+        id: 5,
+        image: images.icon_forgot_password,
+        title: "Sawi",
+        category: "Sayur Segar",
+        price: 21000,
+        favorite: false,
+        counter: 1,
+        stock: 5
+      },
+      {
+        id: 6,
+        image: images.icon_forgot_password,
+        title: "Belimbing",
+        category: "Buah",
+        price: 21000,
+        favorite: false,
+        counter: 1,
+        stock: 5
+      }
+      ,{
+        id: 7,
         image: images.icon_forgot_password,
         title: "mangga",
         category: "buah",
         price: 21000,
-        love: images.icon_favorite,
-        loved: images.icon_favorited,
         favorite: false,
-        counter: 0
+        counter: 1,
+        stock: 5
       },
       {
+        id: 8,
         image: images.icon_forgot_password,
         title: "sawi",
         category: "sayur segar",
         price: 21000,
-        love: images.icon_favorite,
-        loved: images.icon_favorited,
         favorite: false,
-        counter: 0
-      }]
-     };
+        counter: 1,
+        stock: 5
+      }
+    ],
+    totalPrice: 0,
+    }
+    this.onChangeText = this.onChangeText.bind(this);
+    this.countTotalPrice = this.countTotalPrice.bind(this);
+    this.changeTotalItem = this.changeTotalItem.bind(this);
   }
+
+  onChangeText(index,value){
+    let data = this.state.data;
+    data[index].favorite = value;
+    this.setState({data});
+  }
+
+  countTotalPrice () {
+    let data = this.state.data;
+    let total = 0;
+    for(let i = 0; i < data.length; i++) {
+      total += data[i].price;
+    }
+    this.setState({totalPrice: total})
+  }
+
+  changeTotalItem (index, type) {
+    let data = this.state.data;
+    if (type === "inc") {
+      data[index].counter += 1;
+      this.setState({data});
+    }
+    else {
+      data[index].counter -= 1;
+      this.setState({data});
+    }
+  }
+
+  componentDidMount() {
+    this.countTotalPrice();
+  }
+
   render() {
     return (
       <Container>
@@ -72,118 +143,28 @@ class Cart extends PureComponent {
         <View
           style={styles.container}
         >
-
           <View
             style={styles.cartContainer}
           >
-            <View
-              style={styles.imageContainer}
-            >
-              <Image
-                resizeMode={'contain'} 
-                source={images.icon_forgot_password}
-                style={styles.logo}
-              />
-            </View>
-            <View
-              style={styles.contentContainer}
-            >
-              <Text>2</Text>
-              <Text>3</Text>
-              <Text>4</Text>
-            </View>
-            <View
-              style={styles.addContainer}
-            >
-              <Text>
-                3
-              </Text>
-            </View>
-          </View>
-          
-          <View
-            style={styles.cartContainer}
-          >
-            <View
-              style={styles.imageContainer}
-            >
-              <Image
-                resizeMode={'contain'} 
-                source={images.icon_forgot_password}
-                style={styles.logo}
-              />
-            </View>
-            <View
-              style={styles.contentContainer}
-            >
-              <Text>2</Text>
-              <Text>3</Text>
-              <Text>4</Text>
-            </View>
-            <View
-              style={styles.addContainer}
-            >
-              <Text>
-                3
-              </Text>
-            </View>
+            <FlatList
+              data={this.state.data}
+              renderItem={({item, index}) => (
+                <CartComponent 
+                  data = {item}
+                  index = {index} 
+                  onChangeText = {(index,value) => this.onChangeText(index,value)}
+                  changeTotalItem = {(index, type) =>  this.changeTotalItem(index, type)}
+                />
+                
+              )}
+              keyExtractor={(item) => String(item.id)}
+            />
           </View>
 
-          <View
-            style={styles.cartContainer}
-          >
-            <View
-              style={styles.imageContainer}
-            >
-              <Image
-                resizeMode={'contain'} 
-                source={images.icon_forgot_password}
-                style={styles.logo}
-              />
-            </View>
-            <View
-              style={styles.contentContainer}
-            >
-              <Text>2</Text>
-              <Text>3</Text>
-              <Text>4</Text>
-            </View>
-            <View
-              style={styles.addContainer}
-            >
-              <Text>
-                3
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={styles.cartContainer}
-          >
-            <View
-              style={styles.imageContainer}
-            >
-              <Image
-                resizeMode={'contain'} 
-                source={images.icon_forgot_password}
-                style={styles.logo}
-              />
-            </View>
-            <View
-              style={styles.contentContainer}
-            >
-              <Text>2</Text>
-              <Text>3</Text>
-              <Text>4</Text>
-            </View>
-            <View
-              style={styles.addContainer}
-            >
-              <Text>
-                3
-              </Text>
-            </View>
-          </View>
+          <Checkout
+            totalPrice={this.state.totalPrice}
+          />
+             
         </View>
       </Container>
     );

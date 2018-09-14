@@ -17,7 +17,7 @@
             "password": "Password"
         },
         "validation":{
-            "email": "please input a valid email format",
+            "emailFormat": "please input a valid email format",
             "emailLength": "please input your email",
             "password": "password must be at least 8 characters",
             "passwordLength": "please input your password",
@@ -47,6 +47,15 @@
         "content":{
             "haveAnAccount": "Have an Account, ",
             "signIn": "Sign In"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email",
+            "password": "your password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "phone": "please input your phone number at least between 9 to 15 digits number",
+            "confirmPassword": "your password did not match"
         }
     },
     "forgotPassword":{
@@ -63,14 +72,28 @@
             "register": "Register",
             "forgotPassword": "Forgot Password",
             "resetPasswordSuccess": "Reset Password Success!",
-            "checkEmail": "Please, check your email!"
+
+            "checkEmail": "Please check your email"
         },
         "validation":{
-            "email": "please input a valid email format",
+            "emailFormat": "please input your email with a valid email format",
             "emailLength": "please input your email"
         }
     },
     "cart": {
-        "navigationTitle": "Cart"
+        "navigationTitle": "Cart",
+        "symbol": {
+            "minus": "-",
+            "plus": "+"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "content": {
+            "price": "IDR",
+            "subTotal": "Sub Total",
+            "pack": "/1 pack"
+        }
+
     }
 }

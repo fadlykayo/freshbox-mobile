@@ -11,11 +11,15 @@ class Logo extends PureComponent {
     render(){
         return(
             <View style={styles.container}>
-                <Image
-                    resizeMode={'contain'} 
-                    source={images.icon_forgot_password}
-                    style={styles.logo}
-                />
+                <View style={styles.border.outer}>
+                    <View style={styles.border.inner}>
+                        <Image
+                            resizeMode={'contain'} 
+                            source={images.icon_forgot_password}
+                            style={styles.logo}
+                        />
+                    </View>
+                </View>
             </View>
         )
     }

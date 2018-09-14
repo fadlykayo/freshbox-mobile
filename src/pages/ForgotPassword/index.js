@@ -1,5 +1,5 @@
-import React,{ PureComponent } from 'react';
-import { View, Text, Keyboard, Image } from 'react-native';
+import React,{ Component } from 'react';
+import { ScrollView, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
@@ -11,42 +11,44 @@ import styles from './styles';
 import Logo from './components/Logo';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
 
-class ForgotPassword extends PureComponent {
+class ForgotPassword extends Component {
     constructor(){
         super();
         this.state={
             user:{
                 email: '',
                 autoFocus: true,
-            },
+
+            }, 
             validateStatus:{
-                email: true,
-                emailLength: true,
-                login: true,
+                emailFormat: true,
+                emailLength: true
             },
-            viewVisible: false,
+            modalVisible:{
+                resetPasswordSuccess: false,
+            }
         }
         this.onChangeText = this.onChangeText.bind(this);
-        this.submitEmail = this.submitEmail.bind(this);
-        this.signInHandler = this.signInHandler.bind(this);
-        this.setViewVisible = this.setViewVisible.bind(this);
-        this.hideView = this.hideView.bind(this)
+        this.setModalVisible = this.setModalVisible.bind(this);
         this.setValidation = this.setValidation.bind(this);
         this.clearValidation = this.clearValidation.bind(this);
-    }
-
-    setViewVisible(visible) {
-      this.setState({viewVisible: visible});
-    }
-
-    hideView() {
-        this.setViewVisible(!this.state.viewVisible);
+        this.submitEmail = this.submitEmail.bind(this);
+        this.forgotPasswordValidation = this.forgotPasswordValidation.bind(this);
+        this.forgotPasswordHandler = this.forgotPasswordHandler.bind(this);
+        this.closeDialogResetPasswordSuccess = this.closeDialogResetPasswordSuccess.bind(this);
     }
 
     onChangeText(type,value){
         let user = this.state.user;
         user[type] = value;
         this.setState({user});
+    }
+
+
+    setModalVisible(type,value){
+        let modalVisible = this.state.modalVisible;
+        modalVisible[type] = value;
+        this.setState({modalVisible});
     }
 
     setValidation(type,value){
@@ -57,39 +59,43 @@ class ForgotPassword extends PureComponent {
 
     clearValidation(){
         let validateStatus = this.state.validateStatus;
-        validateStatus.email = true;
+        validateStatus.emailFormat = true;
         validateStatus.emailLength = true;
-        setTimeout(() => {
-            this.setState({validateStatus});
-        },1000)
+        this.setState({validateStatus});
     }
 
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        validation.emailLength(userEmail)
+        this.clearValidation();
+        this.onChangeText('email',userEmail);
+        this.forgotPasswordValidation();
+    }
+
+    forgotPasswordValidation(){
+        validation.emailLength(this.state.user.email)
         .then(() => {
-            validation.emailFormat(userEmail)
+            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
+            validation.emailFormat(this.state.user.email)
             .then(() => {
-                this.onChangeText('email',userEmail);
-                this.setViewVisible(true)
-                this.signInHandler();
+                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
+                this.forgotPasswordHandler();
             })
             .catch(() => {
-                this.setValidation('email',false);
-                this.clearValidation();
+                this.setValidation('emailFormat',false);
             })
         })
         .catch(() => {
             this.setValidation('emailLength',false);
-            this.clearValidation();
         });
     }
 
-    signInHandler(){
-        Keyboard.dismiss()
-        setTimeout(() => {
-            actNav.navigate(navConstant.Menu);
-        },3000);
+    forgotPasswordHandler(){
+        this.setModalVisible('resetPasswordSuccess',true);
+    }
+
+    closeDialogResetPasswordSuccess(){
+        Keyboard.dismiss();
+        actNav.goBack();
     }
 
     render(){
@@ -99,24 +105,17 @@ class ForgotPassword extends PureComponent {
                     title={'forgotPassword.navigationTitle'}
                     onPress={actNav.goBack}
                 />
-
-                <View 
+                <ScrollView 
                     style={styles.container}
                     contentContainerStyle={styles.content}
                 >
                     <Logo />
-                </View>
-                
-                <View 
-                style={styles.container}
-                contentContainerStyle={styles.content}
-                >
                     <FormInput 
                         ref={c => {this.formEmail = c}}
                         type={'email'}
                         autoFocus={this.state.user.autoFocus}
                         keyboardType={'email-address'}
-                        value={this.state.email}
+                        value={this.state.user.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'forgotPassword.formLabel.email'}
                         placeholder={'forgotPassword.formLabel.email'}
@@ -127,19 +126,18 @@ class ForgotPassword extends PureComponent {
                         property={'forgotPassword.validation.emailLength'}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.email}
-                        property={'forgotPassword.validation.email'}
+                        validation={this.state.validateStatus.emailFormat}
+                        property={'forgotPassword.validation.emailFormat'}
                     />
                     <Button 
                         title={'forgotPassword.button.submit'}
-                        onPress={this.submitEmail}
+                        onPress={this.forgotPasswordValidation}
                     />
-
-                </View>
+                </ScrollView>
                 <ResetPasswordSuccess
-                    viewVisible={this.state.viewVisible}
+                    modalVisible={this.state.modalVisible.resetPasswordSuccess}
+                    closeDialogResetPasswordSuccess={this.closeDialogResetPasswordSuccess}
                 />
-                
             </Container>
         )
     }

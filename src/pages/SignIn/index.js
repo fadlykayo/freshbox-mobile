@@ -20,7 +20,7 @@ class SignIn extends Component {
                 password: ''
             },
             validateStatus:{
-                email: true,
+                emailFormat: true,
                 emailLength: true,
                 password: true,
                 passwordLength: true,
@@ -29,9 +29,13 @@ class SignIn extends Component {
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
+        this.submitPassword = this.submitPassword.bind(this);
+        this.signInValidation = this.signInValidation.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
         this.setValidation = this.setValidation.bind(this);
         this.clearValidation = this.clearValidation.bind(this);
+        this.navigateToRegister = this.navigateToRegister.bind(this);
+        this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
     }
 
     onChangeText(type,value){
@@ -48,90 +52,70 @@ class SignIn extends Component {
 
     clearValidation(){
         let validateStatus = this.state.validateStatus;
-        validateStatus.email = true;
+        validateStatus.emailFormat = true;
         validateStatus.emailLength = true;
         validateStatus.password = true;
         validateStatus.passwordLength = true;
-        setTimeout(() => {
-            this.setState({validateStatus});
-        },1000)
+        validateStatus.login = true;
+        this.setState({validateStatus});
     }
 
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        validation.emailLength(userEmail)
-        .then(() => {
-            validation.emailFormat(userEmail)
-            .then(() => {
-                this.onChangeText('email',userEmail);
-                this.formPassword.focus();
-            })
-            .catch(() => {
-                this.setValidation('email',false);
-                this.clearValidation();
-            })
-        })
-        .catch(() => {
-            this.setValidation('emailLength',false);
-            this.clearValidation();
-        });
+        this.clearValidation();
+        this.onChangeText('email',userEmail);
+        this.formPassword.focus();
     }
 
     submitPassword(){
         let userPassword = this.state.user.password.trim();
-        validation.passwordLength(userPassword)
-        .then(() => {
-            validation.password(userPassword)
-            .then(() => {
-                this.onChangeText('password',userPassword);
-                this.formPassword.blur();
-                this.signInHandler();
-            })
-            .catch(() => {
-                this.setValidation('password',false);
-                this.clearValidation();
-            })
-        })
-        .catch(() => {
-            this.setValidation('passwordLength',false);
-            this.clearValidation();
-        });
+        this.clearValidation();
+        this.onChangeText('password',userPassword);
+        this.formPassword.blur();
+        this.signInValidation();
     }
 
-    signInHandler(){
-        let userEmail = this.state.user.email.trim();
-        let userPassword = this.state.user.password.trim();
-        validation.emailLength(userEmail)
+    signInValidation(){
+        validation.emailLength(this.state.user.email)
         .then(() => {
-            validation.emailFormat(userEmail)
+            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
+            validation.emailFormat(this.state.user.email)
             .then(() => {
-                this.onChangeText('email',userEmail);
-                validation.passwordLength(userPassword)
+                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
+                validation.passwordLength(this.state.user.password)
                 .then(() => {
-                    validation.password(userPassword)
+                    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
+                    validation.password(this.state.user.password)
                     .then(() => {
-                        this.onChangeText('password',userPassword);
-                        alert('success')
+                        this.signInHandler();
                     })
                     .catch(() => {
                         this.setValidation('password',false);
-                        this.clearValidation();
                     })
                 })
                 .catch(() => {
                     this.setValidation('passwordLength',false);
-                    this.clearValidation();
                 });
             })
             .catch(() => {
-                this.setValidation('email',false);
-                this.clearValidation();
+                this.setValidation('emailFormat',false);
             })
         })
         .catch(() => {
             this.setValidation('emailLength',false);
-            this.clearValidation();
         });
+    }
+
+    signInHandler(){
+        alert('SignIn')
+    }
+
+    navigateToRegister(){
+        actNav.navigate(navConstant.Register);
+    }
+
+    navigateToForgotPassword(){
+        actNav.navigate(navConstant.ForgotPassword);
     }
 
     render(){
@@ -161,8 +145,8 @@ class SignIn extends Component {
                         property={'signIn.validation.emailLength'}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.email}
-                        property={'signIn.validation.email'}
+                        validation={this.state.validateStatus.emailFormat}
+                        property={'signIn.validation.emailFormat'}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.login}
@@ -180,11 +164,11 @@ class SignIn extends Component {
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
-                        onSubmitEditing={this.signInHandler}
+                        onSubmitEditing={this.submitPassword}
                     />
 
                     <ForgotPassword 
-                        onPress={() => actNav.navigate(navConstant.ForgotPassword)}
+                        onPress={this.navigateToForgotPassword}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.password}
@@ -200,10 +184,10 @@ class SignIn extends Component {
                     />
                     <Button 
                         title={'signIn.button.signIn'}
-                        onPress={this.signInHandler}
+                        onPress={this.signInValidation}
                     />
                     <Register 
-                        onPress={() => actNav.navigate(navConstant.Register)}
+                        onPress={this.navigateToRegister}
                     />
                 </ScrollView>
             </Container>

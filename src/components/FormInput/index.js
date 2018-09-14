@@ -20,6 +20,8 @@ class FormInput extends Component {
             maxLength: props.maxLength ? props.maxLength : 9999,
             placeholder: '',
         }
+        this.onBlur = this.onBlur.bind(this);
+        this.onFocus = this.onFocus.bind(this);
         this.blur = this.blur.bind(this);
         this.focus = this.focus.bind(this);
         this.focusHandler = this.focusHandler.bind(this);
@@ -34,23 +36,25 @@ class FormInput extends Component {
         if(this.props.placeholder) this.getPlaceholder();
     }
 
-    componentWillUnmount(){
-        this.TextInput.blur();
+    onFocus(){
+        this.focusHandler(true);
+    }
+
+    onBlur(){
+        this.focusHandler(false);
     }
 
     blur(){
         this.TextInput.blur();
-        this.focusHandler();
     }
 
     focus(){
         this.TextInput.focus();
-        this.focusHandler();
     }
 
-    focusHandler(){
+    focusHandler(value){
         let state = this.state;
-        state.isFocused = !state.isFocused;
+        state.isFocused = value;
         this.setState(state);
     }
 
@@ -65,8 +69,8 @@ class FormInput extends Component {
     }
 
     onSubmitEditing(){
-        if(this.props.onSubmitEditing) this.props.onSubmitEditing();
         this.blur();
+        if(this.props.onSubmitEditing) this.props.onSubmitEditing();
     }
 
     getPlaceholder(){
@@ -77,7 +81,7 @@ class FormInput extends Component {
     }
     
     _renderLabel(props){
-        if(this.state.isFocused == false) return null
+        if(this.state.isFocused == false && props.value.length == 0) return null;
         else return (
             <StaticText 
                 style={styles.label}
@@ -134,8 +138,8 @@ class FormInput extends Component {
 					keyboardType={this.state.keyboardType}
 					returnKeyType={this.state.returnKeyType}
 					secureTextEntry={this.state.isSecret}
-					onFocus={this.focusHandler}
-					onBlur={this.focusHandler}
+					onFocus={this.onFocus}
+					onBlur={this.onBlur}
 					underlineColorAndroid='transparent'
 					onSubmitEditing={this.onSubmitEditing}
 				/>

@@ -1,8 +1,6 @@
 import { Dimensions } from 'react-native';
-import { scaling } from '@helpers';
-import { colour } from '@styles';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = {
     container:{
@@ -11,7 +9,7 @@ const styles = {
         paddingRight: width * 0.05,
     },
     content:{
-        justifyContent: 'center',
+        flex: 1,
     },
 }
 
