@@ -4,6 +4,7 @@ import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
+import VerificationText from '@components/VerificationText';
 import FormInput from '@components/FormInput';
 import Button from './components/Button';
 import styles from './styles';
@@ -17,7 +18,12 @@ class ForgotPassword extends PureComponent {
             user:{
                 email: '',
                 autoFocus: true,
-            },    
+            },
+            validateStatus:{
+                email: true,
+                emailLength: true,
+                login: true,
+            },
             viewVisible: false,
         }
         this.onChangeText = this.onChangeText.bind(this);
@@ -25,6 +31,8 @@ class ForgotPassword extends PureComponent {
         this.signInHandler = this.signInHandler.bind(this);
         this.setViewVisible = this.setViewVisible.bind(this);
         this.hideView = this.hideView.bind(this)
+        this.setValidation = this.setValidation.bind(this);
+        this.clearValidation = this.clearValidation.bind(this);
     }
 
     setViewVisible(visible) {
@@ -41,18 +49,40 @@ class ForgotPassword extends PureComponent {
         this.setState({user});
     }
 
+    setValidation(type,value){
+        let validateStatus = this.state.validateStatus;
+        validateStatus[type] = value;
+        this.setState({validateStatus});
+    }
+
+    clearValidation(){
+        let validateStatus = this.state.validateStatus;
+        validateStatus.email = true;
+        validateStatus.emailLength = true;
+        setTimeout(() => {
+            this.setState({validateStatus});
+        },1000)
+    }
+
     submitEmail(){
         let userEmail = this.state.user.email.trim();
-        if(userEmail.length > 0){
-            validation.email(userEmail)
+        validation.emailLength(userEmail)
+        .then(() => {
+            validation.emailFormat(userEmail)
             .then(() => {
+                this.onChangeText('email',userEmail);
                 this.setViewVisible(true)
                 this.signInHandler();
             })
             .catch(() => {
-                alert('failure');
+                this.setValidation('email',false);
+                this.clearValidation();
             })
-        }
+        })
+        .catch(() => {
+            this.setValidation('emailLength',false);
+            this.clearValidation();
+        });
     }
 
     signInHandler(){
@@ -91,6 +121,14 @@ class ForgotPassword extends PureComponent {
                         label={'forgotPassword.formLabel.email'}
                         placeholder={'forgotPassword.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.emailLength}
+                        property={'forgotPassword.validation.emailLength'}
+                    />
+                    <VerificationText
+                        validation={this.state.validateStatus.email}
+                        property={'forgotPassword.validation.email'}
                     />
                     <Button 
                         title={'forgotPassword.button.submit'}

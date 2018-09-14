@@ -64,6 +64,13 @@
             "forgotPassword": "Forgot Password",
             "resetPasswordSuccess": "Reset Password Success!",
             "checkEmail": "Please, check your email!"
+        },
+        "validation":{
+            "email": "please input a valid email format",
+            "emailLength": "please input your email"
         }
+    },
+    "cart": {
+        "navigationTitle": "Cart"
     }
 }

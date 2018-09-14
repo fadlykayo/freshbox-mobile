@@ -1,10 +1,11 @@
 import React,{ PureComponent } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
+import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import SignIn from './components/SignIn';
 import styles from './styles';
@@ -20,6 +21,13 @@ class Register extends PureComponent {
               password: '',
               confirmPassword: '',
               comparePassword: false
+            },
+            validateStatus:{
+                email: true,
+                emailLength: true,
+                password: true,
+                passwordLength: true,
+                login: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
@@ -29,12 +37,31 @@ class Register extends PureComponent {
         this.submitPassword = this.submitPassword.bind(this);
         this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
+        this.setValidation = this.setValidation.bind(this);
+        this.clearValidation = this.clearValidation.bind(this);
     }
 
     onChangeText(type,value){
         let user = this.state.user;
         user[type] = value;
         this.setState({user});
+    }
+
+    setValidation(type,value){
+        let validateStatus = this.state.validateStatus;
+        validateStatus[type] = value;
+        this.setState({validateStatus});
+    }
+
+    clearValidation(){
+        let validateStatus = this.state.validateStatus;
+        validateStatus.email = true;
+        validateStatus.emailLength = true;
+        validateStatus.password = true;
+        validateStatus.passwordLength = true;
+        setTimeout(() => {
+            this.setState({validateStatus});
+        },1000)
     }
 
     submitFullName(){
@@ -50,15 +77,22 @@ class Register extends PureComponent {
 
     submitEmail(){
       let userEmail = this.state.user.email.trim();
-      if(userEmail.length > 0){
-        validation.email(userEmail)
+      validation.emailLength(userEmail)
+      .then(() => {
+          validation.emailFormat(userEmail)
           .then(() => {
-              this.formPhone.focus();
+              this.onChangeText('email',userEmail);
+              this.formPassword.focus();
           })
           .catch(() => {
-              alert('failure email');
+              this.setValidation('email',false);
+              this.clearValidation();
           })
-      }
+      })
+      .catch(() => {
+          this.setValidation('emailLength',false);
+          this.clearValidation();
+      });
     }
 
     submitPhone(){
@@ -77,16 +111,23 @@ class Register extends PureComponent {
 
     submitPassword(){
       let userPassword = this.state.user.password.trim();
-      if(userPassword.length > 0){
-        validation.password(userPassword)
+      validation.passwordLength(userPassword)
+      .then(() => {
+          validation.password(userPassword)
           .then(() => {
-            this.formConfirmPassword.focus();
+              this.onChangeText('password',userPassword);
+              this.formPassword.blur();
+              this.signInHandler();
           })
-
           .catch(() => {
-            alert('failure password');
+              this.setValidation('password',false);
+              this.clearValidation();
           })
-      }
+      })
+      .catch(() => {
+          this.setValidation('passwordLength',false);
+          this.clearValidation();
+      });
     }
 
     submitConfirmPassword() {
@@ -163,7 +204,7 @@ class Register extends PureComponent {
                         ref={c => {this.formConfirmPassword = c}}
                         type={'confirmPassword'}
                         isPassword={true}
-                        value={this.state.confirmPassword}
+                        value={this.state.user.confirmPassword}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'register.formLabel.confirmPassword'}
                         placeholder={'register.formLabel.confirmPassword'}
