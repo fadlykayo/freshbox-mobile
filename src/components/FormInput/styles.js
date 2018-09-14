@@ -8,6 +8,7 @@ const styles = {
     container:{
         flex: -1,
         marginBottom: scaling.moderateScale(10),
+        marginTop: scaling.moderateScale(10),
     },
     label: {
         fontFamily: 'Avenir-Black',
