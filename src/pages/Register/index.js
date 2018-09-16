@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import {  ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
