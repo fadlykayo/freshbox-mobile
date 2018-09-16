@@ -156,11 +156,8 @@ class SignIn extends Component {
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         autoFocus={false}
-
-                        secureTextEntry={true}
                         value={this.state.user.password}
                         isPassword={true}
-
                         onChangeText={(type,value) => this.onChangeText(type,value)}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
