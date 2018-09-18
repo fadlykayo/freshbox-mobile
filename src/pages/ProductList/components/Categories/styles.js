@@ -20,7 +20,7 @@ const styles = {
     },
     container: {
         width: width,
-        height: height * 0.5,
+        height: height * 0.55,
         borderRadius: 8,
         backgroundColor: colour.white,
     },
@@ -40,28 +40,13 @@ const styles = {
         fontWeight: '800',
         color: colour.darkGrey,
     },
-    categories: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        paddingTop: width* 0.05,
-        paddingBottom: width* 0.05,
-        paddingRight: width* 0.04,
-        paddingLeft: width* 0.06,
-    },
-    eachCategory: {
-        height: width * 0.27,
-        width: width * 0.27,
-        borderColor: colour.lightGrey,
-        borderWidth: 1,
-        borderRadius: 8,
-        backgroundColor: colour.white,
-        marginRight: width* 0.03,
-        marginBottom: width* 0.03,
+    scrollView: {
+        marginTop: scaling.moderateScale(9),
     },
     logo: {
-        height: scaling.moderateScale(40),
-        width: scaling.moderateScale(40),
+        height: scaling.moderateScale(45),
+        width: scaling.moderateScale(45),
+        marginBottom: scaling.moderateScale(5),
     },
 }
 

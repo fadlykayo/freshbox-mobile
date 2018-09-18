@@ -4,7 +4,7 @@ import numeral from 'numeral';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
-class Content extends PureComponent {
+class ContentDetail extends PureComponent {
 	constructor(){
 		super()
 	}
@@ -14,9 +14,9 @@ class Content extends PureComponent {
 			<View style={styles.contentContainer}>
 				<Text style={styles.fontTitle}>{this.props.data.title}</Text>
 				<Text style={styles.fontCategory}>{this.props.data.category}</Text>
-				<Text style={styles.fontTitle}>
+				<Text style={styles.fontPrice}>
 					<StaticText 
-						style={styles.fontTitle}
+						style={styles.fontPrice}
 						property={'cart.content.price'}
 					/>
 					{numeral(this.props.data.price).format('0,0')}
@@ -30,4 +30,4 @@ class Content extends PureComponent {
 	}
 }
 
-export default Content;
+export default ContentDetail;

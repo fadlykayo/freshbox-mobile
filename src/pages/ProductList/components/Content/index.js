@@ -4,7 +4,7 @@ import numeral from 'numeral';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
-class CartComponent extends PureComponent {
+class Content extends PureComponent {
 	constructor(){
 		super()
 	}
@@ -30,4 +30,4 @@ class CartComponent extends PureComponent {
 	}
 }
 
-export default CartComponent;
+export default Content;

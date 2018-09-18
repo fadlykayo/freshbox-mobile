@@ -47,13 +47,16 @@ class CartComponent extends Component {
 	render(){
 		return (
 			<View style={styles.eachCartContainer}>
-				<View style={styles.imageContainer}>
+				<TouchableOpacity
+					onPress={ () => this.props.openDetailProduct(this.props.index)} 
+					style={styles.imageContainer}
+				>
 					<Image
 						resizeMode={'contain'} 
 						source={this.props.data.image}
 						style={styles.picture}
 					/>
-				</View>
+				</TouchableOpacity>
 				<Content data={this.props.data}/>
 				<View style={styles.addContainer}>
 					<TouchableOpacity

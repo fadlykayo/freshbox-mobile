@@ -14,32 +14,32 @@ const styles = {
 		backgroundColor: colour.darkRed,
 	},
 	partContainer: {
-    flex:1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  eachContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: width * 0.05,
-    justifyContent: 'space-between',
-    paddingRight: width * 0.05,
-  },
-  icon:{
+    	flex:1,
+    	flexDirection: 'row',
+    	alignItems: 'center',
+  	},
+  	eachContainer: {
+    	flex: 1,
+    	flexDirection: 'row',
+    	alignItems: 'center',
+    	paddingLeft: width * 0.05,
+    	justifyContent: 'space-between',
+    	paddingRight: width * 0.05,
+  	},
+  	icon:{
 		width: scaling.moderateScale(15),
-    height: scaling.moderateScale(15),
+    	height: scaling.moderateScale(15),
 	},
-  categoryText: {
-    fontFamily: 'Avenir-Heavy',
+  	categoryText: {
+    	fontFamily: 'Avenir-Heavy',
 		fontSize: scaling.moderateScale(15),
-    color: colour.white
-  },
-  filterByPriceText: {
-    fontFamily: 'Avenir-Heavy',
+    	color: colour.white
+  	},
+  	filterByPriceText: {
+    	fontFamily: 'Avenir-Heavy',
 		fontSize: scaling.moderateScale(15),
-    color: colour.white
-  }
+    	color: colour.white
+  	}
 }
 
 export default styles;

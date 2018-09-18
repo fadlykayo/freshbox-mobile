@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
-import { View, Image, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Image, TouchableWithoutFeedback, ScrollView, Text } from 'react-native';
+import ListCategoryComponent from '../ListCategoryComponent';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
@@ -15,7 +16,7 @@ class OpenCategories extends PureComponent {
 				<View style={styles.overlay}>
 					<View style={styles.container}>
 						<View style={styles.topComponent}>
-							<View	style={styles.scrollDownButton}>
+							<View style={styles.scrollDownButton}>
 								<TouchableWithoutFeedback
 									onPress={ () => this.props.closeDialogCategories()}>
 									<Image
@@ -30,59 +31,10 @@ class OpenCategories extends PureComponent {
 								property={'productList.content.categories'}
 							/>
 						</View>
-						<ScrollView>
-						<View style={styles.categories}>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-							<View style={styles.eachCategory}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_forgot_password_success}
-									style={styles.logo}
-								/>
-							</View>
-						</View>
-					</ScrollView>
+						<ListCategoryComponent
+							categories={this.props.categories}
+							changeCategory={this.props.changeCategory}
+						/>
 					</View>
 				</View>
 			)

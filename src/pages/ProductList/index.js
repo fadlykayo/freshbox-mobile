@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, FlatList, Button, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
 import Container from '@components/Container';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
+import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
 import images from '@assets';
@@ -18,89 +18,145 @@ class ProductList extends Component {
 		this.state = { 
 			data: [{
 				id: 1,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Wortel",
 				category: "Sayur Segar",
 				price: 21000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			},
 			{
 				id: 2,
-				image: images.icon_forgot_password_success,
+				image: images.icon_sayur_segar,
 				title: "Apel",
 				category: "Buah",
 				price: 19000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			},
 			{
 				id: 3,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Belimbing",
 				category: "Buah",
 				price: 20000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			}
 			,{
 				id: 4,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Mangga",
 				category: "Buah",
 				price: 15000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			},
 			{
 				id: 5,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Sawi",
 				category: "Sayur Segar",
 				price: 14000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			},
 			{
 				id: 6,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Belimbing",
 				category: "Buah",
 				price: 21000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			}
 			,{
 				id: 7,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "Duren",
 				category: "buah",
 				price: 25000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			},
 			{
 				id: 8,
-				image: images.icon_forgot_password,
+				image: images.icon_sayur_segar,
 				title: "sawi",
 				category: "sayur segar",
 				price: 21000,
 				favorite: false,
 				count: 0,
-				stock: 5
+				stock: 5,
+				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
 			}],
+			categories: [
+			{	
+				id: 1,
+				name: "All Categories",
+				image: images.icon_buah_segar,
+				check: true
+			},
+			{
+				id: 2,
+				name: "Sayur Segar",
+				image: images.icon_sayur_segar,
+				check: false
+			},
+			{
+				id: 3,
+				name: "Buah Segar",
+				image: images.icon_buah_segar,
+				check: false
+			},
+			{
+				id: 4,
+				name: "Umbi-umbian",
+				image: images.icon_sayur_segar,
+				check: false
+			},
+			{
+				id: 5,
+				name: "Bumbu",
+				image: images.icon_buah_segar,
+				check: false
+			},
+			{
+				id: 6,
+				name: "Lorem Ipsum",
+				image: images.icon_sayur_segar,
+				check: false
+			},
+			{
+				id: 7,
+				name: "Lorem Lorem Ipsum",
+				image: images.icon_buah_segar,
+				check: false
+			},
+			],
 			totalCount: 0,
 			totalPrice: 0,
 			searchItem: '',
+			onCategory: '',
+			indexProduct: 0,
+			detailDataProduct: {},
 			modalVisible: {
 				openCategories: false,
+				openProduct: false,
 			  },
 		}
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -109,21 +165,52 @@ class ProductList extends Component {
 		this.submitSearch = this.submitSearch.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.closeDialogCategories = this.closeDialogCategories.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.openAllCategories = this.openAllCategories.bind(this);
-		this.drawerOpen = this.drawerOpen.bind(this);
+		this.openDetailProduct = this.openDetailProduct.bind(this);
+		this.checkCategory = this.checkCategory.bind(this);
+		this.changeCategory = this.changeCategory.bind(this);
 	}
 
 	componentDidMount() {
 		this.countTotalPrice();
+		this.checkCategory();
 	}
 
-	drawerOpen() {
-		alert('open')
-	}
+	checkCategory() {
+		let categories = this.state.categories.slice();
+		let category = '';
+		for (let i = 0; i < categories.length; i++) {
+			if(categories[i].check === true) {
+				category = categories[i].name;
+			}
+		}
+		this.onChangeText('onCategory', category)
+	} 
 
+	changeCategory(payload) {
+		let categories = this.state.categories.slice();
+		categories.map(item => {
+			if(item.name == payload.name) item.check = true
+			else item.check = false
+			return item	
+		})
+		this.onChangeText('categories', categories)
+		this.checkCategory();
+		this.closeDialogCategories();
+	}
 	openAllCategories(){
 		this.setModalVisible('openCategories',true);
-    }
+  }
+
+	openDetailProduct(index){
+		let data = this.state.data;
+		let detail = data[index];
+		this.onChangeText('indexProduct', index)
+		this.onChangeText('detailDataProduct', detail)
+		this.setModalVisible('openProduct',true);
+		// alert(`DI PARENT ${index} ${this.state.modalVisible.openProduct}`)
+  }
 
 	setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;
@@ -135,6 +222,10 @@ class ProductList extends Component {
 		this.setModalVisible('openCategories',false);
 	}
 
+	closeDetailProduct(){
+		this.setModalVisible('openProduct',false);
+	}
+	
 	toggleFavorite(index){
 		let data = this.state.data.slice();
 		data[index].favorite = !data[index].favorite;
@@ -180,8 +271,7 @@ class ProductList extends Component {
 	render(){
 		return (
 		<Container>
-        	<SearchComponent
-				drawerOpen = {this.drawerOpen}
+      <SearchComponent
 				type={'searchItem'}
 				title={'productList.searchPlaceHolder'}
 				onChangeText={(type,value) => this.onChangeText(type,value)}
@@ -189,6 +279,7 @@ class ProductList extends Component {
 			/>
 
 			<FilterComponent 
+				onCategory = {this.state.onCategory}
 				openAllCategories = {this.openAllCategories}
 				type={'searchItem'}
 				onChangeText={(type,value) => this.onChangeText(type,value)}
@@ -200,7 +291,8 @@ class ProductList extends Component {
 						data={this.state.data}
 						keyExtractor={(item) => String(item.id)}
 						renderItem={({item,index}) => (
-							<CartComponent 
+							<CartComponent
+								openDetailProduct= {this.openDetailProduct}
 								data = {item}
 								index = {index} 
 								toggleFavorite={this.toggleFavorite}
@@ -215,10 +307,19 @@ class ProductList extends Component {
 					/>
 				</View>
 			</View>
+			<DetailProduct
+				indexProduct={this.state.indexProduct}
+				toggleFavorite={this.toggleFavorite}
+				detailDataProduct={this.state.detailDataProduct}
+			  modalVisible={this.state.modalVisible.openProduct}
+				closeDetailProduct={this.closeDetailProduct}
+			/>
 			<Categories
-                modalVisible={this.state.modalVisible.openCategories}
-                closeDialogCategories={this.closeDialogCategories}
-            />
+				changeCategory = {this.changeCategory}
+				categories = {this.state.categories}
+        modalVisible={this.state.modalVisible.openCategories}
+        closeDialogCategories={this.closeDialogCategories}
+      />
 		</Container>
 		);
 	}
