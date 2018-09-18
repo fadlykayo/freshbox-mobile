@@ -95,5 +95,28 @@
             "pack": "/1 pack"
         }
 
+    },
+    "productList": {
+        "searchPlaceHolder": "Search product or categories...",
+        "filter": {
+            "categories": "All Categories",
+            "price": "Filter By Price"
+        },
+        "symbol": {
+            "minus": "-",
+            "plus": "+"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "content": {
+            "subTotal": "Sub Total",
+            "pack": "/1 pack",
+            "addItem": "+ Add",
+            "items": " Items | IDR ",
+            "item": " Item | IDR ",
+            "categories": "Categories"
+
+        }
     }
 }

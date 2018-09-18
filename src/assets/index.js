@@ -14,5 +14,9 @@ images.icon_logo = require('./icon_logo.png');
 images.icon_mail = require('./icon_mail.png');
 images.icon_menu = require('./icon_menu.png');
 images.icon_search = require('./icon_search.png');
+images.icon_cart = require('./icon_cart.png');
+images.icon_dropdown = require('./icon_dropdown.png');
+images.icon_view_categories = require('./icon_view_categories.png');
+images.icon_scroll_down = require('./icon_scroll_down.png');
 
 export default images;
