@@ -118,5 +118,25 @@
             "categories": "Categories"
 
         }
+    },
+    "historyPage": {
+        "navigationTitle": "History",
+        "content": {
+            "price": "IDR ",
+            "reOrder": "Re-order"
+        }
+    },
+    "historyDetail": {
+        "navigationTitle": "Detail",
+        "content": {
+            "price": "IDR ",
+            "reOrder": "Re-order"
+        },
+        "detail": {
+            "status": "Status",
+            "nomorResi": "Nomor Resi",
+            "tanggal": "Tanggal Pembelian",
+            "alamat": "Alamat Pengiriman"
+        }
     }
 }

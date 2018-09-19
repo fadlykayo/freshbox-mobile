@@ -1,6 +1,8 @@
 export const colour = {
     red: 'rgb(229,37,70)',
     darkRed: 'rgb(200, 39, 67)',
+    lightOrange: 'rgb(255, 238, 230)',
+    orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',
     blueFacebook: 'rgb(65,103,178)',
     darkGrey: 'rgb(81,81,81)',
