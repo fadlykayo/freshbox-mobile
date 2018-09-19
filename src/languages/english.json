@@ -130,7 +130,11 @@
         "navigationTitle": "Detail",
         "content": {
             "price": "IDR ",
-            "reOrder": "Re-order"
+            "reOrder": "Re-order",
+            "pack": " pack",
+            "subTotal": "Sub Total",
+            "delivery": "Delivery",
+            "grandTotal": "Grand Total"
         },
         "detail": {
             "status": "Status",

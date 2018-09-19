@@ -8,15 +8,10 @@ const styles = {
     container: {
         flex: 1,
     },
-    topComponent: {
-        flex: 1,
-        height: height * 0.5,
-        backgroundColor: colour.veryLightGrey,
-        padding: width * 0.05,
-    },
     middleComponent: {
         flex: -1,
-        backgroundColor: colour.orange
+        paddingLeft: width * 0.05,
+        paddingRight: width * 0.05,
     },
     eachContainer: {
 		flexDirection: 'row',
@@ -30,11 +25,6 @@ const styles = {
 		paddingBottom: width * 0.05,
 		paddingRight: width * 0.05,
 	},
-    bottomComponent: {
-        flex: 1,
-        height: height * 0.3,
-        backgroundColor: colour.grey
-    }
 }
 
 export default styles;
