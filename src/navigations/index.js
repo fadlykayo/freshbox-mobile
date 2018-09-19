@@ -10,6 +10,7 @@ import Cart from '@pages/Cart';
 import ProductList from '@pages/ProductList';
 import HistoryPage from '@pages/HistoryPage';
 import HistoryDetail from '@pages/HistoryDetail';
+import ProfilePage from '@pages/ProfilePage';
 
 let _navigator;
 
@@ -22,9 +23,10 @@ export const AppNavigator = createStackNavigator({
     Cart: {screen: Cart},
     ProductList: {screen: ProductList},
     HistoryPage: {screen: HistoryPage},
-    HistoryDetail: {screen:HistoryDetail}
+    HistoryDetail: {screen:HistoryDetail},
+    ProfilePage: {screen:ProfilePage},
 },{
-    initialRouteName  : 'HistoryPage',
+    initialRouteName  : 'ProfilePage',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -61,7 +63,8 @@ export const navConstant = {
     Cart: 'Cart',
     ProductList: 'ProductList',
     HistoryPage: 'HistoryPage',
-    HistoryDetail: 'HistoryDetail'
+    HistoryDetail: 'HistoryDetail',
+    ProfilePage: 'ProfilePage',
 }
 
 export const setNavigator = (navigatorRef) => {

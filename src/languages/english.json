@@ -142,5 +142,19 @@
             "tanggal": "Tanggal Pembelian",
             "alamat": "Alamat Pengiriman"
         }
+    },
+    "profilePage": {
+        "content": {
+            "phone": "Phone Number",
+            "address": "Address",
+            "password": "Password",
+            "comma": ", ",
+            "kecamatan": ", Kec. ",
+            "kelurahan": ", Kel. ",
+            "resetPassword": "Reset Password"
+        },
+        "button": {
+            "signOut": "Sign Out"
+        }
     }
 }

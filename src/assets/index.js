@@ -1,7 +1,9 @@
 const images = {}
 
 images.background_welcome = require('./background_welcome.png');
+images.background_profile = require('./background_profile.png');
 images.icon_back = require('./icon_back.png');
+images.icon_back_white = require('./icon_back_white.png');
 images.icon_facebook = require('./icon_facebook.png');
 images.icon_favorite = require('./icon_favorite.png');
 images.icon_favorited = require('./icon_favorited.png');
@@ -20,5 +22,8 @@ images.icon_view_categories = require('./icon_view_categories.png');
 images.icon_scroll_down = require('./icon_scroll_down.png');
 images.icon_buah_segar = require('./sample/icon_buah_segar.png');
 images.icon_sayur_segar = require('./sample/icon_sayur_segar.png');
-images.icon_check = require('./icon_check.png')
+images.icon_check = require('./icon_check.png');
+images.icon_img_ava = require('./icon_img_ava.png');
+
+
 export default images;
