@@ -41,11 +41,13 @@ class SearchComponent extends Component {
 		return (
       		<View style={styles.container}>
   	  			<View style={styles.searchContainer}>
-	  	    		<Image
-  	  	    		resizeMode={'contain'} 
-  	  	    		source={images.icon_search}
-  	  	    		style={styles.iconSearch}
-  	  				/>
+					<TouchableOpacity>
+	  	    			<Image
+  	  	    				resizeMode={'contain'} 
+  	  	    				source={images.icon_search}
+  	  	    				style={styles.iconSearch}
+  	  					/>
+					</TouchableOpacity>
 		    		<TextInput 
   	        			onChangeText={this.onChangeText}
   	        			placeholder={this.state.placeholder}
@@ -54,6 +56,7 @@ class SearchComponent extends Component {
 		    		/>
   	    		</View>
 				<TouchableOpacity 
+					onPress={() => this.props.openDrawerMenu()}
 					style={styles.button}
 				>
   	  	  			<Image

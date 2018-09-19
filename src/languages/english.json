@@ -156,5 +156,19 @@
         "button": {
             "signOut": "Sign Out"
         }
+    },
+    "phonePage": {
+        "navigationTitle": "Phone Number"
+    },
+    "addressPage": {
+        "navigationTitle": "Address"
+    },
+    "resetPasswordPage": {
+        "navigationTitle": "Reset Password"
+    },
+    "drawerPage": {
+        "content": {
+            "logOut": "Log Out"
+        }
     }
 }

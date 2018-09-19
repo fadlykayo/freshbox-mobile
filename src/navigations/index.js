@@ -1,5 +1,5 @@
-import { Animated, Easing } from 'react-native';
-import { createStackNavigator, NavigationActions } from 'react-navigation';
+import { Animated, Easing, Dimensions } from 'react-native';
+import { createStackNavigator, NavigationActions, DrawerNavigator } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
@@ -11,8 +11,22 @@ import ProductList from '@pages/ProductList';
 import HistoryPage from '@pages/HistoryPage';
 import HistoryDetail from '@pages/HistoryDetail';
 import ProfilePage from '@pages/ProfilePage';
+import PhonePage from '@pages/PhonePage';
+import AddressPage from '@pages/AddressPage';
+import ResetPasswordPage from '@pages/ResetPasswordPage';
+import DrawerPage from '@pages/DrawerPage';
 
 let _navigator;
+
+export const drawerBar = DrawerNavigator({
+    ProductList: {
+        screen: ProductList,
+        title: 'Product'
+    }
+}, {
+    contentComponent: DrawerPage,
+    drawerWidth: Dimensions.get('window').width - 80,
+})
 
 export const AppNavigator = createStackNavigator({
     SplashScreen: {screen: SplashScreen},
@@ -21,12 +35,15 @@ export const AppNavigator = createStackNavigator({
     Register: {screen: Register},
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
-    ProductList: {screen: ProductList},
+    Product: drawerBar,
     HistoryPage: {screen: HistoryPage},
-    HistoryDetail: {screen:HistoryDetail},
-    ProfilePage: {screen:ProfilePage},
+    HistoryDetail: {screen: HistoryDetail},
+    ProfilePage: {screen: ProfilePage},
+    PhonePage: {screen: PhonePage},
+    AddressPage: {screen: AddressPage},
+    ResetPasswordPage: {screen: ResetPasswordPage}
 },{
-    initialRouteName  : 'ProfilePage',
+    initialRouteName  : 'Product',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -61,10 +78,13 @@ export const navConstant = {
     Register: 'Register',
     ForgotPassword: 'ForgotPassword',
     Cart: 'Cart',
-    ProductList: 'ProductList',
+    Product: 'Product',
     HistoryPage: 'HistoryPage',
     HistoryDetail: 'HistoryDetail',
     ProfilePage: 'ProfilePage',
+    PhonePage: 'PhonePage',
+    AddressPage: 'AddressPage',
+    ResetPasswordPage: 'ResetPasswordPage',
 }
 
 export const setNavigator = (navigatorRef) => {

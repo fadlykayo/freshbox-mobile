@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Button, Keyboard } from 'react-native';
+import { View, FlatList, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -170,6 +170,7 @@ class ProductList extends Component {
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.checkCategory = this.checkCategory.bind(this);
 		this.changeCategory = this.changeCategory.bind(this);
+		this.openDrawerMenu = this.openDrawerMenu.bind(this);
 	}
 
 	componentDidMount() {
@@ -199,9 +200,10 @@ class ProductList extends Component {
 		this.checkCategory();
 		this.closeDialogCategories();
 	}
+	
 	openAllCategories(){
 		this.setModalVisible('openCategories',true);
-  }
+ 	}
 
 	openDetailProduct(index){
 		let data = this.state.data;
@@ -209,8 +211,7 @@ class ProductList extends Component {
 		this.onChangeText('indexProduct', index)
 		this.onChangeText('detailDataProduct', detail)
 		this.setModalVisible('openProduct',true);
-		// alert(`DI PARENT ${index} ${this.state.modalVisible.openProduct}`)
-  }
+    }
 
 	setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;
@@ -268,16 +269,21 @@ class ProductList extends Component {
 		alert(`MASUK, ${this.state.searchItem}`);
 	}
 
+	openDrawerMenu() {
+		this.props.navigation.openDrawer()
+	}
+
 	render(){
 		return (
 		<Container>
-      <SearchComponent
+      		<SearchComponent
+				openDrawerMenu={this.openDrawerMenu}
+				closeDrawerMenu={this.closeDrawerMenu}
 				type={'searchItem'}
 				title={'productList.searchPlaceHolder'}
 				onChangeText={(type,value) => this.onChangeText(type,value)}
 				onSubmitEditing={this.submitSearch}
 			/>
-
 			<FilterComponent 
 				onCategory = {this.state.onCategory}
 				openAllCategories = {this.openAllCategories}

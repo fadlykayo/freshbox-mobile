@@ -3,6 +3,8 @@ import { ScrollView, View, Text, ImageBackground, Image, TouchableOpacity } from
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
+import PhotoComponent from './components/PhotoComponent';
+import Content from './components/Content';
 import images from '@assets';
 import styles from './styles';
 
@@ -25,90 +27,42 @@ class ProfilePage extends Component {
             }
         }
         this.navigateBack = this.navigateBack.bind(this);
+        this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
+        this.navigateToAddressPage = this.navigateToAddressPage.bind(this);
+        this.navigateToResetPasswordPage = this.navigateToResetPasswordPage.bind(this);
     }
 
     navigateBack() {
         actNav.goBack();
     }
 
+    navigateToPhonePage() {
+        actNav.navigate(navConstant.PhonePage)
+    }
+
+    navigateToAddressPage() {
+        actNav.navigate(navConstant.AddressPage)
+    }
+
+    navigateToResetPasswordPage() {
+        actNav.navigate(navConstant.ResetPasswordPage)
+    }
+
     render() {
         return (
             <Container>
                 <View style={styles.container}>
-                    <ImageBackground
-                        resizeMode={'stretch'} 
-                        source={images.background_profile}
-                        style={styles.background}
-                    >
-                        <TouchableOpacity
-                            onPress={() => alert('go Back')}
-                            style={styles.touchableBackButton}
-                        >
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_back_white}
-                                style={styles.backButton}
-                            />
-                        </TouchableOpacity>
+                    <PhotoComponent
+                        user={this.state.user}
+                        navigateBack={this.navigateBack}
+                    />
 
-                        <Image
-                            resizeMode={'contain'} 
-                            source={this.state.user.photo}
-                            style={styles.photo}
-                        />
-                        <Text style={styles.userName}>{this.state.user.name}</Text>
-                        <Text style={styles.userEmail}>{this.state.user.email}</Text>
-                    </ImageBackground>
-
-                    <View style={styles.middleComponent}>
-                        <TouchableOpacity style={styles.phoneComponent}>
-                            <StaticText
-                                style={styles.staticText}
-                                property={'profilePage.content.phone'}
-                            />
-                            <Text style={styles.contentText}>{this.state.user.phone}</Text>
-
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_back}
-                                style={styles.sendButton}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.addressComponent}>
-                            <View style={styles.addressSpace}>
-                                <StaticText
-                                    style={styles.staticText}
-                                    property={'profilePage.content.address'}
-                                />
-                                <Text>{this.state.user.address}<StaticText 
-                                property={'profilePage.content.comma'}/>{this.state.user.city}<StaticText
-                                property={'profilePage.content.comma'}/>{this.state.user.province}<StaticText 
-                                property={'profilePage.content.kecamatan'}/>{this.state.user.kecamatan}<StaticText
-                                property={'profilePage.content.kelurahan'}/>{this.state.user.kelurahan}</Text>
-                            </View>
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_back}
-                                style={styles.sendButton}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.passwordComponent}>
-                            <StaticText
-                                style={styles.staticText}
-                                property={'profilePage.content.password'}
-                            />
-                            <StaticText
-                                style={styles.contentText}
-                                property={'profilePage.content.resetPassword'}
-                            />
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_back}
-                                style={styles.sendButton}
-                            />
-                        </TouchableOpacity>
-
-                    </View>
+                    <Content
+                        user={this.state.user}
+                        navigateToPhonePage={this.navigateToPhonePage}
+                        navigateToAddressPage={this.navigateToAddressPage}
+                        navigateToResetPasswordPage={this.navigateToResetPasswordPage}
+                    />
                     <View style={styles.bottomComponent}>
                         <TouchableOpacity style={styles.signOutButton}>
                             <StaticText
