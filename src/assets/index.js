@@ -25,6 +25,7 @@ images.icon_sayur_segar = require('./sample/icon_sayur_segar.png');
 images.icon_check = require('./icon_check.png');
 images.icon_img_ava = require('./icon_img_ava.png');
 images.icon_img_ava_grey = require('./icon_img_ava_grey.png');
+images.icon_contact = require('./icon_contact.png');
 
 
 export default images;

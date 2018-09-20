@@ -39,46 +39,26 @@ class DrawerPage extends Component {
 					selected: false,
 				}
 			],
-			onPage: '',
 		}
-		this.changePages = this.changePages.bind(this);
 		this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
   	}
 
-	changePages(payload) {
-		let pages = this.state.pages.slice();
-		pages.map(item => {
-			if(item.name == payload.name) item.selected = true
-			else item.selected = false
-			return item	
-		})
-		this.setState({pages})
-	}
-
   	navigateToOtherPage(payload) {
-		this.changePages(payload);
-
-		if(payload.name === 'Favourites') {
-			actNav.navigate(navConstant.Favourites)
-		}
-		else if(payload.name === 'History') {
-			actNav.navigate(navConstant.HistoryPage)
-		}
-		else if(payload.name === 'Terms & Conditions') {
-			actNav.navigate(navConstant.TermsConditions)
-		}
-		else if(payload.name === 'Contact Us') {
-			actNav.navigate(navConstant.ContactUs)
-		}
-		else {
-			actNav.navigate(navConstant.Product)
+		switch (payload.name) {
+			case 'Favourites': return actNav.navigate(navConstant.Favourites);
+			case 'History': return actNav.navigate(navConstant.HistoryPage)
+			case 'Terms & Conditions': return actNav.navigate(navConstant.TermsConditions)
+			case 'Contact Us': return actNav.navigate(navConstant.ContactUs)
+			default: return actNav.navigate(navConstant.ProductList)
 		}
 	}
 	  
 	navigateToProfilePage() {
 		actNav.navigate(navConstant.ProfilePage)
 	}
+
+	
 
   	render () {
   	  	return (
@@ -93,7 +73,7 @@ class DrawerPage extends Component {
 						if (page.selected) {
 							return (
 								<TouchableOpacity 
-									onPress={ () => this.navigateToOtherPage(page)}
+									onPress={ () => this.props.navigation.closeDrawer()}
 									style={styles.selectedPage} key={index}
 								>
 									<Text style={styles.selectedText}>{page.name}</Text>

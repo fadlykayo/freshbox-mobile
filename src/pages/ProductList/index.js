@@ -171,6 +171,7 @@ class ProductList extends Component {
 		this.checkCategory = this.checkCategory.bind(this);
 		this.changeCategory = this.changeCategory.bind(this);
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);
+		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
 	}
 
 	componentDidMount() {
@@ -270,7 +271,11 @@ class ProductList extends Component {
 	}
 
 	openDrawerMenu() {
-		this.props.navigation.openDrawer()
+		this.props.navigation.openDrawer();
+	}
+
+	closeDrawerMenu() {
+		this.props.navigation.closeDrawer();
 	}
 
 	render(){

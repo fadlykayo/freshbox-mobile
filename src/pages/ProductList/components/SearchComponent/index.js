@@ -56,7 +56,9 @@ class SearchComponent extends Component {
 		    		/>
   	    		</View>
 				<TouchableOpacity 
-					onPress={() => this.props.openDrawerMenu()}
+					onPress={() => {
+						this.props.openDrawerMenu()
+					}}
 					style={styles.button}
 				>
   	  	  			<Image

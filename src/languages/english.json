@@ -166,6 +166,22 @@
     "resetPasswordPage": {
         "navigationTitle": "Reset Password"
     },
+    "favourites": {
+        "navigationTitle": "Favourites"
+    },
+    "termsConditions": {
+        "navigationTitle": "Terms & Conditions"
+    },
+    "contactUs": {
+        "navigationTitle": "Contact Us",
+        "content": {
+            "subject": "Choose Subject",
+            "message": "Messages..."
+        },
+        "button": {
+            "submit": "Submit"
+        }
+    },
     "drawerPage": {
         "content": {
             "logOut": "Log Out"

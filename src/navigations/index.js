@@ -15,14 +15,19 @@ import PhonePage from '@pages/PhonePage';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
+import Favourites from '@pages/Favourites';
+import TermsConditions from '@pages/TermsConditions';
+import ContactUs from '@pages/ContactUs'
 
 let _navigator;
 
 export const drawerBar = DrawerNavigator({
-    ProductList: {
-        screen: ProductList,
-        title: 'Product'
-    }
+    ProductList: {screen: ProductList},
+    ProfilePage: {screen: ProfilePage},
+    Favourites: {screen: Favourites},
+    HistoryPage: {screen: HistoryPage},
+    TermsConditions: {screen: TermsConditions},
+    ContactUs: {screen: ContactUs}
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -36,9 +41,7 @@ export const AppNavigator = createStackNavigator({
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
     Product: drawerBar,
-    HistoryPage: {screen: HistoryPage},
     HistoryDetail: {screen: HistoryDetail},
-    ProfilePage: {screen: ProfilePage},
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage}
@@ -79,12 +82,16 @@ export const navConstant = {
     ForgotPassword: 'ForgotPassword',
     Cart: 'Cart',
     Product: 'Product',
+    ProductList: 'ProductList',
     HistoryPage: 'HistoryPage',
     HistoryDetail: 'HistoryDetail',
     ProfilePage: 'ProfilePage',
     PhonePage: 'PhonePage',
     AddressPage: 'AddressPage',
     ResetPasswordPage: 'ResetPasswordPage',
+    Favourites: 'Favourites',
+    TermsConditions: 'TermsConditions',
+    ContactUs: 'ContactUs'
 }
 
 export const setNavigator = (navigatorRef) => {
