@@ -72,7 +72,6 @@
             "register": "Register",
             "forgotPassword": "Forgot Password",
             "resetPasswordSuccess": "Reset Password Success!",
-
             "checkEmail": "Please check your email"
         },
         "validation":{
@@ -158,19 +157,51 @@
         }
     },
     "phonePage": {
-        "navigationTitle": "Phone Number"
+        "navigationTitle": "Phone Number",
+        "formLabel": {
+            "phone": "Phone Number"
+        },
+        "button": {
+            "editPhone": "Edit Phone Number"
+        },
+        "validation":{
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
     },
     "addressPage": {
         "navigationTitle": "Address"
     },
     "resetPasswordPage": {
-        "navigationTitle": "Reset Password"
+        "navigationTitle": "Reset Password",
+        "formLabel":{
+            "oldPassword": "Old Password",
+            "newPassword": "New Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "content": {
+            "resetPasswordSuccess": "Reset Password Success!",
+        },
+        "button":{
+            "changePassword": "Change Password"
+        },
+        "validation":{
+            "oldPassword": "Password Incorrect",
+            "password": "your password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "confirmPassword": "your password did not match"
+        }
     },
     "favourites": {
         "navigationTitle": "Favourites"
     },
     "termsConditions": {
-        "navigationTitle": "Terms & Conditions"
+        "navigationTitle": "Terms & Conditions",
+        "content": {
+            "title1": "Lorem 1",
+            "content1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci! \n \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci!",
+            "title2": "Lorem 2",
+            "content2": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ut id expedita. Ea placeat reprehenderit nulla officiis? Ipsum esse qui rem nesciunt aut nostrum, voluptate ipsam, minus eum dignissimos perferendis."
+        }
     },
     "contactUs": {
         "navigationTitle": "Contact Us",

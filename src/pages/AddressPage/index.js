@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Picker } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -11,6 +11,7 @@ class AddressPage extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
+			language: ''
 		}
 	}
 

@@ -42,6 +42,7 @@ class DrawerPage extends Component {
 		}
 		this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
+		this.navigateToMenuPage = this.navigateToMenuPage.bind(this);
   	}
 
   	navigateToOtherPage(payload) {
@@ -58,7 +59,9 @@ class DrawerPage extends Component {
 		actNav.navigate(navConstant.ProfilePage)
 	}
 
-	
+	navigateToMenuPage() {
+		actNav.navigate(navConstant.Menu)
+	}
 
   	render () {
   	  	return (
@@ -92,7 +95,10 @@ class DrawerPage extends Component {
 						}
 					}) }
   	      		</View>
-  	      		<TouchableOpacity style={styles.bottomComponent}>
+				<TouchableOpacity 
+					onPress={() => this.navigateToMenuPage()}
+					style={styles.bottomComponent}
+				>
 					<StaticText
 						style={styles.logOutText}
 						property={'drawerPage.content.logOut'}
