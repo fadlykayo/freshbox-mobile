@@ -6,9 +6,11 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
+import InputText from './components/InputText';
 import Button from './components/Button';
 import images from '@assets'
 import styles from './styles';
+import { navConstant } from '../../navigations';
 
 
 class PhonePage extends Component {
@@ -16,15 +18,22 @@ class PhonePage extends Component {
   		super(props)
 		this.state = {
             user:{
-                fullName: '',
-                phone: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
+                name: 'John Doe',
+                photo: images.icon_img_ava,
+                email: 'john.doe@freshbox.com',
+                phone: '082212345678',
+                province: 'Jawa Barat',
+                city: 'Bandung',
+                zipCode: '14016',
+                kecamatan: 'Ujungberung',
+                kelurahan: 'Passanggrahan',
+                address: 'Jl. Jatiluhur III No. 167 B',
+                addressDetail: 'Pagar Hijau Dekat Tiang Listrik'
             },
             validateStatus:{
                 phone: true,
-            }
+			},
+			isEdit: false,
 		}
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
@@ -32,6 +41,11 @@ class PhonePage extends Component {
 		this.submitPhone = this.submitPhone.bind(this);
 		this.phoneValidation = this.phoneValidation.bind(this);
 		this.updatePhoneHandler = this.updatePhoneHandler.bind(this);
+		this.editPhonePage = this.editPhonePage.bind(this);
+	}
+
+	editPhonePage() {
+		this.setState({isEdit: true})
 	}
 
 	setValidation(type,value){
@@ -71,7 +85,8 @@ class PhonePage extends Component {
 	}
 	
 	updatePhoneHandler(){
-        alert(`Update Phone Number ${this.state.user.phone}`)
+		alert(`Update Phone Number ${this.state.user.phone}`)
+		actNav.navigate(navConstant.ProfilePage)
     }
 
   	render() {
@@ -81,29 +96,47 @@ class PhonePage extends Component {
 					title={'phonePage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-  	  	  		<View style={styles.container}>
-					<View style={styles.formPhone}>
-						<FormInput 
-							type={'phone'}
-							keyboardType={'number-pad'}
-							value={this.state.user.phone}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'phonePage.formLabel.phone'}
-							placeholder={'phonePage.formLabel.phone'}
-							onSubmitEditing={this.submitPhone}
-						/>
-						<VerificationText
-							validation={this.state.validateStatus.phone}
-							property={'phonePage.validation.phone'}
-						/>
-					</View>
-					<View style={styles.buttonPlace}>
-						<Button 
-							title={'phonePage.button.editPhone'}
-							onPress={this.submitPhone}
-						/>
-					</View>
-  	  	  		</View>
+				{ this.state.isEdit ? (
+					<View style={styles.container}>
+						<View style={styles.formPhone}>
+							<FormInput 
+								type={'phone'}
+								keyboardType={'number-pad'}
+								value={this.state.user.phone}
+								onChangeText={(type,value) => this.onChangeText(type,value)}
+								label={'phonePage.formLabel.phone'}
+								placeholder={'phonePage.formLabel.phone'}
+								onSubmitEditing={this.submitPhone}
+							/>
+							<VerificationText
+								validation={this.state.validateStatus.phone}
+								property={'phonePage.validation.phone'}
+							/>
+						</View>
+						<View style={styles.buttonPlace}>
+							<Button 
+								title={'phonePage.button.save'}
+								onPress={this.submitPhone}
+							/>
+						</View>
+  	  	  			</View>
+				) : (
+					<View style={styles.container}>
+						<View style={styles.formPhone}>
+							<InputText
+								label={'phonePage.label.phone'}
+								input={this.state.user.phone}
+							/>
+						</View>
+						<View style={styles.buttonPlace}>
+							<Button 
+								title={'phonePage.button.edit'}
+								onPress={this.editPhonePage}
+							/>
+						</View>
+  	  	  			</View>
+				)}
+  	  	  		
 			</Container>
   	  	);
   	}

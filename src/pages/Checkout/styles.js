@@ -11,7 +11,7 @@ const styles = {
 		paddingTop: height * 0.05,
 		paddingLeft: width * 0.05,
 		paddingRight: width * 0.05,
-		marginBottom: height * 0.05,
+		marginBottom: height * 0.08,
 	},
 	content:{
         justifyContent: 'center',

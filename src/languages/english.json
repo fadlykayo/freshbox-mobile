@@ -95,6 +95,35 @@
         }
 
     },
+    "checkout": {
+        "navigationTitle": "Checkout",
+        "label": {
+            "name": "Name",
+            "phone": "Phone Number",
+            "province": "Province",
+            "city": "City",
+            "zipCode": "Zip Code",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
+            "address": "Address",
+            "addressDetails": "Address Details (Optional)"
+        },
+        "content": {
+            "price": "IDR ",
+            "checkout": "Checkout",
+            "pack": " pack",
+            "subTotal": "Sub Total",
+            "delivery": "Delivery",
+            "grandTotal": "Grand Total"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
+    },
     "productList": {
         "searchPlaceHolder": "Search product or categories...",
         "filter": {
@@ -158,18 +187,41 @@
     },
     "phonePage": {
         "navigationTitle": "Phone Number",
+        "label": {
+            "phone": "Phone Number"
+        },
         "formLabel": {
             "phone": "Phone Number"
         },
         "button": {
-            "editPhone": "Edit Phone Number"
+            "edit": "Edit",
+            "save": "Save"
         },
         "validation":{
             "phone": "please input your phone number at least between 9 to 15 digits number"
         }
     },
     "addressPage": {
-        "navigationTitle": "Address"
+        "navigationTitle": "Address",
+        "label": {
+            "name": "Name",
+            "phone": "Phone Number",
+            "province": "Province",
+            "city": "City",
+            "zipCode": "Zip Code",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
+            "address": "Address",
+            "addressDetails": "Address Details (Optional)"
+        },
+        "button": {
+            "edit": "Edit",
+            "save": "Save"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
     },
     "resetPasswordPage": {
         "navigationTitle": "Reset Password",
@@ -179,7 +231,7 @@
             "confirmPassword": "Confirm Password"
         },
         "content": {
-            "resetPasswordSuccess": "Reset Password Success!",
+            "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
             "changePassword": "Change Password"

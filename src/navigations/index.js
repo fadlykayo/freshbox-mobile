@@ -17,11 +17,12 @@ import ResetPasswordPage from '@pages/ResetPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
-import ContactUs from '@pages/ContactUs'
+import ContactUs from '@pages/ContactUs';
+import Checkout from '@pages/Checkout';
 
 let _navigator;
 
-export const drawerBar = DrawerNavigator({
+export const DrawerBar = DrawerNavigator({
     ProductList: {screen: ProductList},
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
@@ -40,11 +41,12 @@ export const AppNavigator = createStackNavigator({
     Register: {screen: Register},
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
-    Product: drawerBar,
+    Product: DrawerBar,
     HistoryDetail: {screen: HistoryDetail},
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
-    ResetPasswordPage: {screen: ResetPasswordPage}
+    ResetPasswordPage: {screen: ResetPasswordPage},
+    Checkout: {screen: Checkout}
 },{
     initialRouteName  : 'Product',
     headerMode        : 'none',
@@ -91,7 +93,8 @@ export const navConstant = {
     ResetPasswordPage: 'ResetPasswordPage',
     Favourites: 'Favourites',
     TermsConditions: 'TermsConditions',
-    ContactUs: 'ContactUs'
+    ContactUs: 'ContactUs',
+    Checkout: 'Checkout',
 }
 
 export const setNavigator = (navigatorRef) => {

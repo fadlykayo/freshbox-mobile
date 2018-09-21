@@ -5,7 +5,7 @@ import { colour } from '@styles';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    buttonEdit:{
+    button:{
         height: scaling.moderateScale(50),
         width: width * 0.9,
         alignItems: 'center',
@@ -15,27 +15,11 @@ const styles = {
         borderWidth: 1,
         borderRadius: 8,
     },
-    titleEdit:{
+    title:{
         fontFamily: 'Avenir-Heavy',
         fontWeight: '500',
         fontSize: scaling.moderateScale(12),
         color: colour.red,
-    },
-    buttonSave:{
-        height: scaling.moderateScale(50),
-        width: width * 0.9,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colour.red,
-        borderColor: colour.white,
-        borderWidth: 1,
-        borderRadius: 8,
-    },
-    titleSave:{
-        fontFamily: 'Avenir-Heavy',
-        fontWeight: '500',
-        fontSize: scaling.moderateScale(12),
-        color: colour.white,
     }
 }
 
