@@ -4,8 +4,8 @@ import StaticText from '@components/StaticText';
 import styles from './styles';
 
 class Button extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
     }
 
     render(){
