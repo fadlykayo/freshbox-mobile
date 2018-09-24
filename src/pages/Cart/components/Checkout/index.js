@@ -1,16 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import numeral from 'numeral';
 import styles from './styles';
 
 class CheckoutComponent extends PureComponent {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 	}
 
 	render() {
-		console.log(this.props.totalPrice)
 		return (
 			<View style={styles.checkoutContainer}>
 				<View style={styles.totalPrice}>
@@ -26,14 +25,15 @@ class CheckoutComponent extends PureComponent {
 						{numeral(this.props.totalPrice).format('0,0')}
 					</Text>
 				</View>
-				<TouchableHighlight
-					onPress={() => alert('success')}
+				<TouchableOpacity
+					onPress={() => this.props.onPress()}
 					style={styles.checkoutButton}
 				>
-				<StaticText 
-					style={[styles.textData, styles.checkoutText]}
-					property={'cart.button.checkout'}/>
-				</TouchableHighlight>
+					<StaticText 
+						style={[styles.textData, styles.checkoutText]}
+						property={'cart.button.checkout'}
+					/>
+				</TouchableOpacity>
 			</View>
 		)
 	}

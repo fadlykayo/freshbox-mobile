@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
 import Container from '@components/Container';
@@ -100,6 +99,7 @@ class Cart extends Component {
 		this.countTotalPrice = this.countTotalPrice.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.countCheckHandler = this.countCheckHandler.bind(this);
+		this.navigateToCheckout = this.navigateToCheckout.bind(this);
 	}
 
 	componentDidMount() {
@@ -141,6 +141,10 @@ class Cart extends Component {
 		this.countTotalPrice();
 	}
 
+	navigateToCheckout() {
+		actNav.navigate(navConstant.Checkout)
+	}
+
 	render(){
 		return (
 			<Container>
@@ -165,6 +169,7 @@ class Cart extends Component {
 					</View>
 					<Checkout
 						totalPrice={this.state.totalPrice}
+						onPress={this.navigateToCheckout}
 					/>
 				</View>
 			</Container>

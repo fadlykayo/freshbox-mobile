@@ -136,7 +136,7 @@ class Register extends Component {
                         });
                     })
                     .catch(() => {
-                        this.setValidation('phone',true);
+                        this.setValidation('phone',false);
                     })
                 })
                 .catch(() => {
