@@ -1,5 +1,5 @@
 import { Animated, Easing, Dimensions } from 'react-native';
-import { createStackNavigator, NavigationActions, DrawerNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationActions, createDrawerNavigator } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
@@ -22,7 +22,7 @@ import Checkout from '@pages/Checkout';
 
 let _navigator;
 
-export const DrawerBar = DrawerNavigator({
+export const DrawerBar = createDrawerNavigator({
     ProductList: {screen: ProductList},
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
@@ -48,7 +48,7 @@ export const AppNavigator = createStackNavigator({
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout}
 },{
-    initialRouteName  : 'Product',
+    initialRouteName  : 'Register',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {

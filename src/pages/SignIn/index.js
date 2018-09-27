@@ -10,6 +10,7 @@ import Button from './components/Button';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
+import { connect } from 'react-redux';
 
 class SignIn extends Component {
     constructor(){
@@ -107,7 +108,7 @@ class SignIn extends Component {
     }
 
     signInHandler(){
-        alert('SignIn')
+        
     }
 
     navigateToRegister(){
@@ -189,6 +190,12 @@ class SignIn extends Component {
                 </ScrollView>
             </Container>
         )
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        
     }
 }
 

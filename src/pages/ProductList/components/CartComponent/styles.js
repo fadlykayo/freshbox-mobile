@@ -19,7 +19,11 @@ const styles = {
 		marginBottom: scaling.moderateScale(15),
 		paddingLeft: width * 0.05,
 		paddingRight: width * 0.05,
-    },
+	},
+	container: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
     imageContainer: {
 		flex: 1.5,
 		height: 90,
@@ -45,6 +49,9 @@ const styles = {
 		width: scaling.moderateScale(20),
 	},
 	addNewItem: {
+		position: 'absolute',
+		right: 0,
+		bottom: 0,
 		height: scaling.moderateScale(30),
 		width: scaling.moderateScale(70),
 		borderWidth: 1,
@@ -53,10 +60,15 @@ const styles = {
 		backgroundColor: colour.red,
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginRight: width * 0.05,
+		marginBottom: width * 0.05,
 		paddingLeft: scaling.moderateScale(10),
 		paddingRight: scaling.moderateScale(10),
 	},
 	touchableItem: {
+		position: 'absolute',
+		right: 0,
+		bottom: 0,
 		flexDirection: 'row',
 		height: scaling.moderateScale(30),
 		width: scaling.moderateScale(70),
@@ -66,6 +78,8 @@ const styles = {
 		backgroundColor: colour.white,
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		marginRight: width * 0.05,
+		marginBottom: width * 0.03,
 		paddingLeft: scaling.moderateScale(10),
 		paddingRight: scaling.moderateScale(10),
 	},
@@ -76,6 +90,7 @@ const styles = {
 	operatorText: {
 		color: colour.red,
 		fontWeight: 'bold',
+		fontSize: scaling.moderateScale(18)
 	},
 	newItemText: {
 		color: colour.white,

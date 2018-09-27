@@ -15,7 +15,12 @@ const styles = {
 	},
 	content:{
         justifyContent: 'center',
-    }
+	},
+	outerScrollView: {
+		flex: 1,
+		paddingBottom: width * 0.05,
+	}
+	
 }
 
 export default styles;

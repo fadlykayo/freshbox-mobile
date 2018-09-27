@@ -129,7 +129,7 @@ class PhonePage extends Component {
 							/>
 						</View>
 						<View style={styles.buttonPlace}>
-							<Button 
+							<Button
 								title={'phonePage.button.edit'}
 								onPress={this.editPhonePage}
 							/>

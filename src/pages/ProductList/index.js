@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
+import { View, FlatList, Text, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -10,7 +10,8 @@ import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
 import images from '@assets';
-
+import { connect } from 'react-redux';
+import { getProducts } from '@actions/product';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -177,6 +178,7 @@ class ProductList extends Component {
 	componentDidMount() {
 		this.countTotalPrice();
 		this.checkCategory();
+		this.props.getProducts();
 	}
 
 	checkCategory() {
@@ -280,60 +282,78 @@ class ProductList extends Component {
 
 	render(){
 		return (
-		<Container>
-      		<SearchComponent
-				openDrawerMenu={this.openDrawerMenu}
-				closeDrawerMenu={this.closeDrawerMenu}
-				type={'searchItem'}
-				title={'productList.searchPlaceHolder'}
-				onChangeText={(type,value) => this.onChangeText(type,value)}
-				onSubmitEditing={this.submitSearch}
-			/>
-			<FilterComponent 
-				onCategory = {this.state.onCategory}
-				openAllCategories = {this.openAllCategories}
-				type={'searchItem'}
-				onChangeText={(type,value) => this.onChangeText(type,value)}
-				onSubmitEditing={this.submitSearch}
-			/>
-			<View style={styles.container}>
-				<View style={styles.cartContainer}>
-					<FlatList
-						data={this.state.data}
-						keyExtractor={(item) => String(item.id)}
-						renderItem={({item,index}) => (
-							<CartComponent
-								openDetailProduct= {this.openDetailProduct}
-								data = {item}
-								index = {index} 
-								toggleFavorite={this.toggleFavorite}
-								changeTotalItem={this.changeTotalItem}
-							/>
-						)}
-					/>
+			<Container>
+				  <SearchComponent
+					openDrawerMenu={this.openDrawerMenu}
+					closeDrawerMenu={this.closeDrawerMenu}
+					type={'searchItem'}
+					title={'productList.searchPlaceHolder'}
+					onChangeText={(type,value) => this.onChangeText(type,value)}
+					onSubmitEditing={this.submitSearch}
+				/>
+				<FilterComponent 
+					onCategory = {this.state.onCategory}
+					openAllCategories = {this.openAllCategories}
+					type={'searchItem'}
+					onChangeText={(type,value) => this.onChangeText(type,value)}
+					onSubmitEditing={this.submitSearch}
+				/>
+				<View style={styles.container}>
+					<View style={styles.cartContainer}>
+						<FlatList
+							data={this.props.product}
+							keyExtractor={(item) => String(item.id)}
+							renderItem={({item,index}) => (
+								<CartComponent
+									openDetailProduct= {this.openDetailProduct}
+									data = {item}
+									index = {index} 
+									toggleFavorite={this.toggleFavorite}
+									changeTotalItem={this.changeTotalItem}
+								/>
+							)}
+						/>
 
-					<Checkout
-						totalCount = { this.state.totalCount }
-						totalPrice = { this.state.totalPrice }
-					/>
+						<Checkout
+							totalCount = { this.state.totalCount }
+							totalPrice = { this.state.totalPrice }
+						/>
+					</View>
 				</View>
-			</View>
-			<DetailProduct
-				indexProduct={this.state.indexProduct}
-				toggleFavorite={this.toggleFavorite}
-				detailDataProduct={this.state.detailDataProduct}
-			  modalVisible={this.state.modalVisible.openProduct}
-				closeDetailProduct={this.closeDetailProduct}
-			/>
-			<Categories
-				changeCategory = {this.changeCategory}
-				categories = {this.state.categories}
-        modalVisible={this.state.modalVisible.openCategories}
-        closeDialogCategories={this.closeDialogCategories}
-      />
-		</Container>
+				
+				<DetailProduct
+					indexProduct={this.state.indexProduct}
+					toggleFavorite={this.toggleFavorite}
+					detailDataProduct={this.state.detailDataProduct}
+				    modalVisible={this.state.modalVisible.openProduct}
+					closeDetailProduct={this.closeDetailProduct}
+				/>
+				<Categories
+					changeCategory = {this.changeCategory}
+					categories = {this.state.categories}
+					modalVisible={this.state.modalVisible.openCategories}
+					closeDialogCategories={this.closeDialogCategories}
+		  		/>
+			</Container>
 		);
 	}
 }
 
-export default ProductList;
+const mapStateToProps = state => {
+	return {
+		loading: state.product.loadingProducts,
+		product: state.product.products,
+		error: state.product.errorProducts,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getProducts : () => dispatch(getProducts())
+	}
+}
+
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps)(ProductList);

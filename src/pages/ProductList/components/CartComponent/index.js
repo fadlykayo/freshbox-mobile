@@ -46,14 +46,16 @@ class CartComponent extends Component {
 
 	render(){
 		return (
+			<View style={styles.eachCartContainer}>
 			<TouchableOpacity 
 				onPress={ () => this.props.openDetailProduct(this.props.index)}
-				style={styles.eachCartContainer}
+				style={styles.container}
 			>
 				<View style={styles.imageContainer}>
 					<Image
-						resizeMode={'contain'} 
-						source={this.props.data.image}
+						resizeMode={'contain'}
+						source={images.icon_sayur_segar} 
+						// source={this.props.data.images[0]}
 						style={styles.picture}
 					/>
 				</View>
@@ -73,7 +75,10 @@ class CartComponent extends Component {
 							style={styles.favoriteLogo}
 						/>
 					</TouchableOpacity>
-					{ this.state.count == 0 ? 
+					
+				</View>
+			</TouchableOpacity>
+				{ this.state.count == 0 ? 
 						(
 						<TouchableOpacity 
 							style={styles.addNewItem}
@@ -100,9 +105,8 @@ class CartComponent extends Component {
 								/>
 							</TouchableOpacity>
 						</View>
-						) }
-				</View>
-			</TouchableOpacity>
+				) }
+			</View>
 		);
 	}
 }

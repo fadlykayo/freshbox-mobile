@@ -5,6 +5,7 @@ import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
+import Dropdown from './components/Dropdown';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
@@ -27,17 +28,54 @@ class AddressPage extends Component {
                 kecamatan: 'Ujungberung',
                 kelurahan: 'Passanggrahan',
                 address: 'Jl. Jatiluhur III No. 167 B',
-                addressDetail: 'Pagar Hijau Dekat Tiang Listrik'
+				addressDetail: 'Pagar Hijau Dekat Tiang Listrik',
+				password: '',
 			},
 			validateStatus:{
                 fullName: true,
                 phone: true,
-            },
+			},
+			province: [
+				{
+					id: 1,
+					name: "Jawa Barat"
+				},
+				{
+					id: 2,
+					name: "Jawa Tengah"
+				},
+				{
+					id: 3,
+					name: "Jawa Timur"
+				},
+				{
+					id: 4,
+					name: "Jakarta"
+				},
+				{
+					id: 5,
+					name: "Sumatera Barat"
+				},
+				{
+					id: 6,
+					name: "Sumatera Utara"
+				},
+				{
+					id: 7,
+					name: "Sumatera Selatan"
+				},
+				{
+					id: 8,
+					name: "Sulawesi Tengah"
+				} 
+			],
 			isEdit: false,
+			content: {}
 		}
 		this.onChangeText = this.onChangeText.bind(this);
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
+		this.submitPassword = this.submitPassword.bind(this);
 		this.submitFullName = this.submitFullName.bind(this);
 		this.submitPhone = this.submitPhone.bind(this);
 		this.submitProvince = this.submitProvince.bind(this);
@@ -52,6 +90,15 @@ class AddressPage extends Component {
 		this.editAddressPage = this.editAddressPage.bind(this);
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
 		this.setStateValidation = this.setStateValidation.bind(this);
+		this.setContentFlex = this.setContentFlex.bind(this);
+		this.setContentFlexNull = this.setContentFlexNull.bind(this);
+		this.getDataProvince = this.getDataProvince.bind(this);
+	}
+
+	getDataProvince(index, funcProv) {
+		let dataProvince = this.state.province;
+		let province = dataProvince[index].name;
+		this.onChangeText('province', province)
 	}
 
 	setStateValidation(input) {
@@ -70,6 +117,13 @@ class AddressPage extends Component {
         validateStatus.phone = true;
 		this.setState({validateStatus});
 		
+    }
+
+	submitPassword(){
+        let userPassword = this.state.user.password.trim();
+        this.clearValidation();
+        this.onChangeText('password',userPassword);
+        this.formProvince.focus();
     }
 
     submitFullName(){
@@ -165,6 +219,18 @@ class AddressPage extends Component {
 		actNav.navigate(navConstant.ProfilePage)
 	}
 
+	setContentFlex(e) {
+		console.log(e)
+		let content = this.state.content;
+		let newContent = styles.outerScrollView;
+		content = newContent
+		this.setState({content})
+	}
+
+	setContentFlexNull() {
+		this.setState({content: {}})
+	}
+
   	render() {
 		return (
 			<Container>
@@ -172,7 +238,9 @@ class AddressPage extends Component {
 					title={'addressPage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-				<ScrollView>
+				<ScrollView
+					contentContainerStyle={this.state.content}
+				>
 					{ this.state.isEdit ? (
 						<View style={styles.container}>
 							<FormInput 
@@ -203,7 +271,21 @@ class AddressPage extends Component {
 								validation={this.state.validateStatus.phone}
 								property={'addressPage.validation.phone'}
 							/>
-							<FormInput 
+							<Dropdown 
+								ref={c => {this.formProvince = c}}
+								province={this.state.province}
+								getDataProvince={this.getDataProvince}
+                    		    type={'province'}
+                    		    isPassword={true}
+                    		    value={this.state.user.province}
+                    		    onChangeText={(type,value) => this.onChangeText(type,value)}
+                    		    label={'addressPage.label.province'}
+                    		    placeholder={'addressPage.label.province'}
+								onSubmitEditing={this.submitProvince}
+								setContentFlex={this.setContentFlex}
+								setContentFlexNull={this.setContentFlexNull}
+                    		/>
+							{/* <FormInput 
 								ref={c => {this.formProvince = c}}
 								type={'province'}
 								value={this.state.user.province}
@@ -211,7 +293,7 @@ class AddressPage extends Component {
 								label={'addressPage.label.province'}
 								placeholder={'addressPage.label.province'}
 								onSubmitEditing={this.submitProvince}
-							/>
+							/> */}
 							<FormInput 
 								ref={c => {this.formCity = c}}
 								type={'city'}

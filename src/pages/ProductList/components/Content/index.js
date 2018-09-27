@@ -12,18 +12,19 @@ class Content extends PureComponent {
 	render() {
 		return (
 			<View style={styles.contentContainer}>
-				<Text style={styles.fontTitle}>{this.props.data.title}</Text>
-				<Text style={styles.fontCategory}>{this.props.data.category}</Text>
+				<Text style={styles.fontTitle}>{this.props.data.name}</Text>
+				<Text style={styles.fontCategory}>{this.props.data.category.name}</Text>
 				<Text style={styles.fontTitle}>
 					<StaticText 
 						style={styles.fontTitle}
-						property={'cart.content.price'}
+						property={'productList.content.price'}
 					/>
 					{numeral(this.props.data.price).format('0,0')}
 					<StaticText 
 						style={styles.fontPack}
-						property={'cart.content.pack'}
+						property={'productList.content.pack'}
 					/>
+					<Text style={styles.fontPack}>{this.props.data.unit}</Text>
 				</Text>
 			</View>
 		);

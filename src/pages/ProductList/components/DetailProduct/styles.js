@@ -20,7 +20,7 @@ const styles = {
     },
     container: {
         width: width,
-        height: height * 0.6,
+        minHeight: height * 0.6,
         borderRadius: 8,
         backgroundColor: colour.white,
         paddingLeft: width* 0.05,

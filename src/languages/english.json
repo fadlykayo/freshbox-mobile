@@ -46,7 +46,9 @@
         },
         "content":{
             "haveAnAccount": "Have an Account, ",
-            "signIn": "Sign In"
+            "signIn": "Sign In",
+            "success": "Success!",
+            "email": "Registration success! Please check your email to activate the account!"
         },
         "validation":{
             "fullName": "please input your name",
@@ -139,12 +141,12 @@
         },
         "content": {
             "subTotal": "Sub Total",
-            "pack": "/1 pack",
+            "pack": "/1 ",
             "addItem": "+ Add",
             "items": " Items | IDR ",
             "item": " Item | IDR ",
-            "categories": "Categories"
-
+            "categories": "Categories",
+            "price": "IDR "
         }
     },
     "historyPage": {
