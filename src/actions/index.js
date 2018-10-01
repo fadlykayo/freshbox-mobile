@@ -1,9 +1,11 @@
 import registration from './registration';
-import signIn from './signIn';
+import auth from './auth';
+import product from './product';
 
 const action = {
     registration: registration,
-    signIn: signIn
+    auth: auth,
+    product: product,
 }
 
 export default action;

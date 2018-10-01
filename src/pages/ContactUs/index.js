@@ -5,8 +5,8 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import Logo from './components/Logo';
 import StaticText from '@components/StaticText';
+import FormInput from '@components/FormInput';
 import InputData from './components/InputData';
-import numeral from 'numeral';
 import styles from './styles';
 
 class ContactUs extends Component {
@@ -29,7 +29,7 @@ class ContactUs extends Component {
         this.setState({user});
 	}
 	
-	renderPlaceholder(property = 'no_props',lang = 'english',params = {}){
+	renderPlaceholder(property = 'no_props',lang = 'bahasa',params = {}){
 		language.transformText(property,lang,params)
 		.then((res) => {
 			this.setState({placeholder: res});
@@ -63,11 +63,13 @@ class ContactUs extends Component {
 							title={'contactUs.content.subject'}
 							onSubmitEditing={this.submitSubject}
 						/>
-						<InputData
+						<FormInput
 							ref={c => {this.formMessage = c}}
 							type={'message'}
 							onChangeText={(type, value) => this.onChangeText(type, value)}
-							title={'contactUs.content.message'}
+							value={this.state.message}
+							label={'contactUs.label.message'}
+							placeholder={'contactUs.content.message'}
 							onSubmitEditing={this.submitInformation}
 						/>
 					</View>

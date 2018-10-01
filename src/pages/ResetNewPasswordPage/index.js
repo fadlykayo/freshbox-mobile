@@ -133,8 +133,7 @@ class ResetPasswordPage extends Component {
 	}
 	  
 	closeDialogResetPasswordSuccess(){
-		
-		actNav.navigate(navConstant.ProfilePage);
+		actNav.navigate(navConstant.Menu);
     }
 
   	render() {
@@ -147,18 +146,23 @@ class ResetPasswordPage extends Component {
   	  	  		<View style={styles.container}>
 					<View style={styles.formPassword}>
 						<FormInput 
-                    	    ref={c => {this.formOldPassword = c}}
-                    	    type={'oldPassword'}
-                    	    isPassword={true}
-                    	    value={this.state.user.oldPassword}
+                    	    ref={c => {this.formEmail = c}}
+                    	    type={'email'}
+                    	    keyboardType={'email-address'}
+                    	    value={this.state.user.email}
                     	    onChangeText={(type,value) => this.onChangeText(type,value)}
-                    	    label={'resetPasswordPage.formLabel.oldPassword'}
-                    	    placeholder={'resetPasswordPage.formLabel.oldPassword'}
-                    	    onSubmitEditing={this.submitOldPassword}
+                    	    label={'register.formLabel.email'}
+                    	    placeholder={'register.formLabel.email'}
+                    	    onSubmitEditing={this.submitEmail}
+                    	/>
+	
+                    	<VerificationText
+                    	    validation={this.state.validateStatus.emailFormat}
+                    	    property={'register.validation.emailFormat'}
                     	/>
                     	<VerificationText
-                    	    validation={this.state.validateStatus.oldPassword}
-                    	    property={'resetPasswordPage.validation.oldPassword'}
+                    	    validation={this.state.validateStatus.emailLength}
+                    	    property={'register.validation.emailLength'}
                     	/>
 						<FormInput 
                     	    ref={c => {this.formPassword = c}}

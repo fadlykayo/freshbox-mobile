@@ -29,7 +29,7 @@ const styles = {
     topComponent: {
         flex: -1,
         justifyContent: 'space-between',
-        height: height * 0.11,
+        height: height * 0.08,
     },
     scrollDownButton: {
         alignItems: 'center',

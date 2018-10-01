@@ -11,7 +11,7 @@ import Categories from './components/Categories';
 import styles from './styles';
 import images from '@assets';
 import { connect } from 'react-redux';
-import { getProducts } from '@actions/product';
+import actions from '@actions';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -176,9 +176,16 @@ class ProductList extends Component {
 	}
 
 	componentDidMount() {
+		let payload = {
+			header: {},
+			body: {}
+		}
+		this.props.get_products(payload, null,
+			(err) => {
+				console.log(err)
+			});
 		this.countTotalPrice();
 		this.checkCategory();
-		this.props.getProducts();
 	}
 
 	checkCategory() {
@@ -312,6 +319,7 @@ class ProductList extends Component {
 									changeTotalItem={this.changeTotalItem}
 								/>
 							)}
+							on
 						/>
 
 						<Checkout
@@ -349,7 +357,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getProducts : () => dispatch(getProducts())
+		// forgot_password: (req, success, failure) => dispatch(actions.auth.api.forgot_password(req, success, failure))
+		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure))
 	}
 }
 

@@ -10,7 +10,7 @@ class Dropdown extends Component {
         super(props);
         this.state={
             isFocused: false,
-			isSecret: props.isPassword ? props.isPassword : false,
+			isOpen: props.isPassword ? props.isPassword : false,
 			isPassword: props.isPassword ? props.isPassword : false,
 			autoFocus: props.autoFocus ? props.autoFocus : false,
             multiline: props.multiline ? props.multiline : false,
@@ -60,7 +60,7 @@ class Dropdown extends Component {
 
     showDropdown(){
         let state = this.state;
-        state.isSecret = !state.isSecret;
+        state.isOpen = !state.isOpen;
         this.setState(state);
     }
 
@@ -91,7 +91,7 @@ class Dropdown extends Component {
     }
 
     render() {
-        if(this.state.isSecret == true){
+        if(this.state.isOpen == true){
             return(
                 <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
                     {this._renderLabel(this.props)}
@@ -133,11 +133,12 @@ class Dropdown extends Component {
                             />
                         </View>
                     </TouchableOpacity>
+                    <TouchableWithoutFeedback>
                         <FlatList
-                            onTouchStart={(ev) => this.props.setContentFlex(ev) }
-                            onTouchEnd={(e) => this.props.setContentFlexNull()}
-                            onMomentumScrollEnd={(e) => this.props.setContentFlexNull()}
-                            onScrollEndDrag={(e) => this.props.setContentFlexNull()}
+                            // onTouchStart={(ev) => this.props.setContentFlex(ev) }
+                            // onTouchEnd={(e) => this.props.setContentFlexNull()}
+                            // onMomentumScrollEnd={(e) => this.props.setContentFlexNull()}
+                            // onScrollEndDrag={(e) => this.props.setContentFlexNull()}
                             style={styles.dropdownPlace}
                             data={this.props.province}
                             keyExtractor={(item) => String(item.id)}
@@ -151,6 +152,7 @@ class Dropdown extends Component {
                                 </TouchableOpacity>
 					        )}
                         />
+                    </TouchableWithoutFeedback>
                 </View>
             )
         }

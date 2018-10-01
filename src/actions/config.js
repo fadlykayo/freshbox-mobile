@@ -12,4 +12,6 @@ export const apiInstance = axios.create({
 export const path = {
     registerUser: 'v1/user/register',
     signInUser: 'v1/user/login',
+    forgotPassword: 'v1/user/forgot-password',
+    getProducts: 'v1/product/get?page=1&min_price=0&max_price=1000000&name=&stock=tersedia'
 }

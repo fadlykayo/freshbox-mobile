@@ -11,7 +11,7 @@ let payload = {
 	body: {}
 };
 
-actions.signin_user = (req,success,failure) => {
+actions.signin_user = (req, success, failure) => {
 	
 	payload.path = path.signInUser;
 	payload.header = req.header;
@@ -20,15 +20,14 @@ actions.signin_user = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('sign in user res',res);
         	if(res.code){
         		if(res.code == 200){
+					dispatch(actReducer.signin_user(res.data));
         			success(res);
         		}
         	}
         })
         .catch((err) => {
-        	console.log('sign in user err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -44,8 +43,39 @@ actions.signin_user = (req,success,failure) => {
         })
 
     }
-        
+};
+
+actions.forgot_password = (req, success, failure) => {
 	
+	payload.path = path.forgotPassword;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+        	if(res.code){
+        		if(res.code == 200){
+        			success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 403: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+
+    }
 };
 
 export default actions;

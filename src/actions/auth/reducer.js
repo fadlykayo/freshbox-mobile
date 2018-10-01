@@ -2,10 +2,10 @@ import ct from '@constants';
 
 const action = {};
 
-action.get_products = data => ({
-    type: ct.GET_PRODUCTS,
+action.signin_user = data => ({
+    type: ct.SIGN_IN,
     payload: {
-        data: data,
+        profile: data,
     }
 });
 

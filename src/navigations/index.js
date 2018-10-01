@@ -1,5 +1,5 @@
 import { Animated, Easing, Dimensions } from 'react-native';
-import { createStackNavigator, NavigationActions, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, StackActions ,NavigationActions, createDrawerNavigator } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
@@ -14,6 +14,7 @@ import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
+import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
@@ -46,9 +47,10 @@ export const AppNavigator = createStackNavigator({
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
-    Checkout: {screen: Checkout}
+    Checkout: {screen: Checkout},
+    ResetNewPasswordPage: {screen: ResetNewPasswordPage}
 },{
-    initialRouteName  : 'Register',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -95,6 +97,7 @@ export const navConstant = {
     TermsConditions: 'TermsConditions',
     ContactUs: 'ContactUs',
     Checkout: 'Checkout',
+    ResetNewPasswordPage: 'ResetNewPasswordPage',
 }
 
 export const setNavigator = (navigatorRef) => {
@@ -103,7 +106,7 @@ export const setNavigator = (navigatorRef) => {
 
 export const actNav = {
     reset: (route) => {
-        _navigator.dispatch(NavigationActions.reset({
+        _navigator.dispatch(StackActions.reset({
             index: 0,
             actions: [
                 NavigationActions.navigate({ routeName: route})

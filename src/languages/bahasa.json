@@ -11,10 +11,10 @@
         }
     },
     "signIn":{
-        "navigationTitle": "Sign In",
+        "navigationTitle": "Masuk",
         "formLabel":{
             "email": "Email",
-            "password": "Password"
+            "password": "Kata sandi"
         },
         "validation":{
             "emailFormat": "please input a valid email format",
@@ -24,61 +24,61 @@
             "login": "invalid email or password, please try again"
         },
         "button":{
-            "signIn": "Sign In"
+            "signIn": "Masuk"
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
-            "register": "Register",
-            "forgotPassword": "Forgot Password"
+            "register": "Daftar",
+            "forgotPassword": "Lupa kata sandi"
         }
     },
     "register":{
-        "navigationTitle": "Register",
+        "navigationTitle": "Daftar",
         "formLabel":{
-            "fullName": "Full Name",
-            "phone": "Phone Number",
+            "fullName": "Nama Lengkap",
+            "phone": "Nomor Telepon",
             "email": "Email",
-            "password": "Password",
-            "confirmPassword": "Confirm Password"
+            "password": "Kata Sandi",
+            "confirmPassword": "Konfirmasi Kata Sandi"
         },
         "button":{
-            "register": "Register"
+            "register": "Daftar"
         },
         "content":{
-            "haveAnAccount": "Have an Account, ",
-            "signIn": "Sign In",
-            "success": "Success!",
-            "email": "Registration success! Please check your email to activate the account!"
+            "haveAnAccount": "Sudah punya akun, ",
+            "signIn": "Masuk",
+            "success": "Berhasil!",
+            "email": "Daftar berhasil! Tolong lihat email anda untuk aktivasi akun!"
         },
         "validation":{
-            "fullName": "please input your name",
-            "emailFormat": "please input your email with a valid email format",
-            "emailLength": "please input your email",
-            "password": "your password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "phone": "please input your phone number at least between 9 to 15 digits number",
-            "confirmPassword": "your password did not match"
+            "fullName": "Tolong masukkan nama anda",
+            "emailFormat": "Tolong masukkan email anda dengan format yang benar",
+            "emailLength": "Tolong masukkan email anda",
+            "password": "Kata sandi minimal 8 karakter",
+            "passwordLength": "Tolong masukkan kata sandi",
+            "phone": "Tolong masukkan nomor telfon diantara 9 sampai 15 digit",
+            "confirmPassword": "Kata sandi tidak cocok"
         }
     },
     "forgotPassword":{
-        "navigationTitle": "Forgot Password",
+        "navigationTitle": "Lupa kata sandi",
         "formLabel":{
             "email": "Email",
-            "password": "Password"
+            "password": "Kata sandi"
         },
         "button":{
-            "submit": "Submit"
+            "submit": "Kirim"
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
-            "register": "Register",
-            "forgotPassword": "Forgot Password",
-            "resetPasswordSuccess": "Reset Password Success!",
-            "checkEmail": "Please check your email"
+            "register": "Daftar",
+            "forgotPassword": "Lupa Password",
+            "resetPasswordSuccess": "Ganti kata sandi berhasil!",
+            "checkEmail": "Tolong lihat email anda"
         },
         "validation":{
-            "emailFormat": "please input your email with a valid email format",
-            "emailLength": "please input your email"
+            "emailFormat": "Tolong masukkan email anda dengan format yang benar",
+            "emailLength": "Tolong masukkan email anda"
         }
     },
     "cart": {
@@ -100,15 +100,15 @@
     "checkout": {
         "navigationTitle": "Checkout",
         "label": {
-            "name": "Name",
-            "phone": "Phone Number",
-            "province": "Province",
-            "city": "City",
-            "zipCode": "Zip Code",
+            "name": "Nama",
+            "phone": "Nomor Telepon",
+            "province": "Provinsi",
+            "city": "Kota",
+            "zipCode": "Kode Pos",
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
-            "address": "Address",
-            "addressDetails": "Address Details (Optional)"
+            "address": "Alamat",
+            "addressDetails": "Alamat Lengkap (Opsi)"
         },
         "content": {
             "price": "IDR ",
@@ -122,15 +122,15 @@
             "checkout": "Checkout"
         },
         "validation":{
-            "fullName": "please input your name",
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "fullName": "Tolong masukkan nama anda",
+            "phone": "Tolong masukkan nomor telepon anda diantara 9 sampai 15 angka"
         }
     },
     "productList": {
-        "searchPlaceHolder": "Search product or categories...",
+        "searchPlaceHolder": "Cari produk atau kategori",
         "filter": {
-            "categories": "All Categories",
-            "price": "Filter By Price"
+            "categories": "Semua Kategori",
+            "price": "Filter Harga"
         },
         "symbol": {
             "minus": "-",
@@ -153,7 +153,7 @@
         "navigationTitle": "History",
         "content": {
             "price": "IDR ",
-            "reOrder": "Re-order"
+            "reOrder": "Pesa"
         }
     },
     "historyDetail": {
@@ -175,46 +175,46 @@
     },
     "profilePage": {
         "content": {
-            "phone": "Phone Number",
-            "address": "Address",
-            "password": "Password",
+            "phone": "Nomor Telepon",
+            "address": "Alamat",
+            "password": "Kata Sandi",
             "comma": ", ",
             "kecamatan": ", Kec. ",
             "kelurahan": ", Kel. ",
-            "resetPassword": "Reset Password"
+            "resetPassword": "Ganti kata sandi"
         },
         "button": {
-            "signOut": "Sign Out"
+            "signOut": "Keluar"
         }
     },
     "phonePage": {
-        "navigationTitle": "Phone Number",
+        "navigationTitle": "Nomor Telepon",
         "label": {
-            "phone": "Phone Number"
+            "phone": "Nomor Telepon"
         },
         "formLabel": {
-            "phone": "Phone Number"
+            "phone": "Nomor Telepon"
         },
         "button": {
-            "edit": "Edit",
-            "save": "Save"
+            "edit": "Ubah",
+            "save": "Simpan"
         },
         "validation":{
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "phone": "Tolong masukkan nomor telepon anda diantara 9 sampai 15 digit angka"
         }
     },
     "addressPage": {
-        "navigationTitle": "Address",
+        "navigationTitle": "Alamat",
         "label": {
-            "name": "Name",
-            "phone": "Phone Number",
-            "province": "Province",
-            "city": "City",
-            "zipCode": "Zip Code",
+            "name": "Nama",
+            "phone": "Nomor Telepon",
+            "province": "Provinsi",
+            "city": "Kota",
+            "zipCode": "Kode pos",
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
-            "address": "Address",
-            "addressDetails": "Address Details (Optional)"
+            "address": "Alamat",
+            "addressDetails": "Alamat Lengkap (Opsi)"
         },
         "button": {
             "edit": "Edit",
@@ -226,30 +226,30 @@
         }
     },
     "resetPasswordPage": {
-        "navigationTitle": "Reset Password",
+        "navigationTitle": "Ubah kata sandi",
         "formLabel":{
-            "oldPassword": "Old Password",
-            "newPassword": "New Password",
-            "confirmPassword": "Confirm Password"
+            "oldPassword": "Kata sandi lama",
+            "newPassword": "Kata sandi baru",
+            "confirmPassword": "Konfirmasi kata sandi"
         },
         "content": {
             "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
-            "changePassword": "Change Password"
+            "changePassword": "Ganti kata sandi"
         },
         "validation":{
-            "oldPassword": "Password Incorrect",
-            "password": "your password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "confirmPassword": "your password did not match"
+            "oldPassword": "Kata sandi salah",
+            "password": "Panjang kata sandi Anda minimal 8 karakter",
+            "passwordLength": "Tolong masukkan kata sandi Anda",
+            "confirmPassword": "Kata sandi anda tidak cocok"
         }
     },
     "favourites": {
-        "navigationTitle": "Favourites"
+        "navigationTitle": "Favorit"
     },
     "termsConditions": {
-        "navigationTitle": "Terms & Conditions",
+        "navigationTitle": "Syarat & Ketentuan",
         "content": {
             "title1": "Lorem 1",
             "content1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci! \n \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci!",
@@ -258,21 +258,21 @@
         }
     },
     "contactUs": {
-        "navigationTitle": "Contact Us",
+        "navigationTitle": "Hubungi Kami",
         "label": {
-            "message": "Message"
+            "message": "Pesan"
         },
         "content": {
             "subject": "Choose Subject",
-            "message": "Messages..."
+            "message": "Pesan..."
         },
         "button": {
-            "submit": "Submit"
+            "submit": "Kirim Pesan"
         }
     },
     "drawerPage": {
         "content": {
-            "logOut": "Log Out"
+            "logOut": "Keluar"
         }
     }
 }
