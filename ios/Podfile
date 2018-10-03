@@ -8,6 +8,8 @@ target 'Freshbox' do
   # Pods for Freshbox
   pod 'GoogleSignIn'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
 end
 
 post_install do |installer|
