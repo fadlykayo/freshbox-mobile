@@ -9,14 +9,6 @@ const styles = {
         flex: 2,
         alignItems: 'center',
     },
-    termsAndCondition:{
-        fontFamily: 'Avenir-Light',
-        fontSize: scaling.moderateScale(12),
-        color: colour.white,
-        textAlign: 'center',
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
-    }
 }
 
 export default styles;

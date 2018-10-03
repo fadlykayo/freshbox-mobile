@@ -7,7 +7,8 @@
             "google":"Continue with Google"
         },
         "content":{
-            "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+            "info": "By logging in you aggree to Freshbox",
+            "termsCondition": "Terms of Services and Privacy Policy"
         }
     },
     "signIn":{
@@ -63,8 +64,7 @@
     "forgotPassword":{
         "navigationTitle": "Forgot Password",
         "formLabel":{
-            "email": "Email",
-            "password": "Password"
+            "email": "Email"
         },
         "button":{
             "submit": "Submit"
@@ -127,7 +127,7 @@
         }
     },
     "productList": {
-        "searchPlaceHolder": "Search product or categories...",
+        "searchPlaceHolder": "Search product...",
         "filter": {
             "categories": "All Categories",
             "price": "Filter By Price"
@@ -273,6 +273,13 @@
     "drawerPage": {
         "content": {
             "logOut": "Log Out"
+        },
+        "pages": {
+            "dashboard": "Dashboard",
+            "favorite": "Favorite",
+            "history": "History",
+            "termsConditions": "Terms & Conditions",
+            "contactUs": "Contact Us"
         }
     }
 }

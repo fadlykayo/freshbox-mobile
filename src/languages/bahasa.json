@@ -1,41 +1,42 @@
 {
     "welcome":{
         "button":{
-            "getStarted":"Get Started",
-            "facebook":"Continue with Facebook",
-            "email":"Continue with Email",
-            "google":"Continue with Google"
+            "getStarted":"Mulai",
+            "facebook":"Masuk dengan Facebook",
+            "email":"Masuk dengan Email",
+            "google":"Masuk dengan Google"
         },
         "content":{
-            "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+            "info": "Dengan masuk ke dalam Freshbox, Anda telah menyetujui",
+            "termsCondition": "Syarat dan Ketentuan"
         }
     },
     "signIn":{
         "navigationTitle": "Masuk",
         "formLabel":{
             "email": "Email",
-            "password": "Kata sandi"
+            "password": "Kata Sandi"
         },
         "validation":{
-            "emailFormat": "please input a valid email format",
-            "emailLength": "please input your email",
-            "password": "password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "login": "invalid email or password, please try again"
+            "emailFormat": "Tolong masukkan email dengan format yang valid",
+            "emailLength": "Tolong masukkan email",
+            "password": "Tolong masukkan kata sandi",
+            "passwordLength": "Kata sandi minimal 8 karakter",
+            "login": "Email atau kata sandi tidak valid"
         },
         "button":{
             "signIn": "Masuk"
         },
         "content":{
-            "newToFreshbox": "New to Freshbox? ",
+            "newToFreshbox": "Baru di FreshBox? ",
             "register": "Daftar",
-            "forgotPassword": "Lupa kata sandi"
+            "forgotPassword": "Lupa Kata Sandi?"
         }
     },
     "register":{
         "navigationTitle": "Daftar",
         "formLabel":{
-            "fullName": "Nama Lengkap",
+            "fullName": "Nama",
             "phone": "Nomor Telepon",
             "email": "Email",
             "password": "Kata Sandi",
@@ -45,7 +46,7 @@
             "register": "Daftar"
         },
         "content":{
-            "haveAnAccount": "Sudah punya akun, ",
+            "haveAnAccount": "Punya Akun, ",
             "signIn": "Masuk",
             "success": "Berhasil!",
             "email": "Daftar berhasil! Tolong lihat email anda untuk aktivasi akun!"
@@ -61,10 +62,9 @@
         }
     },
     "forgotPassword":{
-        "navigationTitle": "Lupa kata sandi",
+        "navigationTitle": "Lupa Kata Sandi",
         "formLabel":{
-            "email": "Email",
-            "password": "Kata sandi"
+            "email": "Email"
         },
         "button":{
             "submit": "Kirim"
@@ -127,7 +127,7 @@
         }
     },
     "productList": {
-        "searchPlaceHolder": "Cari produk atau kategori",
+        "searchPlaceHolder": "Cari produk...",
         "filter": {
             "categories": "Semua Kategori",
             "price": "Filter Harga"
@@ -142,7 +142,7 @@
         "content": {
             "subTotal": "Sub Total",
             "pack": "/1 ",
-            "addItem": "+ Add",
+            "addItem": "+ Tambah",
             "items": " Items | IDR ",
             "item": " Item | IDR ",
             "categories": "Categories",
@@ -273,6 +273,13 @@
     "drawerPage": {
         "content": {
             "logOut": "Keluar"
+        },
+        "pages": {
+            "dashboard": "Beranda",
+            "favorite": "Favorit",
+            "history": "Histori",
+            "termsConditions": "Syarat & Ketentuan",
+            "contactUs": "Bantuan"
         }
     }
 }

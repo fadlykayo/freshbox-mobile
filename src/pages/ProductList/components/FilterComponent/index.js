@@ -27,19 +27,8 @@ class SearchComponent extends Component {
 
 	render(){
 		return (
-    		<View style={styles.container}>
-  	  			<View style={styles.partContainer}>
-          		<TouchableOpacity
-          		  	style={styles.eachContainer}
-          		  	onPress = { () => this.props.openAllCategories() }
-          		>
-            		<Text style={styles.categoryText}>{this.props.onCategory}</Text>
-            		<Image
-  	  	    		  	resizeMode={'contain'} 
-  	  	    		  	source={images.icon_view_categories}
-  	  	    		  	style={styles.icon}
-  	  				/>
-          		</TouchableOpacity>
+    	<View style={styles.container}>
+  	  		<View style={styles.partContainer}>
           		<TouchableOpacity
           		  style={styles.eachContainer}
           		>
@@ -50,6 +39,17 @@ class SearchComponent extends Component {
             		<Image
   	  	    		  	resizeMode={'contain'} 
   	  	    		  	source={images.icon_dropdown}
+  	  	    		  	style={styles.icon}
+  	  				/>
+          		</TouchableOpacity>
+					<TouchableOpacity
+          			  	style={styles.eachContainer}
+          			  	onPress = { () => this.props.openAllCategories() }
+          			>
+            		<Text style={styles.categoryText}>{this.props.onCategory}</Text>
+            		<Image
+  	  	    		  	resizeMode={'contain'} 
+  	  	    		  	source={images.icon_view_categories}
   	  	    		  	style={styles.icon}
   	  				/>
           		</TouchableOpacity>

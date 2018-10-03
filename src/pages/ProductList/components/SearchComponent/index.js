@@ -30,7 +30,7 @@ class SearchComponent extends Component {
 		this.renderPlaceholder(this.props.title,this.props.language,this.props.params);
 	}
 
-	renderPlaceholder(property = 'no_props',lang = 'english',params = {}){
+	renderPlaceholder(property = 'no_props',lang = 'bahasa',params = {}){
 		language.transformText(property,lang,params)
 		.then((res) => {
 				this.setState({placeholder: res});

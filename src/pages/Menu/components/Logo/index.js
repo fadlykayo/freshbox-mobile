@@ -13,7 +13,7 @@ class Logo extends PureComponent {
             <View style={styles.container}>
                 <Image
                     resizeMode={'contain'} 
-                    source={images.icon_logo}
+                    source={images.icon_logo_red}
                     style={styles.logo}
                 />
             </View>

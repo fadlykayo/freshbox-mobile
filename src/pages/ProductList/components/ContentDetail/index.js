@@ -12,8 +12,8 @@ class ContentDetail extends PureComponent {
 	render() {
 		return (
 			<View style={styles.contentContainer}>
-				<Text style={styles.fontTitle}>{this.props.data.title}</Text>
-				<Text style={styles.fontCategory}>{this.props.data.category}</Text>
+				<Text style={styles.fontTitle}>{this.props.data.name}</Text>
+				<Text style={styles.fontCategory}>{this.props.data.category.name}</Text>
 				<Text style={styles.fontPrice}>
 					<StaticText 
 						style={styles.fontPrice}

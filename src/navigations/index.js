@@ -14,6 +14,7 @@ import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
+import HomeResetNewPasswordPage from '@pages/HomeResetNewPasswordPage';
 import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
@@ -48,9 +49,10 @@ export const AppNavigator = createStackNavigator({
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
+    HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
     ResetNewPasswordPage: {screen: ResetNewPasswordPage}
 },{
-    initialRouteName  : 'SplashScreen',
+    initialRouteName  : 'Product',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -97,6 +99,7 @@ export const navConstant = {
     TermsConditions: 'TermsConditions',
     ContactUs: 'ContactUs',
     Checkout: 'Checkout',
+    HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',
     ResetNewPasswordPage: 'ResetNewPasswordPage',
 }
 

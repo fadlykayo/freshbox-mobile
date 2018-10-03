@@ -13,6 +13,7 @@ images.icon_hide_password = require('./icon_hide_password.png');
 images.icon_show_password = require('./icon_show_password.png');
 images.icon_google = require('./icon_google.png');
 images.icon_logo = require('./icon_logo.png');
+images.icon_logo_red = require('./icon_logo_red.png');
 images.icon_mail = require('./icon_mail.png');
 images.icon_menu = require('./icon_menu.png');
 images.icon_search = require('./icon_search.png');

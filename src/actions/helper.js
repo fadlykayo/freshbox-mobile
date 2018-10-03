@@ -22,8 +22,9 @@ helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + payload.header.apiToken,
                 'X-Player': payload.header.onesignalToken,
-            }
-    })
+            },
+            params: payload.params
+        })
     .then(response => {
         console.log('http response',response);
         dispatch(actNetwork.set_loading_status(false));

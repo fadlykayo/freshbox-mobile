@@ -137,6 +137,7 @@ class ResetPasswordPage extends Component {
     }
 
   	render() {
+		console.log(this.props.navigation.state.params);
   	  	return (
 			<Container>
 				<NavigationBar

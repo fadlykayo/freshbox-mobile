@@ -121,7 +121,7 @@ class SignIn extends Component {
 
         this.props.sign_in_user(payload,
             (success) => {
-                actNav.navigate(navConstant.Product)
+                actNav.reset(navConstant.Product)
             },
             (err) => {
                 let state = this.state;

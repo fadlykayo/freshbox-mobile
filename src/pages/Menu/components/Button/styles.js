@@ -50,13 +50,13 @@ const styles = {
     content: (type) => {
         if(type == 'google'){
             return({
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.darkGrey,
             })
         } else {
             return({
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.white,
             })

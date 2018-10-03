@@ -17,94 +17,95 @@ class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			data: [{
-				id: 1,
-				image: images.icon_sayur_segar,
-				title: "Wortel",
-				category: "Sayur Segar",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 2,
-				image: images.icon_sayur_segar,
-				title: "Apel",
-				category: "Buah",
-				price: 19000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 3,
-				image: images.icon_sayur_segar,
-				title: "Belimbing",
-				category: "Buah",
-				price: 20000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}
-			,{
-				id: 4,
-				image: images.icon_sayur_segar,
-				title: "Mangga",
-				category: "Buah",
-				price: 15000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 5,
-				image: images.icon_sayur_segar,
-				title: "Sawi",
-				category: "Sayur Segar",
-				price: 14000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 6,
-				image: images.icon_sayur_segar,
-				title: "Belimbing",
-				category: "Buah",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}
-			,{
-				id: 7,
-				image: images.icon_sayur_segar,
-				title: "Duren",
-				category: "buah",
-				price: 25000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 8,
-				image: images.icon_sayur_segar,
-				title: "sawi",
-				category: "sayur segar",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}],
+			data: [],
+			// [{
+			// 	id: 1,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Wortel",
+			// 	category: "Sayur Segar",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 2,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Apel",
+			// 	category: "Buah",
+			// 	price: 19000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 3,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Belimbing",
+			// 	category: "Buah",
+			// 	price: 20000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }
+			// ,{
+			// 	id: 4,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Mangga",
+			// 	category: "Buah",
+			// 	price: 15000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 5,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Sawi",
+			// 	category: "Sayur Segar",
+			// 	price: 14000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 6,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Belimbing",
+			// 	category: "Buah",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }
+			// ,{
+			// 	id: 7,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Duren",
+			// 	category: "buah",
+			// 	price: 25000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 8,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "sawi",
+			// 	category: "sayur segar",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }],
 			categories: [
 			{	
 				id: 1,
@@ -173,12 +174,16 @@ class ProductList extends Component {
 		this.changeCategory = this.changeCategory.bind(this);
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);
 		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
+		this.handleLoadMore = this.handleLoadMore.bind(this);
 	}
 
 	componentDidMount() {
 		let payload = {
 			header: {},
-			body: {}
+			body: {},
+			params: {
+				page: this.props.current_page,
+			}
 		}
 		this.props.get_products(payload, null,
 			(err) => {
@@ -186,6 +191,22 @@ class ProductList extends Component {
 			});
 		this.countTotalPrice();
 		this.checkCategory();
+	}
+
+	handleLoadMore() {
+		if( this.props.current_page <= this.props.last_page ) {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					page: this.props.current_page,
+				}
+			}
+			this.props.get_products(payload, null,
+				(err) => {
+					console.log(err)
+				});
+		}
 	}
 
 	checkCategory() {
@@ -216,7 +237,7 @@ class ProductList extends Component {
  	}
 
 	openDetailProduct(index){
-		let data = this.state.data;
+		let data = this.props.product;
 		let detail = data[index];
 		this.onChangeText('indexProduct', index)
 		this.onChangeText('detailDataProduct', detail)
@@ -238,36 +259,13 @@ class ProductList extends Component {
 	}
 	
 	toggleFavorite(index){
-		let data = this.state.data.slice();
-		data[index].favorite = !data[index].favorite;
-		this.setState({data});
-	}
-
-	countTotalPrice(payload){
-		let data = payload ? payload : this.state.data;
-		let state = this.state;
-		let total = 0;
-		let count = 0;
-		for(i=0; i<data.length; i++){
-			total = total + (data[i].price * data[i].count);
-			count = count + data[i].count;
-		}
-		state.totalCount = count;
-		state.totalPrice = total;
-		state.data = data;
-		this.setState(state);
+		this.props.toggle_favorite(index)
 	}
 
 	changeTotalItem(index,type){
-		let data = this.state.data.slice();
-		if (type == "inc") {
-			data[index].count += 1;
-		}
-		else {
-			data[index].count -= 1;
-		}
-		this.countTotalPrice(data);
+		this.props.change_total(index, type);
 	}
+
 
 	onChangeText(type, value){
         let user = this.state;
@@ -319,12 +317,13 @@ class ProductList extends Component {
 									changeTotalItem={this.changeTotalItem}
 								/>
 							)}
-							on
+							onEndReached={this.handleLoadMore}
+							onEndReachedThreshold={0.5}
 						/>
 
 						<Checkout
-							totalCount = { this.state.totalCount }
-							totalPrice = { this.state.totalPrice }
+							totalCount = { this.props.total_count }
+							totalPrice = { this.props.total_price }
 						/>
 					</View>
 				</View>
@@ -332,6 +331,7 @@ class ProductList extends Component {
 				<DetailProduct
 					indexProduct={this.state.indexProduct}
 					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
 					detailDataProduct={this.state.detailDataProduct}
 				    modalVisible={this.state.modalVisible.openProduct}
 					closeDetailProduct={this.closeDetailProduct}
@@ -342,6 +342,7 @@ class ProductList extends Component {
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
 		  		/>
+				
 			</Container>
 		);
 	}
@@ -349,16 +350,19 @@ class ProductList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.product.loadingProducts,
+		current_page: state.product.current_page,
 		product: state.product.products,
-		error: state.product.errorProducts,
+		last_page: state.product.last_page,
+		total_price: state.product.total_price,
+		total_count: state.product.total_count,
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// forgot_password: (req, success, failure) => dispatch(actions.auth.api.forgot_password(req, success, failure))
-		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure))
+		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
+		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index))
 	}
 }
 
