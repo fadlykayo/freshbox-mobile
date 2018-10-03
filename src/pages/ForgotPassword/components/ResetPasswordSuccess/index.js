@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Image, TouchableWithoutFeedback, Text } from 'react-native';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
@@ -27,10 +27,7 @@ class ResetPasswordSuccess extends PureComponent {
 									style={styles.title}
 									property={'forgotPassword.content.resetPasswordSuccess'}
 								/>
-								<StaticText
-									style={styles.content}
-									property={'forgotPassword.content.checkEmail'}
-								/>
+								<Text style={styles.content}>{this.props.messageResetPassword}</Text>
 							</View>
 						</View>
 					</View>

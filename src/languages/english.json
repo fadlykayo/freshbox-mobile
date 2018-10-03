@@ -7,7 +7,8 @@
             "google":"Continue with Google"
         },
         "content":{
-            "termsCondition": "By logging in you aggree to Freshbox Terms of Services and Privacy Policy"
+            "info": "By logging in you aggree to Freshbox",
+            "termsCondition": "Terms of Services and Privacy Policy"
         }
     },
     "signIn":{
@@ -46,7 +47,9 @@
         },
         "content":{
             "haveAnAccount": "Have an Account, ",
-            "signIn": "Sign In"
+            "signIn": "Sign In",
+            "success": "Success!",
+            "email": "Registration success! Please check your email to activate the account!"
         },
         "validation":{
             "fullName": "please input your name",
@@ -61,8 +64,7 @@
     "forgotPassword":{
         "navigationTitle": "Forgot Password",
         "formLabel":{
-            "email": "Email",
-            "password": "Password"
+            "email": "Email"
         },
         "button":{
             "submit": "Submit"
@@ -125,7 +127,7 @@
         }
     },
     "productList": {
-        "searchPlaceHolder": "Search product or categories...",
+        "searchPlaceHolder": "Search product...",
         "filter": {
             "categories": "All Categories",
             "price": "Filter By Price"
@@ -139,12 +141,12 @@
         },
         "content": {
             "subTotal": "Sub Total",
-            "pack": "/1 pack",
+            "pack": "/1 ",
             "addItem": "+ Add",
             "items": " Items | IDR ",
             "item": " Item | IDR ",
-            "categories": "Categories"
-
+            "categories": "Categories",
+            "price": "IDR "
         }
     },
     "historyPage": {
@@ -257,6 +259,9 @@
     },
     "contactUs": {
         "navigationTitle": "Contact Us",
+        "label": {
+            "message": "Message"
+        },
         "content": {
             "subject": "Choose Subject",
             "message": "Messages..."
@@ -268,6 +273,13 @@
     "drawerPage": {
         "content": {
             "logOut": "Log Out"
+        },
+        "pages": {
+            "dashboard": "Dashboard",
+            "favorite": "Favorite",
+            "history": "History",
+            "termsConditions": "Terms & Conditions",
+            "contactUs": "Contact Us"
         }
     }
 }

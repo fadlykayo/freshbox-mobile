@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
@@ -8,7 +8,10 @@ import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import SignIn from './components/SignIn';
+import RegisterSuccess from './components/RegisterSuccess';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class Register extends Component {
     constructor(){
@@ -29,7 +32,11 @@ class Register extends Component {
                 password: true,
                 passwordLength: true,
                 confirmPassword: true,
-            }
+            },
+            modalVisible:{
+                registerSuccess: false,
+            },
+            message: '',
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitFullName = this.submitFullName.bind(this);
@@ -39,12 +46,25 @@ class Register extends Component {
         this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
+        this.setModalVisible = this.setModalVisible.bind(this);
+        this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
+    }
+
+    setModalVisible(type,value){
+        let modalVisible = this.state.modalVisible;
+        modalVisible[type] = value;
+        this.setState({modalVisible});
+    }
+
+    closeDialogRegisterSuccess(){
+        Keyboard.dismiss();
+        actNav.navigate(navConstant.Menu);
     }
 
     onChangeText(type,value){
         let user = this.state.user;
         user[type] = value;
-        this.setState({user});
+        this.setState({user})
     }
 
     setValidation(type,value){
@@ -153,10 +173,30 @@ class Register extends Component {
     }
 
     registerHandler(){
-        alert('Register')
+        let payload = {
+            header: {},
+            body: {
+                name: this.state.user.fullName,
+                email: this.state.user.email,
+                phone_number: this.state.user.phone,
+                password: this.state.user.password,
+                password_confirmation: this.state.user.confirmPassword
+            }
+        }
+
+        this.props.register_user(payload,
+            (res) => {
+                this.setModalVisible('registerSuccess', true)
+                this.setState({message: res.code_message})
+
+            },
+            (err)=> {
+                console.log(err);
+            })
     }
 
     render(){
+
         return(
             <Container>
                 <NavigationBar 
@@ -176,6 +216,7 @@ class Register extends Component {
                         placeholder={'register.formLabel.fullName'}
                         onSubmitEditing={this.submitFullName}
                     />
+                    <Text>{JSON.stringify(this.props.user)}</Text>
                     <VerificationText
                         validation={this.state.validateStatus.fullName}
                         property={'register.validation.fullName'}
@@ -190,6 +231,7 @@ class Register extends Component {
                         placeholder={'register.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
                     />
+                    
                     <VerificationText
                         validation={this.state.validateStatus.emailFormat}
                         property={'register.validation.emailFormat'}
@@ -256,9 +298,23 @@ class Register extends Component {
                         onPress={actNav.goBack}
                     />
                 </ScrollView>
+                <RegisterSuccess
+                    modalVisible={this.state.modalVisible.registerSuccess}
+                    closeDialogRegisterSuccess={this.closeDialogRegisterSuccess}
+                    message={this.state.message}
+                />
             </Container>
         )
     }
 }
 
-export default Register;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        register_user: (req,res,err) => dispatch(actions.registration.api.register_user(req,res,err))
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps)(Register);

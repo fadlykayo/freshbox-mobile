@@ -29,10 +29,6 @@ class Content extends PureComponent {
                     type={'google'}
                     onPress={this.props.googleHandler}
                 />
-                <StaticText 
-                    style={styles.termsAndCondition}
-                    property={'welcome.content.termsCondition'}
-                />
             </View>
         )
     }

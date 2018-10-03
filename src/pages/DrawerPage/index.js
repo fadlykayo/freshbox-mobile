@@ -19,38 +19,38 @@ class DrawerPage extends Component {
 			},
 			pages: [
 				{
-					name: 'Dashboard',
+					name: 'drawerPage.pages.dashboard',
 					selected: true,
 				},
 				{
-					name: 'Favourites',
+					name: 'drawerPage.pages.favorite',
 					selected: false,
 				},
 				{
-					name: 'History',
+					name: 'drawerPage.pages.history',
 					selected: false,
 				},
 				{
-					name: 'Terms & Conditions',
+					name: 'drawerPage.pages.termsConditions',
 					selected: false,
 				},
 				{
-					name: 'Contact Us',
+					name: 'drawerPage.pages.contactUs',
 					selected: false,
 				}
 			],
 		}
 		this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
-		this.navigateToMenuPage = this.navigateToMenuPage.bind(this);
+		this.navigateLogOut = this.navigateLogOut.bind(this);
   	}
 
   	navigateToOtherPage(payload) {
 		switch (payload.name) {
-			case 'Favourites': return actNav.navigate(navConstant.Favourites);
-			case 'History': return actNav.navigate(navConstant.HistoryPage)
-			case 'Terms & Conditions': return actNav.navigate(navConstant.TermsConditions)
-			case 'Contact Us': return actNav.navigate(navConstant.ContactUs)
+			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
+			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage)
+			case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
+			case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
 			default: return actNav.navigate(navConstant.ProductList)
 		}
 	}
@@ -59,8 +59,8 @@ class DrawerPage extends Component {
 		actNav.navigate(navConstant.ProfilePage)
 	}
 
-	navigateToMenuPage() {
-		actNav.navigate(navConstant.Menu)
+	navigateLogOut() {
+		actNav.reset(navConstant.Menu)
 	}
 
   	render () {
@@ -79,7 +79,11 @@ class DrawerPage extends Component {
 									onPress={ () => this.props.navigation.closeDrawer()}
 									style={styles.selectedPage} key={index}
 								>
-									<Text style={styles.selectedText}>{page.name}</Text>
+									<StaticText
+										style={styles.selectedText}
+										property={page.name}
+									/>
+									{/* <Text style={styles.selectedText}>{page.name}</Text> */}
 								</TouchableOpacity>
 							)
 						}
@@ -89,14 +93,18 @@ class DrawerPage extends Component {
 									onPress={ () => this.navigateToOtherPage(page)}
 									style={styles.unselectedPage} key={index}
 								>
-									<Text style={styles.unselectedText}>{page.name}</Text>
+									<StaticText
+										style={styles.unselectedText}
+										property={page.name}
+									/>
+									{/* <Text style={styles.unselectedText}>{page.name}</Text> */}
 								</TouchableOpacity>
 							)
 						}
 					}) }
   	      		</View>
 				<TouchableOpacity 
-					onPress={() => this.navigateToMenuPage()}
+					onPress={() => this.navigateLogOut()}
 					style={styles.bottomComponent}
 				>
 					<StaticText

@@ -16,7 +16,7 @@ const styles = {
 	partContainer: {
     	flex:1,
     	flexDirection: 'row',
-    	alignItems: 'center',
+
   	},
   	eachContainer: {
     	flex: 1,

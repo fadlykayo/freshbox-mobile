@@ -14,7 +14,7 @@ const styles = {
 		flex: 1,
 		paddingTop: width * 0.02,
 		paddingLeft: width * 0.05,
-		paddingRight: width * 0.05,
+		paddingBottom: height * 0.08,
 	},
 }
 

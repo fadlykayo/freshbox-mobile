@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
@@ -10,6 +10,8 @@ import Button from './components/Button';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class SignIn extends Component {
     constructor(){
@@ -25,7 +27,9 @@ class SignIn extends Component {
                 password: true,
                 passwordLength: true,
                 login: true,
-            }
+            },
+            isWrong: false,
+            messageWrong: '',
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
@@ -107,14 +111,47 @@ class SignIn extends Component {
     }
 
     signInHandler(){
-        alert('SignIn')
+        let payload = {
+            header: {},
+            body: {
+                email: this.state.user.email,
+                password: this.state.user.password
+            }
+        }
+
+        this.props.sign_in_user(payload,
+            (success) => {
+                actNav.reset(navConstant.Product)
+            },
+            (err) => {
+                let state = this.state;
+                state.isWrong = true;
+                state.messageWrong = err.code_message;
+                this.setState({state})
+            })
     }
 
     navigateToRegister(){
+        let state = this.state;
+        state.user = {
+            email: '',
+            password: ''
+        },
+        state.isWrong= false,
+        state.messageWrong= '',
+        this.setState({state});
         actNav.navigate(navConstant.Register);
     }
 
     navigateToForgotPassword(){
+        let state = this.state;
+        state.user = {
+            email: '',
+            password: ''
+        },
+        state.isWrong= false,
+        state.messageWrong= '',
+        this.setState({state});
         actNav.navigate(navConstant.ForgotPassword);
     }
 
@@ -152,6 +189,8 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.login}
                         property={'signIn.validation.login'}
                     />
+                    { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : (null) }
+
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
@@ -192,4 +231,12 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+const mapDispatchToProps = dispatch => {
+    return {
+        sign_in_user : (req, success, failure) => dispatch(actions.auth.api.signin_user(req, success, failure))
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps )(SignIn);

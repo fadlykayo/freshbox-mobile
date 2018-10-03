@@ -25,11 +25,12 @@ const styles = {
         backgroundColor: colour.white,
         paddingLeft: width* 0.05,
         paddingRight: width* 0.05,
+        paddingBottom: width * 0.05,
     },
     topComponent: {
         flex: -1,
         justifyContent: 'space-between',
-        height: height * 0.11,
+        height: height * 0.08,
     },
     scrollDownButton: {
         alignItems: 'center',
@@ -85,7 +86,7 @@ const styles = {
     },
     addNewItem: {
 		height: scaling.moderateScale(30),
-		width: scaling.moderateScale(70),
+		width: scaling.moderateScale(80),
 		borderWidth: 1,
 		borderRadius: 100,
 		borderColor: colour.white,
@@ -98,7 +99,7 @@ const styles = {
 	touchableItem: {
 		flexDirection: 'row',
 		height: scaling.moderateScale(30),
-		width: scaling.moderateScale(70),
+		width: scaling.moderateScale(80),
 		borderWidth: 1,
 		borderRadius: 100,
 		borderColor: colour.lightGrey,
