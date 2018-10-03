@@ -1,10 +1,11 @@
 import React,{ PureComponent } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Text } from 'react-native';
 import { GoogleSignin } from 'react-native-google-signin';
 import { actNav, navConstant } from '@navigations';
 import { socmed } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
+import StaticText from '@components/StaticText';
 import images from '@assets';
 import styles from './styles';
 
@@ -72,6 +73,16 @@ class Menu extends PureComponent {
                         emailHandler={this.navigateToSignIn}
                         googleHandler={this.googleHandler}
                     />
+
+                    <View style={styles.termsAndConditionPlace}>
+                        <Text style={styles.termsAndCondition}>
+                            <StaticText 
+                                property={'welcome.content.info'}
+                            /> <StaticText 
+                            style={styles.underline}
+                            property={'welcome.content.termsCondition'}
+                        /></Text>
+                    </View>
                 </ImageBackground>
             </View>
         )

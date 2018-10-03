@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView, Keyboard } from 'react-native';
+import { ScrollView, Keyboard, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
@@ -10,6 +10,8 @@ import Button from './components/Button';
 import styles from './styles';
 import Logo from './components/Logo';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class ForgotPassword extends Component {
     constructor(){
@@ -17,8 +19,6 @@ class ForgotPassword extends Component {
         this.state={
             user:{
                 email: '',
-                autoFocus: true,
-
             }, 
             validateStatus:{
                 emailFormat: true,
@@ -26,7 +26,10 @@ class ForgotPassword extends Component {
             },
             modalVisible:{
                 resetPasswordSuccess: false,
-            }
+            },
+            messageResetPassword: '',
+            isWrong: false,
+            messageWrong: '',
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.setModalVisible = this.setModalVisible.bind(this);
@@ -90,7 +93,29 @@ class ForgotPassword extends Component {
     }
 
     forgotPasswordHandler(){
-        this.setModalVisible('resetPasswordSuccess',true);
+        let payload = {
+            header: {},
+            body: {
+                email: this.state.user.email
+            }
+        }
+
+        this.props.forgot_password(payload,
+            (success) => {
+                this.setModalVisible('resetPasswordSuccess',true);
+                let state = this.state;
+                state.messageResetPassword = success.code_message;
+                state.isWrong= false,
+                state.messageWrong= '',
+                this.setState({state});
+            },
+            (err) => {
+                let state = this.state;
+                state.isWrong = true;
+                state.messageWrong = err.code_message;
+                this.setState({state})
+            })
+        
     }
 
     closeDialogResetPasswordSuccess(){
@@ -113,7 +138,7 @@ class ForgotPassword extends Component {
                     <FormInput 
                         ref={c => {this.formEmail = c}}
                         type={'email'}
-                        autoFocus={this.state.user.autoFocus}
+                        autoFocus={true}
                         keyboardType={'email-address'}
                         value={this.state.user.email}
                         onChangeText={(type,value) => this.onChangeText(type,value)}
@@ -129,12 +154,14 @@ class ForgotPassword extends Component {
                         validation={this.state.validateStatus.emailFormat}
                         property={'forgotPassword.validation.emailFormat'}
                     />
+                    { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : (null) }
                     <Button 
                         title={'forgotPassword.button.submit'}
                         onPress={this.forgotPasswordValidation}
                     />
                 </ScrollView>
                 <ResetPasswordSuccess
+                    messageResetPassword = {this.state.messageResetPassword}
                     modalVisible={this.state.modalVisible.resetPasswordSuccess}
                     closeDialogResetPasswordSuccess={this.closeDialogResetPasswordSuccess}
                 />
@@ -143,4 +170,12 @@ class ForgotPassword extends Component {
     }
 }
 
-export default ForgotPassword;
+const mapDispatchToProps = dispatch => {
+    return {
+        forgot_password: (req, success, failure) => dispatch(actions.auth.api.forgot_password(req, success, failure))
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps)(ForgotPassword);

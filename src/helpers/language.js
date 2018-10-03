@@ -2,7 +2,7 @@ import lang from '@languages';
 
 const helper = {};
 
-helper.transformText = (property = 'no_props',language = 'english',params = {}) => new Promise((resolve) => {
+helper.transformText = (property = 'no_props',language = 'bahasa',params = {}) => new Promise((resolve) => {
     let propertyArray = property.trim().split('.');
     if(lang.translations[language]){
         let langObj = lang.translations[language];

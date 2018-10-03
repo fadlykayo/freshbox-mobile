@@ -15,7 +15,7 @@ class StaticText extends PureComponent {
         this.renderText(this.props.property,this.props.language,this.props.params);
     }
 
-    renderText(property = 'no_props',lang = 'english',params = {}){
+    renderText(property = 'no_props',lang = 'bahasa',params = {}){
         language.transformText(property,lang,params)
         .then((res) => {
             this.setState({outputText: res});

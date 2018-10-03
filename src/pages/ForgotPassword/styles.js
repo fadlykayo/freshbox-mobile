@@ -1,4 +1,6 @@
 import { Dimensions } from 'react-native';
+import { scaling } from '@helpers';
+import { colour } from '@styles';
 
 const { width } = Dimensions.get('window');
 
@@ -11,6 +13,11 @@ const styles = {
     content:{
         flex: 1,
     },
+    messageWrong: {
+        color: colour.red,
+        fontSize: scaling.moderateScale(14),
+        marginBottom: scaling.moderateScale(5),
+    }
 }
 
 export default styles;

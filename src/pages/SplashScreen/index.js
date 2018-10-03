@@ -11,7 +11,7 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            actNav.navigate(navConstant.Menu);
+            actNav.reset(navConstant.Menu);
         },1000);
     }
 

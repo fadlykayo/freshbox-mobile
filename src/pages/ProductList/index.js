@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
+import { View, FlatList, Text, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -10,100 +10,102 @@ import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
 import images from '@assets';
-
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			data: [{
-				id: 1,
-				image: images.icon_sayur_segar,
-				title: "Wortel",
-				category: "Sayur Segar",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 2,
-				image: images.icon_sayur_segar,
-				title: "Apel",
-				category: "Buah",
-				price: 19000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 3,
-				image: images.icon_sayur_segar,
-				title: "Belimbing",
-				category: "Buah",
-				price: 20000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}
-			,{
-				id: 4,
-				image: images.icon_sayur_segar,
-				title: "Mangga",
-				category: "Buah",
-				price: 15000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 5,
-				image: images.icon_sayur_segar,
-				title: "Sawi",
-				category: "Sayur Segar",
-				price: 14000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 6,
-				image: images.icon_sayur_segar,
-				title: "Belimbing",
-				category: "Buah",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}
-			,{
-				id: 7,
-				image: images.icon_sayur_segar,
-				title: "Duren",
-				category: "buah",
-				price: 25000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			},
-			{
-				id: 8,
-				image: images.icon_sayur_segar,
-				title: "sawi",
-				category: "sayur segar",
-				price: 21000,
-				favorite: false,
-				count: 0,
-				stock: 5,
-				description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			}],
+			data: [],
+			// [{
+			// 	id: 1,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Wortel",
+			// 	category: "Sayur Segar",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 2,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Apel",
+			// 	category: "Buah",
+			// 	price: 19000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 3,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Belimbing",
+			// 	category: "Buah",
+			// 	price: 20000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }
+			// ,{
+			// 	id: 4,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Mangga",
+			// 	category: "Buah",
+			// 	price: 15000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 5,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Sawi",
+			// 	category: "Sayur Segar",
+			// 	price: 14000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 6,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Belimbing",
+			// 	category: "Buah",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }
+			// ,{
+			// 	id: 7,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "Duren",
+			// 	category: "buah",
+			// 	price: 25000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// },
+			// {
+			// 	id: 8,
+			// 	image: images.icon_sayur_segar,
+			// 	title: "sawi",
+			// 	category: "sayur segar",
+			// 	price: 21000,
+			// 	favorite: false,
+			// 	count: 0,
+			// 	stock: 5,
+			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
+			// }],
 			categories: [
 			{	
 				id: 1,
@@ -172,11 +174,39 @@ class ProductList extends Component {
 		this.changeCategory = this.changeCategory.bind(this);
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);
 		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
+		this.handleLoadMore = this.handleLoadMore.bind(this);
 	}
 
 	componentDidMount() {
+		let payload = {
+			header: {},
+			body: {},
+			params: {
+				page: this.props.current_page,
+			}
+		}
+		this.props.get_products(payload, null,
+			(err) => {
+				console.log(err)
+			});
 		this.countTotalPrice();
 		this.checkCategory();
+	}
+
+	handleLoadMore() {
+		if( this.props.current_page <= this.props.last_page ) {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					page: this.props.current_page,
+				}
+			}
+			this.props.get_products(payload, null,
+				(err) => {
+					console.log(err)
+				});
+		}
 	}
 
 	checkCategory() {
@@ -207,7 +237,7 @@ class ProductList extends Component {
  	}
 
 	openDetailProduct(index){
-		let data = this.state.data;
+		let data = this.props.product;
 		let detail = data[index];
 		this.onChangeText('indexProduct', index)
 		this.onChangeText('detailDataProduct', detail)
@@ -229,36 +259,13 @@ class ProductList extends Component {
 	}
 	
 	toggleFavorite(index){
-		let data = this.state.data.slice();
-		data[index].favorite = !data[index].favorite;
-		this.setState({data});
-	}
-
-	countTotalPrice(payload){
-		let data = payload ? payload : this.state.data;
-		let state = this.state;
-		let total = 0;
-		let count = 0;
-		for(i=0; i<data.length; i++){
-			total = total + (data[i].price * data[i].count);
-			count = count + data[i].count;
-		}
-		state.totalCount = count;
-		state.totalPrice = total;
-		state.data = data;
-		this.setState(state);
+		this.props.toggle_favorite(index)
 	}
 
 	changeTotalItem(index,type){
-		let data = this.state.data.slice();
-		if (type == "inc") {
-			data[index].count += 1;
-		}
-		else {
-			data[index].count -= 1;
-		}
-		this.countTotalPrice(data);
+		this.props.change_total(index, type);
 	}
+
 
 	onChangeText(type, value){
         let user = this.state;
@@ -280,60 +287,86 @@ class ProductList extends Component {
 
 	render(){
 		return (
-		<Container>
-      		<SearchComponent
-				openDrawerMenu={this.openDrawerMenu}
-				closeDrawerMenu={this.closeDrawerMenu}
-				type={'searchItem'}
-				title={'productList.searchPlaceHolder'}
-				onChangeText={(type,value) => this.onChangeText(type,value)}
-				onSubmitEditing={this.submitSearch}
-			/>
-			<FilterComponent 
-				onCategory = {this.state.onCategory}
-				openAllCategories = {this.openAllCategories}
-				type={'searchItem'}
-				onChangeText={(type,value) => this.onChangeText(type,value)}
-				onSubmitEditing={this.submitSearch}
-			/>
-			<View style={styles.container}>
-				<View style={styles.cartContainer}>
-					<FlatList
-						data={this.state.data}
-						keyExtractor={(item) => String(item.id)}
-						renderItem={({item,index}) => (
-							<CartComponent
-								openDetailProduct= {this.openDetailProduct}
-								data = {item}
-								index = {index} 
-								toggleFavorite={this.toggleFavorite}
-								changeTotalItem={this.changeTotalItem}
-							/>
-						)}
-					/>
+			<Container>
+				  <SearchComponent
+					openDrawerMenu={this.openDrawerMenu}
+					closeDrawerMenu={this.closeDrawerMenu}
+					type={'searchItem'}
+					title={'productList.searchPlaceHolder'}
+					onChangeText={(type,value) => this.onChangeText(type,value)}
+					onSubmitEditing={this.submitSearch}
+				/>
+				<FilterComponent 
+					onCategory = {this.state.onCategory}
+					openAllCategories = {this.openAllCategories}
+					type={'searchItem'}
+					onChangeText={(type,value) => this.onChangeText(type,value)}
+					onSubmitEditing={this.submitSearch}
+				/>
+				<View style={styles.container}>
+					<View style={styles.cartContainer}>
+						<FlatList
+							data={this.props.product}
+							keyExtractor={(item) => String(item.id)}
+							renderItem={({item,index}) => (
+								<CartComponent
+									openDetailProduct= {this.openDetailProduct}
+									data = {item}
+									index = {index} 
+									toggleFavorite={this.toggleFavorite}
+									changeTotalItem={this.changeTotalItem}
+								/>
+							)}
+							onEndReached={this.handleLoadMore}
+							onEndReachedThreshold={0.5}
+						/>
 
-					<Checkout
-						totalCount = { this.state.totalCount }
-						totalPrice = { this.state.totalPrice }
-					/>
+						<Checkout
+							totalCount = { this.props.total_count }
+							totalPrice = { this.props.total_price }
+						/>
+					</View>
 				</View>
-			</View>
-			<DetailProduct
-				indexProduct={this.state.indexProduct}
-				toggleFavorite={this.toggleFavorite}
-				detailDataProduct={this.state.detailDataProduct}
-			  modalVisible={this.state.modalVisible.openProduct}
-				closeDetailProduct={this.closeDetailProduct}
-			/>
-			<Categories
-				changeCategory = {this.changeCategory}
-				categories = {this.state.categories}
-        modalVisible={this.state.modalVisible.openCategories}
-        closeDialogCategories={this.closeDialogCategories}
-      />
-		</Container>
+				
+				<DetailProduct
+					indexProduct={this.state.indexProduct}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					detailDataProduct={this.state.detailDataProduct}
+				    modalVisible={this.state.modalVisible.openProduct}
+					closeDetailProduct={this.closeDetailProduct}
+				/>
+				<Categories
+					changeCategory = {this.changeCategory}
+					categories = {this.state.categories}
+					modalVisible={this.state.modalVisible.openCategories}
+					closeDialogCategories={this.closeDialogCategories}
+		  		/>
+				
+			</Container>
 		);
 	}
 }
 
-export default ProductList;
+const mapStateToProps = state => {
+	return {
+		current_page: state.product.current_page,
+		product: state.product.products,
+		last_page: state.product.last_page,
+		total_price: state.product.total_price,
+		total_count: state.product.total_count,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
+		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index))
+	}
+}
+
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps)(ProductList);

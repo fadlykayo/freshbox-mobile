@@ -36,7 +36,8 @@ class DetailProduct extends PureComponent {
 								<View style={styles.borderImage}>
 									<Image
 										resizeMode={'contain'} 
-										source={this.props.detailDataProduct.image}
+										// source={this.props.detailDataProduct.images[0]}
+										source={images.icon_sayur_segar}
 										style={styles.logo}
 									/>
 								</View>

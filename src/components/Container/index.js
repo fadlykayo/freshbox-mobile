@@ -18,6 +18,10 @@ class Container extends PureComponent {
             return(
                 <View style={styles.container}>
                     {this.props.children}
+                    {/* <ModalResponse 
+                        modalVisible={this.props.network.isResponseError}
+                        message={this.props.network.errorMessage}
+                    /> */}
                 </View>
             )
         }

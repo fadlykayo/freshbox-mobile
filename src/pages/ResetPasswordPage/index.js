@@ -15,12 +15,12 @@ class ResetPasswordPage extends Component {
 		super(props)
 	  	this.state = {
 			user:{
-                password: '',
-				oldPassword: 'johndoe123',
+                oldPassword: '',
 				newPassword: '',
                 confirmPassword: ''
             },
             validateStatus:{
+				oldPasswordLength: true,
 				oldPassword: true,
                 password: true,
                 passwordLength: true,
@@ -88,30 +88,38 @@ class ResetPasswordPage extends Component {
     }
 
   	passwordValidation(){
-		validation.confirmPassword(this.state.user.password,this.state.user.oldPassword)
+		validation.passwordLength(this.state.user.oldPassword)
         .then(() => {
-			if(this.state.validateStatus.oldPassword == false) this.setValidation('oldPassword',true);
-			validation.passwordLength(this.state.user.newPassword)
+			if(this.state.validateStatus.oldPasswordLength == false) this.setValidation('oldPasswordLength',true);
+			validation.password(this.state.user.newPassword)
         	.then(() => {
-        	    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
-        	    validation.password(this.state.user.newPassword)
-        	    .then(() => {
-        	        validation.confirmPassword(this.state.user.newPassword,this.state.user.confirmPassword)
-        	        .then(() => {
-        	            if(this.state.validateStatus.confirmPassword == false) this.setValidation('confirmPassword',true);
-        	            this.updatePasswordHandler();
-        	        })
-        	        .catch(() => {
-        	            this.setValidation('confirmPassword',false);
-        	        })
-        	    })
-        	    .catch(() => {
-        	        this.setValidation('password',false);
-        	    })
-        	})
-        	.catch(() => {
-        	    this.setValidation('passwordLength',false);
-        	});
+				if(this.state.validateStatus.oldPassword == false) this.setValidation('oldPassword',true);
+				validation.passwordLength(this.state.user.newPassword)
+        		.then(() => {
+        		    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
+        		    validation.password(this.state.user.newPassword)
+        		    .then(() => {
+						if(this.state.validateStatus.password == false) this.setValidation('password',true);
+        		        validation.confirmPassword(this.state.user.newPassword,this.state.user.confirmPassword)
+        		        .then(() => {
+        		            if(this.state.validateStatus.confirmPassword == false) this.setValidation('confirmPassword',true);
+        		            this.updatePasswordHandler();
+        		        })
+        		        .catch(() => {
+        		            this.setValidation('confirmPassword',false);
+        		        })
+        		    })
+        		    .catch(() => {
+        		        this.setValidation('password',false);
+        		    })
+        		})
+        		.catch(() => {
+        		    this.setValidation('passwordLength',false);
+				})
+			})
+			.catch(() => {
+				this.setValidation('oldPassword',false);
+			})
 		})
 		.catch(() => {
 			this.setValidation('oldPassword', false);
@@ -140,9 +148,9 @@ class ResetPasswordPage extends Component {
 					<View style={styles.formPassword}>
 						<FormInput 
                     	    ref={c => {this.formOldPassword = c}}
-                    	    type={'password'}
+                    	    type={'oldPassword'}
                     	    isPassword={true}
-                    	    value={this.state.user.password}
+                    	    value={this.state.user.oldPassword}
                     	    onChangeText={(type,value) => this.onChangeText(type,value)}
                     	    label={'resetPasswordPage.formLabel.oldPassword'}
                     	    placeholder={'resetPasswordPage.formLabel.oldPassword'}
