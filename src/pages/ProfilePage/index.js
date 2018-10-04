@@ -67,8 +67,15 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
+                console.log("===>",response)
                 let source = { uri: response.uri };
                 console.log(source)
+                let payload = {
+                    header: {
+                        authorization: this.props.user.authorization
+                    },
+                    body: {}
+                }
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
             }
