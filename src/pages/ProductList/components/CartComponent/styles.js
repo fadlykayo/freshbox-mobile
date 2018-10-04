@@ -86,6 +86,17 @@ const styles = {
 		fontSize: scaling.moderateScale(14),
 		color: colour.black
 	},
+	boxOperatorLeft: {
+		flex: 1,
+		width: width * 0.05,
+		alignItems: 'flex-start',
+		paddingLeft: scaling.moderateScale(5),
+	},
+	boxOperatorRight: {
+		flex: 1,
+		width: width * 0.05,
+		alignItems: 'flex-end',
+	},
 	operatorText: {
 		color: colour.red,
 		fontWeight: '400',

@@ -2,10 +2,28 @@ import ct from '@constants';
 
 const action = {};
 
-action.get_products = (currentPage, data) => ({
+action.get_products = (data) => ({
     type: ct.GET_PRODUCTS,
     payload: {
-        currentPage: currentPage,
+        data: data,
+    }
+});
+
+action.detail_product = (index) => ({
+    type: ct.DETAIL_PRODUCT,
+    payload: {
+        index: index
+    }
+})
+
+action.clear_products = () => ({
+    type: ct.CLEAR_PRODUCTS,
+})
+
+action.search_products = (params, data) => ({
+    type: ct.SEARCH_PRODUCTS,
+    payload: {
+        params: params,
         data: data,
     }
 });

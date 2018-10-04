@@ -12,10 +12,10 @@ const persistConfig = {
 	storage,
 };
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(rootReducer,compose(applyMiddleware(thunk,logger)));
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer,compose(applyMiddleware(thunk,logger)));
 // const store = createStore(persistedReducer,compose(applyMiddleware(thunk)));
-// persistStore(store)
+persistStore(store)
 // .purge()
 
 import Application from '@src';

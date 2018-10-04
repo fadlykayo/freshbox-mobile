@@ -21,7 +21,6 @@ class Content extends PureComponent {
                     onPress={this.props.facebookHandler}
                 />
                 <Button
-                    navigate={this.props.navigate} 
                     type={'email'}
                     onPress={this.props.emailHandler}
                 />

@@ -34,13 +34,13 @@ class SearchComponent extends Component {
           		>
             		<StaticText
             		  	style={styles.filterByPriceText}
-            		  	property={'productList.filter.price'}
+            		  	property={'productList.filter.area'}
             		/>
-            		<Image
+            		{/* <Image
   	  	    		  	resizeMode={'contain'} 
   	  	    		  	source={images.icon_dropdown}
   	  	    		  	style={styles.icon}
-  	  				/>
+  	  				/> */}
           		</TouchableOpacity>
 					<TouchableOpacity
           			  	style={styles.eachContainer}

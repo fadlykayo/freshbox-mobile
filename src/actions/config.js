@@ -13,5 +13,6 @@ export const path = {
     registerUser: 'v1/user/register',
     signInUser: 'v1/user/login',
     forgotPassword: 'v1/user/forgot-password',
-    getProducts: `v1/product/get`
+    getProducts: 'v1/product/get',
+    updateUser: 'v1/user/edit/profile/data',
 }

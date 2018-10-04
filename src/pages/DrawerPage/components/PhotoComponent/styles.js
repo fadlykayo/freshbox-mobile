@@ -6,9 +6,6 @@ const { width, height } = Dimensions.get('window');
 
 
 const styles = {
-    container: {
-      	flex: 1
-    },
     topComponent: {
       	height: height * 0.28,
       	alignItems: 'center',

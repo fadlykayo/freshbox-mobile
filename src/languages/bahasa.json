@@ -130,7 +130,7 @@
         "searchPlaceHolder": "Cari produk...",
         "filter": {
             "categories": "Semua Kategori",
-            "price": "Filter Harga"
+            "area": "Jabodetabek"
         },
         "symbol": {
             "minus": "-",
@@ -153,7 +153,7 @@
         "navigationTitle": "History",
         "content": {
             "price": "IDR ",
-            "reOrder": "Pesa"
+            "reOrder": "Pesan"
         }
     },
     "historyDetail": {
@@ -272,7 +272,9 @@
     },
     "drawerPage": {
         "content": {
-            "logOut": "Keluar"
+            "logOut": "Keluar",
+            "user": "Pengunjung",
+            "login": "Login / Daftar"
         },
         "pages": {
             "dashboard": "Beranda",

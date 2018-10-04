@@ -17,95 +17,6 @@ class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			data: [],
-			// [{
-			// 	id: 1,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Wortel",
-			// 	category: "Sayur Segar",
-			// 	price: 21000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// },
-			// {
-			// 	id: 2,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Apel",
-			// 	category: "Buah",
-			// 	price: 19000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// },
-			// {
-			// 	id: 3,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Belimbing",
-			// 	category: "Buah",
-			// 	price: 20000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// }
-			// ,{
-			// 	id: 4,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Mangga",
-			// 	category: "Buah",
-			// 	price: 15000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// },
-			// {
-			// 	id: 5,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Sawi",
-			// 	category: "Sayur Segar",
-			// 	price: 14000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// },
-			// {
-			// 	id: 6,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Belimbing",
-			// 	category: "Buah",
-			// 	price: 21000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// }
-			// ,{
-			// 	id: 7,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "Duren",
-			// 	category: "buah",
-			// 	price: 25000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// },
-			// {
-			// 	id: 8,
-			// 	image: images.icon_sayur_segar,
-			// 	title: "sawi",
-			// 	category: "sayur segar",
-			// 	price: 21000,
-			// 	favorite: false,
-			// 	count: 0,
-			// 	stock: 5,
-			// 	description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima unde ad tempore sunt illum, ut sit laudantium cumque debitis beatae labore nulla inventore quam eos et quasi quae distinctio laboriosam?`
-			// }],
 			categories: [
 			{	
 				id: 1,
@@ -150,8 +61,6 @@ class ProductList extends Component {
 				check: false
 			},
 			],
-			totalCount: 0,
-			totalPrice: 0,
 			searchItem: '',
 			onCategory: '',
 			indexProduct: 0,
@@ -162,7 +71,6 @@ class ProductList extends Component {
 			  },
 		}
 		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.countTotalPrice = this.countTotalPrice.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.submitSearch = this.submitSearch.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -175,21 +83,21 @@ class ProductList extends Component {
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);
 		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
 		this.handleLoadMore = this.handleLoadMore.bind(this);
+		this.updateDetail = this.updateDetail.bind(this);
 	}
 
 	componentDidMount() {
-		let payload = {
-			header: {},
-			body: {},
-			params: {
-				page: this.props.current_page,
+		if(this.props.product.length == 0) {
+			let payload = {
+				header: {},
+				body: {},
+				params: {}
 			}
+			this.props.get_products(payload, null,
+				(err) => {
+					console.log(err)
+				});
 		}
-		this.props.get_products(payload, null,
-			(err) => {
-				console.log(err)
-			});
-		this.countTotalPrice();
 		this.checkCategory();
 	}
 
@@ -198,9 +106,7 @@ class ProductList extends Component {
 			let payload = {
 				header: {},
 				body: {},
-				params: {
-					page: this.props.current_page,
-				}
+				params: this.props.params
 			}
 			this.props.get_products(payload, null,
 				(err) => {
@@ -237,12 +143,13 @@ class ProductList extends Component {
  	}
 
 	openDetailProduct(index){
-		let data = this.props.product;
-		let detail = data[index];
-		this.onChangeText('indexProduct', index)
-		this.onChangeText('detailDataProduct', detail)
+		this.props.detail_product(index);
 		this.setModalVisible('openProduct',true);
-    }
+	}
+	
+	updateDetail(index) {
+		this.props.detail_product(index);
+	}
 
 	setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;
@@ -274,7 +181,18 @@ class ProductList extends Component {
 	}
 	
 	submitSearch() {
-		alert(`MASUK, ${this.state.searchItem}`);
+		let payload = {
+			header: {},
+			body: {},
+			params: {
+				name: this.state.searchItem,
+				page: 1,
+			}
+		}
+		this.props.search_products(payload, null,
+			(err) => {
+				console.log(err)
+			});
 	}
 
 	openDrawerMenu() {
@@ -320,21 +238,24 @@ class ProductList extends Component {
 							onEndReached={this.handleLoadMore}
 							onEndReachedThreshold={0.5}
 						/>
-
-						<Checkout
-							totalCount = { this.props.total_count }
-							totalPrice = { this.props.total_price }
-						/>
+						{ this.props.total_count > 0 ? (
+							<Checkout
+								totalCount = { this.props.total_count }
+								totalPrice = { this.props.total_price }
+							/>
+						) : ( null ) }
+						
 					</View>
 				</View>
 				
 				<DetailProduct
-					indexProduct={this.state.indexProduct}
-					toggleFavorite={this.toggleFavorite}
+					index={this.props.indexProduct}
+					data={this.props.product[this.props.indexProduct]}
 					changeTotalItem={this.changeTotalItem}
-					detailDataProduct={this.state.detailDataProduct}
+					toggleFavorite={this.toggleFavorite}
 				    modalVisible={this.state.modalVisible.openProduct}
 					closeDetailProduct={this.closeDetailProduct}
+					updateDetail={this.updateDetail}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}
@@ -350,19 +271,24 @@ class ProductList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		current_page: state.product.current_page,
+		current_page: state.product.params.page,
+		params: state.product.params,
 		product: state.product.products,
 		last_page: state.product.last_page,
-		total_price: state.product.total_price,
-		total_count: state.product.total_count,
+		total_price: state.product.total.price,
+		total_count: state.product.total.count,
+		indexProduct: state.product.product.index,
+		detailDataProduct: state.product.product.data,
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
+		search_products: (req, success, failure) => dispatch(actions.product.api.search_products(req, success, failure)),
 		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
-		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index))
+		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))
 	}
 }
 
