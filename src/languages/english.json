@@ -1,0 +1,285 @@
+{
+    "welcome":{
+        "button":{
+            "getStarted":"Get Started",
+            "facebook":"Continue with Facebook",
+            "email":"Continue with Email",
+            "google":"Continue with Google"
+        },
+        "content":{
+            "info": "By logging in you aggree to Freshbox",
+            "termsCondition": "Terms of Services and Privacy Policy"
+        }
+    },
+    "signIn":{
+        "navigationTitle": "Sign In",
+        "formLabel":{
+            "email": "Email",
+            "password": "Password"
+        },
+        "validation":{
+            "emailFormat": "please input a valid email format",
+            "emailLength": "please input your email",
+            "password": "password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "login": "invalid email or password, please try again"
+        },
+        "button":{
+            "signIn": "Sign In"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register",
+            "forgotPassword": "Forgot Password"
+        }
+    },
+    "register":{
+        "navigationTitle": "Register",
+        "formLabel":{
+            "fullName": "Full Name",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "button":{
+            "register": "Register"
+        },
+        "content":{
+            "haveAnAccount": "Have an Account, ",
+            "signIn": "Sign In",
+            "success": "Success!",
+            "email": "Registration success! Please check your email to activate the account!"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email",
+            "password": "your password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "phone": "please input your phone number at least between 9 to 15 digits number",
+            "confirmPassword": "your password did not match"
+        }
+    },
+    "forgotPassword":{
+        "navigationTitle": "Forgot Password",
+        "formLabel":{
+            "email": "Email"
+        },
+        "button":{
+            "submit": "Submit"
+        },
+        "content":{
+            "newToFreshbox": "New to Freshbox? ",
+            "register": "Register",
+            "forgotPassword": "Forgot Password",
+            "resetPasswordSuccess": "Reset Password Success!",
+            "checkEmail": "Please check your email"
+        },
+        "validation":{
+            "emailFormat": "please input your email with a valid email format",
+            "emailLength": "please input your email"
+        }
+    },
+    "cart": {
+        "navigationTitle": "Cart",
+        "symbol": {
+            "minus": "-",
+            "plus": "+"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "content": {
+            "price": "IDR ",
+            "subTotal": "Sub Total",
+            "pack": "/1 pack"
+        }
+
+    },
+    "checkout": {
+        "navigationTitle": "Checkout",
+        "label": {
+            "name": "Name",
+            "phone": "Phone Number",
+            "province": "Province",
+            "city": "City",
+            "zipCode": "Zip Code",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
+            "address": "Address",
+            "addressDetails": "Address Details (Optional)"
+        },
+        "content": {
+            "price": "IDR ",
+            "checkout": "Checkout",
+            "pack": " pack",
+            "subTotal": "Sub Total",
+            "delivery": "Delivery",
+            "grandTotal": "Grand Total"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
+    },
+    "productList": {
+        "searchPlaceHolder": "Search product...",
+        "filter": {
+            "categories": "All Categories",
+            "area": "Jabodetabek"
+        },
+        "symbol": {
+            "minus": "-",
+            "plus": "+"
+        },
+        "button": {
+            "checkout": "Checkout"
+        },
+        "content": {
+            "subTotal": "Sub Total",
+            "pack": "/1 ",
+            "addItem": "+ Add",
+            "items": " Items | IDR ",
+            "item": " Item | IDR ",
+            "categories": "Categories",
+            "price": "IDR "
+        }
+    },
+    "historyPage": {
+        "navigationTitle": "History",
+        "content": {
+            "price": "IDR ",
+            "reOrder": "Re-order"
+        }
+    },
+    "historyDetail": {
+        "navigationTitle": "Detail",
+        "content": {
+            "price": "IDR ",
+            "reOrder": "Re-order",
+            "pack": " pack",
+            "subTotal": "Sub Total",
+            "delivery": "Delivery",
+            "grandTotal": "Grand Total"
+        },
+        "detail": {
+            "status": "Status",
+            "nomorResi": "Nomor Resi",
+            "tanggal": "Tanggal Pembelian",
+            "alamat": "Alamat Pengiriman"
+        }
+    },
+    "profilePage": {
+        "content": {
+            "phone": "Phone Number",
+            "address": "Address",
+            "password": "Password",
+            "comma": ", ",
+            "kecamatan": ", Kec. ",
+            "kelurahan": ", Kel. ",
+            "resetPassword": "Reset Password"
+        },
+        "button": {
+            "signOut": "Sign Out"
+        }
+    },
+    "phonePage": {
+        "navigationTitle": "Phone Number",
+        "label": {
+            "phone": "Phone Number"
+        },
+        "formLabel": {
+            "phone": "Phone Number"
+        },
+        "button": {
+            "edit": "Edit",
+            "save": "Save"
+        },
+        "validation":{
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
+    },
+    "addressPage": {
+        "navigationTitle": "Address",
+        "label": {
+            "name": "Name",
+            "phone": "Phone Number",
+            "province": "Province",
+            "city": "City",
+            "zipCode": "Zip Code",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
+            "address": "Address",
+            "addressDetails": "Address Details (Optional)"
+        },
+        "button": {
+            "edit": "Edit",
+            "save": "Save"
+        },
+        "validation":{
+            "fullName": "please input your name",
+            "phone": "please input your phone number at least between 9 to 15 digits number"
+        }
+    },
+    "resetPasswordPage": {
+        "navigationTitle": "Reset Password",
+        "formLabel":{
+            "oldPassword": "Old Password",
+            "newPassword": "New Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "content": {
+            "resetPasswordSuccess": "Reset Password Success!"
+        },
+        "button":{
+            "changePassword": "Change Password"
+        },
+        "validation":{
+            "oldPassword": "Password Incorrect",
+            "password": "your password must be at least 8 characters",
+            "passwordLength": "please input your password",
+            "confirmPassword": "your password did not match"
+        }
+    },
+    "favourites": {
+        "navigationTitle": "Favourites"
+    },
+    "termsConditions": {
+        "navigationTitle": "Terms & Conditions",
+        "content": {
+            "title1": "Lorem 1",
+            "content1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci! \n \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci!",
+            "title2": "Lorem 2",
+            "content2": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ut id expedita. Ea placeat reprehenderit nulla officiis? Ipsum esse qui rem nesciunt aut nostrum, voluptate ipsam, minus eum dignissimos perferendis."
+        }
+    },
+    "contactUs": {
+        "navigationTitle": "Contact Us",
+        "label": {
+            "message": "Message"
+        },
+        "content": {
+            "subject": "Choose Subject",
+            "message": "Messages..."
+        },
+        "button": {
+            "submit": "Submit"
+        }
+    },
+    "drawerPage": {
+        "content": {
+            "logOut": "Log Out"
+        },
+        "pages": {
+            "dashboard": "Dashboard",
+            "favorite": "Favorite",
+            "history": "History",
+            "termsConditions": "Terms & Conditions",
+            "contactUs": "Contact Us"
+        }
+    }
+}
