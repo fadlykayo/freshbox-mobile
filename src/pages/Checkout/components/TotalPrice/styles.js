@@ -6,14 +6,17 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     bottomComponent: {
-        flex: 1,
-        height: height * 0.3,
+        flex: -1,
+        height: height * 0.28,
         backgroundColor: colour.white,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         borderWidth: 1,
         borderColor: colour.lightGrey,
-        padding: width * 0.05,
+        paddingTop: width * 0.05,
+        paddingLeft: width * 0.05,
+        paddingRight: width * 0.05,
+        paddingBottom: width * 0.03,
     },
     topTotalPrice: {
         flex: 1,

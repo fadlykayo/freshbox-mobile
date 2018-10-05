@@ -87,18 +87,25 @@ class ProductList extends Component {
 	}
 
 	componentDidMount() {
+		let payload = {
+			header: {},
+			body: {},
+			params: {}
+		}
 		if(this.props.product.length == 0) {
-			let payload = {
-				header: {},
-				body: {},
-				params: {}
-			}
-			this.props.get_products(payload, null,
+			this.props.get_products(payload, 
+				null,
 				(err) => {
 					console.log(err)
 				});
 		}
-		this.checkCategory();
+		this.props.get_categories(payload, 
+			(success) => {
+				this.checkCategory();
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	handleLoadMore() {
@@ -116,7 +123,7 @@ class ProductList extends Component {
 	}
 
 	checkCategory() {
-		let categories = this.state.categories.slice();
+		let categories = this.props.categories;
 		let category = '';
 		for (let i = 0; i < categories.length; i++) {
 			if(categories[i].check === true) {
@@ -126,16 +133,46 @@ class ProductList extends Component {
 		this.onChangeText('onCategory', category)
 	} 
 
-	changeCategory(payload) {
-		let categories = this.state.categories.slice();
-		categories.map(item => {
-			if(item.name == payload.name) item.check = true
-			else item.check = false
-			return item	
-		})
-		this.onChangeText('categories', categories)
-		this.checkCategory();
-		this.closeDialogCategories();
+	changeCategory(input) {
+		if (input.name == 'Default') {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					page: 1,
+				}
+			}
+
+			this.props.search_products(payload, 
+				(success) => {
+					this.props.change_categories(input);
+					this.checkCategory();
+					this.closeDialogCategories();
+				},
+				(err) => {
+					console.log(err)
+				});
+		}
+		else {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					category_id: input.id,
+					page: 1,
+				}
+			}
+
+			this.props.search_products(payload, 
+				(success) => {
+					this.props.change_categories(input);
+					this.checkCategory();
+					this.closeDialogCategories();
+				},
+				(err) => {
+					console.log(err)
+				});
+		}		
 	}
 	
 	openAllCategories(){
@@ -189,7 +226,10 @@ class ProductList extends Component {
 				page: 1,
 			}
 		}
-		this.props.search_products(payload, null,
+		this.props.search_products(payload, 
+			(success) => {
+				console.log(success)
+			},
 			(err) => {
 				console.log(err)
 			});
@@ -215,7 +255,7 @@ class ProductList extends Component {
 					onSubmitEditing={this.submitSearch}
 				/>
 				<FilterComponent 
-					onCategory = {this.state.onCategory}
+					onCategory = {this.props.on_category}
 					openAllCategories = {this.openAllCategories}
 					type={'searchItem'}
 					onChangeText={(type,value) => this.onChangeText(type,value)}
@@ -259,7 +299,7 @@ class ProductList extends Component {
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}
-					categories = {this.state.categories}
+					categories = {this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
 		  		/>
@@ -274,6 +314,8 @@ const mapStateToProps = state => {
 		current_page: state.product.params.page,
 		params: state.product.params,
 		product: state.product.products,
+		on_category: state.product.on_category,
+		categories: state.product.categories,
 		last_page: state.product.last_page,
 		total_price: state.product.total.price,
 		total_count: state.product.total.count,
@@ -284,9 +326,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		get_categories: (req, success, failure) => dispatch(actions.product.api.get_categories(req, success, failure)),
 		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
 		search_products: (req, success, failure) => dispatch(actions.product.api.search_products(req, success, failure)),
 		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+		change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))
 	}

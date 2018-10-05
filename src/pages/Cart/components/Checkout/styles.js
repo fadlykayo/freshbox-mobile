@@ -19,6 +19,7 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingTop: scaling.moderateScale(10),
+		marginBottom: scaling.moderateScale(5),
     },
     checkoutButton: {
 		alignItems: 'center',
@@ -29,7 +30,7 @@ const styles = {
 		borderRadius: 8,
 		borderColor: colour.white,
 		backgroundColor: colour.red,
-		marginBottom: scaling.moderateScale(15),
+		marginBottom: scaling.moderateScale(10),
 		paddingLeft: width * 0.05,
 		paddingRight: width * 0.05,
     },

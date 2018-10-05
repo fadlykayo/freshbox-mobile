@@ -9,6 +9,13 @@ action.get_products = (data) => ({
     }
 });
 
+action.get_categories = (data) => ({
+    type: ct.GET_CATEGORIES,
+    payload: {
+        data: data,
+    }
+});
+
 action.detail_product = (index) => ({
     type: ct.DETAIL_PRODUCT,
     payload: {
@@ -33,6 +40,13 @@ action.change_total = (index, type) => ({
     payload: {
         index: index,
         type: type,
+    }  
+})
+
+action.change_categories = (data) => ({
+    type: ct.CHANGE_CATEGORIES,
+    payload: {
+        data: data,
     }  
 })
 

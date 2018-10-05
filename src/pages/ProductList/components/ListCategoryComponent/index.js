@@ -14,6 +14,7 @@ class ListCategoryComponent extends PureComponent {
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.categories}>
 					{ this.props.categories.map((category) => {
+						category.image = images.icon_sayur_segar;
 						if (category.check) {
 							return (
 								<TouchableOpacity
@@ -33,7 +34,14 @@ class ListCategoryComponent extends PureComponent {
 										source={category.image}
 										style={styles.logo}
 									/>
-									<Text style={ styles.categoryText }>{ category.name }</Text>
+									{ category.name == 'Default' ? (
+										<StaticText
+											style={styles.categoryText}
+											property={'productList.content.default'}
+										/>
+									) : (
+										<Text style={ styles.categoryText }>{ category.name }</Text>
+									) }
 								</TouchableOpacity>
 							)
 						}
@@ -49,7 +57,14 @@ class ListCategoryComponent extends PureComponent {
 										source={category.image}
 										style={styles.logo}
 									/>
-									<Text style={ styles.categoryText }>{ category.name }</Text>
+									{ category.name == 'Default' ? (
+										<StaticText
+											style={styles.categoryText}
+											property={'productList.content.default'}
+										/>
+									) : (
+										<Text style={ styles.categoryText }>{ category.name }</Text>
+									) }
 								</TouchableOpacity>
 							)
 						}

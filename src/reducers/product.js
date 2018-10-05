@@ -1,4 +1,5 @@
 import ct from '@constants';
+import images from '@assets';
 
 const initialState = {
     last_page: 0,
@@ -6,6 +7,8 @@ const initialState = {
         page: 0,
     },
     products: [],
+    categories: [],
+    on_category: '',
     product: {
         index: 0,
         data: {},
@@ -35,6 +38,48 @@ const getData = (state, payload) => {
     }
 
     newState.products = newState.products.concat(listProduct);
+
+    return newState
+}
+
+const getCategories = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+
+    let defaultData = {
+        "id": 0,
+        "parent_id": 0,
+        "parent_count": 0,
+        "name": "Default",
+        "slug": "default",
+        "check": true,
+    }
+
+    for(let i = 0; i < payload.data.length; i++) {
+        payload.data[i].check = false;
+    }
+    payload.data.unshift(defaultData)
+
+    for(let i = 0; i < payload.data.length; i++) {
+        if(payload.data[i].check == true) {
+            newState.on_category = payload.data[i].name
+        }
+    }
+    
+    newState.categories = payload.data
+
+    return newState
+}
+
+const changeCategory = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.categories.map(item => {
+        if(item.name == payload.data.name) {
+            item.check = true
+            newState.on_category = item.name
+        }
+        else item.check = false
+        return item	
+    })
 
     return newState
 }
@@ -89,7 +134,7 @@ const editTotal = (state, payload) => {
     newState.total.price = total;
 
     let cart_product = newState.products.filter(filter => filter.count > 0);
-    console.log("masuk", cart_product)
+
 	let index_cart = [];
 	for(let i = 0; i < cart_product.length; i++) {
 		index_cart.push(newState.products.indexOf(cart_product[i]))
@@ -108,28 +153,10 @@ const editFavorite = (state, payload) => {
     return newState
 }
 
-const clearData = (state) => {
+const clearProducts = (state) => {
     let newState = JSON.parse(JSON.stringify(state));
 
-    newState = {
-        last_page: 0,
-        params: {
-            page: 0,
-        },
-        products: [],
-        product: {
-            index: 0,
-            data: {},
-        },
-        total : {
-            price: 0,
-            count: 0,
-        },
-        cart: {
-            index: [],
-            products: [],
-        }
-    }
+    newState.products = [];
 
     return newState
 }
@@ -137,11 +164,13 @@ const clearData = (state) => {
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS : return getData(state, action.payload)
+        case ct.GET_CATEGORIES: return getCategories(state, action.payload)
         case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
-        case ct.CHANGE_TOTAL : return editTotal(state, action.payload)
+        case ct.CHANGE_TOTAL: return editTotal(state, action.payload)
+        case ct.CHANGE_CATEGORIES: return changeCategory(state, action.payload) 
         case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
         case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
-        case ct.CLEAR_PRODUCTS: return clearData(state)
+        case ct.CLEAR_PRODUCTS: return clearProducts(state)
         default: return state;
     }
 }

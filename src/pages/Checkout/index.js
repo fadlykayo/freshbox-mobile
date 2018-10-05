@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
+import StaticText from '@components/StaticText';
 import VerificationText from '@components/VerificationText';
 import TotalPrice from './components/TotalPrice';
 import images from '@assets';
@@ -27,6 +28,33 @@ class Checkout extends Component {
                 address: '',
 				addressDetail: '',
 				deliveryPrice: 0,
+				addresses: 
+				[
+					{
+						nameAddress: 'Alamat Rumah',
+						receiverName: 'Nunes',
+						phoneNumber: '08123456789',
+						province: 'DKI Jakarta',
+						city: 'Jakarta Barat',
+						zipCode: '11450',
+						kecamatan: 'Grogol Petamburan',
+						kelurahan: 'Grogol',
+						address: 'Apartemen Mediterania Garden Residence 1 Tower Dahlia',
+						addressDetail: '',
+					},
+					{
+						nameAddress: 'Alamat Rumah',
+						receiverName: 'Nunes',
+						phoneNumber: '08123456789',
+						province: 'DKI Jakarta',
+						city: 'Jakarta Barat',
+						zipCode: '11450',
+						kecamatan: 'Grogol Petamburan',
+						kelurahan: 'Grogol',
+						address: 'Apartemen Mediterania Garden Residence 1 Tower Dahlia',
+						addressDetail: '',
+					}
+				],
 				items: [{
 					id: 1,
 					image: images.icon_buah_segar,
@@ -230,9 +258,32 @@ class Checkout extends Component {
 					title={'checkout.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-				<ScrollView>
+				{/* <ScrollView> */}
 					<View style={styles.container}>
-						<FormInput 
+						<View style={styles.topComponent}>
+							<StaticText
+								style={styles.staticText}
+								property={'checkout.label.deliveryAddress'}
+							/>
+							<Text style={styles.addressText}>{this.state.user.addresses[0].receiverName} <Text style={[styles.addressText, styles.nameAddressText]}>({this.state.user.addresses[0].nameAddress})</Text></Text>
+							{ this.state.user.addresses[0].addressDetail.length == 0 ? (
+								<Text style={styles.addressText}>{this.state.user.addresses[0].address}, {this.state.user.addresses[0].kelurahan}, {this.state.user.addresses[0].kecamatan}, {this.state.user.addresses[0].city}, {this.state.user.addresses[0].province}, {this.state.user.addresses[0].zipCode}</Text>
+							) : (
+								<Text style={styles.addressText}>{this.state.user.addresses[0].addressDetail}, {this.state.user.addresses[0].address}, {this.state.user.addresses[0].kelurahan}, {this.state.user.addresses[0].kecamatan}, {this.state.user.addresses[0].city}, {this.state.user.addresses[0].province}, {this.state.user.addresses[0].zipCode}</Text>
+							)}
+							
+							<Text style={styles.addressText}>{this.state.user.addresses[0].phoneNumber}</Text>
+							<TouchableOpacity style={styles.buttonOtherAddress}>
+								<StaticText
+									style={[styles.staticText,styles.otherAddressText]}
+									property={'checkout.content.otherAddress'}
+								/>
+							</TouchableOpacity>
+						</View>
+						<View style={styles.bottomComponent}>
+							<Text>Tanggal</Text>
+						</View>
+						{/* <FormInput 
 							ref={c => {this.formFullName = c}}
 							type={'name'}
 							autoFocus={true}
@@ -323,7 +374,7 @@ class Checkout extends Component {
 							label={'checkout.label.addressDetails'}
 							placeholder={'checkout.label.addressDetails'}
 							onSubmitEditing={this.submitAddressDetails}
-						/>
+						/> */}
 					</View>
 					<TotalPrice
                         subTotal={this.state.subTotalPrice}
@@ -331,7 +382,7 @@ class Checkout extends Component {
                         data={this.state.user}
                         navigateToCart={this.navigateToCart}
                     />
-				</ScrollView>
+				{/* </ScrollView> */}
 			</Container>
 		);
   	}
