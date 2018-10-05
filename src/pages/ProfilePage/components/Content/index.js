@@ -6,7 +6,12 @@ import styles from './styles';
 
 class Content extends Component {
     constructor() {
-        super()
+        super();
+        this.spacePhoneNumber = this.spacePhoneNumber.bind(this);
+    }
+
+    spacePhoneNumber(input) {
+        return input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
     }
 
     render() {
@@ -20,10 +25,10 @@ class Content extends Component {
                         style={styles.staticText}
                         property={'profilePage.content.phone'}
                     />
-                    <Text style={styles.contentText}>{this.props.user.phone}</Text>
+                    <Text style={styles.contentText}>{this.spacePhoneNumber(this.props.user.user.phone_number)}</Text>
                     <Image
                         resizeMode={'contain'} 
-                        source={images.icon_back}
+                        source={images.icon_arrow_right}
                         style={styles.sendButton}
                     />
                 </TouchableOpacity>
@@ -36,15 +41,14 @@ class Content extends Component {
                             style={styles.staticText}
                             property={'profilePage.content.address'}
                         />
-                        <Text>{this.props.user.address}<StaticText 
-                        property={'profilePage.content.comma'}/>{this.props.user.city}<StaticText
-                        property={'profilePage.content.comma'}/>{this.props.user.province}<StaticText 
-                        property={'profilePage.content.kecamatan'}/>{this.props.user.kecamatan}<StaticText
-                        property={'profilePage.content.kelurahan'}/>{this.props.user.kelurahan}</Text>
+                        <StaticText
+                            style={styles.contentText}
+                            property={'profilePage.content.address'}
+                        />
                     </View>
                     <Image
                         resizeMode={'contain'} 
-                        source={images.icon_back}
+                        source={images.icon_arrow_right}
                         style={styles.sendButton}
                     />
                 </TouchableOpacity>
@@ -62,7 +66,7 @@ class Content extends Component {
                     />
                     <Image
                         resizeMode={'contain'} 
-                        source={images.icon_back}
+                        source={images.icon_arrow_right}
                         style={styles.sendButton}
                     />
                 </TouchableOpacity>

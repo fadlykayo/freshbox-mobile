@@ -12,16 +12,21 @@ import styles from './styles';
 class Menu extends PureComponent {
     constructor(){
         super();
+        this.navigateToProduct = this.navigateToProduct.bind(this);
         this.navigateToSignIn = this.navigateToSignIn.bind(this);
         this.facebookHandler = this.facebookHandler.bind(this);
         this.setupGoogleClient = this.setupGoogleClient.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setupGoogleClient();
     }
 
-    navigateToSignIn(){
+    navigateToProduct() {
+        actNav.reset(navConstant.Product)
+    }
+
+    navigateToSignIn() {
         actNav.navigate(navConstant.SignIn);
     }
 
@@ -68,7 +73,7 @@ class Menu extends PureComponent {
                 >
                     <Logo />
                     <Content 
-                        getStartedHandler={this.navigateToSignIn}
+                        getStartedHandler={this.navigateToProduct}
                         facebookHandler={this.facebookHandler}
                         emailHandler={this.navigateToSignIn}
                         googleHandler={this.googleHandler}

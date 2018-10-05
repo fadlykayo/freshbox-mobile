@@ -1,11 +1,11 @@
-import React,{ Component } from 'react';
+import React,{ PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
-class Button extends Component {
-    constructor(){
-        super();
+class Button extends PureComponent {
+    constructor(props){
+        super(props);
     }
 
     render(){

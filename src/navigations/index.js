@@ -52,7 +52,7 @@ export const AppNavigator = createStackNavigator({
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
     ResetNewPasswordPage: {screen: ResetNewPasswordPage}
 },{
-    initialRouteName  : 'Product',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {

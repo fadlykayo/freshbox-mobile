@@ -130,7 +130,7 @@
         "searchPlaceHolder": "Search product...",
         "filter": {
             "categories": "All Categories",
-            "price": "Filter By Price"
+            "area": "Jabodetabek"
         },
         "symbol": {
             "minus": "-",

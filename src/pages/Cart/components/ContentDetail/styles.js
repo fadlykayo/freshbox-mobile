@@ -9,36 +9,30 @@ const styles = {
       	flex: 3,
     },
     fontTitle: {
-		fontFamily: 'Avenir-Heavy',
-		fontWeight: '500',
+		fontFamily: 'Avenir-Light',
+		fontWeight: 'bold',
+		fontSize: scaling.moderateScale(17),
+		marginBottom: scaling.moderateScale(3),
+	},
+	fontPrice: {
+		fontFamily: 'Avenir-Light',
+		fontWeight: 'bold',
 		fontSize: scaling.moderateScale(14),
 		marginBottom: scaling.moderateScale(3),
     },
     fontCategory: {
-		fontFamily: 'Avenir-Roman',
-		fontSize: scaling.moderateScale(10),
-		color: colour.lightGrey,
-		marginBottom: scaling.moderateScale(5),
-    },
-    fontPrice: {
-		fontFamily: 'Avenir-Heavy',
-		fontSize: scaling.moderateScale(12),
+		fontFamily: 'Avenir-Light',
+		fontSize: scaling.moderateScale(11),
 		color: colour.lightGrey,
 		marginBottom: scaling.moderateScale(5),
     },
     fontPack: {
-		fontFamily: 'Avenir-Roman',
-		fontSize: scaling.moderateScale(10),
+		fontFamily: 'Avenir-Light',
+		fontSize: scaling.moderateScale(11),
 		fontWeight: 'normal',
 		color: colour.lightGrey,
 		marginBottom: scaling.moderateScale(5),
-	},
-	fontDescription: {
-		fontFamily: 'Avenir-Roman',
-		fontSize: scaling.moderateScale(11),
-		color: colour.lightGrey,
-		marginBottom: scaling.moderateScale(5),
-	}
+    }
 }
 
 export default styles;

@@ -7,16 +7,13 @@ import Container from '@components/Container';
 import PhotoComponent from './components/PhotoComponent';
 import images from '@assets';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class DrawerPage extends Component {
   	constructor(props) {
     	super(props)
     	this.state = {
-    	    user: {
-    	        name: 'John Doe',
-    	        photo: images.icon_img_ava_grey,
-    	        email: 'john.doe@freshbox.com',
-			},
 			pages: [
 				{
 					name: 'drawerPage.pages.dashboard',
@@ -43,6 +40,7 @@ class DrawerPage extends Component {
 		this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
 		this.navigateLogOut = this.navigateLogOut.bind(this);
+		this.navigateSignIn = this.navigateSignIn.bind(this);
   	}
 
   	navigateToOtherPage(payload) {
@@ -60,17 +58,28 @@ class DrawerPage extends Component {
 	}
 
 	navigateLogOut() {
-		actNav.reset(navConstant.Menu)
+		this.props.log_out();
+		this.props.clear_products();
+		actNav.reset(navConstant.Menu);
+	}
+
+	navigateSignIn() {
+		actNav.navigate(navConstant.SignIn)
 	}
 
   	render () {
   	  	return (
 			<Container>
   	  	  		<View style={styles.container}>
-					<PhotoComponent
-						navigateToProfilePage={this.navigateToProfilePage}
-						user={this.state.user}
-					/>
+					{/* { this.props.user == null ? (
+						<View style={styles.topComponent}>
+						</View>) : ( */}
+						<PhotoComponent
+							navigateToProfilePage={this.navigateToProfilePage}
+							user={this.props.user}
+						/>
+					{/* ) } */}
+					
   	      			<View style={styles.middleComponent}>
 					{ this.state.pages.map ((page, index) => {
 						if (page.selected) {
@@ -83,7 +92,6 @@ class DrawerPage extends Component {
 										style={styles.selectedText}
 										property={page.name}
 									/>
-									{/* <Text style={styles.selectedText}>{page.name}</Text> */}
 								</TouchableOpacity>
 							)
 						}
@@ -97,25 +105,51 @@ class DrawerPage extends Component {
 										style={styles.unselectedText}
 										property={page.name}
 									/>
-									{/* <Text style={styles.unselectedText}>{page.name}</Text> */}
 								</TouchableOpacity>
 							)
 						}
 					}) }
   	      		</View>
-				<TouchableOpacity 
-					onPress={() => this.navigateLogOut()}
-					style={styles.bottomComponent}
-				>
-					<StaticText
-						style={styles.logOutText}
-						property={'drawerPage.content.logOut'}
-					/>
-  	      		</TouchableOpacity>
+				{ this.props.user == null ? (
+					<TouchableOpacity 
+						onPress={() => this.navigateSignIn()}
+						style={styles.bottomComponent}
+					>
+						<StaticText
+							style={styles.logOutText}
+							property={'drawerPage.content.login'}
+						/>
+  	      			</TouchableOpacity>
+				) : (
+					<TouchableOpacity 
+						onPress={() => this.navigateLogOut()}
+						style={styles.bottomComponent}
+					>
+						<StaticText
+							style={styles.logOutText}
+							property={'drawerPage.content.logOut'}
+						/>
+  	      			</TouchableOpacity>
+				)}
   	    	</View>
 		</Container>
   	  	);
   	}
 }
 
-export default DrawerPage;
+const mapStateToProps = (state) => {
+	return {
+		user: state.user.data
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		log_out : () => dispatch(actions.auth.reducer.log_out()),
+		clear_products : () => dispatch(actions.product.reducer.clear_products())
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps)(DrawerPage);

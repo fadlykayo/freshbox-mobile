@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { actNav } from '@navigations';
+import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -10,10 +10,10 @@ import InputText from './components/InputText';
 import Button from './components/Button';
 import images from '@assets'
 import styles from './styles';
-import { navConstant } from '../../navigations';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
-
-class PhonePage extends Component {
+class PhonePage extends PureComponent {
   	constructor(props) {
   		super(props)
 		this.state = {
@@ -42,6 +42,7 @@ class PhonePage extends Component {
 		this.phoneValidation = this.phoneValidation.bind(this);
 		this.updatePhoneHandler = this.updatePhoneHandler.bind(this);
 		this.editPhonePage = this.editPhonePage.bind(this);
+		this.spacePhoneNumber = this.spacePhoneNumber.bind(this);
 	}
 
 	editPhonePage() {
@@ -83,10 +84,14 @@ class PhonePage extends Component {
         	    this.setValidation('phone',false);
         	})
 	}
+
+	spacePhoneNumber(input) {
+        return input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+    }
 	
 	updatePhoneHandler(){
-		alert(`Update Phone Number ${this.state.user.phone}`)
-		actNav.navigate(navConstant.ProfilePage)
+		// alert(`Update Phone Number ${this.state.user.phone}`)
+		actNav.reset(navConstant.Product)
     }
 
   	render() {
@@ -102,7 +107,7 @@ class PhonePage extends Component {
 							<FormInput 
 								type={'phone'}
 								keyboardType={'number-pad'}
-								value={this.state.user.phone}
+								value={this.props.user.user.phone_number}
 								onChangeText={(type,value) => this.onChangeText(type,value)}
 								label={'phonePage.formLabel.phone'}
 								placeholder={'phonePage.formLabel.phone'}
@@ -125,7 +130,7 @@ class PhonePage extends Component {
 						<View style={styles.formPhone}>
 							<InputText
 								label={'phonePage.label.phone'}
-								input={this.state.user.phone}
+								input={this.spacePhoneNumber(this.props.user.user.phone_number)}
 							/>
 						</View>
 						<View style={styles.buttonPlace}>
@@ -142,4 +147,18 @@ class PhonePage extends Component {
   	}
 }
 
-export default PhonePage;
+const mapStateToProps = (state) => {
+	return {
+		user: state.user.data
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps)(PhonePage);

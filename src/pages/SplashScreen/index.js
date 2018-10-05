@@ -3,6 +3,8 @@ import { View, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import images from '@assets';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class SplashScreen extends PureComponent {
     constructor(){
@@ -11,8 +13,14 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            actNav.reset(navConstant.Menu);
-        },1000);
+            // this.props.clear_products()
+            if( this.props.user == null ) {
+                actNav.reset(navConstant.Menu);
+            }
+            else {
+                actNav.reset(navConstant.Product);
+            }
+        },2000);
     }
 
     render(){
@@ -28,4 +36,18 @@ class SplashScreen extends PureComponent {
     }
 }
 
-export default SplashScreen;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.data
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clear_products : () => dispatch(actions.product.reducer.clear_products())
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(SplashScreen);

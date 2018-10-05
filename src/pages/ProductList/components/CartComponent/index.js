@@ -78,14 +78,20 @@ class CartComponent extends PureComponent {
 						</TouchableOpacity>
 						) : (
 						<View style={styles.touchableItem}>
-							<TouchableOpacity onPress={this.decTotalItem}>
+							<TouchableOpacity 
+								style={styles.boxOperatorLeft}
+								onPress={this.decTotalItem}
+							>
 								<StaticText 
 									style={styles.operatorText}
 									property={'productList.symbol.minus'}
 								/>
 							</TouchableOpacity>
 							<Text style={styles.itemText}>{this.props.data.count}</Text>
-							<TouchableOpacity onPress={this.addTotalItem}>
+							<TouchableOpacity 
+								style={styles.boxOperatorRight}
+								onPress={this.addTotalItem}
+							>
 								<StaticText 
 									style={styles.operatorText}
 									property={'productList.symbol.plus'}
