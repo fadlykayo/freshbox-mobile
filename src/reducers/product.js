@@ -110,13 +110,16 @@ const editTotal = (state, payload) => {
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     const index = newState.products.findIndex(e => e.id === payload.data.id);
-    const cartIndex = newState.cart.products.findIndex(e => e.id === payload.data.id);
-
+    if(newState.cart.products.length > 0){
+        const cartIndex = newState.cart.products.findIndex(e => e.id === payload.data.id);
+        if(cartIndex != -1){
+            newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
+        }
+    }
     newState.products[index].favorite = !newState.products[index].favorite;
-    newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
     newState.detail = newState.products[index];
 
-    return newState
+    return newState;
 }
 
 const productReducer = (state = initialState, action) => {
