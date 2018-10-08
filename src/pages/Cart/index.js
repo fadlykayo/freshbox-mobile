@@ -23,17 +23,20 @@ class Cart extends Component {
 		}
 		this.onChangeText = this.onChangeText.bind(this);
 		this.updateDetail = this.updateDetail.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
-		this.navigateToProductList = this.navigateToProductList.bind(this);
 	}
 
-	componentDidMount(){
-		
+	shouldComponentUpdate(nextProps){
+		if(nextProps.cart_product.length == 0){
+			this.navigateBack();
+		}
+		return true;
 	}
 
 	onChangeText(type,value){
@@ -74,7 +77,7 @@ class Cart extends Component {
 		actNav.navigate(navConstant.Checkout)
 	}
 
-	navigateToProductList(){
+	navigateBack(){
 		actNav.goBack();
 	}
 
@@ -83,7 +86,7 @@ class Cart extends Component {
 			<Container>
 				<NavigationBar 
 					title={'cart.navigationTitle'}
-					onPress={actNav.goBack}
+					onPress={this.navigateBack}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
