@@ -32,8 +32,8 @@ class Cart extends Component {
 		this.navigateToProductList = this.navigateToProductList.bind(this);
 	}
 
-	componentDidMount() {
-
+	componentDidMount(){
+		
 	}
 
 	onChangeText(type,value){
@@ -48,7 +48,7 @@ class Cart extends Component {
         this.setState({modalVisible});
 	}
 	
-	updateDetail(index) {
+	updateDetail(index){
 		let indexData = this.props.index_product[index];
 		this.props.detail_product(indexData);
 	}
@@ -70,58 +70,52 @@ class Cart extends Component {
 		this.props.change_total(payload,type);
 	}
 
-	navigateToCheckout() {
+	navigateToCheckout(){
 		actNav.navigate(navConstant.Checkout)
 	}
 
-	navigateToProductList() {
-		actNav.reset(navConstant.Product)
+	navigateToProductList(){
+		actNav.goBack();
 	}
 
 	render(){
-		if (this.props.cart_product.length > 0) {
-			return (
-				<Container>
-					<NavigationBar 
-						title={'cart.navigationTitle'}
-						onPress={actNav.goBack}
-					/>
-					<View style={styles.container}>
-						<View style={styles.cartContainer}>
-							<FlatList
-								data={this.props.cart_product}
-								keyExtractor={(item) => String(item.id)}
-								renderItem={({item,index}) => (
-									<CartComponent 
-										data={item}
-										index={index} 
-										toggleFavorite={this.toggleFavorite}
-										changeTotalItem={this.changeTotalItem}
-										openDetailProduct={this.openDetailProduct}
-									/>
-								)}
-							/>
-						</View>
-						<Checkout
-							totalPrice={this.props.total_price}
-							onPress={this.navigateToCheckout}
+		return (
+			<Container>
+				<NavigationBar 
+					title={'cart.navigationTitle'}
+					onPress={actNav.goBack}
+				/>
+				<View style={styles.container}>
+					<View style={styles.cartContainer}>
+						<FlatList
+							data={this.props.cart_product}
+							keyExtractor={(item) => String(item.id)}
+							renderItem={({item,index}) => (
+								<CartComponent 
+									data={item}
+									index={index} 
+									toggleFavorite={this.toggleFavorite}
+									changeTotalItem={this.changeTotalItem}
+									openDetailProduct={this.openDetailProduct}
+								/>
+							)}
 						/>
 					</View>
-					<DetailProduct
-						data={this.props.productDetail}
-						updateDetail={this.updateDetail}
-						toggleFavorite={this.toggleFavorite}
-						changeTotalItem={this.changeTotalItem}
-						closeDetailProduct={this.closeDetailProduct}
-						modalVisible={this.state.modalVisible.openProduct}
+					<Checkout
+						totalPrice={this.props.total_price}
+						onPress={this.navigateToCheckout}
 					/>
-				</Container>
-			);
-		}
-		else {
-			this.navigateToProductList();
-			return null
-		}
+				</View>
+				<DetailProduct
+					data={this.props.productDetail}
+					updateDetail={this.updateDetail}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					closeDetailProduct={this.closeDetailProduct}
+					modalVisible={this.state.modalVisible.openProduct}
+				/>
+			</Container>
+		);
 	}
 }
 
