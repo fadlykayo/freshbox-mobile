@@ -11,18 +11,23 @@ class DetailProduct extends PureComponent {
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 	}
 
 	addTotalItem(){
-		this.props.changeTotalItem(this.props.index,"inc");
+		this.props.changeTotalItem(this.props.data,"inc");
 	}
 
 	decTotalItem(){
-		this.props.changeTotalItem(this.props.index,"desc");
+		this.props.changeTotalItem(this.props.data,"desc");
 	}
 
 	toggleFavorite(){
-		this.props.toggleFavorite(this.props.index);
+		this.props.toggleFavorite(this.props.data);
+	}
+
+	closeDetailProduct(){
+		this.props.closeDetailProduct();
 	}
 
 	render(){
@@ -33,7 +38,7 @@ class DetailProduct extends PureComponent {
 						<View style={styles.topComponent}>
 							<View style={styles.scrollDownButton}>
 								<TouchableWithoutFeedback
-									onPress={ () => this.props.closeDetailProduct()}>
+									onPress={this.closeDetailProduct}>
 									<Image
 										resizeMode={'contain'} 
 										source={images.icon_scroll_down}
@@ -78,37 +83,37 @@ class DetailProduct extends PureComponent {
 							<View style={styles.addButton}>
 								{ this.props.data.count == 0 ? 
 								(
-								<TouchableOpacity 
-									style={styles.addNewItem}
-									onPress={this.addTotalItem}
-								>
-									<StaticText 
-										style={styles.newItemText}
-										property={'productList.content.addItem'}
-									/>
-								</TouchableOpacity>
-								) : (
-								<View style={styles.touchableItem}>
 									<TouchableOpacity 
-										style={styles.boxOperatorLeft}
-										onPress={this.decTotalItem}
-									>
-										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.minus'}
-										/>
-									</TouchableOpacity>
-									<Text style={styles.itemText}>{this.props.data.count}</Text>
-									<TouchableOpacity 
-										style={styles.boxOperatorRight}
+										style={styles.addNewItem}
 										onPress={this.addTotalItem}
 									>
 										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.plus'}
+											style={styles.newItemText}
+											property={'productList.content.addItem'}
 										/>
 									</TouchableOpacity>
-								</View>
+								) : (
+									<View style={styles.touchableItem}>
+										<TouchableOpacity 
+											style={styles.boxOperatorLeft}
+											onPress={this.decTotalItem}
+										>
+											<StaticText 
+												style={styles.operatorText}
+												property={'productList.symbol.minus'}
+											/>
+										</TouchableOpacity>
+										<Text style={styles.itemText}>{this.props.data.count}</Text>
+										<TouchableOpacity 
+											style={styles.boxOperatorRight}
+											onPress={this.addTotalItem}
+										>
+											<StaticText 
+												style={styles.operatorText}
+												property={'productList.symbol.plus'}
+											/>
+										</TouchableOpacity>
+									</View>
 								) }
 							</View>
 						</ScrollView>

@@ -5,14 +5,14 @@ const action = {};
 action.get_products = (data) => ({
     type: ct.GET_PRODUCTS,
     payload: {
-        data: data,
+        data,
     }
 });
 
-action.detail_product = (index) => ({
+action.detail_product = (data) => ({
     type: ct.DETAIL_PRODUCT,
     payload: {
-        index: index
+        data
     }
 })
 
@@ -20,26 +20,26 @@ action.clear_products = () => ({
     type: ct.CLEAR_PRODUCTS,
 })
 
-action.search_products = (params, data) => ({
+action.search_products = (params,data) => ({
     type: ct.SEARCH_PRODUCTS,
     payload: {
-        params: params,
-        data: data,
+        params,
+        data,
     }
 });
 
-action.change_total = (index, type) => ({
+action.change_total = (data,type) => ({
     type: ct.CHANGE_TOTAL,
     payload: {
-        index: index,
-        type: type,
+        data,
+        type,
     }  
 })
 
-action.toggle_favorite = (index) => ({
+action.toggle_favorite = (data) => ({
     type: ct.TOGGLE_FAVORITE,
     payload: {
-        index: index,
+        data,
     }  
 })
 

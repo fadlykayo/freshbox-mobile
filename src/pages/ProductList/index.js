@@ -16,7 +16,7 @@ import actions from '@actions';
 class ProductList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state={ 
 			categories: [
 			{	
 				id: 1,
@@ -68,41 +68,45 @@ class ProductList extends Component {
 			modalVisible: {
 				openCategories: false,
 				openProduct: false,
-			  },
+			},
 		}
-		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.changeTotalItem = this.changeTotalItem.bind(this);
-		this.submitSearch = this.submitSearch.bind(this);
-		this.setModalVisible = this.setModalVisible.bind(this);
-		this.closeDialogCategories = this.closeDialogCategories.bind(this);
-		this.closeDetailProduct = this.closeDetailProduct.bind(this);
-		this.openAllCategories = this.openAllCategories.bind(this);
-		this.openDetailProduct = this.openDetailProduct.bind(this);
-		this.checkCategory = this.checkCategory.bind(this);
-		this.changeCategory = this.changeCategory.bind(this);
-		this.openDrawerMenu = this.openDrawerMenu.bind(this);
-		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
-		this.handleLoadMore = this.handleLoadMore.bind(this);
-		this.updateDetail = this.updateDetail.bind(this);
+		this.submitSearch=this.submitSearch.bind(this);
+		this.checkCategory=this.checkCategory.bind(this);
+		this.toggleFavorite=this.toggleFavorite.bind(this);
+		this.changeCategory=this.changeCategory.bind(this);
+		this.openDrawerMenu=this.openDrawerMenu.bind(this);
+		this.handleLoadMore=this.handleLoadMore.bind(this);
+		this.setModalVisible=this.setModalVisible.bind(this);
+		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.closeDrawerMenu=this.closeDrawerMenu.bind(this);
+		this.openAllCategories=this.openAllCategories.bind(this);
+		this.openDetailProduct=this.openDetailProduct.bind(this);
+		this.closeDetailProduct=this.closeDetailProduct.bind(this);
+		this.closeDialogCategories=this.closeDialogCategories.bind(this);
 	}
 
-	componentDidMount() {
-		if(this.props.product.length == 0) {
-			let payload = {
-				header: {},
-				body: {},
-				params: {}
-			}
-			this.props.get_products(payload, null,
-				(err) => {
-					console.log(err)
-				});
-		}
+	componentDidMount(){
+		this.getProductList();
 		this.checkCategory();
 	}
 
-	handleLoadMore() {
-		if( this.props.current_page <= this.props.last_page ) {
+	getProductList(){
+		let payload = {
+			header: {},
+			params: {}
+		}
+		this.props.get_products(payload,
+			(res) => {
+
+			},
+			(err) => {
+				console.log(err)
+			}
+		);
+	}
+
+	handleLoadMore(){
+		if(this.props.current_page <= this.props.last_page) {
 			let payload = {
 				header: {},
 				body: {},
@@ -110,49 +114,45 @@ class ProductList extends Component {
 			}
 			this.props.get_products(payload, null,
 				(err) => {
-					console.log(err)
+					console.log(err);
 				});
 		}
 	}
 
-	checkCategory() {
-		let categories = this.state.categories.slice();
+	checkCategory(){
+		let categories=this.state.categories.slice();
 		let category = '';
 		for (let i = 0; i < categories.length; i++) {
 			if(categories[i].check === true) {
 				category = categories[i].name;
 			}
 		}
-		this.onChangeText('onCategory', category)
+		this.onChangeText('onCategory',category);
 	} 
 
-	changeCategory(payload) {
-		let categories = this.state.categories.slice();
+	changeCategory(payload){
+		let categories=this.state.categories.slice();
 		categories.map(item => {
-			if(item.name == payload.name) item.check = true
-			else item.check = false
-			return item	
+			if(item.name == payload.name) item.check=true;
+			else item.check=false;
+			return item;
 		})
-		this.onChangeText('categories', categories)
 		this.checkCategory();
 		this.closeDialogCategories();
+		this.onChangeText('categories', categories);
 	}
 	
 	openAllCategories(){
 		this.setModalVisible('openCategories',true);
  	}
 
-	openDetailProduct(index){
-		this.props.detail_product(index);
+	openDetailProduct(payload){
+		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
-	}
-	
-	updateDetail(index) {
-		this.props.detail_product(index);
 	}
 
 	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
         modalVisible[type] = value;
         this.setState({modalVisible});
     }
@@ -165,23 +165,23 @@ class ProductList extends Component {
 		this.setModalVisible('openProduct',false);
 	}
 	
-	toggleFavorite(index){
-		this.props.toggle_favorite(index)
+	toggleFavorite(payload){
+		this.props.toggle_favorite(payload);
 	}
 
-	changeTotalItem(index,type){
-		this.props.change_total(index, type);
+	changeTotalItem(payload,type){
+		this.props.change_total(payload,type);
 	}
 
 
-	onChangeText(type, value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
+	onChangeText(type,value){
+        // let user = this.state;
+        // user[type] = value;
+        // this.setState({user});
 	}
 	
 	submitSearch() {
-		let payload = {
+		let payload={
 			header: {},
 			body: {},
 			params: {
@@ -206,20 +206,20 @@ class ProductList extends Component {
 	render(){
 		return (
 			<Container>
-				  <SearchComponent
+				<SearchComponent
+					type={'searchItem'}
+					onChangeText={this.onChangeText}
+					onSubmitEditing={this.submitSearch}
 					openDrawerMenu={this.openDrawerMenu}
 					closeDrawerMenu={this.closeDrawerMenu}
-					type={'searchItem'}
 					title={'productList.searchPlaceHolder'}
-					onChangeText={(type,value) => this.onChangeText(type,value)}
-					onSubmitEditing={this.submitSearch}
 				/>
 				<FilterComponent 
-					onCategory = {this.state.onCategory}
-					openAllCategories = {this.openAllCategories}
 					type={'searchItem'}
-					onChangeText={(type,value) => this.onChangeText(type,value)}
+					onCategory={this.state.onCategory}
+					openAllCategories={this.openAllCategories}
 					onSubmitEditing={this.submitSearch}
+					onChangeText={this.onChangeText}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
@@ -228,40 +228,38 @@ class ProductList extends Component {
 							keyExtractor={(item) => String(item.id)}
 							renderItem={({item,index}) => (
 								<CartComponent
-									openDetailProduct= {this.openDetailProduct}
-									data = {item}
-									index = {index} 
+									data={item}
+									index={index} 
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
+									openDetailProduct= {this.openDetailProduct}
 								/>
 							)}
 							onEndReached={this.handleLoadMore}
 							onEndReachedThreshold={0.5}
 						/>
-						{ this.props.total_count > 0 ? (
-							<Checkout
-								totalCount = { this.props.total_count }
-								totalPrice = { this.props.total_price }
-							/>
-						) : ( null ) }
-						
+						{ 
+							this.props.total_count > 0 
+							? 	<Checkout
+									totalCount={ this.props.total_count }
+									totalPrice={ this.props.total_price }
+								/>
+							: 	null
+						}
 					</View>
 				</View>
-				
 				<DetailProduct
-					index={this.props.indexProduct}
-					data={this.props.product[this.props.indexProduct]}
-					changeTotalItem={this.changeTotalItem}
+					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}
-				    modalVisible={this.state.modalVisible.openProduct}
+					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
-					updateDetail={this.updateDetail}
+				    modalVisible={this.state.modalVisible.openProduct}
 				/>
 				<Categories
-					changeCategory = {this.changeCategory}
-					categories = {this.state.categories}
-					modalVisible={this.state.modalVisible.openCategories}
+					categories={this.state.categories}
+					changeCategory={this.changeCategory}
 					closeDialogCategories={this.closeDialogCategories}
+					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
 				
 			</Container>
@@ -269,30 +267,23 @@ class ProductList extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		current_page: state.product.params.page,
-		params: state.product.params,
-		product: state.product.products,
-		last_page: state.product.last_page,
-		total_price: state.product.total.price,
-		total_count: state.product.total.count,
-		indexProduct: state.product.product.index,
-		detailDataProduct: state.product.product.data,
-	}
-}
+const mapStateToProps = state => ({
+	current_page: state.product.params.page,
+	params: state.product.params,
+	product: state.product.products,
+	last_page: state.product.last_page,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	productDetail: state.product.detail,
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
-		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
-		search_products: (req, success, failure) => dispatch(actions.product.api.search_products(req, success, failure)),
-		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
-		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
+	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))	
+})
 
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

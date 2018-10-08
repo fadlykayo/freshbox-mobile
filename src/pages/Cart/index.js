@@ -21,22 +21,22 @@ class Cart extends Component {
 				openProduct: false,
 			},
 		}
-		this.setModalVisible = this.setModalVisible.bind(this);
-		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.changeTotalItem = this.changeTotalItem.bind(this);
-		this.openDetailProduct = this.openDetailProduct.bind(this);
-		this.closeDetailProduct = this.closeDetailProduct.bind(this);
-		this.countCheckHandler = this.countCheckHandler.bind(this);
-		this.navigateToCheckout = this.navigateToCheckout.bind(this);
 		this.onChangeText = this.onChangeText.bind(this);
 		this.updateDetail = this.updateDetail.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.changeTotalItem = this.changeTotalItem.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.openDetailProduct = this.openDetailProduct.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+		this.navigateToCheckout = this.navigateToCheckout.bind(this);
 		this.navigateToProductList = this.navigateToProductList.bind(this);
 	}
 
 	componentDidMount() {
+
 	}
 
-	onChangeText(type, value){
+	onChangeText(type,value){
         let user = this.state;
         user[type] = value;
         this.setState({user});
@@ -53,9 +53,8 @@ class Cart extends Component {
 		this.props.detail_product(indexData);
 	}
 
-	openDetailProduct(index){
-		let indexData = this.props.index_product[index];
-		this.props.detail_product(indexData);
+	openDetailProduct(payload){
+		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}
 
@@ -63,20 +62,12 @@ class Cart extends Component {
 		this.setModalVisible('openProduct',false);
 	}
 
-	toggleFavorite(index){
-		let indexData = this.props.index_product[index];
-		this.props.toggle_favorite(indexData);
+	toggleFavorite(payload){
+		this.props.toggle_favorite(payload);
 	}
 
-	changeTotalItem(index,type){
-		let indexData = this.props.index_product[index];
-		this.props.change_total(indexData, type);
-	}
-
-	countCheckHandler(){
-		let cart = this.state.data.slice();
-		let filteredCart = cart.filter((e) => e.count > 0);
-		this.setState({data: filteredCart});
+	changeTotalItem(payload,type){
+		this.props.change_total(payload,type);
 	}
 
 	navigateToCheckout() {
@@ -100,13 +91,13 @@ class Cart extends Component {
 							<FlatList
 								data={this.props.cart_product}
 								keyExtractor={(item) => String(item.id)}
-								renderItem={({item, index}) => (
+								renderItem={({item,index}) => (
 									<CartComponent 
-										openDetailProduct= {this.openDetailProduct}
-										data = {item}
-										index = {index} 
+										data={item}
+										index={index} 
 										toggleFavorite={this.toggleFavorite}
 										changeTotalItem={this.changeTotalItem}
+										openDetailProduct={this.openDetailProduct}
 									/>
 								)}
 							/>
@@ -117,13 +108,12 @@ class Cart extends Component {
 						/>
 					</View>
 					<DetailProduct
-						index={this.props.indexProduct}
-						data={this.props.product[this.props.indexProduct]}
-						changeTotalItem={this.changeTotalItem}
-						toggleFavorite={this.toggleFavorite}
-						modalVisible={this.state.modalVisible.openProduct}
-						closeDetailProduct={this.closeDetailProduct}
+						data={this.props.productDetail}
 						updateDetail={this.updateDetail}
+						toggleFavorite={this.toggleFavorite}
+						changeTotalItem={this.changeTotalItem}
+						closeDetailProduct={this.closeDetailProduct}
+						modalVisible={this.state.modalVisible.openProduct}
 					/>
 				</Container>
 			);
@@ -142,8 +132,7 @@ const mapStateToProps = state => {
 		product: state.product.products,
 		total_price: state.product.total.price,
 		total_count: state.product.total.count,
-		indexProduct: state.product.product.index,
-		detailDataProduct: state.product.product.data,
+		productDetail: state.product.detail,
 	}
 }
 
