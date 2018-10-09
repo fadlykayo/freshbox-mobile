@@ -17,50 +17,6 @@ class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			// categories: [
-			// {	
-			// 	id: 1,
-			// 	name: "All Categories",
-			// 	image: images.icon_buah_segar,
-			// 	check: true
-			// },
-			// {
-			// 	id: 2,
-			// 	name: "Sayur Segar",
-			// 	image: images.icon_sayur_segar,
-			// 	check: false
-			// },
-			// {
-			// 	id: 3,
-			// 	name: "Buah Segar",
-			// 	image: images.icon_buah_segar,
-			// 	check: false
-			// },
-			// {
-			// 	id: 4,
-			// 	name: "Umbi-umbian",
-			// 	image: images.icon_sayur_segar,
-			// 	check: false
-			// },
-			// {
-			// 	id: 5,
-			// 	name: "Bumbu",
-			// 	image: images.icon_buah_segar,
-			// 	check: false
-			// },
-			// {
-			// 	id: 6,
-			// 	name: "Lorem Ipsum",
-			// 	image: images.icon_sayur_segar,
-			// 	check: false
-			// },
-			// {
-			// 	id: 7,
-			// 	name: "Lorem Lorem Ipsum",
-			// 	image: images.icon_buah_segar,
-			// 	check: false
-			// },
-			// ],
 			searchItem: '',
 			onCategory: '',
 			indexProduct: 0,
@@ -68,48 +24,59 @@ class ProductList extends Component {
 			modalVisible: {
 				openCategories: false,
 				openProduct: false,
-			  },
+			},
 		}
-		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.changeTotalItem = this.changeTotalItem.bind(this);
-		this.submitSearch = this.submitSearch.bind(this);
-		this.setModalVisible = this.setModalVisible.bind(this);
-		this.closeDialogCategories = this.closeDialogCategories.bind(this);
-		this.closeDetailProduct = this.closeDetailProduct.bind(this);
-		this.openAllCategories = this.openAllCategories.bind(this);
-		this.openDetailProduct = this.openDetailProduct.bind(this);
-		this.checkCategory = this.checkCategory.bind(this);
-		this.changeCategory = this.changeCategory.bind(this);
-		this.openDrawerMenu = this.openDrawerMenu.bind(this);
-		this.closeDrawerMenu = this.closeDrawerMenu.bind(this);
-		this.handleLoadMore = this.handleLoadMore.bind(this);
-		this.updateDetail = this.updateDetail.bind(this);
+		this.submitSearch=this.submitSearch.bind(this);
+		this.checkCategory=this.checkCategory.bind(this);
+		this.toggleFavorite=this.toggleFavorite.bind(this);
+		this.changeCategory=this.changeCategory.bind(this);
+		this.openDrawerMenu=this.openDrawerMenu.bind(this);
+		this.handleLoadMore=this.handleLoadMore.bind(this);
+		this.setModalVisible=this.setModalVisible.bind(this);
+		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.closeDrawerMenu=this.closeDrawerMenu.bind(this);
+		this.openAllCategories=this.openAllCategories.bind(this);
+		this.openDetailProduct=this.openDetailProduct.bind(this);
+		this.closeDetailProduct=this.closeDetailProduct.bind(this);
+		this.closeDialogCategories=this.closeDialogCategories.bind(this);
 	}
 
-	componentDidMount() {
+	componentDidMount(){
+		this.getProductList();
+		this.getCategories();
+		this.checkCategory();
+	}
+
+	getProductList(){
 		let payload = {
 			header: {},
-			body: {},
 			params: {}
 		}
-		if(this.props.product.length == 0) {
-			this.props.get_products(payload, 
-				null,
-				(err) => {
-					console.log(err)
-				});
-		}
-		this.props.get_categories(payload, 
-			(success) => {
-				this.checkCategory();
+		this.props.get_products(payload,
+			(res) => {
 			},
 			(err) => {
 				console.log(err)
-			})
+			}
+		);
 	}
 
-	handleLoadMore() {
-		if( this.props.current_page <= this.props.last_page ) {
+	getCategories() {
+		let payload = {
+			header: {},
+			params: {}
+		}
+		this.props.get_categories(payload,
+			(res) => {
+			},
+			(err) => {
+				console.log(err)
+			}
+		);
+	}
+
+	handleLoadMore(){
+		if(this.props.current_page <= this.props.last_page) {
 			let payload = {
 				header: {},
 				body: {},
@@ -117,7 +84,7 @@ class ProductList extends Component {
 			}
 			this.props.get_products(payload, null,
 				(err) => {
-					console.log(err)
+					console.log(err);
 				});
 		}
 	}
@@ -130,7 +97,7 @@ class ProductList extends Component {
 				category = categories[i].name;
 			}
 		}
-		this.onChangeText('onCategory', category)
+		this.onChangeText('onCategory',category);
 	} 
 
 	changeCategory(input) {
@@ -179,17 +146,13 @@ class ProductList extends Component {
 		this.setModalVisible('openCategories',true);
  	}
 
-	openDetailProduct(index){
-		this.props.detail_product(index);
+	openDetailProduct(payload){
+		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
-	}
-	
-	updateDetail(index) {
-		this.props.detail_product(index);
 	}
 
 	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
         modalVisible[type] = value;
         this.setState({modalVisible});
     }
@@ -202,23 +165,23 @@ class ProductList extends Component {
 		this.setModalVisible('openProduct',false);
 	}
 	
-	toggleFavorite(index){
-		this.props.toggle_favorite(index)
+	toggleFavorite(payload){
+		this.props.toggle_favorite(payload);
 	}
 
-	changeTotalItem(index,type){
-		this.props.change_total(index, type);
+	changeTotalItem(payload,type){
+		this.props.change_total(payload,type);
 	}
 
 
-	onChangeText(type, value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
+	onChangeText(type,value){
+        // let user = this.state;
+        // user[type] = value;
+        // this.setState({user});
 	}
 	
 	submitSearch() {
-		let payload = {
+		let payload={
 			header: {},
 			body: {},
 			params: {
@@ -244,22 +207,23 @@ class ProductList extends Component {
 	}
 
 	render(){
+		console.log(this.props.state)
 		return (
 			<Container>
-				  <SearchComponent
+				<SearchComponent
+					type={'searchItem'}
+					onChangeText={this.onChangeText}
+					onSubmitEditing={this.submitSearch}
 					openDrawerMenu={this.openDrawerMenu}
 					closeDrawerMenu={this.closeDrawerMenu}
-					type={'searchItem'}
 					title={'productList.searchPlaceHolder'}
-					onChangeText={(type,value) => this.onChangeText(type,value)}
-					onSubmitEditing={this.submitSearch}
 				/>
 				<FilterComponent 
 					onCategory = {this.props.on_category}
-					openAllCategories = {this.openAllCategories}
 					type={'searchItem'}
-					onChangeText={(type,value) => this.onChangeText(type,value)}
+					openAllCategories={this.openAllCategories}
 					onSubmitEditing={this.submitSearch}
+					onChangeText={this.onChangeText}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
@@ -268,40 +232,39 @@ class ProductList extends Component {
 							keyExtractor={(item) => String(item.id)}
 							renderItem={({item,index}) => (
 								<CartComponent
-									openDetailProduct= {this.openDetailProduct}
-									data = {item}
-									index = {index} 
+									data={item}
+									index={index} 
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
+									openDetailProduct= {this.openDetailProduct}
 								/>
 							)}
 							onEndReached={this.handleLoadMore}
 							onEndReachedThreshold={0.5}
 						/>
-						{ this.props.total_count > 0 ? (
-							<Checkout
-								totalCount = { this.props.total_count }
-								totalPrice = { this.props.total_price }
-							/>
-						) : ( null ) }
-						
+						{ 
+							this.props.total_count > 0 
+							? 	<Checkout
+									totalCount={ this.props.total_count }
+									totalPrice={ this.props.total_price }
+								/>
+							: 	null
+						}
 					</View>
 				</View>
-				
 				<DetailProduct
-					index={this.props.indexProduct}
-					data={this.props.product[this.props.indexProduct]}
-					changeTotalItem={this.changeTotalItem}
+					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}
-				    modalVisible={this.state.modalVisible.openProduct}
+					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
-					updateDetail={this.updateDetail}
+				    modalVisible={this.state.modalVisible.openProduct}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}
 					categories = {this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
+					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
 				
 			</Container>
@@ -309,34 +272,27 @@ class ProductList extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		current_page: state.product.params.page,
-		params: state.product.params,
-		product: state.product.products,
-		on_category: state.product.on_category,
-		categories: state.product.categories,
-		last_page: state.product.last_page,
-		total_price: state.product.total.price,
-		total_count: state.product.total.count,
-		indexProduct: state.product.product.index,
-		detailDataProduct: state.product.product.data,
-	}
-}
+const mapStateToProps = state => ({
+	state: state.product,
+	current_page: state.product.params.page,
+	params: state.product.params,
+	product: state.product.products,
+	on_category: state.product.on_category,
+	categories: state.product.categories,
+	last_page: state.product.last_page,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	productDetail: state.product.detail,
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
-		get_categories: (req, success, failure) => dispatch(actions.product.api.get_categories(req, success, failure)),
-		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
-		search_products: (req, success, failure) => dispatch(actions.product.api.search_products(req, success, failure)),
-		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
-		change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
-		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
+	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))	
+})
 
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

@@ -36,11 +36,11 @@ class SearchComponent extends Component {
             		  	style={styles.filterByPriceText}
             		  	property={'productList.filter.area'}
             		/>
-            		{/* <Image
+            		<Image
   	  	    		  	resizeMode={'contain'} 
   	  	    		  	source={images.icon_dropdown}
   	  	    		  	style={styles.icon}
-  	  				/> */}
+  	  				/>
           		</TouchableOpacity>
 				{ this.props.onCategory == 'Default' ? (
 					<TouchableOpacity
@@ -59,14 +59,14 @@ class SearchComponent extends Component {
 					</TouchableOpacity>
 					) : (
 					<TouchableOpacity
-          			  	style={styles.eachContainer}
-          			  	onPress = { () => this.props.openAllCategories() }
+          			  	style = {styles.eachContainer}
+          			  	onPress = {this.props.openAllCategories}
           			>
-            		<Text style={styles.categoryText}>{this.props.onCategory}</Text>
+            		<Text style = {styles.categoryText}>{this.props.onCategory}</Text>
             		<Image
-  	  	    		  	resizeMode={'contain'} 
-  	  	    		  	source={images.icon_view_categories}
-  	  	    		  	style={styles.icon}
+  	  	    		  	resizeMode = {'contain'} 
+  	  	    		  	source = {images.icon_view_categories}
+  	  	    		  	style = {styles.icon}
   	  				/>
           			</TouchableOpacity>
 

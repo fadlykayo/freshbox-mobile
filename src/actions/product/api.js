@@ -7,21 +7,22 @@ const actions = {};
 
 let payload = {
 	path: '',
-	header: {},
+	header: {
+		apiToken: '',
+		oneSignalToken: '',
+	},
 	body: {},
 	params: {}
 };
 
 
-actions.get_products = (req, success, failure) => {
+actions.get_products = (req,success,failure) => {
 	
 	payload.path = path.getProducts;
 	payload.header = req.header;
-    payload.body = req.body;
-    payload.params = req.params;
-	console.log(req.params == {})
+	payload.params = req.params;
+	
 	return dispatch => {
-		// console.log("Get Products",payload)
         requestHandler('get',payload,dispatch)
         .then((res) => {
         	console.log('Get Products res',res);
@@ -86,17 +87,15 @@ actions.get_categories = (req, success, failure) => {
 };
 
 actions.search_products = (req, success, failure) => {
-	
 	payload.path = path.getProducts;
 	payload.header = req.header;
     payload.body = req.body;
 	payload.params = req.params;
 	
 	return dispatch => {
-
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Products res',res);
+        	console.log('Search Products res',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res)
@@ -106,7 +105,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Products err', err);
+        	console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

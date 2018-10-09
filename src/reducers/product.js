@@ -7,39 +7,49 @@ const initialState = {
         page: 0,
     },
     products: [],
+
     categories: [],
     on_category: '',
-    product: {
-        index: 0,
-        data: {},
-    },
+    detail: {},
     total : {
         price: 0,
         count: 0,
     },
     cart: {
-        index: [],
         products: [],
     }
 }
 
 const getData = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.products.slice();
 
     newState.params.page = payload.data.current_page + 1;
     newState.last_page= payload.data.last_page;
 
-    let listProduct = payload.data.data;
-
-    for (let i = 0; i < listProduct.length; i++) {
-        listProduct[i].count = 0;
-        listProduct[i].shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
-        listProduct[i].favorite = false;
+    for(x in incomingProducts){
+        let sameValue = false;
+        for(y in existingProducts){
+            if(incomingProducts[x].id == existingProducts[y].id){
+                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                sameValue = true;
+                break;
+            }
+        }
+        if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = newState.products.concat(listProduct);
+    newState.products = existingProducts.map(e => {
+        if(!e.count) e.count = 0;
+        if(!e.shortDescription) e.shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.';
+        if(!e.favorite) e.favorite = false;
+        return e;
+    }).filter(e => e.stock > 0);
 
-    return newState
+    newState.products = existingProducts;
+
+    return newState;
 }
 
 const getCategories = (state, payload) => {
@@ -86,10 +96,8 @@ const changeCategory = (state, payload) => {
 
 const getDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-
-    newState.product.data = newState.products[payload.index];
-    newState.product.index = payload.index;
-    return newState
+    newState.detail = payload.data;
+    return newState;
 }
 
 const searchData = (state, payload) => {
@@ -119,36 +127,27 @@ const editTotal = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let total = 0;
     let count = 0;
+    const index = newState.products.findIndex(e => e.id === payload.data.id);
+
 	if (payload.type == "inc") {
-		newState.products[payload.index].count += 1;
+		newState.products[index].count += 1;
 	}
 	else {
-		newState.products[payload.index].count -= 1;
+		newState.products[index].count -= 1;
     }
-    
-    for(i=0; i<newState.products.length; i++){
-        total = total + (newState.products[i].price * newState.products[i].count);
-        count = count + newState.products[i].count;
-    }
-    newState.total.count = count;
-    newState.total.price = total;
+
+    newState.detail = newState.products[index];
 
     let cart_product = newState.products.filter(filter => filter.count > 0);
-
-	let index_cart = [];
-	for(let i = 0; i < cart_product.length; i++) {
-		index_cart.push(newState.products.indexOf(cart_product[i]))
+    
+    for(i in cart_product){
+        total = total + (cart_product[i].price * cart_product[i].count);
+        count = count + cart_product[i].count;
     }
+
+    newState.total.count = count;
+    newState.total.price = total;
     newState.cart.products = cart_product;
-    newState.cart.index = index_cart;
-
-    return newState
-}
-
-const editFavorite = (state, payload) => {
-    let newState = JSON.parse(JSON.stringify(state));
-
-    newState.products[payload.index].favorite = !newState.products[payload.index].favorite;
 
     return newState
 }
@@ -159,8 +158,22 @@ const clearProducts = (state) => {
     newState.products = [];
     newState.total.count = 0;
     newState.total.price = 0;
-
+    
     return newState
+}
+const editFavorite = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    const index = newState.products.findIndex(e => e.id === payload.data.id);
+    if(newState.cart.products.length > 0){
+        const cartIndex = newState.cart.products.findIndex(e => e.id === payload.data.id);
+        if(cartIndex != -1){
+            newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
+        }
+    }
+    newState.products[index].favorite = !newState.products[index].favorite;
+    newState.detail = newState.products[index];
+
+    return newState;
 }
 
 const productReducer = (state = initialState, action) => {
