@@ -121,7 +121,20 @@ class SignIn extends Component {
 
         this.props.sign_in_user(payload,
             (success) => {
-                actNav.reset(navConstant.Product)
+                let payload = {
+                    header: {
+                        apiToken: success.data.authorization
+                    },
+                    body: {},
+                    params: {}
+                }
+                this.props.get_address(payload, 
+                    (success) => {
+                        actNav.reset(navConstant.Product)
+                    },
+                    (err) => {
+                        console.log(err)
+                    })
             },
             (err) => {
                 let state = this.state;
@@ -233,7 +246,8 @@ class SignIn extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sign_in_user : (req, success, failure) => dispatch(actions.auth.api.signin_user(req, success, failure))
+        sign_in_user : (req, success, failure) => dispatch(actions.auth.api.signin_user(req, success, failure)),
+        get_address: (req, success, failure) => dispatch(actions.user.api.get_address(req, success, failure))
     }
 }
 

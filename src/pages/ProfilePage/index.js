@@ -40,7 +40,7 @@ class ProfilePage extends Component {
     }
 
     navigateToAddressPage() {
-        actNav.navigate(navConstant.AddressPage)
+        actNav.navigate(navConstant.ChooseAddress)
     }
 
     navigateToResetPasswordPage() {

@@ -1,13 +1,15 @@
 import ct from '@constants';
 
 const initialState = {
-    data: null
+    data: null,
+    address: [],
+    address_detail: {}
 };
 
 
 const registration = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    newState = payload;
+    newState.data = payload;
     return newState;
 };
 
@@ -20,6 +22,19 @@ const sign_in = (state,payload) => {
 const log_out = (state) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.data = null;
+    newState.address = [];
+    return newState;
+}
+
+const get_address = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.address = payload.address;
+    return newState;
+}
+
+const get_address_detail = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.address_detail = payload.data;
     return newState;
 }
 
@@ -28,6 +43,8 @@ const user = (state = initialState, action) => {
         case ct.SIGN_IN: return sign_in(state,action.payload.profile)
         case ct.REGISTRATION: return registration(state,action.payload.profile);
         case ct.LOG_OUT: return log_out(state)
+        case ct.GET_ADDRESS: return get_address(state, action.payload)
+        case ct.GET_ADDRESS_DETAIL: return get_address_detail(state, action.payload)
         default: return state;
     };
 };

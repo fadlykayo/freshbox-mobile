@@ -1,255 +1,78 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import FormInput from '@components/FormInput';
 import StaticText from '@components/StaticText';
-import VerificationText from '@components/VerificationText';
 import TotalPrice from './components/TotalPrice';
+import DeliveryDate from './components/DeliveryDate';
 import images from '@assets';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class Checkout extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
 			user: {
-				name: '',
-                photo: images.icon_img_ava,
-                email: '',
-                phone: '',
-                province: '',
-                city: '',
-                zipCode: '',
-                kecamatan: '',
-                kelurahan: '',
-                address: '',
-				addressDetail: '',
 				deliveryPrice: 0,
-				addresses: 
-				[
-					{
-						nameAddress: 'Alamat Rumah',
-						receiverName: 'Nunes',
-						phoneNumber: '08123456789',
-						province: 'DKI Jakarta',
-						city: 'Jakarta Barat',
-						zipCode: '11450',
-						kecamatan: 'Grogol Petamburan',
-						kelurahan: 'Grogol',
-						address: 'Apartemen Mediterania Garden Residence 1 Tower Dahlia',
-						addressDetail: '',
-					},
-					{
-						nameAddress: 'Alamat Rumah',
-						receiverName: 'Nunes',
-						phoneNumber: '08123456789',
-						province: 'DKI Jakarta',
-						city: 'Jakarta Barat',
-						zipCode: '11450',
-						kecamatan: 'Grogol Petamburan',
-						kelurahan: 'Grogol',
-						address: 'Apartemen Mediterania Garden Residence 1 Tower Dahlia',
-						addressDetail: '',
-					}
-				],
-				items: [{
-					id: 1,
-					image: images.icon_buah_segar,
-					title: "Wortel",
-					category: "Sayur Segar",
-					price: 21000,
-					favorite: false,
-					pack: 1,
-				},
-				{
-					id: 2,
-					image: images.icon_sayur_segar,
-					title: "Sawi",
-					category: "Sayur Segar",
-					price: 14000,
-					favorite: false,
-					pack: 1,
-				},
-				{
-					id: 3,
-					image: images.icon_buah_segar,
-					title: "Blackberry",
-					category: "Buah Segar",
-					price: 21000,
-					favorite: true,
-					pack: 21,
-				}
-				,{
-					id: 4,
-					image: images.icon_sayur_segar,
-					title: "Jagung Manis",
-					category: "Sayur Segar",
-					price: 18000,
-					favorite: false,
-					pack: 1,
-				}]
 			},
-			validateStatus:{
-                fullName: true,
-                phone: true,
-            },
-			isEdit: false,
-			subTotalPrice: 0,
-            grandTotalPrice: 0,
+			grandTotalPrice: 0,
+			setDate: '',
+			modalVisible:{
+                showDeliveryDate: false,
+            }
 		}
 		this.onChangeText = this.onChangeText.bind(this);
-		this.setValidation = this.setValidation.bind(this);
-		this.clearValidation = this.clearValidation.bind(this);
-		this.submitFullName = this.submitFullName.bind(this);
-		this.submitPhone = this.submitPhone.bind(this);
-		this.submitProvince = this.submitProvince.bind(this);
-		this.submitCity = this.submitCity.bind(this);
-		this.submitZipCode = this.submitZipCode.bind(this);
-		this.submitKecamatan = this.submitKecamatan.bind(this);
-		this.submitKelurahan = this.submitKelurahan.bind(this);
-		this.submitAddress = this.submitAddress.bind(this);
-		this.submitAddressDetails = this.submitAddressDetails.bind(this);
-		this.updateAddressValidation = this.updateAddressValidation.bind(this);
-		this.updateHandler = this.updateHandler.bind(this);
-		this.editAddressPage = this.editAddressPage.bind(this);
-		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
-		this.countTotalPrice = this.countTotalPrice.bind(this);
-		this.setStateValidation = this.setStateValidation.bind(this);
+		this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
+		this._renderLabel = this._renderLabel.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.openDeliveryDate = this.openDeliveryDate.bind(this);
+		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
+		this.getDeliveryDate = this.getDeliveryDate.bind(this);
 	}
 
-	setStateValidation(input) {
-		this.setState({validateStatus: input})
-	}
-
-	setValidation(type,value){
-        let validateStatus = this.state.validateStatus;
-        validateStatus[type] = value;
-        this.setState({validateStatus});
+	setModalVisible(type,value){
+        let modalVisible = this.state.modalVisible;
+        modalVisible[type] = value;
+        this.setState({modalVisible});
     }
-
-    clearValidation(){
-        let validateStatus = this.state.validateStatus;
-        validateStatus.fullName = true;
-        validateStatus.phone = true;
-		this.setState({validateStatus});
-		
-    }
-
-    submitFullName(){
-        let userFullName = this.state.user.name.trim();
-        this.clearValidation();
-		this.onChangeText('name',userFullName);
-		this.formPhone.focus();
-    }
-
-	submitPhone(){
-        let userPhone = this.state.user.phone.trim();
-        this.clearValidation();
-        this.onChangeText('phone',userPhone);
-        this.formProvince.focus();
-	}
-	
-	submitProvince(){
-        let userProvince = this.state.user.province.trim();
-        this.onChangeText('province',userProvince);
-        this.formCity.focus();
-	}
-
-	submitCity(){
-        let userCity = this.state.user.city.trim();
-        this.onChangeText('city',userCity);
-        this.formZipCode.focus();
-	}
-	
-	submitZipCode(){
-        let userZipCode = this.state.user.zipCode.trim();
-        this.onChangeText('zipCode',userZipCode);
-        this.formKecamatan.focus();
-	}
-	
-	submitKecamatan(){
-        let userKecamatan = this.state.user.kecamatan.trim();
-        this.onChangeText('kecamatan',userKecamatan);
-        this.formKelurahan.focus();
-	}
-	
-	submitKelurahan(){
-        let userKelurahan = this.state.user.kelurahan.trim();
-        this.onChangeText('kelurahan',userKelurahan);
-        this.formAddress.focus();
-	}
-	
-	submitAddress(){
-        let userAddress = this.state.user.address.trim();
-        this.onChangeText('address',userAddress);
-        this.formAddressDetails.focus();
-	}
-	
-	submitAddressDetails(){
-        let userAddressDetails = this.state.user.addressDetail.trim();
-        this.onChangeText('addressDetail',userAddressDetails);
-        this.updateAddressValidation();
-	}
 
 	onChangeText(type, value){
-        let user = this.state.user;
-        user[type] = value;
-        this.setState({user});
-	}
-
-	updateAddressValidation() {
-		validation.fullName(this.state.user.name)
-        .then(() => {
-            if(this.state.validateStatus.fullName == false) this.setValidation('fullName',true);
-            validation.phone(this.state.user.phone)
-            .then(() => {
-                if(this.state.validateStatus.phone == false) this.setValidation('phone',true);
-                this.updateHandler();
-            })
-            .catch(() => {
-                this.setValidation('phone',false);
-            })
-        })
-        .catch(() => {
-            this.setValidation('fullName',false);
-        })
-	}
-
-	updateHandler() {
-		alert('Succes Update Address')
-		this.navigateToProfilePage()
-	}
-
-	editAddressPage() {
-		this.setState({isEdit: true})
-	}
-
-	navigateToProfilePage() {
-		actNav.navigate(navConstant.ProfilePage)
-	}
-
-	componentDidMount() {
-		this.countTotalPrice();
-	}
-
-	countTotalPrice(){
         let state = this.state;
-        let data = this.state.user.items;
-        let delivery = this.state.user.deliveryPrice;
-        let subTotal = 0;
-        let grandTotal = 0;
-		for(i=0; i<data.length; i++){
-			subTotal = subTotal + (data[i].price * data[i].pack);
-        }
-        grandTotal = subTotal + delivery;
-        
-        state.subTotalPrice = subTotal;
-        state.grandTotalPrice = grandTotal;
+        state[type] = value;
         this.setState({state});
 	}
+
+	getDeliveryDate(type, value) {
+		this.onChangeText(type, value);
+		this.closeDeliveryDate();
+	}
+
+	navigateToChooseAddress() {
+		actNav.navigate(navConstant.ChooseAddress);
+	}
+
+	_renderLabel() {
+		if (this.state.setDate.length == 0) return null
+		else return (
+			<View style={styles.textLabelPlace}>
+				<StaticText
+					style={styles.textLabel}
+					property={'checkout.content.chooseDate'}
+				/>
+			</View>
+			)
+	}
+
+	openDeliveryDate() {
+		this.setModalVisible('showDeliveryDate',true);
+	}
+
+	closeDeliveryDate(){
+		this.setModalVisible('showDeliveryDate',false);
+    }
 
   	render() {
 		return (
@@ -258,134 +81,80 @@ class Checkout extends Component {
 					title={'checkout.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-				{/* <ScrollView> */}
-					<View style={styles.container}>
-						<View style={styles.topComponent}>
+				<View style={styles.container}>
+					<View style={styles.topComponent}>
+						{ this.props.addresses.map((address, index) => {
+							if (address.primary == 1) {
+								return (
+									<View key={index}>
+										<StaticText
+											style={styles.staticText}
+											property={'checkout.label.deliveryAddress'}
+										/>
+							            <Text style={styles.addressText}>{address.receiver_name} <Text style={styles.nameAddressText}>({address.name})</Text></Text>
+							            { address.detail.length == 0 ? (
+                    	                    <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
+							            ) : (
+                    	                    <Text style={styles.addressText}>{address.detail}, {address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
+							            )}
+							            <Text style={styles.addressText}>{address.phone_number}</Text>
+									</View>
+								)
+							}
+						}) }
+						<TouchableOpacity 
+							style={styles.buttonOtherAddress}
+							onPress={this.navigateToChooseAddress}	
+						>
 							<StaticText
-								style={styles.staticText}
-								property={'checkout.label.deliveryAddress'}
+								style={[styles.staticText,styles.otherAddressText]}
+								property={'checkout.content.otherAddress'}
 							/>
-							<Text style={styles.addressText}>{this.state.user.addresses[0].receiverName} <Text style={[styles.addressText, styles.nameAddressText]}>({this.state.user.addresses[0].nameAddress})</Text></Text>
-							{ this.state.user.addresses[0].addressDetail.length == 0 ? (
-								<Text style={styles.addressText}>{this.state.user.addresses[0].address}, {this.state.user.addresses[0].kelurahan}, {this.state.user.addresses[0].kecamatan}, {this.state.user.addresses[0].city}, {this.state.user.addresses[0].province}, {this.state.user.addresses[0].zipCode}</Text>
-							) : (
-								<Text style={styles.addressText}>{this.state.user.addresses[0].addressDetail}, {this.state.user.addresses[0].address}, {this.state.user.addresses[0].kelurahan}, {this.state.user.addresses[0].kecamatan}, {this.state.user.addresses[0].city}, {this.state.user.addresses[0].province}, {this.state.user.addresses[0].zipCode}</Text>
-							)}
-							
-							<Text style={styles.addressText}>{this.state.user.addresses[0].phoneNumber}</Text>
-							<TouchableOpacity style={styles.buttonOtherAddress}>
-								<StaticText
-									style={[styles.staticText,styles.otherAddressText]}
-									property={'checkout.content.otherAddress'}
-								/>
-							</TouchableOpacity>
-						</View>
-						<View style={styles.bottomComponent}>
-							<Text>Tanggal</Text>
-						</View>
-						{/* <FormInput 
-							ref={c => {this.formFullName = c}}
-							type={'name'}
-							autoFocus={true}
-							value={this.state.user.name}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.name'}
-							placeholder={'checkout.label.name'}
-							onSubmitEditing={this.submitFullName}
-						/>
-						<VerificationText
-							validation={this.state.validateStatus.fullName}
-							property={'checkout.validation.fullName'}
-                    	/>
-						<FormInput 
-							ref={c => {this.formPhone = c}}
-							type={'phone'}
-							keyboardType={'number-pad'}
-							value={this.state.user.phone}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.phone'}
-							placeholder={'checkout.label.phone'}
-							onSubmitEditing={this.submitPhone}
-						/>
-						<VerificationText
-							validation={this.state.validateStatus.phone}
-							property={'checkout.validation.phone'}
-						/>
-						<FormInput 
-							ref={c => {this.formProvince = c}}
-							type={'province'}
-							value={this.state.user.province}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.province'}
-							placeholder={'checkout.label.province'}
-							onSubmitEditing={this.submitProvince}
-						/>
-						<FormInput 
-							ref={c => {this.formCity = c}}
-							type={'city'}
-							value={this.state.user.city}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.city'}
-							placeholder={'checkout.label.city'}
-							onSubmitEditing={this.submitCity}
-						/>
-						<FormInput 
-							ref={c => {this.formZipCode = c}}
-							type={'zipCode'}
-							keyboardType={'number-pad'}
-							value={this.state.user.zipCode}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.zipCode'}
-							placeholder={'checkout.label.zipCode'}
-							onSubmitEditing={this.submitZipCode}
-						/>
-						<FormInput 
-							ref={c => {this.formKecamatan = c}}
-							type={'kecamatan'}
-							value={this.state.user.kecamatan}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.kecamatan'}
-							placeholder={'checkout.label.kecamatan'}
-							onSubmitEditing={this.submitKecamatan}
-						/>
-						<FormInput 
-							ref={c => {this.formKelurahan = c}}
-							type={'kelurahan'}
-							value={this.state.user.kelurahan}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.kelurahan'}
-							placeholder={'checkout.label.kelurahan'}
-							onSubmitEditing={this.submitKelurahan}
-						/>
-						<FormInput 
-							ref={c => {this.formAddress = c}}
-							type={'address'}
-							value={this.state.user.address}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.address'}
-							placeholder={'checkout.label.address'}
-							onSubmitEditing={this.submitAddress}
-						/>
-						<FormInput 
-							ref={c => {this.formAddressDetails = c}}
-							type={'addressDetail'}
-							value={this.state.user.addressDetail}
-							onChangeText={(type,value) => this.onChangeText(type,value)}
-							label={'checkout.label.addressDetails'}
-							placeholder={'checkout.label.addressDetails'}
-							onSubmitEditing={this.submitAddressDetails}
-						/> */}
+						</TouchableOpacity>
 					</View>
-					<TotalPrice
-                        subTotal={this.state.subTotalPrice}
-                        grandTotal={this.state.grandTotalPrice}
-                        data={this.state.user}
-                        navigateToCart={this.navigateToCart}
-                    />
-				{/* </ScrollView> */}
+					<View style={styles.bottomComponent}>
+						{ this._renderLabel() }
+						<TouchableOpacity style={styles.datePlace} onPress={this.openDeliveryDate}>
+						{ this.state.setDate == '' ? (
+							<StaticText
+								style={styles.textDate}
+								property={'checkout.content.chooseDate'}
+							/>
+						) : (
+								<Text style={[styles.textDate, styles.date ]}>{ this.state.setDate }</Text>
+						) }
+
+							<View style={styles.dateImage}>
+								<Image
+									source={images.icon_calendar}
+									style={styles.logo}
+								/>
+							</View>
+						</TouchableOpacity>
+					</View>
+				</View>
+				<TotalPrice
+                    subTotal={this.props.totalPrice}
+                    grandTotal={this.state.grandTotalPrice}
+                    data={this.state.user}
+                />
+				<DeliveryDate
+					getDeliveryDate={this.getDeliveryDate}
+                    modalVisible={this.state.modalVisible.showDeliveryDate}
+                    closeDeliveryDate={this.closeDeliveryDate}
+                />
 			</Container>
 		);
   	}
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+	return {
+		addresses: state.user.address,
+		totalPrice: state.product.total.price,
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	null)(Checkout);

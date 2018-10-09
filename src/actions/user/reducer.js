@@ -13,5 +13,20 @@ action.log_out = () => ({
     type: ct.LOG_OUT
 })
 
+action.get_address = (data) => ({
+    type: ct.GET_ADDRESS,
+    payload: {
+        address: data
+    }
+})
+
+action.get_address_detail = (data) => ({
+    type: ct.GET_ADDRESS_DETAIL,
+    payload: {
+        data: data
+    }
+})
+
+
 
 export default action;

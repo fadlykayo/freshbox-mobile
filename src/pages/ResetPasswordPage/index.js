@@ -133,7 +133,6 @@ class ResetPasswordPage extends Component {
 	}
 	  
 	closeDialogResetPasswordSuccess(){
-		
 		actNav.navigate(navConstant.ProfilePage);
     }
 

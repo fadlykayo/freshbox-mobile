@@ -12,24 +12,27 @@ import Button from './components/Button';
 import InputText from './components/InputText';
 import images from '@assets';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class AddressPage extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
 			user: {
-				name: 'John Doe',
-                photo: images.icon_img_ava,
-                email: 'john.doe@freshbox.com',
-                phone: '082212345678',
-                province: 'Jawa Barat',
-                city: 'Bandung',
-                zipCode: '14016',
-                kecamatan: 'Ujungberung',
-                kelurahan: 'Passanggrahan',
-                address: 'Jl. Jatiluhur III No. 167 B',
-				addressDetail: 'Pagar Hijau Dekat Tiang Listrik',
-				password: '',
+				id: '',
+				name: '',
+                receiver_name: '',
+                phone_number: '',
+                province: '',
+                city: '',
+                zip_code: {
+					place_name: '',
+					zip_code: ''
+				},
+                subdistrict: '',
+                address: '',
+				detail: '',
 			},
 			validateStatus:{
                 fullName: true,
@@ -93,6 +96,12 @@ class AddressPage extends Component {
 		this.setContentFlex = this.setContentFlex.bind(this);
 		this.setContentFlexNull = this.setContentFlexNull.bind(this);
 		this.getDataProvince = this.getDataProvince.bind(this);
+	}
+
+	componentDidMount() {
+		let state = this.state;
+		state.user = this.props.address_detail;
+		this.setState(state)
 	}
 
 	getDataProvince(index, funcProv) {
@@ -212,6 +221,9 @@ class AddressPage extends Component {
 	}
 
 	editAddressPage() {
+		let editUser = this.props.address_detail;
+		this.setState({ user: editUser })
+		console.log('====>', this.state.user)
 		this.setState({isEdit: true})
 	}
 
@@ -247,16 +259,12 @@ class AddressPage extends Component {
 								ref={c => {this.formFullName = c}}
 								type={'name'}
 								autoFocus={true}
-								value={this.state.user.name}
-								onChangeText={(type,value) => this.onChangeText(type,value)}
+								value={this.state.user.receiver_name}
+								onChangeText={this.onChangeText}
 								label={'addressPage.label.name'}
 								placeholder={'addressPage.label.name'}
 								onSubmitEditing={this.submitFullName}
 							/>
-							<VerificationText
-                    		    validation={this.state.validateStatus.fullName}
-                    		    property={'addressPage.validation.fullName'}
-                    		/>
 							<FormInput 
 								ref={c => {this.formPhone = c}}
 								type={'phone'}
@@ -271,7 +279,7 @@ class AddressPage extends Component {
 								validation={this.state.validateStatus.phone}
 								property={'addressPage.validation.phone'}
 							/>
-							<Dropdown 
+							{/* <Dropdown 
 								ref={c => {this.formProvince = c}}
 								province={this.state.province}
 								getDataProvince={this.getDataProvince}
@@ -284,7 +292,7 @@ class AddressPage extends Component {
 								onSubmitEditing={this.submitProvince}
 								setContentFlex={this.setContentFlex}
 								setContentFlexNull={this.setContentFlexNull}
-                    		/>
+                    		/> */}
 							{/* <FormInput 
 								ref={c => {this.formProvince = c}}
 								type={'province'}
@@ -293,7 +301,7 @@ class AddressPage extends Component {
 								label={'addressPage.label.province'}
 								placeholder={'addressPage.label.province'}
 								onSubmitEditing={this.submitProvince}
-							/> */}
+							/>
 							<FormInput 
 								ref={c => {this.formCity = c}}
 								type={'city'}
@@ -348,7 +356,7 @@ class AddressPage extends Component {
 								label={'addressPage.label.addressDetails'}
 								placeholder={'addressPage.label.addressDetails'}
 								onSubmitEditing={this.submitAddressDetails}
-							/>
+							/> */}
 							<Button
 								isEdit={this.state.isEdit}
 								onPress={this.updateAddressValidation}
@@ -358,40 +366,44 @@ class AddressPage extends Component {
 					) : (
 						<View style={styles.container}>
 							<InputText
+								label={'addressPage.label.nameAddress'}
+								input={this.props.address_detail.name}
+							/>
+							<InputText
 								label={'addressPage.label.name'}
-								input={this.state.user.name}
+								input={this.props.address_detail.receiver_name}
 							/>
 							<InputText
 								label={'addressPage.label.phone'}
-								input={this.state.user.phone}
+								input={this.props.address_detail.phone_number}
 							/>
 							<InputText
 								label={'addressPage.label.province'}
-								input={this.state.user.province}
+								input={this.props.address_detail.province.name}
 							/>
 							<InputText
 								label={'addressPage.label.city'}
-								input={this.state.user.city}
+								input={this.props.address_detail.city.name}
 							/>
 							<InputText
 								label={'addressPage.label.zipCode'}
-								input={this.state.user.zipCode}
+								input={this.props.address_detail.zip_code.zip_code}
 							/>
 							<InputText
 								label={'addressPage.label.kecamatan'}
-								input={this.state.user.kecamatan}
+								input={this.props.address_detail.subdistrict.name}
 							/>
 							<InputText
 								label={'addressPage.label.kelurahan'}
-								input={this.state.user.kelurahan}
+								input={this.props.address_detail.zip_code.place_name}
 							/>
 							<InputText
 								label={'addressPage.label.address'}
-								input={this.state.user.address}
+								input={this.props.address_detail.address}
 							/>
 							<InputText
 								label={'addressPage.label.addressDetails'}
-								input={this.state.user.addressDetail}
+								input={this.props.address_detail.detail}
 							/>
 							<Button
 								onPress={this.editAddressPage}
@@ -405,4 +417,13 @@ class AddressPage extends Component {
   	}
 }
 
-export default AddressPage;
+const mapStateToProps = (state) => {
+	return {
+		address_detail: state.user.address_detail
+	}
+}
+
+
+export default connect(
+	mapStateToProps,
+	null)(AddressPage);

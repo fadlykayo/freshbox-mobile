@@ -118,10 +118,11 @@
             "subTotal": "Sub Total",
             "delivery": "Delivery",
             "grandTotal": "Grand Total",
-            "otherAddress": "Pilih Alamat Lain"
+            "otherAddress": "Pilih Alamat Lain",
+            "chooseDate": "Pilih Tanggal Kirim"
         },
         "button": {
-            "checkout": "Checkout"
+            "checkout": "Bayar"
         },
         "validation":{
             "fullName": "Tolong masukkan nama anda",
@@ -209,15 +210,16 @@
     "addressPage": {
         "navigationTitle": "Alamat",
         "label": {
-            "name": "Nama",
+            "nameAddress": "Simpan Alamat Sebagai",
+            "name": "Nama Penerima",
             "phone": "Nomor Telepon",
             "province": "Provinsi",
             "city": "Kota",
-            "zipCode": "Kode pos",
+            "zipCode": "Kode Pos",
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
             "address": "Alamat",
-            "addressDetails": "Alamat Lengkap (Opsi)"
+            "addressDetails": "Detail Alamat (Opsional)"
         },
         "button": {
             "edit": "Edit",
@@ -285,6 +287,15 @@
             "history": "Histori",
             "termsConditions": "Syarat & Ketentuan",
             "contactUs": "Bantuan"
+        }
+    },
+    "chooseAddress": {
+        "navigationTitle": "Pilih Alamat",
+        "content": {
+            "primary": "Utama"
+        },
+        "label": {
+            "addAddress": "Tambah Alamat"
         }
     }
 }

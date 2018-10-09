@@ -17,50 +17,50 @@ class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			categories: [
-			{	
-				id: 1,
-				name: "All Categories",
-				image: images.icon_buah_segar,
-				check: true
-			},
-			{
-				id: 2,
-				name: "Sayur Segar",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 3,
-				name: "Buah Segar",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			{
-				id: 4,
-				name: "Umbi-umbian",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 5,
-				name: "Bumbu",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			{
-				id: 6,
-				name: "Lorem Ipsum",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 7,
-				name: "Lorem Lorem Ipsum",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			],
+			// categories: [
+			// {	
+			// 	id: 1,
+			// 	name: "All Categories",
+			// 	image: images.icon_buah_segar,
+			// 	check: true
+			// },
+			// {
+			// 	id: 2,
+			// 	name: "Sayur Segar",
+			// 	image: images.icon_sayur_segar,
+			// 	check: false
+			// },
+			// {
+			// 	id: 3,
+			// 	name: "Buah Segar",
+			// 	image: images.icon_buah_segar,
+			// 	check: false
+			// },
+			// {
+			// 	id: 4,
+			// 	name: "Umbi-umbian",
+			// 	image: images.icon_sayur_segar,
+			// 	check: false
+			// },
+			// {
+			// 	id: 5,
+			// 	name: "Bumbu",
+			// 	image: images.icon_buah_segar,
+			// 	check: false
+			// },
+			// {
+			// 	id: 6,
+			// 	name: "Lorem Ipsum",
+			// 	image: images.icon_sayur_segar,
+			// 	check: false
+			// },
+			// {
+			// 	id: 7,
+			// 	name: "Lorem Lorem Ipsum",
+			// 	image: images.icon_buah_segar,
+			// 	check: false
+			// },
+			// ],
 			searchItem: '',
 			onCategory: '',
 			indexProduct: 0,

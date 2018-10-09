@@ -13,7 +13,6 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            // this.props.clear_products()
             if( this.props.user == null ) {
                 actNav.reset(navConstant.Menu);
             }
@@ -42,12 +41,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        clear_products : () => dispatch(actions.product.reducer.clear_products())
-    }
-}
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps)(SplashScreen);
+    null)(SplashScreen);

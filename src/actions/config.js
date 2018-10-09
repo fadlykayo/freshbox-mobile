@@ -16,4 +16,6 @@ export const path = {
     getProducts: 'v1/product/get',
     getCategories: 'v1/product/category',
     updateUser: 'v1/user/edit/profile/data',
+    getAddress: 'v1/user/address',
+    setPrimaryAddress: 'v1/user/address/set-as-primary',
 }

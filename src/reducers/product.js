@@ -157,6 +157,8 @@ const clearProducts = (state) => {
     let newState = JSON.parse(JSON.stringify(state));
 
     newState.products = [];
+    newState.total.count = 0;
+    newState.total.price = 0;
 
     return newState
 }
