@@ -20,7 +20,7 @@ helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + payload.header.apiToken,
+                'Authorization': payload.header.apiToken,
                 'X-Player': payload.header.onesignalToken,
             },
             params: payload.params
@@ -52,14 +52,13 @@ helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
 
 helper.post = (payload,dispatch) => new Promise((resolve,reject) => {
     dispatch(actNetwork.set_loading_status(true));
-    console.log("di helper",payload)
     apiInstance.post(
         payload.path,
         payload.body,
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + payload.header.apiToken,
+                'Authorization': payload.header.apiToken,
                 'X-Player': payload.header.onesignalToken,
             }
         })

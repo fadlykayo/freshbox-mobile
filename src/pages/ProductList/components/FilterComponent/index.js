@@ -36,12 +36,28 @@ class SearchComponent extends Component {
             		  	style={styles.filterByPriceText}
             		  	property={'productList.filter.area'}
             		/>
-            		{/* <Image
+            		<Image
   	  	    		  	resizeMode={'contain'} 
   	  	    		  	source={images.icon_dropdown}
   	  	    		  	style={styles.icon}
-  	  				/> */}
+  	  				/>
           		</TouchableOpacity>
+				{ this.props.onCategory == 'Default' ? (
+					<TouchableOpacity
+						style={styles.eachContainer}
+						onPress = { () => this.props.openAllCategories() }
+					>
+						<StaticText
+							style={styles.categoryText}
+							property={'productList.content.default'}
+						/>
+						<Image
+		  			    	resizeMode={'contain'} 
+		  			    	source={images.icon_view_categories}
+		  			    	style={styles.icon}
+						/>
+					</TouchableOpacity>
+					) : (
 					<TouchableOpacity
           			  	style = {styles.eachContainer}
           			  	onPress = {this.props.openAllCategories}
@@ -52,7 +68,9 @@ class SearchComponent extends Component {
   	  	    		  	source = {images.icon_view_categories}
   	  	    		  	style = {styles.icon}
   	  				/>
-          		</TouchableOpacity>
+          			</TouchableOpacity>
+
+					) }
         	</View>
       	</View>
 		);

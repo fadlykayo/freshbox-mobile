@@ -31,5 +31,7 @@ images.icon_img_ava_grey = require('./icon_img_ava_grey.png');
 images.icon_contact = require('./icon_contact.png');
 images.icon_success = require('./icon_success.png');
 images.icon_arrow_right = require('./icon_arrow_right.png');
+images.icon_pen = require('./icon_pen.png');
+images.icon_calendar = require('./icon_calendar.png');
 
 export default images;

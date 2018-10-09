@@ -16,51 +16,7 @@ import actions from '@actions';
 class ProductList extends Component {
 	constructor(props) {
 		super(props);
-		this.state={ 
-			categories: [
-			{	
-				id: 1,
-				name: "All Categories",
-				image: images.icon_buah_segar,
-				check: true
-			},
-			{
-				id: 2,
-				name: "Sayur Segar",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 3,
-				name: "Buah Segar",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			{
-				id: 4,
-				name: "Umbi-umbian",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 5,
-				name: "Bumbu",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			{
-				id: 6,
-				name: "Lorem Ipsum",
-				image: images.icon_sayur_segar,
-				check: false
-			},
-			{
-				id: 7,
-				name: "Lorem Lorem Ipsum",
-				image: images.icon_buah_segar,
-				check: false
-			},
-			],
+		this.state = { 
 			searchItem: '',
 			onCategory: '',
 			indexProduct: 0,
@@ -87,6 +43,7 @@ class ProductList extends Component {
 
 	componentDidMount(){
 		this.getProductList();
+		this.getCategories();
 		this.checkCategory();
 	}
 
@@ -97,7 +54,20 @@ class ProductList extends Component {
 		}
 		this.props.get_products(payload,
 			(res) => {
+			},
+			(err) => {
+				console.log(err)
+			}
+		);
+	}
 
+	getCategories() {
+		let payload = {
+			header: {},
+			params: {}
+		}
+		this.props.get_categories(payload,
+			(res) => {
 			},
 			(err) => {
 				console.log(err)
@@ -119,8 +89,8 @@ class ProductList extends Component {
 		}
 	}
 
-	checkCategory(){
-		let categories=this.state.categories.slice();
+	checkCategory() {
+		let categories = this.props.categories;
 		let category = '';
 		for (let i = 0; i < categories.length; i++) {
 			if(categories[i].check === true) {
@@ -130,16 +100,46 @@ class ProductList extends Component {
 		this.onChangeText('onCategory',category);
 	} 
 
-	changeCategory(payload){
-		let categories=this.state.categories.slice();
-		categories.map(item => {
-			if(item.name == payload.name) item.check=true;
-			else item.check=false;
-			return item;
-		})
-		this.checkCategory();
-		this.closeDialogCategories();
-		this.onChangeText('categories', categories);
+	changeCategory(input) {
+		if (input.name == 'Default') {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					page: 1,
+				}
+			}
+
+			this.props.search_products(payload, 
+				(success) => {
+					this.props.change_categories(input);
+					this.checkCategory();
+					this.closeDialogCategories();
+				},
+				(err) => {
+					console.log(err)
+				});
+		}
+		else {
+			let payload = {
+				header: {},
+				body: {},
+				params: {
+					category_id: input.id,
+					page: 1,
+				}
+			}
+
+			this.props.search_products(payload, 
+				(success) => {
+					this.props.change_categories(input);
+					this.checkCategory();
+					this.closeDialogCategories();
+				},
+				(err) => {
+					console.log(err)
+				});
+		}		
 	}
 	
 	openAllCategories(){
@@ -189,7 +189,10 @@ class ProductList extends Component {
 				page: 1,
 			}
 		}
-		this.props.search_products(payload, null,
+		this.props.search_products(payload, 
+			(success) => {
+				console.log(success)
+			},
 			(err) => {
 				console.log(err)
 			});
@@ -204,6 +207,7 @@ class ProductList extends Component {
 	}
 
 	render(){
+		console.log(this.props.state)
 		return (
 			<Container>
 				<SearchComponent
@@ -215,8 +219,8 @@ class ProductList extends Component {
 					title={'productList.searchPlaceHolder'}
 				/>
 				<FilterComponent 
+					onCategory = {this.props.on_category}
 					type={'searchItem'}
-					onCategory={this.state.onCategory}
 					openAllCategories={this.openAllCategories}
 					onSubmitEditing={this.submitSearch}
 					onChangeText={this.onChangeText}
@@ -256,8 +260,9 @@ class ProductList extends Component {
 				    modalVisible={this.state.modalVisible.openProduct}
 				/>
 				<Categories
-					categories={this.state.categories}
-					changeCategory={this.changeCategory}
+					changeCategory = {this.changeCategory}
+					categories = {this.props.categories}
+					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
 					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
@@ -268,9 +273,12 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => ({
+	state: state.product,
 	current_page: state.product.params.page,
 	params: state.product.params,
 	product: state.product.products,
+	on_category: state.product.on_category,
+	categories: state.product.categories,
 	last_page: state.product.last_page,
 	total_price: state.product.total.price,
 	total_count: state.product.total.count,
@@ -278,12 +286,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))	
 })
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

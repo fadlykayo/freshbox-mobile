@@ -40,7 +40,7 @@ class ProfilePage extends Component {
     }
 
     navigateToAddressPage() {
-        actNav.navigate(navConstant.AddressPage)
+        actNav.navigate(navConstant.ChooseAddress)
     }
 
     navigateToResetPasswordPage() {
@@ -68,14 +68,16 @@ class ProfilePage extends Component {
             }
             else {
                 console.log("===>",response)
-                let source = { uri: response.uri };
-                console.log(source)
+                let formData = new FormData();
+                formData.append('image', response)
+
                 let payload = {
                     header: {
                         authorization: this.props.user.authorization
                     },
-                    body: {}
+                    body: formData
                 }
+
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
             }
@@ -121,7 +123,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
         log_out : () => dispatch(actions.auth.reducer.log_out()),
-        clear_products : () => dispatch(actions.product.reducer.clear_products())
+        clear_products : () => dispatch(actions.product.reducer.clear_products()),
+        upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
 	}
 }
 

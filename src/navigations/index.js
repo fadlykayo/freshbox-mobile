@@ -12,7 +12,7 @@ import HistoryPage from '@pages/HistoryPage';
 import HistoryDetail from '@pages/HistoryDetail';
 import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
-import AddressPage from '@pages/AddressPage';
+import EditAddressPage from '@pages/EditAddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
 import HomeResetNewPasswordPage from '@pages/HomeResetNewPasswordPage';
 import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
@@ -21,6 +21,7 @@ import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
 import ContactUs from '@pages/ContactUs';
 import Checkout from '@pages/Checkout';
+import ChooseAddress from '@pages/ChooseAddress';
 
 let _navigator;
 
@@ -46,11 +47,12 @@ export const AppNavigator = createStackNavigator({
     Product: DrawerBar,
     HistoryDetail: {screen: HistoryDetail},
     PhonePage: {screen: PhonePage},
-    AddressPage: {screen: AddressPage},
+    EditAddressPage: {screen: EditAddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
-    ResetNewPasswordPage: {screen: ResetNewPasswordPage}
+    ResetNewPasswordPage: {screen: ResetNewPasswordPage},
+    ChooseAddress: {screen: ChooseAddress}
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -93,7 +95,7 @@ export const navConstant = {
     HistoryDetail: 'HistoryDetail',
     ProfilePage: 'ProfilePage',
     PhonePage: 'PhonePage',
-    AddressPage: 'AddressPage',
+    EditAddressPage: 'EditAddressPage',
     ResetPasswordPage: 'ResetPasswordPage',
     Favourites: 'Favourites',
     TermsConditions: 'TermsConditions',
@@ -101,6 +103,7 @@ export const navConstant = {
     Checkout: 'Checkout',
     HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',
     ResetNewPasswordPage: 'ResetNewPasswordPage',
+    ChooseAddress: 'ChooseAddress',
 }
 
 export const setNavigator = (navigatorRef) => {

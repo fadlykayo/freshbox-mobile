@@ -55,6 +55,7 @@ const styles = {
     categoryText: {
         fontWeight: 'bold',
         fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12)
     }
 }
 
