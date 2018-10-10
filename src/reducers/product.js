@@ -7,7 +7,6 @@ const initialState = {
         page: 0,
     },
     products: [],
-
     categories: [],
     on_category: '',
     detail: {},
