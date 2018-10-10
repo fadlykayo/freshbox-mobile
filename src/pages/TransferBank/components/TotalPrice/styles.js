@@ -12,7 +12,7 @@ const styles = {
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         borderWidth: 1,
-        borderColor: colour.lightGrey,
+        borderColor: colour.veryLightGrey,
         paddingTop: width * 0.05,
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,

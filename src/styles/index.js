@@ -1,6 +1,7 @@
 export const colour = {
     red: 'rgb(229,37,70)',
     darkRed: 'rgb(200, 39, 67)',
+    lightPink: 'rgb(255, 241, 243)',
     lightOrange: 'rgb(255, 238, 230)',
     orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',
@@ -8,6 +9,7 @@ export const colour = {
     blueFacebook: 'rgb(65,103,178)',
     darkGreyTransparent: 'rgba(81,81,81,0.9)',
     darkGrey: 'rgb(81,81,81)',
+    veryDarkGrey: 'rgb(74, 74, 74)',
     mediumGrey: 'rgb(227, 227, 227)',
     grey: 'rgb(172, 179, 187)',
     lightGrey: 'rgb(198,198,198)',

@@ -6,12 +6,7 @@ import styles from './styles';
 
 class TotalPrice extends Component {
   	constructor(props) {
-        super(props);
-        this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);  
-    }
-
-    navigateToChoosePayment() {
-        this.props.onPress()
+  		super(props)
     }
 
   	render() {
@@ -21,38 +16,28 @@ class TotalPrice extends Component {
                     <View style={styles.subTotal}>
                         <StaticText
                             style={styles.staticText}
-                            property={'checkout.content.subTotal'}
+                            property={'choosePayment.content.subTotal'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.subTotal).format('0,0')}</Text>
+                        property={'choosePayment.content.price'}/>{numeral(this.props.subTotal).format('0,0')}</Text>
                     </View>
                     <View style={styles.subTotal}>
                         <StaticText
                             style={styles.staticText}
-                            property={'checkout.content.delivery'}
+                            property={'choosePayment.content.delivery'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
+                        property={'choosePayment.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
                     </View>
                     <View style={styles.grandTotal}>
                         <StaticText
                             style={styles.staticText}
-                            property={'checkout.content.grandTotal'}
+                            property={'choosePayment.content.grandTotal'}
                         />
                         <Text style={styles.grandPrice}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.grandTotal).format('0,0')}</Text>
+                        property={'choosePayment.content.price'}/>{numeral(this.props.grandTotal).format('0,0')}</Text>
                     </View>
                 </View>
-                <TouchableOpacity 
-                    onPress={this.navigateToChoosePayment}
-                    style={styles.checkoutButton}
-                >
-                    <StaticText
-                        style={styles.checkoutText}
-                        property={'checkout.content.checkout'}
-                    />
-                </TouchableOpacity>
-                
             </View>
   	  	);
   	}

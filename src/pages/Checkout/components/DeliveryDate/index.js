@@ -8,14 +8,30 @@ import images from '@assets';
 var idLocale = require('moment/locale/id');
 moment.locale('id', idLocale)
 
+var today = new Date();
+var tomorrow = new Date(today);
+tomorrow.setDate(today.getDate()+1);
+var next2days = new Date(today);
+next2days.setDate(today.getDate()+2);
+
+
 class DeliveryDate extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state = {
 			date: [
-				moment().format('dddd, Do MMMM YYYY'),
-				moment().add(1, 'd').format('dddd, Do MMMM YYYY'),
-				moment().add(2, 'd').format('dddd, Do MMMM YYYY')
+				{
+					display: moment(today).format('dddd, Do MMMM YYYY'),
+					post: moment(today).format('YYYY-MM-DD HH:mm:ss'),
+				},
+				{
+					display: moment(tomorrow).format('dddd, Do MMMM YYYY'),
+					post: moment(tomorrow).format('YYYY-MM-DD HH:mm:ss'),
+				},
+				{
+					display: moment(next2days).format('dddd, Do MMMM YYYY'),
+					post: moment(next2days).format('YYYY-MM-DD HH:mm:ss'),
+				}
 			]
 		}
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
@@ -39,19 +55,10 @@ class DeliveryDate extends PureComponent {
 							{ this.state.date.map((data, index) => {
 								return (
 									<TouchableOpacity key={index} style={styles.datePlace} onPress={() => this.getDeliveryDate('setDate', data)}>
-										<Text>{ data }</Text>
+										<Text>{ data.display }</Text>
 									</TouchableOpacity>
 								)
 							}) }
-							{/* <TouchableOpacity style={styles.datePlace} onPress={() => this.getDeliveryDate('setDate', moment().format('dddd, MMMM Do YYYY'))}>
-								<Text>{moment().format('dddd, MMMM Do YYYY')}</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.datePlace} onPress={() => this.getDeliveryDate('setDate', moment().add(1, 'd').format('dddd, MMMM Do YYYY'))}>
-								<Text>{moment().add(1, 'd').format('dddd, MMMM Do YYYY')}</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.datePlace} onPress={() => this.getDeliveryDate('setDate', moment().add(2, 'd').format('dddd, MMMM Do YYYY'))}>
-								<Text>{moment().add(2, 'd').format('dddd, MMMM Do YYYY')}</Text>
-							</TouchableOpacity> */}
 						</View>
 					</View>
 				</TouchableWithoutFeedback>
