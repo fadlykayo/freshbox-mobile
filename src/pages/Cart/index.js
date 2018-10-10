@@ -74,7 +74,35 @@ class Cart extends Component {
 	}
 
 	navigateToCheckout(){
-		actNav.navigate(navConstant.Checkout)
+		let buyProducts = [];
+
+		this.props.cart_product.map((cart) => {
+			let product = {};
+			product.product_id = cart.id;
+			product.qty = cart.count
+			buyProducts.push(product)
+		}) 
+
+		if (this.props.user) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: buyProducts
+			}
+
+			console.log("data yang mau dikirim",payload)
+			// this.props.bulk_add_products(payload,
+			// 	(success) => {
+					actNav.navigate(navConstant.Checkout)
+				// },
+				// (err) => {
+				// 	console.log(err)
+				// })
+		}
+		else {
+			alert('SIGN IN DULU')
+		}
 	}
 
 	navigateBack(){
@@ -124,6 +152,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
 	return {
+		user: state.user.data,
 		cart_product: state.product.cart.products,
 		index_product: state.product.cart.index,
 		product: state.product.products,
@@ -135,11 +164,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		get_products : (req, success, failure) => dispatch(actions.product.api.get_products(req, success, failure)),
+		get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
 		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-		
+		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 	}
 }
 

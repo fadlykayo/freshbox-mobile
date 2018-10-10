@@ -18,4 +18,5 @@ export const path = {
     updateUser: 'v1/user/edit/profile/data',
     getAddress: 'v1/user/address',
     setPrimaryAddress: 'v1/user/address/set-as-primary',
+    shippingCost: 'v1/shipping-cost',
 }

@@ -26,10 +26,17 @@ class ChoosePayment extends Component {
         this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
     }
 
+    componentDidMount() {
+        let state = this.state;
+		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
+        
+        this.setState(state)
+    }
+
     navigateToOtherPage(payload) {
         switch(payload) {
-            case 'choosePayment.content.transferBank': return actNav.navigate(navConstant.TransferBank)
-            case 'choosePayment.content.virtualAccount': return actNav.navigate(navConstant.VirtualAccount)
+            case 'choosePayment.content.transferBank': return actNav.navigate(navConstant.TransferBank, { transaction: this.props.navigation.state.params.transaction})
+            case 'choosePayment.content.virtualAccount': return actNav.navigate(navConstant.VirtualAccount, { transaction: this.props.navigation.state.params.transaction})
             default: return actNav.navigate(navConstant.CreditCard)
         }
     } 
@@ -64,7 +71,7 @@ class ChoosePayment extends Component {
                 <TotalPrice
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-                    data={this.state.user}
+					delivery_price={this.props.delivery_price}
                 />
             </Container>
         );
@@ -73,7 +80,9 @@ class ChoosePayment extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		totalPrice: state.product.total.price,
+        user: state.user.data,
+        totalPrice: state.product.total.price,
+        delivery_price: state.product.delivery_price
 	}
 }
 

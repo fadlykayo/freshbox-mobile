@@ -13,9 +13,6 @@ class VirtualAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                deliveryPrice: 0
-            },
             grandTotalPrice: 0,
             banks: 
             [
@@ -173,7 +170,7 @@ class VirtualAccount extends Component {
                 <TotalPrice
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-                    data={this.state.user}
+					delivery_price={this.props.delivery_price}
                 />
             </Container>
         );
@@ -182,7 +179,9 @@ class VirtualAccount extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		totalPrice: state.product.total.price,
+        user: state.user.data,
+        totalPrice: state.product.total.price,
+        delivery_price: state.product.delivery_price
 	}
 }
 

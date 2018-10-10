@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
+import moment from 'moment';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
@@ -15,9 +16,6 @@ class Checkout extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
-			user: {
-				deliveryPrice: 0,
-			},
 			grandTotalPrice: 0,
 			setDate: '',
 			modalVisible:{
@@ -31,6 +29,28 @@ class Checkout extends Component {
 		this.openDeliveryDate = this.openDeliveryDate.bind(this);
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
 		this.getDeliveryDate = this.getDeliveryDate.bind(this);
+		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+	}
+
+	componentDidMount() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {},
+			params: {}
+		}
+
+		this.props.get_delivery_price(payload, 
+			(success) => {
+				let state = this.state;
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
+
+				this.setState(state)
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	setModalVisible(type,value){
@@ -52,6 +72,20 @@ class Checkout extends Component {
 
 	navigateToChooseAddress() {
 		actNav.navigate(navConstant.ChooseAddress);
+	}
+
+	navigateToChoosePayment() {
+		let address = this.props.addresses.filter(address => address.primary == 1);
+		// console.log("data filter", address)
+		let payload = {};
+
+		payload.address_id = address[0].id;
+		payload.request_shipping_date = this.state.setDate.post;
+
+		// console.log("data masuk", payload)
+		actNav.navigate(navConstant.ChoosePayment, {
+			transaction: payload
+		})
 	}
 
 	_renderLabel() {
@@ -121,7 +155,7 @@ class Checkout extends Component {
 								property={'checkout.content.chooseDate'}
 							/>
 						) : (
-								<Text style={[styles.textDate, styles.date ]}>{ this.state.setDate }</Text>
+								<Text style={[styles.textDate, styles.date ]}>{ this.state.setDate.display }</Text>
 						) }
 
 							<View style={styles.dateImage}>
@@ -136,7 +170,8 @@ class Checkout extends Component {
 				<TotalPrice
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-                    data={this.state.user}
+					delivery_price={this.props.delivery_price}
+					onPress={this.navigateToChoosePayment}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
@@ -150,11 +185,19 @@ class Checkout extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		user: state.user.data,
 		addresses: state.user.address,
 		totalPrice: state.product.total.price,
+		delivery_price: state.product.delivery_price
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err))
 	}
 }
 
 export default connect(
 	mapStateToProps,
-	null)(Checkout);
+	mapDispatchToProps)(Checkout);

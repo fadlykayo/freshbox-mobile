@@ -104,7 +104,7 @@ class CreditCard extends Component {
                     <TotalPrice
                         subTotal={this.props.totalPrice}
                         grandTotal={this.state.grandTotalPrice}
-                        data={this.state.user}
+                        delivery_price={this.props.delivery_price}
                     />
                 </View>
                
@@ -115,7 +115,9 @@ class CreditCard extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		totalPrice: state.product.total.price,
+        user: state.user.data,
+        totalPrice: state.product.total.price,
+        delivery_price: state.product.delivery_price
 	}
 }
 

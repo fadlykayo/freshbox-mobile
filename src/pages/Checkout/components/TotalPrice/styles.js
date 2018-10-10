@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 const styles = {
     bottomComponent: {
         flex: -1,
-        height: height * 0.28,
+        height: height * 0.26,
         backgroundColor: colour.white,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
@@ -50,7 +50,7 @@ const styles = {
     },
     checkoutButton: {
         flex: -1,
-        height: height * 0.1,
+        height: height * 0.08,
         backgroundColor: colour.red,
         borderColor: colour.white,
         borderWidth: 1,

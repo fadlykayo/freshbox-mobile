@@ -27,7 +27,7 @@ class TotalPrice extends Component {
                             property={'choosePayment.content.delivery'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'choosePayment.content.price'}/>{numeral(this.props.data.deliveryPrice).format('0,0')}</Text>
+                        property={'choosePayment.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
                     </View>
                     <View style={styles.grandTotal}>
                         <StaticText

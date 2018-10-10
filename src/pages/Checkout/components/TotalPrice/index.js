@@ -6,7 +6,12 @@ import styles from './styles';
 
 class TotalPrice extends Component {
   	constructor(props) {
-  		super(props)
+        super(props);
+        this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);  
+    }
+
+    navigateToChoosePayment() {
+        this.props.onPress()
     }
 
   	render() {
@@ -27,7 +32,7 @@ class TotalPrice extends Component {
                             property={'checkout.content.delivery'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.data.deliveryPrice).format('0,0')}</Text>
+                        property={'checkout.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
                     </View>
                     <View style={styles.grandTotal}>
                         <StaticText
@@ -39,7 +44,7 @@ class TotalPrice extends Component {
                     </View>
                 </View>
                 <TouchableOpacity 
-                    onPress={() => alert('Success')}
+                    onPress={this.navigateToChoosePayment}
                     style={styles.checkoutButton}
                 >
                     <StaticText

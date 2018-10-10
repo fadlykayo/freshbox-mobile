@@ -62,7 +62,7 @@ export const AppNavigator = createStackNavigator({
     TransferBank: {screen: TransferBank},
     VirtualAccount: {screen: VirtualAccount},    
 },{
-    initialRouteName  : 'ChoosePayment',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {

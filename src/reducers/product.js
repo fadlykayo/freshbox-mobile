@@ -17,7 +17,8 @@ const initialState = {
     },
     cart: {
         products: [],
-    }
+    },
+    delivery_price: 0
 }
 
 const getData = (state, payload) => {
@@ -176,10 +177,18 @@ const editFavorite = (state,payload) => {
     return newState;
 }
 
+const getDeliveryPrice = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.delivery_price = payload.data
+
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS : return getData(state, action.payload)
         case ct.GET_CATEGORIES: return getCategories(state, action.payload)
+        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
         case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
         case ct.CHANGE_TOTAL: return editTotal(state, action.payload)
         case ct.CHANGE_CATEGORIES: return changeCategory(state, action.payload) 
