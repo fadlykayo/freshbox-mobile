@@ -18,7 +18,7 @@ let payload = {
 
 actions.bulk_add_products = (req,success,failure) => {
 	
-	payload.path = path.getProducts;
+	payload.path = path.bulkAddProducts;
 	payload.header = req.header;
 	payload.params = req.params;
 	
@@ -28,7 +28,6 @@ actions.bulk_add_products = (req,success,failure) => {
         	console.log('Bulk Add Products res',res);
         	if(res.code){
         		if(res.code == 200){
-					// dispatch(actReducer.bulk_add_products(res.data));
 					success(res);
         		}
         	}

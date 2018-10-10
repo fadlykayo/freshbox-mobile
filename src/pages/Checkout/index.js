@@ -77,15 +77,26 @@ class Checkout extends Component {
 	navigateToChoosePayment() {
 		let address = this.props.addresses.filter(address => address.primary == 1);
 		// console.log("data filter", address)
-		let payload = {};
-
-		payload.address_id = address[0].id;
-		payload.request_shipping_date = this.state.setDate.post;
-
-		// console.log("data masuk", payload)
-		actNav.navigate(navConstant.ChoosePayment, {
-			transaction: payload
-		})
+		if(address.length == 0) {
+			alert("Isi alamat nya")
+		}
+		else {
+			if (this.state.setDate == '') {
+				alert("Isi Tanggal nya")
+			}
+			else {
+				let payload = {};
+		
+				payload.address_id = address[0].id;
+				payload.request_shipping_date = this.state.setDate.post;
+		
+				// console.log("data masuk", payload)
+				actNav.navigate(navConstant.ChoosePayment, 
+					{transaction: payload }
+					// {}
+				)
+			}
+		}
 	}
 
 	_renderLabel() {

@@ -19,4 +19,5 @@ export const path = {
     getAddress: 'v1/user/address',
     setPrimaryAddress: 'v1/user/address/set-as-primary',
     shippingCost: 'v1/shipping-cost',
+    bulkAddProducts: 'v1/cart/bulk-add',
 }
