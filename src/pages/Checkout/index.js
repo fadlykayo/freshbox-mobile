@@ -155,6 +155,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	null)(Checkout);
+export default connect(mapStateToProps,null)(Checkout);
