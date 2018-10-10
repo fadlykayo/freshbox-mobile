@@ -6,12 +6,7 @@ import styles from './styles';
 
 class TotalPrice extends Component {
   	constructor(props) {
-        super(props);
-        this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);  
-    }
-
-    navigateToChoosePayment() {
-        this.props.onPress()
+  		super(props)
     }
 
   	render() {
@@ -44,7 +39,7 @@ class TotalPrice extends Component {
                     </View>
                 </View>
                 <TouchableOpacity 
-                    onPress={this.navigateToChoosePayment}
+                    onPress={() => alert('Success')}
                     style={styles.checkoutButton}
                 >
                     <StaticText

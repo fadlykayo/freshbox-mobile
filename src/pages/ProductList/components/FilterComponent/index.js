@@ -10,21 +10,12 @@ import images from '@assets';
 class SearchComponent extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-      		searchItem: '',
-    	}
-    this.onChangeText = this.onChangeText.bind(this);
-    this.onSubmitEditing = this.onSubmitEditing.bind(this);
+		this.openAllCategories = this.openAllCategories.bind(this);
 	}
 
-  	onChangeText(value){
-		this.props.onChangeText(this.props.type,value);
- 	}
-
-  	onSubmitEditing(){
-    	if(this.props.onSubmitEditing) this.props.onSubmitEditing();
-  	}
-
+	openAllCategories() {
+		this.props.openAllCategories()
+	}
 	render(){
 		return (
     	<View style={styles.container}>
@@ -45,7 +36,7 @@ class SearchComponent extends Component {
 				{ this.props.onCategory == 'Default' ? (
 					<TouchableOpacity
 						style={styles.eachContainer}
-						onPress = { () => this.props.openAllCategories() }
+						onPress = { this.openAllCategories }
 					>
 						<StaticText
 							style={styles.categoryText}

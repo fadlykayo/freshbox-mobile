@@ -16,6 +16,13 @@ action.get_categories = (data) => ({
     }
 });
 
+action.get_delivery_price = (data) => ({
+    type: ct.GET_DELIVERY_PRICE,
+    payload: {
+        data,
+    }
+})
+
 action.detail_product = (data) => ({
     type: ct.DETAIL_PRODUCT,
     payload: {

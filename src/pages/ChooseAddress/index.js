@@ -26,7 +26,10 @@ class ChooseAddress extends PureComponent {
             },
             params: {}
         }
-        this.props.set_primary_address(payload, null, 
+        this.props.set_primary_address(payload, 
+            (success) => {
+                actNav.goBack()
+            }, 
             (err) => {
                 console.log(err)
             })
