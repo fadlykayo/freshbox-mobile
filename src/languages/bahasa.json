@@ -113,10 +113,10 @@
         },
         "content": {
             "price": "IDR ",
-            "checkout": "Checkout",
+            "checkout": "Bayar",
             "pack": " pack",
             "subTotal": "Sub Total",
-            "delivery": "Delivery",
+            "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
             "otherAddress": "Pilih Alamat Lain",
             "chooseDate": "Pilih Tanggal Kirim"
@@ -296,6 +296,58 @@
         },
         "label": {
             "addAddress": "Tambah Alamat"
+        }
+    },
+    "choosePayment": {
+        "navigationTitle": "Pilih Metode Pembayaran",
+        "content": {
+            "creditCard": "Kartu Kredit",
+            "transferBank": "Bank Transfer",
+            "virtualAccount": "Virtual Account",
+            "subTotal": "Sub Total",
+            "delivery": "Pengiriman",
+            "grandTotal": "Grand Total",
+            "price": "IDR "
+        }
+    },
+    "creditCard": {
+        "navigationTitle": "Kartu Kredit",
+        "content": {
+            "cardNumber": "Nomor Kartu",
+            "expiredDate": "Tanggal Kadaluarsa",
+            "expED": "example 08-2010",
+            "cvv": "Kode CVV"
+        }
+    },
+    "transferBank": {
+        "navigationTitle": "Bank Transfer",
+        "content": {
+            "bca": {
+                "name": "Bank BCA",
+                "atm": "ATM BCA",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BCA"
+            },
+            "mandiri": {
+                "name": "Bank Mandiri",
+                "atm": "ATM Mandiri",
+                "mBanking": "M-Banking",
+                "iBanking": "CLICKPAY MANDIRI"
+            },
+            "bri": {
+                "name": "Bank BRI",
+                "atm": "ATM BRI",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BRI"
+            }
+        }
+    },
+    "virtualAccount": {
+        "navigationTitle": "Virtual Account",
+        "content": {
+            "bcaVA": "BCA Virtual Account",
+            "mandiriVA": "Mandiri Virtual Account",
+            "briVA": "BRI Virtual Account"
         }
     }
 }

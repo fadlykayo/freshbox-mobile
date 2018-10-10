@@ -22,6 +22,10 @@ import TermsConditions from '@pages/TermsConditions';
 import ContactUs from '@pages/ContactUs';
 import Checkout from '@pages/Checkout';
 import ChooseAddress from '@pages/ChooseAddress';
+import ChoosePayment from '@pages/ChoosePayment';
+import CreditCard from '@pages/CreditCard';
+import TransferBank from '@pages/TransferBank';
+import VirtualAccount from '@pages/VirtualAccount';
 
 let _navigator;
 
@@ -52,9 +56,13 @@ export const AppNavigator = createStackNavigator({
     Checkout: {screen: Checkout},
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
     ResetNewPasswordPage: {screen: ResetNewPasswordPage},
-    ChooseAddress: {screen: ChooseAddress}
+    ChooseAddress: {screen: ChooseAddress},
+    ChoosePayment: {screen: ChoosePayment},
+    CreditCard: {screen: CreditCard},    
+    TransferBank: {screen: TransferBank},
+    VirtualAccount: {screen: VirtualAccount},    
 },{
-    initialRouteName  : 'SplashScreen',
+    initialRouteName  : 'ChoosePayment',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -104,6 +112,10 @@ export const navConstant = {
     HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',
     ResetNewPasswordPage: 'ResetNewPasswordPage',
     ChooseAddress: 'ChooseAddress',
+    ChoosePayment: 'ChoosePayment',
+    CreditCard: 'CreditCard',
+    TransferBank: 'TransferBank',
+    VirtualAccount: 'VirtualAccount',
 }
 
 export const setNavigator = (navigatorRef) => {

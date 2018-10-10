@@ -41,6 +41,7 @@ class DrawerPage extends Component {
 		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
 		this.navigateLogOut = this.navigateLogOut.bind(this);
 		this.navigateSignIn = this.navigateSignIn.bind(this);
+		this.closeDrawerPage = this.closeDrawerPage.bind(this);
   	}
 
   	navigateToOtherPage(payload) {
@@ -67,25 +68,25 @@ class DrawerPage extends Component {
 		actNav.navigate(navConstant.SignIn)
 	}
 
+	closeDrawerPage() {
+		this.props.navigation.closeDrawer()
+	}
+
   	render () {
   	  	return (
 			<Container>
   	  	  		<View style={styles.container}>
-					{/* { this.props.user == null ? (
-						<View style={styles.topComponent}>
-						</View>) : ( */}
-						<PhotoComponent
-							navigateToProfilePage={this.navigateToProfilePage}
-							user={this.props.user}
-						/>
-					{/* ) } */}
+					<PhotoComponent
+						navigateToProfilePage={this.navigateToProfilePage}
+						user={this.props.user}
+					/>
 					
   	      			<View style={styles.middleComponent}>
 					{ this.state.pages.map ((page, index) => {
 						if (page.selected) {
 							return (
 								<TouchableOpacity 
-									onPress={ () => this.props.navigation.closeDrawer()}
+									onPress={ this.closeDrawerPage }
 									style={styles.selectedPage} key={index}
 								>
 									<StaticText
@@ -112,7 +113,7 @@ class DrawerPage extends Component {
   	      		</View>
 				{ this.props.user == null ? (
 					<TouchableOpacity 
-						onPress={() => this.navigateSignIn()}
+						onPress={this.navigateSignIn}
 						style={styles.bottomComponent}
 					>
 						<StaticText
@@ -122,7 +123,7 @@ class DrawerPage extends Component {
   	      			</TouchableOpacity>
 				) : (
 					<TouchableOpacity 
-						onPress={() => this.navigateLogOut()}
+						onPress={this.navigateLogOut}
 						style={styles.bottomComponent}
 					>
 						<StaticText
