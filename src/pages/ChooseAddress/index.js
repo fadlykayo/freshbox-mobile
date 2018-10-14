@@ -134,7 +134,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        set_primary_address: (req, success, failure) => dispatch(actions.user.api.set_primary_address(req, success, failure)),
+        set_primary_address: (req,res,err) => dispatch(actions.user.api.set_primary_address(req,res,err)),
         get_address_detail: (data) => dispatch(actions.user.reducer.get_address_detail(data))
     }
 }

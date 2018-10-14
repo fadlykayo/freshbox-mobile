@@ -8,6 +8,7 @@ import TotalPrice from './components/TotalPrice';
 import styles from './styles';
 import images from '@assets';
 import { connect } from 'react-redux';
+import actions from '@actions';
 
 class VirtualAccount extends Component {
     constructor(props) {
@@ -79,6 +80,14 @@ class VirtualAccount extends Component {
             ]
         }
         this.openData = this.openData.bind(this);
+        this.createOrderByVirtualAccount = this.createOrderByVirtualAccount.bind(this);
+    }
+
+    componentDidMount() {
+        let state = this.state;
+		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
+        
+        this.setState(state)
     }
 
     openData(index) {
@@ -86,6 +95,32 @@ class VirtualAccount extends Component {
         banks[index].isOpen = !banks[index].isOpen;
 
         this.setState({ banks })
+    }
+
+    createOrderByVirtualAccount() {
+        let bankVA = this.state.banks.filter(bank => bank.isOpen == true)
+
+        let payloadData = this.props.navigation.state.params.transaction;
+        payloadData.payment_method = bankVA[0].payment;
+        
+        let payload = {
+            header: {
+                apiToken: this.props.user.authorization
+            },
+            body: payloadData,
+            params: {}
+        }
+
+        this.props.create_order(payload,
+            (success) => {
+                console.log("SUCCESS ORDER", success)
+                this.props.clear_products();
+                actNav.reset(navConstant.Product)
+            },
+            (err) => {
+                console.log(err)
+            })
+
     }
 
     render() {
@@ -170,7 +205,8 @@ class VirtualAccount extends Component {
                 <TotalPrice
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
+                    delivery_price={this.props.delivery_price}
+                    onPress={this.createOrderByVirtualAccount}
                 />
             </Container>
         );
@@ -185,6 +221,13 @@ const mapStateToProps = (state) => {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
+        clear_products: () => dispatch(actions.product.reducer.clear_products())
+    }
+}
+
 export default connect(
 	mapStateToProps,
-	null)(VirtualAccount);
+	mapDispatchToProps)(VirtualAccount);

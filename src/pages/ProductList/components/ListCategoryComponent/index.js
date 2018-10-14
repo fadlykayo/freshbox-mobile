@@ -14,7 +14,6 @@ class ListCategoryComponent extends PureComponent {
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.categories}>
 					{ this.props.categories.map((category) => {
-						category.image = images.icon_sayur_segar;
 						if (category.check) {
 							return (
 								<TouchableOpacity
@@ -29,11 +28,19 @@ class ListCategoryComponent extends PureComponent {
 											style={styles.check}
 										/>
 									</View>
-									<Image
-										resizeMode={'contain'} 
-										source={category.image}
-										style={styles.logo}
-									/>
+									{ category.name == 'Default' ? (
+										<Image
+											resizeMode={'contain'} 
+											source={category.images_sizes_url.original[0]}
+											style={styles.logo}
+										/>
+									) : (
+										<Image
+											resizeMode={'contain'} 
+											source={{uri: category.images_sizes_url.original[0]}}
+											style={styles.logo}
+										/>
+									) }
 									{ category.name == 'Default' ? (
 										<StaticText
 											style={styles.categoryText}
@@ -52,11 +59,19 @@ class ListCategoryComponent extends PureComponent {
 									style={styles.eachCategory}
 									key={category.id}
 								>
-									<Image
-										resizeMode={'contain'} 
-										source={category.image}
-										style={styles.logo}
-									/>
+									{ category.name == 'Default' ? (
+										<Image
+											resizeMode={'contain'} 
+											source={category.images_sizes_url.original[0]}
+											style={styles.logo}
+										/>
+									) : (
+										<Image
+											resizeMode={'contain'} 
+											source={{uri: category.images_sizes_url.original[0]}}
+											style={styles.logo}
+										/>
+									) }
 									{ category.name == 'Default' ? (
 										<StaticText
 											style={styles.categoryText}

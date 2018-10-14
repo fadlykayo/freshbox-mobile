@@ -17,22 +17,21 @@ const styles = {
 		borderColor: colour.white,
 		backgroundColor: colour.white,
 		marginBottom: scaling.moderateScale(10),
-		paddingLeft: width * 0.05,
+		paddingLeft: width * 0.04,
 		paddingRight: width * 0.05,
 	},
 	container: {
 		flexDirection: 'row',
 	},
     imageContainer: {
-		flex: 1.5,
-		height: 90,
-		width: 100,
+		flex: -1,
+		width: width * 0.2,
 		justifyContent: 'center',
-		paddingLeft: 10,
+		marginRight: width * 0.01,
     },
     picture: {
-		height: scaling.moderateScale(55),
-		width: scaling.moderateScale(55),
+		height: scaling.moderateScale(75),
+		width: scaling.moderateScale(75),
     },
     addContainer: {
 		flex: 1.5,

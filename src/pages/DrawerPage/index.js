@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import { NavigationActions } from 'react-navigation';
+import React, { PureComponent } from 'react';
 import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
@@ -10,7 +9,7 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
-class DrawerPage extends Component {
+class DrawerPage extends PureComponent {
   	constructor(props) {
     	super(props)
     	this.state = {

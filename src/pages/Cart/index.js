@@ -83,6 +83,7 @@ class Cart extends Component {
 			buyProducts.push(product)
 		}) 
 
+		// console.log("ini data buy products", buyProducts)
 		if (this.props.user) {
 			let payload = {
 				header: {
@@ -92,21 +93,24 @@ class Cart extends Component {
 			}
 
 			console.log("data yang mau dikirim",payload)
-			// this.props.bulk_add_products(payload,
-			// 	(success) => {
+			this.props.bulk_add_products(payload,
+				(success) => {
+					// console.log("BERHASIL KIRIM DATA")
+					console.log("Ini datanya", success)
 					actNav.navigate(navConstant.Checkout)
-				// },
-				// (err) => {
-				// 	console.log(err)
-				// })
+				},
+				(err) => {
+					console.log(err)
+				})
 		}
 		else {
-			alert('SIGN IN DULU')
+			actNav.navigate(navConstant.SignIn, { routeName: this.props.navigation.state.routeName })
+			// alert('SIGN IN DULU')
 		}
 	}
 
 	navigateBack(){
-		actNav.goBack();
+		actNav.reset(navConstant.Product);
 	}
 
 	render(){

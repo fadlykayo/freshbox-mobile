@@ -130,7 +130,12 @@ class SignIn extends Component {
                 }
                 this.props.get_address(payload, 
                     (success) => {
-                        actNav.reset(navConstant.Product)
+                        if (this.props.navigation.state.params.routeName == "Menu") {
+                            actNav.reset(navConstant.Product);
+                        }
+                        else if (this.props.navigation.state.params.routeName == "Cart") {
+                            actNav.goBack();
+                        }
                     },
                     (err) => {
                         console.log(err)

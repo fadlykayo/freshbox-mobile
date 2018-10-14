@@ -220,10 +220,7 @@ class ProductList extends Component {
 				/>
 				<FilterComponent 
 					onCategory = {this.props.on_category}
-					type={'searchItem'}
 					openAllCategories={this.openAllCategories}
-					onSubmitEditing={this.submitSearch}
-					onChangeText={this.onChangeText}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
