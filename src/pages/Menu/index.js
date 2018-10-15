@@ -6,6 +6,7 @@ import { socmed } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
 import StaticText from '@components/StaticText';
+import Container from '@components/Container';
 import images from '@assets';
 import styles from './styles';
 
@@ -65,31 +66,35 @@ class Menu extends PureComponent {
 
     render(){
         return(
-            <View style={styles.container}>
-                <ImageBackground
-                    resizeMode={'stretch'} 
-                    source={images.background_welcome}
-                    style={styles.background}
-                >
-                    <Logo />
-                    <Content 
-                        getStartedHandler={this.navigateToProduct}
-                        facebookHandler={this.facebookHandler}
-                        emailHandler={this.navigateToSignIn}
-                        googleHandler={this.googleHandler}
-                    />
-
-                    <View style={styles.termsAndConditionPlace}>
-                        <Text style={styles.termsAndCondition}>
-                            <StaticText 
-                                property={'welcome.content.info'}
-                            /> <StaticText 
-                            style={styles.underline}
-                            property={'welcome.content.termsCondition'}
-                        /></Text>
-                    </View>
-                </ImageBackground>
-            </View>
+            <Container
+                backgroundColor={false}
+            >
+                <View style={styles.container}>
+                    <ImageBackground
+                        resizeMode={'stretch'} 
+                        source={images.background_welcome}
+                        style={styles.background}
+                    >
+                        <Logo />
+                        <Content 
+                            getStartedHandler={this.navigateToProduct}
+                            facebookHandler={this.facebookHandler}
+                            emailHandler={this.navigateToSignIn}
+                            googleHandler={this.googleHandler}
+                        />
+                        <View style={styles.termsAndConditionPlace}>
+                            <Text style={styles.termsAndCondition}>
+                                <StaticText 
+                                    property={'welcome.content.info'}
+                                /> <StaticText 
+                                style={styles.underline}
+                                property={'welcome.content.termsCondition'}
+                            /></Text>
+                        </View>
+                    </ImageBackground>
+                </View>
+            </Container>
+            
         )
     }
 }

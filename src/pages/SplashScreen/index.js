@@ -1,10 +1,9 @@
 import React,{ PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { View, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import images from '@assets';
 import styles from './styles';
-import { connect } from 'react-redux';
-import actions from '@actions';
 
 class SplashScreen extends PureComponent {
     constructor(){
@@ -13,9 +12,9 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            if( this.props.user == null ) {
+            if(this.props.user == null){
                 actNav.reset(navConstant.Menu);
-            }
+            } 
             else {
                 actNav.reset(navConstant.Product);
             }
@@ -23,7 +22,7 @@ class SplashScreen extends PureComponent {
     }
 
     render(){
-        return(
+        return (
             <View style={styles.container}>
                 <Image
                     resizeMode={'contain'} 
@@ -35,12 +34,8 @@ class SplashScreen extends PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user.data
-    }
-}
+const mapStateToProps = state => ({
+    user: state.user.data
+});
 
-export default connect(
-    mapStateToProps,
-    null)(SplashScreen);
+export default connect(mapStateToProps,null)(SplashScreen);
