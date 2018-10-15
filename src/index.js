@@ -27,7 +27,7 @@ class App extends Component {
             <View style={styles.container}>
                 <StatusBar
                     backgroundColor='black'
-                    barStyle={Platform.OS == 'android' ? 'light-content' : 'dark-content'}
+                    barStyle={'light-content'}
                 />
                 <AppNavigator
                     ref={navigatorRef => { setNavigator(navigatorRef) }}
