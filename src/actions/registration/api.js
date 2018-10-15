@@ -2,6 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
+import { language } from '@helpers';
 
 const actions = {};
 
@@ -18,10 +19,9 @@ actions.register_user = (req,success,failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-        console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('register user res',res);
+        	console.log('register user res ->',res);
         	if(res.code){
         		if(res.code == 200){
         			success(res);
@@ -29,12 +29,20 @@ actions.register_user = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('register user err', err);
+        	console.log('register user err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
         			case 400: return failure(err);
+					case 403: 
+						return language.transformText('message.errorRegisterEmail')
+						.then((message) => {
+							dispatch(actNetwork.set_error_status({
+								status: true,
+								data: message
+							}));
+						});
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,

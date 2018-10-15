@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, StatusBar, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
@@ -18,7 +18,7 @@ class SignIn extends Component {
         super();
         this.state={
             user:{
-                email: 'arfanizar@gmail.co',
+                email: 'arfanizar@rebelworks.co',
                 password: 'masuk123'
             },
             validateStatus:{
@@ -26,7 +26,6 @@ class SignIn extends Component {
                 emailLength: true,
                 password: true,
                 passwordLength: true,
-                login: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
@@ -97,13 +96,14 @@ class SignIn extends Component {
             }
         }
 
-        this.props.signin(payload,
-            (success) => {
-                
+        this.props.sign_in(payload,
+            (res) => {
+                actNav.navigate(navConstant.Product)
             },
             (err) => {
-                this.setValidation('login',false);
-            })
+
+            }
+        );
     }
 
     navigateToRegister(){
@@ -160,10 +160,6 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.emailFormat}
                         property={'signIn.validation.emailFormat'}
                     />
-                    <VerificationText
-                        validation={this.state.validateStatus.login}
-                        property={'signIn.validation.login'}
-                    />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
@@ -183,10 +179,6 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.passwordLength}
                         property={'signIn.validation.passwordLength'}
                     />
-                    <VerificationText
-                        validation={this.state.validateStatus.login}
-                        property={'signIn.validation.login'}
-                    />
                     <ForgotPassword 
                         onPress={this.navigateToForgotPassword}
                     />
@@ -204,7 +196,7 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    signin : (req,res,err) => dispatch(actions.auth.api.signin(req,res,err)),
+    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
     get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err))
 });
 

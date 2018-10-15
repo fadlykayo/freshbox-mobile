@@ -8,9 +8,12 @@ const styles = {
     },
     containerBackground:{
         flex: 1,
-        backgroundColor: colour.red
+        backgroundColor: colour.white
     },
     contentContainer:{
+        flex: 1,
+    },
+    contentContainerBackground:{
         flex: 1,
         backgroundColor: colour.white
     }

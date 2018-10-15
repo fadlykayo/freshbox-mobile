@@ -32,6 +32,7 @@ const styles = {
             flex: 1,
             paddingTop: scaling.moderateScale(15),
             paddingBottom: scaling.moderateScale(15),
+            paddingRight: scaling.moderateScale(10),
         }
     },
     logo: {

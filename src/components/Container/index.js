@@ -42,7 +42,14 @@ class Container extends PureComponent {
                         ? styles.container
                         : styles.containerBackground
                     }>
-                    <KeyboardAvoidingView behavior='padding' style={styles.contentContainer}>
+                    <KeyboardAvoidingView 
+                        behavior='padding' 
+                        style={
+                            this.props.noBackground 
+                            ? styles.contentContainer
+                            : styles.contentContainerBackground
+                        }
+                    >
                         {this.props.children}
                         <Loading
                             modalVisible = {this.props.network.isLoading}

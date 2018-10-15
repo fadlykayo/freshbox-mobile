@@ -17,11 +17,11 @@ class Register extends Component {
         super();
         this.state={
             user:{
-                fullName: '',
-                phone: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
+                fullName: 'arfanizar',
+                phone: '081314153655',
+                email: 'arfanizar@rebelworks.co',
+                password: 'masuk123',
+                confirmPassword: 'masuk123'
             },
             validateStatus:{
                 fullName: true,
@@ -41,17 +41,10 @@ class Register extends Component {
         this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
-        this.setModalVisible = this.setModalVisible.bind(this);
-        this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
-    }
-
-    closeDialogRegisterSuccess(){
-        Keyboard.dismiss();
-        actNav.navigate(navConstant.Menu);
     }
 
     onChangeText(type,value){
-        let user = this.state.user;
+        let user = JSON.parse(JSON.stringify(this.state.user));
         user[type] = value;
         this.setState({user})
     }
@@ -116,6 +109,7 @@ class Register extends Component {
             this.registerHandler();
         })
         .catch((err) => {
+            console.log(err);
             this.setValidation(err,false);
         });
     }
@@ -134,13 +128,12 @@ class Register extends Component {
 
         this.props.register_user(payload,
             (res) => {
-                this.setModalVisible('registerSuccess', true)
-                this.setState({message: res.code_message})
-
+                actNav.goBack();
             },
             (err)=> {
                 console.log(err);
-            })
+            }
+        )
     }
 
     render(){

@@ -66,14 +66,14 @@ class Menu extends PureComponent {
 
     render(){
         return(
-            <Container
-                backgroundColor={false}
-            >
-                <View style={styles.container}>
-                    <ImageBackground
-                        resizeMode={'stretch'} 
-                        source={images.background_welcome}
-                        style={styles.background}
+            <View style={styles.container}>
+                <ImageBackground
+                    resizeMode={'stretch'} 
+                    source={images.background_welcome}
+                    style={styles.background}
+                >
+                    <Container
+                        noBackground={true}
                     >
                         <Logo />
                         <Content 
@@ -91,9 +91,9 @@ class Menu extends PureComponent {
                                 property={'welcome.content.termsCondition'}
                             /></Text>
                         </View>
-                    </ImageBackground>
-                </View>
-            </Container>
+                    </Container>
+                </ImageBackground>
+            </View>
             
         )
     }

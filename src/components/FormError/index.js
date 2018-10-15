@@ -1,12 +1,29 @@
-import React,{ PureComponent } from 'react';
+import React,{ Component } from 'react';
 import { View, Image, TouchableWithoutFeedback, Text } from 'react-native';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
-class RegisterSuccess extends PureComponent {
+class RegisterSuccess extends Component {
 	constructor(props){
 		super(props);
+	}
+
+	shouldComponentUpdate(nextProps){
+		if(this.props.modalVisible != nextProps.modalVisible){
+			if(nextProps.modalVisible == true){
+				this.closeModal();
+				return true;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	closeModal(){
+		setTimeout(() => {
+			this.props.closeModal();
+		},2000);
 	}
 
 	render(){
