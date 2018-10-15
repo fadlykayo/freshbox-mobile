@@ -4,6 +4,7 @@ images.background_welcome = require('./background_welcome.png');
 images.background_profile = require('./background_profile.png');
 images.icon_back = require('./icon_back.png');
 images.icon_back_white = require('./icon_back_white.png');
+images.icon_error = require('./icon_error.png');
 images.icon_facebook = require('./icon_facebook.png');
 images.icon_favorite = require('./icon_favorite.png');
 images.icon_favorited = require('./icon_favorited.png');
@@ -38,5 +39,6 @@ images.icon_calendar = require('./icon_calendar.png');
 images.icon_logo_bca = require('./icon_logo_bca.png');
 images.icon_logo_mandiri = require('./icon_logo_mandiri.png');
 images.icon_logo_bri = require('./icon_logo_bri.png');
+images.loading = require('./loading.gif');
 
 export default images;
