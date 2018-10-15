@@ -37,6 +37,34 @@ validation.confirmPassword = (password,confirmPassword) => new Promise ((res,rej
 validation.fullName = (input) => new Promise((res,rej) => {
     if(input.length > 0) res();
     else rej();
+});
+
+validationRegister = (user) => new Promise((res,rej) => {
+    if(input.length > 0) {
+        if(email.length > 0){
+            if(emailRegex.test(user.email) == true){
+                if(phoneRegex.test(user.phone) == true){
+                    if(user.password.length > 0){
+                        if(user.password.length > 7){
+                            if(user.password == user.confirmPassword) res();
+                            else rej('confirmPassword');
+                        } else rej('password');
+                    } else rej('passwordLength');
+                } else rej('phone');
+            } else rej('emailFormat');
+        } else rej('emailLength');
+    } else rej('fullName');
+})
+
+validation.signInEmail = (email,password) => new Promise((res,rej) => {
+    if(email.length > 0){
+        if(emailRegex.test(email) == true){
+            if(password.length > 0){
+                if(password.length > 7) res();
+                else rej('password');
+            } else rej('passwordLength');
+        } else rej('emailFormat');
+    } else rej('emailLength');
 })
 
 export default validation;
