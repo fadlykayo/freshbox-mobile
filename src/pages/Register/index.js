@@ -58,7 +58,12 @@ class Register extends Component {
 
     closeDialogRegisterSuccess(){
         Keyboard.dismiss();
-        actNav.navigate(navConstant.Menu);
+        if (this.props.navigation.state.params.action == 'guestLogin') {
+            actNav.goBack(this.props.navigation.state.params.key)
+        }
+        else {
+            actNav.reset(navConstant.Menu);
+        }
     }
 
     onChangeText(type,value){

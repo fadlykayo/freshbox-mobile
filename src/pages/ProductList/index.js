@@ -207,7 +207,6 @@ class ProductList extends Component {
 	}
 
 	render(){
-		console.log(this.props.state)
 		return (
 			<Container>
 				<SearchComponent
@@ -289,7 +288,7 @@ const mapDispatchToProps = dispatch => ({
 	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))	
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

@@ -6,14 +6,19 @@ import images from '@assets';
 
 class PhotoComponent extends PureComponent {
   	constructor() {
-    	super()
+		super();
+		this.navigateToProfilePage = this.navigateToProfilePage.bind(this);
     }
+
+	navigateToProfilePage() {
+		this.props.navigateToProfilePage()
+	}
 
   	render () {
 		if (this.props.user) {
 			return (
 				<TouchableOpacity 
-					onPress={() => this.props.navigateToProfilePage()}    
+					onPress={ this.navigateToProfilePage }    
 					style={styles.topComponent}
 				>
 				{ this.props.user.user.images == null ? (

@@ -104,13 +104,12 @@ class Cart extends Component {
 				})
 		}
 		else {
-			actNav.navigate(navConstant.SignIn, { routeName: this.props.navigation.state.routeName })
-			// alert('SIGN IN DULU')
+			actNav.navigate(navConstant.SignIn, { action: 'guestLogin' })
 		}
 	}
 
 	navigateBack(){
-		actNav.reset(navConstant.Product);
+		actNav.goBack();
 	}
 
 	render(){

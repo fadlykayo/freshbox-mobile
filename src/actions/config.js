@@ -20,5 +20,6 @@ export const path = {
     setPrimaryAddress: 'v1/user/address/set-as-primary',
     shippingCost: 'v1/shipping-cost',
     bulkAddProducts: 'v1/cart/bulk-add',
-    transaction: 'v1/transaction/checkout'
+    transaction: 'v1/transaction/checkout',
+    resetPassword: 'v1/user/edit/password'
 }

@@ -1,15 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
 import Container from '@components/Container';
 import PhotoComponent from './components/PhotoComponent';
+import LogOutButton from './components/LogOutButton';
+import PagesComponent from './components/PagesComponent';
 import images from '@assets';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
-class DrawerPage extends PureComponent {
+class DrawerPage extends Component {
   	constructor(props) {
     	super(props)
     	this.state = {
@@ -64,7 +66,7 @@ class DrawerPage extends PureComponent {
 	}
 
 	navigateSignIn() {
-		actNav.navigate(navConstant.SignIn)
+		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' })
 	}
 
 	closeDrawerPage() {
@@ -79,58 +81,17 @@ class DrawerPage extends PureComponent {
 						navigateToProfilePage={this.navigateToProfilePage}
 						user={this.props.user}
 					/>
-					
-  	      			<View style={styles.middleComponent}>
-					{ this.state.pages.map ((page, index) => {
-						if (page.selected) {
-							return (
-								<TouchableOpacity 
-									onPress={ this.closeDrawerPage }
-									style={styles.selectedPage} key={index}
-								>
-									<StaticText
-										style={styles.selectedText}
-										property={page.name}
-									/>
-								</TouchableOpacity>
-							)
-						}
-						else {
-							return (
-								<TouchableOpacity 
-									onPress={ () => this.navigateToOtherPage(page)}
-									style={styles.unselectedPage} key={index}
-								>
-									<StaticText
-										style={styles.unselectedText}
-										property={page.name}
-									/>
-								</TouchableOpacity>
-							)
-						}
-					}) }
-  	      		</View>
-				{ this.props.user == null ? (
-					<TouchableOpacity 
-						onPress={this.navigateSignIn}
-						style={styles.bottomComponent}
-					>
-						<StaticText
-							style={styles.logOutText}
-							property={'drawerPage.content.login'}
-						/>
-  	      			</TouchableOpacity>
-				) : (
-					<TouchableOpacity 
-						onPress={this.navigateLogOut}
-						style={styles.bottomComponent}
-					>
-						<StaticText
-							style={styles.logOutText}
-							property={'drawerPage.content.logOut'}
-						/>
-  	      			</TouchableOpacity>
-				)}
+					<PagesComponent
+						user={this.props.user}
+						closeDrawerPage={this.closeDrawerPage}
+						navigateToOtherPage={this.navigateToOtherPage}
+						pages={this.state.pages}
+					/>
+					<LogOutButton
+						user={this.props.user}
+						navigateLogOut={this.navigateLogOut}
+						navigateSignIn={this.navigateSignIn}
+					/>
   	    	</View>
 		</Container>
   	  	);
