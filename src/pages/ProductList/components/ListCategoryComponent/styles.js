@@ -31,8 +31,8 @@ const styles = {
         alignItems: 'center',
     },
     logo: {
-        height: scaling.moderateScale(45),
-        width: scaling.moderateScale(45),
+        height: scaling.moderateScale(60),
+        width: scaling.moderateScale(60),
         marginBottom: scaling.moderateScale(5),
     },
     checkPlace: {

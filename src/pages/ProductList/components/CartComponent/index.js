@@ -42,7 +42,7 @@ class CartComponent extends PureComponent {
 						<Image
 							resizeMode={'contain'}
 							source={images.icon_sayur_segar} 
-							// source={this.props.data.images[0]}
+							source={{uri: this.props.data.images_sizes_url.original[0]}}
 							style={styles.picture}
 						/>
 					</View>

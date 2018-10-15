@@ -38,5 +38,7 @@ images.icon_calendar = require('./icon_calendar.png');
 images.icon_logo_bca = require('./icon_logo_bca.png');
 images.icon_logo_mandiri = require('./icon_logo_mandiri.png');
 images.icon_logo_bri = require('./icon_logo_bri.png');
+images.icon_combined_shape = require('./icon_combined_shape.png');
+images.icon_all_categories = require('./icon_all_categories.png');
 
 export default images;

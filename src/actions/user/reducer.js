@@ -27,6 +27,12 @@ action.get_address_detail = (data) => ({
     }
 })
 
+action.update_user = data => ({
+    type: ct.UPDATE_USER,
+    payload: {
+        profile: data,
+    }
+})
 
 
 export default action;

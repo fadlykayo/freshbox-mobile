@@ -27,7 +27,7 @@ class Menu extends PureComponent {
     }
 
     navigateToSignIn() {
-        actNav.navigate(navConstant.SignIn);
+        actNav.navigate(navConstant.SignIn, { action: 'menuLogin' });
     }
 
     async setupGoogleClient(){

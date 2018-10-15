@@ -9,26 +9,26 @@ class Button extends PureComponent {
     }
 
     render(){
-        if(this.props.isEdit) {
-            return (
-                <TouchableOpacity style={styles.buttonSave} onPress={this.props.onPress}>
-                    <StaticText 
-                        style={styles.titleSave}
-                        property={this.props.title}
-                    />
-                </TouchableOpacity>
-            )    
-        }
-        else{
-            return (
-                <TouchableOpacity style={styles.buttonEdit} onPress={this.props.onPress}>
-                    <StaticText 
-                        style={styles.titleEdit}
-                        property={this.props.title}
-                    />
-                </TouchableOpacity>
-            )
-        }
+        // console.log(this.props.isEdit)
+        return (
+            <TouchableOpacity 
+                style={ 
+                    this.props.isEdit == true
+                    ? styles.buttonSave 
+                    : styles.buttonEdit
+                } 
+                onPress={this.props.onPress}
+            >
+                <StaticText 
+                    style={ 
+                        this.props.isEdit 
+                        ? styles.titleSave
+                        : styles.titleEdit
+                    }
+                    property={this.props.title}
+                />
+            </TouchableOpacity>
+        )    
     }
 }
 

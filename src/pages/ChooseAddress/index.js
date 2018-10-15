@@ -14,7 +14,27 @@ class ChooseAddress extends PureComponent {
         super(props)
         this.updatePrimaryAddress = this.updatePrimaryAddress.bind(this);
         this.navigateToEditAddress = this.navigateToEditAddress.bind(this);
+        this.getAddress = this.getAddress.bind(this);
     }
+
+    componentDidMount() {
+        this.getAddress()
+    }
+
+    getAddress() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {},
+			params: {}
+		}
+		this.props.get_address(payload, 
+			null,
+			(err) => {
+				console.log(err)
+			})
+	}
 
     updatePrimaryAddress(idAddress) {
         let payload ={
@@ -134,8 +154,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        set_primary_address: (req, success, failure) => dispatch(actions.user.api.set_primary_address(req, success, failure)),
-        get_address_detail: (data) => dispatch(actions.user.reducer.get_address_detail(data))
+        set_primary_address: (req,res,err) => dispatch(actions.user.api.set_primary_address(req,res,err)),
+        get_address_detail: (data) => dispatch(actions.user.reducer.get_address_detail(data)),
+        get_address: (req, success, failure) => dispatch(actions.user.api.get_address(req, success, failure))
     }
 }
 

@@ -99,7 +99,6 @@ actions.search_products = (req, success, failure) => {
         	if(res.code){
         		if(res.code == 200){
 					success(res)
-					dispatch(actReducer.clear_products());
 					dispatch(actReducer.search_products(req.params, res.data));
         		}
         	}
