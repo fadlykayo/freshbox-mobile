@@ -1,16 +1,18 @@
 import { Dimensions, Platform } from 'react-native';
-
+import { colour } from '@styles';
 const { height } = Dimensions.get('window');
 
 const styles = {
     container:{
         flex: 1,
-        // backgroundColor: 'rgb(229,37,70)',
-        backgroundColor: '#FFFFFF',
+    },
+    containerBackground:{
+        flex: 1,
+        backgroundColor: colour.red
     },
     contentContainer:{
         flex: 1,
-        backgroundColor: 'rgb(255,255,255)'
+        backgroundColor: colour.white
     }
 }
 
