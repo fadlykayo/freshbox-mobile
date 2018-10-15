@@ -1,12 +1,12 @@
-import React,{ PureComponent } from 'react';
+import React,{ Component } from 'react';
 import { Text } from 'react-native';
 import { language } from '@helpers';
 
-class StaticText extends PureComponent {
-    constructor(){
-        super();
+class StaticText extends Component {
+    constructor(props){
+        super(props);
         this.state={
-            outputText: ''
+            outputText: '',
         }
         this.renderText = this.renderText.bind(this);
     }
@@ -23,7 +23,16 @@ class StaticText extends PureComponent {
     }
 
     render(){
-        return(
+        if(this.props.numberOfLines && this.props.ellipsizeMode) return(
+            <Text
+                style={this.props.style}
+                numberOfLines={this.props.numberOfLines}
+                ellipsizeMode={this.props.ellipsizeMode}
+            >
+                {this.state.outputText}
+            </Text>
+        )
+        else return(
             <Text style={this.props.style}>{this.state.outputText}</Text>
         )
     }

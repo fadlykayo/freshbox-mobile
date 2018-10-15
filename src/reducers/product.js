@@ -62,6 +62,12 @@ const getCategories = (state, payload) => {
         "name": "Default",
         "slug": "default",
         "check": true,
+        "images_sizes_url": {
+            "original" : [
+                images.icon_all_categories,
+                images.icon_all_categories,
+            ]
+        }
     }
 
     for(let i = 0; i < payload.data.length; i++) {
@@ -158,6 +164,7 @@ const clearProducts = (state) => {
     newState.products = [];
     newState.total.count = 0;
     newState.total.price = 0;
+    newState.cart.products = [];
     
     return newState
 }

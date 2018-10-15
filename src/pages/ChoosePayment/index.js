@@ -37,7 +37,7 @@ class ChoosePayment extends Component {
         switch(payload) {
             case 'choosePayment.content.transferBank': return actNav.navigate(navConstant.TransferBank, { transaction: this.props.navigation.state.params.transaction})
             case 'choosePayment.content.virtualAccount': return actNav.navigate(navConstant.VirtualAccount, { transaction: this.props.navigation.state.params.transaction})
-            default: return actNav.navigate(navConstant.CreditCard)
+            default: return actNav.navigate(navConstant.CreditCard, { transaction: this.props.navigation.state.params.transaction})
         }
     } 
 

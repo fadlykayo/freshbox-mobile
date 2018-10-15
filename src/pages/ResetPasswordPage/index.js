@@ -9,6 +9,8 @@ import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class ResetPasswordPage extends Component {
 	constructor(props) {
@@ -128,12 +130,32 @@ class ResetPasswordPage extends Component {
   	}
   
   	updatePasswordHandler(){
-		Keyboard.dismiss();
-		this.setModalVisible('resetPasswordSuccess',true);
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				old_password: this.state.user.oldPassword,
+				new_password: this.state.user.newPassword,
+				new_password_confirmation: this.state.user.confirmPassword
+			}
+		}
+
+		this.props.reset_password(payload,
+			(success) => {
+				Keyboard.dismiss();
+				this.setModalVisible('resetPasswordSuccess',true);
+				this.closeDialogResetPasswordSuccess();
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 	  
 	closeDialogResetPasswordSuccess(){
-		actNav.navigate(navConstant.ProfilePage);
+		setTimeout(() => {
+            actNav.goBack();
+        },2000);
     }
 
   	render() {
@@ -208,4 +230,12 @@ class ResetPasswordPage extends Component {
   	}
 }
 
-export default ResetPasswordPage;
+const mapStateToProps = (state) => ({
+	user: state.user.data
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	reset_password: (req,res,err) => dispatch(actions.user.api.reset_password(req,res,err))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage);

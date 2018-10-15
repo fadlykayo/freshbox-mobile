@@ -97,8 +97,13 @@ class SignIn extends Component {
         }
 
         this.props.sign_in(payload,
-            (res) => {
-                actNav.navigate(navConstant.Product)
+            (success) => {
+                if (this.props.navigation.state.params.action == "menuLogin") {
+                    actNav.reset(navConstant.Product);
+                }
+                else if (this.props.navigation.state.params.action == "guestLogin") {
+                    actNav.goBack();
+                }
             },
             (err) => {
 
@@ -115,7 +120,7 @@ class SignIn extends Component {
         state.isWrong= false,
         state.messageWrong= '',
         this.setState({state});
-        actNav.navigate(navConstant.Register);
+        actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
     }
 
     navigateToForgotPassword(){
@@ -196,8 +201,7 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
-    get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err))
+    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err))
 });
 
 export default connect(null,mapDispatchToProps)(SignIn);

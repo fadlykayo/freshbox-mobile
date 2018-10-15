@@ -95,7 +95,7 @@ helper.put = (payload,dispatch) => new Promise((resolve,reject) => {
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + payload.header.apiToken,
+                'Authorization': payload.header.apiToken,
                 'X-Player': payload.header.onesignalToken,
             }
     })

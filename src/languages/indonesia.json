@@ -113,7 +113,7 @@
         },
         "content": {
             "price": "IDR ",
-            "checkout": "Bayar",
+            "checkout": "Pilih Metode Pembayaran",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",

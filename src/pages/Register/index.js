@@ -41,6 +41,17 @@ class Register extends Component {
         this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
+        this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
+    }
+
+    closeDialogRegisterSuccess(){
+        Keyboard.dismiss();
+        if (this.props.navigation.state.params.action == 'guestLogin') {
+            actNav.goBack(this.props.navigation.state.params.key)
+        }
+        else {
+            actNav.reset(navConstant.Menu);
+        }
     }
 
     onChangeText(type,value){

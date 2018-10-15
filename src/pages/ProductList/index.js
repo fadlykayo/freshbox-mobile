@@ -207,7 +207,6 @@ class ProductList extends Component {
 	}
 
 	render(){
-		console.log(this.props.state)
 		return (
 			<Container>
 				<SearchComponent
@@ -220,10 +219,7 @@ class ProductList extends Component {
 				/>
 				<FilterComponent 
 					onCategory = {this.props.on_category}
-					type={'searchItem'}
 					openAllCategories={this.openAllCategories}
-					onSubmitEditing={this.submitSearch}
-					onChangeText={this.onChangeText}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
@@ -292,7 +288,7 @@ const mapDispatchToProps = dispatch => ({
 	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index))	
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);
