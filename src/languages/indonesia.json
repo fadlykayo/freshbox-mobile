@@ -349,5 +349,14 @@
             "mandiriVA": "Mandiri Virtual Account",
             "briVA": "BRI Virtual Account"
         }
+    },
+    "formError":{
+        "title": "GAGAL"
+    },
+    "formSuccess":{
+        "title": "SUKSES"
+    },
+    "button": {
+        "close": "TUTUP"
     }
 }
