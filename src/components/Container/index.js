@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, Platform, KeyboardAvoidingView } from 'react-native';
+import { Platform, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import styles from './styles';
 
 class Container extends PureComponent {
@@ -10,19 +10,21 @@ class Container extends PureComponent {
     render(){
         if(Platform.OS === 'ios'){
             return(
-                <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                    {this.props.children}
-                </KeyboardAvoidingView>
+                <SafeAreaView style={styles.container}>
+                    <KeyboardAvoidingView behavior='padding' style={styles.contentContainer}>
+                        {this.props.children}
+                    </KeyboardAvoidingView>
+                </SafeAreaView>
             )
         } else {
             return(
-                <View style={styles.container}>
+                <SafeAreaView style={styles.container}>
                     {this.props.children}
                     {/* <ModalResponse 
                         modalVisible={this.props.network.isResponseError}
                         message={this.props.network.errorMessage}
                     /> */}
-                </View>
+                </SafeAreaView>
             )
         }
     }

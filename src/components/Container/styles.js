@@ -5,9 +5,13 @@ const { height } = Dimensions.get('window');
 const styles = {
     container:{
         flex: 1,
+        // backgroundColor: 'rgb(229,37,70)',
         backgroundColor: '#FFFFFF',
-        paddingTop: Platform.OS === 'ios' ? height == 812 ? 40 : 20 : 0,
     },
+    contentContainer:{
+        flex: 1,
+        backgroundColor: 'rgb(255,255,255)'
+    }
 }
 
 export default styles;
