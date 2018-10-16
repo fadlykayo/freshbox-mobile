@@ -50,7 +50,7 @@ class ProductList extends Component {
 	getProductList(){
 		let payload = {
 			header: {},
-			params: {}
+			params: this.props.params
 		}
 		this.props.get_products(payload,
 			(res) => {

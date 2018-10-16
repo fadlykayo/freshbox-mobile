@@ -7,6 +7,7 @@ import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
 import TotalPrice from './components/TotalPrice';
 import DeliveryDate from './components/DeliveryDate';
+import DeliveryPlace from './components/DeliveryPlace';
 import images from '@assets';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -30,9 +31,18 @@ class Checkout extends Component {
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
 		this.getDeliveryDate = this.getDeliveryDate.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+		this.getAddress = this.getAddress.bind(this);
+		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
 	}
 
 	componentDidMount() {
+		this.getDeliveryPrice()
+		if (this.props.addresses.length == 0) {
+			this.getAddress()
+		}
+	}
+
+	getDeliveryPrice() {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -48,6 +58,21 @@ class Checkout extends Component {
 
 				this.setState(state)
 			},
+			(err) => {
+				console.log(err)
+			})
+	}
+
+	getAddress() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {},
+			params: {}
+		}
+		this.props.get_address(payload, 
+			null,
 			(err) => {
 				console.log(err)
 			})
@@ -76,7 +101,6 @@ class Checkout extends Component {
 
 	navigateToChoosePayment() {
 		let address = this.props.addresses.filter(address => address.primary == 1);
-		// console.log("data filter", address)
 		if(address.length == 0) {
 			alert("Isi alamat nya")
 		}
@@ -93,7 +117,6 @@ class Checkout extends Component {
 				// console.log("data masuk", payload)
 				actNav.navigate(navConstant.ChoosePayment, 
 					{transaction: payload }
-					// {}
 				)
 			}
 		}
@@ -127,36 +150,10 @@ class Checkout extends Component {
 					onPress={actNav.goBack}
 				/>
 				<View style={styles.container}>
-					<View style={styles.topComponent}>
-						{ this.props.addresses.map((address, index) => {
-							if (address.primary == 1) {
-								return (
-									<View key={index}>
-										<StaticText
-											style={styles.staticText}
-											property={'checkout.label.deliveryAddress'}
-										/>
-							            <Text style={styles.addressText}>{address.receiver_name} <Text style={styles.nameAddressText}>({address.name})</Text></Text>
-							            { address.detail.length == 0 ? (
-                    	                    <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-							            ) : (
-                    	                    <Text style={styles.addressText}>{address.detail}, {address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-							            )}
-							            <Text style={styles.addressText}>{address.phone_number}</Text>
-									</View>
-								)
-							}
-						}) }
-						<TouchableOpacity 
-							style={styles.buttonOtherAddress}
-							onPress={this.navigateToChooseAddress}	
-						>
-							<StaticText
-								style={[styles.staticText,styles.otherAddressText]}
-								property={'checkout.content.otherAddress'}
-							/>
-						</TouchableOpacity>
-					</View>
+					<DeliveryPlace
+						addresses={this.props.addresses}
+						onPress={this.navigateToChooseAddress}
+					/>
 					<View style={styles.bottomComponent}>
 						{ this._renderLabel() }
 						<TouchableOpacity style={styles.datePlace} onPress={this.openDeliveryDate}>
@@ -205,7 +202,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err))
+		get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+		get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
 	}
 }
 

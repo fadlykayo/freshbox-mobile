@@ -21,9 +21,9 @@ actions.bulk_add_products = (req,success,failure) => {
 	payload.path = path.bulkAddProducts;
 	payload.header = req.header;
 	payload.body = req.body;
-	payload.params = req.params;
 	
 	return dispatch => {
+		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	console.log('Bulk Add Products res',res);

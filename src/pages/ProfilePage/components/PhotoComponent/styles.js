@@ -22,10 +22,17 @@ const styles = {
         height: scaling.moderateScale(22),
         width: scaling.moderateScale(22),
     },
-    photo: {
+    dummyPhoto: {
         height: width * 0.2,
         width: width * 0.2,
         marginBottom: width* 0.05,
+    },
+    photo: {
+        height: width * 0.26,
+        width: width * 0.26,
+        borderRadius: 200,
+        borderColor: colour.white,
+        marginBottom: width* 0.02,
     },
     userName: {
         fontSize: scaling.moderateScale(16),
