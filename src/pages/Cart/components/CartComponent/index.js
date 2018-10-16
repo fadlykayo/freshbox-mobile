@@ -33,7 +33,7 @@ class CartComponent extends PureComponent {
 
 	render(){
 		return (
-			<View style={styles.eachCartContainer}>
+			<View style={styles.cartContainer}>
 				<TouchableOpacity
 					onPress={this.openDetailProduct}
 					style={styles.container}

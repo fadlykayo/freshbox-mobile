@@ -10,6 +10,7 @@ class PhotoComponent extends Component {
     }
 
     render() {
+        console.log(`http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/media/profile/10/original-${this.props.user.user.image}`)
         return (
             <ImageBackground
                 resizeMode={'stretch'} 
@@ -30,19 +31,19 @@ class PhotoComponent extends Component {
                 <TouchableOpacity
                     onPress={() => this.props.choosePhoto()}
 				>
-				{ this.props.user.user.images == null ? (
 					<Image
 						resizeMode={'contain'} 
-						source={images.icon_img_ava_grey}
-						style={styles.photo}
+                        source={ 
+                            this.props.user.user.image == '' 
+                            ? images.icon_img_ava_grey
+                            : {uri: `http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/media/profile/10/original-${this.props.user.user.image}`}
+                        }
+						style={
+                            this.props.user.user.image == ''
+                            ? styles.dummyPhoto
+                            : styles.photo
+                        }
 					/>
-				) : (
-					<Image
-						resizeMode={'contain'} 
-						source={this.props.user.user.images}
-						style={styles.photo}
-					/>
-				) }
 				</TouchableOpacity>
                 <Text style={styles.userName}>{this.props.user.user.name}</Text>
                 <Text style={styles.userEmail}>{this.props.user.user.email}</Text>

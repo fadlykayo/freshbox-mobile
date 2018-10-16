@@ -12,12 +12,19 @@ const styles = {
       	paddingLeft: width * 0.05,
       	paddingRight: width * 0.05,
       	flexDirection: 'row',
+	},
+	dummyPhoto: {
+        height: width * 0.2,
+        width: width * 0.2,
+        marginBottom: width* 0.05,
     },
     photo: {
-      	height: width * 0.19,
-		width: width * 0.19,
-		marginRight: width * 0.05,  
-	},
+        height: width * 0.19,
+        width: width * 0.19,
+        borderRadius: 200,
+        borderColor: colour.white,
+        marginRight: width* 0.05,
+    },
 	userName: {
 		fontFamily: 'Avenir-Heavy',
 		fontSize: scaling.moderateScale(14),

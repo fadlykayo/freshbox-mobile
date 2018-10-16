@@ -4,7 +4,8 @@ import images from '@assets';
 const initialState = {
     last_page: 0,
     params: {
-        page: 0,
+        page: 1,
+        stock: 'tersedia'
     },
     products: [],
     categories: [],
@@ -42,7 +43,7 @@ const getData = (state, payload) => {
 
     newState.products = existingProducts.map(e => {
         if(!e.count) e.count = 0;
-        if(!e.shortDescription) e.shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.';
+        // if(!e.shortDescription) e.shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.';
         if(!e.favorite) e.favorite = false;
         return e;
     }).filter(e => e.stock > 0);
@@ -201,6 +202,7 @@ const productReducer = (state = initialState, action) => {
         case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
         case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
         case ct.CLEAR_PRODUCTS: return clearProducts(state)
+        case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }
 }

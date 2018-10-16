@@ -49,7 +49,7 @@ class ProfilePage extends Component {
 
     navigateLogOut() {
         this.props.log_out();
-        this.props.clear_products();
+        this.props.reset_products();
 		actNav.reset(navConstant.Menu);
     }
     
@@ -67,16 +67,34 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                console.log("===>",response)
-                let formData = new FormData();
-                formData.append('image', response)
+                // console.log("===>",response)
+                let data = {
+                    uri: response.uri,
+                    type: response.type,
+                    name: response.fileName,
+                    data: response.data
+                }
 
+                let formData = new FormData();
+                formData.append('image', data)
+
+
+                console.log("gambar", formData)
                 let payload = {
                     header: {
-                        authorization: this.props.user.authorization
+                        apiToken: this.props.user.authorization
                     },
                     body: formData
                 }
+
+                this.props.upload_photo(payload,
+                    (success) => {
+                        alert('SUCCESS')
+                        console.log(success)
+                    },
+                    (err) => {
+                        console.log("==>",err)
+                    })
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -123,7 +141,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
         log_out : () => dispatch(actions.auth.reducer.log_out()),
-        clear_products : () => dispatch(actions.product.reducer.clear_products()),
+        reset_products : () => dispatch(actions.product.reducer.reset_products()),
         upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
 	}
 }
