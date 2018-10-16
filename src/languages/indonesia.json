@@ -362,5 +362,6 @@
     "message":{
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi."
-    }
+    },
+    "loading": "Mohon tunggu"
 }
