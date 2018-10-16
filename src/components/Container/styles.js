@@ -3,20 +3,40 @@ import { colour } from '@styles';
 const { height } = Dimensions.get('window');
 
 const styles = {
-    container:{
-        flex: 1,
+    container: {
+        flex: 1
     },
-    containerBackground:{
-        flex: 1,
-        backgroundColor: colour.white
+    contentContainer: (x) => {
+        if(x){
+            return {
+                flex: 1,
+            }
+        }
+        else {
+            return {
+                flex: 1,
+                backgroundColor: colour.white
+            }
+        }
     },
-    contentContainer:{
+    backgroundBottom: (bgColor) => ({
         flex: 1,
-    },
-    contentContainerBackground:{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: colour[bgColor] ? colour[bgColor] : '#FFFFFF'
+    }),
+    backgroundTop: (bgColor) => ({
         flex: 1,
-        backgroundColor: colour.white
-    }
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 250,
+        backgroundColor: colour[bgColor] ? colour[bgColor] : '#FFFFFF'
+    })
 }
 
 export default styles;

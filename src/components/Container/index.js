@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { Platform, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { Platform, KeyboardAvoidingView, SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '@actions';
 import Loading from '../Loading';
@@ -33,63 +33,70 @@ class Container extends PureComponent {
         });
     }
 
+    _renderBackground(){
+        if(this.props.noBackground){
+            return null;
+        } 
+        else {
+            return (
+                <View style={styles.backgroundBottom(this.props.bgColorBottom)}>
+                    <View style={styles.backgroundTop(this.props.bgColorTop)}/>
+                </View>
+            );
+        }
+    }
+
     render(){
         if(Platform.OS === 'ios'){
-            return(
-                <SafeAreaView 
-                    style={
-                        this.props.noBackground 
-                        ? styles.container
-                        : styles.containerBackground
-                    }>
-                    <KeyboardAvoidingView 
-                        behavior='padding' 
-                        style={
-                            this.props.noBackground 
-                            ? styles.contentContainer
-                            : styles.contentContainerBackground
-                        }
-                    >
-                        {this.props.children}
-                        <Loading
-                            modalVisible = {this.props.network.isLoading}
-                        />
-                        <FormError
-                            modalVisible = {this.props.network.isResponseError}
-                            closeModal = {this.closeModalError}
-                            errorMessage = {this.props.network.errorMessage}
-                        />
-                        <FormSuccess
-                            modalVisible = {this.props.network.isResponseSuccess}
-                            closeModal = {this.closeModalSuccess}
-                            successMessage = {this.props.network.successMessage}
-                        />
-                    </KeyboardAvoidingView>
-                </SafeAreaView>
+            return (
+                <View style={styles.container}>
+                    {this._renderBackground()}
+                    <SafeAreaView style={styles.container}>
+                        <KeyboardAvoidingView 
+                            behavior='padding' 
+                            style={styles.contentContainer(this.props.noBackground)}
+                        >
+                            {this.props.children}
+                            <Loading
+                                modalVisible = {this.props.network.isLoading}
+                            />
+                            <FormError
+                                modalVisible = {this.props.network.isResponseError}
+                                closeModal = {this.closeModalError}
+                                errorMessage = {this.props.network.errorMessage}
+                            />
+                            <FormSuccess
+                                modalVisible = {this.props.network.isResponseSuccess}
+                                closeModal = {this.closeModalSuccess}
+                                successMessage = {this.props.network.successMessage}
+                            />
+                        </KeyboardAvoidingView>
+                    </SafeAreaView>
+                </View>
             )
         } else {
             return(
-                <SafeAreaView 
-                    style={
-                        this.props.noBackground 
-                        ? styles.container
-                        : styles.containerBackground
-                    }>
-                    {this.props.children}
-                    <Loading
-                        modalVisible = {this.props.network.isLoading}
-                    />
-                    <FormError
-                        modalVisible = {this.props.network.isResponseError}
-                        closeModal = {this.closeModalError}
-                        errorMessage = {this.props.network.errorMessage}
-                    />
-                    <FormSuccess
-                        modalVisible = {this.props.network.isResponseSuccess}
-                        closeModal = {this.closeModalSuccess}
-                        successMessage = {this.props.network.successMessage}
-                    />
-                </SafeAreaView>
+                <View style={styles.container}>
+                    {this._renderBackground()}
+                    <SafeAreaView style={styles.container}>
+                        <View style={styles.contentContainer(this.props.noBackground)}>
+                            {this.props.children}
+                            <Loading
+                                modalVisible = {this.props.network.isLoading}
+                            />
+                            <FormError
+                                modalVisible = {this.props.network.isResponseError}
+                                closeModal = {this.closeModalError}
+                                errorMessage = {this.props.network.errorMessage}
+                            />
+                            <FormSuccess
+                                modalVisible = {this.props.network.isResponseSuccess}
+                                closeModal = {this.closeModalSuccess}
+                                successMessage = {this.props.network.successMessage}
+                            />
+                        </View>
+                    </SafeAreaView>
+                </View>
             )
         }
     }
