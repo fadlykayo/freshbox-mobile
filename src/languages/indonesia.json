@@ -154,7 +154,7 @@
         }
     },
     "historyPage": {
-        "navigationTitle": "History",
+        "navigationTitle": "Histori",
         "content": {
             "price": "IDR ",
             "reOrder": "Pesan"
@@ -167,7 +167,7 @@
             "reOrder": "Re-order",
             "pack": " pack",
             "subTotal": "Sub Total",
-            "delivery": "Delivery",
+            "delivery": "Pengiriman",
             "grandTotal": "Grand Total"
         },
         "detail": {

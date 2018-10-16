@@ -16,10 +16,11 @@ export const path = {
     getProducts: 'v1/product/get',
     getCategories: 'v1/product/category',
     updateUser: 'v1/user/edit/profile/data',
+    uploadPhoto: 'v1/user/upload/profile/image',
     getAddress: 'v1/user/address',
     setPrimaryAddress: 'v1/user/address/set-as-primary',
     shippingCost: 'v1/shipping-cost',
-    bulkAddProducts: 'v1/cart/bulk-add',
+    bulkAddProducts: 'v1/cart/bulk-add-and-replace',
     transaction: 'v1/transaction/checkout',
     resetPassword: 'v1/user/edit/password'
 }

@@ -26,7 +26,7 @@ class Content extends PureComponent {
 					/>
 					<Text style={styles.fontPack}>{this.props.data.unit}</Text>
 				</Text>
-				<Text style={styles.fontDescription}>{this.props.data.shortDescription}</Text>
+				<Text style={styles.fontDescription}>{this.props.data.short_description}</Text>
 			</View>
 		);
 	}

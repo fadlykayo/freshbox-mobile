@@ -61,7 +61,7 @@ class DrawerPage extends Component {
 
 	navigateLogOut() {
 		this.props.log_out();
-		this.props.clear_products();
+		this.props.reset_products();
 		actNav.reset(navConstant.Menu);
 	}
 
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		log_out : () => dispatch(actions.auth.reducer.log_out()),
-		clear_products : () => dispatch(actions.product.reducer.clear_products())
+		reset_products : () => dispatch(actions.product.reducer.reset_products())
 	}
 }
 

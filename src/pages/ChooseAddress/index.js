@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
 import NavigationBar from '@components/NavigationBar';
+import AddressData from './components/AddressData';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
-class ChooseAddress extends PureComponent {
+class ChooseAddress extends Component {
     constructor(props) {
         super(props)
         this.updatePrimaryAddress = this.updatePrimaryAddress.bind(this);
@@ -18,7 +18,9 @@ class ChooseAddress extends PureComponent {
     }
 
     componentDidMount() {
-        this.getAddress()
+        if (this.props.addresses.length == 0) {
+			this.getAddress()
+		}
     }
 
     getAddress() {
@@ -70,65 +72,16 @@ class ChooseAddress extends PureComponent {
                 <View style={styles.container}>
                     <ScrollView style={styles.scrollView}>
                         { this.props.addresses.map((address, index) => {
-                            if (address.primary == 1) {
-                                return (
-                                    <TouchableOpacity style={styles.addressPlace} key={index} onPress={() => this.updatePrimaryAddress(address.id)}>
-                                        <View style={styles.leftPart}>
-                                            <Text style={[styles.addressText, styles.nameAddressText]}>({address.name}) <StaticText
-                                                style={styles.priority}
-                                                property={'chooseAddress.content.primary'}
-                                            /></Text>
-						            	    <Text style={styles.receiverText}>{address.receiver_name}</Text>
-						            	    { address.detail.length == 0 ? (
-                                                <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-                                                
-						            	    ) : (
-                                                <Text style={styles.addressText}>{address.detail}, {address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-						            	    )}
-						            	    <Text style={styles.addressText}>{address.phone_number}</Text>
-                                        </View>
-                                        <View style={styles.rightPart}>
-                                            <View style={styles.buttonSelected}>
-                                                <View style={styles.innerButton}>
-                                                </View>
-                                            </View>
-                                        </View>
-                                        <TouchableOpacity style={styles.iconPen} onPress={() => this.navigateToEditAddress(address)}>
-                                            <Image
-                                                style={styles.logoPen}
-                                                source={images.icon_pen}
-                                            />
-                                        </TouchableOpacity>
-                                    </TouchableOpacity>
-                                )
-                            }
-                            else {
-                                return(
-                                    <TouchableOpacity style={styles.addressPlace} key={index} onPress={() => this.updatePrimaryAddress(address.id)}>
-                                        <View style={styles.leftPart}>
-                                            <Text style={[styles.addressText, styles.nameAddressText]}>({address.name})</Text>
-						            	    <Text style={styles.receiverText}>{address.receiver_name}</Text>
-						            	    { address.detail.length == 0 ? (
-                                                <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-                                                
-						            	    ) : (
-                                                <Text style={styles.addressText}>{address.detail}, {address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-						            	    )}
-						            	    <Text style={styles.addressText}>{address.phone_number}</Text>
-                                        </View>
-                                        <View style={styles.rightPart}>
-                                            <View style={styles.buttonSelected}>
-                                            </View>
-                                        </View>
-                                        <TouchableOpacity style={styles.iconPen} onPress={() => this.navigateToEditAddress(address)}>
-                                            <Image
-                                                style={styles.logoPen}
-                                                source={images.icon_pen}
-                                            />
-                                        </TouchableOpacity>
-                                    </TouchableOpacity>
-                                )
-                            }
+                            return (
+                                <View key={index}>
+                                    <AddressData
+                                        address={address}
+                                        index={index}
+                                        updatePrimaryAddress={this.updatePrimaryAddress}
+                                        navigateToEditAddress={this.navigateToEditAddress}
+                                    />
+                                </View>
+                            )
                         }) }
                     </ScrollView>
                     <View style={styles.bottomComponent}>

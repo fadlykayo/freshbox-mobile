@@ -34,6 +34,10 @@ action.clear_products = () => ({
     type: ct.CLEAR_PRODUCTS,
 })
 
+action.reset_products = () => ({
+    type: ct.RESET_PRODUCTS,
+})
+
 action.search_products = (params,data) => ({
     type: ct.SEARCH_PRODUCTS,
     payload: {

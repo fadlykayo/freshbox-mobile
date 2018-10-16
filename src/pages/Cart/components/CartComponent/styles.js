@@ -5,7 +5,7 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    eachCartContainer: {
+    cartContainer: {
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',

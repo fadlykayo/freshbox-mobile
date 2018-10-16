@@ -53,10 +53,12 @@ actions.upload_photo = (req, success, failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-        requestHandler('put',payload,dispatch)
+		console.log(payload);
+        requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
         		if(res.code == 200){
+					dispatch(actReducer.update_user(res.data));
         			success(res);
         		}
         	}
@@ -66,7 +68,8 @@ actions.upload_photo = (req, success, failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-        			case 400: return failure(err);
+					case 400: return failure(err);
+					case 403: return failure(err);
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,
