@@ -208,7 +208,10 @@ class ProductList extends Component {
 
 	render(){
 		return (
-			<Container>
+			<Container
+                bgColorBottom={'veryLightGrey'}
+                bgColorTop={'red'}
+            >
 				<SearchComponent
 					type={'searchItem'}
 					onChangeText={this.onChangeText}

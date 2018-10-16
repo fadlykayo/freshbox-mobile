@@ -149,7 +149,10 @@ class Register extends Component {
 
     render(){
         return(
-            <Container>
+            <Container
+                bgColorBottom={'white'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar 
                     title={'register.navigationTitle'}
                     onPress={actNav.goBack}

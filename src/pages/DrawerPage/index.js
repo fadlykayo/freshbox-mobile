@@ -75,7 +75,10 @@ class DrawerPage extends Component {
 
   	render () {
   	  	return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
   	  	  		<View style={styles.container}>
 					<PhotoComponent
 						navigateToProfilePage={this.navigateToProfilePage}

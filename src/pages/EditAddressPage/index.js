@@ -245,7 +245,10 @@ class AddressPage extends Component {
 
   	render() {
 		return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'addressPage.navigationTitle'}
 					onPress={actNav.goBack}

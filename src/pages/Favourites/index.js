@@ -179,7 +179,10 @@ class Favourites extends Component {
 
   	render() {
   	  	return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'favourites.navigationTitle'}
 					onPress={actNav.goBack}

@@ -125,7 +125,10 @@ class ForgotPassword extends Component {
 
     render(){
         return(
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <NavigationBar 
                     title={'forgotPassword.navigationTitle'}
                     onPress={actNav.goBack}

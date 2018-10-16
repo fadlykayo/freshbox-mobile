@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { View, Text, Image } from 'react-native';
+import StaticText from '../StaticText';
 import styles from './styles';
 import images from '@assets';
 
@@ -18,7 +19,10 @@ class Loading extends PureComponent {
 						style={styles.loadingImage}
 						source={images.loading}
 					/>
-					<Text style={styles.loadingText}>Loading</Text>
+					<StaticText 
+						style={styles.loadingText}
+						property={"loading"}
+					/>
 				</View>
 			</View>
 		)

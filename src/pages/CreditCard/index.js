@@ -109,7 +109,10 @@ class CreditCard extends Component {
 
     render() {
         return (
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <NavigationBar
 			    	title={'creditCard.navigationTitle'}
 			    	onPress={actNav.goBack}

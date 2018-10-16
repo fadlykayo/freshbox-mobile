@@ -137,7 +137,10 @@ class SignIn extends Component {
 
     render(){
         return(
-            <Container>
+            <Container
+                bgColorBottom={'white'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar 
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}
