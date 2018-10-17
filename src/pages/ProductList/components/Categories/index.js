@@ -8,6 +8,11 @@ import images from '@assets';
 class OpenCategories extends PureComponent {
 	constructor(props){
 		super(props);
+		this.closeDialogCategories = this.closeDialogCategories.bind(this);
+	}
+
+	closeDialogCategories(){
+		this.props.closeDialogCategories();
 	}
 
 	render(){
@@ -18,9 +23,10 @@ class OpenCategories extends PureComponent {
 						<View style={styles.topComponent}>
 							<View style={styles.scrollDownButton}>
 								<TouchableWithoutFeedback
-									onPress={ () => this.props.closeDialogCategories()}>
+									onPress={this.closeDialogCategories}
+								>
 									<Image
-										resizeMode={'contain'} 
+										resizeMode={'contain'}
 										source={images.icon_scroll_down}
 										style={styles.logo}
 									/>

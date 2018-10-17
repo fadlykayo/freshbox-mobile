@@ -9,24 +9,27 @@ import styles from './styles';
 class CheckoutComponent extends PureComponent {
 	constructor(props) {
 		super(props);
+		this.navigateToCart = this.navigateToCart.bind(this);
 	}
 
 	navigateToCart(){
 		actNav.navigate(navConstant.Cart);
 	}
 
-	render() {
-		return (
+	render(){
+		const totalPrice = numeral(this.props.totalPrice).format('0,0');
+		return(
 			<TouchableOpacity
-				onPress={() => this.navigateToCart()}
+				onPress={this.navigateToCart}
 				style={styles.checkoutButton}
 			>
-				<Text style={[styles.textData, styles.checkoutText]}>
+				<Text style={styles.checkoutText}>
 					{this.props.totalCount}
 					<StaticText 
-						style={[styles.textData, styles.checkoutText]}
-						property={'productList.content.item'}/>	
-					{numeral(this.props.totalPrice).format('0,0')}
+						style={styles.checkoutText}
+						property={'productList.content.item'}
+					/>
+					{totalPrice}
 				</Text>
 				<Image
   	  	    		resizeMode={'contain'} 

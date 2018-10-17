@@ -89,7 +89,7 @@ class ProductList extends Component {
 		}
 	}
 
-	checkCategory() {
+	checkCategory(){
 		let categories = this.props.categories;
 		let category = '';
 		for (let i = 0; i < categories.length; i++) {
@@ -100,7 +100,7 @@ class ProductList extends Component {
 		this.onChangeText('onCategory',category);
 	} 
 
-	changeCategory(input) {
+	changeCategory(input){
 		if (input.name == 'Default') {
 			let payload = {
 				header: {},
@@ -228,7 +228,7 @@ class ProductList extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.product}
-							keyExtractor={(item) => String(item.id)}
+							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<CartComponent
 									data={item}
