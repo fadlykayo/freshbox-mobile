@@ -233,6 +233,7 @@ class ProductList extends Component {
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
 									openDetailProduct= {this.openDetailProduct}
+									user={this.props.user}
 								/>
 							)}
 							onEndReached={this.handleLoadMore}
@@ -249,6 +250,7 @@ class ProductList extends Component {
 					</View>
 				</View>
 				<DetailProduct
+					user={this.props.user}
 					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}
 					changeTotalItem={this.changeTotalItem}
@@ -269,6 +271,7 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => ({
+	user: state.user.data,
 	state: state.product,
 	current_page: state.product.params.page,
 	params: state.product.params,

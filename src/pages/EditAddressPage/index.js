@@ -293,7 +293,7 @@ class AddressPage extends Component {
 								setContentFlex={this.setContentFlex}
 								setContentFlexNull={this.setContentFlexNull}
                     		/> */}
-							{/* <FormInput 
+							<FormInput 
 								ref={c => {this.formProvince = c}}
 								type={'province'}
 								value={this.state.user.province}
@@ -356,7 +356,7 @@ class AddressPage extends Component {
 								label={'addressPage.label.addressDetails'}
 								placeholder={'addressPage.label.addressDetails'}
 								onSubmitEditing={this.submitAddressDetails}
-							/> */}
+							/>
 							<Button
 								isEdit={this.state.isEdit}
 								onPress={this.updateAddressValidation}

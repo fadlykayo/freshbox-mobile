@@ -6,6 +6,7 @@ import NavigationBar from '@components/NavigationBar';
 import Logo from './components/Logo';
 import StaticText from '@components/StaticText';
 import FormInput from '@components/FormInput';
+import Button from '@components/Button';
 import InputData from './components/InputData';
 import styles from './styles';
 
@@ -74,14 +75,10 @@ class ContactUs extends Component {
 						/>
 					</View>
 					<View style={styles.bottomComponent}>
-						<TouchableOpacity 
+						<Button
+							title={'contactUs.button.submit'}
 							onPress={this.submitInformation}
-							style={styles.submitButton}>
-							<StaticText
-								style={styles.submitText}
-								property={'contactUs.button.submit'}
-							/>
-						</TouchableOpacity>
+						/>
 					</View>
 				</ScrollView>
 			</Container>

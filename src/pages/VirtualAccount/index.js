@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import StaticText from '@components/StaticText';
-import TotalPrice from './components/TotalPrice';
+import TotalPrice from '@components/TotalPrice';
+import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
 import { connect } from 'react-redux';
@@ -133,80 +133,24 @@ class VirtualAccount extends Component {
                 <ScrollView style={styles.container}>
                     <View style={styles.content}>
                         { this.state.banks.map((bank, index) => {
-                            if( bank.isOpen == true) {
-                                return (
-                                    <View key={index}>
-                                        <TouchableOpacity style={styles.component} onPress={() => this.openData(index)}>
-                                            <View>
-                                                <Image
-                                                    source={bank.image}
-                                                    style={styles.bankLogo}
-                                                />
-                                            </View>
-                                            <View>
-                                                <StaticText
-                                                    style={styles.staticText}
-                                                    property={bank.name}
-                                                />
-                                            </View>
-                                            <View style={styles.imagePlace}>
-                                                <Image
-                                                    source={images.icon_arrow_up_red}
-                                                    style={styles.logo}
-                                                />
-                                            </View>
-                                        </TouchableOpacity>
-                                        <View style={styles.contentPlace}>
-                                        { bank.step.map((content, index) => {
-                                            return (
-                                                <View key={ index } style={styles.contentData}>
-                                                    <View style={styles.leftPart}>
-                                                        <View style={styles.circlePart}>
-                                                            <Text style={styles.indexContent}>{index+1}</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={styles.rightPart}>
-                                                        <Text style={styles.contentText}>{content.name}</Text>
-                                                    </View>
-                                                </View>
-                                            )
-                                        }) }       
-                                        </View>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <TouchableOpacity key={index} style={styles.component} onPress={() => this.openData(index)}>
-                                        <View>
-                                            <Image
-                                                source={bank.image}
-                                                style={styles.bankLogo}
-                                            />
-                                        </View>
-                                        <View>
-                                            <StaticText
-                                                style={styles.staticText}
-                                                property={bank.name}
-                                            />
-                                        </View>
-                                        <View style={styles.imagePlace}>
-                                            <Image
-                                                source={images.icon_arrow_right_red}
-                                                style={styles.logo}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                )
-                            }
+                            return(
+                                <View key={index}>
+                                    <Content
+                                        index={index}
+                                        bank={bank}
+                                        openData={this.openData}
+                                    />
+                                </View>
+                            )
                         }) }                        
                     </View>
                 </ScrollView>
                 <TotalPrice
+					title={'virtualAccount.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-                    delivery_price={this.props.delivery_price}
-                    onPress={this.createOrderByVirtualAccount}
+					delivery_price={this.props.delivery_price}
+					onPress={this.createOrderByVirtualAccount}
                 />
             </Container>
         );

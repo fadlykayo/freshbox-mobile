@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, ScrollView } from 'react-native';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
-import TotalPrice from './components/TotalPrice';
-import InputData from './components/InputData';
-import StaticText from '@components/StaticText';
+import TotalPrice from '@components/TotalPrice';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -161,13 +159,13 @@ class CreditCard extends Component {
                         </View>
                     </ScrollView>
                     <TotalPrice
+				    	title={'creditCard.content.checkout'}
                         subTotal={this.props.totalPrice}
                         grandTotal={this.state.grandTotalPrice}
-                        delivery_price={this.props.delivery_price}
-                        onPress={this.createOrder}
+				    	delivery_price={this.props.delivery_price}
+				    	onPress={this.createOrder}
                     />
                 </View>
-               
             </Container>
         );
     }

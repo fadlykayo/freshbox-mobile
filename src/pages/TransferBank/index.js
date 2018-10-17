@@ -4,7 +4,7 @@ import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
-import TotalPrice from './components/TotalPrice';
+import TotalPrice from '@components/TotalPrice';
 import MainContent from './components/MainContent';
 import styles from './styles';
 import images from '@assets';
@@ -216,6 +216,7 @@ class TransferBank extends Component {
         }
         this.openData = this.openData.bind(this);
         this.openSpecificData = this.openSpecificData.bind(this);
+        this.createOrderByTransferBank = this.createOrderByTransferBank.bind(this);
     }
 
     componentDidMount() {
@@ -238,6 +239,10 @@ class TransferBank extends Component {
         banks[indexBank].types[indexType].isOpen = !banks[indexBank].types[indexType].isOpen;
         // console.log(banks)
         this.setState({ banks })
+    }
+
+    createOrderByTransferBank() {
+        alert('success')
     }
 
     render() {
@@ -264,9 +269,11 @@ class TransferBank extends Component {
                     </View>
                 </ScrollView>
                 <TotalPrice
+                    title={'transferBank.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
+                    delivery_price={this.props.delivery_price}
+                    onPress={this.createOrderByTransferBank}
                 />
             </Container>
         );

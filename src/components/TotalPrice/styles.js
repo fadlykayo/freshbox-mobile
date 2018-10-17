@@ -5,7 +5,7 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    bottomComponent: {
+    container: {
         flex: -1,
         height: height * 0.26,
         backgroundColor: colour.white,
@@ -18,10 +18,10 @@ const styles = {
         paddingRight: width * 0.05,
         paddingBottom: width * 0.03,
     },
-    topTotalPrice: {
+    topComponent: {
         flex: 1,
     },
-    subTotal: {
+    spaceBetweenData: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: scaling.moderateScale(8),
