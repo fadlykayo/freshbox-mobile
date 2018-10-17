@@ -40,6 +40,7 @@ class TotalPrice extends Component {
                     </View>
                 </View>
                 <Button
+                    type={this.props.type}
                     onPress={this.props.onPress}
                     title={this.props.title}
                 />

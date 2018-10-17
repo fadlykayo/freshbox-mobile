@@ -1,18 +1,18 @@
-import React,{ PureComponent } from 'react';
+import React,{ Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
-class Button extends PureComponent {
-    constructor(){
-        super();
+class Button extends Component {
+    constructor(props){
+        super(props);
     }
 
     render(){
         return (
-            <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
+            <TouchableOpacity style={styles.buttonEdit} onPress={this.props.onPress}>
                 <StaticText 
-                    style={styles.title}
+                    style={styles.titleEdit}
                     property={this.props.title}
                 />
             </TouchableOpacity>

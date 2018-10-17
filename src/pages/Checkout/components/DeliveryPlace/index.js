@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
+import Button from '@components/Button';
 import styles from './styles';
 
 class DeliveryPlace extends Component {
@@ -14,7 +15,6 @@ class DeliveryPlace extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
 		    	{ this.props.addresses.map((address, index) => {
@@ -35,16 +35,12 @@ class DeliveryPlace extends Component {
 		    				</View>
 		    			)
 		    		}
-		    	}) }
-		    	<TouchableOpacity 
-		    		style={styles.buttonOtherAddress}
-		    		onPress={this.onPress}	
-		    	>
-		    		<StaticText
-		    			style={[styles.staticText,styles.otherAddressText]}
-		    			property={'checkout.content.otherAddress'}
-		    		/>
-		    	</TouchableOpacity>
+				}) }
+				<Button
+					type={this.props.type}
+					onPress={this.onPress}
+					title={this.props.title}
+				/>
 		    </View>
         )
     }

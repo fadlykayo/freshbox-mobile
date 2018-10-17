@@ -12,7 +12,7 @@ import HistoryPage from '@pages/HistoryPage';
 import HistoryDetail from '@pages/HistoryDetail';
 import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
-import EditAddressPage from '@pages/EditAddressPage';
+import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
 import HomeResetNewPasswordPage from '@pages/HomeResetNewPasswordPage';
 import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
@@ -51,7 +51,7 @@ export const AppNavigator = createStackNavigator({
     Product: DrawerBar,
     HistoryDetail: {screen: HistoryDetail},
     PhonePage: {screen: PhonePage},
-    EditAddressPage: {screen: EditAddressPage},
+    AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
@@ -103,7 +103,7 @@ export const navConstant = {
     HistoryDetail: 'HistoryDetail',
     ProfilePage: 'ProfilePage',
     PhonePage: 'PhonePage',
-    EditAddressPage: 'EditAddressPage',
+    AddressPage: 'AddressPage',
     ResetPasswordPage: 'ResetPasswordPage',
     Favourites: 'Favourites',
     TermsConditions: 'TermsConditions',

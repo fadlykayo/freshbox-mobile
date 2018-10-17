@@ -136,6 +136,7 @@ class Cart extends Component {
 						/>
 					</View>
 					<Checkout
+						type={'red'}
 						totalPrice={this.props.total_price}
 						onPress={this.navigateToCheckout}
 					/>

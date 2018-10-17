@@ -27,6 +27,7 @@ class CheckoutComponent extends PureComponent {
 					</Text>
 				</View>
 				<Button
+					type={this.props.type}
 					onPress={this.props.onPress}
 					title={'cart.button.checkout'}
 				/>

@@ -190,7 +190,8 @@ class SignIn extends Component {
                     <ForgotPassword 
                         onPress={this.navigateToForgotPassword}
                     />
-                    <Button 
+                    <Button
+                        type={'red'}
                         title={'signIn.button.signIn'}
                         onPress={this.signInValidation}
                     />

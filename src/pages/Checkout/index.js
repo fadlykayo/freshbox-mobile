@@ -153,6 +153,8 @@ class Checkout extends Component {
 				/>
 				<View style={styles.container}>
 					<DeliveryPlace
+						type={'white'}
+						title={'checkout.content.otherAddress'}
 						addresses={this.props.addresses}
 						onPress={this.navigateToChooseAddress}
 					/>
@@ -178,6 +180,7 @@ class Checkout extends Component {
 					</View>
 				</View>
 				<TotalPrice
+					type={'red'}
 					title={'checkout.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}

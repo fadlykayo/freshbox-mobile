@@ -3,6 +3,7 @@ import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
+import Button from '@components/Button';
 import NavigationBar from '@components/NavigationBar';
 import AddressData from './components/AddressData';
 import styles from './styles';
@@ -14,6 +15,7 @@ class ChooseAddress extends Component {
         super(props)
         this.updatePrimaryAddress = this.updatePrimaryAddress.bind(this);
         this.navigateToEditAddress = this.navigateToEditAddress.bind(this);
+        this.navigateToAddAddress = this.navigateToAddAddress.bind(this);
         this.getAddress = this.getAddress.bind(this);
     }
 
@@ -59,7 +61,11 @@ class ChooseAddress extends Component {
 
     navigateToEditAddress(data) {
         this.props.get_address_detail(data);
-        actNav.navigate(navConstant.EditAddressPage)
+        actNav.navigate(navConstant.AddressPage, {action: 'editAddress', key: this.props.navigation.state.key})
+    }
+
+    navigateToAddAddress() {
+        actNav.navigate(navConstant.AddressPage, {action: 'addAddress', key: this.props.navigation.state.key})
     }
 
     render() {
@@ -88,12 +94,11 @@ class ChooseAddress extends Component {
                         }) }
                     </ScrollView>
                     <View style={styles.bottomComponent}>
-                        <TouchableOpacity style={styles.addAddress}>
-                            <StaticText
-                                style={styles.addAddressText}
-                                property={'chooseAddress.label.addAddress'}
-                            />
-                        </TouchableOpacity>
+                        <Button
+                            type={'white'}
+                            onPress={this.navigateToAddAddress}
+                            title={'chooseAddress.label.addAddress'}
+                        />
                     </View>
                 </View>
             </Container>

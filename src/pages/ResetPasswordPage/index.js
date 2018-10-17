@@ -6,7 +6,7 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
-import Button from './components/Button';
+import Button from '@components/Button';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -218,7 +218,8 @@ class ResetPasswordPage extends Component {
                     	/>
 					</View>
 					<View style={styles.buttonPlace}>
-						<Button 
+						<Button
+							type={'red'}
 							title={'resetPasswordPage.button.changePassword'}
 							onPress={this.passwordValidation}
 						/>

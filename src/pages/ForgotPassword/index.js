@@ -158,7 +158,8 @@ class ForgotPassword extends Component {
                         property={'forgotPassword.validation.emailFormat'}
                     />
                     { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : (null) }
-                    <Button 
+                    <Button
+                        type={'red'}
                         title={'forgotPassword.button.submit'}
                         onPress={this.forgotPasswordValidation}
                     />
