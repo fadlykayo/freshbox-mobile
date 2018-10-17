@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, FlatList } from 'react-native';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
 import Container from '@components/Container';
@@ -9,7 +8,6 @@ import FilterComponent from './components/FilterComponent';
 import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
