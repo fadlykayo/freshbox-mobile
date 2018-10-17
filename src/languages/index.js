@@ -1,10 +1,10 @@
-import english from './english.json';
-import bahasa from './bahasa.json'
+import en from './english.json';
+import id from './indonesia.json'
 const lang = {};
 
 lang.translations = {
-    english,
-    bahasa,
+    en,
+    id,
 };
 
 export default lang;

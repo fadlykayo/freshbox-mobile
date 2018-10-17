@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import moment from 'moment';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
@@ -144,7 +143,10 @@ class Checkout extends Component {
 
   	render() {
 		return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'checkout.navigationTitle'}
 					onPress={actNav.goBack}
@@ -208,6 +210,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

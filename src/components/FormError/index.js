@@ -1,33 +1,50 @@
-import React,{ PureComponent } from 'react';
+import React,{ Component } from 'react';
 import { View, Image, TouchableWithoutFeedback, Text } from 'react-native';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
-class RegisterSuccess extends PureComponent {
+class RegisterSuccess extends Component {
 	constructor(props){
 		super(props);
+	}
+
+	shouldComponentUpdate(nextProps){
+		if(this.props.modalVisible != nextProps.modalVisible){
+			if(nextProps.modalVisible == true){
+				this.closeModal();
+				return true;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	closeModal(){
+		setTimeout(() => {
+			this.props.closeModal();
+		},2000);
 	}
 
 	render(){
 		if(this.props.modalVisible){
 			return(
-				<TouchableWithoutFeedback onPress={this.props.closeDialogRegisterSuccess}>
+				<TouchableWithoutFeedback onPress={this.props.closeModal}>
 					<View style={styles.overlay}>
 						<View style={styles.container}>
 							<View style={styles.subcontainer.left}>
 								<Image
 									resizeMode={'contain'} 
-									source={images.icon_success}
+									source={images.icon_error}
 									style={styles.logo}
 								/>
 							</View>
 							<View style={styles.subcontainer.right}>
 								<StaticText
 									style={styles.title}
-									property={'register.content.success'}
+									property={'formError.title'}
 								/>
-								<Text style={styles.content}>{this.props.message}</Text>
+								<Text style={styles.content}>{this.props.errorMessage}</Text>
 							</View>
 						</View>
 					</View>

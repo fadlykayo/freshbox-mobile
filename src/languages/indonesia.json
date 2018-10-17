@@ -268,7 +268,7 @@
             "message": "Pesan"
         },
         "content": {
-            "subject": "Choose Subject",
+            "subject": "Pilih Subjek",
             "message": "Pesan..."
         },
         "button": {
@@ -352,5 +352,19 @@
             "briVA": "BRI Virtual Account",
             "checkout": "Bayar"
         }
-    }
+    },
+    "formError":{
+        "title": "GAGAL"
+    },
+    "formSuccess":{
+        "title": "SUKSES"
+    },
+    "button": {
+        "close": "TUTUP"
+    },
+    "message":{
+        "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
+        "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi."
+    },
+    "loading": "Mohon tunggu"
 }

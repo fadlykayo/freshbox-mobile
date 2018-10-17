@@ -5,8 +5,8 @@ import styles from './styles';
 
 
 class Button extends PureComponent {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.onPress = this.onPress.bind(this);
     }
 

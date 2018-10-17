@@ -14,13 +14,10 @@ const styles = {
         bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        width: width,
-        height: height,
         backgroundColor: colour.darkGreyTransparent,
     },
     container: {
         flexDirection: 'row',
-        alignItems: 'center',
         width: width * 0.9,
         borderRadius: 8,
         backgroundColor: colour.white,
@@ -29,16 +26,18 @@ const styles = {
         left:{
             flex: -1,
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: scaling.moderateScale(20),
+            padding: scaling.moderateScale(15),
         },
         right:{
             flex: 1,
+            paddingTop: scaling.moderateScale(15),
+            paddingBottom: scaling.moderateScale(15),
+            paddingRight: scaling.moderateScale(10),
         }
     },
     logo: {
-        height: scaling.moderateScale(40),
-        width: scaling.moderateScale(40),
+        height: scaling.moderateScale(36),
+        width: scaling.moderateScale(36),
     },
     title:{
         fontFamily: 'Avenir-Black',

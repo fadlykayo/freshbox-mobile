@@ -125,7 +125,10 @@ class VirtualAccount extends Component {
 
     render() {
         return (
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <NavigationBar
 			    	title={'virtualAccount.navigationTitle'}
 			    	onPress={actNav.goBack}

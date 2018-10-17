@@ -16,7 +16,7 @@ class VerificationText extends PureComponent {
         this.renderText(this.props.property,this.props.language,this.props.params);
     }
 
-    renderText(property = 'no_props',lang = 'english',params = {}){
+    renderText(property = 'no_props',lang = 'id',params = {}){
         language.transformText(property,lang,params)
         .then((res) => {
             this.setState({outputText: res});

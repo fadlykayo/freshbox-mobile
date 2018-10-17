@@ -8,7 +8,6 @@ const initialState = {
         stock: 'tersedia'
     },
     products: [],
-
     categories: [],
     on_category: '',
     detail: {},

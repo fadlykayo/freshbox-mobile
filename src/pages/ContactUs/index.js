@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, ScrollView } from 'react-native';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import Logo from './components/Logo';
-import StaticText from '@components/StaticText';
 import FormInput from '@components/FormInput';
 import Button from '@components/Button';
 import InputData from './components/InputData';
@@ -19,7 +18,6 @@ class ContactUs extends Component {
 			placeholder: '',
 		}
 		this.onChangeText = this.onChangeText.bind(this);
-		this.renderPlaceholder = this.renderPlaceholder.bind(this);
 		this.submitInformation = this.submitInformation.bind(this);
 		this.submitSubject = this.submitSubject.bind(this);
 	}
@@ -28,13 +26,6 @@ class ContactUs extends Component {
         let user = this.state;
         user[type] = value;
         this.setState({user});
-	}
-	
-	renderPlaceholder(property = 'no_props',lang = 'bahasa',params = {}){
-		language.transformText(property,lang,params)
-		.then((res) => {
-			this.setState({placeholder: res});
-		});
 	}
 
 	submitSubject() {
@@ -47,7 +38,10 @@ class ContactUs extends Component {
 
   	render() {
   	  	return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}

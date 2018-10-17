@@ -14,21 +14,31 @@ class StaticText extends Component {
     componentDidMount(){
         this.renderText(this.props.property,this.props.language,this.props.params);
     }
-
+    
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.outputText != nextState.outputText){
             return true;
         } else {
             if(this.props.property != nextProps.property){
-                this.renderText(nextProps.property,this.props.language,this.props.params);
-                return true;
+                if(this.props.params != nextProps.params){
+                    this.renderText(nextProps.property,this.props.language,nextProps.params);
+                    return true
+                } else {
+                    this.renderText(nextProps.property,this.props.language,this.props.params);
+                    return true;
+                }
             } else {
-                return false;
+                if(this.props.params != nextProps.params){
+                    this.renderText(this.props.property,this.props.language,nextProps.params);
+                    return true
+                } else {
+                    return false;
+                }
             }
         }
     }
 
-    renderText(property = 'no_props',lang = 'bahasa',params = {}){
+    renderText(property = 'no_props',lang = 'id',params = {}){
         language.transformText(property,lang,params)
         .then((res) => {
             this.setState({outputText: res});

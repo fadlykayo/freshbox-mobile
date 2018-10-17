@@ -160,7 +160,10 @@ class ResetPasswordPage extends Component {
 
   	render() {
   	  	return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'resetPasswordPage.navigationTitle'}
 					onPress={actNav.goBack}

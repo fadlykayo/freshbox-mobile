@@ -247,7 +247,10 @@ class TransferBank extends Component {
 
     render() {
         return (
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <NavigationBar
 			    	title={'transferBank.navigationTitle'}
 			    	onPress={actNav.goBack}

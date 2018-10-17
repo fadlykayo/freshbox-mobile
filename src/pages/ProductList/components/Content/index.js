@@ -9,18 +9,19 @@ class Content extends PureComponent {
 		super()
 	}
 
-	render() {
-		return (
+	render(){
+		const productPrice = numeral(this.props.data.price).format('0,0');
+		return(
 			<View style={styles.contentContainer}>
 				<Text style={styles.fontTitle}>{this.props.data.name}</Text>
 				<Text style={styles.fontCategory}>{this.props.data.category.name}</Text>
 				<Text style={styles.fontTitle}>
-					<StaticText 
+					<StaticText
 						style={styles.fontTitle}
 						property={'productList.content.price'}
 					/>
-					{numeral(this.props.data.price).format('0,0')}
-					<StaticText 
+						{productPrice}
+					<StaticText
 						style={styles.fontPack}
 						property={'productList.content.pack'}
 					/>

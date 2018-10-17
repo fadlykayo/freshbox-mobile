@@ -8,7 +8,6 @@ import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from './components/Button';
 import SignIn from './components/SignIn';
-import RegisterSuccess from './components/RegisterSuccess';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -33,10 +32,6 @@ class Register extends Component {
                 passwordLength: true,
                 confirmPassword: true,
             },
-            modalVisible:{
-                registerSuccess: false,
-            },
-            message: '',
         }
         this.onChangeText = this.onChangeText.bind(this);
         this.submitFullName = this.submitFullName.bind(this);
@@ -46,14 +41,7 @@ class Register extends Component {
         this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
-        this.setModalVisible = this.setModalVisible.bind(this);
         this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
-    }
-
-    setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
-        modalVisible[type] = value;
-        this.setState({modalVisible});
     }
 
     closeDialogRegisterSuccess(){
@@ -67,19 +55,19 @@ class Register extends Component {
     }
 
     onChangeText(type,value){
-        let user = this.state.user;
+        let user = JSON.parse(JSON.stringify(this.state.user));
         user[type] = value;
         this.setState({user})
     }
 
     setValidation(type,value){
-        let validateStatus = this.state.validateStatus;
+        let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
         validateStatus[type] = value;
         this.setState({validateStatus});
     }
 
     clearValidation(){
-        let validateStatus = this.state.validateStatus;
+        let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
         validateStatus.fullName = true;
         validateStatus.emailLength = true;
         validateStatus.emailFormat = true;
@@ -126,55 +114,15 @@ class Register extends Component {
     }
 
     registerValidation(){
-        validation.fullName(this.state.user.fullName)
+        this.clearValidation();
+        validation.register(this.state.user)
         .then(() => {
-            if(this.state.validateStatus.fullName == false) this.setValidation('fullName',true);
-            validation.emailLength(this.state.user.email)
-            .then(() => {
-                if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
-                validation.emailFormat(this.state.user.email)
-                .then(() => {
-                    if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
-                    validation.phone(this.state.user.phone)
-                    .then(() => {
-                        if(this.state.validateStatus.phone == false) this.setValidation('phone',true);
-                        validation.passwordLength(this.state.user.password)
-                        .then(() => {
-                            if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
-                            validation.password(this.state.user.password)
-                            .then(() => {
-                                validation.confirmPassword(this.state.user.password,this.state.user.confirmPassword)
-                                .then(() => {
-                                    if(this.state.validateStatus.confirmPassword == false) this.setValidation('confirmPassword',true);
-                                    this.registerHandler();
-                                })
-                                .catch(() => {
-                                    this.setValidation('confirmPassword',false);
-                                })
-                            })
-                            .catch(() => {
-                                this.setValidation('password',false);
-                            })
-                        })
-                        .catch(() => {
-                            this.setValidation('passwordLength',false);
-                        });
-                    })
-                    .catch(() => {
-                        this.setValidation('phone',false);
-                    })
-                })
-                .catch(() => {
-                    this.setValidation('emailFormat',false);
-                })
-            })
-            .catch(() => {
-                this.setValidation('emailLength',false);
-            });
+            this.registerHandler();
         })
-        .catch(() => {
-            this.setValidation('fullName',false);
-        })
+        .catch((err) => {
+            console.log(err);
+            this.setValidation(err,false);
+        });
     }
 
     registerHandler(){
@@ -191,37 +139,43 @@ class Register extends Component {
 
         this.props.register_user(payload,
             (res) => {
-                this.setModalVisible('registerSuccess', true)
-                this.setState({message: res.code_message})
-
+                if (this.props.navigation.state.params.action == 'guestLogin') {
+                    actNav.goBack(this.props.navigation.state.params.key)
+                }
+                else {
+                    actNav.goBack();
+                }
             },
             (err)=> {
                 console.log(err);
-            })
+            }
+        )
     }
 
     render(){
-
         return(
-            <Container>
+            <Container
+                bgColorBottom={'white'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar 
                     title={'register.navigationTitle'}
                     onPress={actNav.goBack}
                 />
                 <ScrollView 
                     style={styles.container}
+                    contentContainerStyle={styles.content}
                 >
                     <FormInput 
                         ref={c => {this.formFullName = c}}
                         type={'fullName'}
                         autoFocus={true}
                         value={this.state.user.fullName}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'register.formLabel.fullName'}
                         placeholder={'register.formLabel.fullName'}
                         onSubmitEditing={this.submitFullName}
                     />
-                    <Text>{JSON.stringify(this.props.user)}</Text>
                     <VerificationText
                         validation={this.state.validateStatus.fullName}
                         property={'register.validation.fullName'}
@@ -231,12 +185,11 @@ class Register extends Component {
                         type={'email'}
                         keyboardType={'email-address'}
                         value={this.state.user.email}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'register.formLabel.email'}
                         placeholder={'register.formLabel.email'}
                         onSubmitEditing={this.submitEmail}
                     />
-                    
                     <VerificationText
                         validation={this.state.validateStatus.emailFormat}
                         property={'register.validation.emailFormat'}
@@ -250,7 +203,7 @@ class Register extends Component {
                         type={'phone'}
                         keyboardType={'number-pad'}
                         value={this.state.user.phone}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'register.formLabel.phone'}
                         placeholder={'register.formLabel.phone'}
                         onSubmitEditing={this.submitPhone}
@@ -264,7 +217,7 @@ class Register extends Component {
                         type={'password'}
                         isPassword={true}
                         value={this.state.user.password}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'register.formLabel.password'}
                         placeholder={'register.formLabel.password'}
                         onSubmitEditing={this.submitPassword}
@@ -286,7 +239,7 @@ class Register extends Component {
                         type={'confirmPassword'}
                         isPassword={true}
                         value={this.state.user.confirmPassword}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'register.formLabel.confirmPassword'}
                         placeholder={'register.formLabel.confirmPassword'}
                         onSubmitEditing={this.submitConfirmPassword}
@@ -303,23 +256,14 @@ class Register extends Component {
                         onPress={actNav.goBack}
                     />
                 </ScrollView>
-                <RegisterSuccess
-                    modalVisible={this.state.modalVisible.registerSuccess}
-                    closeDialogRegisterSuccess={this.closeDialogRegisterSuccess}
-                    message={this.state.message}
-                />
             </Container>
         )
     }
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        register_user: (req,res,err) => dispatch(actions.registration.api.register_user(req,res,err))
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    register_user: (req,res,err) => dispatch(actions.registration.api.register_user(req,res,err))
+})
 
-export default connect(
-    null,
-    mapDispatchToProps)(Register);
+export default connect(null,mapDispatchToProps)(Register);

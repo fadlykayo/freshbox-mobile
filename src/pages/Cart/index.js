@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -7,7 +7,6 @@ import DetailProduct from './components/DetailProduct';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
@@ -111,7 +110,10 @@ class Cart extends Component {
 
 	render(){
 		return (
-			<Container>
+			<Container
+				bgColorBottom={'veryLightGrey'}
+				bgColorTop={'red'}
+			>
 				<NavigationBar 
 					title={'cart.navigationTitle'}
 					onPress={this.navigateBack}

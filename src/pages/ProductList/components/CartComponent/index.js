@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import StaticText from '@components/StaticText';
+import { View, Image, TouchableOpacity } from 'react-native';
+import ButtonCount from '@components/ButtonCount'; 
 import Content from '../Content';
 import styles from './styles';
 import images from '@assets';
@@ -8,7 +8,7 @@ import images from '@assets';
 
 class CartComponent extends PureComponent {
 	constructor(){
-		super()
+		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -32,7 +32,8 @@ class CartComponent extends PureComponent {
 	}
 
 	render(){
-		return (
+		const productImage = this.props.data.images_sizes_url.original[0];
+		return(
 			<View style={styles.eachCartContainer}>
 				<TouchableOpacity 
 					onPress={this.openDetailProduct}
@@ -42,65 +43,35 @@ class CartComponent extends PureComponent {
 						<Image
 							resizeMode={'contain'}
 							source={images.icon_sayur_segar} 
-							source={{uri: this.props.data.images_sizes_url.original[0]}}
+							source={{uri: productImage}}
 							style={styles.picture}
 						/>
 					</View>
 					<Content data={this.props.data}/>
 					<View style={styles.addContainer}>
+					{ this.props.user ? (
 						<TouchableOpacity
 							onPress={this.toggleFavorite}
 							style={styles.touchableFavorite}
 						>
-							{ this.props.user ? (
-								<Image
-									resizeMode={'contain'} 
-									source={
-										this.props.data.favorite == true
-											? images.icon_favorited
-											: images.icon_favorite
-									}
-									style={styles.favoriteLogo}
-								/>
-							) : null }
-						</TouchableOpacity>
-							
-					</View>
-				</TouchableOpacity>
-				{ this.props.data.count == 0 ? 
-						(
-						<TouchableOpacity 
-							style={styles.addNewItem}
-							onPress={this.addTotalItem}
-						>
-							<StaticText 
-								style={styles.newItemText}
-								property={'productList.content.addItem'}
+							<Image
+								resizeMode={'contain'} 
+								source={
+									this.props.data.favorite == true
+									? 	images.icon_favorited
+									: 	images.icon_favorite
+								}
+								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
-						) : (
-						<View style={styles.touchableItem}>
-							<TouchableOpacity 
-								style={styles.boxOperatorLeft}
-								onPress={this.decTotalItem}
-							>
-								<StaticText 
-									style={styles.operatorText}
-									property={'productList.symbol.minus'}
-								/>
-							</TouchableOpacity>
-							<Text style={styles.itemText}>{this.props.data.count}</Text>
-							<TouchableOpacity 
-								style={styles.boxOperatorRight}
-								onPress={this.addTotalItem}
-							>
-								<StaticText 
-									style={styles.operatorText}
-									property={'productList.symbol.plus'}
-								/>
-							</TouchableOpacity>
-						</View>
-				) }
+					) : null }
+					</View>
+				</TouchableOpacity>
+				<ButtonCount
+					count={this.props.data.count}
+					addTotalItem={this.addTotalItem}
+					decTotalItem={this.decTotalItem}
+				/>
 			</View>
 		);
 	}

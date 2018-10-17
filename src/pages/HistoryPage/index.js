@@ -53,7 +53,10 @@ class HistoryPage extends Component {
 
   	render() {
   	  	return (
-			<Container>
+			<Container 				
+				bgColorBottom={'veryLightGrey'} 				
+				bgColorTop={'red'} 			
+			>
 				<NavigationBar
 					title={'historyPage.navigationTitle'}
 					onPress={actNav.goBack}

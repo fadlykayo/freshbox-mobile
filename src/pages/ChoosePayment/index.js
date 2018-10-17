@@ -43,7 +43,10 @@ class ChoosePayment extends Component {
 
     render() {
         return (
-            <Container>
+            <Container
+                bgColorBottom={'veryLightGrey'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
 			    	onPress={actNav.goBack}

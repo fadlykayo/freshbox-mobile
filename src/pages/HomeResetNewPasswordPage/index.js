@@ -43,7 +43,10 @@ class HomeResetNewPasswordPage extends Component {
 
     render() {
         return (
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <View style={styles.container}>
                     <Text>HomeResetNewPasswordPage</Text>
                 </View>
