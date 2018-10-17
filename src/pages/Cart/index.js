@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -7,7 +7,6 @@ import DetailProduct from './components/DetailProduct';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
@@ -153,29 +152,23 @@ class Cart extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		user: state.user.data,
-		cart_product: state.product.cart.products,
-		index_product: state.product.cart.index,
-		product: state.product.products,
-		total_price: state.product.total.price,
-		total_count: state.product.total.count,
-		productDetail: state.product.detail,
-	}
-}
+const mapStateToProps = state => ({
+	user: state.user.data,
+	cart_product: state.product.cart.products,
+	index_product: state.product.cart.index,
+	product: state.product.products,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	productDetail: state.product.detail,
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
-		get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
-		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
-		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
+	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+})
 
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(Cart);
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);

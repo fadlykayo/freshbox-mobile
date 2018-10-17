@@ -1,11 +1,11 @@
-import React,{ PureComponent } from 'react';
-import { TouchableOpacity, View, Image, TouchableWithoutFeedback, ScrollView, Text } from 'react-native';
+import React,{ Component } from 'react';
+import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
 import ContentDetail from '../ContentDetail';
-import StaticText from '@components/StaticText';
+import ButtonCount from '@components/ButtonCount';
 import styles from './styles';
 import images from '@assets';
 
-class DetailProduct extends PureComponent {
+class DetailProduct extends Component {
 	constructor(){
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
@@ -33,88 +33,57 @@ class DetailProduct extends PureComponent {
 	render(){
 		if(this.props.modalVisible){
 			return(
-				<View style={styles.overlay}>
+				<View style={styles.background}>
 					<View style={styles.container}>
-						<View style={styles.topComponent}>
-							<View style={styles.scrollDownButton}>
-								<TouchableWithoutFeedback
-									onPress={this.closeDetailProduct}>
-									<Image
-										resizeMode={'contain'} 
-										source={images.icon_scroll_down}
-										style={styles.logo}
-									/>
-								</TouchableWithoutFeedback>
+						<TouchableOpacity 
+							style={styles.subcontainer.top}
+							onPress={this.closeDetailProduct}
+						>
+							<View style={styles.button.dropdown}>
+								<Image
+									resizeMode={'contain'} 
+									source={images.icon_scroll_down}
+									style={styles.icon.dropdown}
+								/>
 							</View>
-						</View>
-						<ScrollView style={styles.scrollView}>
-							<View style={styles.middleComponent}>
-								<View style={styles.borderImage}>
-									<Image
-										resizeMode={'contain'} 
-										// source={this.props.data.images[0]}
-										source={images.icon_sayur_segar}
-										style={styles.logo}
-									/>
-								</View>
-								<ContentDetail data={this.props.data}/>
-								<View style={styles.favoriteComponent}>
-									<TouchableOpacity
-										onPress={this.toggleFavorite}
-										style={styles.touchableFavorite}
-									>
-										<Image
-											resizeMode={'contain'} 
-											source={
-												this.props.data.favorite == true
-													? images.icon_favorited
-													: images.icon_favorite
-											}
-											style={styles.favoriteLogo}
-										/>
-									</TouchableOpacity>
-								</View>
+						</TouchableOpacity>
+						<View style={styles.subcontainer.mid}>
+							<View style={styles.subcontainer.product}>
+								<Image
+									resizeMode={'contain'} 
+									// source={this.props.data.images[0]}
+									source={images.icon_sayur_segar}
+									style={styles.icon.product}
+								/>
 							</View>
-							<View>
-								<Text style={styles.textDescription}>{this.props.data.description}</Text>
-							</View>
-							<View style={styles.addButton}>
-								{ this.props.data.count == 0 ? 
-								(
-								<TouchableOpacity 
-									style={styles.addNewItem}
-									onPress={this.addTotalItem}
+							<ContentDetail data={this.props.data}/>
+							<View style={styles.favoriteComponent}>
+								<TouchableOpacity
+									onPress={this.toggleFavorite}
+									style={styles.touchableFavorite}
 								>
-									<StaticText 
-										style={styles.newItemText}
-										property={'productList.content.addItem'}
+									<Image
+										resizeMode={'contain'} 
+										source={
+											this.props.data.favorite == true
+												? images.icon_favorited
+												: images.icon_favorite
+										}
+										style={styles.favoriteLogo}
 									/>
 								</TouchableOpacity>
-								) : (
-								<View style={styles.touchableItem}>
-									<TouchableOpacity 
-										style={styles.boxOperatorLeft}
-										onPress={this.decTotalItem}
-									>
-										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.minus'}
-										/>
-									</TouchableOpacity>
-									<Text style={styles.itemText}>{this.props.data.count}</Text>
-									<TouchableOpacity 
-										style={styles.boxOperatorRight}
-										onPress={this.addTotalItem}
-									>
-										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.plus'}
-										/>
-									</TouchableOpacity>
-								</View>
-								) }
 							</View>
-						</ScrollView>
+						</View>
+						<View style={styles.subcontainer.bottom}>
+							<ScrollView style={styles.bottomContainer}>
+								<Text style={styles.text.description}>{this.props.data.description}</Text>
+							</ScrollView>
+							<ButtonCount
+								count={this.props.data.count}
+								addTotalItem={this.addTotalItem}
+								decTotalItem={this.decTotalItem}
+							/>
+						</View>
 					</View>
 				</View>
 			)
