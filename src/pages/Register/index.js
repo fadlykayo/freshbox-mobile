@@ -17,11 +17,11 @@ class Register extends Component {
         super();
         this.state={
             user:{
-                fullName: 'arfanizar',
-                phone: '081314153655',
-                email: 'arfanizar@rebelworks.co',
-                password: 'masuk123',
-                confirmPassword: 'masuk123'
+                fullName: '',
+                phone: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
             },
             validateStatus:{
                 fullName: true,
@@ -139,7 +139,12 @@ class Register extends Component {
 
         this.props.register_user(payload,
             (res) => {
-                actNav.goBack();
+                if (this.props.navigation.state.params.action == 'guestLogin') {
+                    actNav.goBack(this.props.navigation.state.params.key)
+                }
+                else {
+                    actNav.goBack();
+                }
             },
             (err)=> {
                 console.log(err);

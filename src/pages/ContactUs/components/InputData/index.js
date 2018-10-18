@@ -31,7 +31,7 @@ class InputData extends Component {
 		this.renderPlaceholder(this.props.title,this.props.language,this.props.params);
     }
     
-	renderPlaceholder(property = 'no_props',lang = 'english',params = {}){
+	renderPlaceholder(property = 'no_props',lang = 'id',params = {}){
 		language.transformText(property,lang,params)
 		.then((res) => {
 			this.setState({placeholder: res});

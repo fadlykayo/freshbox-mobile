@@ -63,15 +63,17 @@ class DetailProduct extends PureComponent {
 										onPress={this.toggleFavorite}
 										style={styles.touchableFavorite}
 									>
-										<Image
-											resizeMode={'contain'} 
-											source={
-												this.props.data.favorite == true
-													? images.icon_favorited
-													: images.icon_favorite
-											}
-											style={styles.favoriteLogo}
-										/>
+										{ this.props.user ? (
+											<Image
+												resizeMode={'contain'} 
+												source={
+													this.props.data.favorite == true
+														? images.icon_favorited
+														: images.icon_favorite
+												}
+												style={styles.favoriteLogo}
+											/>
+										) : null }
 									</TouchableOpacity>
 								</View>
 							</View>

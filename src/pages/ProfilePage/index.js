@@ -55,8 +55,6 @@ class ProfilePage extends Component {
     
     choosePhoto() {
         ImagePicker.showImagePicker( options, (response) => {
-            console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             }
@@ -78,8 +76,6 @@ class ProfilePage extends Component {
                 let formData = new FormData();
                 formData.append('image', data)
 
-
-                console.log("gambar", formData)
                 let payload = {
                     header: {
                         apiToken: this.props.user.authorization
@@ -89,11 +85,9 @@ class ProfilePage extends Component {
 
                 this.props.upload_photo(payload,
                     (success) => {
-                        alert('SUCCESS')
-                        console.log(success)
                     },
                     (err) => {
-                        console.log("==>",err)
+                        console.log(err)
                     })
 
                 // You can also display the image using data:

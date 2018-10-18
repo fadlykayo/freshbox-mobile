@@ -23,22 +23,6 @@ const styles = {
         justifyContent: 'center',
         height: height * 0.16,
     },
-    submitButton: {
-        width: width * 0.9,
-        height: height * 0.09,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colour.red,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: colour.white,
-    },
-    submitText: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(14),
-        fontWeight: '500',
-        color: colour.white
-    }
 }
 
 export default styles;

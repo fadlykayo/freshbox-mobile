@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, Button, Keyboard, TouchableOpacity, Image } from 'react-native';
+import { View, FlatList, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
@@ -9,7 +9,6 @@ import FilterComponent from './components/FilterComponent';
 import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
@@ -26,6 +25,7 @@ class ProductList extends Component {
 				openProduct: false,
 			},
 		}
+		this.onChangeText = this.onChangeText.bind(this);
 		this.submitSearch=this.submitSearch.bind(this);
 		this.checkCategory=this.checkCategory.bind(this);
 		this.toggleFavorite=this.toggleFavorite.bind(this);
@@ -34,11 +34,11 @@ class ProductList extends Component {
 		this.handleLoadMore=this.handleLoadMore.bind(this);
 		this.setModalVisible=this.setModalVisible.bind(this);
 		this.changeTotalItem=this.changeTotalItem.bind(this);
-		this.closeDrawerMenu=this.closeDrawerMenu.bind(this);
 		this.openAllCategories=this.openAllCategories.bind(this);
 		this.openDetailProduct=this.openDetailProduct.bind(this);
 		this.closeDetailProduct=this.closeDetailProduct.bind(this);
 		this.closeDialogCategories=this.closeDialogCategories.bind(this);
+		this.navigateToCart = this.navigateToCart.bind(this);
 	}
 
 	componentDidMount(){
@@ -107,6 +107,7 @@ class ProductList extends Component {
 				body: {},
 				params: {
 					page: 1,
+					stock: 'tersedia'
 				}
 			}
 
@@ -125,6 +126,7 @@ class ProductList extends Component {
 				header: {},
 				body: {},
 				params: {
+					stock: 'tersedia',
 					category_id: input.id,
 					page: 1,
 				}
@@ -143,6 +145,7 @@ class ProductList extends Component {
 	}
 	
 	openAllCategories(){
+		Keyboard.dismiss();
 		this.setModalVisible('openCategories',true);
  	}
 
@@ -175,9 +178,9 @@ class ProductList extends Component {
 
 
 	onChangeText(type,value){
-        // let user = this.state;
-        // user[type] = value;
-        // this.setState({user});
+        let state = this.state;
+        state[type] = value;
+        this.setState(state);
 	}
 	
 	submitSearch() {
@@ -186,9 +189,11 @@ class ProductList extends Component {
 			body: {},
 			params: {
 				name: this.state.searchItem,
+				stock: 'tersedia',
 				page: 1,
 			}
 		}
+
 		this.props.search_products(payload, 
 			(success) => {
 				console.log(success)
@@ -199,11 +204,12 @@ class ProductList extends Component {
 	}
 
 	openDrawerMenu() {
+		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	}
 
-	closeDrawerMenu() {
-		this.props.navigation.closeDrawer();
+	navigateToCart(){
+		actNav.navigate(navConstant.Cart);
 	}
 
 	render(){
@@ -214,11 +220,11 @@ class ProductList extends Component {
             >
 				<SearchComponent
 					type={'searchItem'}
+					title={'productList.searchPlaceHolder'}
+					value={this.state.searchItem}
 					onChangeText={this.onChangeText}
 					onSubmitEditing={this.submitSearch}
 					openDrawerMenu={this.openDrawerMenu}
-					closeDrawerMenu={this.closeDrawerMenu}
-					title={'productList.searchPlaceHolder'}
 				/>
 				<FilterComponent 
 					onCategory = {this.props.on_category}
@@ -236,6 +242,7 @@ class ProductList extends Component {
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
 									openDetailProduct= {this.openDetailProduct}
+									user={this.props.user}
 								/>
 							)}
 							onEndReached={this.handleLoadMore}
@@ -246,12 +253,14 @@ class ProductList extends Component {
 							? 	<Checkout
 									totalCount={ this.props.total_count }
 									totalPrice={ this.props.total_price }
+									onPress={this.navigateToCart}
 								/>
 							: 	null
 						}
 					</View>
 				</View>
 				<DetailProduct
+					user={this.props.user}
 					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}
 					changeTotalItem={this.changeTotalItem}
@@ -272,6 +281,7 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => ({
+	user: state.user.data,
 	state: state.product,
 	current_page: state.product.params.page,
 	params: state.product.params,
