@@ -133,6 +133,7 @@ class Cart extends Component {
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
 									openDetailProduct={this.openDetailProduct}
+									user={this.props.user}
 								/>
 							)}
 						/>
@@ -143,6 +144,7 @@ class Cart extends Component {
 					/>
 				</View>
 				<DetailProduct
+					user={this.props.user}
 					data={this.props.productDetail}
 					updateDetail={this.updateDetail}
 					toggleFavorite={this.toggleFavorite}

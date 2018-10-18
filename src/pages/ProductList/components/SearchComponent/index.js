@@ -10,7 +10,6 @@ class SearchComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchItem: '',
 			placeholder: '',
     	}
     	this.onChangeText = this.onChangeText.bind(this);
@@ -48,7 +47,8 @@ class SearchComponent extends Component {
   	  	    				style={styles.iconSearch}
   	  					/>
 					</TouchableOpacity>
-		    		<TextInput 
+					<TextInput
+						value={this.props.value} 
   	        			onChangeText={this.onChangeText}
   	        			placeholder={this.state.placeholder}
 		    		  	onSubmitEditing={this.onSubmitEditing}

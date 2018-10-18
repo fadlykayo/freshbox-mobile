@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import moment from 'moment';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
-import TotalPrice from './components/TotalPrice';
+import TotalPrice from '@components/TotalPrice';
 import DeliveryDate from './components/DeliveryDate';
 import DeliveryPlace from './components/DeliveryPlace';
 import images from '@assets';
@@ -179,6 +178,7 @@ class Checkout extends Component {
 					</View>
 				</View>
 				<TotalPrice
+					title={'checkout.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.props.delivery_price}

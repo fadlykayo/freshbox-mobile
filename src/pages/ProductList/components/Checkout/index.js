@@ -7,20 +7,20 @@ import images from '@assets';
 import styles from './styles';
 
 class CheckoutComponent extends PureComponent {
-	constructor(props) {
-		super(props);
-		this.navigateToCart = this.navigateToCart.bind(this);
+	constructor() {
+		super();
+		this.onPress = this.onPress.bind(this);
 	}
 
-	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+	onPress() {
+		this.props.onPress();
 	}
 
 	render(){
 		const totalPrice = numeral(this.props.totalPrice).format('0,0');
 		return(
 			<TouchableOpacity
-				onPress={this.navigateToCart}
+				onPress={this.onPress}
 				style={styles.checkoutButton}
 			>
 				<Text style={styles.checkoutText}>

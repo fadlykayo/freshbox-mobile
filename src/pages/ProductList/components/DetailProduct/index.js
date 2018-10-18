@@ -58,6 +58,7 @@ class DetailProduct extends Component {
 							</View>
 							<ContentDetail data={this.props.data}/>
 							<View style={styles.favoriteComponent}>
+							{ this.props.user ? (
 								<TouchableOpacity
 									onPress={this.toggleFavorite}
 									style={styles.touchableFavorite}
@@ -72,6 +73,7 @@ class DetailProduct extends Component {
 										style={styles.favoriteLogo}
 									/>
 								</TouchableOpacity>
+							) : null}
 							</View>
 						</View>
 						<View style={styles.subcontainer.bottom}>

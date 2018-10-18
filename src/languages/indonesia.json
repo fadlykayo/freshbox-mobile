@@ -268,7 +268,7 @@
             "message": "Pesan"
         },
         "content": {
-            "subject": "Choose Subject",
+            "subject": "Pilih Subjek",
             "message": "Pesan..."
         },
         "button": {
@@ -316,7 +316,8 @@
             "cardNumber": "Nomor Kartu",
             "expiredDate": "Tanggal Kadaluarsa",
             "expED": "example 08-2010",
-            "cvv": "Kode CVV"
+            "cvv": "Kode CVV",
+            "checkout": "Bayar"
         }
     },
     "transferBank": {
@@ -339,7 +340,8 @@
                 "atm": "ATM BRI",
                 "mBanking": "M-Banking",
                 "iBanking": "KLIK BRI"
-            }
+            },
+            "checkout": "Bayar"
         }
     },
     "virtualAccount": {
@@ -347,7 +349,8 @@
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
-            "briVA": "BRI Virtual Account"
+            "briVA": "BRI Virtual Account",
+            "checkout": "Bayar"
         }
     },
     "formError":{

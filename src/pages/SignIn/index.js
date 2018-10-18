@@ -6,7 +6,7 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
-import Button from './components/Button';
+import Button from '@components/Button';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
@@ -18,8 +18,8 @@ class SignIn extends Component {
         super();
         this.state={
             user:{
-                email: 'arfanizar@rebelworks.co',
-                password: 'masuk123'
+                email: '',
+                password: ''
             },
             validateStatus:{
                 emailFormat: true,

@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
+import Button from '@components/Button';
 import numeral from 'numeral';
 import styles from './styles';
 
 class TotalPrice extends Component {
   	constructor(props) {
-          super(props)
-          this.createOrder = this.createOrder.bind(this);
-    }
-
-    createOrder() {
-        this.props.onPress()
+        super(props);
     }
 
   	render() {
   	  	return (
-            <View style={styles.bottomComponent}>
-                <View style={styles.topTotalPrice}>
-                    <View style={styles.subTotal}>
+            <View style={styles.container}>
+                <View style={styles.topComponent}>
+                    <View style={styles.spaceBetweenData}>
                         <StaticText
                             style={styles.staticText}
                             property={'checkout.content.subTotal'}
@@ -26,7 +22,7 @@ class TotalPrice extends Component {
                         <Text style={styles.price}><StaticText
                         property={'checkout.content.price'}/>{numeral(this.props.subTotal).format('0,0')}</Text>
                     </View>
-                    <View style={styles.subTotal}>
+                    <View style={styles.spaceBetweenData}>
                         <StaticText
                             style={styles.staticText}
                             property={'checkout.content.delivery'}
@@ -43,16 +39,10 @@ class TotalPrice extends Component {
                         property={'checkout.content.price'}/>{numeral(this.props.grandTotal).format('0,0')}</Text>
                     </View>
                 </View>
-                <TouchableOpacity 
-                    onPress={this.createOrder}
-                    style={styles.checkoutButton}
-                >
-                    <StaticText
-                        style={styles.checkoutText}
-                        property={'checkout.button.checkout'}
-                    />
-                </TouchableOpacity>
-                
+                <Button
+                    onPress={this.props.onPress}
+                    title={this.props.title}
+                />
             </View>
   	  	);
   	}

@@ -6,7 +6,7 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import VerificationText from '@components/VerificationText';
 import FormInput from '@components/FormInput';
-import Button from './components/Button';
+import Button from '@components/Button';
 import styles from './styles';
 import Logo from './components/Logo';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
