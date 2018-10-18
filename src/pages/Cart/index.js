@@ -4,6 +4,7 @@ import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import CartComponent from './components/CartComponent';
 import DetailProduct from './components/DetailProduct';
+import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
@@ -18,14 +19,15 @@ class Cart extends Component {
 			totalPrice: 0,
 			modalVisible: {
 				openProduct: false,
+				modalLoginConfirmation: false,
 			},
 		}
-		this.onChangeText = this.onChangeText.bind(this);
 		this.updateDetail = this.updateDetail.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
+		this.navigateToSignIn = this.navigateToSignIn.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
@@ -38,14 +40,8 @@ class Cart extends Component {
 		return true;
 	}
 
-	onChangeText(type,value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
-	}
-
 	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
         modalVisible[type] = value;
         this.setState({modalVisible});
 	}
@@ -82,7 +78,7 @@ class Cart extends Component {
 			buyProducts.push(product)
 		}) 
 
-		if (this.props.user) {
+		if(this.props.user){
 			let payload = {
 				header: {
 					apiToken: this.props.user.authorization
@@ -100,9 +96,16 @@ class Cart extends Component {
 				})
 		}
 		else {
-			actNav.navigate(navConstant.SignIn, { action: 'guestLogin' })
+			this.setModalVisible('modalLoginConfirmation',true);
 		}
 	}
+
+	navigateToSignIn(){
+		this.setModalVisible('modalLoginConfirmation',false);
+		actNav.navigate(navConstant.SignIn,{
+			action: 'guestLogin'
+		});
+	};
 
 	navigateBack(){
 		actNav.goBack();
@@ -146,6 +149,10 @@ class Cart extends Component {
 					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
+				/>
+				<ModalLoginConfirmation
+					onPress={this.navigateToSignIn} 
+					modalVisible={this.state.modalVisible.modalLoginConfirmation}
 				/>
 			</Container>
 		);
