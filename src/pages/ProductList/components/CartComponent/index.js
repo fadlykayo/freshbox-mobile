@@ -41,15 +41,13 @@ class CartComponent extends PureComponent {
 				>
 					<View style={styles.imageContainer}>
 						<Image
-							resizeMode={'contain'}
-							source={images.icon_sayur_segar} 
+							resizeMode={'contain'} 
 							source={{uri: productImage}}
 							style={styles.picture}
 						/>
 					</View>
 					<Content data={this.props.data}/>
 					<View style={styles.addContainer}>
-					{ this.props.user ? (
 						<TouchableOpacity
 							onPress={this.toggleFavorite}
 							style={styles.touchableFavorite}
@@ -64,7 +62,6 @@ class CartComponent extends PureComponent {
 								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
-					) : null }
 					</View>
 				</TouchableOpacity>
 				<ButtonCount

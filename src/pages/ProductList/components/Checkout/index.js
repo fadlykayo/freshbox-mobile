@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Image, TouchableOpacity, Text } from 'react-native';
 import StaticText from '@components/StaticText';
-import { actNav, navConstant } from '@navigations';
 import numeral from 'numeral';
 import images from '@assets';
 import styles from './styles';

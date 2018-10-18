@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
+import ButtonCount from '@components/ButtonCount';
 import Content from '../Content';
 import styles from './styles';
 import images from '@assets';
@@ -32,8 +33,9 @@ class CartComponent extends PureComponent {
 	}
 
 	render(){
+		const productImage = this.props.data.images_sizes_url.original[0];
 		return (
-			<View style={styles.cartContainer}>
+			<View style={styles.eachCartContainer}>
 				<TouchableOpacity
 					onPress={this.openDetailProduct}
 					style={styles.container}
@@ -41,8 +43,7 @@ class CartComponent extends PureComponent {
 					<View style={styles.imageContainer}>
 						<Image
 							resizeMode={'contain'}
-							// source={images.icon_sayur_segar} 
-							source={{uri: this.props.data.images_sizes_url.original[0]}}
+							source={{uri: productImage}}
 							style={styles.picture}
 						/>
 					</View>
@@ -63,31 +64,14 @@ class CartComponent extends PureComponent {
 									style={styles.favoriteLogo}
 								/>
 							) : null }
-						</TouchableOpacity>
-							
+						</TouchableOpacity>			
 					</View>
 				</TouchableOpacity>
-				<View style={styles.touchableItem}>
-					<TouchableOpacity 
-						style={styles.boxOperatorLeft}
-						onPress={this.decTotalItem}
-					>
-						<StaticText 
-							style={styles.operatorText}
-							property={'productList.symbol.minus'}
-						/>
-					</TouchableOpacity>
-					<Text style={styles.itemText}>{this.props.data.count}</Text>
-					<TouchableOpacity 
-						style={styles.boxOperatorRight}
-						onPress={this.addTotalItem}
-					>
-						<StaticText 
-							style={styles.operatorText}
-							property={'productList.symbol.plus'}
-						/>
-					</TouchableOpacity>
-				</View>
+				<ButtonCount
+					count={this.props.data.count}
+					addTotalItem={this.addTotalItem}
+					decTotalItem={this.decTotalItem}
+				/>
 			</View>
 		);
 	}

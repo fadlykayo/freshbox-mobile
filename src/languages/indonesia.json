@@ -185,7 +185,7 @@
             "comma": ", ",
             "kecamatan": ", Kec. ",
             "kelurahan": ", Kel. ",
-            "resetPassword": "Ganti kata sandi"
+            "resetPassword": "Reset Password"
         },
         "button": {
             "signOut": "Keluar"

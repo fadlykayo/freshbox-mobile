@@ -22,5 +22,6 @@ export const path = {
     shippingCost: 'v1/shipping-cost',
     bulkAddProducts: 'v1/cart/bulk-add-and-replace',
     transaction: 'v1/transaction/checkout',
-    resetPassword: 'v1/user/edit/password'
+    resetPassword: 'v1/user/edit/password',
+    favorite: 'v1/wishlist',
 }

@@ -156,4 +156,73 @@ actions.get_delivery_price = (req,success,failure) => {
     }
 };
 
+actions.add_favorite = (req,success,failure) => {
+	
+	payload.path = path.favorite;
+	payload.header = req.request.header;
+	payload.body = req.request.body;
+	
+	return dispatch => {
+		
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+        	console.log('Add Favourite res',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.toggle_favorite(req.favorite))
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Add Favourite err', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
+actions.delete_favorite = (req,success,failure) => {
+	
+	payload.path = `${path.favorite}/${req.favorite.id}`;
+	payload.header = req.request.header;
+	
+	return dispatch => {
+        requestHandler('delete',payload,dispatch)
+        .then((res) => {
+        	console.log('Delete Favourite res',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.toggle_favorite(req.favorite))
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Delete Favourite err', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
+
 export default actions;

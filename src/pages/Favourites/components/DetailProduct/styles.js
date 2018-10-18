@@ -5,125 +5,86 @@ import { colour } from '@styles';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    overlay: {
+    background: {
         flex: 1,
         position: 'absolute',
         left: 0,
         top: 0,
         right: 0,
         bottom: 0,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        width: width,
-        height: height,
         backgroundColor: colour.darkGreyTransparent,
     },
     container: {
-        width: width,
-        height: height * 0.6,
+        flex: 1,
+        position: 'absolute',
+        bottom: -1 * (0.1 * width),
+        left: 0,
+        right: 0,
+        height: height * 0.5,
         borderRadius: 8,
         backgroundColor: colour.white,
-        paddingLeft: width* 0.05,
-        paddingRight: width* 0.05,
+        paddingLeft: width * 0.05,
+        paddingRight: width * 0.05,
+        paddingBottom: width * 0.1,
     },
-    topComponent: {
-        flex: -1,
-        justifyContent: 'space-between',
-        height: height * 0.11,
+    subcontainer:{
+        top:{
+            flex: -1,
+            height: height * 0.05,
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        mid:{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            marginBottom: scaling.moderateScale(5),
+        },
+        bottom:{
+            flex: 1,
+        },
+        product:{
+            height: width * 0.2,
+            width: width * 0.2,
+            backgroundColor: colour.white,
+            borderWidth: 1,
+            borderRadius: 8,
+            borderColor: colour.lightGrey,
+            padding: scaling.moderateScale(5),
+            marginRight: scaling.moderateScale(5),
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
     },
-    scrollDownButton: {
-        alignItems: 'center',
+    button:{
+        dropdown:{
+            alignItems: 'center',
+        }
     },
-    middleComponent: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: scaling.moderateScale(15),
+    icon:{
+        dropdown:{
+            height: scaling.moderateScale(36),
+            width: scaling.moderateScale(36),
+        },
+        product:{
+            height: width * 0.15,
+            width: width * 0.15,
+        }
     },
-    staticText: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(20),
-        fontWeight: '800',
-        color: colour.darkGrey,
-    },
-    scrollView: {
-        marginTop: scaling.moderateScale(9),
-    },
-    logo: {
-        height: scaling.moderateScale(45),
-        width: scaling.moderateScale(45),
-        marginBottom: scaling.moderateScale(5),
-    },
-    borderImage: {
-        height: width * 0.25,
-        width: width * 0.25,
-        borderColor: colour.lightGrey,
-        borderWidth: 1,
-        borderRadius: 8,
-        backgroundColor: colour.white,
-        marginRight: width* 0.03,
-        marginBottom: width* 0.03,
-        padding: scaling.moderateScale(5),
-        justifyContent: 'center',
-        alignItems: 'center',
+    text:{
+        description:{
+            fontFamily: 'Avenir-Light',
+            marginBottom: scaling.moderateScale(12),
+            color: colour.grey,
+            lineHeight: scaling.moderateScale(24),
+        }
     },
     favoriteLogo: {
 		height: scaling.moderateScale(20),
 		width: scaling.moderateScale(20),
     },
     favoriteComponent: {
-		flex: 1.5,
 		alignItems: 'flex-end',
-		height: scaling.moderateScale(100),
     },
-    textDescription: {
-        fontFamily: 'Avenir-Roman',
-        fontWeight: '400',
-        textAlign: 'justify',
-        color: colour.grey,
-        lineHeight: scaling.moderateScale(24),
-        marginBottom: scaling.moderateScale(18),
-    },
-    addNewItem: {
-		height: scaling.moderateScale(30),
-		width: scaling.moderateScale(70),
-		borderWidth: 1,
-		borderRadius: 100,
-		borderColor: colour.white,
-		backgroundColor: colour.red,
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingLeft: scaling.moderateScale(10),
-		paddingRight: scaling.moderateScale(10),
-	},
-	touchableItem: {
-		flexDirection: 'row',
-		height: scaling.moderateScale(30),
-		width: scaling.moderateScale(70),
-		borderWidth: 1,
-		borderRadius: 100,
-		borderColor: colour.lightGrey,
-		backgroundColor: colour.white,
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		paddingLeft: scaling.moderateScale(10),
-		paddingRight: scaling.moderateScale(10),
-	},
-	itemText: {
-		fontSize: scaling.moderateScale(14),
-		color: colour.black
-	},
-	operatorText: {
-		color: colour.red,
-		fontWeight: 'bold',
-	},
-	newItemText: {
-		color: colour.white,
-		fontWeight: 'bold',
-    },
-    addButton: {
-        alignItems: 'flex-end',
-        marginBottom: scaling.moderateScale(10),
-    }
 }
 
 export default styles;

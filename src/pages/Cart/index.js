@@ -178,6 +178,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(Cart);
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);
