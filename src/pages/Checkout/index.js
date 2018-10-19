@@ -29,7 +29,7 @@ class Checkout extends Component {
 		this.openDeliveryDate = this.openDeliveryDate.bind(this);
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
 		this.getDeliveryDate = this.getDeliveryDate.bind(this);
-		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+		this.navigateToDetail = this.navigateToDetail.bind(this);
 		this.getAddress = this.getAddress.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
 	}
@@ -98,7 +98,7 @@ class Checkout extends Component {
 		actNav.navigate(navConstant.ChooseAddress);
 	}
 
-	navigateToChoosePayment() {
+	navigateToDetail() {
 		let address = this.props.addresses.filter(address => address.primary == 1);
 		if(address.length == 0) {
 			alert("Isi alamat nya")
@@ -114,8 +114,8 @@ class Checkout extends Component {
 				payload.request_shipping_date = this.state.setDate.post;
 		
 				// console.log("data masuk", payload)
-				actNav.navigate(navConstant.ChoosePayment, 
-					{transaction: payload }
+				actNav.navigate(navConstant.Detail, 
+					{ action: 'checkout', transaction: payload, setDate: this.state.setDate }
 				)
 			}
 		}
@@ -185,7 +185,7 @@ class Checkout extends Component {
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.props.delivery_price}
-					onPress={this.navigateToChoosePayment}
+					onPress={this.navigateToDetail}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
@@ -197,20 +197,16 @@ class Checkout extends Component {
   	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		user: state.user.data,
-		addresses: state.user.address,
-		totalPrice: state.product.total.price,
-		delivery_price: state.product.delivery_price
-	}
-}
+const mapStateToProps = (state) => ({
+	user: state.user.data,
+	addresses: state.user.address,
+	totalPrice: state.product.total.price,
+	delivery_price: state.product.delivery_price
+})
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
-		get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+	get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
+})
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

@@ -113,7 +113,7 @@
         },
         "content": {
             "price": "IDR ",
-            "checkout": "Pilih Metode Pembayaran",
+            "checkout": "Detail Pemesanan",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -164,7 +164,8 @@
         "navigationTitle": "Detail",
         "content": {
             "price": "IDR ",
-            "reOrder": "Re-order",
+            "reOrder": "Pesan Kembali",
+            "checkout": "Pilih Metode Pembayaran",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -216,8 +217,9 @@
             "province": "Provinsi",
             "city": "Kota",
             "zipCode": "Kode Pos",
-            "kecamatan": "Kecamatan",
-            "kelurahan": "Kelurahan",
+            "comma": ", ",
+            "kecamatan": ", Kec. ",
+            "kelurahan": ", Kel. ",
             "address": "Alamat",
             "addressDetails": "Detail Alamat (Opsional)"
         },

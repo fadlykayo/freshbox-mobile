@@ -155,8 +155,7 @@ class Cart extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
+const mapStateToProps = state => ({
 		user: state.user.data,
 		cart_product: state.product.cart.products,
 		index_product: state.product.cart.index,
@@ -164,18 +163,15 @@ const mapStateToProps = state => {
 		total_price: state.product.total.price,
 		total_count: state.product.total.count,
 		productDetail: state.product.detail,
-	}
-}
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
+const mapDispatchToProps = dispatch => ({
 		get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
 		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
-	}
-}
+})
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);

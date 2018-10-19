@@ -7,6 +7,8 @@ import StaticText from '@components/StaticText';
 import TransactionComponent from './components/TransactionComponent';
 import numeral from 'numeral';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class HistoryPage extends Component {
   	constructor(props) {
@@ -40,15 +42,38 @@ class HistoryPage extends Component {
 			]
 		},
 		this.navigateToCart = this.navigateToCart.bind(this);
-		this.navigateToHistoryDetail = this.navigateToHistoryDetail.bind(this);
+		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}
-	  
-	navigateToHistoryDetail(index) {
-		actNav.navigate(navConstant.HistoryDetail)
+	
+	componentDidMount() {
+
 	}
 
-	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+	getHistoryData() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			params: {
+				invoice: null,
+			}
+		}
+
+		this.props.get_history(payload, null,
+			(err) => {
+				console.log(err)
+			})
+	}
+
+	navigateToDetail(index) {
+		console.log(index)
+		actNav.navigate(navConstant.Detail, { action: 'history', index: index })
+	}
+
+	navigateToCart(payload){
+		//REORDER
+		console.log(payload)
+		// actNav.navigate(navConstant.Cart);
 	}
 
   	render() {
@@ -70,7 +95,7 @@ class HistoryPage extends Component {
 								item={item}
 								index={index}
 								navigateToCart={this.navigateToCart}
-								navigateToHistoryDetail={this.navigateToHistoryDetail}
+								navigateToDetail={this.navigateToDetail}
 							/>
 						)}
 					/>
@@ -80,4 +105,12 @@ class HistoryPage extends Component {
   	}
 }
 
-export default HistoryPage;
+const mapStateToProps = (state) => ({
+	user: state.user.data
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	get_history: (req,res,err) => dispatch(actions.transaction.api.get_history((req,res,err)))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryPage);

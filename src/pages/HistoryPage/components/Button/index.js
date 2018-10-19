@@ -30,7 +30,7 @@ class TransactionComponent extends Component {
 				/>
 				{ this.props.item.isCompleted ? (
                     <TouchableOpacity 
-                        onPress={() => this.props.navigateToCart(item)}
+                        onPress={() => this.props.navigateToCart()}
                         style={styles.reOrderItem}
                     >
                         <StaticText

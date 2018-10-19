@@ -9,7 +9,7 @@ import ForgotPassword from '@pages/ForgotPassword';
 import Cart from '@pages/Cart';
 import ProductList from '@pages/ProductList';
 import HistoryPage from '@pages/HistoryPage';
-import HistoryDetail from '@pages/HistoryDetail';
+import Detail from '@pages/Detail';
 import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
 import AddressPage from '@pages/AddressPage';
@@ -49,7 +49,7 @@ export const AppNavigator = createStackNavigator({
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
     Product: DrawerBar,
-    HistoryDetail: {screen: HistoryDetail},
+    Detail: {screen: Detail},
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
@@ -100,7 +100,7 @@ export const navConstant = {
     Product: 'Product',
     ProductList: 'ProductList',
     HistoryPage: 'HistoryPage',
-    HistoryDetail: 'HistoryDetail',
+    Detail: 'Detail',
     ProfilePage: 'ProfilePage',
     PhonePage: 'PhonePage',
     AddressPage: 'AddressPage',

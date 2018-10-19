@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import Content from '../Content';
@@ -6,24 +6,14 @@ import styles from './styles';
 import images from '@assets';
 
 
-class CartComponent extends Component {
-	constructor(props){
-		super(props)
-		this.state={
-			favorite: props.data.favorite,
-		}
+class CartComponent extends PureComponent {
+	constructor(){
+		super()
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
 	toggleFavorite(){
-		this.props.toggleFavorite(this.props.index);
-	}
-
-	shouldComponentUpdate(nextProps,nextState){
-		if(this.state.favorite != this.props.data.favorite){
-			this.setState({favorite: this.props.data.favorite});
-			return true;
-		}
+		this.props.toggleFavorite(this.props.data);
 	}
 
 	render(){
@@ -32,11 +22,11 @@ class CartComponent extends Component {
 				<View style={styles.imageContainer}>
 					<Image
 						resizeMode={'contain'} 
-						source={this.props.data.image}
+						source={this.props.action == 'history' ? this.props.data.image : this.props.data.images_sizes_url.original[0]}
 						style={styles.picture}
 					/>
 				</View>
-				<Content data={this.props.data}/>
+				<Content data={this.props.data} action={this.props.action}/>
 				<View style={styles.addContainer}>
 					<TouchableOpacity
 						onPress={this.toggleFavorite}
@@ -45,7 +35,7 @@ class CartComponent extends Component {
 						<Image
 							resizeMode={'contain'} 
 							source={
-								this.state.favorite == true
+								this.props.data.favorite == true
 									? images.icon_favorited
 									: images.icon_favorite
 							}
@@ -54,10 +44,21 @@ class CartComponent extends Component {
 					</TouchableOpacity>
 					<View style={styles.pack}>
 						<View>
-							<Text style={styles.itemText}>
-							{this.props.data.pack}<StaticText 
-								property={'historyDetail.content.pack'}
-							/></Text>
+							
+							{ this.props.action == 'history'
+								? (
+								<Text style={styles.itemText}>
+									{this.props.data.pack}<StaticText 
+									property={'historyDetail.content.pack'}
+									/>
+								</Text>
+								)
+								: (
+								<Text style={styles.itemText}>
+									{this.props.data.count}{this.props.data.unit}
+								</Text>
+								)
+							}
 						</View>
 					</View>
 				</View>
