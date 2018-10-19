@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
-import Content from '../Content';
+import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
 
 
-class CartComponent extends PureComponent {
+class ProductItem extends PureComponent {
 	constructor(){
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
@@ -34,21 +34,22 @@ class CartComponent extends PureComponent {
 	render(){
 		const productImage = this.props.data.images_sizes_url.original[0];
 		return(
-			<View style={styles.eachCartContainer}>
+			<View style={styles.container(this.props.index,this.props.productLength)}>
 				<TouchableOpacity 
 					onPress={this.openDetailProduct}
-					style={styles.container}
+					style={styles.subcontainer.product}
 				>
-					<View style={styles.imageContainer}>
+					<View style={styles.subcontainer.image}>
 						<Image
 							resizeMode={'contain'}
 							source={images.icon_sayur_segar} 
 							source={{uri: productImage}}
-							style={styles.picture}
+							style={styles.icon.product}
 						/>
 					</View>
 					<Content data={this.props.data}/>
 					<View style={styles.addContainer}>
+					{ this.props.user ? (
 						<TouchableOpacity
 							onPress={this.toggleFavorite}
 							style={styles.touchableFavorite}
@@ -63,6 +64,7 @@ class CartComponent extends PureComponent {
 								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
+					) : null }
 					</View>
 				</TouchableOpacity>
 				<ButtonCount
@@ -75,4 +77,4 @@ class CartComponent extends PureComponent {
 	}
 }
 
-export default CartComponent;
+export default ProductItem;

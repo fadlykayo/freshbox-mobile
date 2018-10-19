@@ -4,7 +4,7 @@ import numeral from 'numeral';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
-class ContentDetail extends PureComponent {
+class Content extends PureComponent {
 	constructor(){
 		super()
 	}
@@ -31,4 +31,4 @@ class ContentDetail extends PureComponent {
 	}
 }
 
-export default ContentDetail;
+export default Content;

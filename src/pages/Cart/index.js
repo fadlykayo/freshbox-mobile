@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import Checkout from './components/Checkout';
-import CartComponent from './components/CartComponent';
-import DetailProduct from './components/DetailProduct';
-import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import Container from '@components/Container';
+import ProductItem from '@components/ProductItem';
+import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
+import Checkout from './components/Checkout';
+import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import styles from './styles';
-import { connect } from 'react-redux';
 import actions from '@actions';
 
 
@@ -127,7 +127,7 @@ class Cart extends Component {
 							data={this.props.cart_product}
 							keyExtractor={(item) => String(item.id)}
 							renderItem={({item,index}) => (
-								<CartComponent 
+								<ProductItem 
 									data={item}
 									index={index} 
 									toggleFavorite={this.toggleFavorite}
@@ -143,7 +143,7 @@ class Cart extends Component {
 						onPress={this.navigateToCheckout}
 					/>
 				</View>
-				<DetailProduct
+				<ProductDetail
 					user={this.props.user}
 					data={this.props.productDetail}
 					updateDetail={this.updateDetail}

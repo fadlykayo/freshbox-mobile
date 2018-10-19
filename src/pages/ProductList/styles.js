@@ -11,7 +11,7 @@ const styles = {
     },
   	cartContainer: {
 		flex: 1,
-		paddingVertical: width * 0.02,
+		paddingVertical: scaling.moderateScale(10),
 		paddingLeft: width * 0.05
 	},
 }

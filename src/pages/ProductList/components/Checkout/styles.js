@@ -18,6 +18,7 @@ const styles = {
 		width: width * 0.9,
 		borderRadius: 8,
 		paddingHorizontal: width * 0.05,
+		marginBottom: scaling.moderateScale(15),
     },
     checkoutText: {
 		fontFamily: 'Avenir-Medium',

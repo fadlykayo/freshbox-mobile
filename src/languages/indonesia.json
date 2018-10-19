@@ -143,7 +143,7 @@
             "checkout": "Checkout"
         },
         "content": {
-            "default": "Semua Kategori",
+            "default": "Semua",
             "subTotal": "Sub Total",
             "pack": "/1 ",
             "addItem": "+ Tambah",
