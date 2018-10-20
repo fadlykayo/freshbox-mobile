@@ -38,16 +38,16 @@ class StaticData extends PureComponent {
 					input={this.props.address.city.name}
 				/>
 				<InputText
-					label={'addressPage.label.zipCode'}
-					input={this.props.address.zip_code.zip_code}
-				/>
-				<InputText
 					label={'addressPage.label.kecamatan'}
 					input={this.props.address.subdistrict.name}
 				/>
 				<InputText
 					label={'addressPage.label.kelurahan'}
 					input={this.props.address.zip_code.place_name}
+				/>
+				<InputText
+					label={'addressPage.label.zipCode'}
+					input={this.props.address.zip_code.zip_code}
 				/>
 				<InputText
 					label={'addressPage.label.address'}

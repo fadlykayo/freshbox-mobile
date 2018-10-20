@@ -18,8 +18,8 @@ class SignIn extends Component {
         super();
         this.state={
             user:{
-                email: '',
-                password: ''
+                email: 'alibaihaqi1704@gmail.com',
+                password: 'ali12346'
             },
             validateStatus:{
                 emailFormat: true,

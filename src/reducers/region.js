@@ -37,7 +37,8 @@ const transactionReducer = (state = initialState, action) => {
         case ct.LOAD_CITY: return loadCity(state, action.payload)
         case ct.LOAD_SUBDISTRICT: return loadSubdistrict(state, action.payload)
         case ct.LOAD_ZIP_CODE: return loadZipCode(state, action.payload)
-        default: return initialState;
+        case ct.RESET_REGION: return initialState;
+        default: return state;
     }
 }
 

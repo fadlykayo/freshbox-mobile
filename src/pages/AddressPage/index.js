@@ -167,19 +167,40 @@ class AddressPage extends Component {
 	}
 
 	onSpecificChangeText(type, value){
-		if (type == 'zip_code') {
-			let user = this.state.user;
-			user[type].code = value.code;
-			user[type].place_name = value.place_name;
-			user[type].zip_code = value.zip_code;
-			this.setState({user});
+		let newUser = this.state.user;
+		let allType = ['province', 'city', 'subdistrict', 'zip_code'];
+		let indexType = allType.indexOf(type)
+
+		for(let i = indexType; i < allType.length; i++) {
+			if (allType[i] == type) {
+				if (allType[i] == 'zip_code') {
+					newUser[allType[i]].code = value.code;
+					newUser[allType[i]].place_name = value.place_name;
+					newUser[allType[i]].zip_code = value.zip_code;
+					this.setState({user: newUser})
+				}
+				else {
+					newUser[allType[i]].code = value.code;
+					newUser[allType[i]].name = value.name;
+					this.setState({user: newUser})
+				}
+			}
+			else {
+				if (allType[i] == 'zip_code') {
+					newUser[allType[i]].code = '';
+					newUser[allType[i]].place_name = '';
+					newUser[allType[i]].zip_code = '';
+					this.setState({user: newUser})
+				}
+				else {
+					newUser[allType[i]].code = '';
+					newUser[allType[i]].name = '';
+					this.setState({user: newUser})
+				}
+			}
 		}
-		else {
-			let user = this.state.user;
-			user[type].code = value.code;
-			user[type].name = value.name;
-			this.setState({user});
-		}
+
+
 		switch(type) {
 			case 'province': return this.loadCity()
 			case 'city': return this.loadSubdistrict()
@@ -200,7 +221,31 @@ class AddressPage extends Component {
 
 	updateHandler() {
 		// alert('Success Update Address')
-		this.props.navigation.goBack(this.props.navigation.state.params.key)
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				primary: true,
+				name: this.state.user.name,
+				receiver_name: this.state.user.receiver_name,
+				phone_number: this.state.user.phone,
+				province_code: this.state.user.province.code,
+				city_code: this.state.user.city.code,
+				subdistrict_code: this.state.user.subdistrict.code,
+				zip_code_code: this.state.user.zip_code.code,
+				address: this.state.user.address,
+				detail: this.state.user.addressDetail
+			},
+			data: this.props.address_detail
+		}
+		this.props.update_address(payload,
+			(success) => {
+				this.props.navigation.goBack(this.props.navigation.state.params.key)
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	addHandler() {
@@ -276,6 +321,7 @@ class AddressPage extends Component {
 
 	loadCity() {
 		if (this.state.user.province.code.length !== 0) {
+
 			let payload = {
 				header: this.props.user.authorization,
 				provinceCode: this.state.user.province.code
@@ -297,6 +343,20 @@ class AddressPage extends Component {
 			}
 			this.props.load_subdistrict(payload, 
 				(success) => {
+					let user = this.state.user;
+					let type = ['subdistrict', 'zip_code'];
+					for(x in type) {
+						if (type[x] == 'zip_code') {
+							user[type].code = '';
+							user[type].place_name = '';
+							user[type].zip_code = '';
+						}
+						else {
+							user[type].code = '';
+							user[type].name = '';
+						}
+					}
+					this.setState({user})
 				},
 				(err) => {
 					console.log(err)
@@ -312,6 +372,11 @@ class AddressPage extends Component {
 			}
 			this.props.load_zip_code(payload, 
 				(success) => {
+					let user = this.state.user;	
+					user['zip_code'].code = '';
+					user['zip_code'].place_name = '';
+					user['zip_code'].zip_code = '';
+					this.setState({user})
 				},
 				(err) => {
 					console.log(err)
@@ -377,7 +442,8 @@ const mapDispatchToProps = (dispatch) => ({
 	load_city: (req,res,err) => dispatch(actions.region.api.load_city(req,res,err)),
 	load_subdistrict: (req,res,err) => dispatch(actions.region.api.load_subdistrict(req,res,err)),
 	load_zip_code: (req,res,err) => dispatch(actions.region.api.load_zip_code(req,res,err)),
-	add_address: (req,res,err) => dispatch(actions.user.api.add_address(req,res,err))
+	add_address: (req,res,err) => dispatch(actions.user.api.add_address(req,res,err)),
+	update_address: (req,res,err) => dispatch(actions.user.api.update_address(req,res,err))
 })
 
 export default connect(

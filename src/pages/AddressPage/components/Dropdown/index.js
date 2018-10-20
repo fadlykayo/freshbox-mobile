@@ -26,11 +26,11 @@ class Dropdown extends Component {
         let state = this.state;
         state.isOpen = !state.isOpen;
         this.setState(state);
+        console.log("lihat data",this.props.data)
     }
 
     onChangeText(value){
         this.props.onChangeText(this.props.type,value);
-        console.log("ini dari dropdown", this.props.type, value)
     }
 
     getPlaceholder(){
@@ -93,23 +93,21 @@ class Dropdown extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <TouchableWithoutFeedback>
-                        <FlatList
-                            nestedScrollEnabled={true}
-                            style={styles.dropdownPlace}
-                            data={this.props.data}
-                            keyExtractor={(item) => item.code}
-					        renderItem={({item,index}) => (
-                                <TouchableOpacity style={styles.dropdown} onPress={() => {
-                                    this.onChangeText(item)
-                                    this.showDropdown()
-                                    }
-                                }>
-                                    <Text>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
-                                </TouchableOpacity>
-					        )}
-                        />
-                    </TouchableWithoutFeedback>
+                    <FlatList
+                        nestedScrollEnabled={true}
+                        style={styles.dropdownPlace}
+                        data={this.props.data}
+                        keyExtractor={(item) => item.code}
+					    renderItem={({item,index}) => (
+                            <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
+                                this.onChangeText(item)
+                                this.showDropdown()
+                                }
+                            }>
+                                <Text>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
+                            </TouchableOpacity>
+					    )}
+                    />
                 </View>
             )
         }
