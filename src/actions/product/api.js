@@ -193,7 +193,7 @@ actions.add_favorite = (req,success,failure) => {
 
 actions.delete_favorite = (req,success,failure) => {
 	
-	payload.path = `${path.favorite}/${req.favorite.id}`;
+	payload.path = `${path.favorite}/${req.favorite.code}`;
 	payload.header = req.request.header;
 	
 	return dispatch => {

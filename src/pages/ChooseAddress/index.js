@@ -20,9 +20,7 @@ class ChooseAddress extends Component {
     }
 
     componentDidMount() {
-        if (this.props.addresses.length == 0) {
-			this.getAddress()
-		}
+		this.getAddress()
     }
 
     getAddress() {
@@ -40,15 +38,12 @@ class ChooseAddress extends Component {
 			})
 	}
 
-    updatePrimaryAddress(idAddress) {
+    updatePrimaryAddress(codeAddress) {
         let payload ={
             header: {
                 apiToken: this.props.user.authorization
             },
-            body: {
-                id: idAddress
-            },
-            params: {}
+            code: codeAddress
         }
         this.props.set_primary_address(payload, 
             (success) => {

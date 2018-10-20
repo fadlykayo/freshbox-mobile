@@ -43,6 +43,9 @@ const styles = {
 	otherAddressText: {
 		color: colour.red
 	},
+	staticPlace: {
+		flex: 1,
+	}
 }
 
 export default styles;

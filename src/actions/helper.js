@@ -15,6 +15,7 @@ const requestHandler = (type,payload,dispatch) => {
 }
 
 helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
+    console.log(payload.path)
     dispatch(actNetwork.set_loading_status(true));
     apiInstance.get(
         payload.path,

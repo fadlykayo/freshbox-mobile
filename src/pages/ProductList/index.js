@@ -127,7 +127,7 @@ class ProductList extends Component {
 				body: {},
 				params: {
 					stock: 'tersedia',
-					category_id: input.id,
+					category_code: input.code,
 					page: 1,
 				}
 			}
@@ -194,7 +194,7 @@ class ProductList extends Component {
 						apiToken: this.props.user.authorization
 					},
 					body: {
-						product_id: payload.id
+						product_code: payload.code
 					}
 				},
 				favorite: payload
@@ -270,7 +270,8 @@ class ProductList extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.product}
-							keyExtractor={(item,index) => index.toString()}
+							keyExtractor={(item) => item.code}
+							nes
 							renderItem={({item,index}) => (
 								<CartComponent
 									data={item}

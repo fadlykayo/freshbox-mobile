@@ -19,32 +19,41 @@ class TransactionComponent extends Component {
 		this.props.navigateToCart(payload)
 	}
 
+	getStatusText(payload) {
+		switch(payload) {
+			case 'pending_payment': return 'historyPage.static.pending_payment'
+			case 'paid': return 'historyPage.static.paid'
+			case 'on_process': return 'historyPage.static.on_process'
+			case 'on_shipping': return 'historyPage.static.on_shipping'
+			case 'failed': return 'historyPage.static.failed'
+		}
+	}
+
   	render() {
-  	  	return (
-            <TouchableOpacity
-                onPress={() => this.navigateToDetail(this.props.index)}
-                style={styles.eachContainer}
-            >
-				<Content
-					item={this.props.item}
-				/>
-				{ this.props.item.isCompleted ? (
-                    <TouchableOpacity 
-                        onPress={() => this.props.navigateToCart()}
-                        style={styles.reOrderItem}
-                    >
-                        <StaticText
-                            style={styles.reOrderText}
-                            property={'historyPage.content.reOrder'}
-                        />
-					</TouchableOpacity>
-				) : (
-					<View style={styles.onProcessItem}>
-						<Text style={styles.onProcessText}>{this.props.item.status}</Text>
-					</View>
-				)}
-			</TouchableOpacity>
-  	  	);
+		if (this.props.data.status == 'finish') {
+			return (
+				<TouchableOpacity 
+					onPress={() => this.props.navigateToCart()}
+					style={styles.reOrderItem}
+				>
+					<StaticText
+						style={styles.reOrderText}
+						property={'historyPage.content.reOrder'}
+					/>
+				</TouchableOpacity>
+			);
+		}
+		else {
+			const statusOrder = this.getStatusText(this.props.data.status)
+			return (
+				<View style={styles.onProcessItem}>
+					<StaticText
+						style={styles.onProcessText}
+						property={statusOrder}
+					/>
+				</View>
+			)
+		}
   	}
 }
 

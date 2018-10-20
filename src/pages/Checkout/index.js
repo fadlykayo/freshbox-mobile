@@ -154,7 +154,8 @@ class Checkout extends Component {
 				<View style={styles.container}>
 					<DeliveryPlace
 						type={'white'}
-						title={'checkout.content.otherAddress'}
+						address={'checkout.content.otherAddress'}
+						addAddress={'checkout.content.addAddress'}
 						addresses={this.props.addresses}
 						onPress={this.navigateToChooseAddress}
 					/>

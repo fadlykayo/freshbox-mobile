@@ -1,48 +1,34 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
+import Button from '../Button';
 import Content from '../Content';
 import styles from './styles';
 
 class TransactionComponent extends Component {
   	constructor() {
 		super()
-		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}
 	 
-	navigateToDetail(index) {
-		this.props.navigateToDetail(index)
-	}
-
-	navigateToCart(payload) {
-		this.props.navigateToCart(payload)
+	navigateToDetail(invoice) {
+		this.props.navigateToDetail(invoice)
 	}
 
   	render() {
   	  	return (
             <TouchableOpacity
-                onPress={() => this.navigateToDetail(this.props.index)}
+                onPress={() => this.navigateToDetail(this.props.data)}
                 style={styles.eachContainer}
             >
 				<Content
-					item={this.props.item}
+					data={this.props.data}
 				/>
-				{ this.props.item.isCompleted ? (
-                    <TouchableOpacity 
-                        onPress={() => this.props.navigateToCart(item)}
-                        style={styles.reOrderItem}
-                    >
-                        <StaticText
-                            style={styles.reOrderText}
-                            property={'historyPage.content.reOrder'}
-                        />
-					</TouchableOpacity>
-				) : (
-					<View style={styles.onProcessItem}>
-						<Text style={styles.onProcessText}>{this.props.item.status}</Text>
-					</View>
-				)}
+				<Button
+					data ={this.props.data}
+					navigateToCart={this.props.navigateToCart}
+					navigateToDetail={this.props.navigateToDetail}
+				/>
 			</TouchableOpacity>
   	  	);
   	}

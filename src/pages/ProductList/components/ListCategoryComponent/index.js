@@ -19,7 +19,7 @@ class ListCategoryComponent extends PureComponent {
 								<TouchableOpacity
 									onPress={() => this.props.changeCategory(category)}
 									style={styles.eachCategory}
-									key={category.id}
+									key={category.code}
 								>
 									<View style={styles.checkPlace}>
 										<Image
@@ -57,7 +57,7 @@ class ListCategoryComponent extends PureComponent {
 								<TouchableOpacity
 									onPress={() => this.props.changeCategory(category)}
 									style={styles.eachCategory}
-									key={category.id}
+									key={category.code}
 								>
 									{ category.name == 'Default' ? (
 										<Image

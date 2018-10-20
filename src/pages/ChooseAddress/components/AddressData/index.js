@@ -11,8 +11,8 @@ class AddressData extends PureComponent {
         this.navigateToEditAddress = this.navigateToEditAddress.bind(this);
     }
 
-    updatePrimaryAddress(addressId) {
-        this.props.updatePrimaryAddress(addressId)
+    updatePrimaryAddress(codeAddress) {
+        this.props.updatePrimaryAddress(codeAddress)
     }
 
     navigateToEditAddress(address) {
@@ -21,7 +21,7 @@ class AddressData extends PureComponent {
 
     render() {
         return (
-            <TouchableOpacity style={styles.addressPlace} key={this.props.index} onPress={() => this.updatePrimaryAddress(this.props.address.id)}>
+            <TouchableOpacity style={styles.addressPlace} key={this.props.index} onPress={() => this.updatePrimaryAddress(this.props.address.code)}>
                 <View style={styles.leftPart}>
                     { this.props.address.primary == 1 ? (
                         <Text style={[styles.addressText, styles.nameAddressText]}>({this.props.address.name}) <StaticText

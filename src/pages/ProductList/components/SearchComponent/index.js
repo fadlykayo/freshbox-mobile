@@ -15,6 +15,11 @@ class SearchComponent extends Component {
     	this.onChangeText = this.onChangeText.bind(this);
 		this.onSubmitEditing = this.onSubmitEditing.bind(this);
 		this.renderPlaceholder = this.renderPlaceholder.bind(this);
+		this.openDrawerMenu = this.openDrawerMenu.bind(this);
+	}
+
+	openDrawerMenu() {
+		this.props.openDrawerMenu()
 	}
 
   	onChangeText(value){
@@ -56,9 +61,7 @@ class SearchComponent extends Component {
 		    		/>
   	    		</View>
 				<TouchableOpacity 
-					onPress={() => {
-						this.props.openDrawerMenu()
-					}}
+					onPress={this.openDrawerMenu}
 					style={styles.button}
 				>
   	  	  			<Image

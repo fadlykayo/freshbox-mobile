@@ -48,6 +48,7 @@ class CartComponent extends PureComponent {
 					</View>
 					<Content data={this.props.data}/>
 					<View style={styles.addContainer}>
+					{ this.props.user ? (
 						<TouchableOpacity
 							onPress={this.toggleFavorite}
 							style={styles.touchableFavorite}
@@ -62,6 +63,7 @@ class CartComponent extends PureComponent {
 								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
+					): null}
 					</View>
 				</TouchableOpacity>
 				<ButtonCount

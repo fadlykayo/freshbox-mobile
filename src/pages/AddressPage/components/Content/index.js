@@ -12,9 +12,14 @@ class Content extends PureComponent {
             case 'addAddress' :
                 return (
                     <FormDataPage
+                        province={this.props.province}
+                        city={this.props.city}
+                        subdistrict={this.props.subdistrict}
+                        zip_code={this.props.zip_code}
                         address={this.props.address}
                         validateStatus={this.props.validateStatus}
                         onChangeText={this.props.onChangeText}
+                        onSpecificChangeText={this.props.onSpecificChangeText}
                         onPress={this.props.addressValidation}
 						submitNameAddress={this.props.submitNameAddress}
 						submitReceiverName={this.props.submitReceiverName}
@@ -32,9 +37,14 @@ class Content extends PureComponent {
                 if (this.props.isEdit == true) {
                     return (
                         <FormDataPage
+                            province={this.props.province}
+						    city={this.props.city}
+						    subdistrict={this.props.subdistrict}
+						    zip_code={this.props.zip_code}
                             address={this.props.address}
                             validateStatus={this.props.validateStatus}
                             onChangeText={this.props.onChangeText}
+                            onSpecificChangeText={this.props.onSpecificChangeText}
                             onPress={this.props.addressValidation}
                             submitNameAddress={this.props.submitNameAddress}
 						    submitReceiverName={this.props.submitReceiverName}

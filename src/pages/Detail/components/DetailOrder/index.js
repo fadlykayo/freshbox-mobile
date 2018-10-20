@@ -64,7 +64,7 @@ class DetailOrder extends Component {
                             {address.zip_code.place_name}
                             { address.detail.length == 0 
                                 ? null 
-                                : <View><StaticText property={'addressPage.label.comma'}/>{address.detail}</View>
+                                : <Text><StaticText property={'addressPage.label.comma'}/>{address.detail}</Text>
                             }
                         </Text>
                     </View>

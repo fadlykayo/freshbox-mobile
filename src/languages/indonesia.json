@@ -119,6 +119,7 @@
             "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
             "otherAddress": "Pilih Alamat Lain",
+            "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim"
         },
         "button": {
@@ -158,6 +159,13 @@
         "content": {
             "price": "IDR ",
             "reOrder": "Pesan"
+        },
+        "static": {
+            "pending_payment": "Pending Payment",
+            "paid": "Paid",
+            "on_process": "On Process",
+            "on_shipping": "On Shipping",
+            "failed": "Failed"
         }
     },
     "historyDetail": {
@@ -169,13 +177,16 @@
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
-            "grandTotal": "Grand Total"
+            "grandTotal": "Grand Total",
+            "comma": ", ",
+            "kecamatan": ", Kec. ",
+            "kelurahan": ", Kel. "
         },
         "detail": {
             "status": "Status",
             "nomorResi": "Nomor Resi",
-            "tanggal": "Tanggal Pembelian",
-            "alamat": "Alamat Pengiriman"
+            "tanggal": "Tanggal Pengiriman",
+            "alamat": "Alamat Pengiriman"            
         }
     },
     "profilePage": {
@@ -218,8 +229,8 @@
             "city": "Kota",
             "zipCode": "Kode Pos",
             "comma": ", ",
-            "kecamatan": ", Kec. ",
-            "kelurahan": ", Kel. ",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
             "address": "Alamat",
             "addressDetails": "Detail Alamat (Opsional)"
         },

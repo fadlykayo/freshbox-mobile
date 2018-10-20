@@ -17,56 +17,35 @@ class AddressPage extends Component {
 				name: props.navigation.state.params.action == "editAddress" ? props.address_detail.name :'',
                 receiver_name: props.navigation.state.params.action == "editAddress" ? props.address_detail.receiver_name :'',
                 phone: props.navigation.state.params.action == "editAddress" ? props.address_detail.phone_number :'',
-                province: props.navigation.state.params.action == "editAddress" ? props.address_detail.province.name :'',
-                city: props.navigation.state.params.action == "editAddress" ? props.address_detail.city.name :'',
-                kecamatan: props.navigation.state.params.action == "editAddress" ? props.address_detail.subdistrict.name :'',
-				kelurahan: props.navigation.state.params.action == "editAddress" ? props.address_detail.zip_code.place_name :'',
-				zipCode: props.navigation.state.params.action == "editAddress" ? props.address_detail.zip_code.zip_code :'',
-                address: props.navigation.state.params.action == "editAddress" ? props.address_detail.address :'',
+                province: {
+					code: props.navigation.state.params.action == "editAddress" ? props.address_detail.province.code : '',
+					name: props.navigation.state.params.action == "editAddress" ? props.address_detail.province.name : '',
+				},
+                city: {
+					code: props.navigation.state.params.action == "editAddress" ? props.address_detail.city.code : '',
+					name: props.navigation.state.params.action == "editAddress" ? props.address_detail.city.name : '',
+				},
+				subdistrict: {
+					code: props.navigation.state.params.action == "editAddress" ? props.address_detail.subdistrict.code :'',
+					name: props.navigation.state.params.action == "editAddress" ? props.address_detail.subdistrict.name :'',
+				},
+				zip_code: {
+					code: props.navigation.state.params.action == "editAddress" ? props.address_detail.zip_code.code :'',
+					place_name: props.navigation.state.params.action == "editAddress" ? props.address_detail.zip_code.place_name :'',
+					zip_code: props.navigation.state.params.action == "editAddress" ? props.address_detail.zip_code.zip_code :'',
+				},	
+				address: props.navigation.state.params.action == "editAddress" ? props.address_detail.address :'',
 				addressDetail: props.navigation.state.params.action == "editAddress" ? props.address_detail.detail :'',
 			},
 			validateStatus:{
                 fullName: true,
                 phone: true,
 			},
-			province: [
-				{
-					id: 1,
-					name: "Jawa Barat"
-				},
-				{
-					id: 2,
-					name: "Jawa Tengah"
-				},
-				{
-					id: 3,
-					name: "Jawa Timur"
-				},
-				{
-					id: 4,
-					name: "Jakarta"
-				},
-				{
-					id: 5,
-					name: "Sumatera Barat"
-				},
-				{
-					id: 6,
-					name: "Sumatera Utara"
-				},
-				{
-					id: 7,
-					name: "Sumatera Selatan"
-				},
-				{
-					id: 8,
-					name: "Sulawesi Tengah"
-				} 
-			],
 			isEdit: false,
 			content: {}
 		}
 		this.onChangeText = this.onChangeText.bind(this);
+		this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
 		this.submitNameAddress = this.submitNameAddress.bind(this);
 		this.submitReceiverName = this.submitReceiverName.bind(this);
 		this.submitPhone = this.submitPhone.bind(this);
@@ -88,10 +67,13 @@ class AddressPage extends Component {
 		this.setStateValidation = this.setStateValidation.bind(this);
 		this.setContentFlex = this.setContentFlex.bind(this);
 		this.setContentFlexNull = this.setContentFlexNull.bind(this);
+		this.loadProvince = this.loadProvince.bind(this);
+		this.loadCity = this.loadCity.bind(this);
+		this.loadSubdistrict = this.loadSubdistrict.bind(this);
+		this.loadZipCode = this.loadZipCode.bind(this);
 	}
 
 	getDataProvince(index) {
-		let dataProvince = this.state.province;
 		let province = dataProvince[index].name;
 		this.onChangeText('province', province)
 	}
@@ -184,6 +166,28 @@ class AddressPage extends Component {
         this.setState({user});
 	}
 
+	onSpecificChangeText(type, value){
+		if (type == 'zip_code') {
+			let user = this.state.user;
+			user[type].code = value.code;
+			user[type].place_name = value.place_name;
+			user[type].zip_code = value.zip_code;
+			this.setState({user});
+		}
+		else {
+			let user = this.state.user;
+			user[type].code = value.code;
+			user[type].name = value.name;
+			this.setState({user});
+		}
+		switch(type) {
+			case 'province': return this.loadCity()
+			case 'city': return this.loadSubdistrict()
+			case 'subdistrict': return this.loadZipCode()
+			default: return null
+		}
+	}
+
 	addressValidation() {
 		//Update Validation
 		if (this.props.navigation.state.params.action == 'editAddress') {
@@ -201,7 +205,32 @@ class AddressPage extends Component {
 
 	addHandler() {
 		// alert('Add Address')
-		this.props.navigation.goBack(this.props.navigation.state.params.key)
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				primary: true,
+				name: this.state.user.name,
+				receiver_name: this.state.user.receiver_name,
+				phone_number: this.state.user.phone,
+				province_code: this.state.user.province.code,
+				city_code: this.state.user.city.code,
+				subdistrict_code: this.state.user.subdistrict.code,
+				zip_code_code: this.state.user.zip_code.code,
+				address: this.state.user.address,
+				detail: this.state.user.addressDetail
+			}
+		}
+
+		this.props.add_address(payload,
+			(success) => {
+				this.props.navigation.goBack(this.props.navigation.state.params.key)
+				console.log("akhirnya berhasil buat add", payload)
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	editAddressPage() {
@@ -226,6 +255,70 @@ class AddressPage extends Component {
 		this.setState({content: {}})
 	}
 
+	componentDidMount() {
+		this.loadProvince()
+		this.loadCity()
+		this.loadSubdistrict();
+		this.loadZipCode();
+	}
+
+	loadProvince() {
+		let payload = {
+			header: this.props.user.authorization
+		}
+		this.props.load_province(payload, 
+			(success) => {
+			},
+			(err) => {
+				console.log(err)
+			})
+	}
+
+	loadCity() {
+		if (this.state.user.province.code.length !== 0) {
+			let payload = {
+				header: this.props.user.authorization,
+				provinceCode: this.state.user.province.code
+			}
+			this.props.load_city(payload, 
+				(success) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
+	}
+
+	loadSubdistrict() {
+		if (this.state.user.city.code.length !== 0) {
+			let payload = {
+				header: this.props.user.authorization,
+				cityCode: this.state.user.city.code
+			}
+			this.props.load_subdistrict(payload, 
+				(success) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
+	}
+
+	loadZipCode() {
+		if (this.state.user.subdistrict.code.length !== 0) {
+			let payload = {
+				header: this.props.user.authorization,
+				subdistrictCode: this.state.user.subdistrict.code
+			}
+			this.props.load_zip_code(payload, 
+				(success) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
+	}
+
   	render() {
 		return (
 			<Container 				
@@ -240,6 +333,11 @@ class AddressPage extends Component {
 					contentContainerStyle={this.state.content}
 				>
 					<Content
+						province={this.props.province}
+						city={this.props.city}
+						subdistrict={this.props.subdistrict}
+						zip_code={this.props.zip_code}
+						getDataProvince={this.getDataProvince}
 						action={this.props.navigation.state.params.action}
 						isEdit={this.state.isEdit}
 						address={this.state.user}
@@ -247,6 +345,7 @@ class AddressPage extends Component {
 						validateStatus={this.state.validateStatus}
 						editAddressPage={this.editAddressPage}
 						onChangeText={this.onChangeText}
+						onSpecificChangeText={this.onSpecificChangeText}
 						submitNameAddress={this.submitNameAddress}
 						submitReceiverName={this.submitReceiverName}
 						submitPhone={this.submitPhone}
@@ -264,13 +363,23 @@ class AddressPage extends Component {
   	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		address_detail: state.user.address_detail
-	}
-}
+const mapStateToProps = (state) => ({
+	user: state.user.data,
+	address_detail: state.user.address_detail,
+	province: state.region.province,
+	city: state.region.city,
+	subdistrict: state.region.subdistrict,
+	zip_code: state.region.zip_code
+})
 
+const mapDispatchToProps = (dispatch) => ({
+	load_province: (req,res,err) => dispatch(actions.region.api.load_province(req,res,err)),
+	load_city: (req,res,err) => dispatch(actions.region.api.load_city(req,res,err)),
+	load_subdistrict: (req,res,err) => dispatch(actions.region.api.load_subdistrict(req,res,err)),
+	load_zip_code: (req,res,err) => dispatch(actions.region.api.load_zip_code(req,res,err)),
+	add_address: (req,res,err) => dispatch(actions.user.api.add_address(req,res,err))
+})
 
 export default connect(
 	mapStateToProps,
-	null)(AddressPage);
+	mapDispatchToProps)(AddressPage);

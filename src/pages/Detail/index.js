@@ -16,59 +16,8 @@ class Detail extends Component {
   		super(props)
 		this.state = {
             grandTotalPrice: 0,
-			historyData:
-				{
-					id: '1',
-					nomor: 'TRNS01/123123/18',
-					date: 'Sunday, 18 Aug 2018',
-                    status: 'Completed',
-                    deliveryPrice: 0,
-                    isCompleted: true,
-                    user: {
-                        name: 'John Doe',
-                        phone: '0822 1234 5678',
-                        address: "Jl. Jatiluhur III No. 167 B, Bandung, Jawa Barat, Kec. Ujungberung Kel.Pasanggrahan, Pagar Hijau Deket Tiang Listrik"
-                    },
-                    items: [{
-                        id: 1,
-                        image: images.icon_buah_segar,
-                        title: "Wortel",
-                        category: "Sayur Segar",
-                        price: 21000,
-                        favorite: false,
-                        pack: 1,
-                    },
-                    {
-                        id: 2,
-                        image: images.icon_sayur_segar,
-                        title: "Sawi",
-                        category: "Sayur Segar",
-                        price: 14000,
-                        favorite: false,
-                        pack: 1,
-                    },
-                    {
-                        id: 3,
-                        image: images.icon_buah_segar,
-                        title: "Blackberry",
-                        category: "Buah Segar",
-                        price: 21000,
-                        favorite: true,
-                        pack: 21,
-                    }
-                    ,{
-                        id: 4,
-                        image: images.icon_sayur_segar,
-                        title: "Jagung Manis",
-                        category: "Sayur Segar",
-                        price: 18000,
-                        favorite: false,
-                        pack: 1,
-                    }]
-                },
-                subTotalPrice: 0,
-                grandTotalPrice: 0,
-                
+            subTotalPrice: 0,
+            grandTotalPrice: 0,
         }
         this.toggleFavorite = this.toggleFavorite.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
@@ -77,7 +26,7 @@ class Detail extends Component {
     }
     
     componentDidMount() {
-		this.getDeliveryPrice();
+        this.getDeliveryPrice();
 	}
 
     getDeliveryPrice() {
@@ -114,6 +63,7 @@ class Detail extends Component {
     }
 
   	render() {
+
   	  	return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				
@@ -127,12 +77,12 @@ class Detail extends Component {
                     <DetailOrder
                         setDate={this.props.navigation.state.params.setDate}
                         addresses={this.props.addresses}
-                        historyData={this.state.historyData}
+                        transaction={this.props.detailTransaction}
                         action={this.props.navigation.state.params.action}
                     />
                     <View style={styles.middleComponent}>
                         <FlatList
-							data={this.props.navigation.state.params.action == 'history' ? this.state.historyData.items : this.props.cart_product}
+							data={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.details : this.props.cart_product}
 							keyExtractor={(item) => String(item.id)}
 							renderItem={({item,index}) => (
 								<CartComponent 
@@ -159,6 +109,8 @@ class Detail extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    detailTransaction: state.transaction.detail,
+    transactions: state.transaction.transactions,
     user: state.user.data,
     addresses: state.user.address,
     cart_product: state.product.cart.products,
