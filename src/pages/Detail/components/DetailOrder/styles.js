@@ -5,9 +5,8 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    topComponent: {
-        flex: 1,
-        height: height * 0.58,
+    container: {
+        flex: -1,
         backgroundColor: colour.veryLightGrey,
         padding: width * 0.05,
     },

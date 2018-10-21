@@ -1,98 +1,91 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, View, Image, TouchableWithoutFeedback, ScrollView, Text } from 'react-native';
+import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
 import ContentDetail from '../ContentDetail';
-import StaticText from '@components/StaticText';
+import ButtonCount from '@components/ButtonCount';
 import styles from './styles';
 import images from '@assets';
 
 class DetailProduct extends PureComponent {
-	constructor(props){
-		super(props);
-		this.state={
-			favorite: props.detailDataProduct.favorite,
-			count: props.detailDataProduct.count,
-		}
+	constructor(){
+		super();
+		this.addTotalItem = this.addTotalItem.bind(this);
+		this.decTotalItem = this.decTotalItem.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+	}
+
+	addTotalItem(){
+		this.props.changeTotalItem(this.props.data,"inc");
+	}
+
+	decTotalItem(){
+		this.props.changeTotalItem(this.props.data,"desc");
+	}
+
+	toggleFavorite(){
+		this.props.toggleFavorite(this.props.data);
+	}
+
+	closeDetailProduct(){
+		this.props.closeDetailProduct();
 	}
 
 	render(){
 		if(this.props.modalVisible){
 			return(
-				<View style={styles.overlay}>
+				<View style={styles.background}>
 					<View style={styles.container}>
-						<View style={styles.topComponent}>
-							<View style={styles.scrollDownButton}>
-								<TouchableWithoutFeedback
-									onPress={ () => this.props.closeDetailProduct()}>
-									<Image
-										resizeMode={'contain'} 
-										source={images.icon_scroll_down}
-										style={styles.logo}
-									/>
-								</TouchableWithoutFeedback>
+						<TouchableOpacity 
+							style={styles.subcontainer.top}
+							onPress={this.closeDetailProduct}
+						>
+							<View style={styles.button.dropdown}>
+								<Image
+									resizeMode={'contain'} 
+									source={images.icon_scroll_down}
+									style={styles.icon.dropdown}
+								/>
 							</View>
-						</View>
-						<ScrollView style={styles.scrollView}>
-							<View style={styles.middleComponent}>
-								<View style={styles.borderImage}>
-									<Image
-										resizeMode={'contain'} 
-										source={this.props.detailDataProduct.image}
-										style={styles.logo}
-									/>
-								</View>
-								<ContentDetail data={this.props.detailDataProduct}/>
-								<View style={styles.favoriteComponent}>
-									<TouchableOpacity
-										style={styles.touchableFavorite}
-									>
-										<Image
-											resizeMode={'contain'} 
-											source={
-												this.props.detailDataProduct.favorite == true
-													? images.icon_favorited
-													: images.icon_favorite
-											}
-											style={styles.favoriteLogo}
-										/>
-									</TouchableOpacity>
-								</View>
+						</TouchableOpacity>
+						<View style={styles.subcontainer.mid}>
+							<View style={styles.subcontainer.product}>
+								<Image
+									resizeMode={'contain'} 
+									// source={this.props.data.images[0]}
+									source={images.icon_sayur_segar}
+									style={styles.icon.product}
+								/>
 							</View>
-							
-							<View>
-								<Text style={styles.textDescription}>{this.props.detailDataProduct.description}</Text>
-							</View>
-
-							<View style={styles.addButton}>
-								{ this.props.detailDataProduct.count == 0 ? 
-								(
-								<TouchableOpacity 
-									style={styles.addNewItem}
-									onPress={this.addTotalItem}
+							<ContentDetail data={this.props.data}/>
+							<View style={styles.favoriteComponent}>
+							{ this.props.user ? (
+								<TouchableOpacity
+									onPress={this.toggleFavorite}
+									style={styles.touchableFavorite}
 								>
-									<StaticText 
-										style={styles.newItemText}
-										property={'productList.content.addItem'}
+									<Image
+										resizeMode={'contain'} 
+										source={
+											this.props.data.favorite == true
+												? images.icon_favorited
+												: images.icon_favorite
+										}
+										style={styles.favoriteLogo}
 									/>
 								</TouchableOpacity>
-								) : (
-								<View style={styles.touchableItem}>
-									<TouchableOpacity onPress={this.decTotalItem}>
-										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.minus'}
-										/>
-									</TouchableOpacity>
-									<Text style={styles.itemText}>{this.props.detailDataProduct.count}</Text>
-									<TouchableOpacity onPress={this.addTotalItem}>
-										<StaticText 
-											style={styles.operatorText}
-											property={'productList.symbol.plus'}
-										/>
-									</TouchableOpacity>
-								</View>
-								) }
+							) : null}
 							</View>
-						</ScrollView>
+						</View>
+						<View style={styles.subcontainer.bottom}>
+							<ScrollView style={styles.bottomContainer}>
+								<Text style={styles.text.description}>{this.props.data.description}</Text>
+							</ScrollView>
+							<ButtonCount
+								count={this.props.data.count}
+								addTotalItem={this.addTotalItem}
+								decTotalItem={this.decTotalItem}
+							/>
+						</View>
 					</View>
 				</View>
 			)

@@ -1,40 +1,35 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image, TouchableOpacity, Text } from 'react-native';
 import StaticText from '@components/StaticText';
-import { actNav, navConstant } from '@navigations';
 import numeral from 'numeral';
 import images from '@assets';
 import styles from './styles';
 
-class CheckoutComponent extends Component {
+class CheckoutComponent extends PureComponent {
 	constructor() {
 		super();
+		this.onPress = this.onPress.bind(this);
 	}
 
-	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+	onPress() {
+		this.props.onPress();
 	}
 
-	render() {
-		return (
+	render(){
+		const totalPrice = numeral(this.props.totalPrice).format('0,0');
+		return(
 			<TouchableOpacity
-				onPress={() => this.navigateToCart()}
+				onPress={this.onPress}
 				style={styles.checkoutButton}
 			>
-				{ this.props.totalCount <= 1 ?
-					(
-						<Text
-							style={[styles.textData, styles.checkoutText]}
-						>{this.props.totalCount}<StaticText 
-						style={[styles.textData, styles.checkoutText]}
-						property={'productList.content.item'}/>{numeral(this.props.totalPrice).format('0,0')}</Text>	
-					) : (
-						<Text
-						style={[styles.textData, styles.checkoutText]}
-						>{this.props.totalCount}<StaticText 
-						style={[styles.textData, styles.checkoutText]}
-						property={'productList.content.items'}/>{numeral(this.props.totalPrice).format('0,0')}</Text>
-					) }
+				<Text style={styles.checkoutText}>
+					{this.props.totalCount}
+					<StaticText 
+						style={styles.checkoutText}
+						property={'productList.content.item'}
+					/>
+					{totalPrice}
+				</Text>
 				<Image
   	  	    		resizeMode={'contain'} 
   	  	    		source={images.icon_cart}

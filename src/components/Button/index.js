@@ -15,14 +15,26 @@ class Button extends PureComponent {
     }
 
     render() {
-        return (
-            <TouchableOpacity style={styles.container} onPress={this.onPress}>
-				<StaticText 
-					style={styles.staticText}
-					property={this.props.title}
-				/>
-			</TouchableOpacity>
-        );
+        switch(this.props.type) {
+            case 'red' :
+            return (
+                <TouchableOpacity style={styles.container.red} onPress={this.onPress}>
+                    <StaticText 
+                        style={styles.staticText.white}
+                        property={this.props.title}
+                    />
+                </TouchableOpacity>
+            );
+            case 'white':
+            return (
+                <TouchableOpacity style={styles.container.white} onPress={this.onPress}>
+                    <StaticText 
+                        style={styles.staticText.red}
+                        property={this.props.title}
+                    />
+                </TouchableOpacity>
+            );
+        }
     }
 }
 

@@ -73,7 +73,7 @@ class Cart extends Component {
 
 		this.props.cart_product.map((cart) => {
 			let product = {};
-			product.product_id = cart.id;
+			product.product_code = cart.code;
 			product.qty = cart.count
 			buyProducts.push(product)
 		}) 
@@ -88,7 +88,7 @@ class Cart extends Component {
 
 			this.props.bulk_add_products(payload,
 				(success) => {
-					console.log("Ini datanya", success)
+					// console.log("Ini datanya", success)
 					actNav.navigate(navConstant.Checkout)
 				},
 				(err) => {
@@ -125,7 +125,7 @@ class Cart extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.cart_product}
-							keyExtractor={(item) => String(item.id)}
+							keyExtractor={(item) => item.code}
 							renderItem={({item,index}) => (
 								<ProductItem 
 									data={item}
@@ -139,6 +139,7 @@ class Cart extends Component {
 						/>
 					</View>
 					<Checkout
+						type={'red'}
 						totalPrice={this.props.total_price}
 						onPress={this.navigateToCheckout}
 					/>

@@ -32,7 +32,7 @@ const getProducts = (state, payload) => {
     for(x in incomingProducts){
         let sameValue = false;
         for(y in existingProducts){
-            if(incomingProducts[x].id == existingProducts[y].id){
+            if(incomingProducts[x].code == existingProducts[y].code){
                 existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
                 sameValue = true;
                 break;
@@ -43,7 +43,6 @@ const getProducts = (state, payload) => {
 
     newState.products = existingProducts.sort((a,b) => a.id - b.id).map(e => {
         if(!e.count) e.count = 0;
-        // if(!e.shortDescription) e.shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.';
         if(!e.favorite) e.favorite = false;
         return e;
     }).filter(e => e.stock > 0);
@@ -57,7 +56,7 @@ const getCategories = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
 
     let defaultData = {
-        "id": 0,
+        "code": 'CAT-0',
         "parent_id": 0,
         "parent_count": 0,
         "name": "Default",
@@ -121,7 +120,6 @@ const searchData = (state, payload) => {
 
     for (let i = 0; i < listProduct.length; i++) {
         listProduct[i].count = 0;
-        listProduct[i].shortDescription = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
         listProduct[i].favorite = false;
     }
 
@@ -134,7 +132,7 @@ const editTotal = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let total = 0;
     let count = 0;
-    const index = newState.products.findIndex(e => e.id === payload.data.id);
+    const index = newState.products.findIndex(e => e.code === payload.data.code);
 
 	if (payload.type == "inc") {
 		newState.products[index].count += 1;
@@ -171,9 +169,9 @@ const clearProducts = (state) => {
 }
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    const index = newState.products.findIndex(e => e.id === payload.data.id);
+    const index = newState.products.findIndex(e => e.code === payload.data.code);
     if(newState.cart.products.length > 0){
-        const cartIndex = newState.cart.products.findIndex(e => e.id === payload.data.id);
+        const cartIndex = newState.cart.products.findIndex(e => e.code === payload.data.code);
         if(cartIndex != -1){
             newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
         }

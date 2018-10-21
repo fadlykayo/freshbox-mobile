@@ -7,7 +7,7 @@ import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import InputText from './components/InputText';
-import Button from './components/Button';
+import Button from '@components/Button';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -108,49 +108,39 @@ class PhonePage extends Component {
 					title={'phonePage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-				{ this.state.isEdit ? (
 					<View style={styles.container}>
 						<View style={styles.formPhone}>
-							<FormInput 
-								type={'phone'}
-								keyboardType={'number-pad'}
-								value={this.state.user.phone}
-								onChangeText={this.onChangeText}
-								label={'phonePage.formLabel.phone'}
-								placeholder={'phonePage.formLabel.phone'}
-								onSubmitEditing={this.submitPhone}
-							/>
-							<VerificationText
-								validation={this.state.validateStatus.phone}
-								property={'phonePage.validation.phone'}
-							/>
-						</View>
-						<View style={styles.buttonPlace}>
-							<Button 
-								title={'phonePage.button.save'}
-								isEdit={this.state.isEdit}
-								onPress={this.submitPhone}
-							/>
-						</View>
-  	  	  			</View>
-				) : (
-					<View style={styles.container}>
-						<View style={styles.formPhone}>
+						{ this.state.isEdit ? (
+							<View>
+								<FormInput 
+									type={'phone'}
+									keyboardType={'number-pad'}
+									value={this.state.user.phone}
+									onChangeText={this.onChangeText}
+									label={'phonePage.formLabel.phone'}
+									placeholder={'phonePage.formLabel.phone'}
+									onSubmitEditing={this.submitPhone}
+								/>
+								<VerificationText
+									validation={this.state.validateStatus.phone}
+									property={'phonePage.validation.phone'}
+								/>
+							</View>
+						) : (
 							<InputText
 								label={'phonePage.label.phone'}
 								input={this.spacePhoneNumber(this.props.user.user.phone_number)}
 							/>
+						)}
 						</View>
 						<View style={styles.buttonPlace}>
 							<Button
-								title={'phonePage.button.edit'}
-								isEdit={this.state.isEdit}
-								onPress={this.editPhonePage}
+								type={this.state.isEdit ? 'red' : 'white'}
+								title={this.state.isEdit ? 'phonePage.button.save' : 'phonePage.button.edit'}
+								onPress={this.state.isEdit ? this.submitPhone : this.editPhonePage}
 							/>
 						</View>
   	  	  			</View>
-				)}
-  	  	  		
 			</Container>
   	  	);
   	}

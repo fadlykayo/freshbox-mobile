@@ -9,25 +9,11 @@ class Dropdown extends Component {
     constructor(props){
         super(props);
         this.state={
-            isFocused: false,
-			isOpen: props.isPassword ? props.isPassword : false,
-			isPassword: props.isPassword ? props.isPassword : false,
-			autoFocus: props.autoFocus ? props.autoFocus : false,
-            multiline: props.multiline ? props.multiline : false,
-            editable: props.editable ? props.editable : true,
-            keyboardType: props.keyboardType ? props.keyboardType : 'default',
-            returnKeyType: props.returnKeyType ? props.returnKeyType : 'done',
-            maxLength: props.maxLength ? props.maxLength : 9999,
+			isOpen: props.isOpen ? props.isOpen : false,
             placeholder: '',
         }
-        this.onBlur = this.onBlur.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-        this.blur = this.blur.bind(this);
-        this.focus = this.focus.bind(this);
-        this.focusHandler = this.focusHandler.bind(this);
         this.showDropdown = this.showDropdown.bind(this);
         this.onChangeText = this.onChangeText.bind(this);
-        this.onSubmitEditing = this.onSubmitEditing.bind(this);
         this._renderLabel = this._renderLabel.bind(this);
         this.getPlaceholder = this.getPlaceholder.bind(this);
     }
@@ -36,41 +22,15 @@ class Dropdown extends Component {
         if(this.props.placeholder) this.getPlaceholder();
     }
 
-    onFocus(){
-        this.focusHandler(true);
-    }
-
-    onBlur(){
-        this.focusHandler(false);
-    }
-
-    blur(){
-        this.TextInput.blur();
-    }
-
-    focus(){
-        this.TextInput.focus();
-    }
-
-    focusHandler(value){
-        let state = this.state;
-        state.isFocused = value;
-        this.setState(state);
-    }
-
     showDropdown(){
         let state = this.state;
         state.isOpen = !state.isOpen;
         this.setState(state);
+        console.log("lihat data",this.props.data)
     }
 
     onChangeText(value){
-		this.props.onChangeText(this.props.type,value);
-    }
-
-    onSubmitEditing(){
-        this.blur();
-        if(this.props.onSubmitEditing) this.props.onSubmitEditing();
+        this.props.onChangeText(this.props.type,value);
     }
 
     getPlaceholder(){
@@ -97,7 +57,7 @@ class Dropdown extends Component {
                     {this._renderLabel(this.props)}
                     {
                         this.props.value ? (
-                            <Text style={styles.formInput}>{this.props.value}</Text>
+                            <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
                         ) : (
                             <Text style={styles.formInput}>{this.state.placeholder}</Text>
                         )
@@ -119,7 +79,7 @@ class Dropdown extends Component {
                         {this._renderLabel(this.props)}
                         {
                             this.props.value ? (
-                                <Text style={styles.formInput}>{this.props.value}</Text>
+                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
                             ) : (
                                 <Text style={styles.formInput}>{this.state.placeholder}</Text>
                             )
@@ -133,26 +93,21 @@ class Dropdown extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <TouchableWithoutFeedback>
-                        <FlatList
-                            // onTouchStart={(ev) => this.props.setContentFlex(ev) }
-                            // onTouchEnd={(e) => this.props.setContentFlexNull()}
-                            // onMomentumScrollEnd={(e) => this.props.setContentFlexNull()}
-                            // onScrollEndDrag={(e) => this.props.setContentFlexNull()}
-                            style={styles.dropdownPlace}
-                            data={this.props.province}
-                            keyExtractor={(item) => String(item.id)}
-					        renderItem={({item,index}) => (
-                                <TouchableOpacity style={styles.dropdown} onPress={() => {
-                                    this.props.getDataProvince(index)
-                                    this.showDropdown()
-                                    }
-                                }>
-                                    <Text>{item.name}</Text>
-                                </TouchableOpacity>
-					        )}
-                        />
-                    </TouchableWithoutFeedback>
+                    <FlatList
+                        nestedScrollEnabled={true}
+                        style={styles.dropdownPlace}
+                        data={this.props.data}
+                        keyExtractor={(item) => item.code}
+					    renderItem={({item,index}) => (
+                            <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
+                                this.onChangeText(item)
+                                this.showDropdown()
+                                }
+                            }>
+                                <Text>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
+                            </TouchableOpacity>
+					    )}
+                    />
                 </View>
             )
         }

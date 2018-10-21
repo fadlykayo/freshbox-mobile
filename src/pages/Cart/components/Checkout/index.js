@@ -11,6 +11,7 @@ class CheckoutComponent extends PureComponent {
 	}
 
 	render() {
+		const subtotal = numeral(this.props.totalPrice).format('0,0');
 		return (
 			<View style={styles.container}>
 				<View style={styles.totalPrice}>
@@ -23,10 +24,11 @@ class CheckoutComponent extends PureComponent {
 							style={styles.textData}
 							property={'cart.content.price'}
 						/> 
-						{numeral(this.props.totalPrice).format('0,0')}
+						{subtotal}
 					</Text>
 				</View>
 				<Button
+					type={this.props.type}
 					onPress={this.props.onPress}
 					title={'cart.button.checkout'}
 				/>

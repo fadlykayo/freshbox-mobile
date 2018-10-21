@@ -41,8 +41,7 @@ class ProductItem extends PureComponent {
 				>
 					<View style={styles.subcontainer.image}>
 						<Image
-							resizeMode={'contain'}
-							source={images.icon_sayur_segar} 
+							resizeMode={'contain'} 
 							source={{uri: productImage}}
 							style={styles.icon.product}
 						/>
@@ -64,7 +63,7 @@ class ProductItem extends PureComponent {
 								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
-					) : null }
+					): null}
 					</View>
 				</TouchableOpacity>
 				<ButtonCount

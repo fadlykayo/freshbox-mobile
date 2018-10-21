@@ -3,9 +3,9 @@ import { View, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
+import Button from '@components/Button';
 import PhotoComponent from './components/PhotoComponent';
 import Content from './components/Content';
-import images from '@assets';
 import styles from './styles';
 import actions from '@actions';
 import { connect } from 'react-redux';
@@ -116,12 +116,11 @@ class ProfilePage extends Component {
                         navigateToResetPasswordPage={this.navigateToResetPasswordPage}
                     />
                     <View style={styles.bottomComponent}>
-                        <TouchableOpacity style={styles.signOutButton} onPress={this.navigateLogOut}>
-                            <StaticText
-                                style={styles.signOutText}
-                                property={'profilePage.button.signOut'}
-                            />
-                        </TouchableOpacity>
+                        <Button
+                            type={'white'}
+                            onPress={this.navigateLogOut}
+                            title={'profilePage.button.signOut'}
+                        />
                     </View>
                 </View>
             </Container>

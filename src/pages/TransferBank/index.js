@@ -272,6 +272,7 @@ class TransferBank extends Component {
                     </View>
                 </ScrollView>
                 <TotalPrice
+                    type={'red'}
                     title={'transferBank.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}

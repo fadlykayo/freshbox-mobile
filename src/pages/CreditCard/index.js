@@ -162,6 +162,7 @@ class CreditCard extends Component {
                         </View>
                     </ScrollView>
                     <TotalPrice
+                        type={'red'}
 				    	title={'creditCard.content.checkout'}
                         subTotal={this.props.totalPrice}
                         grandTotal={this.state.grandTotalPrice}
