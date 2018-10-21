@@ -10,6 +10,7 @@ class Content extends PureComponent {
 	}
 
 	render() {
+		const productPrice = numeral(this.props.data.price).format('0,0');
 		return (
 			<View style={styles.contentContainer}>
 				<Text style={styles.fontTitle}>{this.props.data.name}</Text>
@@ -19,7 +20,7 @@ class Content extends PureComponent {
 						style={styles.fontTitle}
 						property={'cart.content.price'}
 					/>
-					{numeral(this.props.data.price).format('0,0')}
+					{productPrice}
 					<StaticText 
 						style={styles.fontPack}
 						property={'cart.content.pack'}

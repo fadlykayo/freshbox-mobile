@@ -4,6 +4,7 @@ import product from './product';
 import user from './user';
 import network from './network';
 import transaction from './transaction';
+import region from './region';
 
 const action = {
     registration: registration,
@@ -11,7 +12,8 @@ const action = {
     product: product,
     user: user,
     network: network,
-    transaction: transaction
+    transaction: transaction,
+    region: region
 }
 
 export default action;

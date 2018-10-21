@@ -40,7 +40,7 @@ const styles = {
     },
     dropdownPlace: {
         position: 'absolute',
-        height: height * 0.4,
+        maxHeight: height * 0.3,
         width: width * 0.9,
         backgroundColor: colour.white,
         borderColor: colour.grey,
@@ -49,7 +49,7 @@ const styles = {
         zIndex: 2
     },
     dropdown: {
-        height: height * 0.1,
+        height: height * 0.07,
         width: width * 0.9,
         borderColor: colour.darkGrey,
         borderWidth: 0.5,

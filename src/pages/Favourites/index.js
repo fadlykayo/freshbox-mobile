@@ -8,6 +8,8 @@ import DetailProduct from './components/DetailProduct';
 import NavigationBar from '@components/NavigationBar';
 import images from '@assets'
 import styles from './styles';
+import actions from '@actions';
+import { connect } from 'react-redux';
 
 class Favourites extends Component {
   	constructor(props) {
@@ -113,24 +115,27 @@ class Favourites extends Component {
 			},
 		}
 		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.countTotalPrice = this.countTotalPrice.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.onChangeText = this.onChangeText.bind(this);
+		this.navigateToCart = this.navigateToCart.bind(this)
 	}
 
-	openDetailProduct(index){
-		let data = this.state.data;
-		let detail = data[index];
-		this.onChangeText('indexProduct', index)
-		this.onChangeText('detailDataProduct', detail)
+	onChangeText(type, value){
+        let user = this.state;
+        user[type] = value;
+        this.setState({user});
+	}
+
+	openDetailProduct(payload){
+		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
-    }
+	}
 
 	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
         modalVisible[type] = value;
         this.setState({modalVisible});
     }
@@ -138,43 +143,17 @@ class Favourites extends Component {
 	closeDetailProduct(){
 		this.setModalVisible('openProduct',false);
 	}
-
-	toggleFavorite(index){
-		let data = this.state.data.slice();
-		data[index].favorite = !data[index].favorite;
-		this.setState({data});
+	
+	toggleFavorite(payload){
+		this.props.toggle_favorite(payload);
 	}
 
-	countTotalPrice(payload){
-		let data = payload ? payload : this.state.data;
-		let state = this.state;
-		let total = 0;
-		let count = 0;
-		for(i=0; i<data.length; i++){
-			total = total + (data[i].price * data[i].count);
-			count = count + data[i].count;
-		}
-		state.totalCount = count;
-		state.totalPrice = total;
-		state.data = data;
-		this.setState(state);
+	changeTotalItem(payload,type){
+		this.props.change_total(payload,type);
 	}
 
-	changeTotalItem(index,type){
-		let data = this.state.data.slice();
-		if (type == "inc") {
-			data[index].count += 1;
-		}
-		else {
-			data[index].count -= 1;
-		}
-		this.countTotalPrice(data);
-	}
-
-	onChangeText(type, value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
+	navigateToCart(){
+		actNav.navigate(navConstant.Cart);
 	}
 
   	render() {
@@ -188,36 +167,65 @@ class Favourites extends Component {
 					onPress={actNav.goBack}
 				/>
   	  	  		<View style={styles.container}>
-				<View style={styles.cartContainer}>
-					<FlatList
-						data={this.state.data}
-						keyExtractor={(item) => String(item.id)}
-						renderItem={({item,index}) => (
-							<CartComponent
-								openDetailProduct= {this.openDetailProduct}
-								data = {item}
-								index = {index} 
-								toggleFavorite={this.toggleFavorite}
-								changeTotalItem={this.changeTotalItem}
+					<View style={styles.cartContainer}>
+						<FlatList
+							data={this.props.cart_product}
+							keyExtractor={(item) => String(item.id)}
+							renderItem={({item,index}) => (
+								<CartComponent
+									data={item}
+									index={index} 
+									toggleFavorite={this.toggleFavorite}
+									changeTotalItem={this.changeTotalItem}
+									openDetailProduct={this.openDetailProduct}
+									user={this.props.user}
+								/>
+							)}
+						/>
+						{ this.props.total_count > 0 ? 
+						(
+							<Checkout
+								totalCount={ this.props.total_count }
+								totalPrice={ this.props.total_price }
+								onPress={this.navigateToCart}
 							/>
-						)}
-					/>
-					<Checkout
-						totalCount = { this.state.totalCount }
-						totalPrice = { this.state.totalPrice }
-					/>
+						) : null }
+						
+					</View>
 				</View>
-			</View>
-			<DetailProduct
-				indexProduct={this.state.indexProduct}
-				toggleFavorite={this.toggleFavorite}
-				detailDataProduct={this.state.detailDataProduct}
-			  	modalVisible={this.state.modalVisible.openProduct}
-				closeDetailProduct={this.closeDetailProduct}
-			/>
+				<DetailProduct
+					user={this.props.user}
+					data={this.props.productDetail}
+					updateDetail={this.updateDetail}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					closeDetailProduct={this.closeDetailProduct}
+					modalVisible={this.state.modalVisible.openProduct}
+				/>
 			</Container>
   	  	);
   	}
 }
 
-export default Favourites;
+const mapStateToProps = state => {
+	return {
+		user: state.user.data,
+		cart_product: state.product.cart.products,
+		product: state.product.products,
+		total_price: state.product.total.price,
+		total_count: state.product.total.count,
+		productDetail: state.product.detail,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+	}
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

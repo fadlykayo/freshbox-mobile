@@ -41,8 +41,7 @@ class CartComponent extends PureComponent {
 				>
 					<View style={styles.imageContainer}>
 						<Image
-							resizeMode={'contain'}
-							source={images.icon_sayur_segar} 
+							resizeMode={'contain'} 
 							source={{uri: productImage}}
 							style={styles.picture}
 						/>
@@ -64,7 +63,7 @@ class CartComponent extends PureComponent {
 								style={styles.favoriteLogo}
 							/>
 						</TouchableOpacity>
-					) : null }
+					): null}
 					</View>
 				</TouchableOpacity>
 				<ButtonCount

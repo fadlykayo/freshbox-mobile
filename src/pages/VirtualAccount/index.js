@@ -149,6 +149,7 @@ class VirtualAccount extends Component {
                     </View>
                 </ScrollView>
                 <TotalPrice
+                    type={'red'}
 					title={'virtualAccount.content.checkout'}
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}

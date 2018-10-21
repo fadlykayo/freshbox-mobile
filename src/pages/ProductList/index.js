@@ -127,7 +127,7 @@ class ProductList extends Component {
 				body: {},
 				params: {
 					stock: 'tersedia',
-					category_id: input.id,
+					category_code: input.code,
 					page: 1,
 				}
 			}
@@ -169,7 +169,43 @@ class ProductList extends Component {
 	}
 	
 	toggleFavorite(payload){
-		this.props.toggle_favorite(payload);
+		if (payload.favorite) {
+			console.log("send delete")
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload
+			}
+			// this.props.toggle_favorite(payload);
+			this.props.delete_favorite(data, null,
+				(err) => {
+					console.log(err)
+				})
+		}
+		else {
+			console.log("send add")
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.code
+					}
+				},
+				favorite: payload
+			}
+			// this.props.toggle_favorite(payload);
+			this.props.add_favorite(data, null,
+				(err) => {
+					console.log(err)
+				})
+			
+		}
 	}
 
 	changeTotalItem(payload,type){
@@ -234,7 +270,8 @@ class ProductList extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.product}
-							keyExtractor={(item,index) => index.toString()}
+							keyExtractor={(item) => item.code}
+							nes
 							renderItem={({item,index}) => (
 								<CartComponent
 									data={item}
@@ -300,6 +337,8 @@ const mapDispatchToProps = dispatch => ({
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 })

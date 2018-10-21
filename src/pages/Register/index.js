@@ -140,7 +140,7 @@ class Register extends Component {
         this.props.register_user(payload,
             (res) => {
                 if (this.props.navigation.state.params.action == 'guestLogin') {
-                    actNav.goBack(this.props.navigation.state.params.key)
+                    this.props.navigation.goBack(this.props.navigation.state.params.key)
                 }
                 else {
                     actNav.goBack();

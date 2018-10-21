@@ -77,7 +77,7 @@ class Cart extends Component {
 
 		this.props.cart_product.map((cart) => {
 			let product = {};
-			product.product_id = cart.id;
+			product.product_code = cart.code;
 			product.qty = cart.count
 			buyProducts.push(product)
 		}) 
@@ -92,7 +92,7 @@ class Cart extends Component {
 
 			this.props.bulk_add_products(payload,
 				(success) => {
-					console.log("Ini datanya", success)
+					// console.log("Ini datanya", success)
 					actNav.navigate(navConstant.Checkout)
 				},
 				(err) => {
@@ -122,7 +122,7 @@ class Cart extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.cart_product}
-							keyExtractor={(item) => String(item.id)}
+							keyExtractor={(item) => item.code}
 							renderItem={({item,index}) => (
 								<CartComponent 
 									data={item}
@@ -136,6 +136,7 @@ class Cart extends Component {
 						/>
 					</View>
 					<Checkout
+						type={'red'}
 						totalPrice={this.props.total_price}
 						onPress={this.navigateToCheckout}
 					/>
@@ -154,8 +155,7 @@ class Cart extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
+const mapStateToProps = state => ({
 		user: state.user.data,
 		cart_product: state.product.cart.products,
 		index_product: state.product.cart.index,
@@ -163,20 +163,15 @@ const mapStateToProps = state => {
 		total_price: state.product.total.price,
 		total_count: state.product.total.count,
 		productDetail: state.product.detail,
-	}
-}
+})
 
-const mapDispatchToProps = dispatch => {
-	return {
+const mapDispatchToProps = dispatch => ({
 		get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
 		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
-	}
-}
+})
 
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(Cart);
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);
