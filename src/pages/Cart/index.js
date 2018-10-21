@@ -128,12 +128,14 @@ class Cart extends Component {
 							keyExtractor={(item) => item.code}
 							renderItem={({item,index}) => (
 								<ProductItem 
+									key={index}
 									data={item}
-									index={index} 
+									index={index+1} 
+									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
+									productLength={this.props.cart_product.length}
 									openDetailProduct={this.openDetailProduct}
-									user={this.props.user}
 								/>
 							)}
 						/>
