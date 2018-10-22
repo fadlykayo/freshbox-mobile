@@ -124,7 +124,6 @@ class FormDataPage extends Component {
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.province'}
 					placeholder={'addressPage.label.province'}
-					onSubmitEditing={this.submitProvince}
 				/>
 				<Dropdown 
 					type={'city'}
@@ -134,7 +133,6 @@ class FormDataPage extends Component {
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.city'}
 					placeholder={'addressPage.label.city'}
-					onSubmitEditing={this.submitProvince}
 				/>
 				<Dropdown 
 					type={'subdistrict'}
@@ -144,7 +142,6 @@ class FormDataPage extends Component {
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.kecamatan'}
 					placeholder={'addressPage.label.kecamatan'}
-					onSubmitEditing={this.submitProvince}
 				/>
 				<Dropdown 
 					type={'zip_code'}
@@ -154,7 +151,6 @@ class FormDataPage extends Component {
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.kelurahan'}
 					placeholder={'addressPage.label.kelurahan'}
-					onSubmitEditing={this.submitProvince}
 				/>
 				<FormInput 
 					ref={c => {this.formZipCode = c}}
