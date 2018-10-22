@@ -71,6 +71,7 @@ class AddressPage extends Component {
 		this.loadCity = this.loadCity.bind(this);
 		this.loadSubdistrict = this.loadSubdistrict.bind(this);
 		this.loadZipCode = this.loadZipCode.bind(this);
+		this.deleteAddress = this.deleteAddress.bind(this);
 	}
 
 	setStateValidation(input) {
@@ -268,8 +269,22 @@ class AddressPage extends Component {
 	editAddressPage() {
 		let state = this.state;
 		state.isEdit = true;
-		this.setState(state)
-		
+		this.setState(state)	
+	}
+
+	deleteAddress() {
+		let payload = {
+			header: this.props.user.authorization,
+			addressCode: this.props.address_detail.code
+		}
+
+		this.props.delete_address(payload,
+			(success) => {
+				actNav.goBack()
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	navigateToProfilePage() {
@@ -366,6 +381,7 @@ class AddressPage extends Component {
 						addressValidation = {this.addressValidation} 
 						validateStatus={this.state.validateStatus}
 						editAddressPage={this.editAddressPage}
+						deleteAddress={this.deleteAddress}
 						onChangeText={this.onChangeText}
 						onSpecificChangeText={this.onSpecificChangeText}
 						submitNameAddress={this.submitNameAddress}
@@ -398,7 +414,8 @@ const mapDispatchToProps = (dispatch) => ({
 	add_address: (req,res,err) => dispatch(actions.user.api.add_address(req,res,err)),
 	update_address: (req,res,err) => dispatch(actions.user.api.update_address(req,res,err)),
 	clear_region: (type) => dispatch(actions.region.reducer.clear_region(type)),
-	reset_region: () => dispatch(actions.region.reducer.reset_region())
+	reset_region: () => dispatch(actions.region.reducer.reset_region()),
+	delete_address: (req,res,err) => dispatch(actions.user.api.delete_address(req,res,err))
 })
 
 export default connect(

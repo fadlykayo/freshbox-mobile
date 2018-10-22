@@ -236,7 +236,8 @@
         },
         "button": {
             "edit": "Edit",
-            "save": "Save"
+            "save": "Simpan",
+            "delete": "Hapus"
         },
         "validation":{
             "name": "Tolong masukkan simpan alamat",

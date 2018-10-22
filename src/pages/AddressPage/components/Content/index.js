@@ -56,8 +56,10 @@ class Content extends Component {
                         <StaticData
                             address={this.props.address}
                             isEdit={this.props.isEdit}
-                            onPress={this.props.editAddressPage}
-							title={'addressPage.button.edit'}
+                            editPress={this.props.editAddressPage}
+                            deletePress={this.props.deleteAddress}
+                            edit={'addressPage.button.edit'}
+                            delete={'addressPage.button.delete'}
                         />
                     )
                 }
