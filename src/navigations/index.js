@@ -129,15 +129,26 @@ export const actNav = {
             actions: [
                 NavigationActions.navigate({ routeName: route})
             ]
-        }))
+        }));
     },
     navigate: (route,params = {}) => {
         _navigator.dispatch(NavigationActions.navigate({
             routeName: route,
             params: params
-        }))
+        }));
     },
-    goBack: () => {
-        _navigator.dispatch(NavigationActions.back())
+    goBack: (key) => {
+        if(key){
+            _navigator.dispatch(NavigationActions.back({
+                key: key,
+            }));
+        } 
+        else {
+            _navigator.dispatch(NavigationActions.back());
+        }
+        
+    },
+    goBackToTop: () => {
+        _navigator.dispatch(StackActions.popToTop());
     }
 };
