@@ -19,7 +19,6 @@ class ChoosePayment extends Component {
             grandTotalPrice: 0,
             contents: [
                 'choosePayment.content.creditCard',
-                'choosePayment.content.transferBank',
                 'choosePayment.content.virtualAccount',
             ]
         }
@@ -35,7 +34,6 @@ class ChoosePayment extends Component {
 
     navigateToOtherPage(payload) {
         switch(payload) {
-            case 'choosePayment.content.transferBank': return actNav.navigate(navConstant.TransferBank, { transaction: this.props.navigation.state.params.transaction})
             case 'choosePayment.content.virtualAccount': return actNav.navigate(navConstant.VirtualAccount, { transaction: this.props.navigation.state.params.transaction})
             default: return actNav.navigate(navConstant.CreditCard, { transaction: this.props.navigation.state.params.transaction})
         }

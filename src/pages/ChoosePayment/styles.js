@@ -12,21 +12,20 @@ const styles = {
     content: {
         flex: 1,
         marginTop: width * 0.015,
-        marginBottom: width* 0.01,
+        marginBottom: width * 0.01,
         backgroundColor: colour.white,
+    },
+    component: {
+        height: scaling.moderateScale(50),
+        borderBottomColor: colour.lightGrey,
+        borderBottomWidth: 1,
+        justifyContent: 'center',
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,
     },
-    component: {
-        height: width * 0.14,
-        borderBottomColor: colour.lightGrey,
-        borderBottomWidth: 0.8,
-        justifyContent: 'center'
-    },
     staticText: {
-        fontFamily: 'Avenir-Heavy',
+        fontFamily: 'Avenir-Black',
         fontSize: scaling.moderateScale(12),
-        fontWeight: '800',
         color: colour.darkGrey
     },
     imagePlace: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -20,96 +20,51 @@ class VirtualAccount extends Component {
                 {
                     name: "virtualAccount.content.bcaVA",
                     payment: "bca_virtual_account",
-                    isOpen: false,
                     image: images.icon_logo_bca,
-                    step: [
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        }
-                    ]
                 },
                 {
                     name: "virtualAccount.content.mandiriVA",
                     payment: "mandiri_virtual_account",
-                    isOpen: false,
                     image: images.icon_logo_mandiri,
-                    step: [
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        }
-                    ]
                 },
                 {
                     name: "virtualAccount.content.briVA",
                     payment: "bri_virtual_account",
-                    isOpen: false,
                     image: images.icon_logo_bri,
-                    step: [
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        }
-                    ]
                 },
-            ]
+            ],
+            selectedBank: '',
         }
-        this.openData = this.openData.bind(this);
+        this.selectBank = this.selectBank.bind(this);
         this.createOrderByVirtualAccount = this.createOrderByVirtualAccount.bind(this);
     }
 
     componentDidMount() {
-        let state = this.state;
-		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
-        
-        this.setState(state)
+        let grandTotalPrice = JSON.parse(JSON.stringify(this.state.grandTotalPrice));
+		grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+        this.setState({grandTotalPrice});
     }
 
-    openData(index) {
-        let banks = this.state.banks.slice();
-        banks[index].isOpen = !banks[index].isOpen;
-
-        this.setState({ banks })
+    selectBank(payload) {
+        let selectedBank = JSON.parse(JSON.stringify(this.state.selectedBank));
+        selectedBank = payload;
+        this.setState({selectedBank})
     }
 
     createOrderByVirtualAccount() {
-        let bankVA = this.state.banks.filter(bank => bank.isOpen == true)
-
-        let payloadData = this.props.navigation.state.params.transaction;
-        payloadData.payment_method = bankVA[0].payment;
+        let transactionData = this.props.navigation.state.params.transaction;
+        
+        transactionData.payment_method = this.state.selectedBank;
         
         let payload = {
             header: {
                 apiToken: this.props.user.authorization
             },
-            body: payloadData,
+            body: transactionData,
             params: {}
         }
+
+        console.log('payload create order ->',payload);
 
         this.props.create_order(payload,
             (success) => {
@@ -119,8 +74,8 @@ class VirtualAccount extends Component {
             },
             (err) => {
                 console.log(err)
-            })
-
+            }
+        )
     }
 
     render() {
@@ -134,19 +89,16 @@ class VirtualAccount extends Component {
 			    	onPress={actNav.goBack}
 			    />
                 <ScrollView style={styles.container}>
-                    <View style={styles.content}>
-                        { this.state.banks.map((bank, index) => {
-                            return(
-                                <View key={index}>
-                                    <Content
-                                        index={index}
-                                        bank={bank}
-                                        openData={this.openData}
-                                    />
-                                </View>
-                            )
-                        }) }                        
-                    </View>
+                    { 
+                        this.state.banks.map((bank,index) => (
+                            <Content
+                                key={index}
+                                bank={bank}
+                                selectBank={this.selectBank}
+                                selectedBank={this.state.selectedBank}
+                            />
+                        )) 
+                    }
                 </ScrollView>
                 <TotalPrice
                     type={'red'}
@@ -161,21 +113,15 @@ class VirtualAccount extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-        user: state.user.data,
-        totalPrice: state.product.total.price,
-        delivery_price: state.product.delivery_price
-	}
-}
+const mapStateToProps = (state) => ({
+    user: state.user.data,
+    totalPrice: state.product.total.price,
+    delivery_price: state.product.delivery_price
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
-        clear_products: () => dispatch(actions.product.reducer.clear_products())
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
+    clear_products: () => dispatch(actions.product.reducer.clear_products())
+});
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(VirtualAccount);
+export default connect(mapStateToProps,mapDispatchToProps)(VirtualAccount);

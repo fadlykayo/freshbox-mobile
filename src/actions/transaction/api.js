@@ -53,13 +53,12 @@ actions.bulk_add_products = (req,success,failure) => {
 
 actions.create_order = (req,success,failure) => {
 	
-	payload.path = path.transaction;
+	payload.path = path.checkout;
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	console.log('Create Transaction res',res);
@@ -89,7 +88,7 @@ actions.create_order = (req,success,failure) => {
 
 actions.get_transaction = (req,success,failure) => {
 	
-	payload.path = path.transaction;
+	payload.path = path.transactionHistory;
 	payload.header = req.header;
 	payload.params = req.params;
 

@@ -110,12 +110,16 @@ class Checkout extends Component {
 			else {
 				let payload = {};
 		
-				payload.address_id = address[0].id;
+				payload.address_code = address[0].code;
 				payload.request_shipping_date = this.state.setDate.post;
 		
 				// console.log("data masuk", payload)
 				actNav.navigate(navConstant.Detail, 
-					{ action: 'checkout', transaction: payload, setDate: this.state.setDate }
+					{
+						action: 'checkout', 
+						transaction: payload, 
+						setDate: this.state.setDate 
+					}
 				)
 			}
 		}
