@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, FlatList, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -9,8 +10,8 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Categories from './components/Categories';
 import styles from './styles';
-import { connect } from 'react-redux';
 import actions from '@actions';
+import { language } from '@helpers';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -34,11 +35,12 @@ class ProductList extends Component {
 		this.handleLoadMore=this.handleLoadMore.bind(this);
 		this.setModalVisible=this.setModalVisible.bind(this);
 		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.navigateToCart = this.navigateToCart.bind(this);
 		this.openAllCategories=this.openAllCategories.bind(this);
 		this.openDetailProduct=this.openDetailProduct.bind(this);
 		this.closeDetailProduct=this.closeDetailProduct.bind(this);
+		this.navigateToHistory = this.navigateToHistory.bind(this);
 		this.closeDialogCategories=this.closeDialogCategories.bind(this);
-		this.navigateToCart = this.navigateToCart.bind(this);
 	}
 
 	componentDidMount(){
@@ -244,8 +246,22 @@ class ProductList extends Component {
 		this.props.navigation.openDrawer();
 	}
 
+	navigateToHistory(){
+		language.transformText('message.createOrderSuccess')
+		.then((message) => {
+			setTimeout(() => {
+				this.props.set_success_status({
+					status: true,
+					data: message
+				});
+			},1000);
+		});
+	}
+
 	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+		actNav.navigate(navConstant.Cart,{
+			navigateToHistory: this.navigateToHistory
+		});
 	}
 
 	render(){
@@ -334,6 +350,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),

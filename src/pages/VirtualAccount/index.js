@@ -23,14 +23,14 @@ class VirtualAccount extends Component {
                     image: images.icon_logo_bca,
                 },
                 {
-                    name: "virtualAccount.content.mandiriVA",
-                    payment: "mandiri_virtual_account",
-                    image: images.icon_logo_mandiri,
+                    name: "virtualAccount.content.bniVA",
+                    payment: "bni_virtual_account",
+                    image: images.icon_logo_bni,
                 },
                 {
-                    name: "virtualAccount.content.briVA",
-                    payment: "bri_virtual_account",
-                    image: images.icon_logo_bri,
+                    name: "virtualAccount.content.permataVA",
+                    payment: "permata_virtual_account",
+                    image: images.icon_logo_permata,
                 },
             ],
             selectedBank: '',
@@ -70,7 +70,11 @@ class VirtualAccount extends Component {
             (success) => {
                 console.log("SUCCESS ORDER", success)
                 this.props.clear_products();
-                actNav.reset(navConstant.Product)
+                // actNav.navigate(navConstant.HistoryPage,{
+                //     action: 'createOrder',
+                //     ...this.props.navigation.state.params
+                // });
+                actNav.goBack(this.props.navigation.state.params.key);
             },
             (err) => {
                 console.log(err)

@@ -34,6 +34,7 @@ const styles = {
     icon:{
         bank:{
             width: scaling.moderateScale(80),
+            height: scaling.moderateScale(50),
             marginRight: scaling.moderateScale(10),
         },
         check:{

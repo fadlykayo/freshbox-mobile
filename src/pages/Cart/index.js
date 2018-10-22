@@ -89,7 +89,9 @@ class Cart extends Component {
 			this.props.bulk_add_products(payload,
 				(success) => {
 					// console.log("Ini datanya", success)
-					actNav.navigate(navConstant.Checkout)
+					actNav.navigate(navConstant.Checkout,{
+						key: this.props.navigation.state.key
+					});
 				},
 				(err) => {
 					console.log(err)
@@ -125,7 +127,7 @@ class Cart extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.cart_product}
-							keyExtractor={(item) => item.code}
+							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem 
 									key={index}
