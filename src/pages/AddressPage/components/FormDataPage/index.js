@@ -14,11 +14,7 @@ class FormDataPage extends Component {
         this.submitNameAddress = this.submitNameAddress.bind(this);
 		this.submitReceiverName = this.submitReceiverName.bind(this);
 		this.submitPhone = this.submitPhone.bind(this);
-		this.submitProvince = this.submitProvince.bind(this);
-		this.submitCity = this.submitCity.bind(this);
 		this.submitZipCode = this.submitZipCode.bind(this);
-		this.submitKecamatan = this.submitKecamatan.bind(this);
-		this.submitKelurahan = this.submitKelurahan.bind(this);
 		this.submitAddress = this.submitAddress.bind(this);
 		this.submitAddressDetails = this.submitAddressDetails.bind(this);
 	}
@@ -43,33 +39,13 @@ class FormDataPage extends Component {
 
     submitPhone() {
 		this.props.submitPhone();
-		this.formProvince.focus();
-    }
-
-    submitProvince() {
-		this.props.submitProvince();
-		this.formCity.focus();
-	}
-	
-	submitCity() {
-		this.props.submitCity();
 		this.formZipCode.focus();
-	}
+    }
 
 	submitZipCode() {
 		this.props.submitZipCode();
-		this.formKecamatan.focus();
-	}
-
-	submitKecamatan() {
-		this.props.submitKecamatan();
-		this.formKelurahan.focus();
-    }
-
-    submitKelurahan() {
-		this.props.submitKelurahan();
 		this.formAddress.focus();
-    }
+	}
 
     submitAddress() {
 		this.props.submitAddress();
@@ -93,6 +69,10 @@ class FormDataPage extends Component {
 					placeholder={'addressPage.label.nameAddress'}
 					onSubmitEditing={this.submitNameAddress}
 				/>
+				<VerificationText
+					validation={this.props.validateStatus.name}
+					property={'addressPage.validation.name'}
+				/>
 				<FormInput 
 					ref={c => {this.formReceiverName = c}}
 					type={'receiver_name'}
@@ -101,6 +81,10 @@ class FormDataPage extends Component {
 					label={'addressPage.label.name'}
 					placeholder={'addressPage.label.name'}
 					onSubmitEditing={this.submitReceiverName}
+				/>
+				<VerificationText
+					validation={this.props.validateStatus.receiver_name}
+					property={'addressPage.validation.receiver_name'}
 				/>
 				<FormInput 
 					ref={c => {this.formPhone = c}}
@@ -125,6 +109,10 @@ class FormDataPage extends Component {
 					label={'addressPage.label.province'}
 					placeholder={'addressPage.label.province'}
 				/>
+				<VerificationText
+					validation={this.props.validateStatus.province}
+					property={'addressPage.validation.province'}
+				/>
 				<Dropdown 
 					type={'city'}
 					data={this.props.city}
@@ -133,6 +121,10 @@ class FormDataPage extends Component {
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.city'}
 					placeholder={'addressPage.label.city'}
+				/>
+				<VerificationText
+					validation={this.props.validateStatus.city}
+					property={'addressPage.validation.city'}
 				/>
 				<Dropdown 
 					type={'subdistrict'}
@@ -143,6 +135,10 @@ class FormDataPage extends Component {
 					label={'addressPage.label.kecamatan'}
 					placeholder={'addressPage.label.kecamatan'}
 				/>
+				<VerificationText
+					validation={this.props.validateStatus.subdistrict}
+					property={'addressPage.validation.subdistrict'}
+				/>
 				<Dropdown 
 					type={'zip_code'}
 					data={this.props.zip_code}
@@ -152,9 +148,14 @@ class FormDataPage extends Component {
 					label={'addressPage.label.kelurahan'}
 					placeholder={'addressPage.label.kelurahan'}
 				/>
+				<VerificationText
+					validation={this.props.validateStatus.kelurahan}
+					property={'addressPage.validation.kelurahan'}
+				/>
 				<FormInput 
 					ref={c => {this.formZipCode = c}}
 					type={'zipCode'}
+					editable={false}
 					keyboardType={'number-pad'}
 					value={this.props.address.zip_code.zip_code}
 					onChangeText={this.onChangeText}
@@ -162,43 +163,10 @@ class FormDataPage extends Component {
 					placeholder={'addressPage.label.zipCode'}
 					onSubmitEditing={this.submitZipCode}
 				/>
-				{/* <FormInput 
-					ref={c => {this.formProvince = c}}
-					type={'province'}
-					value={this.props.address.province}
-					onChangeText={this.onChangeText}
-					label={'addressPage.label.province'}
-					placeholder={'addressPage.label.province'}
-					onSubmitEditing={this.submitProvince}
+				<VerificationText
+					validation={this.props.validateStatus.zip_code}
+					property={'addressPage.validation.zip_code'}
 				/>
-
-				<FormInput 
-					ref={c => {this.formCity = c}}
-					type={'city'}
-					value={this.props.address.city.name}
-					onChangeText={this.onChangeText}
-					label={'addressPage.label.city'}
-					placeholder={'addressPage.label.city'}
-					onSubmitEditing={this.submitCity}
-				/>
-				<FormInput 
-					ref={c => {this.formKecamatan = c}}
-					type={'kecamatan'}
-					value={this.props.address.subdistrict.name}
-					onChangeText={this.onChangeText}
-					label={'addressPage.label.kecamatan'}
-					placeholder={'addressPage.label.kecamatan'}
-					onSubmitEditing={this.submitKecamatan}
-				/>
-				<FormInput 
-					ref={c => {this.formKelurahan = c}}
-					type={'kelurahan'}
-					value={this.props.address.zip_code.place_name}
-					onChangeText={this.onChangeText}
-					label={'addressPage.label.kelurahan'}
-					placeholder={'addressPage.label.kelurahan'}
-					onSubmitEditing={this.submitKelurahan}
-				/> */}
 				<FormInput 
 					ref={c => {this.formAddress = c}}
 					type={'address'}
@@ -207,6 +175,10 @@ class FormDataPage extends Component {
 					label={'addressPage.label.address'}
 					placeholder={'addressPage.label.address'}
 					onSubmitEditing={this.submitAddress}
+				/>
+				<VerificationText
+					validation={this.props.validateStatus.address}
+					property={'addressPage.validation.address'}
 				/>
 				<FormInput 
 					ref={c => {this.formAddressDetails = c}}

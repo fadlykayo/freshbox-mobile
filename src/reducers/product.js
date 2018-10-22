@@ -41,7 +41,7 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = existingProducts.sort((a,b) => a.id - b.id).map(e => {
+    newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
         if(!e.count) e.count = 0;
         if(!e.favorite) e.favorite = false;
         return e;

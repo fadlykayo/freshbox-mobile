@@ -1,5 +1,5 @@
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-const phoneRegex = /^[0-9]{10,12}$/;
+const phoneRegex = /^[0-9]{10,13}$/;
 // const passwordRegex = /^[A-Za-z0-9!@#$%&'*+=?^_`{|}~-]{8,}$/;
 
 const validation = {};
@@ -65,6 +65,27 @@ validation.signInEmail = (email,password) => new Promise((res,rej) => {
             } else rej('passwordLength');
         } else rej('emailFormat');
     } else rej('emailLength');
+})
+
+validation.address = (address) =>  new Promise((res,rej) => {
+    if(address.name.length > 0) {
+        if(address.receiver_name.length > 0) {
+            if (phoneRegex.test(address.phone) == true) {
+                if(address.province.name.length > 0) {
+                    if(address.city.name.length > 0) {
+                        if(address.subdistrict.name.length > 0) {
+                            if(address.zip_code.place_name.length > 0) {
+                                if(address.zip_code.zip_code.length > 0) {
+                                    if(address.address.length > 0) res();
+                                    else rej('address');
+                                } else rej('zip_code');
+                            } else rej('kelurahan');
+                        } else rej('subdistrict');
+                    } else rej('city');
+                } else rej('province');
+            } else rej('phone');
+        } else rej('receiver_name');
+    } else rej('name');
 })
 
 export default validation;

@@ -32,7 +32,7 @@ const styles = {
 		fontWeight: 'normal',
 		color: colour.lightGrey,
 		marginBottom: scaling.moderateScale(5),
-    }
+	},
 }
 
 export default styles;

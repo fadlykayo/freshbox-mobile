@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import FormDataPage from '../FormDataPage';
 import StaticData from '../StaticData';
 
-class Content extends PureComponent {
+class Content extends Component {
   	constructor(props) {
   		super(props)
 	}
@@ -24,11 +24,7 @@ class Content extends PureComponent {
 						submitNameAddress={this.props.submitNameAddress}
 						submitReceiverName={this.props.submitReceiverName}
 						submitPhone={this.props.submitPhone}
-						submitProvince={this.props.submitProvince}
-						submitCity={this.props.submitCity}
 						submitZipCode={this.props.submitZipCode}
-						submitKecamatan={this.props.submitKecamatan}
-						submitKelurahan={this.props.submitKelurahan}
 						submitAddress={this.props.submitAddress}
 						submitAddressDetails={this.props.submitAddressDetails}
                     />
@@ -49,11 +45,7 @@ class Content extends PureComponent {
                             submitNameAddress={this.props.submitNameAddress}
 						    submitReceiverName={this.props.submitReceiverName}
 						    submitPhone={this.props.submitPhone}
-						    submitProvince={this.props.submitProvince}
-						    submitCity={this.props.submitCity}
 						    submitZipCode={this.props.submitZipCode}
-						    submitKecamatan={this.props.submitKecamatan}
-						    submitKelurahan={this.props.submitKelurahan}
 						    submitAddress={this.props.submitAddress}
 						    submitAddressDetails={this.props.submitAddressDetails}
                         />
@@ -69,6 +61,7 @@ class Content extends PureComponent {
                         />
                     )
                 }
+            default: return null;
         }
   	}
 }

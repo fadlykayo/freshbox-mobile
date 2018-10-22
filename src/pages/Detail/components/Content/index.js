@@ -40,29 +40,12 @@ class Content extends PureComponent {
 							style={styles.fontTitle}
 							property={'cart.content.price'}
 						/>
-						{productPrice}{this.props.data.unit}
+						{productPrice}<Text style={styles.fontPack}>/{this.props.data.unit}</Text>
 					</Text>
 				</View>
 			)
 			default: return null
 		}
-		// return (
-		// 	<View style={styles.contentContainer}>
-		// 		<Text style={styles.fontTitle}>{this.props.data.title}</Text>
-		// 		<Text style={styles.fontCategory}>{this.props.data.category}</Text>
-		// 		<Text style={styles.fontTitle}>
-		// 			<StaticText 
-		// 				style={styles.fontTitle}
-		// 				property={'cart.content.price'}
-		// 			/>
-		// 			{productPrice}
-		// 			<StaticText 
-		// 				style={styles.fontPack}
-		// 				property={'cart.content.pack'}
-		// 			/>
-		// 		</Text>
-		// 	</View>
-		// );
 	}
 }
 

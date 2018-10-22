@@ -39,20 +39,19 @@ const styles = {
         width: scaling.moderateScale(10),
     },
     dropdownPlace: {
-        position: 'absolute',
-        maxHeight: height * 0.3,
+        maxHeight: scaling.moderateScale(200),
         width: width * 0.9,
         backgroundColor: colour.white,
-        borderColor: colour.grey,
-        borderWidth: 0.5,
-        top: scaling.moderateScale(55),
-        zIndex: 2
+        borderColor: colour.lightGrey,
+        borderWidth: 1,
+        borderRadius: 4,
+        marginBottom: scaling.moderateScale(10),
     },
     dropdown: {
-        height: height * 0.07,
+        height: scaling.moderateScale(50),
         width: width * 0.9,
-        borderColor: colour.darkGrey,
-        borderWidth: 0.5,
+        borderColor: colour.lightGrey,
+        borderBottomWidth: 1,
         alignItems: 'center',
         justifyContent: 'center'
     }
