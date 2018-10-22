@@ -363,6 +363,8 @@
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
             "briVA": "BRI Virtual Account",
+            "bniVA": "BNI Virtual Account",
+            "permataVA": "Permata Virtual Account",
             "checkout": "Bayar"
         }
     },
