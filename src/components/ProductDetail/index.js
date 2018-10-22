@@ -1,11 +1,11 @@
 import React,{ Component } from 'react';
 import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
-import ContentDetail from '../ContentDetail';
+import Content from './components/Content';
 import ButtonCount from '@components/ButtonCount';
 import styles from './styles';
 import images from '@assets';
 
-class DetailProduct extends Component {
+class ProductDetail extends Component {
 	constructor(){
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
@@ -56,7 +56,7 @@ class DetailProduct extends Component {
 									style={styles.icon.product}
 								/>
 							</View>
-							<ContentDetail data={this.props.data}/>
+							<Content data={this.props.data}/>
 							<View style={styles.favoriteComponent}>
 							{ this.props.user ? (
 								<TouchableOpacity
@@ -95,4 +95,4 @@ class DetailProduct extends Component {
 	}
 }
 
-export default DetailProduct;
+export default ProductDetail;

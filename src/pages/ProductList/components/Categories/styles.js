@@ -5,49 +5,49 @@ import { colour } from '@styles';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    overlay: {
-        flex: 1,
+    background: {
         position: 'absolute',
         left: 0,
         top: 0,
         right: 0,
         bottom: 0,
+        flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        width: width,
-        height: height,
         backgroundColor: colour.darkGreyTransparent,
     },
     container: {
         width: width,
-        height: height * 0.55,
-        borderRadius: 8,
+        height: height * 0.5,
+        borderTopRightRadius: 8,
+        borderTopLeftRadius: 8,
         backgroundColor: colour.white,
     },
-    topComponent: {
-        flex: -1,
-        justifyContent: 'space-between',
-        height: height * 0.11,
-        paddingLeft: width* 0.05,
-        paddingRight: width* 0.05,
+    subcontainer:{
+        title:{
+            flex: -1,
+            marginHorizontal: width* 0.05,
+            paddingBottom: scaling.moderateScale(5),
+            borderColor: colour.grey,
+            borderBottomWidth: 1,
+        },
+        button:{
+            alignItems: 'center',
+            paddingBottom: scaling.moderateScale(5),
+        }
     },
-    scrollDownButton: {
-        alignItems: 'center',
+    text:{
+        title:{
+            fontFamily: 'Avenir-Heavy',
+            fontSize: scaling.moderateScale(20),
+            fontWeight: '800',
+            color: colour.darkGrey,
+        }
     },
-    staticText: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(20),
-        fontWeight: '800',
-        color: colour.darkGrey,
-    },
-    scrollView: {
-        marginTop: scaling.moderateScale(9),
-    },
-    logo: {
-        height: scaling.moderateScale(45),
-        width: scaling.moderateScale(45),
-        marginBottom: scaling.moderateScale(5),
-    },
+    icon:{
+        height: scaling.moderateScale(36),
+        width: scaling.moderateScale(36),
+    }
 }
 
 export default styles;

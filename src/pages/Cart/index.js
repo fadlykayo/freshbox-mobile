@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import Checkout from './components/Checkout';
-import CartComponent from './components/CartComponent';
-import DetailProduct from './components/DetailProduct';
 import Container from '@components/Container';
+import ProductItem from '@components/ProductItem';
+import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
+import Checkout from './components/Checkout';
+import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import styles from './styles';
-import { connect } from 'react-redux';
 import actions from '@actions';
 
 
@@ -18,14 +19,15 @@ class Cart extends Component {
 			totalPrice: 0,
 			modalVisible: {
 				openProduct: false,
+				modalLoginConfirmation: false,
 			},
 		}
-		this.onChangeText = this.onChangeText.bind(this);
 		this.updateDetail = this.updateDetail.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
+		this.navigateToSignIn = this.navigateToSignIn.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
@@ -38,14 +40,8 @@ class Cart extends Component {
 		return true;
 	}
 
-	onChangeText(type,value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
-	}
-
 	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
         modalVisible[type] = value;
         this.setState({modalVisible});
 	}
@@ -82,7 +78,7 @@ class Cart extends Component {
 			buyProducts.push(product)
 		}) 
 
-		if (this.props.user) {
+		if(this.props.user){
 			let payload = {
 				header: {
 					apiToken: this.props.user.authorization
@@ -100,9 +96,16 @@ class Cart extends Component {
 				})
 		}
 		else {
-			actNav.navigate(navConstant.SignIn, { action: 'guestLogin' })
+			this.setModalVisible('modalLoginConfirmation',true);
 		}
 	}
+
+	navigateToSignIn(){
+		this.setModalVisible('modalLoginConfirmation',false);
+		actNav.navigate(navConstant.SignIn,{
+			action: 'guestLogin'
+		});
+	};
 
 	navigateBack(){
 		actNav.goBack();
@@ -124,13 +127,15 @@ class Cart extends Component {
 							data={this.props.cart_product}
 							keyExtractor={(item) => item.code}
 							renderItem={({item,index}) => (
-								<CartComponent 
+								<ProductItem 
+									key={index}
 									data={item}
-									index={index} 
+									index={index+1} 
+									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
+									productLength={this.props.cart_product.length}
 									openDetailProduct={this.openDetailProduct}
-									user={this.props.user}
 								/>
 							)}
 						/>
@@ -141,7 +146,7 @@ class Cart extends Component {
 						onPress={this.navigateToCheckout}
 					/>
 				</View>
-				<DetailProduct
+				<ProductDetail
 					user={this.props.user}
 					data={this.props.productDetail}
 					updateDetail={this.updateDetail}
@@ -150,27 +155,31 @@ class Cart extends Component {
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
 				/>
+				<ModalLoginConfirmation
+					onPress={this.navigateToSignIn} 
+					modalVisible={this.state.modalVisible.modalLoginConfirmation}
+				/>
 			</Container>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-		user: state.user.data,
-		cart_product: state.product.cart.products,
-		index_product: state.product.cart.index,
-		product: state.product.products,
-		total_price: state.product.total.price,
-		total_count: state.product.total.count,
-		productDetail: state.product.detail,
+	user: state.user.data,
+	cart_product: state.product.cart.products,
+	index_product: state.product.cart.index,
+	product: state.product.products,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	productDetail: state.product.detail,
 })
 
 const mapDispatchToProps = dispatch => ({
-		get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
-		change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
-		toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-		detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-		bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+	get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
+	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 })
 
 

@@ -144,7 +144,7 @@
             "checkout": "Checkout"
         },
         "content": {
-            "default": "Semua Kategori",
+            "default": "Semua",
             "subTotal": "Sub Total",
             "pack": "/1 ",
             "addItem": "+ Tambah",
@@ -373,7 +373,16 @@
         "title": "SUKSES"
     },
     "button": {
-        "close": "TUTUP"
+        "close": "TUTUP",
+        "login": "MASUK"
+    },
+    "modal":{
+        "title":{
+            "loginConfirmation": "Sebelum anda membayar"
+        },
+        "content":{
+            "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran."
+        }
     },
     "message":{
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",

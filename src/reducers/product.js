@@ -21,7 +21,7 @@ const initialState = {
     delivery_price: 0
 }
 
-const getData = (state, payload) => {
+const getProducts = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let incomingProducts = payload.data.data;
     let existingProducts = newState.products.slice();
@@ -41,7 +41,7 @@ const getData = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = existingProducts.map(e => {
+    newState.products = existingProducts.sort((a,b) => a.id - b.id).map(e => {
         if(!e.count) e.count = 0;
         if(!e.favorite) e.favorite = false;
         return e;
@@ -191,7 +191,7 @@ const getDeliveryPrice = (state, payload) => {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ct.GET_PRODUCTS : return getData(state, action.payload)
+        case ct.GET_PRODUCTS : return getProducts(state, action.payload)
         case ct.GET_CATEGORIES: return getCategories(state, action.payload)
         case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
         case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)

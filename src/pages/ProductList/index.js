@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, FlatList, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
-import CartComponent from './components/CartComponent';
+import ProductItem from '@components/ProductItem';
+import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
-import DetailProduct from './components/DetailProduct';
 import Categories from './components/Categories';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -273,13 +273,15 @@ class ProductList extends Component {
 							keyExtractor={(item) => item.code}
 							nes
 							renderItem={({item,index}) => (
-								<CartComponent
+								<ProductItem
+									key={index}
 									data={item}
-									index={index} 
+									index={index+1}
+									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
+									productLength={this.props.product.length}
 									openDetailProduct= {this.openDetailProduct}
-									user={this.props.user}
 								/>
 							)}
 							onEndReached={this.handleLoadMore}
@@ -288,15 +290,15 @@ class ProductList extends Component {
 						{ 
 							this.props.total_count > 0 
 							? 	<Checkout
-									totalCount={ this.props.total_count }
-									totalPrice={ this.props.total_price }
+									totalCount={this.props.total_count}
+									totalPrice={this.props.total_price}
 									onPress={this.navigateToCart}
 								/>
 							: 	null
 						}
 					</View>
 				</View>
-				<DetailProduct
+				<ProductDetail
 					user={this.props.user}
 					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}

@@ -1,6 +1,6 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, View, Image, TouchableWithoutFeedback, ScrollView, Text } from 'react-native';
-import ListCategoryComponent from '../ListCategoryComponent';
+import { TouchableOpacity, View, Image } from 'react-native';
+import ListCategory from './components/ListCategory';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
@@ -8,36 +8,35 @@ import images from '@assets';
 class OpenCategories extends PureComponent {
 	constructor(props){
 		super(props);
-		this.closeDialogCategories = this.closeDialogCategories.bind(this);
+		this.closeCategory = this.closeCategory.bind(this);
 	}
 
-	closeDialogCategories(){
+	closeCategory(){
 		this.props.closeDialogCategories();
 	}
 
 	render(){
 		if(this.props.modalVisible){
 			return(
-				<View style={styles.overlay}>
+				<View style={styles.background}>
 					<View style={styles.container}>
-						<View style={styles.topComponent}>
-							<View style={styles.scrollDownButton}>
-								<TouchableWithoutFeedback
-									onPress={this.closeDialogCategories}
-								>
-									<Image
-										resizeMode={'contain'}
-										source={images.icon_scroll_down}
-										style={styles.logo}
-									/>
-								</TouchableWithoutFeedback>
-							</View>
+						<View style={styles.subcontainer.title}>
+							<TouchableOpacity
+								onPress={this.closeCategory}
+								style={styles.subcontainer.button}
+							>
+								<Image
+									resizeMode={'contain'}
+									source={images.icon_scroll_down}
+									style={styles.icon}
+								/>
+							</TouchableOpacity>
 							<StaticText
-								style={styles.staticText}
+								style={styles.text.title}
 								property={'productList.content.categories'}
 							/>
 						</View>
-						<ListCategoryComponent
+						<ListCategory
 							categories={this.props.categories}
 							changeCategory={this.props.changeCategory}
 						/>
