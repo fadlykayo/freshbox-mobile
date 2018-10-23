@@ -9,6 +9,7 @@ class StaticData extends PureComponent {
 		super()
 		this.editPress = this.editPress.bind(this);
 		this.deletePress = this.deletePress.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
     }
 
 	editPress() {
@@ -17,6 +18,10 @@ class StaticData extends PureComponent {
 
 	deletePress() {
 		this.props.deletePress()
+	}
+
+	setModalVisible() {
+		this.props.setModalVisible(this.props.type)
 	}
 
     render() {
@@ -67,11 +72,6 @@ class StaticData extends PureComponent {
 					onPress={this.editPress}
 					title={this.props.edit}
 				/>
-				<Button
-					type={'red'}
-					onPress={this.deletePress}
-					title={this.props.delete}
-				/>		
 			</View>
         );
     }

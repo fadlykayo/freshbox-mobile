@@ -3,8 +3,9 @@ import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
-import NavigationBar from '@components/NavigationBar';
+import NavigationBar from './components/NavigationBar';
 import Content from './components/Content';
+import AlertDialog from './components/AlertDialog';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -49,7 +50,12 @@ class AddressPage extends Component {
                 address: true,
 			},
 			isEdit: false,
-			content: {}
+			content: {},
+			modalVisible: {
+				dialog: false,
+			},
+			action: '',
+			address_code: ''
 		}
 		this.onChangeText = this.onChangeText.bind(this);
 		this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
@@ -72,6 +78,9 @@ class AddressPage extends Component {
 		this.loadSubdistrict = this.loadSubdistrict.bind(this);
 		this.loadZipCode = this.loadZipCode.bind(this);
 		this.deleteAddress = this.deleteAddress.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.setAction = this.setAction.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
 	}
 
 	setStateValidation(input) {
@@ -274,7 +283,9 @@ class AddressPage extends Component {
 
 	deleteAddress() {
 		let payload = {
-			header: this.props.user.authorization,
+			header: {
+				apiToken: this.props.user.authorization
+			},
 			addressCode: this.props.address_detail.code
 		}
 
@@ -283,7 +294,7 @@ class AddressPage extends Component {
 				actNav.goBack()
 			},
 			(err) => {
-				console.log(err)
+				console.log("error nih", err)
 			})
 	}
 
@@ -356,6 +367,23 @@ class AddressPage extends Component {
 		}
 	}
 
+	setModalVisible(type) {
+		let modalVisible = this.state.modalVisible;
+		modalVisible[type] = !modalVisible[type]
+		this.setState({modalVisible})
+	}
+
+	setAction(type, action) {
+		this.setModalVisible(type)
+		let state = this.state;
+		state.action = action;
+		this.setState(state)
+	}
+
+	navigateBack() {
+		actNav.goBack()
+	}
+
   	render() {
 		return (
 			<Container 				
@@ -363,14 +391,19 @@ class AddressPage extends Component {
 				bgColorTop={'red'} 			
 			>
 				<NavigationBar
+					type={'dialog'}
 					title={'addressPage.navigationTitle'}
-					onPress={actNav.goBack}
+					isEdit={this.state.isEdit}
+					action={this.props.navigation.state.params.action}
+					backPress={actNav.goBack}
+					setAction={this.setAction}
 				/>
 				<ScrollView
 					contentContainerStyle={this.state.content}
 					keyboardDismissMode={'on-drag'}
 				>
 					<Content
+						type={'dialog'}
 						province={this.props.province}
 						city={this.props.city}
 						subdistrict={this.props.subdistrict}
@@ -390,8 +423,19 @@ class AddressPage extends Component {
 						submitZipCode={this.submitZipCode}
 						submitAddress={this.submitAddress}
 						submitAddressDetails={this.submitAddressDetails}
+						setModalVisible={this.setModalVisible}
 					/>
 				</ScrollView>
+				<AlertDialog
+					type={'dialog'}
+					isEdit={this.state.isEdit}
+					navigateBack={this.navigateBack}
+					deleteAddress={this.deleteAddress}
+					action={this.state.action}
+					modalVisible={this.state.modalVisible.dialog}
+					setModalVisible={this.setModalVisible}
+					addressValidation={this.addressValidation}
+				/>
 			</Container>
 		);
   	}
