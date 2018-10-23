@@ -236,11 +236,19 @@
         },
         "button": {
             "edit": "Edit",
-            "save": "Save"
+            "save": "Simpan",
+            "delete": "Hapus"
         },
         "validation":{
-            "fullName": "please input your name",
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "name": "Tolong masukkan simpan alamat",
+            "receiver_name": "Tolong masukkan nama penerima",
+            "phone": "Tolong masukkan nomor telepon diantara 9 sampai 15 digit",
+            "province": "Tolong pilih provinsi",
+            "city": "Tolong pilih kota",
+            "subdistrict": "Tolong pilih kecamatan",
+            "kelurahan": "Tolong pilih kelurahan",
+            "zip_code": "Tolong masukkan kode pos",
+            "address": "Tolong masukkan alamat"
         }
     },
     "resetPasswordPage": {

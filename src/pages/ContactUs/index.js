@@ -70,6 +70,7 @@ class ContactUs extends Component {
 					</View>
 					<View style={styles.bottomComponent}>
 						<Button
+							type={'red'}
 							title={'contactUs.button.submit'}
 							onPress={this.submitInformation}
 						/>

@@ -30,4 +30,15 @@ action.load_zip_code = (data) => ({
     }
 })
 
+action.clear_region = (data) => ({
+    type: ct.CLEAR_REGION,
+    payload: {
+        data
+    }
+})
+
+action.reset_region = () => ({
+    type: ct.RESET_REGION,
+})
+
 export default action;

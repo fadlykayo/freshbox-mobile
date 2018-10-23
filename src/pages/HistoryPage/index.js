@@ -11,34 +11,6 @@ import actions from '@actions';
 class HistoryPage extends Component {
   	constructor(props) {
   		super(props)
-		this.state = {
-			historyData: [
-				{
-					id: '1',
-					name: 'TRNS01/123123/18',
-					date: '18 Aug 2018',
-					price: 782000,
-					status: 'On Process',
-					isCompleted: false
-				},
-				{
-					id: '2',
-					name: 'TRNS01/123123/18',
-					date: '18 Aug 2018',
-					price: 789000,
-					status: 'Success',
-					isCompleted: true
-				},
-				{
-					id: '3',
-					name: 'TRNS01/123123/18',
-					date: '18 Aug 2018',
-					price: 72000,
-					status: 'Success',
-					isCompleted: true
-				},
-			]
-		},
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}

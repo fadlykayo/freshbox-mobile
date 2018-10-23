@@ -19,7 +19,7 @@ class SignIn extends Component {
         this.state={
             user:{
                 email: 'alibaihaqi1704@gmail.com',
-                password: 'ali12346'
+                password: 'ali12345'
             },
             validateStatus:{
                 emailFormat: true,

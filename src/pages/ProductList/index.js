@@ -287,7 +287,6 @@ class ProductList extends Component {
 						<FlatList
 							data={this.props.product}
 							keyExtractor={(item) => item.code}
-							nes
 							renderItem={({item,index}) => (
 								<ProductItem
 									key={index}
