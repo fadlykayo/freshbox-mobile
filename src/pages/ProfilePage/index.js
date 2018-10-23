@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
-import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import PhotoComponent from './components/PhotoComponent';
 import Content from './components/Content';
@@ -66,6 +65,7 @@ class ProfilePage extends Component {
             }
             else {
                 // console.log("===>",response)
+
                 let data = {
                     uri: response.uri,
                     type: response.type,

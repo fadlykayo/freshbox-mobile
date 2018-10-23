@@ -50,7 +50,6 @@ class AddressPage extends Component {
                 address: true,
 			},
 			isEdit: false,
-			content: {},
 			modalVisible: {
 				dialog: false,
 			},
@@ -399,7 +398,6 @@ class AddressPage extends Component {
 					setAction={this.setAction}
 				/>
 				<ScrollView
-					contentContainerStyle={this.state.content}
 					keyboardDismissMode={'on-drag'}
 				>
 					<Content
