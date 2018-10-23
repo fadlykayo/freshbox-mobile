@@ -234,6 +234,12 @@
             "address": "Alamat",
             "addressDetails": "Detail Alamat (Opsional)"
         },
+        "info": {
+            "delete": "Apakah Anda yakin ingin menghapus alamat ini?",
+            "edit": "Apakah Anda ingin menyimpan perubahan data alamat ini?",
+            "yes": "IYA",
+            "no": "TIDAK"
+        },
         "button": {
             "edit": "Edit",
             "save": "Simpan",

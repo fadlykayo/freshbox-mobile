@@ -35,10 +35,8 @@ class Checkout extends Component {
 	}
 
 	componentDidMount() {
-		this.getDeliveryPrice()
-		if (this.props.addresses.length == 0) {
-			this.getAddress()
-		}
+		this.getDeliveryPrice();
+		this.getAddress();
 	}
 
 	getDeliveryPrice() {

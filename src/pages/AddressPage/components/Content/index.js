@@ -54,10 +54,12 @@ class Content extends Component {
                 else {
                     return (
                         <StaticData
+                            type={this.props.type}
                             address={this.props.address}
                             isEdit={this.props.isEdit}
                             editPress={this.props.editAddressPage}
                             deletePress={this.props.deleteAddress}
+                            setModalVisible={this.props.setModalVisible}
                             edit={'addressPage.button.edit'}
                             delete={'addressPage.button.delete'}
                         />
