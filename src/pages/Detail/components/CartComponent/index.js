@@ -48,14 +48,14 @@ class CartComponent extends PureComponent {
 							{ this.props.action == 'history'
 								? (
 								<Text style={styles.itemText}>
-									{this.props.data.pack}<StaticText 
+									{this.props.data.pack} <StaticText 
 									property={'historyDetail.content.pack'}
 									/>
 								</Text>
 								)
 								: (
 								<Text style={styles.itemText}>
-									{this.props.data.count}{this.props.data.unit}
+									{this.props.data.count} {this.props.data.unit}
 								</Text>
 								)
 							}

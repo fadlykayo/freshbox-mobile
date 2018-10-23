@@ -11,6 +11,9 @@ class TotalPrice extends Component {
     }
 
   	render() {
+        const subTotal = numeral(this.props.subTotal).format('0,0');
+        const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
+        const grandTotal = numeral(this.props.grandTotal).format('0,0');
   	  	return (
             <View style={styles.container}>
                 <View style={styles.topComponent}>
@@ -20,7 +23,7 @@ class TotalPrice extends Component {
                             property={'checkout.content.subTotal'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.subTotal).format('0,0')}</Text>
+                        property={'checkout.content.price'}/>{subTotal}</Text>
                     </View>
                     <View style={styles.spaceBetweenData}>
                         <StaticText
@@ -28,7 +31,7 @@ class TotalPrice extends Component {
                             property={'checkout.content.delivery'}
                         />
                         <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
+                        property={'checkout.content.price'}/>{deliveryPrice}</Text>
                     </View>
                     <View style={styles.grandTotal}>
                         <StaticText
@@ -36,7 +39,7 @@ class TotalPrice extends Component {
                             property={'checkout.content.grandTotal'}
                         />
                         <Text style={styles.grandPrice}><StaticText
-                        property={'checkout.content.price'}/>{numeral(this.props.grandTotal).format('0,0')}</Text>
+                        property={'checkout.content.price'}/>{grandTotal}</Text>
                     </View>
                 </View>
                 <Button

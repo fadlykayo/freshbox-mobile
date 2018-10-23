@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { View, ScrollView, FlatList, TouchableOpacity, Image, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import { language } from '@helpers';
 import images from '@assets';
@@ -97,14 +97,14 @@ class Dropdown extends Component {
                         nestedScrollEnabled={true}
                         style={styles.dropdownPlace}
                         data={this.props.data}
-                        keyExtractor={(item) => item.code}
+                        keyExtractor={(item, index) => index.toString()}
 					    renderItem={({item,index}) => (
                             <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
                                 this.onChangeText(item)
                                 this.showDropdown()
                                 }
                             }>
-                                <Text>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
+                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
                             </TouchableOpacity>
 					    )}
                     />

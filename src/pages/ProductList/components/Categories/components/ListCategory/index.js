@@ -15,7 +15,7 @@ class ListCategoryComponent extends PureComponent {
 					{ 
 						this.props.categories.map((category) => 
 							<CategoryItems 
-								key={category.id}
+								key={category.code}
 								category={category}
 								changeCategory={this.props.changeCategory}
 							/>

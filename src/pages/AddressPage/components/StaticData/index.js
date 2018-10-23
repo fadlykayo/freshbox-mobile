@@ -7,11 +7,16 @@ import styles from './styles';
 class StaticData extends PureComponent {
     constructor() {
 		super()
-		this.onPress = this.onPress.bind(this);
+		this.editPress = this.editPress.bind(this);
+		this.deletePress = this.deletePress.bind(this);
     }
 
-	onPress() {
-		this.props.onPress()
+	editPress() {
+		this.props.editPress()
+	}
+
+	deletePress() {
+		this.props.deletePress()
 	}
 
     render() {
@@ -59,9 +64,14 @@ class StaticData extends PureComponent {
 				/>
 				<Button
 					type={'white'}
-					onPress={this.onPress}
-					title={this.props.title}
-				/>	
+					onPress={this.editPress}
+					title={this.props.edit}
+				/>
+				<Button
+					type={'red'}
+					onPress={this.deletePress}
+					title={this.props.delete}
+				/>		
 			</View>
         );
     }
