@@ -48,7 +48,6 @@ class ChoosePayment extends Component {
             >
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
-			    	onPress={actNav.goBack}
 			    />
                 <View style={styles.container}>
                     <View style={styles.content}>

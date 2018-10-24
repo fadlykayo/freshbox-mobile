@@ -33,7 +33,6 @@ export const DrawerBar = createDrawerNavigator({
     ProductList: {screen: ProductList},
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
-    HistoryPage: {screen: HistoryPage},
     TermsConditions: {screen: TermsConditions},
     ContactUs: {screen: ContactUs}
 }, {
@@ -54,6 +53,7 @@ export const AppNavigator = createStackNavigator({
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
+    HistoryPage: {screen: HistoryPage},
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
     ResetNewPasswordPage: {screen: ResetNewPasswordPage},
     ChooseAddress: {screen: ChooseAddress},

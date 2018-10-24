@@ -22,7 +22,6 @@ class Detail extends Component {
         this.toggleFavorite = this.toggleFavorite.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
         this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
-        this.navigateBack = this.navigateBack.bind(this);
         this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
     }
     
@@ -62,10 +61,6 @@ class Detail extends Component {
     navigateToChoosePayment(){
         actNav.navigate(navConstant.ChoosePayment,this.props.navigation.state.params);
 	}
-	
-	navigateBack(){
-		actNav.goBack();
-	}
 
   	render() {
 
@@ -76,7 +71,6 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
-					onPress={this.navigateBack}
 				/>
   	  	  		<ScrollView style={styles.container}>
                     <DetailOrder

@@ -69,12 +69,11 @@ class VirtualAccount extends Component {
         this.props.create_order(payload,
             (success) => {
                 console.log("SUCCESS ORDER", success)
-                this.props.clear_products();
-                // actNav.navigate(navConstant.HistoryPage,{
-                //     action: 'createOrder',
-                //     ...this.props.navigation.state.params
-                // });
-                actNav.goBack(this.props.navigation.state.params.key);
+                // this.props.clear_products();
+                actNav.navigate(navConstant.HistoryPage,{
+                    action: 'createOrder',
+                    ...this.props.navigation.state.params
+                });
             },
             (err) => {
                 console.log(err)
@@ -90,7 +89,6 @@ class VirtualAccount extends Component {
             >
                 <NavigationBar
 			    	title={'virtualAccount.navigationTitle'}
-			    	onPress={actNav.goBack}
 			    />
                 <ScrollView style={styles.container}>
                     { 

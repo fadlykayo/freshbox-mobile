@@ -23,7 +23,6 @@ class Cart extends Component {
 			},
 		}
 		this.updateDetail = this.updateDetail.bind(this);
-		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -31,13 +30,6 @@ class Cart extends Component {
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
-	}
-
-	shouldComponentUpdate(nextProps){
-		if(nextProps.cart_product.length == 0){
-			this.navigateBack();
-		}
-		return true;
 	}
 
 	setModalVisible(type,value){
@@ -89,6 +81,7 @@ class Cart extends Component {
 			this.props.bulk_add_products(payload,
 				(success) => {
 					// console.log("Ini datanya", success)
+					console.log('state key', this.props.navigation.state);
 					actNav.navigate(navConstant.Checkout,{
 						key: this.props.navigation.state.key
 					});
@@ -109,10 +102,6 @@ class Cart extends Component {
 		});
 	};
 
-	navigateBack(){
-		actNav.goBack();
-	}
-
 	render(){
 		return (
 			<Container
@@ -121,7 +110,6 @@ class Cart extends Component {
 			>
 				<NavigationBar 
 					title={'cart.navigationTitle'}
-					onPress={this.navigateBack}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>

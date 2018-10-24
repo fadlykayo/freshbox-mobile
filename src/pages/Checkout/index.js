@@ -153,7 +153,6 @@ class Checkout extends Component {
 			>
 				<NavigationBar
 					title={'checkout.navigationTitle'}
-					onPress={actNav.goBack}
 				/>
 				<View style={styles.container}>
 					<DeliveryPlace
