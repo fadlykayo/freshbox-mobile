@@ -127,7 +127,6 @@ helper.put = (payload,dispatch) => new Promise((resolve,reject) => {
 });
 
 helper.delete = (payload,dispatch) => new Promise((resolve,reject) => {
-    // console.log("mau delete",payload)
     dispatch(actNetwork.set_loading_status(true));
     apiInstance.delete(
         payload.path,

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { ScrollView } from 'react-native';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
-import numeral from 'numeral';
 import styles from './styles';
 
 class TermsConditions extends Component {
