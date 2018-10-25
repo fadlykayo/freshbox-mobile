@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
+import AlertDialog from '@components/AlertDialog'; 
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
@@ -19,8 +20,10 @@ class Cart extends Component {
 			totalPrice: 0,
 			modalVisible: {
 				openProduct: false,
+				alertDialog: false,
 				modalLoginConfirmation: false,
 			},
+			selectedProduct: null,
 		}
 		this.updateDetail = this.updateDetail.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -30,6 +33,8 @@ class Cart extends Component {
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
+		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
+		this.clearProductCancelation = this.clearProductCancelation.bind(this);
 	}
 
 	setModalVisible(type,value){
@@ -57,18 +62,34 @@ class Cart extends Component {
 	}
 
 	changeTotalItem(payload,type){
-		this.props.change_total(payload,type);
+		if(payload.count == 1 && type == 'desc'){
+			this.setState({selectedProduct: payload},() => {
+				this.setModalVisible('alertDialog',true);
+			});
+		}
+		else{
+			this.props.change_total(payload,type);
+		}
+	}
+
+	clearProductConfirmation(){
+		this.props.change_total(this.state.selectedProduct,'desc');
+		this.setModalVisible('alertDialog',false);
+	}
+
+	clearProductCancelation(){
+		this.setModalVisible('alertDialog',false);
 	}
 
 	navigateToCheckout(){
 		let buyProducts = [];
 
 		this.props.cart_product.map((cart) => {
-			let product = {};
-			product.product_code = cart.code;
-			product.qty = cart.count
-			buyProducts.push(product)
-		}) 
+			buyProducts.push({
+				product_code: cart.code,
+				qty: cart.count,
+			});
+		});
 
 		if(this.props.user){
 			let payload = {
@@ -76,19 +97,18 @@ class Cart extends Component {
 					apiToken: this.props.user.authorization
 				},
 				body: buyProducts
-			}
+			};
 
 			this.props.bulk_add_products(payload,
-				(success) => {
-					// console.log("Ini datanya", success)
-					console.log('state key', this.props.navigation.state);
+				(res) => {
 					actNav.navigate(navConstant.Checkout,{
 						key: this.props.navigation.state.key
 					});
 				},
 				(err) => {
-					console.log(err)
-				})
+
+				}
+			)
 		}
 		else {
 			this.setModalVisible('modalLoginConfirmation',true);
@@ -117,10 +137,11 @@ class Cart extends Component {
 							data={this.props.cart_product}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
-								<ProductItem 
+								<ProductItem
 									key={index}
 									data={item}
-									index={index+1} 
+									type={'cart'}
+									index={index+1}
 									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
@@ -149,6 +170,15 @@ class Cart extends Component {
 					onPress={this.navigateToSignIn} 
 					modalVisible={this.state.modalVisible.modalLoginConfirmation}
 				/>
+				<AlertDialog
+					modalVisible={this.state.modalVisible.alertDialog} 
+					content={'dialog.clearProduct'}
+					params={{
+						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
+					}}
+					requestHandler={this.clearProductConfirmation}
+					requestCancel={this.clearProductCancelation}
+				/>
 			</Container>
 		);
 	}
@@ -165,11 +195,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	get_products : (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
-	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
 })
 
 
