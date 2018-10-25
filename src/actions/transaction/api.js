@@ -2,6 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
+import { language } from '@helpers';
 
 const actions = {};
 
@@ -38,7 +39,16 @@ actions.bulk_add_products = (req,success,failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-					case 400: return dispatch(actReducer.validate_cart(err.data));
+					case 400: 
+						dispatch(actReducer.validate_cart(err.data));
+						language.transformText('message.outOfStockCart')
+						.then(message => {
+							dispatch(actNetwork.set_error_status({
+								status: true,
+								data: message
+							}));
+						});
+						break;
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,

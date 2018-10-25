@@ -10,15 +10,23 @@ class VerificationText extends PureComponent {
     render(){
         if(this.props.type == 'cart'){
             if(this.props.count > this.props.maxQty){
-                return(
+                if(this.props.maxQty == 0){
                     <StaticText 
                         style={styles.text}
-                        property={'verification.maxQuantity'}
-                        params={{
-                            qty: this.props.maxQty
-                        }}
+                        property={'verification.outOfStock'}
                     />
-                )
+                }
+                else{
+                    return(
+                        <StaticText 
+                            style={styles.text}
+                            property={'verification.maxQuantity'}
+                            params={{
+                                qty: this.props.maxQty
+                            }}
+                        />
+                    )
+                }
             }
             else return null;
         }

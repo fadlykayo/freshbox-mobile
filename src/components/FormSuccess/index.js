@@ -25,7 +25,11 @@ class RegisterSuccess extends PureComponent {
 							<View style={styles.subcontainer.right}>
 								<StaticText
 									style={styles.title}
-									property={'formSuccess.title'}
+									property={
+										this.props.successTitle.length > 0
+										? this.props.successTitle
+										: 'formSuccess.title.default'
+									}	
 								/>
 								<Text style={styles.content}>{this.props.successMessage}</Text>
 							</View>

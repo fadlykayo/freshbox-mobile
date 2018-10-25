@@ -149,6 +149,7 @@ const editTotal = (state,payload) => {
     for(i in cart_product){
         total = total + (cart_product[i].price * cart_product[i].count);
         count = count + cart_product[i].count;
+        cart_product[i].maxQty = payload.data.maxQty;
     }
 
     newState.total.count = count;
@@ -196,9 +197,9 @@ const validateCart = (state,payload) => {
     let newCart = newState.cart.products.slice();
 
     for(x in newCart){
-        let result = payload.find(item => item.product_code == newCart[x].code);
+        let result = payload.data.find(item => item.product_code == newCart[x].code);
         if(result){
-            newCart[x].maxQty = result.maxQty;
+            newCart[x].maxQty = result.max_qty;
         }
     }
 
@@ -218,7 +219,7 @@ const productReducer = (state = initialState, action) => {
         case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
         case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
         case ct.CLEAR_PRODUCTS: return clearProducts(state)
-        case ct.VALIDATE_CART: return validateCart(state)
+        case ct.VALIDATE_CART: return validateCart(state,action.payload)
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

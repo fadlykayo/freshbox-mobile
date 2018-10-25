@@ -383,10 +383,14 @@
         }
     },
     "formError":{
-        "title": "GAGAL"
+        "title": {
+            "default": "GAGAL"
+        }
     },
     "formSuccess":{
-        "title": "SUKSES"
+        "title": {
+            "default": "SUKSES"
+        }
     },
     "button": {
         "close": "TUTUP",
@@ -406,13 +410,15 @@
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi.",
         "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
-        "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda."
+        "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
+        "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran."
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"
     },
     "verification":{
-        "maxQuantity": "Hanya tersedia {qty} pack"
+        "maxQuantity": "Hanya tersedia {qty} pack",
+        "outOfStock": "Barang telah habis"
     },
     "loading": "Mohon tunggu"
 }

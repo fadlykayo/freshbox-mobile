@@ -25,7 +25,11 @@ class RegisterSuccess extends Component {
 							<View style={styles.subcontainer.right}>
 								<StaticText
 									style={styles.title}
-									property={'formError.title'}
+									property={
+										this.props.errorTitle.length > 0
+										? this.props.errorTitle
+										: 'formError.title.default'
+									}
 								/>
 								<Text style={styles.content}>{this.props.errorMessage}</Text>
 							</View>
