@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container: {
-      	flex: 1
+        flex: 1,
     },
   };
 
