@@ -30,11 +30,7 @@ import VirtualAccount from '@pages/VirtualAccount';
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    ProductList: {screen: ProductList},
-    ProfilePage: {screen: ProfilePage},
-    Favourites: {screen: Favourites},
-    TermsConditions: {screen: TermsConditions},
-    ContactUs: {screen: ContactUs}
+    ProductList: {screen: ProductList}
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -60,7 +56,11 @@ export const AppNavigator = createStackNavigator({
     ChoosePayment: {screen: ChoosePayment},
     CreditCard: {screen: CreditCard},    
     TransferBank: {screen: TransferBank},
-    VirtualAccount: {screen: VirtualAccount},    
+    VirtualAccount: {screen: VirtualAccount},
+    ProfilePage: {screen: ProfilePage},
+    Favourites: {screen: Favourites},
+    TermsConditions: {screen: TermsConditions},
+    ContactUs: {screen: ContactUs}    
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
