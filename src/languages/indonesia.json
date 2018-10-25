@@ -306,7 +306,7 @@
         "content": {
             "logOut": "Keluar",
             "user": "Pengunjung",
-            "login": "Login / Daftar"
+            "login": "Login/Daftar"
         },
         "pages": {
             "dashboard": "Beranda",
@@ -390,7 +390,9 @@
     },
     "button": {
         "close": "TUTUP",
-        "login": "MASUK"
+        "login": "MASUK",
+        "yes": "YA",
+        "no": "TIDAK"
     },
     "modal":{
         "title":{
@@ -403,7 +405,14 @@
     "message":{
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi.",
-        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses."
+        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
+        "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda."
+    },
+    "dialog":{
+        "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"
+    },
+    "verification":{
+        "maxQuantity": "Hanya tersedia {qty} pack"
     },
     "loading": "Mohon tunggu"
 }
