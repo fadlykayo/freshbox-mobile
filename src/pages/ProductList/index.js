@@ -26,9 +26,10 @@ class ProductList extends Component {
 				openProduct: false,
 			},
 		}
-		this.onChangeText = this.onChangeText.bind(this);
 		this.submitSearch=this.submitSearch.bind(this);
+		this.onChangeText = this.onChangeText.bind(this);
 		this.checkCategory=this.checkCategory.bind(this);
+		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite=this.toggleFavorite.bind(this);
 		this.changeCategory=this.changeCategory.bind(this);
 		this.openDrawerMenu=this.openDrawerMenu.bind(this);
@@ -258,6 +259,22 @@ class ProductList extends Component {
 		});
 	}
 
+	validateCart(){
+		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+		if(outStockCart.length > 0){
+			language.transformText('message.outOfStock')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					data: message
+				});
+			});
+		}
+		else{
+			this.navigateToCart();
+		}
+	}
+
 	navigateToCart(){
 		actNav.navigate(navConstant.Cart,{
 			navigateToHistory: this.navigateToHistory
@@ -292,6 +309,7 @@ class ProductList extends Component {
 									key={index}
 									data={item}
 									index={index+1}
+									type={'productList'}
 									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
@@ -307,7 +325,7 @@ class ProductList extends Component {
 							? 	<Checkout
 									totalCount={this.props.total_count}
 									totalPrice={this.props.total_price}
-									onPress={this.navigateToCart}
+									onPress={this.validateCart}
 								/>
 							: 	null
 						}
@@ -328,7 +346,6 @@ class ProductList extends Component {
 					closeDialogCategories={this.closeDialogCategories}
 					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
-				
 			</Container>
 		);
 	}
@@ -337,6 +354,7 @@ class ProductList extends Component {
 const mapStateToProps = state => ({
 	user: state.user.data,
 	state: state.product,
+	cart_product: state.product.cart.products,
 	current_page: state.product.params.page,
 	params: state.product.params,
 	product: state.product.products,
@@ -350,6 +368,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
