@@ -5,8 +5,8 @@ import StaticText from '@components/StaticText';
 import images from '@assets';
 
 class RegisterSuccess extends PureComponent {
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 	}
 
 	render(){

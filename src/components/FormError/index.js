@@ -5,25 +5,8 @@ import StaticText from '@components/StaticText';
 import images from '@assets';
 
 class RegisterSuccess extends Component {
-	constructor(props){
-		super(props);
-	}
-
-	shouldComponentUpdate(nextProps){
-		if(this.props.modalVisible != nextProps.modalVisible){
-			if(nextProps.modalVisible == true){
-				this.closeModal();
-				return true;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	closeModal(){
-		setTimeout(() => {
-			this.props.closeModal();
-		},2000);
+	constructor(){
+		super();
 	}
 
 	render(){
