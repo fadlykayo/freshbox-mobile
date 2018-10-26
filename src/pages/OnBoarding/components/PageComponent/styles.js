@@ -80,7 +80,9 @@ const styles = {
     },
     page: {
         place: {
-            marginTop: width * 0.05,
+            position: 'absolute',
+            marginTop: width * 0.35,
+            marginLeft: width * 0.05,
             flexDirection: 'row',
         },
         unselected: {

@@ -194,6 +194,7 @@
             "price": "IDR ",
             "reOrder": "Pesan Kembali",
             "checkout": "Pilih Metode Pembayaran",
+            "pay": "Bayar",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -204,9 +205,9 @@
         },
         "detail": {
             "status": "Status",
-            "nomorResi": "Nomor Resi",
-            "tanggal": "Tanggal Pengiriman",
-            "alamat": "Alamat Pengiriman"            
+            "transactionNumber": "Nomor Transaksi",
+            "deliveryDate": "Tanggal Pengiriman",
+            "address": "Alamat Pengiriman"            
         }
     },
     "profilePage": {

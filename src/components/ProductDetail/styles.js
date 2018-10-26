@@ -49,7 +49,7 @@ const styles = {
             borderWidth: 1,
             borderRadius: 8,
             borderColor: colour.lightGrey,
-            padding: scaling.moderateScale(5),
+            padding: scaling.moderateScale(2),
             marginRight: scaling.moderateScale(5),
             justifyContent: 'center',
             alignItems: 'center',
@@ -60,14 +60,24 @@ const styles = {
             alignItems: 'center',
         }
     },
+    image: {
+        content: {
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        style: {
+            height: width * 0.19,
+            width: width * 0.18,
+        }
+    },
     icon:{
         dropdown:{
             height: scaling.moderateScale(36),
             width: scaling.moderateScale(36),
         },
         product:{
-            height: width * 0.15,
-            width: width * 0.15,
+            height: width * 0.18,
+            width: width * 0.18,
         }
     },
     text:{

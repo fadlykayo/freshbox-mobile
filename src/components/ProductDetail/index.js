@@ -52,16 +52,22 @@ class ProductDetail extends Component {
 								<ScrollView
 									horizontal={true}
 									pagingEnabled={true}
-									// showsHorizontalScrollIndicator={true}
+									showsHorizontalScrollIndicator={false}
+									contentContainerStyle={styles.image.content}
+									style={styles.image.style}
+									
 								>
 								{ this.props.data.images_sizes_url.original.map((image, index) => {
 									return (
-										<Image
-											key={index}
-											resizeMode={'contain'} 
-											source={{uri: image}}
-											style={styles.icon.product}
-										/>
+										<View style={styles.image.style} key={index}>
+											<Image
+
+												resizeMode={'contain'} 
+												source={{uri: image}}
+												style={styles.icon.product}
+											/>
+										</View>
+											
 									)
 								}) }
 								</ScrollView>

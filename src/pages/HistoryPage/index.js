@@ -39,11 +39,20 @@ class HistoryPage extends Component {
 			})
 	}
 
-	navigateToDetail(payload) {
-		this.props.detail_transaction(payload)
-		actNav.navigate(navConstant.Detail, {
-			action: 'history'
-		});
+	navigateToDetail(input) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input.invoice
+		}
+		this.props.detail_transaction(payload,
+			(success) => {
+				actNav.navigate(navConstant.Detail, {action: 'history'});
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	navigateToCart(payload){
@@ -91,7 +100,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	detail_transaction: (payload) => dispatch(actions.transaction.reducer.detail_transaction(payload)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err))
 })
 

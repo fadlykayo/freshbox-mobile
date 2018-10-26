@@ -41,7 +41,7 @@ class SplashScreen extends PureComponent {
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    on_boarding: state.user.on_boarding
+    on_boarding: state.utility.on_boarding
 });
 
 export default connect(mapStateToProps,null)(SplashScreen);

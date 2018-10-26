@@ -45,12 +45,6 @@ const update_user = (state, payload) => {
     return newState;
 }
 
-const onBoarding = (state) => {
-    let newState = JSON.parse(JSON.stringify(state));
-    newState.on_boarding = true;
-    return newState;
-}
-
 const user = (state = initialState, action) => {
     switch(action.type){
         case ct.SIGN_IN: return signin(state,action.payload.profile)
@@ -59,7 +53,6 @@ const user = (state = initialState, action) => {
         case ct.GET_ADDRESS: return get_address(state, action.payload)
         case ct.GET_ADDRESS_DETAIL: return get_address_detail(state, action.payload)
         case ct.UPDATE_USER: return update_user(state,action.payload)
-        case ct.ON_BOARDING: return onBoarding(state)
         default: return state;
     };
 };

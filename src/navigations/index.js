@@ -64,7 +64,7 @@ export const AppNavigator = createStackNavigator({
     TermsConditions: {screen: TermsConditions},
     ContactUs: {screen: ContactUs}    
 },{
-    initialRouteName  : 'OnBoarding',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {

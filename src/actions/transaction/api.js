@@ -130,4 +130,39 @@ actions.get_transaction = (req,success,failure) => {
     }
 };
 
+actions.detail_transaction = (req,success,failure) => {
+	
+	payload.path = `${path.transactionHistory}/${req.invoice}`;
+	payload.header = req.header;
+	
+	return dispatch => {
+		console.log(payload)
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	console.log('Get Detail Transaction res',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.detail_transaction(res.data))
+					success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Get Detail Transaction err', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
 export default actions;

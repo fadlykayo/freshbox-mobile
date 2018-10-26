@@ -44,10 +44,10 @@ class PageComponent extends Component {
                             <View style={styles.page.place}>
                                 { this.state.button.map((data, index) => {
                                     if (this.props.index == index) {
-                                        return <View style={styles.page.selected}></View>
+                                        return <View key={index} style={styles.page.selected}></View>
                                     }
                                     else {
-                                        return <View style={styles.page.unselected}></View>
+                                        return <View key={index} style={styles.page.unselected}></View>
                                     }
                                 })}            
                             </View>   

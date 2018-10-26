@@ -5,7 +5,7 @@ import user from './user';
 import network from './network';
 import transaction from './transaction';
 import region from './region';
-import utility from './utility'
+import utility from './utility';
 
 const action = {
     registration: registration,
