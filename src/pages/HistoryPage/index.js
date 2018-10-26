@@ -11,12 +11,13 @@ import actions from '@actions';
 class HistoryPage extends Component {
   	constructor(props) {
   		super(props)
+		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}
 	
 	componentDidMount() {
-		if (this.props.user) {
+		if(this.props.user){
 			this.getHistoryData();
 		}
 	}
@@ -31,22 +32,28 @@ class HistoryPage extends Component {
 
 		this.props.get_transaction(payload, 
 			(success) => {
-				console.log(success)
+				console.log(success);
 			},
 			(err) => {
-				console.log(err)
+				console.log(err);
 			})
 	}
 
 	navigateToDetail(payload) {
 		this.props.detail_transaction(payload)
-		actNav.navigate(navConstant.Detail, { action: 'history' })
+		actNav.navigate(navConstant.Detail, {
+			action: 'history'
+		});
 	}
 
 	navigateToCart(payload){
 		//REORDER
 		console.log(payload)
 		actNav.navigate(navConstant.Cart);
+	}
+
+	navigateBack(){
+		actNav.goBack(this.props.navigation.state.params.key);
 	}
 
   	render() {
@@ -57,7 +64,7 @@ class HistoryPage extends Component {
 			>
 				<NavigationBar
 					title={'historyPage.navigationTitle'}
-					onPress={actNav.goBack}
+					onPress={this.navigateBack}
 				/>
   	  	  		<View style={styles.container}>
 					<FlatList

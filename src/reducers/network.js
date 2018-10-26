@@ -6,7 +6,9 @@ const initialState = {
     isServerError: false,
     isResponseError: false,
     isResponseSuccess: false,
+    errorTitle: '',
     errorMessage: '',
+    successTitle: '',
     successMessage: '',
 };
 

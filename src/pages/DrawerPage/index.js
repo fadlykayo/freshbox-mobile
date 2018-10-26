@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
+import { DrawerActions } from 'react-navigation-drawer';
 import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
 import Container from '@components/Container';
 import PhotoComponent from './components/PhotoComponent';
 import LogOutButton from './components/LogOutButton';
 import PagesComponent from './components/PagesComponent';
-import images from '@assets';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -45,7 +45,7 @@ class DrawerPage extends Component {
 		this.closeDrawerPage = this.closeDrawerPage.bind(this);
   	}
 
-  	navigateToOtherPage(payload) {
+  	navigateToOtherPage(payload){
 		switch (payload.name) {
 			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
 			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage)
@@ -66,7 +66,9 @@ class DrawerPage extends Component {
 	}
 
 	navigateSignIn() {
-		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' })
+		actNav.navigate(navConstant.SignIn,{
+			action: 'menuLogin'
+		})
 	}
 
 	closeDrawerPage() {
@@ -75,28 +77,23 @@ class DrawerPage extends Component {
 
   	render () {
   	  	return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
-			>
-  	  	  		<View style={styles.container}>
-					<PhotoComponent
-						navigateToProfilePage={this.navigateToProfilePage}
-						user={this.props.user}
-					/>
-					<PagesComponent
-						user={this.props.user}
-						closeDrawerPage={this.closeDrawerPage}
-						navigateToOtherPage={this.navigateToOtherPage}
-						pages={this.state.pages}
-					/>
-					<LogOutButton
-						user={this.props.user}
-						navigateLogOut={this.navigateLogOut}
-						navigateSignIn={this.navigateSignIn}
-					/>
+			<View style={styles.container}>
+				<PhotoComponent
+					navigateToProfilePage={this.navigateToProfilePage}
+					user={this.props.user}
+				/>
+				<PagesComponent
+					user={this.props.user}
+					closeDrawerPage={this.closeDrawerPage}
+					navigateToOtherPage={this.navigateToOtherPage}
+					pages={this.state.pages}
+				/>
+				<LogOutButton
+					user={this.props.user}
+					navigateLogOut={this.navigateLogOut}
+					navigateSignIn={this.navigateSignIn}
+				/>
   	    	</View>
-		</Container>
   	  	);
   	}
 }
@@ -107,13 +104,9 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		log_out : () => dispatch(actions.auth.reducer.log_out()),
-		reset_products : () => dispatch(actions.product.reducer.reset_products())
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+	log_out : () => dispatch(actions.auth.reducer.log_out()),
+	reset_products : () => dispatch(actions.product.reducer.reset_products())
+})
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(DrawerPage);
+export default connect(mapStateToProps,mapDispatchToProps)(DrawerPage);

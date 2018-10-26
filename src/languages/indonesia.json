@@ -326,7 +326,7 @@
         "content": {
             "logOut": "Keluar",
             "user": "Pengunjung",
-            "login": "Login / Daftar"
+            "login": "Login/Daftar"
         },
         "pages": {
             "dashboard": "Beranda",
@@ -397,18 +397,26 @@
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
             "briVA": "BRI Virtual Account",
+            "bniVA": "BNI Virtual Account",
+            "permataVA": "Permata Virtual Account",
             "checkout": "Bayar"
         }
     },
     "formError":{
-        "title": "GAGAL"
+        "title": {
+            "default": "GAGAL"
+        }
     },
     "formSuccess":{
-        "title": "SUKSES"
+        "title": {
+            "default": "SUKSES"
+        }
     },
     "button": {
         "close": "TUTUP",
-        "login": "MASUK"
+        "login": "MASUK",
+        "yes": "YA",
+        "no": "TIDAK"
     },
     "modal":{
         "title":{
@@ -420,7 +428,17 @@
     },
     "message":{
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
-        "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi."
+        "errorLogin": "Login gagal, Email atau Password anda salah, silahkan coba lagi.",
+        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
+        "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
+        "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran."
+    },
+    "dialog":{
+        "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"
+    },
+    "verification":{
+        "maxQuantity": "Hanya tersedia {qty} pack",
+        "outOfStock": "Barang telah habis"
     },
     "loading": "Mohon tunggu"
 }

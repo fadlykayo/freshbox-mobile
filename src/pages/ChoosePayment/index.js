@@ -19,7 +19,6 @@ class ChoosePayment extends Component {
             grandTotalPrice: 0,
             contents: [
                 'choosePayment.content.creditCard',
-                'choosePayment.content.transferBank',
                 'choosePayment.content.virtualAccount',
             ]
         }
@@ -28,16 +27,16 @@ class ChoosePayment extends Component {
 
     componentDidMount() {
         let state = this.state;
-		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
-        
-        this.setState(state)
+		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+        this.setState(state);
     }
 
     navigateToOtherPage(payload) {
         switch(payload) {
-            case 'choosePayment.content.transferBank': return actNav.navigate(navConstant.TransferBank, { transaction: this.props.navigation.state.params.transaction})
-            case 'choosePayment.content.virtualAccount': return actNav.navigate(navConstant.VirtualAccount, { transaction: this.props.navigation.state.params.transaction})
-            default: return actNav.navigate(navConstant.CreditCard, { transaction: this.props.navigation.state.params.transaction})
+            case 'choosePayment.content.virtualAccount': 
+                return actNav.navigate(navConstant.VirtualAccount,this.props.navigation.state.params);
+            default: 
+                return actNav.navigate(navConstant.CreditCard,this.props.navigation.state.params);
         }
     } 
 
@@ -49,12 +48,11 @@ class ChoosePayment extends Component {
             >
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
-			    	onPress={actNav.goBack}
 			    />
                 <View style={styles.container}>
                     <View style={styles.content}>
-                        { this.state.contents.map((content, index) => {
-                            return (
+                        { 
+                            this.state.contents.map((content, index) => (
                                 <TouchableOpacity key={index} style={styles.component} onPress={() => this.navigateToOtherPage(content)}>
                                     <StaticText
                                         style={styles.staticText}
@@ -67,8 +65,8 @@ class ChoosePayment extends Component {
                                         />
                                     </View>
                                 </TouchableOpacity>
-                            )
-                        }) }                        
+                            )) 
+                        }                        
                     </View>
                 </View>
                 <TotalPrice

@@ -2,6 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
+import { language } from '@helpers';
 
 const actions = {};
 
@@ -23,7 +24,6 @@ actions.bulk_add_products = (req,success,failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	console.log('Bulk Add Products res',res);
@@ -39,7 +39,16 @@ actions.bulk_add_products = (req,success,failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-        			case 400: return failure(err);
+					case 400: 
+						dispatch(actReducer.validate_cart(err.data));
+						language.transformText('message.outOfStockCart')
+						.then(message => {
+							dispatch(actNetwork.set_error_status({
+								status: true,
+								data: message
+							}));
+						});
+						break;
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,
@@ -59,7 +68,6 @@ actions.create_order = (req,success,failure) => {
 	payload.params = req.params;
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	console.log('Create Transaction res',res);

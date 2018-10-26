@@ -44,6 +44,7 @@ const getProducts = (state, payload) => {
     newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
         if(!e.count) e.count = 0;
         if(!e.favorite) e.favorite = false;
+        if(!e.maxQty) e.maxQty = 1000;
         return e;
     }).filter(e => e.stock > 0);
 
@@ -128,7 +129,7 @@ const searchData = (state, payload) => {
     return newState
 }
 
-const editTotal = (state, payload) => {
+const editTotal = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let total = 0;
     let count = 0;
@@ -148,13 +149,14 @@ const editTotal = (state, payload) => {
     for(i in cart_product){
         total = total + (cart_product[i].price * cart_product[i].count);
         count = count + cart_product[i].count;
+        cart_product[i].maxQty = payload.data.maxQty;
     }
 
     newState.total.count = count;
     newState.total.price = total;
     newState.cart.products = cart_product;
 
-    return newState
+    return newState;
 }
 
 const clearProducts = (state) => {
@@ -165,8 +167,9 @@ const clearProducts = (state) => {
     newState.total.price = 0;
     newState.cart.products = [];
     
-    return newState
+    return newState;
 }
+
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     const index = newState.products.findIndex(e => e.code === payload.data.code);
@@ -184,7 +187,23 @@ const editFavorite = (state,payload) => {
 
 const getDeliveryPrice = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    newState.delivery_price = payload.data
+    newState.delivery_price = payload.data;
+
+    return newState;
+}
+
+const validateCart = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let newCart = newState.cart.products.slice();
+
+    for(x in newCart){
+        let result = payload.data.find(item => item.product_code == newCart[x].code);
+        if(result){
+            newCart[x].maxQty = result.max_qty;
+        }
+    }
+
+    newState.cart.products = newCart;
 
     return newState;
 }
@@ -200,6 +219,7 @@ const productReducer = (state = initialState, action) => {
         case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
         case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
         case ct.CLEAR_PRODUCTS: return clearProducts(state)
+        case ct.VALIDATE_CART: return validateCart(state,action.payload)
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

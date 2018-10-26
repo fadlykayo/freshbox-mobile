@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, FlatList, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -9,8 +10,8 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Categories from './components/Categories';
 import styles from './styles';
-import { connect } from 'react-redux';
 import actions from '@actions';
+import { language } from '@helpers';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -25,20 +26,22 @@ class ProductList extends Component {
 				openProduct: false,
 			},
 		}
-		this.onChangeText = this.onChangeText.bind(this);
 		this.submitSearch=this.submitSearch.bind(this);
+		this.onChangeText = this.onChangeText.bind(this);
 		this.checkCategory=this.checkCategory.bind(this);
+		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite=this.toggleFavorite.bind(this);
 		this.changeCategory=this.changeCategory.bind(this);
 		this.openDrawerMenu=this.openDrawerMenu.bind(this);
 		this.handleLoadMore=this.handleLoadMore.bind(this);
 		this.setModalVisible=this.setModalVisible.bind(this);
 		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.navigateToCart = this.navigateToCart.bind(this);
 		this.openAllCategories=this.openAllCategories.bind(this);
 		this.openDetailProduct=this.openDetailProduct.bind(this);
 		this.closeDetailProduct=this.closeDetailProduct.bind(this);
+		this.navigateToHistory = this.navigateToHistory.bind(this);
 		this.closeDialogCategories=this.closeDialogCategories.bind(this);
-		this.navigateToCart = this.navigateToCart.bind(this);
 	}
 
 	componentDidMount(){
@@ -242,8 +245,38 @@ class ProductList extends Component {
 		this.props.navigation.openDrawer();
 	}
 
+	navigateToHistory(){
+		language.transformText('message.createOrderSuccess')
+		.then((message) => {
+			setTimeout(() => {
+				this.props.set_success_status({
+					status: true,
+					data: message
+				});
+			},1000);
+		});
+	}
+
+	validateCart(){
+		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+		if(outStockCart.length > 0){
+			language.transformText('message.outOfStock')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					data: message
+				});
+			});
+		}
+		else{
+			this.navigateToCart();
+		}
+	}
+
 	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+		actNav.navigate(navConstant.Cart,{
+			navigateToHistory: this.navigateToHistory
+		});
 	}
 
 	render(){
@@ -274,6 +307,7 @@ class ProductList extends Component {
 									key={index}
 									data={item}
 									index={index+1}
+									type={'productList'}
 									user={this.props.user}
 									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
@@ -289,7 +323,7 @@ class ProductList extends Component {
 							? 	<Checkout
 									totalCount={this.props.total_count}
 									totalPrice={this.props.total_price}
-									onPress={this.navigateToCart}
+									onPress={this.validateCart}
 								/>
 							: 	null
 						}
@@ -310,7 +344,6 @@ class ProductList extends Component {
 					closeDialogCategories={this.closeDialogCategories}
 					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
-				
 			</Container>
 		);
 	}
@@ -319,6 +352,7 @@ class ProductList extends Component {
 const mapStateToProps = state => ({
 	user: state.user.data,
 	state: state.product,
+	cart_product: state.product.cart.products,
 	current_page: state.product.params.page,
 	params: state.product.params,
 	product: state.product.products,
@@ -331,6 +365,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),

@@ -58,9 +58,9 @@ class Detail extends Component {
 		actNav.navigate(navConstant.Cart);
     }
     
-    navigateToChoosePayment() {
-        actNav.navigate(navConstant.ChoosePayment, { transaction: this.props.navigation.state.params.transaction })
-    }
+    navigateToChoosePayment(){
+        actNav.navigate(navConstant.ChoosePayment,this.props.navigation.state.params);
+	}
 
   	render() {
 
@@ -71,7 +71,6 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
-					onPress={actNav.goBack}
 				/>
   	  	  		<ScrollView style={styles.container}>
                     <DetailOrder
@@ -83,7 +82,7 @@ class Detail extends Component {
                     <View style={styles.middleComponent}>
                         <FlatList
 							data={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.details : this.props.cart_product}
-							keyExtractor={(item) => String(item.id)}
+							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<CartComponent 
 									data = {item}

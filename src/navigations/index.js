@@ -31,12 +31,7 @@ import OnBoarding from '@pages/OnBoarding';
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    ProductList: {screen: ProductList},
-    ProfilePage: {screen: ProfilePage},
-    Favourites: {screen: Favourites},
-    HistoryPage: {screen: HistoryPage},
-    TermsConditions: {screen: TermsConditions},
-    ContactUs: {screen: ContactUs}
+    ProductList: {screen: ProductList}
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -55,6 +50,7 @@ export const AppNavigator = createStackNavigator({
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
+    HistoryPage: {screen: HistoryPage},
     HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
     ResetNewPasswordPage: {screen: ResetNewPasswordPage},
     ChooseAddress: {screen: ChooseAddress},
@@ -62,7 +58,11 @@ export const AppNavigator = createStackNavigator({
     CreditCard: {screen: CreditCard},    
     TransferBank: {screen: TransferBank},
     VirtualAccount: {screen: VirtualAccount},
-    OnBoarding: {screen: OnBoarding},  
+    OnBoarding: {screen: OnBoarding},
+    ProfilePage: {screen: ProfilePage},
+    Favourites: {screen: Favourites},
+    TermsConditions: {screen: TermsConditions},
+    ContactUs: {screen: ContactUs}    
 },{
     initialRouteName  : 'OnBoarding',
     headerMode        : 'none',
@@ -132,15 +132,26 @@ export const actNav = {
             actions: [
                 NavigationActions.navigate({ routeName: route})
             ]
-        }))
+        }));
     },
     navigate: (route,params = {}) => {
         _navigator.dispatch(NavigationActions.navigate({
             routeName: route,
             params: params
-        }))
+        }));
     },
-    goBack: () => {
-        _navigator.dispatch(NavigationActions.back())
+    goBack: (key) => {
+        if(key){
+            _navigator.dispatch(NavigationActions.back({
+                key: key,
+            }));
+        } 
+        else {
+            _navigator.dispatch(NavigationActions.back());
+        }
+        
+    },
+    goBackToTop: () => {
+        _navigator.dispatch(StackActions.popToTop());
     }
 };

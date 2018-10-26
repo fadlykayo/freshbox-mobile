@@ -112,7 +112,12 @@ class Checkout extends Component {
 				payload.request_shipping_date = this.state.setDate.post;
 		
 				actNav.navigate(navConstant.Detail, 
-					{ action: 'checkout', transaction: payload, setDate: this.state.setDate }
+					{
+						action: 'checkout', 
+						transaction: payload, 
+						setDate: this.state.setDate,
+						...this.props.navigation.state.params
+					}
 				)
 			}
 		}
@@ -146,7 +151,6 @@ class Checkout extends Component {
 			>
 				<NavigationBar
 					title={'checkout.navigationTitle'}
-					onPress={actNav.goBack}
 				/>
 				<View style={styles.container}>
 					<DeliveryPlace
