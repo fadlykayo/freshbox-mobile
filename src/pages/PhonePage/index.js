@@ -23,6 +23,7 @@ class PhonePage extends Component {
                 phone: true,
 			},
 			isEdit: false,
+			focus: true
 		}
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
@@ -32,6 +33,7 @@ class PhonePage extends Component {
 		this.updatePhoneHandler = this.updatePhoneHandler.bind(this);
 		this.editPhonePage = this.editPhonePage.bind(this);
 		this.spacePhoneNumber = this.spacePhoneNumber.bind(this);
+		this.formatPhoneNumber = this.formatPhoneNumber.bind(this);
 	}
 
 	editPhonePage() {
@@ -76,7 +78,11 @@ class PhonePage extends Component {
 
 	spacePhoneNumber(input) {
         return input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
-    }
+	}
+	
+	formatPhoneNumber() {
+		this.onChangeText('phone',this.state.user.phone.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,''))
+	}
 	
 	updatePhoneHandler(){
 
@@ -88,7 +94,6 @@ class PhonePage extends Component {
 				phone_number: this.state.user.phone
 			}
 		}
-		// console.log('masuk sini', payload)
 		this.props.update_user(payload,
 			(success) => {
 				actNav.goBack()
@@ -96,7 +101,7 @@ class PhonePage extends Component {
 			(err) => {
 				console.log(err)
 			})
-    }
+	}
 
   	render() {
   	  	return (
@@ -117,6 +122,7 @@ class PhonePage extends Component {
 									keyboardType={'number-pad'}
 									value={this.state.user.phone}
 									onChangeText={this.onChangeText}
+									onBlurHandler={this.formatPhoneNumber}
 									label={'phonePage.formLabel.phone'}
 									placeholder={'phonePage.formLabel.phone'}
 									onSubmitEditing={this.submitPhone}

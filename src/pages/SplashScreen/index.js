@@ -12,11 +12,16 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            if(this.props.user == null){
-                actNav.reset(navConstant.Menu);
-            } 
+            if (this.props.on_boarding) {
+                if(this.props.user == null){
+                    actNav.reset(navConstant.Menu);
+                } 
+                else {
+                    actNav.reset(navConstant.Product);
+                }
+            }
             else {
-                actNav.reset(navConstant.Product);
+                actNav.navigate(navConstant.OnBoarding);
             }
         },2000);
     }
@@ -35,7 +40,8 @@ class SplashScreen extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    on_boarding: state.user.on_boarding
 });
 
 export default connect(mapStateToProps,null)(SplashScreen);

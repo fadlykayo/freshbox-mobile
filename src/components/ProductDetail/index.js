@@ -49,12 +49,22 @@ class ProductDetail extends Component {
 						</TouchableOpacity>
 						<View style={styles.subcontainer.mid}>
 							<View style={styles.subcontainer.product}>
-								<Image
-									resizeMode={'contain'} 
-									// source={this.props.data.images[0]}
-									source={images.icon_sayur_segar}
-									style={styles.icon.product}
-								/>
+								<ScrollView
+									horizontal={true}
+									pagingEnabled={true}
+									// showsHorizontalScrollIndicator={true}
+								>
+								{ this.props.data.images_sizes_url.original.map((image, index) => {
+									return (
+										<Image
+											key={index}
+											resizeMode={'contain'} 
+											source={{uri: image}}
+											style={styles.icon.product}
+										/>
+									)
+								}) }
+								</ScrollView>
 							</View>
 							<Content data={this.props.data}/>
 							<View style={styles.favoriteComponent}>

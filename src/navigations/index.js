@@ -26,6 +26,7 @@ import ChoosePayment from '@pages/ChoosePayment';
 import CreditCard from '@pages/CreditCard';
 import TransferBank from '@pages/TransferBank';
 import VirtualAccount from '@pages/VirtualAccount';
+import OnBoarding from '@pages/OnBoarding';
 
 let _navigator;
 
@@ -60,9 +61,10 @@ export const AppNavigator = createStackNavigator({
     ChoosePayment: {screen: ChoosePayment},
     CreditCard: {screen: CreditCard},    
     TransferBank: {screen: TransferBank},
-    VirtualAccount: {screen: VirtualAccount},    
+    VirtualAccount: {screen: VirtualAccount},
+    OnBoarding: {screen: OnBoarding},  
 },{
-    initialRouteName  : 'SplashScreen',
+    initialRouteName  : 'OnBoarding',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -116,6 +118,7 @@ export const navConstant = {
     CreditCard: 'CreditCard',
     TransferBank: 'TransferBank',
     VirtualAccount: 'VirtualAccount',
+    OnBoarding: 'OnBoarding',
 }
 
 export const setNavigator = (navigatorRef) => {

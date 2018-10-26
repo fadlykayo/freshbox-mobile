@@ -170,7 +170,6 @@ class ProductList extends Component {
 	
 	toggleFavorite(payload){
 		if (payload.favorite) {
-			console.log("send delete")
 			let data = {
 				request: {
 					header: {
@@ -187,7 +186,6 @@ class ProductList extends Component {
 				})
 		}
 		else {
-			console.log("send add")
 			let data = {
 				request: {
 					header: {

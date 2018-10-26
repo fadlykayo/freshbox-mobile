@@ -24,7 +24,7 @@ const styles = {
         backgroundColor: colour.whiteTransparent,
     },
     termsAndCondition:{
-        fontFamily: 'Avenir-Book',
+        fontFamily: 'Avenir-Light',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
         textAlign: 'center',
@@ -32,7 +32,11 @@ const styles = {
         paddingRight: width * 0.05,
     },
     underline: {
-        textDecorationLine: 'underline'
+        fontFamily: 'Avenir-Light',
+        fontSize: scaling.moderateScale(12),
+        color: colour.darkGrey,
+        textDecorationLine: 'underline',
+        textAlign: 'center'
     }
 }
 

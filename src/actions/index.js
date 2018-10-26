@@ -5,6 +5,7 @@ import user from './user';
 import network from './network';
 import transaction from './transaction';
 import region from './region';
+import utility from './utility'
 
 const action = {
     registration: registration,
@@ -13,7 +14,8 @@ const action = {
     user: user,
     network: network,
     transaction: transaction,
-    region: region
+    region: region,
+    utility: utility
 }
 
 export default action;

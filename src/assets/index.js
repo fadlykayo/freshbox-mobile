@@ -43,5 +43,5 @@ images.loading = require('./loading.gif');
 images.icon_combined_shape = require('./icon_combined_shape.png');
 images.icon_all_categories = require('./icon_all_categories.png');
 images.icon_trash = require('./icon_trash.png');
-
+images.icon_right_red = require('./icon_right_red.png')
 export default images;

@@ -34,5 +34,4 @@ action.update_user = data => ({
     }
 })
 
-
 export default action;
