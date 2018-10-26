@@ -410,7 +410,8 @@
     },
     "formSuccess":{
         "title": {
-            "default": "SUKSES"
+            "default": "SUKSES",
+            "createOrder": "PEMESANAN SUKSES"
         }
     },
     "button": {

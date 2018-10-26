@@ -22,7 +22,8 @@ const setResponseErrorHandler = (state,payload) => {
     return Object.assign({},state,{
         isLoading: false,
         isResponseError: payload.status,
-        errorMessage: payload.data
+        errorMessage: payload.data,
+        errorTitle: payload.title ? payload.title : ''
     });
 }
 
@@ -30,7 +31,8 @@ const setResponseSuccessHandler = (state,payload) => {
     return Object.assign({},state,{
         isLoading: false,
         isResponseSuccess: payload.status,
-        successMessage: payload.data
+        successMessage: payload.data,
+        successTitle: payload.title ? payload.title : ''
     });
 }
 

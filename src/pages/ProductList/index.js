@@ -40,7 +40,6 @@ class ProductList extends Component {
 		this.openAllCategories=this.openAllCategories.bind(this);
 		this.openDetailProduct=this.openDetailProduct.bind(this);
 		this.closeDetailProduct=this.closeDetailProduct.bind(this);
-		this.navigateToHistory = this.navigateToHistory.bind(this);
 		this.closeDialogCategories=this.closeDialogCategories.bind(this);
 	}
 
@@ -57,6 +56,7 @@ class ProductList extends Component {
 		}
 		this.props.get_products(payload,
 			(res) => {
+
 			},
 			(err) => {
 				console.log(err)
@@ -64,13 +64,14 @@ class ProductList extends Component {
 		);
 	}
 
-	getCategories() {
+	getCategories(){
 		let payload = {
 			header: {},
 			params: {}
 		}
 		this.props.get_categories(payload,
 			(res) => {
+				
 			},
 			(err) => {
 				console.log(err)
@@ -245,18 +246,6 @@ class ProductList extends Component {
 		this.props.navigation.openDrawer();
 	}
 
-	navigateToHistory(){
-		language.transformText('message.createOrderSuccess')
-		.then((message) => {
-			setTimeout(() => {
-				this.props.set_success_status({
-					status: true,
-					data: message
-				});
-			},1000);
-		});
-	}
-
 	validateCart(){
 		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
 		if(outStockCart.length > 0){
@@ -365,7 +354,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),

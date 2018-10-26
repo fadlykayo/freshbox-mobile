@@ -4,7 +4,7 @@ import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
-class RegisterSuccess extends PureComponent {
+class FormSuccess extends PureComponent {
 	constructor(){
 		super();
 	}
@@ -43,4 +43,4 @@ class RegisterSuccess extends PureComponent {
 	}
 }
 
-export default RegisterSuccess;
+export default FormSuccess;

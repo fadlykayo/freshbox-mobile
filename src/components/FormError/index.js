@@ -4,7 +4,7 @@ import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
-class RegisterSuccess extends Component {
+class FormError extends Component {
 	constructor(){
 		super();
 	}
@@ -43,4 +43,4 @@ class RegisterSuccess extends Component {
 	}
 }
 
-export default RegisterSuccess;
+export default FormError;

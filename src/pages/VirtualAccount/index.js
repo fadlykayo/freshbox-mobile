@@ -64,15 +64,11 @@ class VirtualAccount extends Component {
             params: {}
         }
 
-        console.log('payload create order ->',payload);
-
         this.props.create_order(payload,
-            (success) => {
-                console.log("SUCCESS ORDER", success)
-                // this.props.clear_products();
+            () => {
                 actNav.navigate(navConstant.HistoryPage,{
+                    key: this.props.navigation.state.params.key,
                     action: 'createOrder',
-                    ...this.props.navigation.state.params
                 });
             },
             (err) => {
