@@ -8,6 +8,7 @@ import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
+import Notes from './components/Notes';
 import Categories from './components/Categories';
 import styles from './styles';
 import actions from '@actions';
@@ -287,6 +288,8 @@ class ProductList extends Component {
 				<FilterComponent 
 					onCategory = {this.props.on_category}
 					openAllCategories={this.openAllCategories}
+				/>
+				<Notes 
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
