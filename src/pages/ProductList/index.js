@@ -201,11 +201,14 @@ class ProductList extends Component {
 				},
 				favorite: payload
 			}
-			// this.props.toggle_favorite(payload);
-			this.props.delete_favorite(data, null,
+			this.props.delete_favorite(data,
+				() => {
+
+				},
 				(err) => {
 					console.log(err)
-				})
+				}
+			)
 		}
 		else {
 			let data = {
@@ -219,12 +222,14 @@ class ProductList extends Component {
 				},
 				favorite: payload
 			}
-			// this.props.toggle_favorite(payload);
-			this.props.add_favorite(data, null,
+			this.props.add_favorite(data,
+				() => {
+
+				},
 				(err) => {
 					console.log(err)
-				})
-			
+				}
+			)
 		}
 	}
 
@@ -252,7 +257,7 @@ class ProductList extends Component {
 			});
 	}
 
-	openDrawerMenu() {
+	openDrawerMenu(){
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	}
@@ -275,9 +280,7 @@ class ProductList extends Component {
 	}
 
 	navigateToCart(){
-		actNav.navigate(navConstant.Cart,{
-			navigateToHistory: this.navigateToHistory
-		});
+		actNav.navigate(navConstant.Cart);
 	}
 
 	render(){
