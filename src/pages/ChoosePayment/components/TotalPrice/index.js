@@ -1,41 +1,59 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import numeral from 'numeral';
 import styles from './styles';
 
 class TotalPrice extends Component {
-  	constructor(props) {
-  		super(props)
+  	constructor() {
+        super();
     }
 
   	render() {
+        const subTotal = numeral(this.props.subTotal).format('0,0');
+        const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
+        const grandTotal = numeral(this.props.grandTotal).format('0,0');
   	  	return (
-            <View style={styles.bottomComponent}>
-                <View style={styles.topTotalPrice}>
-                    <View style={styles.subTotal}>
+            <View style={styles.container}>
+                <View style={styles.subcontainer.content}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
-                            property={'choosePayment.content.subTotal'}
+                            style={styles.text.title}
+                            property={'checkout.content.subTotal'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'choosePayment.content.price'}/>{numeral(this.props.subTotal).format('0,0')}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {subTotal}
+                        </Text>
                     </View>
-                    <View style={styles.subTotal}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
-                            property={'choosePayment.content.delivery'}
+                            style={styles.text.title}
+                            property={'checkout.content.delivery'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'choosePayment.content.price'}/>{numeral(this.props.delivery_price).format('0,0')}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {deliveryPrice}
+                        </Text>
                     </View>
-                    <View style={styles.grandTotal}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
-                            property={'choosePayment.content.grandTotal'}
+                            style={styles.text.total}
+                            property={'checkout.content.grandTotal'}
                         />
-                        <Text style={styles.grandPrice}><StaticText
-                        property={'choosePayment.content.price'}/>{numeral(this.props.grandTotal).format('0,0')}</Text>
+                        <Text style={styles.text.total}>
+                            <StaticText
+                                style={styles.text.total}
+                                property={'checkout.content.price'}
+                            />
+                            {grandTotal}
+                        </Text>
                     </View>
                 </View>
             </View>

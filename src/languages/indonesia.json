@@ -348,11 +348,11 @@
         }
     },
     "choosePayment": {
-        "navigationTitle": "Pilih Metode Pembayaran",
+        "navigationTitle": "METODE PEMBAYARAN",
         "content": {
             "creditCard": "Kartu Kredit",
             "transferBank": "Bank Transfer",
-            "virtualAccount": "Virtual Account",
+            "virtualAccount": "Transfer Virtual Account",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
@@ -394,7 +394,7 @@
         }
     },
     "virtualAccount": {
-        "navigationTitle": "Virtual Account",
+        "navigationTitle": "VIRTUAL ACCOUNT",
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",

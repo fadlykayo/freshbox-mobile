@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import StaticText from '@components/StaticText';
 import TotalPrice from './components/TotalPrice';
+import Content from './components/Content';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 
 class ChoosePayment extends Component {
@@ -52,19 +51,12 @@ class ChoosePayment extends Component {
                 <View style={styles.container}>
                     <View style={styles.content}>
                         { 
-                            this.state.contents.map((content, index) => (
-                                <TouchableOpacity key={index} style={styles.component} onPress={() => this.navigateToOtherPage(content)}>
-                                    <StaticText
-                                        style={styles.staticText}
-                                        property={content}
-                                    />
-                                    <View style={styles.imagePlace}>
-                                        <Image
-                                            source={images.icon_arrow_right_red}
-                                            style={styles.logo}
-                                        />
-                                    </View>
-                                </TouchableOpacity>
+                            this.state.contents.map((content,index) => (
+                                <Content 
+                                    key={index}
+                                    content={content}
+                                    navigateToOtherPage={this.navigateToOtherPage}
+                                />
                             )) 
                         }                        
                     </View>
@@ -79,14 +71,10 @@ class ChoosePayment extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-        user: state.user.data,
-        totalPrice: state.product.total.price,
-        delivery_price: state.product.delivery_price
-	}
-}
+const mapStateToProps = (state) => ({
+    user: state.user.data,
+    totalPrice: state.product.total.price,
+    delivery_price: state.product.delivery_price
+});
 
-export default connect(
-	mapStateToProps,
-	null)(ChoosePayment);
+export default connect(mapStateToProps,null)(ChoosePayment);
