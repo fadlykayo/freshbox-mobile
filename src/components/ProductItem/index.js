@@ -45,12 +45,16 @@ class ProductItem extends PureComponent {
 						<Content 
 							data={this.props.data}
 						/>
-						<ButtonFav 
-							data={this.props.data}
-							user={this.props.user}
-							isFavorite={this.props.data.favorite}
-							toggleFavorite={this.props.toggleFavorite}
-						/>
+						{
+							this.props.type == 'cart'
+							? 	null
+							:	<ButtonFav 
+									data={this.props.data}
+									user={this.props.user}
+									isFavorite={this.props.data.favorite}
+									toggleFavorite={this.props.toggleFavorite}
+								/>
+						}
 					</TouchableOpacity>
 					<ButtonCount
 						count={this.props.data.count}

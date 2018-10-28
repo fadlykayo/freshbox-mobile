@@ -75,12 +75,16 @@ class ProductDetail extends Component {
 							<Content 
 								data={this.props.data}
 							/>
-							<ButtonFav 
-								data={this.props.data}
-								user={this.props.user}
-								isFavorite={this.props.data.favorite}
-								toggleFavorite={this.props.toggleFavorite}
-							/>
+							{
+								this.props.type == 'cart'
+								? 	null
+								:	<ButtonFav 
+										data={this.props.data}
+										user={this.props.user}
+										isFavorite={this.props.data.favorite}
+										toggleFavorite={this.props.toggleFavorite}
+									/>
+							}
 						</View>
 						<View style={styles.subcontainer.bottom}>
 							<ScrollView style={styles.bottomContainer}>

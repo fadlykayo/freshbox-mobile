@@ -102,13 +102,13 @@
         }
     },
     "cart": {
-        "navigationTitle": "Keranjang",
+        "navigationTitle": "KERANJANG",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "Bayar"
+            "checkout": "PILIH WAKTU PENGIRIMAN"
         },
         "content": {
             "price": "Rp. ",
@@ -118,7 +118,7 @@
 
     },
     "checkout": {
-        "navigationTitle": "Bayar",
+        "navigationTitle": "ALAMAT & WAKTU PENGIRIMAN",
         "label": {
             "deliveryAddress": "Alamat Pengiriman",
             "name": "Nama",
@@ -407,6 +407,7 @@
     "formError":{
         "title": {
             "default": "GAGAL",
+            "cartEmpty": "KERANJANG KOSONG",
             "createOrder": "PEMESANAN GAGAL",
             "outOfStock": "JUMLAH BARANG BERLEBIH"
         }
@@ -437,7 +438,8 @@
         "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
         "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
-        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan."
+        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
+        "cartEmpty": "Silahkan isi keranjang anda dengan minimal 1 jenis produk sebelum anda melanjutkan proses pemesanan."
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"

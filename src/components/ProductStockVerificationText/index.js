@@ -9,7 +9,6 @@ class VerificationText extends PureComponent {
 
     render(){
         if(this.props.type == 'cart'){
-            console.log('here')
             if(this.props.count > this.props.maxQty){
                 if(this.props.maxQty == 0){
                     <StaticText 
@@ -32,7 +31,6 @@ class VerificationText extends PureComponent {
             else return null;
         }
         else{
-            console.log('or here')
             if(this.props.count > this.props.stock){
                 return(
                     <StaticText 
