@@ -40,15 +40,15 @@ class Detail extends Component {
 		}
 
 		this.props.get_delivery_price(payload, 
-			(success) => {
+			() => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
-
-				this.setState(state)
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+				this.setState(state);
 			},
 			(err) => {
-				console.log(err)
-			})
+				console.log(err);
+			}
+		)
 	}
 
 	toggleFavorite(payload){
@@ -64,7 +64,7 @@ class Detail extends Component {
 	}
 
 	navigateToTransferInstruction() {
-		actNav.navigate(navConstant.TransferInstruction)
+		actNav.navigate(navConstant.TransferInstruction);
 	}
 
   	render() {
@@ -83,7 +83,7 @@ class Detail extends Component {
                         transaction={this.props.detailTransaction}
                         action={this.props.navigation.state.params.action}
                     />
-                    <View style={styles.middleComponent}>
+                    <View style={styles.subcontainer}>
                         <FlatList
 							data={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.details : this.props.cart_product}
 							keyExtractor={(item,index) => index.toString()}

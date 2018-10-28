@@ -13,17 +13,17 @@ class Content extends PureComponent {
 		if(this.props.action == 'history') {
 			let productPrice = numeral(this.props.data.sub_total).format('0,0');
 			return (
-				<View style={styles.contentContainer}>
-					<Text style={styles.fontTitle}>{this.props.data.product_name}</Text>
-					<Text style={styles.fontCategory}>{this.props.data.category}</Text>
-					<Text style={styles.fontTitle}>
+				<View style={styles.container}>
+					<Text style={styles.text.title}>{this.props.data.product_name}</Text>
+					<Text style={styles.text.desc}>{this.props.data.category}</Text>
+					<Text style={styles.text.price}>
 						<StaticText 
-							style={styles.fontTitle}
+							style={styles.text.price}
 							property={'cart.content.price'}
 						/>
 						{productPrice}
 						<StaticText 
-							style={styles.fontPack}
+							style={styles.desc}
 							property={'cart.content.pack'}
 						/>
 					</Text>
@@ -33,15 +33,16 @@ class Content extends PureComponent {
 		else {
 			let productPrice = numeral(this.props.data.price).format('0,0');
 			return (
-				<View style={styles.contentContainer}>
-					<Text style={styles.fontTitle}>{this.props.data.name}</Text>
-					<Text style={styles.fontCategory}>{this.props.data.category.name}</Text>
-					<Text style={styles.fontTitle}>
+				<View style={styles.container}>
+					<Text style={styles.text.title}>{this.props.data.name}</Text>
+					<Text style={styles.text.desc}>{this.props.data.category.name}</Text>
+					<Text style={styles.text.price}>
 						<StaticText 
-							style={styles.fontTitle}
+							style={styles.text.price}
 							property={'cart.content.price'}
 						/>
-						{productPrice}<Text style={styles.fontPack}>/{this.props.data.unit}</Text>
+						{productPrice}
+						<Text style={styles.text.desc}>/{this.props.data.unit}</Text>
 					</Text>
 				</View>
 			)

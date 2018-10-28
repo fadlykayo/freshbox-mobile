@@ -6,60 +6,45 @@ import numeral from 'numeral';
 import styles from './styles';
 
 class TotalPrice extends Component {
-  	constructor(props) {
-        super(props);
-        this.onPress = this.onPress.bind(this);
-        this.getStatusText = this.getStatusText.bind(this);
-        this.renderButton = this.renderButton.bind(this);
+  	constructor() {
+        super();
+        this._renderButton = this._renderButton.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
+        this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
         this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
     }
 
-    navigateToCart() {
-        this.props.navigateToCart()
+    navigateToCart(){
+        this.props.navigateToCart();
     }
 
-    navigateToTransferInstruction() {
-        this.props.navigateToTransferInstruction()
+    navigateToTransferInstruction(){
+        this.props.navigateToTransferInstruction();
     }
 
-    onPress() {
-        if(this.props.action == 'history') {
-            switch(this.props.status) {
-                case 'pending_payment': return this.props.navigateToTransferInstruction();
-                case 'finish': return this.props.navigateToCart();
-                default: return null;
-            }
-        } 
+    navigateToChoosePayment(){
+        this.props.navigateToChoosePayment();
     }
 
-    getStatusText(input) {
-        switch(input) {
-            case 'pending_payment': return 'historyDetail.content.pay'
-            case 'finish': return 'historyDetail.content.reOrder'
-            default: return null;
-        }
-    }
-
-    renderButton() {
-        if(this.props.action == 'history') {
+    _renderButton() {
+        if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 
-                return (
-                    <Button
-                    type={this.props.type}
-                    onPress={this.navigateToTransferInstruction}
-                    title={this.getStatusText(this.props.status)}
-                />
-                )
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToTransferInstruction}
+                            title={'historyDetail.content.pay'}
+                        />
+                    )
                 case 'finish': 
-                return (
-                    <Button
-                    type={this.props.type}
-                    onPress={this.navigateToCart}
-                    title={this.getStatusText(this.props.status)}
-                />
-                )
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
                 default: return null
             } 
         }
@@ -80,33 +65,48 @@ class TotalPrice extends Component {
         const grandTotal = numeral(this.props.grandTotal).format('0,0');
   	  	return (
             <View style={styles.container}>
-                <View style={styles.topComponent}>
-                    <View style={styles.spaceBetweenData}>
+                <View style={styles.subcontainer.content}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.title}
                             property={'checkout.content.subTotal'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{subTotal}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {subTotal}
+                        </Text>
                     </View>
-                    <View style={styles.spaceBetweenData}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.title}
                             property={'checkout.content.delivery'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{deliveryPrice}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {deliveryPrice}
+                        </Text>
                     </View>
-                    <View style={styles.grandTotal}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.total}
                             property={'checkout.content.grandTotal'}
                         />
-                        <Text style={styles.grandPrice}><StaticText
-                        property={'checkout.content.price'}/>{grandTotal}</Text>
+                        <Text style={styles.text.total}>
+                            <StaticText
+                                style={styles.text.total}
+                                property={'checkout.content.price'}
+                            />
+                            {grandTotal}
+                        </Text>
                     </View>
                 </View>
-                { this.renderButton() }
+                {this._renderButton()}
             </View>
   	  	);
   	}

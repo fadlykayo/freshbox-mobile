@@ -6,8 +6,8 @@ import numeral from 'numeral';
 import styles from './styles';
 
 class TotalPrice extends Component {
-  	constructor(props) {
-        super(props);
+  	constructor() {
+        super();
     }
 
   	render() {
