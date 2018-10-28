@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
+import ProductStockVerificationText from '@components/ProductStockVerificationText';
+import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
-import VerificationText from './components/VerificationText';
-import ButtonFav from './components/ButtonFav';
 import styles from './styles';
-import images from '@assets';
-
 
 class ProductItem extends PureComponent {
 	constructor(){
@@ -61,7 +59,7 @@ class ProductItem extends PureComponent {
 					/>
 				</View>
 				<View style={styles.subcontainer.verification}>
-					<VerificationText 
+					<ProductStockVerificationText 
 						type={this.props.type}
 						count={this.props.data.count}
 						stock={this.props.data.stock}

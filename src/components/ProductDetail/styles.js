@@ -53,7 +53,11 @@ const styles = {
             marginRight: scaling.moderateScale(5),
             justifyContent: 'center',
             alignItems: 'center',
-        }
+        },
+        verification:{
+			alignItems: 'flex-end',
+			paddingRight: width * 0.05,
+        },
     },
     button:{
         dropdown:{

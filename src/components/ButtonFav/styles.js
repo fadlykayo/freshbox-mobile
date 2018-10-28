@@ -1,5 +1,4 @@
 import { scaling } from '@helpers';
-import { colour } from '@styles';
 
 const styles = {
     addContainer: {

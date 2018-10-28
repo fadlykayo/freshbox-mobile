@@ -330,6 +330,7 @@ class ProductList extends Component {
 					</View>
 				</View>
 				<ProductDetail
+					type={'productList'}
 					user={this.props.user}
 					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}

@@ -158,6 +158,7 @@ class Cart extends Component {
 					/>
 				</View>
 				<ProductDetail
+					type={'cart'}
 					user={this.props.user}
 					data={this.props.productDetail}
 					updateDetail={this.updateDetail}
