@@ -133,9 +133,10 @@ class AddressPage extends Component {
 	}
 	
 	submitZipCode(){
-        let userZipCode = this.state.user.zipCode.trim();
-        this.onChangeText('zipCode',userZipCode);
-        
+		let user = this.state.user;
+		let newZipCode = user.zip_code.zip_code.trim();
+		user.zip_code.zip_code = newZipCode;
+        this.setState({user})
 	}
 	
 	submitAddress(){
