@@ -8,16 +8,17 @@ const styles = {
     container: {
 		flex: 1,
 		justifyContent: 'space-between',
-        height: width * 0.2,
 	},
 	text:{
 		title:{
 			fontFamily: 'Avenir-Medium',
 			fontSize: scaling.moderateScale(14),
+			color: colour.darkGrey,
 		},
 		price:{
 			fontFamily: 'Avenir-Medium',
 			fontSize: scaling.moderateScale(14),
+			color: colour.darkGrey,
 		},
 		category:{
 			fontFamily: 'Avenir-Light',

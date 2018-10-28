@@ -72,7 +72,9 @@ class ProductDetail extends Component {
 								}
 								</ScrollView>
 							</View>
-							<Content data={this.props.data}/>
+							<Content 
+								data={this.props.data}
+							/>
 							<ButtonFav 
 								data={this.props.data}
 								user={this.props.user}
