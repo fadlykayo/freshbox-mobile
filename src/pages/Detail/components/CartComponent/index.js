@@ -22,7 +22,7 @@ class CartComponent extends PureComponent {
 				<View style={styles.imageContainer}>
 					<Image
 						resizeMode={'contain'} 
-						source={this.props.action == 'history' ? this.props.transaction.image : this.props.data.images_sizes_url.original[0]}
+						source={this.props.action == 'history' ? null : {uri: this.props.data.images_sizes_url.original[0]}}
 						style={styles.picture}
 					/>
 				</View>
@@ -48,7 +48,7 @@ class CartComponent extends PureComponent {
 							{ this.props.action == 'history'
 								? (
 								<Text style={styles.itemText}>
-									{this.props.data.pack} <StaticText 
+									{this.props.data.qty} <StaticText 
 									property={'historyDetail.content.pack'}
 									/>
 								</Text>

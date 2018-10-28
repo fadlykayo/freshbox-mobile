@@ -38,10 +38,12 @@ class FormInput extends Component {
 
     onFocus(){
         this.focusHandler(true);
+        if(this.props.onFocusHandler) this.props.onFocusHandler()
     }
 
     onBlur(){
         this.focusHandler(false);
+        if(this.props.onBlurHandler) this.props.onBlurHandler()
     }
 
     blur(){

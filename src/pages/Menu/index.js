@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, ImageBackground, Text } from 'react-native';
+import { View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { GoogleSignin } from 'react-native-google-signin';
 import { actNav, navConstant } from '@navigations';
 import { socmed } from '@helpers';
@@ -86,10 +86,14 @@ class Menu extends PureComponent {
                             <Text style={styles.termsAndCondition}>
                                 <StaticText 
                                     property={'welcome.content.info'}
-                                /> <StaticText 
-                                style={styles.underline}
-                                property={'welcome.content.termsCondition'}
-                            /></Text>
+                                /> 
+                            </Text>
+                            <TouchableOpacity>
+                                <StaticText 
+                                    style={styles.underline}
+                                    property={'welcome.content.termsCondition'}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </Container>
                 </ImageBackground>

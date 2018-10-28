@@ -5,20 +5,23 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    bottomComponent: {
-        flex: 1,
-        height: height * 0.3,
+    container: {
+        flex: -1,
+        height: height * 0.26,
         backgroundColor: colour.white,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,
         borderWidth: 1,
         borderColor: colour.lightGrey,
-        padding: width * 0.05,
+        paddingTop: width * 0.05,
+        paddingLeft: width * 0.05,
+        paddingRight: width * 0.05,
+        paddingBottom: width * 0.03,
     },
-    topTotalPrice: {
+    topComponent: {
         flex: 1,
     },
-    subTotal: {
+    spaceBetweenData: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: scaling.moderateScale(8),
@@ -45,13 +48,13 @@ const styles = {
         fontWeight: '500',
         color: colour.red
     },
-    reOrderButton: {
+    checkoutButton: {
         flex: -1,
-        height: height * 0.1,
+        height: height * 0.08,
         backgroundColor: colour.red,
         borderColor: colour.white,
-        borderWidth: 2,
-        borderRadius: 20,
+        borderWidth: 1,
+        borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -65,7 +68,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
     },
-    reOrderText: {
+    checkoutText: {
         fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(14),
         fontWeight: '500',

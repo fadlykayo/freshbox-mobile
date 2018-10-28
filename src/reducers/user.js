@@ -1,6 +1,7 @@
 import ct from '@constants';
 
 const initialState = {
+    on_boarding: false,
     data: null,
     address: [],
     address_detail: {}
