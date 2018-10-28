@@ -102,7 +102,8 @@ class Cart extends Component {
 				this.props.bulk_add_products(payload,
 					(res) => {
 						actNav.navigate(navConstant.Checkout,{
-							key: this.props.navigation.state.key
+							key: this.props.navigation.state.key,
+							createOrderHandler: this.props.navigation.state.params.createOrderHandler
 						});
 					},
 					(err) => {}

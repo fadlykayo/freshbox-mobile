@@ -44,12 +44,20 @@ const setNetworkStatusHandler = (state,payload) => {
     });
 }
 
+const setServerErrorStatusHandler = (state,payload) => {
+    return Object.assign({},state,{
+        isLoading: false,
+        isServerError: payload,
+    });
+}
+
 const networkReducer = (state = initialState, action) => {
     switch(action.type){
         case ct.SET_LOADING_STATUS: return setLoadingStatus(state,action.payload);
         case ct.SET_ERROR_STATUS: return setResponseErrorHandler(state,action.payload);
         case ct.SET_SUCCESS_STATUS: return setResponseSuccessHandler(state,action.payload);
         case ct.SET_NETWORK_ERROR_STATUS: return setNetworkStatusHandler(state,action.payload);
+        case ct.SET_SERVER_ERROR_STATUS: return setServerErrorStatusHandler(state,action.payload);
         default: return state;
     };
 };

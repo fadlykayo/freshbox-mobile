@@ -7,7 +7,6 @@ import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
 import TotalPrice from './components/TotalPrice';
 import styles from './styles';
-import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 

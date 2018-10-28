@@ -412,7 +412,8 @@
             "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
             "createOrder": "PEMESANAN GAGAL",
             "outOfStock": "JUMLAH BARANG BERLEBIH",
-            "expiredDate": "WAKTU PEMESANAN TELAH HABIS"
+            "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
+            "serverError": "SERVER GANGGUAN"
         }
     },
     "formSuccess":{
@@ -445,7 +446,8 @@
         "emptyCart": "Silahkan isi keranjang anda dengan minimal 1 jenis produk sebelum anda melanjutkan proses pemesanan.",
         "emptyAddress": "Silahkan isi alamat pengiriman anda sebelum anda melanjutkan proses pemesanan.",
         "emptyDate": "Silahkan pilih tanggal pengiriman sebelum anda melanjutkan proses pemesanan.",
-        "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda."
+        "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda.",
+        "serverError": "Terjadi gangguan pada server, silahkan coba beberapa saat lagi."
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"

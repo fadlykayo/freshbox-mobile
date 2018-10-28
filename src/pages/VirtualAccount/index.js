@@ -66,10 +66,8 @@ class VirtualAccount extends Component {
 
         this.props.create_order(payload,
             () => {
-                actNav.navigate(navConstant.HistoryPage,{
-                    key: this.props.navigation.state.params.key,
-                    action: 'createOrder',
-                });
+                this.props.clear_products();
+                this.props.navigation.state.params.createOrderHandler();
             },
             (err) => {
                 console.log(err)
@@ -119,7 +117,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
-    clear_products: () => dispatch(actions.product.reducer.clear_products())
+    clear_products: () => dispatch(actions.product.reducer.clear_products()),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(VirtualAccount);

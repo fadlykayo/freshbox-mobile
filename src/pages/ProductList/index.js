@@ -10,9 +10,9 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
 import Categories from './components/Categories';
+import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
-import { language } from '@helpers';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -28,22 +28,23 @@ class ProductList extends Component {
 				openProduct: false,
 			},
 		}
-		this.submitSearch=this.submitSearch.bind(this);
-		this.onChangeText = this.onChangeText.bind(this);
-		this.checkCategory=this.checkCategory.bind(this);
-		this.validateCart = this.validateCart.bind(this);
-		this.refreshHandler=this.refreshHandler.bind(this);
-		this.toggleFavorite=this.toggleFavorite.bind(this);
-		this.changeCategory=this.changeCategory.bind(this);
-		this.openDrawerMenu=this.openDrawerMenu.bind(this);
-		this.handleLoadMore=this.handleLoadMore.bind(this);
-		this.setModalVisible=this.setModalVisible.bind(this);
-		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.submitSearch = this.submitSearch.bind(this);
+		this.onChangeText  =  this.onChangeText.bind(this);
+		this.checkCategory = this.checkCategory.bind(this);
+		this.validateCart  =  this.validateCart.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.changeCategory = this.changeCategory.bind(this);
+		this.openDrawerMenu = this.openDrawerMenu.bind(this);
+		this.handleLoadMore = this.handleLoadMore.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
-		this.openAllCategories=this.openAllCategories.bind(this);
-		this.openDetailProduct=this.openDetailProduct.bind(this);
-		this.closeDetailProduct=this.closeDetailProduct.bind(this);
-		this.closeDialogCategories=this.closeDialogCategories.bind(this);
+		this.openAllCategories = this.openAllCategories.bind(this);
+		this.openDetailProduct = this.openDetailProduct.bind(this);
+		this.createOrderHandler = this.createOrderHandler.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+		this.closeDialogCategories = this.closeDialogCategories.bind(this);
 	}
 
 	componentDidMount(){
@@ -91,9 +92,7 @@ class ProductList extends Component {
 			params: {}
 		}
 		this.props.get_categories(payload,
-			() => {
-				
-			},
+			() => {},
 			(err) => {
 				console.log(err)
 			}
@@ -108,9 +107,7 @@ class ProductList extends Component {
 				params: this.props.params
 			}
 			this.props.get_products(payload,
-				() => {
-
-				},
+				() => {},
 				(err) => {
 					console.log(err);
 				});
@@ -161,7 +158,7 @@ class ProductList extends Component {
 			}
 
 			this.props.search_products(payload, 
-				(success) => {
+				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
@@ -202,9 +199,7 @@ class ProductList extends Component {
 				favorite: payload
 			}
 			this.props.delete_favorite(data,
-				() => {
-
-				},
+				() => {},
 				(err) => {
 					console.log(err)
 				}
@@ -223,9 +218,7 @@ class ProductList extends Component {
 				favorite: payload
 			}
 			this.props.add_favorite(data,
-				() => {
-
-				},
+				() => {},
 				(err) => {
 					console.log(err)
 				}
@@ -280,7 +273,22 @@ class ProductList extends Component {
 	}
 
 	navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+		actNav.navigate(navConstant.Cart,{
+			createOrderHandler: this.createOrderHandler
+		});
+	}
+
+	createOrderHandler(){
+		actNav.goBackToTop();
+		this.refreshHandler();
+		language.transformText('message.createOrderSuccess')
+		.then(message => {
+			this.props.set_success_status({
+				status: true,
+				data: message,
+				title: 'formSuccess.title.createOrder'
+			});
+		});
 	}
 
 	render(){
@@ -379,6 +387,7 @@ const mapDispatchToProps = dispatch => ({
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);
