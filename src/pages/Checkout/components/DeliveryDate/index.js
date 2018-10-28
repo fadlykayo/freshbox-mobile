@@ -46,7 +46,7 @@ class DeliveryDate extends PureComponent {
 			let today = new Date();
 			let hours = today.getHours();
 			let minutes = today.getMinutes();
-			let renderDate = hours <= 21 ? this.state.date.slice(0,3) : minutes <= 55 ? this.state.date.slice(0,3) : this.state.date.slice(1,4);
+			let renderDate = (hours <= 21 || (hours <= 21 && minutes < 55)) ? this.state.date.slice(0,3) : this.state.date.slice(1,4);
 			return(
 				<TouchableWithoutFeedback onPress={this.closeDeliveryDate}>
 					<View style={styles.overlay}>
