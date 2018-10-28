@@ -91,7 +91,7 @@
             "checkout": "Bayar"
         },
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "subTotal": "Sub Total",
             "pack": "/1 pack"
         }
@@ -112,7 +112,7 @@
             "addressDetails": "Alamat Detil (Opsi)"
         },
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "checkout": "Detail Pemesanan",
             "pack": " pack",
             "subTotal": "Sub Total",
@@ -149,16 +149,16 @@
             "subTotal": "Sub Total",
             "pack": "/1 ",
             "addItem": "+ Tambah",
-            "items": " Items | IDR ",
-            "item": " Item | IDR ",
+            "items": " Items | Rp. ",
+            "item": " Item | Rp. ",
             "categories": "Categories",
-            "price": "IDR "
+            "price": "Rp. "
         }
     },
     "historyPage": {
         "navigationTitle": "Histori",
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "reOrder": "Pesan"
         },
         "static": {
@@ -172,7 +172,7 @@
     "historyDetail": {
         "navigationTitle": "Detail",
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "reOrder": "Pesan Kembali",
             "checkout": "Pilih Metode Pembayaran",
             "pack": " pack",
@@ -335,7 +335,7 @@
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
-            "price": "IDR "
+            "price": "Rp. "
         }
     },
     "creditCard": {

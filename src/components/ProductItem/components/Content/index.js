@@ -12,22 +12,22 @@ class Content extends PureComponent {
 	render(){
 		const productPrice = numeral(this.props.data.price).format('0,0');
 		return(
-			<View style={styles.contentContainer}>
-				<Text style={styles.fontTitle}>{this.props.data.name}</Text>
-				<Text style={styles.fontCategory}>{this.props.data.category.name}</Text>
-				<Text style={styles.fontTitle}>
+			<View style={styles.container}>
+				<Text style={styles.text.title}>{this.props.data.name}</Text>
+				<Text style={styles.text.desc}>{this.props.data.category.name}</Text>
+				<Text style={styles.text.price}>
 					<StaticText
-						style={styles.fontTitle}
+						style={styles.text.price}
 						property={'productList.content.price'}
 					/>
-						{productPrice}
+					{productPrice}
 					<StaticText
-						style={styles.fontPack}
+						style={styles.text.desc}
 						property={'productList.content.pack'}
 					/>
-					<Text style={styles.fontPack}>{this.props.data.unit}</Text>
+					<Text style={styles.text.desc}>{this.props.data.unit}</Text>
 				</Text>
-				<Text style={styles.fontDescription}>{this.props.data.short_description}</Text>
+				<Text style={styles.text.desc}>{this.props.data.short_description}</Text>
 			</View>
 		);
 	}

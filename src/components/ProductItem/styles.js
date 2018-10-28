@@ -45,19 +45,6 @@ const styles = {
 			width: scaling.moderateScale(50),
 		}
 	},
-    addContainer: {
-		flex: 1.5,
-		alignItems: 'flex-end',
-		justifyContent: 'flex-start',
-		height: scaling.moderateScale(60),
-    },
-	touchableFavorite: {
-		marginBottom: scaling.moderateScale(15),
-	},
-	favoriteLogo: {
-		height: scaling.moderateScale(20),
-		width: scaling.moderateScale(20),
-	},
 }
 
 export default styles;

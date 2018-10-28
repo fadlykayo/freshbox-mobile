@@ -22,11 +22,11 @@ class ButtonCount extends PureComponent {
 		if(this.props.count == 0){
 			return(
 				<TouchableOpacity 
-					style={styles.addNewItem}
+					style={[styles.container.base,styles.container.add]}
 					onPress={this.addTotalItem}
 				>
 					<StaticText
-						style={styles.newItemText}
+						style={styles.text.add}
 						property={'productList.content.addItem'}
 					/>
 				</TouchableOpacity>
@@ -34,19 +34,19 @@ class ButtonCount extends PureComponent {
 		}
 		else {
 			return(
-				<View style={styles.countContainer}>
+				<View style={[styles.container.base,styles.container.counter]}>
 					<TouchableOpacity 
-						style={styles.boxOperatorLeft}
+						style={styles.subcontainer.button}
 						onPress={this.decTotalItem}
 					>
-						<Text style={styles.operatorText}>-</Text>
+						<Text style={styles.text.button}>-</Text>
 					</TouchableOpacity>
-					<Text style={styles.itemText}>{this.props.count}</Text>
+					<Text style={styles.text.counter}>{this.props.count}</Text>
 					<TouchableOpacity 
-						style={styles.boxOperatorRight}
+						style={styles.subcontainer.button}
 						onPress={this.addTotalItem}
 					>
-						<Text style={styles.operatorText}>+</Text>
+						<Text style={styles.text.button}>+</Text>
 					</TouchableOpacity>
 				</View>
 			)
