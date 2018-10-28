@@ -1,10 +1,7 @@
 import React,{ PureComponent } from 'react';
-import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
+import DateItem from './components/DateItem';
 import styles from './styles';
-import moment from 'moment';
-import id from 'moment/locale/id';
-
-moment.locale('id',id);
 
 class DeliveryDate extends PureComponent {
 	constructor(props){
@@ -53,13 +50,13 @@ class DeliveryDate extends PureComponent {
 						<View style={styles.container}>
 							{ 
 								renderDate.map((data,index) => (
-									<TouchableOpacity 
-										key={index} 
-										style={styles.datePlace(index+1,renderDate.length)} 
-										onPress={() => this.getDeliveryDate(data)}
-									>
-										<Text>{moment(data).format('dddd, Do MMMM YYYY')}</Text>
-									</TouchableOpacity>
+									<DateItem 
+										key={index}
+										data={data}
+										index={index+1}
+										renderDate={renderDate}
+										getDeliveryDate={this.getDeliveryDate}
+									/>
 								))
 							}
 						</View>

@@ -1,8 +1,7 @@
 import { Dimensions } from 'react-native';
-import { scaling } from '@helpers';
 import { colour } from '@styles';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = {
     overlay: {
@@ -22,14 +21,7 @@ const styles = {
         width: width* 0.9,
         borderRadius: 10,
         backgroundColor: colour.white,
-    },
-    datePlace: (x,y) => ({
-        height: scaling.moderateScale(50),
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomColor: colour.red,
-        borderBottomWidth: (x == y) ? 0 : 1,
-    }),
+    }
 }
 
 export default styles;
