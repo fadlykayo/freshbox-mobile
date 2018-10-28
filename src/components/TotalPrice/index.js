@@ -16,30 +16,45 @@ class TotalPrice extends Component {
         const grandTotal = numeral(this.props.grandTotal).format('0,0');
   	  	return (
             <View style={styles.container}>
-                <View style={styles.topComponent}>
-                    <View style={styles.spaceBetweenData}>
+                <View style={styles.subcontainer.content}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.title}
                             property={'checkout.content.subTotal'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{subTotal}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {subTotal}
+                        </Text>
                     </View>
-                    <View style={styles.spaceBetweenData}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.title}
                             property={'checkout.content.delivery'}
                         />
-                        <Text style={styles.price}><StaticText
-                        property={'checkout.content.price'}/>{deliveryPrice}</Text>
+                        <Text style={styles.text.price}>
+                            <StaticText
+                                style={styles.text.price}
+                                property={'checkout.content.price'}
+                            />
+                            {deliveryPrice}
+                        </Text>
                     </View>
-                    <View style={styles.grandTotal}>
+                    <View style={styles.subcontainer.price}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.total}
                             property={'checkout.content.grandTotal'}
                         />
-                        <Text style={styles.grandPrice}><StaticText
-                        property={'checkout.content.price'}/>{grandTotal}</Text>
+                        <Text style={styles.text.total}>
+                            <StaticText
+                                style={styles.text.total}
+                                property={'checkout.content.price'}
+                            />
+                            {grandTotal}
+                        </Text>
                     </View>
                 </View>
                 <Button

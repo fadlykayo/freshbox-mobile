@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
@@ -9,7 +10,7 @@ import DeliveryDate from './components/DeliveryDate';
 import DeliveryPlace from './components/DeliveryPlace';
 import images from '@assets';
 import styles from './styles';
-import { connect } from 'react-redux';
+import { language } from '@helpers';
 import actions from '@actions';
 
 class Checkout extends Component {
@@ -49,7 +50,7 @@ class Checkout extends Component {
 		}
 
 		this.props.get_delivery_price(payload, 
-			(success) => {
+			() => {
 				let state = this.state;
 				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
 
@@ -57,7 +58,8 @@ class Checkout extends Component {
 			},
 			(err) => {
 				console.log(err)
-			})
+			}
+		)
 	}
 
 	getAddress() {
@@ -69,10 +71,13 @@ class Checkout extends Component {
 			params: {}
 		}
 		this.props.get_address(payload, 
-			null,
+			() => {
+
+			},
 			(err) => {
 				console.log(err)
-			})
+			}
+		)
 	}
 
 	setModalVisible(type,value){
@@ -99,11 +104,25 @@ class Checkout extends Component {
 	navigateToDetail() {
 		let address = this.props.addresses.filter(address => address.primary == 1);
 		if(address.length == 0) {
-			alert("Isi alamat nya")
+			language.transformText('message.emptyAddress')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.emptyAddress',
+					data: message,
+				});
+			});
 		}
 		else {
 			if (this.state.setDate == '') {
-				alert("Isi Tanggal nya")
+				language.transformText('message.emptyDate')
+				.then(message => {
+					this.props.set_error_status({
+						status: true,
+						title: 'formError.title.emptyDate',
+						data: message,
+					});
+				});
 			}
 			else {
 				let payload = {};
@@ -132,7 +151,7 @@ class Checkout extends Component {
 					property={'checkout.content.chooseDate'}
 				/>
 			</View>
-			)
+		)
 	}
 
 	openDeliveryDate() {
@@ -161,17 +180,19 @@ class Checkout extends Component {
 						onPress={this.navigateToChooseAddress}
 					/>
 					<View style={styles.bottomComponent}>
-						{ this._renderLabel() }
-						<TouchableOpacity style={styles.datePlace} onPress={this.openDeliveryDate}>
-						{ this.state.setDate == '' ? (
-							<StaticText
-								style={styles.textDate}
-								property={'checkout.content.chooseDate'}
-							/>
-						) : (
-								<Text style={[styles.textDate, styles.date ]}>{ this.state.setDate.display }</Text>
-						) }
-
+						{this._renderLabel()}
+						<TouchableOpacity 
+							style={styles.datePlace} 
+							onPress={this.openDeliveryDate}
+						>
+							{ 
+								this.state.setDate == '' 
+								? 	<StaticText
+										style={styles.textDate}
+										property={'checkout.content.chooseDate'}
+									/>
+								: 	<Text style={[styles.textDate, styles.date]}>{this.state.setDate.display}</Text>
+							}
 							<View style={styles.dateImage}>
 								<Image
 									source={images.icon_calendar}
@@ -204,11 +225,12 @@ const mapStateToProps = (state) => ({
 	addresses: state.user.address,
 	totalPrice: state.product.total.price,
 	delivery_price: state.product.delivery_price
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
-	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 	get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
-})
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+});
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

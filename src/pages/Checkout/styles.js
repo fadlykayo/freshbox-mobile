@@ -6,10 +6,10 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		backgroundColor: colour.veryLightGrey,
 		flex: 1,
 		marginTop: width * 0.02,
 		marginBottom: width * 0.02,
+		backgroundColor: colour.veryLightGrey,
 	},
 	content:{
         justifyContent: 'center',

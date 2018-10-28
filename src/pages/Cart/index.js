@@ -74,11 +74,11 @@ class Cart extends Component {
 
 	navigateToCheckout(){
 		if(this.props.cart_product.length == 0){
-			language.transformText('message.cartEmpty')
+			language.transformText('message.emptyCart')
 			.then(message => {
 				this.props.set_error_status({
 					status: true,
-					title: 'formError.title.cartEmpty',
+					title: 'formError.title.emptyCart',
 					data: message,
 				});
 			});
