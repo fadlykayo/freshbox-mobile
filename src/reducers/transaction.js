@@ -31,7 +31,6 @@ const getTransactions = (state, payload) => {
 const transactionDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.detail = payload.data;
-
     return newState
 }
 

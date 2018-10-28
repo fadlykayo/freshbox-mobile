@@ -90,11 +90,13 @@ class Container extends PureComponent {
                                 modalVisible = {this.props.network.isResponseError}
                                 closeModal = {this.closeModalError}
                                 errorMessage = {this.props.network.errorMessage}
+                                errorTitle = {this.props.network.errorTitle}
                             />
                             <FormSuccess
                                 modalVisible = {this.props.network.isResponseSuccess}
                                 closeModal = {this.closeModalSuccess}
                                 successMessage = {this.props.network.successMessage}
+                                successTitle = {this.props.network.successTitle}
                             />
                         </View>
                     </SafeAreaView>

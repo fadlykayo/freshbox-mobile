@@ -26,6 +26,7 @@ import ChoosePayment from '@pages/ChoosePayment';
 import CreditCard from '@pages/CreditCard';
 import TransferBank from '@pages/TransferBank';
 import VirtualAccount from '@pages/VirtualAccount';
+import OnBoarding from '@pages/OnBoarding';
 
 let _navigator;
 
@@ -57,6 +58,7 @@ export const AppNavigator = createStackNavigator({
     CreditCard: {screen: CreditCard},    
     TransferBank: {screen: TransferBank},
     VirtualAccount: {screen: VirtualAccount},
+    OnBoarding: {screen: OnBoarding},
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
@@ -116,6 +118,7 @@ export const navConstant = {
     CreditCard: 'CreditCard',
     TransferBank: 'TransferBank',
     VirtualAccount: 'VirtualAccount',
+    OnBoarding: 'OnBoarding',
 }
 
 export const setNavigator = (navigatorRef) => {

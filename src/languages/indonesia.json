@@ -11,6 +11,26 @@
             "termsCondition": "Syarat dan Ketentuan"
         }
     },
+    "onBoarding": {
+        "content": {
+            "first": {
+                "title": "Title 1. Lorem ipsum dolor.",
+                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+            },
+            "second": {
+                "title": "Title 2. Lorem ipsum dolor",
+                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+            }, 
+            "third": {
+                "title": "Title 3. Lorem ipsum dolor",
+                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+            }
+        },
+        "button": {
+            "skip": "SKIP",
+            "finish": "FINISH"
+        }
+    },
     "signIn":{
         "navigationTitle": "Masuk",
         "formLabel":{
@@ -175,6 +195,7 @@
             "price": "Rp. ",
             "reOrder": "Pesan Kembali",
             "checkout": "Pilih Metode Pembayaran",
+            "pay": "Bayar",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -185,9 +206,9 @@
         },
         "detail": {
             "status": "Status",
-            "nomorResi": "Nomor Resi",
-            "tanggal": "Tanggal Pengiriman",
-            "alamat": "Alamat Pengiriman"            
+            "transactionNumber": "Nomor Transaksi",
+            "deliveryDate": "Tanggal Pengiriman",
+            "address": "Alamat Pengiriman"            
         }
     },
     "profilePage": {

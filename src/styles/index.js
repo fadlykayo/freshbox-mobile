@@ -1,8 +1,10 @@
 export const colour = {
     red: 'rgb(229,37,70)',
     darkRed: 'rgb(200, 39, 67)',
+    hotPink: 'rgb(255,105,180)',
+    pink: 'rgb(255,215,255)',
+    lightPink: 'rgb(255,241,243)',
     softRedTransparent: 'rgba(243,95,121,0.25)',
-    lightPink: 'rgb(255, 241, 243)',
     lightOrange: 'rgb(255, 238, 230)',
     orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',

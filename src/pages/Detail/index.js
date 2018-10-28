@@ -5,7 +5,7 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
-import TotalPrice from '@components/TotalPrice';
+import TotalPrice from './components/TotalPrice';
 import styles from './styles';
 import images from '@assets';
 import { connect } from 'react-redux';
@@ -21,12 +21,13 @@ class Detail extends Component {
         }
         this.toggleFavorite = this.toggleFavorite.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
-        this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
-        this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
+		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
     }
     
     componentDidMount() {
-        this.getDeliveryPrice();
+		this.getDeliveryPrice();
 	}
 
     getDeliveryPrice() {
@@ -62,8 +63,11 @@ class Detail extends Component {
         actNav.navigate(navConstant.ChoosePayment,this.props.navigation.state.params);
 	}
 
-  	render() {
+	navigateToTransferInstruction() {
+		actNav.navigate(navConstant.TransferInstruction)
+	}
 
+  	render() {
   	  	return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				
@@ -96,11 +100,14 @@ class Detail extends Component {
   	  	  		</ScrollView>
                     <TotalPrice
 				    	type={'red'}
-				    	title={this.props.navigation.state.params.action == 'history' ? 'historyDetail.content.reOrder' : 'historyDetail.content.checkout'}
-                        subTotal={this.props.totalPrice}
-                        grandTotal={this.state.grandTotalPrice}
-				    	delivery_price={this.props.delivery_price}
-				    	onPress={ this.props.navigation.state.params.action == 'history' ? this.navigateToCart : this.navigateToChoosePayment }
+				    	status={ this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.status : 'historyDetail.content.checkout'}
+                        subTotal={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.sub_total : this.props.totalPrice}
+				    	delivery_price={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.shipping_cost : this.props.delivery_price}
+                        grandTotal={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.grand_total :this.state.grandTotalPrice}
+						action={this.props.navigation.state.params.action}
+						navigateToCart={this.navigateToCart}
+						navigateToChoosePayment={this.navigateToChoosePayment}
+						navigateToTransferInstruction={this.navigateToTransferInstruction}
                     />
 			</Container>
   	  	);
