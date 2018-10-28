@@ -91,7 +91,6 @@ class Checkout extends Component {
     }
 
 	getDeliveryDate(payload){
-		console.log('date selected',payload)
 		this.setState({
 			date:{
 				origin: payload,
@@ -132,23 +131,47 @@ class Checkout extends Component {
 				let today = new Date();
 				let todayHour = today.getHours();
 				let todayMin = today.getMinutes();
-				let todayDate = today.getDate();
+				let tomorrowDate = today.getDate()+1;
 				let stateDate = new Date(this.state.date.origin).getDate();
-				if(todayHour >= 21 && todayMin >= 55){
-					if(todayDate == stateDate){
-						language.transformText('message.expiredDate','id',{
-							date: this.state.date.display ? this.state.date.dispatch : '',
-						})
-						.then(message => {
-							this.props.set_error_status({
-								status: true,
-								title: 'formError.title.expiredDate',
-								data: message,
+				if(todayHour >= 21){
+					if(todayHour > 21){
+						if(tomorrowDate == stateDate){
+							language.transformText('message.expiredDate','id',{
+								date: this.state.date.display ? this.state.date.dispatch : '',
+							})
+							.then(message => {
+								this.props.set_error_status({
+									status: true,
+									title: 'formError.title.expiredDate',
+									data: message,
+								});
 							});
-						});
+						}
+						else{
+							this.navigateToDetail(address[0]);
+						}
 					}
 					else{
-						this.navigateToDetail(address[0]);
+						if(todayMin > 55){
+							if(tomorrowDate == stateDate){
+								language.transformText('message.expiredDate','id',{
+									date: this.state.date.display ? this.state.date.dispatch : '',
+								})
+								.then(message => {
+									this.props.set_error_status({
+										status: true,
+										title: 'formError.title.expiredDate',
+										data: message,
+									});
+								});
+							}
+							else{
+								this.navigateToDetail(address[0]);
+							}
+						}
+						else{
+							this.navigateToDetail(address[0]);
+						}
 					}
 				}
 				else{
