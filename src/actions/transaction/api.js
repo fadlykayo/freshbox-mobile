@@ -83,7 +83,26 @@ actions.create_order = (req,success,failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-        			case 400: return failure(err);
+					case 400: return failure(err);
+					case 403:
+						if(err.data.payment_method){
+							return (
+								language.transformText('message.noPaymentMethodSelected')
+								.then(message => {
+									dispatch(actNetwork.set_error_status({
+										status: true,
+										data: message,
+										title: 'formError.title.createOrder'
+									}));
+								})
+							)
+						}
+						else{
+							return dispatch(actNetwork.set_error_status({
+								status: true,
+								data: JSON.stringify(err)
+							}));
+						}
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,

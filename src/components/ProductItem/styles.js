@@ -6,6 +6,7 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container: (i,length) => ({
+		alignSelf: 'center',
 		width: width * 0.9,
 		borderWidth: 1,
 		borderRadius: 8,
@@ -24,7 +25,7 @@ const styles = {
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			paddingLeft: width * 0.04,
+			paddingLeft: width * 0.05,
 			paddingRight: width * 0.05,
 		},
 		product:{

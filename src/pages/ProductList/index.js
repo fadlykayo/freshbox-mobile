@@ -8,6 +8,7 @@ import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
+import Notes from './components/Notes';
 import Categories from './components/Categories';
 import styles from './styles';
 import actions from '@actions';
@@ -16,11 +17,12 @@ import { language } from '@helpers';
 class ProductList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state = {
+			refreshing: false,
 			searchItem: '',
 			onCategory: '',
 			indexProduct: 0,
-			detailDataProduct: {},
+			detailDataProduct:{},
 			modalVisible: {
 				openCategories: false,
 				openProduct: false,
@@ -30,6 +32,7 @@ class ProductList extends Component {
 		this.onChangeText = this.onChangeText.bind(this);
 		this.checkCategory=this.checkCategory.bind(this);
 		this.validateCart = this.validateCart.bind(this);
+		this.refreshHandler=this.refreshHandler.bind(this);
 		this.toggleFavorite=this.toggleFavorite.bind(this);
 		this.changeCategory=this.changeCategory.bind(this);
 		this.openDrawerMenu=this.openDrawerMenu.bind(this);
@@ -49,14 +52,32 @@ class ProductList extends Component {
 		this.checkCategory();
 	}
 
+	onChangeText(type,value){
+        let state = JSON.parse(JSON.stringify(this.state));
+        state[type] = value;
+        this.setState(state);
+	}
+
+	setModalVisible(type,value){
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+        modalVisible[type] = value;
+        this.setState({modalVisible});
+    }
+
+	refreshHandler(){
+		this.setState({refreshing: true},() => {
+			this.getProductList();
+		});
+	}
+
 	getProductList(){
 		let payload = {
 			header: {},
 			params: this.props.params
 		}
 		this.props.get_products(payload,
-			(res) => {
-
+			() => {
+				if(this.state.refreshing != false) this.setState({refreshing: false});
 			},
 			(err) => {
 				console.log(err)
@@ -70,7 +91,7 @@ class ProductList extends Component {
 			params: {}
 		}
 		this.props.get_categories(payload,
-			(res) => {
+			() => {
 				
 			},
 			(err) => {
@@ -86,7 +107,10 @@ class ProductList extends Component {
 				body: {},
 				params: this.props.params
 			}
-			this.props.get_products(payload, null,
+			this.props.get_products(payload,
+				() => {
+
+				},
 				(err) => {
 					console.log(err);
 				});
@@ -116,7 +140,7 @@ class ProductList extends Component {
 			}
 
 			this.props.search_products(payload, 
-				(success) => {
+				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
@@ -157,12 +181,6 @@ class ProductList extends Component {
 		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}
-
-	setModalVisible(type,value){
-        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
-        modalVisible[type] = value;
-        this.setState({modalVisible});
-    }
 
 	closeDialogCategories(){
 		this.setModalVisible('openCategories',false);
@@ -213,13 +231,6 @@ class ProductList extends Component {
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
 	}
-
-
-	onChangeText(type,value){
-        let state = this.state;
-        state[type] = value;
-        this.setState(state);
-	}
 	
 	submitSearch() {
 		let payload={
@@ -253,7 +264,8 @@ class ProductList extends Component {
 			.then(message => {
 				this.props.set_error_status({
 					status: true,
-					data: message
+					title: 'formError.title.outOfStock',
+					data: message,
 				});
 			});
 		}
@@ -283,14 +295,19 @@ class ProductList extends Component {
 					openDrawerMenu={this.openDrawerMenu}
 				/>
 				<FilterComponent 
-					onCategory = {this.props.on_category}
+					onCategory={this.props.on_category}
 					openAllCategories={this.openAllCategories}
 				/>
+				<Notes />
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.product}
+							onEndReachedThreshold={0.5}
+							onRefresh={this.refreshHandler}
+							refreshing={this.state.refreshing}
 							keyExtractor={(item) => item.code}
+							onEndReached={this.handleLoadMore}
 							renderItem={({item,index}) => (
 								<ProductItem
 									key={index}
@@ -304,18 +321,12 @@ class ProductList extends Component {
 									openDetailProduct= {this.openDetailProduct}
 								/>
 							)}
-							onEndReached={this.handleLoadMore}
-							onEndReachedThreshold={0.5}
 						/>
-						{ 
-							this.props.total_count > 0 
-							? 	<Checkout
-									totalCount={this.props.total_count}
-									totalPrice={this.props.total_price}
-									onPress={this.validateCart}
-								/>
-							: 	null
-						}
+						<Checkout
+							totalCount={this.props.total_count}
+							totalPrice={this.props.total_price}
+							validateCart={this.validateCart}
+						/>
 					</View>
 				</View>
 				<ProductDetail
@@ -354,16 +365,16 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	change_total : (index,type) => dispatch(actions.product.reducer.change_total(index,type)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
-	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
-	change_total : (index, type) => dispatch(actions.product.reducer.change_total(index, type)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
-	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
-	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);
