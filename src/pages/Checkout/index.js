@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import moment from 'moment';
+import moment, { min } from 'moment';
 import id from 'moment/locale/id';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -35,6 +35,7 @@ class Checkout extends Component {
 		this.openDeliveryDate = this.openDeliveryDate.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
+		this.addressDateValidation = this.addressDateValidation.bind(this);
 		this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
 	}
 
@@ -104,7 +105,7 @@ class Checkout extends Component {
 		actNav.navigate(navConstant.ChooseAddress);
 	}
 
-	navigateToDetail(){
+	addressDateValidation(){
 		let address = this.props.addresses.filter(address => address.primary == 1);
 		if(address.length == 0){
 			language.transformText('message.emptyAddress')
@@ -128,23 +129,50 @@ class Checkout extends Component {
 				});
 			}
 			else{
-				let payload = {};
-		
-				payload.address_code = address[0].code;
-				payload.request_shipping_date = this.state.date.value;
-		
-				actNav.navigate(navConstant.Detail, 
-					{
-						action: 'checkout', 
-						transaction: payload, 
-						date: this.state.date,
-						...this.props.navigation.state.params
+				let today = new Date();
+				let todayHour = today.getHours();
+				let todayMin = today.getMinutes();
+				let todayDate = today.getDate();
+				let stateDate = new Date(this.state.date.origin).getDate();
+				if(todayHour >= 21 && todayMin >= 55){
+					if(todayDate == stateDate){
+						language.transformText('message.expiredDate','id',{
+							date: this.state.date.display ? this.state.date.dispatch : '',
+						})
+						.then(message => {
+							this.props.set_error_status({
+								status: true,
+								title: 'formError.title.expiredDate',
+								data: message,
+							});
+						});
 					}
-				)
+					else{
+						this.navigateToDetail(address[0]);
+					}
+				}
+				else{
+					this.navigateToDetail(address[0]);
+				}
 			}
 		}
 	}
 
+	navigateToDetail(address){
+		let payload = {};
+		
+		payload.address_code = address.code;
+		payload.request_shipping_date = this.state.date.value;
+
+		actNav.navigate(navConstant.Detail, 
+			{
+				action: 'checkout', 
+				transaction: payload, 
+				date: this.state.date,
+				...this.props.navigation.state.params
+			}
+		)
+	}
 	
 	openDeliveryDate() {
 		this.setModalVisible('showDeliveryDate',true);
@@ -212,7 +240,7 @@ class Checkout extends Component {
                     subTotal={this.props.totalPrice}
                     grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.props.delivery_price}
-					onPress={this.navigateToDetail}
+					onPress={this.addressDateValidation}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}

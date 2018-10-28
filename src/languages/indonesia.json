@@ -411,7 +411,8 @@
             "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
             "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
             "createOrder": "PEMESANAN GAGAL",
-            "outOfStock": "JUMLAH BARANG BERLEBIH"
+            "outOfStock": "JUMLAH BARANG BERLEBIH",
+            "expiredDate": "WAKTU PEMESANAN TELAH HABIS"
         }
     },
     "formSuccess":{
@@ -443,7 +444,8 @@
         "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
         "emptyCart": "Silahkan isi keranjang anda dengan minimal 1 jenis produk sebelum anda melanjutkan proses pemesanan.",
         "emptyAddress": "Silahkan isi alamat pengiriman anda sebelum anda melanjutkan proses pemesanan.",
-        "emptyDate": "Silahkan pilih tanggal pengiriman sebelum anda melanjutkan proses pemesanan."
+        "emptyDate": "Silahkan pilih tanggal pengiriman sebelum anda melanjutkan proses pemesanan.",
+        "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda."
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"
