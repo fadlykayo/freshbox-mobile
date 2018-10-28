@@ -78,7 +78,7 @@ class Detail extends Component {
 				/>
   	  	  		<ScrollView style={styles.container}>
                     <DetailOrder
-                        setDate={this.props.navigation.state.params.setDate}
+                        setDate={this.props.navigation.state.params.date}
                         addresses={this.props.addresses}
                         transaction={this.props.detailTransaction}
                         action={this.props.navigation.state.params.action}

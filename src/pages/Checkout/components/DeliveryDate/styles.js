@@ -12,28 +12,24 @@ const styles = {
         top: 0,
         right: 0,
         bottom: 0,
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        width: width,
-        height: height,
         backgroundColor: colour.darkGreyTransparent,
     },
     container: {
-        flex: -1,
-
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
-        paddingBottom: width* 0.05,
-    },
-    datePlace: {
+        marginHorizontal: width * 0.05,
+        marginBottom: width* 0.05,
         width: width* 0.9,
-        height: width* 0.15,
+        borderRadius: 10,
         backgroundColor: colour.white,
+    },
+    datePlace: (x,y) => ({
+        height: scaling.moderateScale(50),
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottomColor: colour.grey,
-        borderBottomWidth: 1,
-    }
+        borderBottomColor: colour.red,
+        borderBottomWidth: (x == y) ? 0 : 1,
+    }),
 }
 
 export default styles;

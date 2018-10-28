@@ -2,44 +2,40 @@ import React,{ PureComponent } from 'react';
 import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import moment from 'moment';
+import id from 'moment/locale/id';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
-var idLocale = require('moment/locale/id');
-moment.locale('id', idLocale)
-
-var today = new Date();
-var tomorrow = new Date(today);
-tomorrow.setDate(today.getDate()+1);
-var next2days = new Date(today);
-next2days.setDate(today.getDate()+2);
-
+moment.locale('id',id);
 
 class DeliveryDate extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state = {
-			date: [
-				{
-					display: moment(today).format('dddd, Do MMMM YYYY'),
-					post: moment(today).format('YYYY-MM-DD HH:mm:ss'),
-				},
-				{
-					display: moment(tomorrow).format('dddd, Do MMMM YYYY'),
-					post: moment(tomorrow).format('YYYY-MM-DD HH:mm:ss'),
-				},
-				{
-					display: moment(next2days).format('dddd, Do MMMM YYYY'),
-					post: moment(next2days).format('YYYY-MM-DD HH:mm:ss'),
-				}
-			]
+			date: [],
 		}
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
 		this.getDeliveryDate = this.getDeliveryDate.bind(this);
 	}
 
-	getDeliveryDate(type, value) {
-		this.props.getDeliveryDate(type, value)
+	componentDidMount(){
+		this.setTimeHandler();
+	}
+
+	setTimeHandler(){
+		let today = new Date();
+		let tomorrow = new Date(today).setDate(today.getDate()+1);
+		let next2days = new Date(today).setDate(today.getDate()+2);
+		let next3days = new Date(today).setDate(today.getDate()+3);
+
+		let date = this.state.date.slice();
+		date=[today,tomorrow,next2days,next3days];
+
+		this.setState({date});
+	}
+
+	getDeliveryDate(type,value){
+		this.props.getDeliveryDate(type,value)
 	}
 
 	closeDeliveryDate() {
@@ -48,17 +44,22 @@ class DeliveryDate extends PureComponent {
 
 	render(){
 		if(this.props.modalVisible){
+			let renderDate = new Date().getHours() <= 22 ? this.state.date.slice(0,3) : this.state.date.slice(1,4);
 			return(
 				<TouchableWithoutFeedback onPress={this.closeDeliveryDate}>
 					<View style={styles.overlay}>
 						<View style={styles.container}>
-							{ this.state.date.map((data, index) => {
-								return (
-									<TouchableOpacity key={index} style={styles.datePlace} onPress={() => this.getDeliveryDate('setDate', data)}>
-										<Text>{ data.display }</Text>
+							{ 
+								renderDate.map((data,index) => (
+									<TouchableOpacity 
+										key={index} 
+										style={styles.datePlace(index+1,renderDate.length)} 
+										onPress={() => this.getDeliveryDate(data)}
+									>
+										<Text>{moment(data).format('dddd, Do MMMM YYYY')}</Text>
 									</TouchableOpacity>
-								)
-							}) }
+								))
+							}
 						</View>
 					</View>
 				</TouchableWithoutFeedback>

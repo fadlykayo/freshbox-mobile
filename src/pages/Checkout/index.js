@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
+import moment from 'moment';
+import id from 'moment/locale/id';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
@@ -13,26 +15,27 @@ import styles from './styles';
 import { language } from '@helpers';
 import actions from '@actions';
 
+moment.locale('id',id);
+
 class Checkout extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
 			grandTotalPrice: 0,
-			setDate: '',
+			date: null,
 			modalVisible:{
                 showDeliveryDate: false,
             }
 		}
-		this.onChangeText = this.onChangeText.bind(this);
-		this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
-		this._renderLabel = this._renderLabel.bind(this);
-		this.setModalVisible = this.setModalVisible.bind(this);
-		this.openDeliveryDate = this.openDeliveryDate.bind(this);
-		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
-		this.getDeliveryDate = this.getDeliveryDate.bind(this);
-		this.navigateToDetail = this.navigateToDetail.bind(this);
 		this.getAddress = this.getAddress.bind(this);
+		this._renderLabel = this._renderLabel.bind(this);
+		this.getDeliveryDate = this.getDeliveryDate.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
+		this.openDeliveryDate = this.openDeliveryDate.bind(this);
+		this.navigateToDetail = this.navigateToDetail.bind(this);
+		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
+		this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
 	}
 
 	componentDidMount() {
@@ -86,24 +89,24 @@ class Checkout extends Component {
         this.setState({modalVisible});
     }
 
-	onChangeText(type, value){
-        let state = this.state;
-        state[type] = value;
-        this.setState({state});
+	getDeliveryDate(payload){
+		console.log('date selected',payload)
+		this.setState({
+			date:{
+				origin: payload,
+				display: moment(payload).format('dddd, Do MMMM YYYY'),
+				value: moment(payload).format('YYYY-MM-DD HH:mm:ss'),
+			}
+		},this.closeDeliveryDate)
 	}
 
-	getDeliveryDate(type, value) {
-		this.onChangeText(type, value);
-		this.closeDeliveryDate();
-	}
-
-	navigateToChooseAddress() {
+	navigateToChooseAddress(){
 		actNav.navigate(navConstant.ChooseAddress);
 	}
 
-	navigateToDetail() {
+	navigateToDetail(){
 		let address = this.props.addresses.filter(address => address.primary == 1);
-		if(address.length == 0) {
+		if(address.length == 0){
 			language.transformText('message.emptyAddress')
 			.then(message => {
 				this.props.set_error_status({
@@ -113,8 +116,8 @@ class Checkout extends Component {
 				});
 			});
 		}
-		else {
-			if (this.state.setDate == '') {
+		else{
+			if(this.state.date == null){
 				language.transformText('message.emptyDate')
 				.then(message => {
 					this.props.set_error_status({
@@ -124,17 +127,17 @@ class Checkout extends Component {
 					});
 				});
 			}
-			else {
+			else{
 				let payload = {};
 		
 				payload.address_code = address[0].code;
-				payload.request_shipping_date = this.state.setDate.post;
+				payload.request_shipping_date = this.state.date.value;
 		
 				actNav.navigate(navConstant.Detail, 
 					{
 						action: 'checkout', 
 						transaction: payload, 
-						setDate: this.state.setDate,
+						date: this.state.date,
 						...this.props.navigation.state.params
 					}
 				)
@@ -142,25 +145,26 @@ class Checkout extends Component {
 		}
 	}
 
+	
+	openDeliveryDate() {
+		this.setModalVisible('showDeliveryDate',true);
+	}
+	
+	closeDeliveryDate(){
+		this.setModalVisible('showDeliveryDate',false);
+    }
+	
 	_renderLabel() {
-		if (this.state.setDate.length == 0) return null
+		if (this.state.date == null) return null;
 		else return (
-			<View style={styles.textLabelPlace}>
+			<View style={styles.subcontainer.label}>
 				<StaticText
-					style={styles.textLabel}
+					style={styles.text.label}
 					property={'checkout.content.chooseDate'}
 				/>
 			</View>
 		)
 	}
-
-	openDeliveryDate() {
-		this.setModalVisible('showDeliveryDate',true);
-	}
-
-	closeDeliveryDate(){
-		this.setModalVisible('showDeliveryDate',false);
-    }
 
   	render() {
 		return (
@@ -179,24 +183,24 @@ class Checkout extends Component {
 						addresses={this.props.addresses}
 						onPress={this.navigateToChooseAddress}
 					/>
-					<View style={styles.bottomComponent}>
+					<View style={styles.subcontainer.bottom}>
 						{this._renderLabel()}
 						<TouchableOpacity 
-							style={styles.datePlace} 
+							style={styles.subcontainer.buttonDate} 
 							onPress={this.openDeliveryDate}
 						>
 							{ 
-								this.state.setDate == '' 
+								this.state.date == null 
 								? 	<StaticText
-										style={styles.textDate}
+										style={styles.text.date}
 										property={'checkout.content.chooseDate'}
 									/>
-								: 	<Text style={[styles.textDate, styles.date]}>{this.state.setDate.display}</Text>
+								: 	<Text style={styles.text.date}>{this.state.date.display}</Text>
 							}
-							<View style={styles.dateImage}>
+							<View style={styles.subcontainer.icon}>
 								<Image
 									source={images.icon_calendar}
-									style={styles.logo}
+									style={styles.icon}
 								/>
 							</View>
 						</TouchableOpacity>

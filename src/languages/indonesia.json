@@ -133,7 +133,7 @@
         },
         "content": {
             "price": "Rp. ",
-            "checkout": "Detail Pemesanan",
+            "checkout": "RINCIAN PESANAN",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -190,12 +190,12 @@
         }
     },
     "historyDetail": {
-        "navigationTitle": "Detail",
+        "navigationTitle": "RINCIAN PESANAN",
         "content": {
             "price": "Rp. ",
-            "reOrder": "Pesan Kembali",
-            "checkout": "Pilih Metode Pembayaran",
-            "pay": "Bayar",
+            "reOrder": "PESAN KEMBALI",
+            "checkout": "PILIH METODE PEMBAYARAN",
+            "pay": "BAYAR",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
