@@ -65,9 +65,9 @@ class VirtualAccount extends Component {
         }
 
         this.props.create_order(payload,
-            () => {
+            (res) => {
                 this.props.clear_products();
-                this.props.navigation.state.params.createOrderHandler();
+                this.props.navigation.state.params.createOrderHandler(res.invoice);
             },
             (err) => {
                 console.log(err)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, ScrollView, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
@@ -6,8 +7,8 @@ import NavigationBar from '@components/NavigationBar';
 import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
 import TotalPrice from './components/TotalPrice';
+import { language } from '@helpers';
 import styles from './styles';
-import { connect } from 'react-redux';
 import actions from '@actions';
 
 class Detail extends Component {
@@ -27,6 +28,16 @@ class Detail extends Component {
     
     componentDidMount() {
 		this.getDeliveryPrice();
+		if(this.props.navigation.state.params.createOrderSuccess){
+			language.transformText('message.createOrderSuccess')
+			.then(message => {
+				this.props.set_success_status({
+					status: true,
+					data: message,
+					title: 'formSuccess.title.createOrder'
+				});
+			});
+		}
 	}
 
     getDeliveryPrice() {
@@ -124,8 +135,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
     toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+    get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

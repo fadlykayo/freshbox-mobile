@@ -26,7 +26,7 @@ actions.bulk_add_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Bulk Add Products res',res);
+        	console.log('Bulk Add Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res);
@@ -34,7 +34,7 @@ actions.bulk_add_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Bulk Add Products err', err);
+        	console.log('Bulk Add Products err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -70,15 +70,15 @@ actions.create_order = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Create Transaction res',res);
+        	console.log('Create Transaction res ->',res);
         	if(res.code){
         		if(res.code == 200){
-					success(res);
+					success(res.data);
         		}
         	}
         })
         .catch((err) => {
-        	console.log('Create Transaction err', err);
+        	console.log('Create Transaction err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

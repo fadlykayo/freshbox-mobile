@@ -10,7 +10,6 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
 import Categories from './components/Categories';
-import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
@@ -278,17 +277,30 @@ class ProductList extends Component {
 		});
 	}
 
-	createOrderHandler(){
+	createOrderHandler(invoice){
 		actNav.goBackToTop();
 		this.refreshHandler();
-		language.transformText('message.createOrderSuccess')
-		.then(message => {
-			this.props.set_success_status({
-				status: true,
-				data: message,
-				title: 'formSuccess.title.createOrder'
-			});
-		});
+		this.navigateToDetail(invoice);
+	}
+
+	navigateToDetail(input) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: true,
+				});
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 
 	render(){
@@ -387,7 +399,7 @@ const mapDispatchToProps = dispatch => ({
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
-	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);
