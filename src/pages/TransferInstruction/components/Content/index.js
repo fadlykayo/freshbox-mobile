@@ -7,57 +7,45 @@ import images from '@assets';
 class Content extends Component {
     constructor() {
         super()
-        this.openData = this.openData.bind(this);
-    }
-
-    openData(index) {
-        this.props.openData(index)
     }
 
     render() {
         return (
-            <View>
-                <TouchableOpacity style={styles.container} onPress={() => this.openData(this.props.index)}>
-                    <View>
+            <View style={styles.container}>
+                <View style={styles.subcontainer.top}>
+                    <View style={styles.subcontainer.bank}>
                         <Image
+                            style={styles.icon.bank}
                             source={this.props.bank.image}
-                            style={styles.bankLogo}
+                            resizeMode={'stretch'}
                         />
                     </View>
-                    <View>
+                    <View style={styles.subcontainer.desc}>
                         <StaticText
-                            style={styles.staticText}
+                            style={styles.text.bank}
                             property={this.props.bank.name}
                         />
                     </View>
-                    <View style={styles.imagePlace}>
-                        <Image
-                            source={
-                                this.props.bank.isOpen
-                                ? images.icon_arrow_up_red
-                                : images.icon_arrow_right_red}
-                            style={styles.logo}
-                        />
-                    </View>
-                </TouchableOpacity>
-                { this.props.bank.isOpen ? (
-                    <View style={styles.contentPlace}>
-                    { this.props.bank.step.map((content, index) => {
-                        return (
-                            <View key={ index } style={styles.contentData}>
-                                <View style={styles.leftPart}>
-                                    <View style={styles.circlePart}>
-                                        <Text style={styles.indexContent}>{index+1}</Text>
+                </View>
+                <View style={styles.subcontainer.bottom}>
+                    { 
+                        this.props.bank.step.map((content,index) => (
+                            <View 
+                                key={index} 
+                                style={styles.subcontainer.instruction.main}
+                            >
+                                <View style={styles.subcontainer.instruction.left}>
+                                    <View style={styles.icon.circle}>
+                                        <Text style={styles.text.index}>{index+1}</Text>
                                     </View>
                                 </View>
-                                <View style={styles.rightPart}>
-                                    <Text style={styles.contentText}>{content.name}</Text>
+                                <View style={styles.subcontainer.instruction.right}>
+                                    <Text style={styles.text.instruction}>{content.name}</Text>
                                 </View>
                             </View>
-                        )
-                    }) }       
-                    </View>
-                ) : null}
+                        )) 
+                    }       
+                </View>
             </View>
         );
     }
