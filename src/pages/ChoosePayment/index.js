@@ -17,7 +17,7 @@ class ChoosePayment extends Component {
             },
             grandTotalPrice: 0,
             contents: [
-                'choosePayment.content.creditCard',
+                // 'choosePayment.content.creditCard',
                 'choosePayment.content.virtualAccount',
             ]
         }
@@ -60,12 +60,12 @@ class ChoosePayment extends Component {
                             )) 
                         }                        
                     </View>
+                    <TotalPrice
+                        subTotal={this.props.totalPrice}
+                        grandTotal={this.state.grandTotalPrice}
+                        delivery_price={this.props.delivery_price}
+                    />
                 </View>
-                <TotalPrice
-                    subTotal={this.props.totalPrice}
-                    grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
-                />
             </Container>
         );
     }

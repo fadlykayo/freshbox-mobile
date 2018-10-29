@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import TotalPrice from '@components/TotalPrice';
@@ -84,26 +83,28 @@ class VirtualAccount extends Component {
                 <NavigationBar
 			    	title={'virtualAccount.navigationTitle'}
 			    />
-                <ScrollView style={styles.container}>
-                    { 
-                        this.state.banks.map((bank,index) => (
-                            <Content
-                                key={index}
-                                bank={bank}
-                                selectBank={this.selectBank}
-                                selectedBank={this.state.selectedBank}
-                            />
-                        )) 
-                    }
-                </ScrollView>
-                <TotalPrice
-                    type={'red'}
-					title={'virtualAccount.content.checkout'}
-                    subTotal={this.props.totalPrice}
-                    grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
-					onPress={this.createOrderByVirtualAccount}
-                />
+                <View style={styles.container}>
+                    <ScrollView style={styles.content}>
+                        { 
+                            this.state.banks.map((bank,index) => (
+                                <Content
+                                    key={index}
+                                    bank={bank}
+                                    selectBank={this.selectBank}
+                                    selectedBank={this.state.selectedBank}
+                                />
+                            )) 
+                        }
+                    </ScrollView>
+                    <TotalPrice
+                        type={'red'}
+                        title={'virtualAccount.content.checkout'}
+                        subTotal={this.props.totalPrice}
+                        grandTotal={this.state.grandTotalPrice}
+                        delivery_price={this.props.delivery_price}
+                        onPress={this.createOrderByVirtualAccount}
+                    />
+                </View>
             </Container>
         );
     }

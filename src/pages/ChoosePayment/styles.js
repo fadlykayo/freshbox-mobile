@@ -11,8 +11,6 @@ const styles = {
     },
     content: {
         flex: 1,
-        marginTop: width * 0.015,
-        marginBottom: width * 0.01,
         backgroundColor: colour.white,
     },
 }
