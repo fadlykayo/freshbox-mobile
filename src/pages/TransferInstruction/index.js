@@ -10,7 +10,7 @@ import images from '@assets';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
-class VirtualAccount extends Component {
+class TransferInstruction extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,42 +85,14 @@ class VirtualAccount extends Component {
 
     componentDidMount() {
         let state = this.state;
-		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
-        
-        this.setState(state)
+		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+        this.setState(state);
     }
 
     openData(index) {
         let banks = this.state.banks.slice();
         banks[index].isOpen = !banks[index].isOpen;
-
-        this.setState({ banks })
-    }
-
-    createOrderByVirtualAccount() {
-        let bankVA = this.state.banks.filter(bank => bank.isOpen == true)
-
-        let payloadData = this.props.navigation.state.params.transaction;
-        payloadData.payment_method = bankVA[0].payment;
-        
-        let payload = {
-            header: {
-                apiToken: this.props.user.authorization
-            },
-            body: payloadData,
-            params: {}
-        }
-
-        this.props.create_order(payload,
-            (success) => {
-                console.log("SUCCESS ORDER", success)
-                this.props.clear_products();
-                actNav.reset(navConstant.Product)
-            },
-            (err) => {
-                console.log(err)
-            })
-
+        this.setState({banks});
     }
 
     render() {
@@ -161,21 +133,10 @@ class VirtualAccount extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-        user: state.user.data,
-        totalPrice: state.product.total.price,
-        delivery_price: state.product.delivery_price
-	}
-}
+const mapStateToProps = (state) => ({
+    user: state.user.data,
+    totalPrice: state.product.total.price,
+    delivery_price: state.product.delivery_price
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
-        clear_products: () => dispatch(actions.product.reducer.clear_products())
-    }
-}
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(VirtualAccount);
+export default connect(mapStateToProps,null)(TransferInstruction);

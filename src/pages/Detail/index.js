@@ -15,19 +15,21 @@ class Detail extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
-            grandTotalPrice: 0,
-            subTotalPrice: 0,
+			status: 'historyDetail.content.checkout',
+			totalPrice: 0,
+			deliveryPrice: 0,
             grandTotalPrice: 0,
         }
         this.toggleFavorite = this.toggleFavorite.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
+		this.setDetailTransaction = this.setDetailTransaction.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
     }
     
     componentDidMount() {
-		this.getDeliveryPrice();
+		this.setDetailTransaction();
 		if(this.props.navigation.state.params.createOrderSuccess){
 			language.transformText('message.createOrderSuccess')
 			.then(message => {
@@ -40,7 +42,21 @@ class Detail extends Component {
 		}
 	}
 
-    getDeliveryPrice() {
+	setDetailTransaction(){
+		if(this.props.navigation.state.params.action == 'history'){
+			this.setState({
+				status: this.props.detailTransaction.status,
+				totalPrice: this.props.detailTransaction.sub_total,
+				deliveryPrice: this.props.detailTransaction.shipping_cost,
+				grandTotalPrice: this.props.detailTransaction.grand_total,
+			});
+		}
+		else{
+			this.getDeliveryPrice();
+		}
+	}
+
+    getDeliveryPrice(){
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -51,9 +67,12 @@ class Detail extends Component {
 
 		this.props.get_delivery_price(payload, 
 			() => {
-				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
-				this.setState(state);
+				this.setState({
+					status: 'historyDetail.content.checkout',
+					totalPrice: this.props.totalPrice,
+					deliveryPrice: this.props.delivery_price,
+					grandTotalPrice: this.props.delivery_price + this.props.totalPrice,
+				});
 			},
 			(err) => {
 				console.log(err);
@@ -73,12 +92,12 @@ class Detail extends Component {
         actNav.navigate(navConstant.ChoosePayment,this.props.navigation.state.params);
 	}
 
-	navigateToTransferInstruction() {
+	navigateToTransferInstruction(){
 		actNav.navigate(navConstant.TransferInstruction);
 	}
 
-  	render() {
-  	  	return (
+  	render(){
+  	  	return(
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				
                 bgColorTop={'red'} 			
@@ -95,7 +114,11 @@ class Detail extends Component {
                     />
                     <View style={styles.subcontainer}>
                         <FlatList
-							data={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.details : this.props.cart_product}
+							data={
+								this.props.navigation.state.params.action == 'history' 
+								? this.props.detailTransaction.details 
+								: this.props.cart_product
+							}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<CartComponent 
@@ -108,17 +131,17 @@ class Detail extends Component {
 						/>
                     </View>
   	  	  		</ScrollView>
-                    <TotalPrice
-				    	type={'red'}
-				    	status={ this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.status : 'historyDetail.content.checkout'}
-                        subTotal={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.sub_total : this.props.totalPrice}
-				    	delivery_price={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.shipping_cost : this.props.delivery_price}
-                        grandTotal={this.props.navigation.state.params.action == 'history' ? this.props.detailTransaction.grand_total :this.state.grandTotalPrice}
-						action={this.props.navigation.state.params.action}
-						navigateToCart={this.navigateToCart}
-						navigateToChoosePayment={this.navigateToChoosePayment}
-						navigateToTransferInstruction={this.navigateToTransferInstruction}
-                    />
+				<TotalPrice
+					type={'red'}
+					status={this.state.status}
+					subTotal={this.state.totalPrice}
+					navigateToCart={this.navigateToCart}
+					grandTotal={this.state.grandTotalPrice}
+					delivery_price={this.state.deliveryPrice}
+					action={this.props.navigation.state.params.action}
+					navigateToChoosePayment={this.navigateToChoosePayment}
+					navigateToTransferInstruction={this.navigateToTransferInstruction}
+				/>
 			</Container>
   	  	);
   	}
