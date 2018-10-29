@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import TransactionComponent from './components/TransactionComponent';
-import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
@@ -19,19 +18,6 @@ class HistoryPage extends Component {
 	
 	componentDidMount(){
 		if(this.props.user) this.getHistoryData();
-		if(this.props.navigation.state.params){
-			let action = this.props.navigation.state.params.action
-			if(action == 'createOrder'){
-				language.transformText('message.createOrderSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.createOrder'
-					});
-				});
-			}
-		}
 	}
 
 	getHistoryData(){
@@ -48,7 +34,8 @@ class HistoryPage extends Component {
 			},
 			(err) => {
 				console.log(err);
-			})
+			}
+		)
 	}
 
 	navigateToDetail(input) {
@@ -59,12 +46,15 @@ class HistoryPage extends Component {
 			invoice: input.invoice
 		}
 		this.props.detail_transaction(payload,
-			(success) => {
-				actNav.navigate(navConstant.Detail, {action: 'history'});
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history'
+				});
 			},
 			(err) => {
 				console.log(err)
-			})
+			}
+		)
 	}
 
 	navigateToCart(payload){
@@ -110,9 +100,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
-	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryPage);

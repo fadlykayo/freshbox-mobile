@@ -1,18 +1,16 @@
 import React, { PureComponent } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
+import ProductStockVerificationText from '@components/ProductStockVerificationText';
+import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
-import VerificationText from './components/VerificationText';
 import styles from './styles';
-import images from '@assets';
-
 
 class ProductItem extends PureComponent {
 	constructor(){
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
-		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 	}
 
@@ -22,10 +20,6 @@ class ProductItem extends PureComponent {
 
 	decTotalItem(){
 		this.props.changeTotalItem(this.props.data,"desc");
-	}
-
-	toggleFavorite(){
-		this.props.toggleFavorite(this.props.data);
 	}
 
 	openDetailProduct(){
@@ -48,25 +42,19 @@ class ProductItem extends PureComponent {
 								style={styles.icon.product}
 							/>
 						</View>
-						<Content data={this.props.data}/>
-						<View style={styles.addContainer}>
-						{ this.props.user ? (
-							<TouchableOpacity
-								onPress={this.toggleFavorite}
-								style={styles.touchableFavorite}
-							>
-								<Image
-									resizeMode={'contain'} 
-									source={
-										this.props.data.favorite == true
-										? 	images.icon_favorited
-										: 	images.icon_favorite
-									}
-									style={styles.favoriteLogo}
+						<Content 
+							data={this.props.data}
+						/>
+						{
+							this.props.type == 'cart'
+							? 	null
+							:	<ButtonFav 
+									data={this.props.data}
+									user={this.props.user}
+									isFavorite={this.props.data.favorite}
+									toggleFavorite={this.props.toggleFavorite}
 								/>
-							</TouchableOpacity>
-						): null}
-						</View>
+						}
 					</TouchableOpacity>
 					<ButtonCount
 						count={this.props.data.count}
@@ -75,7 +63,7 @@ class ProductItem extends PureComponent {
 					/>
 				</View>
 				<View style={styles.subcontainer.verification}>
-					<VerificationText 
+					<ProductStockVerificationText 
 						type={this.props.type}
 						count={this.props.data.count}
 						stock={this.props.data.stock}

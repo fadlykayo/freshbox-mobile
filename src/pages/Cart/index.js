@@ -9,6 +9,7 @@ import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
+import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
@@ -25,8 +26,6 @@ class Cart extends Component {
 			},
 			selectedProduct: null,
 		}
-		this.updateDetail = this.updateDetail.bind(this);
-		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.navigateToSignIn = this.navigateToSignIn.bind(this);
@@ -38,27 +37,18 @@ class Cart extends Component {
 	}
 
 	setModalVisible(type,value){
-        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+        let modalVisible = this.state.modalVisible;
         modalVisible[type] = value;
-        this.setState({modalVisible});
+		this.setState({modalVisible});
 	}
 	
-	updateDetail(index){
-		let indexData = this.props.index_product[index];
-		this.props.detail_product(indexData);
-	}
-
 	openDetailProduct(payload){
 		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}
-
+	
 	closeDetailProduct(){
 		this.setModalVisible('openProduct',false);
-	}
-
-	toggleFavorite(payload){
-		this.props.toggle_favorite(payload);
 	}
 
 	changeTotalItem(payload,type){
@@ -75,6 +65,7 @@ class Cart extends Component {
 	clearProductConfirmation(){
 		this.props.change_total(this.state.selectedProduct,'desc');
 		this.setModalVisible('alertDialog',false);
+		this.setModalVisible('openProduct',false);
 	}
 
 	clearProductCancelation(){
@@ -82,36 +73,45 @@ class Cart extends Component {
 	}
 
 	navigateToCheckout(){
-		let buyProducts = [];
-
-		this.props.cart_product.map((cart) => {
-			buyProducts.push({
-				product_code: cart.code,
-				qty: cart.count,
+		if(this.props.cart_product.length == 0){
+			language.transformText('message.emptyCart')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.emptyCart',
+					data: message,
+				});
 			});
-		});
-
-		if(this.props.user){
-			let payload = {
-				header: {
-					apiToken: this.props.user.authorization
-				},
-				body: buyProducts
-			};
-
-			this.props.bulk_add_products(payload,
-				(res) => {
-					actNav.navigate(navConstant.Checkout,{
-						key: this.props.navigation.state.key
-					});
-				},
-				(err) => {
-
-				}
-			)
 		}
 		else {
-			this.setModalVisible('modalLoginConfirmation',true);
+			let buyProducts = [];
+			this.props.cart_product.map((cart) => {
+				buyProducts.push({
+					product_code: cart.code,
+					qty: cart.count,
+				});
+			});
+			if(this.props.user){
+				let payload = {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: buyProducts
+				};
+
+				this.props.bulk_add_products(payload,
+					(res) => {
+						actNav.navigate(navConstant.Checkout,{
+							key: this.props.navigation.state.key,
+							createOrderHandler: this.props.navigation.state.params.createOrderHandler
+						});
+					},
+					(err) => {}
+				)
+			}
+			else {
+				this.setModalVisible('modalLoginConfirmation',true);
+			}
 		}
 	}
 
@@ -143,7 +143,6 @@ class Cart extends Component {
 									type={'cart'}
 									index={index+1}
 									user={this.props.user}
-									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
 									productLength={this.props.cart_product.length}
 									openDetailProduct={this.openDetailProduct}
@@ -158,10 +157,9 @@ class Cart extends Component {
 					/>
 				</View>
 				<ProductDetail
+					type={'cart'}
 					user={this.props.user}
 					data={this.props.productDetail}
-					updateDetail={this.updateDetail}
-					toggleFavorite={this.toggleFavorite}
 					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
@@ -186,21 +184,21 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
 	user: state.user.data,
-	cart_product: state.product.cart.products,
-	index_product: state.product.cart.index,
 	product: state.product.products,
+	productDetail: state.product.detail,
 	total_price: state.product.total.price,
 	total_count: state.product.total.count,
-	productDetail: state.product.detail,
-})
+	index_product: state.product.cart.index,
+	cart_product: state.product.cart.products,
+});
 
 const mapDispatchToProps = dispatch => ({
-	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
-	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
-	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
-})
-
+});
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);

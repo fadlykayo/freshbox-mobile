@@ -53,7 +53,11 @@ const styles = {
             marginRight: scaling.moderateScale(5),
             justifyContent: 'center',
             alignItems: 'center',
-        }
+        },
+        verification:{
+			alignItems: 'flex-end',
+			paddingRight: width * 0.05,
+        },
     },
     button:{
         dropdown:{
@@ -66,7 +70,7 @@ const styles = {
             alignItems: 'center',
         },
         style: {
-            height: width * 0.19,
+            height: width * 0.18,
             width: width * 0.18,
         }
     },
@@ -87,13 +91,6 @@ const styles = {
             color: colour.grey,
             lineHeight: scaling.moderateScale(24),
         }
-    },
-    favoriteLogo: {
-		height: scaling.moderateScale(20),
-		width: scaling.moderateScale(20),
-    },
-    favoriteComponent: {
-		alignItems: 'flex-end',
     },
 }
 

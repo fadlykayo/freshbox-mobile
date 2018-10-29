@@ -23,9 +23,9 @@ const styles = {
 		marginBottom: scaling.moderateScale(5),
     },
     textData: {
-		fontFamily: 'Avenir-Light',
-		fontWeight: 'bold',
+		fontFamily: 'Avenir-Medium',
 		fontSize: scaling.moderateScale(14),
+		color: colour.black
     },
 }
 

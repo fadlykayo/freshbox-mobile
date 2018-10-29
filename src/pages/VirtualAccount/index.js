@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import TotalPrice from '@components/TotalPrice';
@@ -65,11 +64,9 @@ class VirtualAccount extends Component {
         }
 
         this.props.create_order(payload,
-            () => {
-                actNav.navigate(navConstant.HistoryPage,{
-                    key: this.props.navigation.state.params.key,
-                    action: 'createOrder',
-                });
+            (res) => {
+                this.props.clear_products();
+                this.props.navigation.state.params.createOrderHandler(res.invoice);
             },
             (err) => {
                 console.log(err)
@@ -86,26 +83,28 @@ class VirtualAccount extends Component {
                 <NavigationBar
 			    	title={'virtualAccount.navigationTitle'}
 			    />
-                <ScrollView style={styles.container}>
-                    { 
-                        this.state.banks.map((bank,index) => (
-                            <Content
-                                key={index}
-                                bank={bank}
-                                selectBank={this.selectBank}
-                                selectedBank={this.state.selectedBank}
-                            />
-                        )) 
-                    }
-                </ScrollView>
-                <TotalPrice
-                    type={'red'}
-					title={'virtualAccount.content.checkout'}
-                    subTotal={this.props.totalPrice}
-                    grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
-					onPress={this.createOrderByVirtualAccount}
-                />
+                <View style={styles.container}>
+                    <ScrollView style={styles.content}>
+                        { 
+                            this.state.banks.map((bank,index) => (
+                                <Content
+                                    key={index}
+                                    bank={bank}
+                                    selectBank={this.selectBank}
+                                    selectedBank={this.state.selectedBank}
+                                />
+                            )) 
+                        }
+                    </ScrollView>
+                    <TotalPrice
+                        type={'red'}
+                        title={'virtualAccount.content.checkout'}
+                        subTotal={this.props.totalPrice}
+                        grandTotal={this.state.grandTotalPrice}
+                        delivery_price={this.props.delivery_price}
+                        onPress={this.createOrderByVirtualAccount}
+                    />
+                </View>
             </Container>
         );
     }
@@ -119,7 +118,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     create_order: (req,res,err) => dispatch(actions.transaction.api.create_order(req,res,err)),
-    clear_products: () => dispatch(actions.product.reducer.clear_products())
+    clear_products: () => dispatch(actions.product.reducer.clear_products()),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(VirtualAccount);

@@ -24,7 +24,6 @@ const styles = {
 		fontFamily: 'Avenir-Medium',
 		fontSize: scaling.moderateScale(14),
 		color: colour.white,
-		fontWeight: 'bold',
 	},
 	icon:{
 		width: scaling.moderateScale(20),

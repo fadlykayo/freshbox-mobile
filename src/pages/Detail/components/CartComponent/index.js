@@ -18,48 +18,53 @@ class CartComponent extends PureComponent {
 
 	render(){
 		return (
-			<View style={styles.eachCartContainer}>
-				<View style={styles.imageContainer}>
+			<View style={styles.container}>
+				<View style={styles.subcontainer.image}>
 					<Image
 						resizeMode={'contain'} 
-						source={this.props.action == 'history' ? null : {uri: this.props.data.images_sizes_url.original[0]}}
-						style={styles.picture}
+						source={
+							this.props.action == 'history' 
+							? null 
+							: {uri: this.props.data.images_sizes_url.original[0]}
+						}
+						style={styles.icon.product}
 					/>
 				</View>
-				<Content data={this.props.data} action={this.props.action}/>
-				<View style={styles.addContainer}>
+				<Content 
+					data={this.props.data} 
+					action={this.props.action}
+				/>
+				<View style={styles.subcontainer.right}>
 					<TouchableOpacity
 						onPress={this.toggleFavorite}
-						style={styles.touchableFavorite}
+						style={styles.subcontainer.favorite}
 					>
 						<Image
+							style={styles.icon.favorite}
 							resizeMode={'contain'} 
 							source={
 								this.props.data.favorite == true
 									? images.icon_favorited
 									: images.icon_favorite
 							}
-							style={styles.favoriteLogo}
 						/>
 					</TouchableOpacity>
-					<View style={styles.pack}>
-						<View>
-							
-							{ this.props.action == 'history'
-								? (
-								<Text style={styles.itemText}>
-									{this.props.data.qty} <StaticText 
-									property={'historyDetail.content.pack'}
+					<View style={styles.subcontainer.amount}>
+						{ 
+							this.props.action == 'history'
+							? 	<Text style={styles.text.desc}>
+									{this.props.data.qty} 
+									<StaticText 
+										style={styles.text.desc}
+										property={'historyDetail.content.pack'}
 									/>
 								</Text>
-								)
-								: (
-								<Text style={styles.itemText}>
+							
+							: 	<Text style={styles.text.desc}>
 									{this.props.data.count} {this.props.data.unit}
 								</Text>
-								)
-							}
-						</View>
+							
+						}
 					</View>
 				</View>
 			</View>

@@ -5,6 +5,8 @@ import actions from '@actions';
 import Loading from '../Loading';
 import FormError from '../FormError';
 import FormSuccess from '../FormSuccess';
+import ServerError from '../ServerError';
+import NetworkError from '../NetworkError';
 import styles from './styles';
 
 class Container extends PureComponent {
@@ -17,6 +19,10 @@ class Container extends PureComponent {
 
     closeModalNetworkError(){
         this.props.set_network_error_status(false);
+    }
+
+    closeModalServerError(){
+        this.props.set_server_error_status(false);
     }
 
     closeModalError(){
@@ -60,6 +66,14 @@ class Container extends PureComponent {
                             <Loading
                                 modalVisible = {this.props.network.isLoading}
                             />
+                            <ServerError
+                                modalVisible = {this.props.network.isServerError}
+                                closeModal = {this.closeModalServerError}
+                            />
+                            <NetworkError
+                                modalVisible = {this.props.network.isNetworkError}
+                                closeModal = {this.closeModalNetworkError}
+                            />
                             <FormError
                                 modalVisible = {this.props.network.isResponseError}
                                 closeModal = {this.closeModalError}
@@ -85,6 +99,14 @@ class Container extends PureComponent {
                             {this.props.children}
                             <Loading
                                 modalVisible = {this.props.network.isLoading}
+                            />
+                            <ServerError
+                                modalVisible = {this.props.network.isServerError}
+                                closeModal = {this.closeModalServerError}
+                            />
+                            <NetworkError
+                                modalVisible = {this.props.network.isNetworkError}
+                                closeModal = {this.closeModalNetworkError}
                             />
                             <FormError
                                 modalVisible = {this.props.network.isResponseError}

@@ -102,23 +102,23 @@
         }
     },
     "cart": {
-        "navigationTitle": "Keranjang",
+        "navigationTitle": "KERANJANG",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "Bayar"
+            "checkout": "PILIH WAKTU PENGIRIMAN"
         },
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "subTotal": "Sub Total",
             "pack": "/1 pack"
         }
 
     },
     "checkout": {
-        "navigationTitle": "Bayar",
+        "navigationTitle": "ALAMAT & WAKTU PENGIRIMAN",
         "label": {
             "deliveryAddress": "Alamat Pengiriman",
             "name": "Nama",
@@ -132,8 +132,8 @@
             "addressDetails": "Alamat Detil (Opsi)"
         },
         "content": {
-            "price": "IDR ",
-            "checkout": "Detail Pemesanan",
+            "price": "Rp. ",
+            "checkout": "RINCIAN PESANAN",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -169,16 +169,16 @@
             "subTotal": "Sub Total",
             "pack": "/1 ",
             "addItem": "+ Tambah",
-            "items": " Items | IDR ",
-            "item": " Item | IDR ",
+            "items": " Items | Rp. ",
+            "item": " Item | Rp. ",
             "categories": "Categories",
-            "price": "IDR "
+            "price": "Rp. "
         }
     },
     "historyPage": {
         "navigationTitle": "Histori",
         "content": {
-            "price": "IDR ",
+            "price": "Rp. ",
             "reOrder": "Pesan"
         },
         "static": {
@@ -190,12 +190,12 @@
         }
     },
     "historyDetail": {
-        "navigationTitle": "Detail",
+        "navigationTitle": "RINCIAN PESANAN",
         "content": {
-            "price": "IDR ",
-            "reOrder": "Pesan Kembali",
-            "checkout": "Pilih Metode Pembayaran",
-            "pay": "Bayar",
+            "price": "Rp. ",
+            "reOrder": "PESAN KEMBALI",
+            "checkout": "PILIH METODE PEMBAYARAN",
+            "pay": "BAYAR",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -348,15 +348,15 @@
         }
     },
     "choosePayment": {
-        "navigationTitle": "Pilih Metode Pembayaran",
+        "navigationTitle": "METODE PEMBAYARAN",
         "content": {
             "creditCard": "Kartu Kredit",
             "transferBank": "Bank Transfer",
-            "virtualAccount": "Virtual Account",
+            "virtualAccount": "Transfer Virtual Account",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
-            "price": "IDR "
+            "price": "Rp. "
         }
     },
     "creditCard": {
@@ -394,7 +394,7 @@
         }
     },
     "virtualAccount": {
-        "navigationTitle": "Virtual Account",
+        "navigationTitle": "VIRTUAL ACCOUNT",
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
@@ -407,8 +407,13 @@
     "formError":{
         "title": {
             "default": "GAGAL",
+            "emptyCart": "KERANJANG KOSONG",
+            "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
+            "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
             "createOrder": "PEMESANAN GAGAL",
-            "outOfStock": "JUMLAH BARANG BERLEBIH"
+            "outOfStock": "JUMLAH BARANG BERLEBIH",
+            "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
+            "serverError": "SERVER GANGGUAN"
         }
     },
     "formSuccess":{
@@ -437,7 +442,12 @@
         "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
         "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
-        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan."
+        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
+        "emptyCart": "Silahkan isi keranjang anda dengan minimal 1 jenis produk sebelum anda melanjutkan proses pemesanan.",
+        "emptyAddress": "Silahkan isi alamat pengiriman anda sebelum anda melanjutkan proses pemesanan.",
+        "emptyDate": "Silahkan pilih tanggal pengiriman sebelum anda melanjutkan proses pemesanan.",
+        "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda.",
+        "serverError": "Terjadi gangguan pada server, silahkan coba beberapa saat lagi."
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"

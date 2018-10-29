@@ -12,7 +12,6 @@ import Notes from './components/Notes';
 import Categories from './components/Categories';
 import styles from './styles';
 import actions from '@actions';
-import { language } from '@helpers';
 
 class ProductList extends Component {
 	constructor(props) {
@@ -28,22 +27,23 @@ class ProductList extends Component {
 				openProduct: false,
 			},
 		}
-		this.submitSearch=this.submitSearch.bind(this);
-		this.onChangeText = this.onChangeText.bind(this);
-		this.checkCategory=this.checkCategory.bind(this);
-		this.validateCart = this.validateCart.bind(this);
-		this.refreshHandler=this.refreshHandler.bind(this);
-		this.toggleFavorite=this.toggleFavorite.bind(this);
-		this.changeCategory=this.changeCategory.bind(this);
-		this.openDrawerMenu=this.openDrawerMenu.bind(this);
-		this.handleLoadMore=this.handleLoadMore.bind(this);
-		this.setModalVisible=this.setModalVisible.bind(this);
-		this.changeTotalItem=this.changeTotalItem.bind(this);
+		this.submitSearch = this.submitSearch.bind(this);
+		this.onChangeText  =  this.onChangeText.bind(this);
+		this.checkCategory = this.checkCategory.bind(this);
+		this.validateCart  =  this.validateCart.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.changeCategory = this.changeCategory.bind(this);
+		this.openDrawerMenu = this.openDrawerMenu.bind(this);
+		this.handleLoadMore = this.handleLoadMore.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
-		this.openAllCategories=this.openAllCategories.bind(this);
-		this.openDetailProduct=this.openDetailProduct.bind(this);
-		this.closeDetailProduct=this.closeDetailProduct.bind(this);
-		this.closeDialogCategories=this.closeDialogCategories.bind(this);
+		this.openAllCategories = this.openAllCategories.bind(this);
+		this.openDetailProduct = this.openDetailProduct.bind(this);
+		this.createOrderHandler = this.createOrderHandler.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+		this.closeDialogCategories = this.closeDialogCategories.bind(this);
 	}
 
 	componentDidMount(){
@@ -91,9 +91,7 @@ class ProductList extends Component {
 			params: {}
 		}
 		this.props.get_categories(payload,
-			() => {
-				
-			},
+			() => {},
 			(err) => {
 				console.log(err)
 			}
@@ -108,9 +106,7 @@ class ProductList extends Component {
 				params: this.props.params
 			}
 			this.props.get_products(payload,
-				() => {
-
-				},
+				() => {},
 				(err) => {
 					console.log(err);
 				});
@@ -161,7 +157,7 @@ class ProductList extends Component {
 			}
 
 			this.props.search_products(payload, 
-				(success) => {
+				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
@@ -201,11 +197,12 @@ class ProductList extends Component {
 				},
 				favorite: payload
 			}
-			// this.props.toggle_favorite(payload);
-			this.props.delete_favorite(data, null,
+			this.props.delete_favorite(data,
+				() => {},
 				(err) => {
 					console.log(err)
-				})
+				}
+			)
 		}
 		else {
 			let data = {
@@ -219,12 +216,12 @@ class ProductList extends Component {
 				},
 				favorite: payload
 			}
-			// this.props.toggle_favorite(payload);
-			this.props.add_favorite(data, null,
+			this.props.add_favorite(data,
+				() => {},
 				(err) => {
 					console.log(err)
-				})
-			
+				}
+			)
 		}
 	}
 
@@ -252,7 +249,7 @@ class ProductList extends Component {
 			});
 	}
 
-	openDrawerMenu() {
+	openDrawerMenu(){
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	}
@@ -276,8 +273,34 @@ class ProductList extends Component {
 
 	navigateToCart(){
 		actNav.navigate(navConstant.Cart,{
-			navigateToHistory: this.navigateToHistory
+			createOrderHandler: this.createOrderHandler
 		});
+	}
+
+	createOrderHandler(invoice){
+		actNav.goBackToTop();
+		this.refreshHandler();
+		this.navigateToDetail(invoice);
+	}
+
+	navigateToDetail(input) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: true,
+				});
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 
 	render(){
@@ -330,6 +353,7 @@ class ProductList extends Component {
 					</View>
 				</View>
 				<ProductDetail
+					type={'productList'}
 					user={this.props.user}
 					data={this.props.productDetail}
 					toggleFavorite={this.toggleFavorite}
@@ -375,6 +399,7 @@ const mapDispatchToProps = dispatch => ({
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

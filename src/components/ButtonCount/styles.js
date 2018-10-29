@@ -5,57 +5,52 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-	addNewItem: {
-		position: 'absolute',
-		right: 0,
-		bottom: 0,
-		backgroundColor: colour.red,
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		height: scaling.moderateScale(30),
-		borderWidth: 1,
-		borderRadius: 100,
-		borderColor: colour.white,
-		marginRight: scaling.moderateScale(10),
-		marginBottom: scaling.moderateScale(10),
+	container:{
+		base:{
+			position: 'absolute',
+			right: 0,
+			bottom: 0,
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'space-between',
+			borderWidth: 1,
+			borderRadius: 100,
+			marginRight: scaling.moderateScale(10),
+			marginBottom: scaling.moderateScale(10),
+		},
+		add:{
+			backgroundColor: colour.red,
+			borderColor: colour.white,
+			paddingHorizontal: scaling.moderateScale(15),
+			paddingVertical: scaling.moderateScale(5),
+		},
+		counter:{
+			backgroundColor: colour.white,
+			borderColor: colour.lightGrey,
+		}
 	},
-	countContainer: {
-		position: 'absolute',
-		right: 0,
-		bottom: 0,
-		backgroundColor: colour.white,
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		height: scaling.moderateScale(30),
-		borderWidth: 1,
-		borderRadius: 100,
-		borderColor: colour.lightGrey,
-		marginRight: scaling.moderateScale(10),
-		marginBottom: scaling.moderateScale(10),
+	subcontainer:{
+		button:{
+			paddingHorizontal: scaling.moderateScale(15),
+			paddingVertical: scaling.moderateScale(5),
+		}
 	},
-	itemText: {
-		fontFamily: 'Avenir-Medium',
-		fontSize: scaling.moderateScale(14),
-		color: colour.black,
-	},
-	boxOperatorLeft: {
-		paddingHorizontal: scaling.moderateScale(15),
-	},
-	boxOperatorRight: {
-		paddingHorizontal: scaling.moderateScale(15),
-	},
-	operatorText: {
-		fontFamily: 'Avenir-Medium',
-		fontSize: scaling.moderateScale(16),
-		color: colour.red,
-	},
-	newItemText: {
-		fontFamily: 'Avenir-Black',
-		fontSize: scaling.moderateScale(12),
-		color: colour.white,
-		paddingHorizontal: scaling.moderateScale(15),
+	text:{
+		add:{
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(12),
+			color: colour.white,
+		},
+		counter:{
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(12),
+			color: colour.darkGrey,
+		},
+		button:{
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(14),
+			color: colour.red,
+		}
 	},
 }
 
