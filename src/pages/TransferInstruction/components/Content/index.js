@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
-import images from '@assets';
 
 class Content extends Component {
     constructor() {

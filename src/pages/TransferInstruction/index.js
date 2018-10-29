@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
