@@ -22,6 +22,7 @@ actions.get_products = (req,success,failure) => {
 	payload.header = req.header;
 	payload.params = req.params;
 	
+	console.log("get products",payload)
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
@@ -35,6 +36,40 @@ actions.get_products = (req,success,failure) => {
         })
         .catch((err) => {
         	console.log('Get Products err ->', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
+actions.get_favorites = (req,success,failure) => {
+	
+	payload.path = path.getFavorites;
+	payload.header = req.header;
+	
+	return dispatch => {
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	console.log('Get Favorites res ->',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.get_favorites(res.data));
+					success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Get Favorites err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

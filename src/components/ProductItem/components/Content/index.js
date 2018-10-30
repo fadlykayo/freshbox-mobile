@@ -14,7 +14,7 @@ class Content extends PureComponent {
 		return(
 			<View style={styles.container}>
 				<Text style={styles.text.title}>{this.props.data.name}</Text>
-				<Text style={styles.text.desc}>{this.props.data.category.name}</Text>
+				<Text style={styles.text.desc}>{this.props.data.product_category_name}</Text>
 				<Text style={styles.text.price}>
 					<StaticText
 						style={styles.text.price}

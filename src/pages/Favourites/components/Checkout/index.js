@@ -35,10 +35,10 @@ class CheckoutComponent extends PureComponent {
 						{totalPrice}
 					</Text>
 					<Image
-  	  		    		resizeMode={'contain'} 
-  	  		    		source={images.icon_cart}
-  	  		    		style={styles.icon}
-  	  				/>
+						resizeMode={'contain'} 
+						source={images.icon_cart}
+						style={styles.icon}
+					/>
 				</TouchableOpacity>
 			)
 		}

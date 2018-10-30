@@ -12,7 +12,7 @@ const styles = {
         top: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.greyTransparent,
     },
     container: {
         flex: 1,

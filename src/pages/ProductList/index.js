@@ -73,7 +73,9 @@ class ProductList extends Component {
 
 	getProductList(){
 		let payload = {
-			header: {},
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
 			params: this.props.params
 		}
 		this.props.get_products(payload,
@@ -102,7 +104,9 @@ class ProductList extends Component {
 	handleLoadMore(){
 		if(this.props.current_page <= this.props.last_page) {
 			let payload = {
-				header: {},
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
 				body: {},
 				params: this.props.params
 			}
@@ -234,7 +238,9 @@ class ProductList extends Component {
 	
 	submitSearch() {
 		let payload={
-			header: {},
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
 			body: {},
 			params: {
 				name: this.state.searchItem,
@@ -282,7 +288,6 @@ class ProductList extends Component {
 
 	createOrderHandler(invoice){
 		actNav.goBackToTop();
-		this.refreshHandler();
 		this.navigateToDetail(invoice);
 	}
 
@@ -298,15 +303,18 @@ class ProductList extends Component {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					createOrderSuccess: true,
+					refreshHandler: this.refreshHandler
 				});
 			},
 			(err) => {
+				this.refreshHandler();
 				console.log(err)
 			}
 		)
 	}
 
 	render(){
+		console.log('data product dari reducer', this.props.product)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}

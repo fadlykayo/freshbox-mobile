@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from './components/NavigationBar';
 import Content from './components/Content';
 import AlertDialog from './components/AlertDialog';
-import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
 
@@ -215,7 +214,14 @@ class AddressPage extends Component {
 			}
         })
         .catch((err) => {
-            console.log(err);
+			// language.transformText('message.emptyCart')
+			// .then(message => {
+			// 	this.props.set_error_status({
+			// 		status: true,
+			// 		title: 'formError.title.emptyCart',
+			// 		data: message,
+			// 	});
+			// });
             this.setValidation(err,false);
         });
 		
@@ -460,7 +466,8 @@ const mapDispatchToProps = (dispatch) => ({
 	update_address: (req,res,err) => dispatch(actions.user.api.update_address(req,res,err)),
 	clear_region: (type) => dispatch(actions.region.reducer.clear_region(type)),
 	reset_region: () => dispatch(actions.region.reducer.reset_region()),
-	delete_address: (req,res,err) => dispatch(actions.user.api.delete_address(req,res,err))
+	delete_address: (req,res,err) => dispatch(actions.user.api.delete_address(req,res,err)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
 export default connect(

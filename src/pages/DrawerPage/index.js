@@ -46,13 +46,6 @@ class DrawerPage extends Component {
   	}
 
   	navigateToOtherPage(payload){
-		let pages = this.state.pages;
-		pages.map((page) => {
-			if (page.name == payload.name) page.selected = true;
-			else page.selected = false
-			return page
-		})
-		this.setState({pages})
 
 		switch (payload.name) {
 			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);

@@ -16,6 +16,13 @@ action.get_categories = (data) => ({
     }
 });
 
+action.get_favorites = (data) => ({
+    type: ct.GET_FAVORITES,
+    payload: {
+        data
+    }
+})
+
 action.get_delivery_price = (data) => ({
     type: ct.GET_DELIVERY_PRICE,
     payload: {

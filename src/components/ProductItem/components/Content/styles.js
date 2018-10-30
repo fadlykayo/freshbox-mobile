@@ -17,9 +17,9 @@ const styles = {
 			color: colour.darkGrey,
 		},
 		desc:{
-			fontFamily: 'Avenir-Light',
+			fontFamily: 'Avenir-Medium',
 			fontSize: scaling.moderateScale(10),
-			color: colour.lightGrey,
+			color: colour.grey,
 		}
 	}
 }

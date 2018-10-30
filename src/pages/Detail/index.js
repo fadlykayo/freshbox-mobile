@@ -26,7 +26,13 @@ class Detail extends Component {
 		this.setDetailTransaction = this.setDetailTransaction.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
-    }
+	}
+	
+	componentWillUnmount() {
+		if (this.props.navigation.state.params.refreshHandler) {
+			this.props.navigation.state.params.refreshHandler();
+		}
+	}
     
     componentDidMount() {
 		this.setDetailTransaction();

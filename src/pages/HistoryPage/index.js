@@ -17,7 +17,6 @@ class HistoryPage extends Component {
 	}
 	
 	componentDidMount(){
-		this.props.reset_transaction();
 		if(this.props.user) this.getHistoryData();
 	}
 
@@ -31,7 +30,6 @@ class HistoryPage extends Component {
 
 		this.props.get_transaction(payload, 
 			(success) => {
-				console.log(success);
 			},
 			(err) => {
 				console.log(err);

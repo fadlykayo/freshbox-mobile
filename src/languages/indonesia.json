@@ -147,7 +147,7 @@
         },
         "validation":{
             "fullName": "Tolong masukkan nama anda",
-            "phone": "Tolong masukkan nomor telepon anda diantara 9 sampai 15 angka"
+            "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 angka"
         }
     },
     "productList": {
@@ -167,7 +167,7 @@
         "content": {
             "default": "Semua",
             "subTotal": "Sub Total",
-            "pack": "/1 ",
+            "pack": "/ ",
             "addItem": "+ Tambah",
             "items": " Items | Rp. ",
             "item": " Item | Rp. ",

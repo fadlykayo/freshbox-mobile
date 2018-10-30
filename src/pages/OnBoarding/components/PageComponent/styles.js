@@ -81,7 +81,9 @@ const styles = {
     page: {
         place: {
             position: 'absolute',
-            marginTop: width * 0.35,
+            bottom: 0,
+            left: 0,
+            marginBottom: height * 0.25,
             marginLeft: width * 0.05,
             flexDirection: 'row',
         },
@@ -106,11 +108,17 @@ const styles = {
             height: height * 0.1,
             paddingHorizontal: width * 0.05,
             marginBottom: width * 0.03,
-            justifyContent: 'center'
+            justifyContent: 'center',
+        },
+        button: {
+
+            height: width * 0.1,
+            width: width * 0.2,
+            justifyContent: 'center',
         },
         text: {
             fontFamily: 'Avenir-Medium',
-            fontSize: scaling.moderateScale(20),
+            fontSize: scaling.moderateScale(16),
             color: colour.white,
         }
     },

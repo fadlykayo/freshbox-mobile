@@ -47,7 +47,6 @@ const getProducts = (state, payload) => {
 
     newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
         if(!e.count) e.count = 0;
-        if(!e.favorite) e.favorite = false;
         if(!e.maxQty) e.maxQty = 1000;
         return e;
     }).filter(e => e.stock > 0);
@@ -87,6 +86,35 @@ const getCategories = (state, payload) => {
     }
     
     newState.categories = payload.data
+
+    return newState
+}
+
+const getFavorites = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.wishlist.products.slice();
+
+    for(x in incomingProducts){
+        let sameValue = false;
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                sameValue = true;
+                break;
+            }
+        }
+        if(sameValue == false) existingProducts.push(incomingProducts[x]);
+    }
+
+    newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
+        if(!e.count) e.count = 0;
+        if(!e.maxQty) e.maxQty = 1000;
+        return e;
+    }).filter(e => e.stock > 0);
+
+    newState.wishlist.products = existingProducts;
 
     return newState
 }
@@ -180,10 +208,15 @@ const editFavorite = (state,payload) => {
     if(newState.cart.products.length > 0){
         const cartIndex = newState.cart.products.findIndex(e => e.code === payload.data.code);
         if(cartIndex != -1){
-            newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
+            let cartWishList = newState.cart.products[cartIndex];
+            cartWishList.wishlisted = cartWishList.wishlisted == 1 ? 0 : 1;
+            // newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
         }
     }
-    newState.products[index].favorite = !newState.products[index].favorite;
+    let productsWishList = newState.products[index];
+    productsWishList.wishlisted = productsWishList.wishlisted == 1 ? 0 : 1;
+    
+    // newState.products[index].favorite = !newState.products[index].favorite;
     newState.detail = newState.products[index];
 
     return newState;
@@ -216,6 +249,7 @@ const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS : return getProducts(state, action.payload)
         case ct.GET_CATEGORIES: return getCategories(state, action.payload)
+        case ct.GET_FAVORITES: return getFavorites(state, action.payload)
         case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
         case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
         case ct.CHANGE_TOTAL: return editTotal(state, action.payload)

@@ -23,7 +23,7 @@ const getTransactions = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.transactions = existingProducts;
+    newState.transactions = existingProducts.sort((a,b) => b.checkout_date < a.checkout_date);
     return newState
 }
 

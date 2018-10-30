@@ -65,7 +65,7 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                // console.log("===>",response)
+                console.log("===>",response)
 
                 let data = {
                     uri: response.uri,
