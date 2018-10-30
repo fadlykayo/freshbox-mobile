@@ -15,15 +15,14 @@ const requestHandler = (type,payload,dispatch) => {
 }
 
 helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
-    console.log(payload.path)
     dispatch(actNetwork.set_loading_status(true));
     apiInstance.get(
         payload.path,
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': payload.header.apiToken,
-                'X-Player': payload.header.onesignalToken,
+                'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
             },
             params: payload.params
         })
@@ -60,8 +59,8 @@ helper.post = (payload,dispatch) => new Promise((resolve,reject) => {
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': payload.header.apiToken,
-                'X-Player': payload.header.onesignalToken,
+                'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
             }
         })
     .then(response => {
@@ -97,8 +96,8 @@ helper.put = (payload,dispatch) => new Promise((resolve,reject) => {
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': payload.header.apiToken,
-                'X-Player': payload.header.onesignalToken,
+                'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
             }
     })
     .then(response => {
@@ -133,8 +132,8 @@ helper.delete = (payload,dispatch) => new Promise((resolve,reject) => {
         {
             headers:{
                 'Content-Type': 'application/json',
-                'Authorization': payload.header.apiToken,
-                'X-Player': payload.header.onesignalToken,
+                'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
             }
         })
     .then(response => {
