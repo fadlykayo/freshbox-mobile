@@ -35,7 +35,8 @@ class Content extends Component {
                     (this.props.bank.payment != this.props.selectedBank)
                     ?   null
                     :   <View style={styles.subcontainer.check}>
-                            <Image 
+                            <Image
+                                resizeMode={'stretch'} 
                                 source = {images.icon_check}
                                 style={styles.icon.check}
                             />

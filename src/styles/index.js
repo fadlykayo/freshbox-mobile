@@ -14,6 +14,7 @@ export const colour = {
     darkGrey: 'rgb(81,81,81)',
     veryDarkGrey: 'rgb(74, 74, 74)',
     mediumGrey: 'rgb(227, 227, 227)',
+    greyTransparent: 'rgba(172,179,187,0.7)',
     grey: 'rgb(172, 179, 187)',
     lightGrey: 'rgb(198,198,198)',
     veryLightGrey: 'rgb(245,245,245)',

@@ -24,7 +24,7 @@ class ButtonFav extends PureComponent {
                         style={styles.icon}
                         resizeMode={'contain'} 
                         source={
-                            this.props.isFavorite == true
+                            this.props.data.wishlisted == 1
                             ? 	images.icon_favorited
                             : 	images.icon_favorite
                         }

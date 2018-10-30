@@ -32,7 +32,7 @@ class ChooseAddress extends Component {
 			params: {}
 		}
 		this.props.get_address(payload, 
-			null,
+			(success) => {},
 			(err) => {
 				console.log(err)
 			})

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import FormInput from '@components/FormInput';
+import FormInput from '../FormInput';
 import Dropdown from '../Dropdown';
 import VerificationText from '@components/VerificationText';
 import Button from '@components/Button';
@@ -66,6 +66,7 @@ class FormDataPage extends Component {
 					value={this.props.address.name}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.nameAddress'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.nameAddress'}
 					onSubmitEditing={this.submitNameAddress}
 				/>
@@ -79,6 +80,7 @@ class FormDataPage extends Component {
 					value={this.props.address.receiver_name}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.name'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.name'}
 					onSubmitEditing={this.submitReceiverName}
 				/>
@@ -93,6 +95,7 @@ class FormDataPage extends Component {
 					value={this.props.address.phone}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.phone'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.phone'}
 					onSubmitEditing={this.submitPhone}
 				/>
@@ -107,6 +110,7 @@ class FormDataPage extends Component {
 					value={this.props.address.province}
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.province'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.province'}
 				/>
 				<VerificationText
@@ -120,6 +124,7 @@ class FormDataPage extends Component {
 					value={this.props.address.city}
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.city'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.city'}
 				/>
 				<VerificationText
@@ -133,6 +138,7 @@ class FormDataPage extends Component {
 					value={this.props.address.subdistrict}
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.kecamatan'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.kecamatan'}
 				/>
 				<VerificationText
@@ -146,6 +152,7 @@ class FormDataPage extends Component {
 					value={this.props.address.zip_code}
 					onChangeText={this.props.onSpecificChangeText}
 					label={'addressPage.label.kelurahan'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.kelurahan'}
 				/>
 				<VerificationText
@@ -160,6 +167,7 @@ class FormDataPage extends Component {
 					value={this.props.address.zip_code.zip_code}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.zipCode'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.zipCode'}
 					onSubmitEditing={this.submitZipCode}
 				/>
@@ -173,6 +181,7 @@ class FormDataPage extends Component {
 					value={this.props.address.address}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.address'}
+					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.address'}
 					onSubmitEditing={this.submitAddress}
 				/>
@@ -186,6 +195,7 @@ class FormDataPage extends Component {
 					value={this.props.address.addressDetail}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.addressDetails'}
+					required={''}
 					placeholder={'addressPage.label.addressDetails'}
 					onSubmitEditing={this.submitAddressDetails}
 				/>

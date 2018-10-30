@@ -31,6 +31,7 @@ class ProductDetail extends Component {
 		if(this.props.modalVisible){
 			return(
 				<View style={styles.background}>
+					<TouchableOpacity style={styles.background} onPress={this.closeDetailProduct}></TouchableOpacity>
 					<View style={styles.container}>
 						<TouchableOpacity 
 							style={styles.subcontainer.top}
@@ -61,7 +62,6 @@ class ProductDetail extends Component {
 											key={index}
 										>
 											<Image
-
 												resizeMode={'contain'} 
 												source={{uri: image}}
 												style={styles.icon.product}

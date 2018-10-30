@@ -8,35 +8,40 @@ import styles from './styles';
 class CheckoutComponent extends PureComponent {
 	constructor() {
 		super();
-		this.onPress = this.onPress.bind(this);
+		this.validateCart = this.validateCart.bind(this);
 	}
 
-	onPress() {
-		this.props.onPress();
+	validateCart() {
+		this.props.validateCart();
 	}
 
 	render(){
 		const totalPrice = numeral(this.props.totalPrice).format('0,0');
-		return(
-			<TouchableOpacity
-				onPress={this.onPress}
-				style={styles.checkoutButton}
-			>
-				<Text style={styles.checkoutText}>
-					{this.props.totalCount}
-					<StaticText 
-						style={styles.checkoutText}
-						property={'productList.content.item'}
+		if(this.props.totalCount == 0){
+			return null;
+		}
+		else {
+			return(
+				<TouchableOpacity
+					onPress={this.validateCart}
+					style={styles.checkoutButton}
+				>
+					<Text style={styles.checkoutText}>
+						{this.props.totalCount}
+						<StaticText 
+							style={styles.checkoutText}
+							property={'productList.content.item'}
+						/>
+						{totalPrice}
+					</Text>
+					<Image
+						resizeMode={'contain'} 
+						source={images.icon_cart}
+						style={styles.icon}
 					/>
-					{totalPrice}
-				</Text>
-				<Image
-  	  	    		resizeMode={'contain'} 
-  	  	    		source={images.icon_cart}
-  	  	    		style={styles.icon}
-  	  			/>
-			</TouchableOpacity>
-		)
+				</TouchableOpacity>
+			)
+		}
 	}
 }
 

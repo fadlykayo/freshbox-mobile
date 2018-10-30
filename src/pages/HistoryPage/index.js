@@ -30,7 +30,6 @@ class HistoryPage extends Component {
 
 		this.props.get_transaction(payload, 
 			(success) => {
-				console.log(success);
 			},
 			(err) => {
 				console.log(err);
@@ -102,6 +101,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryPage);

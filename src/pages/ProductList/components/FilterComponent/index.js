@@ -20,19 +20,19 @@ class SearchComponent extends Component {
 		return (
     	<View style={styles.container}>
   	  		<View style={styles.partContainer}>
-          		<TouchableOpacity
+          		<View
           		  style={styles.eachContainer}
           		>
             		<StaticText
             		  	style={styles.filterByPriceText}
             		  	property={'productList.filter.area'}
             		/>
-            		<Image
+            		{/* <Image
   	  	    		  	resizeMode={'contain'} 
   	  	    		  	source={images.icon_dropdown}
   	  	    		  	style={styles.icon}
-  	  				/>
-          		</TouchableOpacity>
+  	  				/> */}
+          		</View>
 				{ this.props.onCategory == 'Default' ? (
 					<TouchableOpacity
 						style={styles.eachContainer}

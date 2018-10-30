@@ -14,6 +14,7 @@ export const path = {
     signInUser: 'v1/user/login',
     forgotPassword: 'v1/user/forgot-password',
     getProducts: 'v1/product',
+    getFavorites: 'v1/wishlist',
     getCategories: 'v1/product-category',
     updateUser: 'v1/user/edit/profile/data',
     uploadPhoto: 'v1/user/upload/profile/image',

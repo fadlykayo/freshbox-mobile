@@ -47,26 +47,6 @@ class PhotoComponent extends Component {
 				</TouchableOpacity>
                 <Text style={styles.userName}>{this.props.user.user.name}</Text>
                 <Text style={styles.userEmail}>{this.props.user.user.email}</Text>
-
-
-
-
-
-                {/* <TouchableOpacity
-                    onPress={() => this.props.navigateBack()}
-                    style={styles.touchableBackButton}
-                >
-                    <Image
-                        resizeMode={'contain'} 
-                        source={images.icon_back_white}
-                        style={styles.backButton}
-                    />
-                </TouchableOpacity>
-                <Image
-                    resizeMode={'contain'} 
-                    source={this.props.user.photo}
-                    style={styles.photo}
-                /> */}
                 
             </ImageBackground>
         );
