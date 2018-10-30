@@ -140,7 +140,8 @@ class AddressPage extends Component {
 	}
 	
 	submitAddress(){
-        let userAddress = this.state.user.address.trim();
+		let userAddress = this.state.user.address.trim();
+		this.clearValidation();
         this.onChangeText('address',userAddress);
 	}
 	
@@ -159,8 +160,9 @@ class AddressPage extends Component {
 	onSpecificChangeText(type, value){
 		let newUser = this.state.user;
 		let allType = ['province', 'city', 'subdistrict', 'zip_code'];
-		let indexType = allType.indexOf(type)
+		let indexType = allType.indexOf(type);
 
+		this.clearValidation();
 		for(let i = indexType; i < allType.length; i++) {
 			if (allType[i] == type) {
 				if (allType[i] == 'zip_code') {
@@ -395,7 +397,7 @@ class AddressPage extends Component {
 					title={'addressPage.navigationTitle'}
 					isEdit={this.state.isEdit}
 					action={this.props.navigation.state.params.action}
-					backPress={actNav.goBack}
+					backPress={this.navigateBack}
 					setAction={this.setAction}
 				/>
 				<ScrollView

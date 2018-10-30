@@ -23,4 +23,8 @@ action.validate_cart = (data) => ({
     }
 });
 
+action.reset_transaction = () => ({
+    type: ct.RESET_TRANSACTION,
+})
+
 export default action;

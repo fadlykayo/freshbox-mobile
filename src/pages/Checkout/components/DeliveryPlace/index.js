@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import styles from './styles';
 
-class DeliveryPlace extends Component {
+class DeliveryPlace extends PureComponent {
     constructor(props) {
         super(props)
         this.onPress = this.onPress.bind(this);
@@ -33,7 +33,7 @@ class DeliveryPlace extends Component {
 		    					            { address.detail.length == 0 ? (
             				                    <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
 		    					            ) : (
-            				                    <Text style={styles.addressText}>{address.detail}, {address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
+            				                    <Text style={styles.addressText}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}, {address.detail}</Text>
 		    					            )}
 		    					            <Text style={styles.addressText}>{address.phone_number}</Text>
 		    							</View>

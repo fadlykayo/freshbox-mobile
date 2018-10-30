@@ -6,7 +6,6 @@ const initialState = {
 }
 
 const getTransactions = (state, payload) => {
-    console.log("dari action",payload)
     let newState = JSON.parse(JSON.stringify(state))
 
     let incomingProducts = payload.data.data;

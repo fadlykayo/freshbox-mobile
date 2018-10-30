@@ -49,6 +49,7 @@ class ProfilePage extends Component {
     navigateLogOut() {
         this.props.log_out();
         this.props.reset_products();
+        this.props.reset_transaction();
 		actNav.reset(navConstant.Menu);
     }
     
@@ -138,6 +139,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
         log_out : () => dispatch(actions.auth.reducer.log_out()),
         reset_products : () => dispatch(actions.product.reducer.reset_products()),
+    	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
         upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
 	}
 }

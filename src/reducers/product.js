@@ -5,6 +5,7 @@ const initialState = {
     last_page: 0,
     params: {
         page: 1,
+        sort: 'nama-az',
         stock: 'tersedia'
     },
     products: [],
@@ -18,7 +19,10 @@ const initialState = {
     cart: {
         products: [],
     },
-    delivery_price: 0
+    delivery_price: 0,
+    wishlist: {
+        products: [],
+    }
 }
 
 const getProducts = (state, payload) => {

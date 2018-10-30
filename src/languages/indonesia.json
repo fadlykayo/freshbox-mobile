@@ -238,7 +238,7 @@
             "save": "Simpan"
         },
         "validation":{
-            "phone": "Tolong masukkan nomor telepon anda diantara 9 sampai 15 digit angka"
+            "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 digit angka"
         }
     },
     "addressPage": {
@@ -254,7 +254,8 @@
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
             "address": "Alamat",
-            "addressDetails": "Detail Alamat (Opsional)"
+            "addressDetails": "Detail Alamat (Opsional)",
+            "required": " *"
         },
         "info": {
             "delete": "Apakah Anda yakin ingin menghapus alamat ini?",
@@ -268,15 +269,15 @@
             "delete": "Hapus"
         },
         "validation":{
-            "name": "Tolong masukkan simpan alamat",
-            "receiver_name": "Tolong masukkan nama penerima",
-            "phone": "Tolong masukkan nomor telepon diantara 9 sampai 15 digit",
-            "province": "Tolong pilih provinsi",
-            "city": "Tolong pilih kota",
-            "subdistrict": "Tolong pilih kecamatan",
-            "kelurahan": "Tolong pilih kelurahan",
-            "zip_code": "Tolong masukkan kode pos",
-            "address": "Tolong masukkan alamat"
+            "name": "Mohon masukkan keterangan alamat",
+            "receiver_name": "Mohon masukkan nama penerima",
+            "phone": "Mohon masukkan nomor telepon di antara 10 sampai 13 digit",
+            "province": "Mohon pilih provinsi",
+            "city": "Mohon pilih kota",
+            "subdistrict": "Mohon pilih kecamatan",
+            "kelurahan": "Mohon pilih kelurahan",
+            "zip_code": "Mohon masukkan kode pos",
+            "address": "Mohon masukkan alamat"
         }
     },
     "resetPasswordPage": {

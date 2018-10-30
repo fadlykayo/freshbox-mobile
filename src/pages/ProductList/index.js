@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList, Keyboard } from 'react-native';
+import { language } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
@@ -125,12 +126,14 @@ class ProductList extends Component {
 	} 
 
 	changeCategory(input){
+		this.onChangeText('searchItem', '')
 		if (input.name == 'Default') {
 			let payload = {
 				header: {},
 				body: {},
 				params: {
 					page: 1,
+					sort: 'nama-az',
 					stock: 'tersedia'
 				}
 			}

@@ -17,6 +17,7 @@ class HistoryPage extends Component {
 	}
 	
 	componentDidMount(){
+		this.props.reset_transaction();
 		if(this.props.user) this.getHistoryData();
 	}
 
@@ -102,6 +103,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryPage);

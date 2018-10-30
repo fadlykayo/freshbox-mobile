@@ -46,6 +46,14 @@ class DrawerPage extends Component {
   	}
 
   	navigateToOtherPage(payload){
+		let pages = this.state.pages;
+		pages.map((page) => {
+			if (page.name == payload.name) page.selected = true;
+			else page.selected = false
+			return page
+		})
+		this.setState({pages})
+
 		switch (payload.name) {
 			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
 			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage)
@@ -62,6 +70,7 @@ class DrawerPage extends Component {
 	navigateLogOut() {
 		this.props.log_out();
 		this.props.reset_products();
+		this.props.reset_transaction();
 		actNav.reset(navConstant.Menu);
 	}
 
@@ -98,15 +107,14 @@ class DrawerPage extends Component {
   	}
 }
 
-const mapStateToProps = (state) => {
-	return {
+const mapStateToProps = (state) => ({
 		user: state.user.data
-	}
-}
+})
 
 const mapDispatchToProps = (dispatch) => ({
 	log_out : () => dispatch(actions.auth.reducer.log_out()),
-	reset_products : () => dispatch(actions.product.reducer.reset_products())
+	reset_products : () => dispatch(actions.product.reducer.reset_products()),
+	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(DrawerPage);
