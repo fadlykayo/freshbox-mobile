@@ -24,7 +24,7 @@ class CartComponent extends PureComponent {
 						resizeMode={'contain'} 
 						source={
 							this.props.action == 'history' 
-							? null 
+							? {uri: this.props.data.product.images_sizes_url.original[0]} 
 							: {uri: this.props.data.images_sizes_url.original[0]}
 						}
 						style={styles.icon.product}

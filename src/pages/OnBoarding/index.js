@@ -52,6 +52,7 @@ class OnBoarding extends Component {
                     renderItem={({item, index}) => (
                         <View key={index}>
                             <PageComponent
+                                length={this.state.information.length - 1}
                                 data={item}
                                 index={index}
                                 navigateToMenu={this.navigateToMenu}

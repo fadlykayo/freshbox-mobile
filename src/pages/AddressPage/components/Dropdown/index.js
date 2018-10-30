@@ -41,7 +41,7 @@ class Dropdown extends Component {
     }
     
     _renderLabel(props){
-        if(this.props.value.length == 0) return null;
+        if(this.props.value.code.length == 0) return null;
         else return (
             <StaticText 
                 style={styles.label}
@@ -56,10 +56,10 @@ class Dropdown extends Component {
                 <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
                     {this._renderLabel(this.props)}
                     {
-                        this.props.value ? (
-                            <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
-                        ) : (
+                        this.props.value.code.length == 0 ? (
                             <Text style={styles.formInput}>{this.state.placeholder}</Text>
+                        ) : (
+                            <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
                         )
                     }
                     <View style={styles.underline}/>
@@ -78,10 +78,10 @@ class Dropdown extends Component {
                     <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
                         {this._renderLabel(this.props)}
                         {
-                            this.props.value ? (
-                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
-                            ) : (
+                            this.props.value.code.length == 0 ? (
                                 <Text style={styles.formInput}>{this.state.placeholder}</Text>
+                            ) : (
+                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
                             )
                         }
                         <View style={styles.underline}/>

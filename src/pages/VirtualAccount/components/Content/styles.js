@@ -38,8 +38,8 @@ const styles = {
             marginRight: scaling.moderateScale(10),
         },
         check:{
-            width: scaling.moderateScale(14),
-            height: scaling.moderateScale(14),
+            width: scaling.moderateScale(15),
+            height: scaling.moderateScale(10),
         }
     },
 

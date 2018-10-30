@@ -122,7 +122,6 @@ class PhonePage extends Component {
 									keyboardType={'number-pad'}
 									value={this.state.user.phone}
 									onChangeText={this.onChangeText}
-									onBlurHandler={this.formatPhoneNumber}
 									label={'phonePage.formLabel.phone'}
 									placeholder={'phonePage.formLabel.phone'}
 									onSubmitEditing={this.submitPhone}

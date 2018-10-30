@@ -8,6 +8,7 @@ const styles = {
     container: {
 		flex: 1,
 		justifyContent: 'space-between',
+		paddingLeft: width * 0.05,
 	},
 	text:{
 		title:{

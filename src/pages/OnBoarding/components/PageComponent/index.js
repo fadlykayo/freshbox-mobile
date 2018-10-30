@@ -19,6 +19,7 @@ class PageComponent extends Component {
     }
 
     render() {
+        console.log(`compare, ${this.props.index} < ${this.props.length}` )
         return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -40,20 +41,10 @@ class PageComponent extends Component {
                                     property={this.props.data.content}
                                     style={styles.contentText.text}
                                 />
-                            </View>
-                            <View style={styles.page.place}>
-                                { this.state.button.map((data, index) => {
-                                    if (this.props.index == index) {
-                                        return <View key={index} style={styles.page.selected}></View>
-                                    }
-                                    else {
-                                        return <View key={index} style={styles.page.unselected}></View>
-                                    }
-                                })}            
                             </View>   
                         </View>
                         <View style={styles.skip.place}>
-                            <TouchableOpacity onPress={this.onPress}>
+                            <TouchableOpacity onPress={this.onPress} style={styles.skip.button}>
                                 <StaticText
                                     property={this.props.data.button}
                                     style={styles.skip.text}
@@ -61,16 +52,35 @@ class PageComponent extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.subContainer.white}></View>
+                    { this.props.index < this.props.length 
+                        ? <View style={styles.subContainer.white}></View> 
+                        : null
+                    }
+                    
                 </View>
-                <TouchableWithoutFeedback>
-                    <View style={styles.button}>
-                        <Image
-                            style={styles.logo}
-                            source={images.icon_right_red}
-                        />
-                    </View>
-                </TouchableWithoutFeedback>
+                { this.props.index < this.props.length 
+                    ? (
+                        <TouchableWithoutFeedback>
+                            <View style={styles.button}>
+                                <Image
+                                    style={styles.logo}
+                                    source={images.icon_right_red}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>
+                    ) : null
+                }
+                
+                <View style={styles.page.place}>
+                    { this.state.button.map((data, index) => {
+                        if (this.props.index == index) {
+                            return <View key={index} style={styles.page.selected}></View>
+                        }
+                        else {
+                            return <View key={index} style={styles.page.unselected}></View>
+                        }
+                    })}            
+                </View>
             </View>
         );
     }

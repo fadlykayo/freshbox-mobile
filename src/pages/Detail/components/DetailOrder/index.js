@@ -53,11 +53,7 @@ class DetailOrder extends Component {
                         <Text style={styles.userText}>{this.props.transaction.receiver_name}</Text>
                         {/* <Text style={styles.userText}>{this.props.transaction.phone_number}</Text> */}
                         <Text style={styles.userText}>
-                            {this.props.transaction.address}<StaticText property={'addressPage.label.comma'}/>
-                            {this.props.transaction.city.name}<StaticText property={'addressPage.label.comma'}/>
-                            {this.props.transaction.province.name}<StaticText property={'historyDetail.content.kecamatan'}/>
-                            {this.props.transaction.subdistrict.name}<StaticText property={'historyDetail.content.kelurahan'}/>
-                            {this.props.transaction.zip_code.place_name}
+                            {this.props.transaction.address} <StaticText property={'historyDetail.content.kelurahan'}/>{this.props.transaction.zip_code.place_name}<StaticText property={'historyDetail.content.kecamatan'}/>{this.props.transaction.subdistrict.name}, {this.props.transaction.city.name}, {this.props.transaction.province.name}, {this.props.transaction.zip_code.zip_code}                                            
                             {this.props.transaction.address_detail.length == 0 
                                 ? null 
                                 : <Text><StaticText property={'addressPage.label.comma'}/>{this.props.transaction.address_detail}</Text>
@@ -83,11 +79,7 @@ class DetailOrder extends Component {
                         <Text style={styles.userText}>{address.receiver_name}</Text>
                         <Text style={styles.userText}>{address.phone_number}</Text>
                         <Text style={styles.userText}>
-                            {address.address}<StaticText property={'addressPage.label.comma'}/>
-                            {address.city.name}<StaticText property={'addressPage.label.comma'}/>
-                            {address.province.name}<StaticText property={'historyDetail.content.kecamatan'}/>
-                            {address.subdistrict.name}<StaticText property={'historyDetail.content.kelurahan'}/>
-                            {address.zip_code.place_name}
+                            {address.address}<StaticText property={'historyDetail.content.kelurahan'}/>{address.zip_code.place_name}<StaticText property={'historyDetail.content.kecamatan'}/>{address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}
                             { address.detail.length == 0 
                                 ? null 
                                 : <Text><StaticText property={'addressPage.label.comma'}/>{address.detail}</Text>

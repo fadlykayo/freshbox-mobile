@@ -11,7 +11,7 @@ const styles = {
         paddingRight: width * 0.05,
     },
     content:{
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
     },
     messageWrong: {
