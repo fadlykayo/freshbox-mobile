@@ -87,7 +87,42 @@ class Detail extends Component {
 	}
 
 	toggleFavorite(payload){
-		this.props.toggle_favorite(payload);
+		if (payload.wishlisted == 1) {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload
+			}
+			this.props.delete_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+		else {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.code
+					}
+				},
+				favorite: payload
+			}
+			this.props.add_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
 	}
 
     navigateToCart(){
@@ -166,7 +201,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
-    get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

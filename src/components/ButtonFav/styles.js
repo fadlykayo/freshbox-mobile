@@ -12,7 +12,7 @@ const styles = {
     },
     icon:{
         height: scaling.moderateScale(16),
-        width: scaling.moderateScale(16),
+        width: scaling.moderateScale(18),
     }
 }
 

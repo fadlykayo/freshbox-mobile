@@ -206,7 +206,10 @@ actions.add_favorite = (req,success,failure) => {
         	console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.toggle_favorite(req.favorite))
+					dispatch(actReducer.toggle_favorite({
+						newData: res.data,
+						product: req.favorite
+					}))
         		}
         	}
         })
@@ -239,7 +242,11 @@ actions.delete_favorite = (req,success,failure) => {
         	console.log('Delete Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.toggle_favorite(req.favorite))
+					dispatch(actReducer.toggle_favorite({
+						newData: res.data,
+						product: req.favorite
+					}))
+					success()
         		}
         	}
         })

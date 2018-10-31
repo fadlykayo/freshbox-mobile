@@ -43,8 +43,8 @@ const styles = {
 			alignItems: 'center'
 		},
 		icon: {
-			width: scaling.moderateScale(10),
-			height: scaling.moderateScale(10),
+			width: scaling.moderateScale(20),
+			height: scaling.moderateScale(20),
 		}
 	},
 	title:{
@@ -64,12 +64,12 @@ const styles = {
 	textinput: {
 		fontFamily: 'Avenir-Light',
 		fontSize: scaling.moderateScale(14),
-		width: width * 0.6,
-    color: colour.darkGrey,
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingTop: scaling.moderateScale(8),
-    paddingBottom: scaling.moderateScale(8)
+		width: width * 0.58,
+    	color: colour.darkGrey,
+    	paddingLeft: 0,
+    	paddingRight: 0,
+    	paddingTop: scaling.moderateScale(8),
+    	paddingBottom: scaling.moderateScale(8)
 	}
 }
 
