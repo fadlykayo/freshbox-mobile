@@ -16,6 +16,7 @@ class SearchComponent extends Component {
 		this.onSubmitEditing = this.onSubmitEditing.bind(this);
 		this.renderPlaceholder = this.renderPlaceholder.bind(this);
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);
+		this.clearSearch = this.clearSearch.bind(this);
 	}
 
 	openDrawerMenu() {
@@ -29,6 +30,10 @@ class SearchComponent extends Component {
   	onSubmitEditing(){
   		if(this.props.onSubmitEditing) this.props.onSubmitEditing();
   	}  
+
+	clearSearch() {
+		this.props.clearSearch()
+	}
 
 	componentDidMount() {
 		this.renderPlaceholder(this.props.title,this.props.language,this.props.params);
@@ -45,13 +50,13 @@ class SearchComponent extends Component {
 		return (
       		<View style={styles.container}>
   	  			<View style={styles.searchContainer}>
-					<TouchableOpacity>
+					<View>
 	  	    			<Image
   	  	    				resizeMode={'contain'} 
   	  	    				source={images.icon_search}
   	  	    				style={styles.iconSearch}
   	  					/>
-					</TouchableOpacity>
+					</View>
 					<TextInput
 						value={this.props.value} 
   	        			onChangeText={this.onChangeText}
@@ -59,6 +64,18 @@ class SearchComponent extends Component {
 		    		  	onSubmitEditing={this.onSubmitEditing}
 		    		  	style={styles.textinput}
 		    		/>
+					{this.props.value.length > 0
+						? (
+							<TouchableOpacity style={styles.clear.place} onPress={this.clearSearch}>
+								<Image
+  	  	    						resizeMode={'contain'} 
+  	  	    						source={images.icon_clear_search}
+  	  	    						style={styles.clear.icon}
+  	  							/>
+							</TouchableOpacity>
+						) : null
+					}
+					
   	    		</View>
 				<TouchableOpacity 
 					onPress={this.openDrawerMenu}

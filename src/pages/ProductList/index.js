@@ -45,18 +45,24 @@ class ProductList extends Component {
 		this.createOrderHandler = this.createOrderHandler.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.closeDialogCategories = this.closeDialogCategories.bind(this);
+		this.getFavorites = this.getFavorites.bind(this);
 	}
 
 	componentDidMount(){
 		this.getProductList();
 		this.getCategories();
 		this.checkCategory();
+		this.getFavorites();
 	}
 
 	onChangeText(type,value){
         let state = JSON.parse(JSON.stringify(this.state));
         state[type] = value;
         this.setState(state);
+	}
+
+	clearSearch() {
+		this.onChangeText('searchItem', '');
 	}
 
 	setModalVisible(type,value){
@@ -86,6 +92,22 @@ class ProductList extends Component {
 				console.log(err)
 			}
 		);
+	}
+
+	getFavorites() {
+		if (this.props.user) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				}
+			}
+			this.props.get_favorites(payload,
+				(success) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
 	}
 
 	getCategories(){
@@ -194,7 +216,7 @@ class ProductList extends Component {
 	}
 	
 	toggleFavorite(payload){
-		if (payload.favorite) {
+		if (payload.wishlisted == 1) {
 			let data = {
 				request: {
 					header: {
@@ -314,7 +336,6 @@ class ProductList extends Component {
 	}
 
 	render(){
-		console.log('data product dari reducer', this.props.product)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}
@@ -327,6 +348,7 @@ class ProductList extends Component {
 					onChangeText={this.onChangeText}
 					onSubmitEditing={this.submitSearch}
 					openDrawerMenu={this.openDrawerMenu}
+					clearSearch={this.clearSearch}
 				/>
 				<FilterComponent 
 					onCategory={this.props.on_category}
@@ -411,6 +433,7 @@ const mapDispatchToProps = dispatch => ({
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

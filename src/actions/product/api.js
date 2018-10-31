@@ -22,7 +22,6 @@ actions.get_products = (req,success,failure) => {
 	payload.header = req.header;
 	payload.params = req.params;
 	
-	console.log("get products",payload)
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {

@@ -184,11 +184,68 @@ const editTotal = (state,payload) => {
         cart_product[i].maxQty = payload.data.maxQty;
     }
 
+    let indexWishList = newState.wishlist.products.findIndex(product => product.code == payload.data.code)
+    
+    if (indexWishList != -1) {
+        if (payload.type == 'inc') {
+            newState.wishlist.products[indexWishList].count += 1;
+        }
+        else {
+            newState.wishlist.products[indexWishList].count -= 1;
+        }
+    }
+
+    
     newState.total.count = count;
     newState.total.price = total;
     newState.cart.products = cart_product;
 
     return newState;
+}
+
+const editTotalFavorites = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let total = 0;
+    let count = 0;
+    const index = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
+
+	if (payload.type == "inc") {
+		newState.wishlist.products[index].count += 1;
+	}
+	else {
+		newState.wishlist.products[index].count -= 1;
+    }
+
+    newState.detail = newState.wishlist.products[index];
+
+    let cart_product = newState.products.filter(filter => filter.count > 0);
+    
+    for(i in cart_product){
+        total = total + (cart_product[i].price * cart_product[i].count);
+        count = count + cart_product[i].count;
+        cart_product[i].maxQty = payload.data.maxQty;
+    }
+
+    let indexProducts = newState.products.findIndex(product => product.code == payload.data.code)
+    
+    console.log("data item", indexProducts);
+    // if (indexProducts == -1) {
+    //     newState.products.push(newState.wishlist.products[index]);
+    // }
+    // else {
+    //     if (payload.type == 'inc') {
+    //         newState.products[indexProducts].count += 1;
+    //     }
+    //     else {
+    //         newState.products[indexProducts].count -= 1;
+    //     }
+    // }
+    
+    newState.total.count = count;
+    newState.total.price = total;
+    newState.cart.products = cart_product;
+
+    return newState
 }
 
 const clearProducts = (state) => {
@@ -253,6 +310,7 @@ const productReducer = (state = initialState, action) => {
         case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
         case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
         case ct.CHANGE_TOTAL: return editTotal(state, action.payload)
+        case ct.CHANGE_TOTAL_FAVORITES: return editTotalFavorites(state, action.payload)
         case ct.CHANGE_CATEGORIES: return changeCategory(state, action.payload) 
         case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
         case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)

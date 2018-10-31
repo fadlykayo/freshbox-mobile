@@ -61,6 +61,14 @@ action.change_total = (data,type) => ({
     }  
 })
 
+action.change_total_favorites = (data,type) => ({
+    type: ct.CHANGE_TOTAL_FAVORITES,
+    payload: {
+        data,
+        type,
+    }  
+})
+
 action.change_categories = (data) => ({
     type: ct.CHANGE_CATEGORIES,
     payload: {

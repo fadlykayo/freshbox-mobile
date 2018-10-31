@@ -36,6 +36,7 @@ class Favourites extends Component {
 		this.clearProductCancelation = this.clearProductCancelation.bind(this);
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
 	}
 
 	validateCart(){
@@ -55,6 +56,45 @@ class Favourites extends Component {
 		}
 	}
 
+	toggleFavorite(payload){
+		if (payload.wishlisted == 1) {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload
+			}
+			this.props.delete_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+		else {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.code
+					}
+				},
+				favorite: payload
+			}
+			this.props.add_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+	}
+
 	setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;
         modalVisible[type] = value;
@@ -71,14 +111,7 @@ class Favourites extends Component {
 	}
 
 	changeTotalItem(payload,type){
-		if(payload.count == 1 && type == 'desc'){
-			this.setState({selectedProduct: payload},() => {
-				this.setModalVisible('alertDialog',true);
-			});
-		}
-		else{
-			this.props.change_total(payload,type);
-		}
+		this.props.change_total_favorites(payload,type);
 	}
 
 	clearProductConfirmation(){
@@ -90,6 +123,8 @@ class Favourites extends Component {
 	clearProductCancelation(){
 		this.setModalVisible('alertDialog',false);
 	}
+
+	
 
 	navigateToCheckout(){
 		if(this.props.cart_product.length == 0){
@@ -235,7 +270,7 @@ const mapDispatchToProps = dispatch => ({
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
+	change_total_favorites: (payload,type) => dispatch(actions.product.reducer.change_total_favorites(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
 	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err))
 });
