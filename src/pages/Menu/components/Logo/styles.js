@@ -10,7 +10,7 @@ const styles = {
         justifyContent: 'center',
     },
     logo:{
-        width: width * 0.5,
+        width: width * 0.6,
     }
 }
 
