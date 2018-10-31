@@ -82,7 +82,10 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
-			params: this.props.params
+			params: {
+				sort: 'nama-az',
+				stock: 'tersedia'
+			},
 		}
 		this.props.get_products(payload,
 			() => {
@@ -320,16 +323,15 @@ class ProductList extends Component {
 			},
 			invoice: input
 		}
+		this.refreshHandler();
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					createOrderSuccess: true,
-					refreshHandler: this.refreshHandler
 				});
 			},
 			(err) => {
-				this.refreshHandler();
 				console.log(err)
 			}
 		)
@@ -359,7 +361,7 @@ class ProductList extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.product}
-							onEndReachedThreshold={0.5}
+							onEndReachedThreshold={0.05}
 							onRefresh={this.refreshHandler}
 							refreshing={this.state.refreshing}
 							keyExtractor={(item) => item.code}
