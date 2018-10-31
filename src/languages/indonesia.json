@@ -451,7 +451,8 @@
         "serverError": "Terjadi gangguan pada server, silahkan coba beberapa saat lagi."
     },
     "dialog":{
-        "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?"
+        "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",
+        "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?"
     },
     "verification":{
         "maxQuantity": "Hanya tersedia {qty} pack",

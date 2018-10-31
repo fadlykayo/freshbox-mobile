@@ -67,21 +67,9 @@ class Favourites extends Component {
 
 	toggleFavorite(payload){
 		if (payload.wishlisted == 1) {
-			let data = {
-				request: {
-					header: {
-						apiToken: this.props.user.authorization
-					},
-					body: {}
-				},
-				favorite: payload
-			}
-			this.props.delete_favorite(data,
-				() => {},
-				(err) => {
-					console.log(err)
-				}
-			)
+			this.setState({selectedProduct: payload},() => {
+				this.setModalVisible('alertDialog',true);
+			});
 		}
 		else {
 			let data = {
@@ -135,20 +123,29 @@ class Favourites extends Component {
 	}
 
 	changeTotalItem(payload,type){
-		if(payload.count == 1 && type == 'desc'){
-			this.setState({selectedProduct: payload},() => {
-				this.setModalVisible('alertDialog',true);
-			});
-		}
-		else{
-			this.props.change_total(payload,type);
-		}
+		this.props.change_total(payload,type);
 	}
 
 	clearProductConfirmation(){
-		this.props.change_total(this.state.selectedProduct,'desc');
-		this.setModalVisible('alertDialog',false);
-		this.setModalVisible('openProduct',false);
+		let data = {
+			request: {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: {}
+			},
+			favorite: this.state.selectedProduct
+		}
+		this.props.delete_favorite(data,
+			() => {
+				this.setModalVisible('alertDialog',false);
+				this.setModalVisible('openProduct',false);
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
+		
 	}
 
 	clearProductCancelation(){
@@ -229,6 +226,7 @@ class Favourites extends Component {
 									type={'favorites'}
 									index={index+1}
 									user={this.props.user}
+									toggleFavorite={this.toggleFavorite}
 									changeTotalItem={this.changeTotalItem}
 									productLength={this.props.wishlist.length}
 									openDetailProduct={this.openDetailProduct}
@@ -247,6 +245,7 @@ class Favourites extends Component {
 					user={this.props.user}
 					data={this.props.productDetail}
 					changeTotalItem={this.changeTotalItem}
+					toggleFavorite={this.toggleFavorite}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
 				/>
@@ -256,7 +255,7 @@ class Favourites extends Component {
 				/>
 				<AlertDialog
 					modalVisible={this.state.modalVisible.alertDialog} 
-					content={'dialog.clearProduct'}
+					content={'dialog.clearFavorite'}
 					params={{
 						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
 					}}
@@ -288,6 +287,8 @@ const mapDispatchToProps = dispatch => ({
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

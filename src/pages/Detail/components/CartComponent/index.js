@@ -43,7 +43,7 @@ class CartComponent extends PureComponent {
 							style={styles.icon.favorite}
 							resizeMode={'contain'} 
 							source={
-								this.props.data.favorite == true
+								this.props.data.wishlisted == 1
 									? images.icon_favorited
 									: images.icon_favorite
 							}

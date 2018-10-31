@@ -189,7 +189,6 @@ const editTotal = (state,payload) => {
     newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
 
     let productCart = newState.products.filter(e => e.count > 0);
-    console.log("awal",productCart)
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
 
     let newCart = productCart.length > 0 ? productCart : favoriteCart;
@@ -204,9 +203,6 @@ const editTotal = (state,payload) => {
             }
         }
     }
-
-    console.log("favcart", favoriteCart)
-    console.log("akhir", productCart)
 
     for(i in newCart){
         total = total + (newCart[i].price * newCart[i].count);
@@ -234,20 +230,41 @@ const clearProducts = (state) => {
 
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    const index = newState.products.findIndex(e => e.code === payload.data.code);
-    if(newState.cart.products.length > 0){
-        const cartIndex = newState.cart.products.findIndex(e => e.code === payload.data.code);
-        if(cartIndex != -1){
-            let cartWishList = newState.cart.products[cartIndex];
-            cartWishList.wishlisted = cartWishList.wishlisted == 1 ? 0 : 1;
-            // newState.cart.products[cartIndex].favorite = !newState.cart.products[cartIndex].favorite;
-        }
-    }
+    
+    const index = newState.products.findIndex(e => e.code === payload.data.product.code);
     let productsWishList = newState.products[index];
     productsWishList.wishlisted = productsWishList.wishlisted == 1 ? 0 : 1;
-    
-    // newState.products[index].favorite = !newState.products[index].favorite;
     newState.detail = newState.products[index];
+
+    newState.wishlist.products = payload.data.newData.data;
+    
+    let incomingProducts = payload.data.newData.data;
+    let existingProducts = newState.wishlist.products.slice();
+    let productList = newState.products.slice();
+
+    for(x in incomingProducts){
+        let sameValue = false;
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                sameValue = true;
+                break;
+            }
+        }
+        if(sameValue == false) existingProducts.splice(x, 1);
+    }
+
+    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+        let productItem = productList.filter(p => e.code == p.code);
+        if(productItem.length > 0){
+            return productItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
 
     return newState;
 }
