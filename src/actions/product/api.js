@@ -17,12 +17,12 @@ let payload = {
 
 
 actions.get_products = (req,success,failure) => {
+	console.log("payload get_products",req);
 	
 	payload.path = path.getProducts;
 	payload.header = req.header;
 	payload.params = req.params;
 	
-	console.log("get products",payload)
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
@@ -53,9 +53,10 @@ actions.get_products = (req,success,failure) => {
 };
 
 actions.get_favorites = (req,success,failure) => {
-	
+
 	payload.path = path.getFavorites;
 	payload.header = req.header;
+	payload.params = req.params;
 	
 	return dispatch => {
         requestHandler('get',payload,dispatch)

@@ -29,6 +29,7 @@ class Favourites extends Component {
 		}
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
+		this.handleLoadMore = this.handleLoadMore.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
@@ -52,13 +53,30 @@ class Favourites extends Component {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
-			}
+			},
+			params:{},
 		}
 		this.props.get_favorites(payload,
 			() => {},
 			(err) => {
 				console.log(err)
-			})
+			}
+		)
+	}
+
+	handleLoadMore(){
+		// let payload = {
+		// 	header: {
+		// 		apiToken: this.props.user.authorization
+		// 	},
+		// 	params:{},
+		// }
+		// this.props.get_favorites(payload,
+		// 	() => {},
+		// 	(err) => {
+		// 		console.log(err)
+		// 	}
+		// )
 	}
 
 	setModalVisible(type,value){
@@ -159,8 +177,10 @@ class Favourites extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.wishlist}
+							onEndReachedThreshold={0.05}
 							onRefresh={this.refreshHandler}
 							refreshing={this.state.refreshing}
+							onEndReached={this.handleLoadMore}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem

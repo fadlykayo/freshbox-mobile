@@ -46,7 +46,7 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
+    newState.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
         let favoriteItem = favoriteList.filter(p => e.code == p.code);
         if(favoriteItem.length > 0){
             return favoriteItem[0];
@@ -79,7 +79,7 @@ const getFavorites = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
+    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];
@@ -91,7 +91,7 @@ const getFavorites = (state, payload) => {
         }
     }).filter(e => e.stock > 0);
     
-    return newState
+    return newState;
 }
 
 const getCategories = (state, payload) => {
