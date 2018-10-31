@@ -19,6 +19,7 @@ class Favourites extends Component {
 		super(props);
 		this.state = { 
 			totalPrice: 0,
+			refreshing: false,
 			modalVisible: {
 				openProduct: false,
 				alertDialog: false,
@@ -26,33 +27,38 @@ class Favourites extends Component {
 			},
 			selectedProduct: null,
 		}
-		this.changeTotalItem = this.changeTotalItem.bind(this);
-		this.setModalVisible = this.setModalVisible.bind(this);
-		this.navigateToSignIn = this.navigateToSignIn.bind(this);
-		this.openDetailProduct = this.openDetailProduct.bind(this);
-		this.closeDetailProduct = this.closeDetailProduct.bind(this);
-		this.navigateToCheckout = this.navigateToCheckout.bind(this);
-		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
-		this.clearProductCancelation = this.clearProductCancelation.bind(this);
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
+		this.changeTotalItem = this.changeTotalItem.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.openDetailProduct = this.openDetailProduct.bind(this);
+		this.createOrderHandler = this.createOrderHandler.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+		this.clearProductCancelation = this.clearProductCancelation.bind(this);
+		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
 	}
 
-	validateCart(){
-		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
-		if(outStockCart.length > 0){
-			language.transformText('message.outOfStock')
-			.then(message => {
-				this.props.set_error_status({
-					status: true,
-					title: 'formError.title.outOfStock',
-					data: message,
-				});
-			});
+	componentDidMount() {
+		this.getFavorites();
+	}
+
+	refreshHandler(){
+		this.setState({refreshing: true},() => {
+			this.getFavorites();
+		});
+	}
+
+	getFavorites() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			}
 		}
-		else{
-			this.navigateToCart();
-		}
+		this.props.get_favorites(payload,
+			() => {},
+			(err) => {
+				console.log(err)
+			})
 	}
 
 	setModalVisible(type,value){
@@ -91,72 +97,53 @@ class Favourites extends Component {
 		this.setModalVisible('alertDialog',false);
 	}
 
-	navigateToCheckout(){
-		if(this.props.cart_product.length == 0){
-			language.transformText('message.emptyCart')
+	validateCart(){
+		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+		if(outStockCart.length > 0){
+			language.transformText('message.outOfStock')
 			.then(message => {
 				this.props.set_error_status({
 					status: true,
-					title: 'formError.title.emptyCart',
+					title: 'formError.title.outOfStock',
 					data: message,
 				});
 			});
 		}
-		else {
-			let buyProducts = [];
-			this.props.cart_product.map((cart) => {
-				buyProducts.push({
-					product_code: cart.code,
-					qty: cart.count,
-				});
-			});
-			if(this.props.user){
-				let payload = {
-					header: {
-						apiToken: this.props.user.authorization
-					},
-					body: buyProducts
-				};
-
-				this.props.bulk_add_products(payload,
-					(res) => {
-						actNav.navigate(navConstant.Checkout,{
-							key: this.props.navigation.state.key,
-							createOrderHandler: this.props.navigation.state.params.createOrderHandler
-						});
-					},
-					(err) => {}
-				)
-			}
-			else {
-				this.setModalVisible('modalLoginConfirmation',true);
-			}
+		else{
+			this.navigateToCart();
 		}
 	}
 
-	navigateToSignIn(){
-		this.setModalVisible('modalLoginConfirmation',false);
-		actNav.navigate(navConstant.SignIn,{
-			action: 'guestLogin'
+	navigateToCart(){
+		actNav.navigate(navConstant.Cart,{
+			createOrderHandler: this.createOrderHandler
 		});
-	};
+	}
 
-	getFavorites() {
+	createOrderHandler(invoice){
+		actNav.goBackToTop();
+		this.navigateToDetail(invoice);
+	}
+
+	navigateToDetail(input) {
 		let payload = {
 			header: {
-				apiToken: this.props.user.authorization
-			}
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
 		}
-		this.props.get_favorites(payload,
-			(success) => {
+		this.refreshHandler();
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: true,
+				});
 			},
 			(err) => {
 				console.log(err)
-			})
-	}
-
-	componentDidMount() {
-		this.getFavorites();
+			}
+		)
 	}
 
 	render(){
@@ -172,6 +159,8 @@ class Favourites extends Component {
 					<View style={styles.cartContainer}>
 						<FlatList
 							data={this.props.wishlist}
+							onRefresh={this.refreshHandler}
+							refreshing={this.state.refreshing}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem
@@ -234,10 +223,11 @@ const mapDispatchToProps = dispatch => ({
 	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
-	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err))
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

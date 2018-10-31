@@ -29,6 +29,7 @@ const getProducts = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let incomingProducts = payload.data.data;
     let existingProducts = newState.products.slice();
+    let favoriteList = newState.wishlist.products.slice();
 
     newState.params.page = payload.data.current_page + 1;
     newState.last_page= payload.data.last_page;
@@ -46,14 +47,51 @@ const getProducts = (state, payload) => {
     }
 
     newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
-        if(!e.count) e.count = 0;
-        if(!e.maxQty) e.maxQty = 1000;
-        return e;
+        let favoriteItem = favoriteList.filter(p => e.code == p.code);
+        if(favoriteItem.length > 0){
+            return favoriteItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
     }).filter(e => e.stock > 0);
 
-    newState.products = existingProducts;
-
     return newState;
+}
+
+const getFavorites = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.wishlist.products.slice();
+    let productList = newState.products.slice();
+
+    for(x in incomingProducts){
+        let sameValue = false;
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                sameValue = true;
+                break;
+            }
+        }
+        if(sameValue == false) existingProducts.push(incomingProducts[x]);
+    }
+
+    newState.wishlist.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
+        let productItem = productList.filter(p => e.code == p.code);
+        if(productItem.length > 0){
+            return productItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    }).filter(e => e.stock > 0);
+    
+    return newState
 }
 
 const getCategories = (state, payload) => {
@@ -86,35 +124,6 @@ const getCategories = (state, payload) => {
     }
     
     newState.categories = payload.data
-
-    return newState
-}
-
-const getFavorites = (state, payload) => {
-    let newState = JSON.parse(JSON.stringify(state));
-
-    let incomingProducts = payload.data.data;
-    let existingProducts = newState.wishlist.products.slice();
-
-    for(x in incomingProducts){
-        let sameValue = false;
-        for(y in existingProducts){
-            if(incomingProducts[x].code == existingProducts[y].code){
-                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
-                sameValue = true;
-                break;
-            }
-        }
-        if(sameValue == false) existingProducts.push(incomingProducts[x]);
-    }
-
-    newState.products = existingProducts.sort((a,b) => a.code - b.code).map(e => {
-        if(!e.count) e.count = 0;
-        if(!e.maxQty) e.maxQty = 1000;
-        return e;
-    }).filter(e => e.stock > 0);
-
-    newState.wishlist.products = existingProducts;
 
     return newState
 }
@@ -165,28 +174,49 @@ const editTotal = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let total = 0;
     let count = 0;
-    const index = newState.products.findIndex(e => e.code === payload.data.code);
+    const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
+    const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
 
 	if (payload.type == "inc") {
-		newState.products[index].count += 1;
+		if(indexProducts != -1) newState.products[indexProducts].count += 1;
+		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 	}
 	else {
-		newState.products[index].count -= 1;
+		if(indexProducts != -1) newState.products[indexProducts].count -= 1;
+		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
     }
 
-    newState.detail = newState.products[index];
+    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
 
-    let cart_product = newState.products.filter(filter => filter.count > 0);
-    
-    for(i in cart_product){
-        total = total + (cart_product[i].price * cart_product[i].count);
-        count = count + cart_product[i].count;
-        cart_product[i].maxQty = payload.data.maxQty;
+    let productCart = newState.products.filter(e => e.count > 0);
+    let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
+
+    let newCart = productCart.length > 0 ? productCart : favoriteCart;
+
+    if(productCart.length > 0){
+        if(favoriteCart.length > 0){
+            for(x in newCart){
+                let sameValue = false;
+                for(y in favoriteCart){
+                    if(newCart[x].code == favoriteCart[y].code){
+                        sameValue = true;
+                        break;
+                    }
+                }
+                if(sameValue == false) newCart.push(favoriteCart[y]);
+            }
+        }
+    }
+
+    for(i in newCart){
+        total = total + (newCart[i].price * newCart[i].count);
+        count = count + newCart[i].count;
+        newCart[i].maxQty = payload.data.maxQty;
     }
 
     newState.total.count = count;
     newState.total.price = total;
-    newState.cart.products = cart_product;
+    newState.cart.products = newCart;
 
     return newState;
 }

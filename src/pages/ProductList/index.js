@@ -298,23 +298,21 @@ class ProductList extends Component {
 			},
 			invoice: input
 		}
+		this.refreshHandler();
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					createOrderSuccess: true,
-					refreshHandler: this.refreshHandler
 				});
 			},
 			(err) => {
-				this.refreshHandler();
 				console.log(err)
 			}
 		)
 	}
 
 	render(){
-		console.log('data product dari reducer', this.props.product)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}
