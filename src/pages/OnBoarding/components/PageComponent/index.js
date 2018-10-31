@@ -19,7 +19,6 @@ class PageComponent extends Component {
     }
 
     render() {
-        console.log(`compare, ${this.props.index} < ${this.props.length}` )
         return (
             <View style={styles.container}>
                 <View style={styles.content}>

@@ -35,6 +35,18 @@ const styles = {
 		height: scaling.moderateScale(14),
 		marginRight: scaling.moderateScale(15),
 	},
+	clear: {
+		place: {
+			width: scaling.moderateScale(25),
+			height: scaling.moderateScale(25),
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		icon: {
+			width: scaling.moderateScale(10),
+			height: scaling.moderateScale(10),
+		}
+	},
 	title:{
 		fontFamily: 'Avenir-Black',
 		fontSize: scaling.moderateScale(16),

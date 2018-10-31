@@ -29,6 +29,7 @@ class Favourites extends Component {
 		}
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.handleLoadMore = this.handleLoadMore.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -62,6 +63,45 @@ class Favourites extends Component {
 				console.log(err)
 			}
 		)
+	}
+
+	toggleFavorite(payload){
+		if (payload.wishlisted == 1) {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload
+			}
+			this.props.delete_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+		else {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.code
+					}
+				},
+				favorite: payload
+			}
+			this.props.add_favorite(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
 	}
 
 	handleLoadMore(){
@@ -203,7 +243,7 @@ class Favourites extends Component {
 					/>
 				</View>
 				<ProductDetail
-					type={'cart'}
+					type={'favorites'}
 					user={this.props.user}
 					data={this.props.productDetail}
 					changeTotalItem={this.changeTotalItem}

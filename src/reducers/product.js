@@ -189,24 +189,24 @@ const editTotal = (state,payload) => {
     newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
 
     let productCart = newState.products.filter(e => e.count > 0);
+    console.log("awal",productCart)
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
 
     let newCart = productCart.length > 0 ? productCart : favoriteCart;
 
     if(productCart.length > 0){
         if(favoriteCart.length > 0){
-            for(x in newCart){
-                let sameValue = false;
-                for(y in favoriteCart){
-                    if(newCart[x].code == favoriteCart[y].code){
-                        sameValue = true;
-                        break;
-                    }
+            for(x in favoriteCart){
+                let indexFav = productCart.findIndex(e => e.code == favoriteCart[x].code)
+                if (indexFav == -1) {
+                    productCart.push(favoriteCart[x])
                 }
-                if(sameValue == false) newCart.push(favoriteCart[y]);
             }
         }
     }
+
+    console.log("favcart", favoriteCart)
+    console.log("akhir", productCart)
 
     for(i in newCart){
         total = total + (newCart[i].price * newCart[i].count);
@@ -294,3 +294,6 @@ const productReducer = (state = initialState, action) => {
 }
 
 export default productReducer
+
+
+
