@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Text } from 'react-native';
 import { language } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
+import StaticText from '@components/StaticText';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -20,6 +21,7 @@ class ProductList extends Component {
 		this.state = {
 			refreshing: false,
 			searchItem: '',
+			search: false,
 			onCategory: '',
 			indexProduct: 0,
 			detailDataProduct:{},
@@ -46,6 +48,8 @@ class ProductList extends Component {
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.closeDialogCategories = this.closeDialogCategories.bind(this);
 		this.getFavorites = this.getFavorites.bind(this);
+		this._renderButton = this._renderButton.bind(this);
+		this.backToDefault = this.backToDefault.bind(this);
 	}
 
 	componentDidMount(){
@@ -53,6 +57,25 @@ class ProductList extends Component {
 		this.getCategories();
 		this.checkCategory();
 		this.getFavorites();
+	}
+
+	_renderButton() {
+		if(this.state.search) {
+			return (
+			<TouchableOpacity style={styles.clear.button} onPress={this.backToDefault}>
+				<StaticText
+					style={styles.clear.text}
+					property={'productList.button.clear'}
+				/>
+			</TouchableOpacity>
+			)
+		}
+		else return null
+	}
+
+	backToDefault() {
+		this.clearSearch();
+		this.refreshHandler();
 	}
 
 	onChangeText(type,value){
@@ -73,6 +96,7 @@ class ProductList extends Component {
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
+			if (this.state.search) this.onChangeText('search', false)
 			this.getProductList();
 		});
 	}
@@ -276,6 +300,7 @@ class ProductList extends Component {
 
 		this.props.search_products(payload, 
 			(success) => {
+				this.onChangeText('search', true)
 				console.log(success)
 			},
 			(err) => {
@@ -359,6 +384,7 @@ class ProductList extends Component {
 				<Notes />
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
+						{ this._renderButton() }
 						<FlatList
 							data={this.props.product}
 							onEndReachedThreshold={0.05}
@@ -367,17 +393,17 @@ class ProductList extends Component {
 							keyExtractor={(item) => item.code}
 							onEndReached={this.handleLoadMore}
 							renderItem={({item,index}) => (
-								<ProductItem
-									key={index}
-									data={item}
-									index={index+1}
-									type={'productList'}
-									user={this.props.user}
-									toggleFavorite={this.toggleFavorite}
-									changeTotalItem={this.changeTotalItem}
-									productLength={this.props.product.length}
-									openDetailProduct= {this.openDetailProduct}
-								/>
+									<ProductItem
+										key={index}
+										data={item}
+										index={index+1}
+										type={'productList'}
+										user={this.props.user}
+										toggleFavorite={this.toggleFavorite}
+										changeTotalItem={this.changeTotalItem}
+										productLength={this.props.product.length}
+										openDetailProduct= {this.openDetailProduct}
+									/>
 							)}
 						/>
 						<Checkout

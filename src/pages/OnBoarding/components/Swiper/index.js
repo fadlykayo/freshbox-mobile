@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
 import {
-    Platform,
     ScrollView,
+    Platform,
     View,
-    Text,
-    StyleSheet
+    Button,
+    Text
 } from 'react-native';
 import styles from './styles';
+import { Dimensions } from 'react-native';
+import PageComponent from '../PageComponent';
+
+const { width, height } = Dimensions.get('window');
+
 
 class Swiper extends Component {
 
     static defaultProps = {
         horizontal: true,
         pagingEnabled: true,
-        showHorizontalScrollIndicator: false,
-        showVerticalScrollIndicator: false,
+        showsHorizontalScrollIndicator: false,
+        showsVerticalScrollIndicator: false,
         bounces: false,
         scrollsToTop: false,
         removeClippedSubviews: true,
         automaticallyAdjustContentInsets: false,
         index: 0
-    }
+    };
 
     state = this.initState(this.props);
 
     initState(props) {
 
         const total = props.children ? props.children.length || 1 : 0,
-            // Current index
             index = total > 1 ? Math.min(props.index, total - 1) : 0,
-            // Current offset
             offset = width * index;
 
         const state = {
@@ -52,10 +55,8 @@ class Swiper extends Component {
         this.internals.isScrolling = true;
     }
 
-
     onScrollEnd = e => {
         this.internals.isScrolling = false;
-
 
         this.updateIndex(e.nativeEvent.contentOffset
             ? e.nativeEvent.contentOffset.x
@@ -118,11 +119,71 @@ class Swiper extends Component {
         }
     }
 
-    render() {
-        const { children } = this.props;
+    renderScrollView = pages => {
+        return (
+            <ScrollView ref={component => { this.scrollView = component; }}
+                {...this.props}
+                contentContainerStyle={[styles.wrapper, this.props.style]}
+                onScrollBeginDrag={this.onScrollBegin}
+                onMomentumScrollEnd={this.onScrollEnd}
+                onScrollEndDrag={this.onScrollEndDrag}
+            >
+                {pages.map((page, i) =>
+                    <View style={[styles.fullScreen, styles.slide]} key={i}>
+                        <Text>{page.title}</Text>
+                    </View>
+                )}
+            </ScrollView>
+        );
+    }
+
+
+    renderPagination = () => {
+        if (this.state.total <= 1) {
+            return null;
+        }
+
+        const ActiveDot = <View style={[styles.dot, styles.activeDot]} />,
+            Dot = <View style={styles.dot} />;
+
+        let dots = [];
+
+        for (let key = 0; key < this.state.total; key++) {
+            dots.push(key === this.state.index
+                ? React.cloneElement(ActiveDot, { key })
+                : React.cloneElement(Dot, { key })
+            );
+        }
+
+        return (
+            <View
+                pointerEvents="none"
+                style={[styles.pagination, styles.fullScreen]}
+            >
+                {dots}
+            </View>
+        );
+    }
+
+    renderButton = () => {
+        const lastScreen = this.state.index === this.state.total - 1;
+        return (
+            <View pointerEvents="box-none" style={[styles.buttonWrapper, styles.fullScreen]}>
+                {lastScreen
+                    ? <Button text="Start Now" onPress={() => console.log('Send me to the app')} />
+                    : <Button text="Continue" onPress={() => this.swipe()} />
+                }
+            </View>
+        );
+    }
+
+    render = ({ children } = this.props) => {
+        console.log(children)
         return (
             <View style={[styles.container, styles.fullScreen]}>
-                <Text>Swiper</Text>
+                {this.renderScrollView(children.props.data)}
+                {this.renderPagination()}
+                {this.renderButton()}
             </View>
         );
     }

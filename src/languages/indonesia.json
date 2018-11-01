@@ -162,7 +162,8 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Checkout"
+            "checkout": "Checkout",
+            "clear": "Kembali"
         },
         "content": {
             "default": "Semua",

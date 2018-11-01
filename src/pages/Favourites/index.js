@@ -31,6 +31,7 @@ class Favourites extends Component {
 		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.handleLoadMore = this.handleLoadMore.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
@@ -58,7 +59,9 @@ class Favourites extends Component {
 			params:{},
 		}
 		this.props.get_favorites(payload,
-			() => {},
+			() => {
+				this.setState({refreshing: false})
+			},
 			(err) => {
 				console.log(err)
 			}

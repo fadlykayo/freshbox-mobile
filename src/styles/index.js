@@ -21,6 +21,7 @@ export const colour = {
     transparentWhite: 'rgba(255,255,255,0.2)',
     shadowRed: 'rgba(179,0,31,0.68)',
     black: 'rgb(0,0,0)',
+    blackTransparent: 'rgba(0,0,0,0.25)',
     softGreenTransparent: 'rgba(60,208,184,0.1)',
     softerGreenTransparent: 'rgba(60,208,184,0.05)',
 }

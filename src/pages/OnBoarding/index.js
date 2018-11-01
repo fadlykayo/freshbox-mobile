@@ -5,6 +5,7 @@ import PageComponent from './components/PageComponent';
 import { connect } from 'react-redux';
 import styles from './styles';
 import actions from '@actions';
+import Swiper from './components/Swiper';
 
 class OnBoarding extends Component {
     constructor(props) {

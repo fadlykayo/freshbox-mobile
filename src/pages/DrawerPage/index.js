@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { DrawerActions } from 'react-navigation-drawer';
 import { actNav, navConstant } from '@navigations';
-import StaticText from '@components/StaticText';
-import Container from '@components/Container';
 import PhotoComponent from './components/PhotoComponent';
 import LogOutButton from './components/LogOutButton';
 import PagesComponent from './components/PagesComponent';

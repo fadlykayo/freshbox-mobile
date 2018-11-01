@@ -46,7 +46,7 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
         let favoriteItem = favoriteList.filter(p => e.code == p.code);
         if(favoriteItem.length > 0){
             return favoriteItem[0];
@@ -79,7 +79,7 @@ const getFavorites = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.wishlist.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];
@@ -151,21 +151,37 @@ const getDetail = (state, payload) => {
 const searchData = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
 
-    newState.products = [];
-
-    let data = payload.params;
-    data.page = data.page + 1;
-    newState.params = data;
+    let params = payload.params;
+    params.page = params.page + 1;
+    newState.params = params;
     newState.last_page= payload.data.last_page;
+    
+    newState.products = [];
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.cart.products.slice();
+    let favoriteList = newState.wishlist.products.slice();
 
-    let listProduct = payload.data.data;
-
-    for (let i = 0; i < listProduct.length; i++) {
-        listProduct[i].count = 0;
-        listProduct[i].favorite = false;
+    for(x in incomingProducts){
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                incomingProducts[x] = Object.assign({},incomingProducts[x],existingProducts[y]);
+                break;
+            }
+        }
     }
 
-    newState.products = newState.products.concat(listProduct);
+    newState.products = incomingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
+        let favoriteItem = favoriteList.filter(p => e.code == p.code);
+        if(favoriteItem.length > 0){
+            return favoriteItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
 
     return newState
 }
@@ -177,7 +193,7 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
 
-	if (payload.type == "inc") {
+	if (payload.name == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 	}
@@ -254,7 +270,7 @@ const editFavorite = (state,payload) => {
         if(sameValue == false) existingProducts.splice(x, 1);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.wishlist.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];
