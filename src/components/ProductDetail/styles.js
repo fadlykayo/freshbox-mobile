@@ -20,7 +20,7 @@ const styles = {
         bottom: -1 * (0.1 * width),
         left: 0,
         right: 0,
-        height: height * 0.5,
+        height: height * 0.6,
         borderRadius: 8,
         backgroundColor: colour.white,
         paddingLeft: width * 0.05,
@@ -35,16 +35,18 @@ const styles = {
             justifyContent: 'center'
         },
         mid:{
+            flex: -1,
+            height: height * 0.2,
             flexDirection: 'row',
             alignItems: 'flex-start',
-            marginBottom: scaling.moderateScale(5),
+            marginTop: scaling.moderateScale(5)
         },
         bottom:{
             flex: 1,
         },
         product:{
-            height: width * 0.2,
-            width: width * 0.2,
+            height: width * 0.28,
+            width: width * 0.28,
             backgroundColor: colour.white,
             borderWidth: 1,
             borderRadius: 8,
@@ -70,8 +72,8 @@ const styles = {
             alignItems: 'center',
         },
         style: {
-            height: width * 0.18,
-            width: width * 0.18,
+            height: width * 0.2,
+            width: width * 0.2,
         }
     },
     icon:{
@@ -80,8 +82,8 @@ const styles = {
             width: scaling.moderateScale(36),
         },
         product:{
-            height: width * 0.18,
-            width: width * 0.18,
+            height: width * 0.2,
+            width: width * 0.2,
         }
     },
     text:{

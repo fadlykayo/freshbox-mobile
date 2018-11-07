@@ -137,19 +137,26 @@ class Register extends Component {
             }
         }
 
-        this.props.register_user(payload,
-            (res) => {
-                if (this.props.navigation.state.params.action == 'guestLogin') {
-                    this.props.navigation.goBack(this.props.navigation.state.params.key)
-                }
-                else {
-                    actNav.goBack();
-                }
-            },
-            (err)=> {
-                console.log(err);
-            }
-        )
+        actNav.navigate(navConstant.OTP, {
+            action: this.props.navigation.state.params.action,
+            key: this.props.navigation.state.params.key,
+            phone_number: this.state.user.phone
+        })
+
+        // this.props.register_user(payload,
+        //     (res) => {
+                
+        //         // if (this.props.navigation.state.params.action == 'guestLogin') {
+        //         //     this.props.navigation.goBack(this.props.navigation.state.params.key)
+        //         // }
+        //         // else {
+        //         //     actNav.goBack();
+        //         // }
+        //     },
+        //     (err)=> {
+        //         console.log(err);
+        //     }
+        // )
     }
 
     render(){

@@ -46,6 +46,7 @@ images.icon_all_categories = require('./icon_all_categories.png');
 images.icon_trash = require('./icon_trash.png');
 images.icon_right_red = require('./icon_right_red.png');
 images.icon_clear_search = require('./icon_clear_search.png');
+images.icon_copy = require('./icon_copy.png');
 
 
 export default images;

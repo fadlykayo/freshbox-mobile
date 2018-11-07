@@ -166,14 +166,15 @@
             "clear": "Kembali"
         },
         "content": {
-            "default": "Semua",
+            "default": "Semua Kategori",
             "subTotal": "Sub Total",
             "pack": "/ ",
             "addItem": "+ Tambah",
             "items": " Items | Rp. ",
             "item": " Item | Rp. ",
-            "categories": "Categories",
-            "price": "Rp. "
+            "categories": "Kategori",
+            "price": "Rp. ",
+            "count": "{bubble}/{length}"
         }
     },
     "historyPage": {
@@ -404,6 +405,80 @@
             "bniVA": "BNI Virtual Account",
             "permataVA": "Permata Virtual Account",
             "checkout": "Bayar"
+        }
+    },
+    "transferInstruction": {
+        "navigationTitle": "Instruksi Pembayaran",
+        "content": {
+            "top": {
+                "info": "Segera Lakukan Pembayaran Dalam Waktu Sebelum",
+                "dateInfo": "{date} WIB"
+            },
+            "middle": {
+                "infoPrice": "Jumlah yang harus dibayar",
+                "transferTo": "Transfer ke nomor Virtual Account",
+                "price": "Rp. {price}"
+            },
+            "bca": {
+                "name": "Bank BCA",
+                "atm": {
+                    "name":"ATM BCA",
+                    "step": {
+                        "1": "Masukkan Kartu ATM BCA & PIN",
+                        "2": "Pilih menu Transaksi Lainnya > Transfer > ke Rekening BCA Virtual Account",
+                        "3": "Masukkan 5 angka kode perusahaan untuk Freshbox(xxxxx) dan Nomor HP yang terdaftar di akun Freshbox Anda (Contoh: xxxxx-081212341234)",
+                        "4": "Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA, Nama, Perus/Produk dan Total Tagihan",
+                        "5": "Masukkan Jumlah Transfer sesuai dengan Total Tagihan",
+                        "6": "Ikuti instruksi untuk menyelesaikan transaksi",
+                        "7": "Simpan struk transaksi sebagai bukti pembayaran"
+                    }
+                },
+                "mBanking": {
+                    "name": "M-Banking",
+                    "step": {
+                        "1": "Lakukan log in pada aplikasi BCA Mobile",
+                        "2": "Pilih menu m-BCA, kemudian masukkan kode akses m-BCA",
+                        "3": "Pilih m-Transfer > BCA Virtual Account",
+                        "4": "Pilih dari Daftar Transfer, atau masukkan 5 angka kode perusahaan untuk Freshbox (xxxxx) dan Nomor HP yang terdaftar di akun Freshbox Anda (Contoh: xxxxx-081212341234)",
+                        "5": "Masukkan jumlah yang ingin dibayarkan",
+                        "6": "Masukkan pin m-BCA",
+                        "7": "Pembayaran selesai. Simpan notifikasi yang muncul sebagai bukti pembayaran"
+                    }
+                },
+                "iBanking": {
+                    "name": "KLIK BCA",
+                    "step": {
+                        "1": "Login pada alamat Internet Banking BCA (https://klikbca.com)",
+                        "2": "Pilih menu Pembayaran Tagihan > Pembayaran > BCA Virtual Account",
+                        "3": "Pada kolom kode bayar, masukkan 5 angka kode perusahaan untuk Freshbox (xxxxx) dan Nomor HP yang terdaftar di akun Freshbox Anda (Contoh: xxxxx-081212341234)",
+                        "4": "Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti Nomor BCA Virtual Account, Nama Pelanggan dan Jumlah Pembayaran",
+                        "5": "Masukkan password dan mToken",
+                        "6": "Cetak/simpan struk pembayaran BCA Virtual Account sebagai bukti pembayaran"
+                    }
+                }
+            },
+            "bniVA": {
+                "name": "BNI Virtual Account",
+                "atm": "ATM Mandiri",
+                "mBanking": "M-Banking",
+                "iBanking": "CLICKPAY MANDIRI"
+            },
+            "bri": {
+                "name": "Bank BRI",
+                "atm": "ATM BRI",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BRI"
+            }
+        }
+    },
+    "otp": {
+        "navigationTitle": "Verifikasi",
+        "content": {
+            "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
+        },
+        "button": {
+            "resend": "Kirim Ulang Kode Verifikasi",
+            "submit": "Kirim"
         }
     },
     "formError":{

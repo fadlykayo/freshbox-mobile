@@ -28,6 +28,7 @@ import TransferBank from '@pages/TransferBank';
 import VirtualAccount from '@pages/VirtualAccount';
 import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
+import OTP from '@pages/OTP'
 
 let _navigator;
 
@@ -64,7 +65,8 @@ export const AppNavigator = createStackNavigator({
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
     ContactUs: {screen: ContactUs},
-    TransferInstruction: {screen: TransferInstruction}
+    TransferInstruction: {screen: TransferInstruction},
+    OTP: {screen: OTP},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -122,6 +124,7 @@ export const navConstant = {
     VirtualAccount: 'VirtualAccount',
     OnBoarding: 'OnBoarding',
     TransferInstruction: 'TransferInstruction',
+    OTP: 'OTP',
 }
 
 export const setNavigator = (navigatorRef) => {

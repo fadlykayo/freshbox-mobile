@@ -19,7 +19,6 @@ const styles = {
         },
         bottom:{
             marginTop: scaling.moderateScale(10),
-            marginHorizontal: width * 0.05,
         },
         bank:{
             flex: -1,

@@ -18,7 +18,7 @@ const styles = {
     },
     container: {
         width: width,
-        height: height * 0.5,
+        height: height * 0.4,
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
         backgroundColor: colour.white,

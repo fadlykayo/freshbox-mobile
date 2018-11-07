@@ -6,12 +6,12 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		flex: 1,
+		flex: -1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		backgroundColor: colour.white,
-		paddingTop: width * 0.05,
-		paddingBottom: width * 0.05,
+		paddingTop: width * 0.02,
+		paddingBottom: width * 0.03,
 	},
 	subcontainer:{
 		image:{

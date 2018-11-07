@@ -5,13 +5,11 @@ const { width } = Dimensions.get('window');
 
 const styles = {
     scrollView:{
-        marginTop: scaling.moderateScale(9),
+        marginTop: scaling.moderateScale(5),
     },
     categories:{
         flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        paddingTop: width* 0.05,
+        paddingTop: width* 0.03,
         paddingBottom: width* 0.05,
         paddingRight: width* 0.04,
         paddingLeft: width* 0.06,
@@ -19,3 +17,4 @@ const styles = {
 }
 
 export default styles;
+

@@ -1,9 +1,12 @@
 import React,{ Component } from 'react';
 import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
-import Content from './components/Content';
 import ButtonFav from '@components/ButtonFav';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonCount from '@components/ButtonCount';
+import Content from './components/Content';
+import ScrollDown from './components/ScrollDown';
+import CountImage from './components/CountImage';
+import BubbleComponent from './components/BubbleComponent';
 import styles from './styles';
 import images from '@assets';
 
@@ -12,7 +15,6 @@ class ProductDetail extends Component {
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
-		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 	}
 
 	addTotalItem(){
@@ -23,8 +25,12 @@ class ProductDetail extends Component {
 		this.props.changeTotalItem(this.props.data,"desc");
 	}
 
-	closeDetailProduct(){
-		this.props.closeDetailProduct();
+	getPositionIndex(e) {
+		this.props.getPositionIndex(e)
+	}
+
+	getPositionBubble() {
+		this.props.getPositionBubble()
 	}
 
 	render(){
@@ -33,48 +39,42 @@ class ProductDetail extends Component {
 				<View style={styles.background}>
 					<TouchableOpacity style={styles.background} onPress={this.closeDetailProduct}></TouchableOpacity>
 					<View style={styles.container}>
-						<TouchableOpacity 
-							style={styles.subcontainer.top}
-							onPress={this.closeDetailProduct}
-						>
-							<View style={styles.button.dropdown}>
-								<Image
-									resizeMode={'contain'} 
-									source={images.icon_scroll_down}
-									style={styles.icon.dropdown}
-								/>
-							</View>
-						</TouchableOpacity>
+						<ScrollDown
+							closeDetailProduct={this.props.closeDetailProduct}
+						/>
 						<View style={styles.subcontainer.mid}>
 							<View style={styles.subcontainer.product}>
 								<ScrollView
+									ref={ e => { this.scrollRef = e }}
 									horizontal={true}
 									pagingEnabled={true}
+									onScroll={(e) => this.getPositionIndex(e)}
 									showsHorizontalScrollIndicator={false}
 									contentContainerStyle={styles.image.content}
 									style={styles.image.style}
 								>
-								{ 
-									this.props.data.images_sizes_url.original.map((image,index) => 
-									(
-										<View 
-											style={styles.image.style} 
-											key={index}
-										>
+									{ 
+										this.props.data.images_sizes_url.original.map((image,index) => 
+										(
 											<Image
+												key={index}
 												resizeMode={'contain'} 
 												source={{uri: image}}
 												style={styles.icon.product}
 											/>
-										</View>
-											
-									)) 
-								}
+										)) 
+									}
 								</ScrollView>
+								<BubbleComponent
+									images={this.props.data.images_sizes_url.original}
+									bubble={this.props.bubble}
+								/>
+								<CountImage
+									images={this.props.data.images_sizes_url.original}
+									bubble={this.props.bubble}
+								/>
 							</View>
-							<Content 
-								data={this.props.data}
-							/>
+							<Content data={this.props.data}/>
 							{
 								this.props.type == 'cart'
 								? 	null
@@ -104,6 +104,7 @@ class ProductDetail extends Component {
 								maxQty={this.props.data.maxQty}
 							/>
 						</View>
+						
 					</View>
 				</View>
 			)

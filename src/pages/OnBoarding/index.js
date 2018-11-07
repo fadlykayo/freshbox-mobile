@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, Dimensions, FlatList, TouchableOpacity, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import PageComponent from './components/PageComponent';
+import BubbleComponent from './components/BubbleComponent';
+import Button from './components/Button';
 import { connect } from 'react-redux';
 import styles from './styles';
+import images from '@assets';
 import actions from '@actions';
-import Swiper from './components/Swiper';
+
+const { height, width } = Dimensions.get('window');
 
 class OnBoarding extends Component {
     constructor(props) {
@@ -31,9 +35,16 @@ class OnBoarding extends Component {
                     content: 'onBoarding.content.third.info',
                     button: 'onBoarding.button.finish'
                 },
-            ]
+            ],
+            scrollX: 0,
+            button: ['0', '1', '2'],
+            bubble: 0,
         }
+        this.listRef = null;
         this.navigateToMenu = this.navigateToMenu.bind(this);
+        this.navigateToNextPage = this.navigateToNextPage.bind(this);
+        this.getPositionIndex = this.getPositionIndex.bind(this);
+        this.getPositionBubble = this.getPositionBubble.bind(this);
     }
 
     navigateToMenu() {
@@ -41,15 +52,36 @@ class OnBoarding extends Component {
         actNav.reset(navConstant.Menu);
     }
 
+    getPositionIndex(e) {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+    getPositionBubble() {
+        let position = Math.round(this.state.scrollX/width);
+
+        if (this.state.bubble != position) {
+            this.setState({ bubble: position })
+        }
+    }
+
+    navigateToNextPage() {
+        this.listRef.scrollToOffset({y:width, animated: true})
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <FlatList
+                    ref={(e) => { this.listRef = e}}
                     data={this.state.information}
                     keyExtractor={(item, index) => index.toString()}
                     horizontal={true}
                     pagingEnabled={true}
-                    showsHorizontalScrollIndicator={true}
+                    showsHorizontalScrollIndicator={false}
+                    onScroll={(e) => this.getPositionIndex(e)}
+                    scrollEventThrottle={0}
                     renderItem={({item, index}) => (
                         <View key={index}>
                             <PageComponent
@@ -57,9 +89,19 @@ class OnBoarding extends Component {
                                 data={item}
                                 index={index}
                                 navigateToMenu={this.navigateToMenu}
+                                navigateToNextPage={this.navigateToNextPage}
                             />
                         </View>
                     )}
+                />
+                <BubbleComponent
+                    bubble={this.state.bubble}
+                    button={this.state.button}
+                />
+                <Button
+                    bubble={this.state.bubble}
+                    length={this.state.information.length - 1}
+                    navigateToNextPage={this.navigateToNextPage}
                 />
             </View>
         );

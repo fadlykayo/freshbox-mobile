@@ -46,18 +46,33 @@ class StaticText extends Component {
     }
 
     render(){
-        if(this.props.numberOfLines && this.props.ellipsizeMode) return(
+        if(this.props.numberOfLines && this.props.ellipsizeMode && this.props.onPress) return(
             <Text
                 style={this.props.style}
                 numberOfLines={this.props.numberOfLines}
                 ellipsizeMode={this.props.ellipsizeMode}
+                onPress={this.props.onPress}
             >
                 {this.state.outputText}
             </Text>
         )
-        else return(
-            <Text style={this.props.style}>{this.state.outputText}</Text>
-        )
+        else {
+            if (this.props.onPress){
+                return(
+                    <Text
+                        onPress={this.props.onPress} 
+                        style={this.props.style}
+                    >
+                        {this.state.outputText}
+                    </Text>
+                )
+            }
+            else {
+                return(
+                    <Text style={this.props.style}>{this.state.outputText}</Text>
+                )
+            }
+        }
     }
 }
 

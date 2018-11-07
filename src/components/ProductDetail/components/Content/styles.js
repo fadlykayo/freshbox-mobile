@@ -12,7 +12,7 @@ const styles = {
 	},
 	text:{
 		title:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Black',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
@@ -25,6 +25,7 @@ const styles = {
 			fontFamily: 'Avenir-Light',
 			fontSize: scaling.moderateScale(12),
 			color: colour.lightGrey,
+			marginBottom: scaling.moderateScale(8),
 		},
 		pack:{
 			fontFamily: 'Avenir-Light',

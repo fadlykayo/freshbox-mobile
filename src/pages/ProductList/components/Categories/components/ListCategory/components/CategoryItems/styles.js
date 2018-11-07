@@ -6,17 +6,12 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container: {
-        height: width * 0.27,
-        width: width * 0.27,
-        borderColor: colour.lightGrey,
-        borderWidth: 1,
-        borderRadius: 8,
-        backgroundColor: colour.white,
-        marginRight: width* 0.03,
-        marginBottom: width* 0.03,
-        padding: scaling.moderateScale(5),
-        justifyContent: 'center',
+        flexDirection: 'row',
+        height: scaling.moderateScale(50),
         alignItems: 'center',
+        borderColor: colour.lightGrey,
+        borderBottomWidth: 1,
+        paddingHorizontal: scaling.moderateScale(5),
     },
     subcontainer:{
         check:{
@@ -26,7 +21,7 @@ const styles = {
             alignItems: 'center',
             position: 'absolute',
             right: 0,
-            top: 0,
+            marginRight: width * 0.03,
         }
     },
     icon:{
@@ -35,15 +30,16 @@ const styles = {
             width: scaling.moderateScale(10),
         },
         product:{
-            height: width * 0.15,
-            width: width * 0.15,
-            marginBottom: scaling.moderateScale(5),
+            height: scaling.moderateScale(30),
+            width: scaling.moderateScale(30),
+            marginRight: scaling.moderateScale(15)
         }
     },
     text:{
         category:{
-            fontFamily: 'Avenir-Light',
-            fontSize: scaling.moderateScale(12)
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(14),
+            color: colour.darkGrey
         }
     }
 }

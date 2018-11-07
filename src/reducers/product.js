@@ -193,7 +193,7 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
 
-	if (payload.name == "inc") {
+	if (payload.type == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 	}

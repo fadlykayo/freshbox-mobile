@@ -1,5 +1,6 @@
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 const phoneRegex = /^[0-9]{10,13}$/;
+const otpRegex = /^[0-9]{4}$/;
 // const passwordRegex = /^[A-Za-z0-9!@#$%&'*+=?^_`{|}~-]{8,}$/;
 
 const validation = {};
@@ -38,6 +39,11 @@ validation.fullName = (input) => new Promise((res,rej) => {
     if(input.length > 0) res();
     else rej();
 });
+
+validation.otp = (input) => new Promise ((res,rej) => {
+    if (otpRegex.test(input) == true) res();
+    else rej();
+})
 
 validation.register = (user) => new Promise((res,rej) => {
     if(user.fullName.length > 0) {

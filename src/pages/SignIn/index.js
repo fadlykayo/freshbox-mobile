@@ -145,7 +145,8 @@ class SignIn extends Component {
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}
                 />
-                <ScrollView 
+                <ScrollView
+                    keyboardShouldPersistTaps={'always'} 
                     style={styles.container}
                     contentContainerStyle={styles.content}
                 >
