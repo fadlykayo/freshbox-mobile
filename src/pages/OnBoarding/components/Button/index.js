@@ -14,7 +14,7 @@ class Button extends Component {
     }
 
     render() {
-        if(this.props.bubble < this.props.length - 1) {
+        if(this.props.bubble < this.props.length) {
             return (
                 <View style={styles.button}>
                     <TouchableOpacity onPress={this.navigateToNextPage}>
