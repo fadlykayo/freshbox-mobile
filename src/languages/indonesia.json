@@ -308,10 +308,70 @@
     "termsConditions": {
         "navigationTitle": "Syarat & Ketentuan",
         "content": {
-            "title1": "Lorem 1",
-            "content1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci! \n \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci!",
-            "title2": "Lorem 2",
-            "content2": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ut id expedita. Ea placeat reprehenderit nulla officiis? Ipsum esse qui rem nesciunt aut nostrum, voluptate ipsam, minus eum dignissimos perferendis."
+            "introduction": "Syarat & Ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Berkah Tani Sejahtera terkait penggunaan aplikasi FreshBox. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.\n \nDengan mendaftar dan/atau menggunakan aplikasi FreshBox, maka Pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & Ketentuan. Syarat & Ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. Berkah Tani Sejahtera. Jika Pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & Ketentuan, maka Pengguna tidak diperkenankan menggunakan layanan aplikasi FreshBox.",
+            "info": {
+                "definition": {
+                    "title" : "Definisi",
+                    "data": {
+                        "1": "PT. Berkah Tani Sejahtera adalah suatu perseroan terbatas yang menjalankan kegiatan usaha aplikasi business to consumer.",
+                        "2": "Situs FreshBox adalah www.freshbox.id.",
+                        "3": "Syarat & Ketentuan adalah perjanjian antara Pengguna dan FreshBox yang berisikan seperangkat peraturan yang mengatur hak, kewajiban, tanggung jawab pengguna dan FreshBox, serta tata cara penggunaan sistem layanan FreshBox.",
+                        "4": "Pengguna adalah pihak yang menggunakan layanan FreshBox, termasuk namun tidak terbatas pada pembeli ataupun pihak lain yang sekedar menggunakan aplikasi FreshBox.",
+                        "5": "Pembeli adalah Pengguna terdaftar yang melakukan permintaan atas barang yang di aplikasi FreshBox."
+                    }
+                }, 
+                "security": {
+                    "title" : "Akun, Password, dan Keamanan",
+                    "data": {
+                        "1": "Pengguna dengan ini menyatakan bahwa pengguna adalah orang yang cakap dan mampu untuk mengikatkan dirinya dalam sebuah perjanjian yang sah menurut hukum.",
+                        "2": "FreshBox tidak memungut biaya pendaftaran kepada Pengguna.",
+                        "3": "Pengguna yang telah mendaftar berhak bertindak sebagai Pembeli.", 
+                        "4": "Pengguna bertanggung jawab secara pribadi untuk menjaga kerahasiaan akun dan password untuk semua aktivitas yang terjadi dalam akun Pengguna.",
+                        "5": "FreshBox tidak akan meminta username, password maupun kode SMS verifikasi atau kode OTP milik akun Pengguna untuk alasan apapun, oleh karena itu FreshBox menghimbau Pengguna agar tidak memberikan data tersebut maupun data penting lainnya kepada pihak yang mengatasnamakan FreshBox atau pihak lain yang tidak dapat dijamin keamanannya.",
+                        "6": "Pengguna dengan ini menyatakan bahwa FreshBox tidak bertanggung jawab atas kerugian ataupun kendala yang timbul atas penyalahgunaan akun Pengguna yang diakibatkan oleh kelalaian Pengguna, termasuk namun tidak terbatas pada meminjamkan atau memberikan akses akun kepada pihak lain, mengakses link atau tautan yang diberikan oleh pihak lain, memberikan atau memperlihatkan kode verifikasi (OTP), password atau email kepada pihak lain, maupun kelalaian Pengguna lainnya yang mengakibatkan kerugian ataupun kendala pada akun Pengguna.",
+                        "7": "Pengguna memahami dan menyetujui bahwa untuk mempergunakan fasilitas keamanan one time password (OTP) maka penyedia jasa telekomunikasi terkait dapat sewaktu-waktu mengenakan biaya kepada Pengguna."
+                    }
+                },
+                "creditCard": {
+                    "title" : "Kartu Kredit",
+                    "data": {
+                        "1": "Pengguna dapat memilih untuk mempergunakan pilihan metode pembayaran menggunakan kartu kredit untuk transaksi pembelian barang melalui aplikasi FreshBox.",
+                        "2": "Transaksi pembelian barang dengan menggunakan kartu kredit wajib mengikuti syarat dan ketentuan yang diatur oleh FreshBox dan mempergunakan kurir/logistik yang disediakan dan terhubung dengan aplikasi FreshBox.",
+                        "3": "Pengguna dilarang untuk mempergunakan metode pembayaran kartu kredit di luar peruntukan sebagai alat pembayaran.", 
+                        "4": "Kartu kredit yang dapat digunakan untuk bertransaksi di FreshBox hanya kartu kredit yang diterbitkan di Indonesia."
+                    }
+                },
+                "promo": {
+                    "title" : "Promo",
+                    "data": {
+                        "1": "FreshBox sewaktu-waktu dapat mengadakan kegiatan promosi (selanjutnya disebut sebagai “Promo”) dengan Syarat dan Ketentuan yang mungkin berbeda pada masing-masing kegiatan Promo. Pengguna dihimbau untuk membaca dengan seksama Syarat dan Ketentuan Promo tersebut.",
+                        "2": "Pengguna hanya boleh menggunakan 1 (satu) akun FreshBox untuk mengikuti setiap promo FreshBox. "
+                    }
+                },
+                "delivery": {
+                    "title" : "Pengiriman Barang",
+                    "data": {
+                        "1": "Pengiriman Barang dalam sistem FreshBox menggunakan jasa perusahaan ekspedisi yang menjadi rekanan FreshBox.",
+                        "2": "Setiap ketentuan berkenaan dengan proses pengiriman Barang adalah wewenang sepenuhnya penyedia jasa layanan pengiriman Barang.",
+                        "3": "Penjual wajib memenuhi ketentuan yang ditetapkan oleh jasa layanan pengiriman barang tersebut dan bertanggung jawab atas setiap Barang yang dikirimkan.", 
+                        "4": "Pengguna memahami dan menyetujui bahwa setiap permasalahan yang terjadi pada saat proses pengiriman Barang oleh penyedia jasa layanan pengiriman Barang adalah merupakan tanggung jawab penyedia jasa layanan pengiriman.",
+                        "5": "Dalam hal diperlukan untuk mengajukan keluhan atas layanan, diwajibkan untuk mengirimkan bukti berupa gambar Barang dan invoice atas transaksi yang dilakukan oleh Pengguna dalam kondisi apapun."
+                    }
+                },
+                "others": {
+                    "title" : "Ketentuan Lain",
+                    "data": {
+                        "1": "Apabila Pengguna mempergunakan fitur-fitur yang tersedia dalam aplikasi FreshBox maka Pengguna dengan ini menyatakan memahami dan menyetujui segala syarat dan ketentuan yang diatur khusus sehubungan dengan fitur-fitur tersebut di bawah ini, yakni:",
+                        "2": "Segala hal yang belum dan/atau tidak diatur dalam syarat dan ketentuan khusus dalam fitur tersebut maka akan sepenuhnya merujuk pada syarat dan ketentuan FreshBox secara umum."
+                    }
+                },
+                "update": {
+                    "title" : "Pembaharuan",
+                    "data": {
+                        "1": "Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. FreshBox menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & Ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan FreshBox, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & Ketentuan."
+                    }
+                }
+            }
         }
     },
     "contactUs": {
@@ -410,6 +470,7 @@
     "transferInstruction": {
         "navigationTitle": "Instruksi Pembayaran",
         "content": {
+            "checkout": "Cek Status Pembayaran",
             "top": {
                 "info": "Segera Lakukan Pembayaran Dalam Waktu Sebelum",
                 "dateInfo": "{date} WIB"
@@ -434,7 +495,7 @@
                     }
                 },
                 "mBanking": {
-                    "name": "M-Banking",
+                    "name": "m-BCA (BCA Mobile)",
                     "step": {
                         "1": "Lakukan log in pada aplikasi BCA Mobile",
                         "2": "Pilih menu m-BCA, kemudian masukkan kode akses m-BCA",
@@ -446,7 +507,7 @@
                     }
                 },
                 "iBanking": {
-                    "name": "KLIK BCA",
+                    "name": "Internet Banking BCA",
                     "step": {
                         "1": "Login pada alamat Internet Banking BCA (https://klikbca.com)",
                         "2": "Pilih menu Pembayaran Tagihan > Pembayaran > BCA Virtual Account",
@@ -454,6 +515,105 @@
                         "4": "Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti Nomor BCA Virtual Account, Nama Pelanggan dan Jumlah Pembayaran",
                         "5": "Masukkan password dan mToken",
                         "6": "Cetak/simpan struk pembayaran BCA Virtual Account sebagai bukti pembayaran"
+                    }
+                },
+                "inBank": {
+                    "name": "Kantor Bank BCA",
+                    "step": {
+                        "1": "Ambil nomor antrian transaksi Teller dan isi slip setoran",
+                        "2": "Serahkan slip dan jumlah setoran kepada Teller BCA",
+                        "3": "Teller BCA akan melakukan validasi sebagai bukti pembayaran"
+                    }
+                },
+                "otherBank": {
+                    "name":"ATM Bank Lain",
+                    "step": {
+                        "1": "Masukkan Kartu Debit dan PIN Anda",
+                        "2": "Pilih menu Transaksi Lainnya > Transfer > ke Rek Bank Lain",
+                        "3": "Masukkan kode bank BCA (014) kemudian diikuti dengan 5 angka kode perusahaan untuk Freshbox (xxxxx) dan Nomor HP yang terdaftar di akun Tokopedia Anda (Contoh: xxxxx-081512341234)",
+                        "4": "Ikuti instruksi untuk menyelesaikan transaksi",
+                        "5": "Simpan struk transaksi sebagai bukti pembayaran"
+                    }
+                }
+            },
+            "bni": {
+                "name": "Bank BNI",
+                "atm": {
+                    "name":"ATM BNI",
+                    "step": {
+                        "1": "Masukkan Kartu Anda.",
+                        "2": "Pilih Bahasa.",
+                        "3": "Masukkan PIN ATM Anda.",
+                        "4": "Pilih \"Menu Lainnya\"",
+                        "5": "Pilih \"Transfer\"",
+                        "6": "Pilih \"Rekening Tabungan\"",
+                        "7": "Pilih \"Ke Rekening BNI\"",
+                        "8": "Pilih Masukkan nomor rekening tujuan dengan 16 digit Nomor Virtual Account (contoh: 8277-081212341234)",
+                        "9": "Masukkan nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
+                        "10": "Konfirmasi, apabila telah sesuai, lanjutkan transaksi.",
+                        "11": "Transaksi telah selesai."
+                    }
+                },
+                "mBanking": {
+                    "name": "Mobile Banking BNI",
+                    "step": {
+                        "1": "Akses BNI Mobile Banking dari handphone kemudian masukkan user ID dan password.",
+                        "2": "Pilih menu Transfer.",
+                        "3": "Pilih \"Antar Rekening BNI\" kemudian \"Input Rekening Baru\"",
+                        "4": "Masukkan nomor Rekening Debit dan nomor Virtual Account Tujuan (contoh: 8277-081212341234)",
+                        "5": "Masukkan nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
+                        "6": "Konfirmasi transaksi dan masukkan Password Transaksi.",
+                        "7": "Transaksi Anda telah Berhasil."
+                    }
+                },
+                "iBanking": {
+                    "name": "iBank Personal",
+                    "step": {
+                        "1": "Ketik alamat https://ibank.bni.co.id kemudian klik \"Enter\".",
+                        "2": "Masukkan User ID dan Password.",
+                        "3": "Klik menu \"TRANSFER\" kemudian pilih \"TAMBAH REKENING FAVORIT\". Jika menggunakan desktop untuk menambah rekening, pada menu \"Transaksi\" lalu pilih \"Info & Administrasi Transfer\" kemudian \"Atur Rekening Tujuan\" lalu \"Tambah Rekening Tujuan\".",
+                        "4": "Masukkan nomor Virtual Account sebagai nomor rekening tujuan (contoh: 8277-081212341234.)",
+                        "5": "Masukkan Kode Otentikasi Token.Nomor rekening tuuan berhasil ditambahkan.",
+                        "6": "Kembali ke menu \"TRANSFER\". Pilih \"TRANSFER ANTAR REKENING BNI\", kemudian pilih rekening tujuan.",
+                        "7": "Pilih Rekening Debit dan ketik nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
+                        "8": "Lalu masukkan kode otentikasi token.",
+                        "9": "Transfer Anda Telah Berhasil."
+                    }
+                },
+                "smsBanking": {
+                    "name": "SMS Banking",
+                    "step": {
+                        "1": "",
+                        "2": "",
+                        "3": "",
+                        "4": "",
+                        "5": "",
+                        "6": "",
+                        "7": ""
+                    }
+                },
+                "joinATM": {
+                    "name": "iBank Personal",
+                    "step": {
+                        "1": "",
+                        "2": "",
+                        "3": "",
+                        "4": "",
+                        "5": "",
+                        "6": "",
+                        "7": ""
+                    }
+                },
+                "otherBank": {
+                    "name": "iBank Personal",
+                    "step": {
+                        "1": "",
+                        "2": "",
+                        "3": "",
+                        "4": "",
+                        "5": "",
+                        "6": "",
+                        "7": ""
                     }
                 }
             },

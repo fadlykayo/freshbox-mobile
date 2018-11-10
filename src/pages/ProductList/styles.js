@@ -32,6 +32,12 @@ const styles = {
 			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 		}
+	},
+	icon: {
+		clear:{
+			height: scaling.moderateScale(20),
+			width: scaling.moderateScale(20)
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { TouchableOpacity, View, Image, Text } from 'react-native';
 import ListCategory from './components/ListCategory';
 import styles from './styles';
 import StaticText from '@components/StaticText';
@@ -19,6 +19,7 @@ class OpenCategories extends PureComponent {
 		if(this.props.modalVisible){
 			return(
 				<View style={styles.background}>
+					<TouchableOpacity style={styles.touchable} onPress={this.closeCategory}></TouchableOpacity>
 					<View style={styles.container}>
 						<View style={styles.subcontainer.title}>
 							<TouchableOpacity

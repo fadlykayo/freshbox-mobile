@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, FlatList, TouchableOpacity, Image } from 'react-native';
+import { View, Dimensions, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import PageComponent from './components/PageComponent';
 import BubbleComponent from './components/BubbleComponent';
@@ -66,42 +66,41 @@ class OnBoarding extends Component {
         }
     }
 
-    navigateToNextPage() {
-        this.listRef.scrollToOffset({y:width, animated: true})
+    navigateToNextPage(index) {
+        this.listRef.scrollTo({
+            x: (index * width),
+            y: 0,
+            animated: true
+        })
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <FlatList
+                <ScrollView
                     ref={(e) => { this.listRef = e}}
-                    data={this.state.information}
-                    keyExtractor={(item, index) => index.toString()}
                     horizontal={true}
                     pagingEnabled={true}
                     showsHorizontalScrollIndicator={false}
                     onScroll={(e) => this.getPositionIndex(e)}
                     scrollEventThrottle={0}
-                    renderItem={({item, index}) => (
-                        <View key={index}>
+                >
+                    { this.state.information.map((data, index) => {
+                        return (
                             <PageComponent
-                                length={this.state.information.length - 1}
-                                data={item}
-                                index={index}
+                                key={index}
+                                length={this.state.information.length}
+                                data={data}
+                                index={index+1}
                                 navigateToMenu={this.navigateToMenu}
                                 navigateToNextPage={this.navigateToNextPage}
                             />
-                        </View>
-                    )}
-                />
+                        )
+                    }) }
+                </ScrollView>
                 <BubbleComponent
                     bubble={this.state.bubble}
                     button={this.state.button}
-                />
-                <Button
-                    bubble={this.state.bubble}
-                    length={this.state.information.length - 1}
-                    navigateToNextPage={this.navigateToNextPage}
                 />
             </View>
         );

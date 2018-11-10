@@ -6,18 +6,18 @@ import images from '@assets';
 class Button extends Component {
     constructor() {
         super()
-        this.onPress = this.onPress.bind(this);
+        this.navigateToNextPage = this.navigateToNextPage.bind(this);
     }
 
-    onPress() {
-        this.props.navigateToNextPage();
+    navigateToNextPage(index) {
+        this.props.navigateToNextPage(index);
     }
 
     render() {
         if(this.props.bubble < this.props.length) {
             return (
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={this.navigateToNextPage}>
+                    <TouchableOpacity onPress={() => this.navigateToNextPage(this.props.bubble)}>
                         <Image
                             style={styles.logo}
                             source={images.icon_right_red}

@@ -6,7 +6,7 @@ import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
 import CountDown from './components/CountDown';
 import Information from './components/Information';
-import TotalPrice from './components/TotalPrice';
+import TotalPrice from '@components/TotalPrice';
 import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
@@ -54,7 +54,7 @@ class TransferInstruction extends Component {
                             ]
                         },
                         {
-                            name: "transferBank.content.bca.mBanking",
+                            name: "transferInstruction.content.bca.mBanking.name",
                             isOpen: false,
                             step: 
                             [
@@ -82,7 +82,7 @@ class TransferInstruction extends Component {
                             ]
                         },
                         {
-                            name: "transferBank.content.bca.iBanking",
+                            name: "transferInstruction.content.bca.iBanking.name",
                             isOpen: false,
                             step: 
                             [
@@ -104,6 +104,44 @@ class TransferInstruction extends Component {
                                 {
                                     name: "transferInstruction.content.bca.iBanking.step.6"
                                 },
+                            ]
+                        },
+                        {
+                            name: "transferInstruction.content.bca.inBank.name",
+                            isOpen: false,
+                            step: 
+                            [
+                                {
+                                    name: "transferInstruction.content.bca.inBank.step.1"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.inBank.step.2"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.inBank.step.3"
+                                },
+                            ]
+                        },
+                        {
+                            name: "transferInstruction.content.bca.otherBank.name",
+                            isOpen: false,
+                            step: 
+                            [
+                                {
+                                    name: "transferInstruction.content.bca.otherBank.step.1"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.otherBank.step.2"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.otherBank.step.3"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.otherBank.step.4"
+                                },
+                                {
+                                    name: "transferInstruction.content.bca.otherBank.step.5"
+                                }
                             ]
                         },
                     ]
@@ -113,83 +151,92 @@ class TransferInstruction extends Component {
                     image: images.icon_logo_bni,
                     types: [
                         {
-                            name: "transferInstruction.content.bca.atm.name",
+                            name: "transferInstruction.content.bni.atm.name",
                             isOpen: false,
                             step: 
                             [
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.1"
+                                    name: "transferInstruction.content.bni.atm.step.1"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.2",
+                                    name: "transferInstruction.content.bni.atm.step.2",
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.3",
+                                    name: "transferInstruction.content.bni.atm.step.3",
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.4",
+                                    name: "transferInstruction.content.bni.atm.step.4",
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.5",
+                                    name: "transferInstruction.content.bni.atm.step.5",
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.6",
+                                    name: "transferInstruction.content.bni.atm.step.6",
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.atm.step.7",
+                                    name: "transferInstruction.content.bni.atm.step.7",
                                 }
                             ]
                         },
                         {
-                            name: "transferBank.content.bca.mBanking",
+                            name: "transferInstruction.content.bni.mBanking.name",
                             isOpen: false,
                             step: 
                             [
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.1"
+                                    name: "transferInstruction.content.bni.mBanking.step.1"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.2"
+                                    name: "transferInstruction.content.bni.mBanking.step.2"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.3"
+                                    name: "transferInstruction.content.bni.mBanking.step.3"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.4"
+                                    name: "transferInstruction.content.bni.mBanking.step.4"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.5"
+                                    name: "transferInstruction.content.bni.mBanking.step.5"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.6"
+                                    name: "transferInstruction.content.bni.mBanking.step.6"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.mBanking.step.7"
+                                    name: "transferInstruction.content.bni.mBanking.step.7"
                                 },
                             ]
                         },
                         {
-                            name: "transferBank.content.bca.iBanking",
+                            name: "transferInstruction.content.bni.iBanking.name",
                             isOpen: false,
                             step: 
                             [
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.1"
+                                    name: "transferInstruction.content.bni.iBanking.step.1"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.2"
+                                    name: "transferInstruction.content.bni.iBanking.step.2"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.3"
+                                    name: "transferInstruction.content.bni.iBanking.step.3"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.4"
+                                    name: "transferInstruction.content.bni.iBanking.step.4"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.5"
+                                    name: "transferInstruction.content.bni.iBanking.step.5"
                                 },
                                 {
-                                    name: "transferInstruction.content.bca.iBanking.step.6"
+                                    name: "transferInstruction.content.bni.iBanking.step.6"
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.iBanking.step.7"
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.iBanking.step.8"
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.iBanking.step.9"
                                 },
                             ]
                         },
@@ -220,6 +267,7 @@ class TransferInstruction extends Component {
         this.getGrandTotalPrice = this.getGrandTotalPrice.bind(this);
         this.getClipboardData = this.getClipboardData.bind(this);
         this.openSpecificData = this.openSpecificData.bind(this);
+        this.navigateBack = this.navigateBack.bind(this);
     }
 
     // componentDidUpdate() {
@@ -277,6 +325,10 @@ class TransferInstruction extends Component {
         this.setState({banks})
     }
 
+    navigateBack() {
+        actNav.goBack()
+    }
+
     render(){
         const dateDisplay = moment(this.props.detailTransaction.expired_date).format('dddd, Do MMMM YYYY, HH:mm');
         const bank = this.state.banks[this.props.detailTransaction.payment_method] ? this.state.banks[this.props.detailTransaction.payment_method] : this.state.banks.bni_virtual_account;
@@ -287,7 +339,7 @@ class TransferInstruction extends Component {
             >
                 <NavigationBar
 			    	title={'transferInstruction.navigationTitle'}
-			    	onPress={actNav.goBack}
+			    	onPress={this.navigateBack}
 			    />
                 <ScrollView style={styles.container}>
                     <CountDown
@@ -306,7 +358,8 @@ class TransferInstruction extends Component {
                 </ScrollView>
                 <TotalPrice
                     type={'red'}
-					title={'transferInstruction.content.checkout'}
+                    title={'transferInstruction.content.checkout'}
+                    onPress={this.navigateBack}
 					subTotal={this.props.detailTransaction.sub_total}
 					grandTotal={this.props.detailTransaction.grand_total}
 					delivery_price={this.props.detailTransaction.shipping_cost}

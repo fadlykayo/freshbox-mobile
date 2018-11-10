@@ -19,6 +19,7 @@ class Favourites extends Component {
 		super(props);
 		this.state = { 
 			totalPrice: 0,
+			search: false,
 			refreshing: false,
 			modalVisible: {
 				openProduct: false,
@@ -224,6 +225,7 @@ class Favourites extends Component {
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem
+									search={this.state.search}
 									key={index}
 									data={item}
 									type={'favorites'}

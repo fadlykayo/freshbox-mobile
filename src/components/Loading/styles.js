@@ -33,7 +33,7 @@ const styles = {
 		fontFamily: 'Avenir-Book',
 		fontSize: scaling.moderateScale(14),
 		color: colour.red,
-		paddingTop: 10,
+		// paddingTop: 10,
 	},
 }
 

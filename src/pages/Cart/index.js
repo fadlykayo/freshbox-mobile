@@ -19,6 +19,7 @@ class Cart extends Component {
 		super(props);
 		this.state = { 
 			totalPrice: 0,
+			search: false,
 			modalVisible: {
 				openProduct: false,
 				alertDialog: false,
@@ -138,6 +139,7 @@ class Cart extends Component {
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem
+									search={this.state.search}
 									key={index}
 									data={item}
 									type={'cart'}

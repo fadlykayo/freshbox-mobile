@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import LeftPart from './components/LeftPart';
+import Button from '../Button';
 import styles from './styles';
 
 class PageComponent extends Component {
@@ -21,6 +22,11 @@ class PageComponent extends Component {
                         : null
                     }
                 </View>
+                <Button
+                    bubble={this.props.index}
+                    length={this.props.length}
+                    navigateToNextPage={this.props.navigateToNextPage}
+                />
             </View>
         );
     }

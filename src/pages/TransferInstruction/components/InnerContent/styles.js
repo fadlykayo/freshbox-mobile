@@ -63,9 +63,8 @@ const styles = {
     },
     indexContent: {
         color: colour.red,
-        fontFamily: 'Avenir-Book',
+        fontFamily: 'Avenir-Medium',
         fontSize: scaling.moderateScale(14),
-        fontWeight: '400',
     },
     rightPart: {
         flex: 1,
@@ -74,7 +73,6 @@ const styles = {
     contentText: {
         color: colour.veryDarkGrey,
         fontFamily: 'Avenir-Medium',
-        fontWeight: '500',
         fontSize: scaling.moderateScale(12),
         lineHeight: scaling.moderateScale(15)
     }

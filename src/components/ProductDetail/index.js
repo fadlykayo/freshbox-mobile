@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
 import ButtonFav from '@components/ButtonFav';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonCount from '@components/ButtonCount';
+import ZoomImage from '@components/ZoomImage';
 import Content from './components/Content';
 import ScrollDown from './components/ScrollDown';
 import CountImage from './components/CountImage';
@@ -15,6 +16,11 @@ class ProductDetail extends Component {
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
+		this.getPositionIndex = this.getPositionIndex.bind(this);
+		this.getPositionBubble = this.getPositionBubble.bind(this);
+		this.closeDetailProduct = this.closeDetailProduct.bind(this);
+		this.openZoomImage = this.openZoomImage.bind(this);
+		this.closeZoomImage = this.closeZoomImage.bind(this);
 	}
 
 	addTotalItem(){
@@ -33,11 +39,23 @@ class ProductDetail extends Component {
 		this.props.getPositionBubble()
 	}
 
+	closeDetailProduct() {
+		this.props.closeDetailProduct();
+	}
+
+	openZoomImage() {
+		this.props.openZoomImage();
+	}
+
+	closeZoomImage() {
+		this.props.closeZoomImage();
+	}
+
 	render(){
 		if(this.props.modalVisible){
 			return(
 				<View style={styles.background}>
-					<TouchableOpacity style={styles.background} onPress={this.closeDetailProduct}></TouchableOpacity>
+					<TouchableOpacity style={styles.touchable} onPress={this.closeDetailProduct}></TouchableOpacity>
 					<View style={styles.container}>
 						<ScrollDown
 							closeDetailProduct={this.props.closeDetailProduct}
@@ -48,22 +66,24 @@ class ProductDetail extends Component {
 									ref={ e => { this.scrollRef = e }}
 									horizontal={true}
 									pagingEnabled={true}
-									onScroll={(e) => this.getPositionIndex(e)}
 									showsHorizontalScrollIndicator={false}
+									onScroll={(e) => this.getPositionIndex(e)}
+									scrollEventThrottle={0}
 									contentContainerStyle={styles.image.content}
 									style={styles.image.style}
 								>
-									{ 
-										this.props.data.images_sizes_url.original.map((image,index) => 
-										(
-											<Image
-												key={index}
-												resizeMode={'contain'} 
-												source={{uri: image}}
-												style={styles.icon.product}
-											/>
-										)) 
-									}
+									{ this.props.data.images_sizes_url.original.map((image,index) => {
+										return (
+											<TouchableOpacity key={index} onPress={this.openZoomImage}>
+												<Image
+													
+													resizeMode={'contain'} 
+													source={{uri: image}}
+													style={styles.icon.product}
+												/>
+											</TouchableOpacity>
+										)}
+									)}
 								</ScrollView>
 								<BubbleComponent
 									images={this.props.data.images_sizes_url.original}
@@ -106,6 +126,11 @@ class ProductDetail extends Component {
 						</View>
 						
 					</View>
+					<ZoomImage
+						modalVisible={this.props.openImageDetail}
+						closeZoomImage={this.closeZoomImage}
+						images={this.props.data.images_sizes_url.original}
+					/>
 				</View>
 			)
 		} else {

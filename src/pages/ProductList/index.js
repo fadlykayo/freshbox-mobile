@@ -8,6 +8,7 @@ import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
+import ZoomImage from '@components/ZoomImage';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -32,6 +33,7 @@ class ProductList extends Component {
 			modalVisible: {
 				openCategories: false,
 				openProduct: false,
+				openImageDetail: false,
 			},
 		};
 		this.listRef = null;
@@ -59,6 +61,16 @@ class ProductList extends Component {
 		this.backToTop = this.backToTop.bind(this);
 		this.getPositionIndex = this.getPositionIndex.bind(this);
 		this.getPositionBubble = this.getPositionBubble.bind(this);
+		this.openZoomImage = this.openZoomImage.bind(this);
+		this.closeZoomImage = this.closeZoomImage.bind(this);
+	}
+
+	openZoomImage(){
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	closeZoomImage(){
+		this.setModalVisible('openImageDetail',false);
 	}
 
 	getPositionIndex(e) {
@@ -82,18 +94,21 @@ class ProductList extends Component {
 		this.getFavorites();
 	}
 
-	_renderButton() {
+	_renderButton(index, length) {
 		if(this.state.search) {
-			return (
-			<TouchableOpacity style={styles.clear.button} onPress={this.backToDefault}>
-				<StaticText
-					style={styles.clear.text}
-					property={'productList.button.clear'}
-				/>
-			</TouchableOpacity>
-			)
+			if (index == length) {
+				return (
+				<TouchableOpacity style={styles.clear.button} onPress={this.backToDefault}>
+					<StaticText
+						style={styles.clear.text}
+						property={'productList.button.clear'}
+					/>
+				</TouchableOpacity>
+				)
+			}
+			else return null;
 		}
-		else return null
+		else return null;
 	}
 
 	backToDefault() {
@@ -336,7 +351,7 @@ class ProductList extends Component {
 		this.props.search_products(payload, 
 			(success) => {
 				this.onChangeText('search', true)
-				// this.backToTop();
+				this.backToTop();
 			},
 			(err) => {
 				console.log(err)
@@ -419,7 +434,7 @@ class ProductList extends Component {
 				<Notes />
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
-						{ this._renderButton() }
+						
 						<FlatList
 							ref={(e) => { this.listRef = e}}
 							data={this.props.product}
@@ -429,8 +444,9 @@ class ProductList extends Component {
 							keyExtractor={(item) => item.code}
 							onEndReached={this.handleLoadMore}
 							renderItem={({item,index}) => (
+								<View key={index}>
 									<ProductItem
-										key={index}
+										search={this.state.search}
 										data={item}
 										index={index+1}
 										type={'productList'}
@@ -440,6 +456,8 @@ class ProductList extends Component {
 										productLength={this.props.product.length}
 										openDetailProduct= {this.openDetailProduct}
 									/>
+									{ this._renderButton(index, this.props.product.length - 1) }
+								</View>
 							)}
 						/>
 						<Checkout
@@ -461,6 +479,9 @@ class ProductList extends Component {
 					modalVisible={this.state.modalVisible.openProduct}
 					getPositionIndex={this.getPositionIndex}
 					getPositionBubble={this.getPositionBubble}
+					openImageDetail={this.state.modalVisible.openImageDetail}
+					openZoomImage={this.openZoomImage}
+					closeZoomImage={this.closeZoomImage}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}

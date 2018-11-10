@@ -29,7 +29,7 @@ class ProductItem extends PureComponent {
 	render(){
 		const productImage = this.props.data.images_sizes_url.original[0];
 		return(
-			<View style={styles.container(this.props.index,this.props.productLength)}>
+			<View style={styles.container(this.props.index,this.props.productLength, this.props.search)}>
 				<View style={styles.subcontainer.card}>
 					<TouchableOpacity 
 						onPress={this.openDetailProduct}
@@ -42,9 +42,7 @@ class ProductItem extends PureComponent {
 								style={styles.icon.product}
 							/>
 						</View>
-						<Content 
-							data={this.props.data}
-						/>
+						<Content data={this.props.data}/>
 						{
 							this.props.type == 'cart'
 							? 	null

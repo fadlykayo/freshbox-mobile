@@ -14,11 +14,11 @@ class Loading extends PureComponent {
 		else return(
 			<View style={styles.container}>
 				<View style={styles.loadingContainer}>
-					<Image
+					{/* <Image
 						resizeMode={'contain'}
 						style={styles.loadingImage}
 						source={images.loading}
-					/>
+					/> */}
 					<StaticText 
 						style={styles.loadingText}
 						property={"loading"}
