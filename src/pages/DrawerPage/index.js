@@ -30,6 +30,10 @@ class DrawerPage extends Component {
 					selected: false,
 				},
 				{
+					name: 'drawerPage.pages.privacyPolicy',
+					selected: false,
+				},
+				{
 					name: 'drawerPage.pages.contactUs',
 					selected: false,
 				}
@@ -48,6 +52,7 @@ class DrawerPage extends Component {
 			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
 			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage)
 			case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
+			case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
 			case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
 			default: return actNav.navigate(navConstant.ProductList)
 		}

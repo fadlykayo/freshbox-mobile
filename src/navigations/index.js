@@ -19,6 +19,7 @@ import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
+import PrivacyPolicy from '@pages/PrivacyPolicy';
 import ContactUs from '@pages/ContactUs';
 import Checkout from '@pages/Checkout';
 import ChooseAddress from '@pages/ChooseAddress';
@@ -64,6 +65,7 @@ export const AppNavigator = createStackNavigator({
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
+    PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
@@ -113,6 +115,7 @@ export const navConstant = {
     ResetPasswordPage: 'ResetPasswordPage',
     Favourites: 'Favourites',
     TermsConditions: 'TermsConditions',
+    PrivacyPolicy: 'PrivacyPolicy',
     ContactUs: 'ContactUs',
     Checkout: 'Checkout',
     HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',

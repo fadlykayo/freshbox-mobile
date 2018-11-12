@@ -7,10 +7,15 @@ class TermsConditions extends PureComponent {
     constructor(){
         super();
         this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
+        this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
     }
 
     navigateToTermsConditions() {
         this.props.navigateToTermsConditions();
+    }
+
+    navigateToPrivacyPolicy() {
+        this.props.navigateToPrivacyPolicy();
     }
 
     render(){
@@ -23,6 +28,12 @@ class TermsConditions extends PureComponent {
                         onPress={this.navigateToTermsConditions}
                         style={styles.underline}
                         property={'welcome.content.termsCondition'}
+                    /> <StaticText 
+                        property={'welcome.content.also'}
+                    /> <StaticText
+                        onPress={this.navigateToPrivacyPolicy}
+                        style={styles.underline}
+                        property={'welcome.content.privacyPolicy'}
                     />
                 </Text>
             </View>

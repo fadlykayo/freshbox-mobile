@@ -8,7 +8,9 @@
         },
         "content":{
             "info": "Dengan masuk ke dalam Freshbox, Anda telah menyetujui",
-            "termsCondition": "Syarat dan Ketentuan"
+            "termsCondition": "Syarat dan Ketentuan",
+            "also": ", serta ",
+            "privacyPolicy": "Kebijakan Privasi"
         }
     },
     "onBoarding": {
@@ -398,6 +400,7 @@
             "favorite": "Favorit",
             "history": "Histori",
             "termsConditions": "Syarat & Ketentuan",
+            "privacyPolicy": "Kebijakan Privasi",
             "contactUs": "Bantuan"
         }
     },
@@ -635,6 +638,16 @@
         "navigationTitle": "Verifikasi",
         "content": {
             "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
+        },
+        "button": {
+            "resend": "Kirim Ulang Kode Verifikasi",
+            "submit": "Kirim"
+        }
+    },
+    "privacyPolicy": {
+        "navigationTitle": "Kebijakan Privasi",
+        "content": {
+            "introduction": "Adanya Kebijakan Privasi ini adalah komitmen nyata dari FreshBox untuk menghargai dan melindungi setiap data atau informasi pribadi Pengguna aplikasi FreshBox. Kebijakan Privasi ini (beserta syarat-syarat penggunaan dari aplikasi FreshBox sebagaimana tercantum dalam \"Syarat & Ketentuan\" dan informasi lain yang tercantum) menetapkan dasar atas perolehan, pengumpulan, pengolahan, penganalisisan, penampilan, pembukaan, dan/atau segala bentuk pengelolaan yang terkait dengan data atau informasi yang Pengguna berikan kepada FreshBox atau yang FreshBox kumpulkan dari Pengguna, termasuk data pribadi Pengguna, baik pada saat Pengguna melakukan pendaftaran di aplikasi, mengakses aplikasi, maupun mempergunakan layanan-layanan pada aplikasi (selanjutnya disebut sebagai \"data\").\n\nDengan mengakses dan/atau mempergunakan layanan FreshBox, Pengguna menyatakan bahwa setiap data Pengguna merupakan data yang benar dan sah, serta Pengguna memberikan persetujuan kepada FreshBox untuk memperoleh, mengumpulkan, menyimpan, mengelola dan mempergunakan data tersebut sebagaimana tercantum dalam Kebijakan Privasi maupun Syarat dan Ketentuan FreshBox."
         },
         "button": {
             "resend": "Kirim Ulang Kode Verifikasi",

@@ -19,6 +19,7 @@ class Menu extends PureComponent {
         this.facebookHandler = this.facebookHandler.bind(this);
         this.setupGoogleClient = this.setupGoogleClient.bind(this);
         this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
+        this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
     }
 
     componentDidMount() {
@@ -27,6 +28,10 @@ class Menu extends PureComponent {
 
     navigateToTermsConditions() {
         actNav.navigate(navConstant.TermsConditions)
+    }
+
+    navigateToPrivacyPolicy() {
+        actNav.navigate(navConstant.PrivacyPolicy)
     }
 
     navigateToProduct() {
@@ -90,6 +95,7 @@ class Menu extends PureComponent {
                         />
                         <TermsConditions
                             navigateToTermsConditions={this.navigateToTermsConditions}
+                            navigateToPrivacyPolicy={this.navigateToPrivacyPolicy}
                         />
                     </Container>
                 </ImageBackground>
