@@ -12,6 +12,7 @@ class DetailOrder extends Component {
     
     getStatusText(payload) {
 		switch(payload) {
+            case 'finish': return 'historyPage.static.success'
 			case 'pending_payment': return 'historyPage.static.pending_payment'
 			case 'paid': return 'historyPage.static.paid'
 			case 'on_process': return 'historyPage.static.on_process'

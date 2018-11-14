@@ -29,5 +29,6 @@ export const path = {
     getProvinces: 'v1/region/province',
     getCity: 'v1/region/city',
     getSubdistrict: 'v1/region/subdistrict',
-    getZipCode: 'v1/region/zip-code'
+    getZipCode: 'v1/region/zip-code',
+    reorder: 'v1/transaction/reorder'
 }

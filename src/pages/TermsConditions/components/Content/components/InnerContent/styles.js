@@ -63,11 +63,10 @@ const styles = {
             paddingVertical: width * 0.02,
             minHeight: height * 0.1,
             flexDirection: 'row',
-            alignItems: 'center',
         },
         circle: {
-            height: height * 0.05,
-            width: height * 0.05,
+            height: height * 0.04,
+            width: height * 0.04,
             backgroundColor: colour.lightPink,
             borderRadius: 100,
             alignItems: 'center',
@@ -76,7 +75,7 @@ const styles = {
         index: {
             color: colour.red,
             fontFamily: 'Avenir-Medium',
-            fontSize: scaling.moderateScale(14),
+            fontSize: scaling.moderateScale(12),
         },
         right: {
             paddingHorizontal: width * 0.08,

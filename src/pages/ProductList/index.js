@@ -413,6 +413,7 @@ class ProductList extends Component {
 	}
 
 	render(){
+		console.log(this.props.state)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}

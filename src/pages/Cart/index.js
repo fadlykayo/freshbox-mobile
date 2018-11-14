@@ -131,6 +131,7 @@ class Cart extends Component {
 			>
 				<NavigationBar 
 					title={'cart.navigationTitle'}
+					onPress={this.props.navigation.state.params.action == 'history' ? () => actNav.reset(navConstant.Product) : actNav.goBack}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>

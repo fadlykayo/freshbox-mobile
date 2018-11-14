@@ -248,6 +248,11 @@ const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     
     const index = newState.products.findIndex(e => e.code === payload.data.product.code);
+    const cartIndex = newState.cart.products.findIndex(e => e.code == payload.data.product.code);
+    if (cartIndex != -1) {
+        let cartProducts = newState.cart.products[cartIndex];
+        cartProducts.wishlisted = cartProducts.wishlisted == 1 ? 0 : 1;
+    }
     let productsWishList = newState.products[index];
     productsWishList.wishlisted = productsWishList.wishlisted == 1 ? 0 : 1;
     newState.detail = newState.products[index];
@@ -308,19 +313,49 @@ const validateCart = (state,payload) => {
     return newState;
 }
 
+const reorderTransaction = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let newCart = newState.cart.products.slice();
+    let productList = newState.products.slice();
+
+    for (let i = 0; i < payload.data.length; i++) {
+        let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code)
+        if (cartIndex == -1) {
+            payload.data[i].product.count = payload.data[i].qty;
+            payload.data[i].product.maxQty = 1000;
+            newCart.push(payload.data[i].product)
+        } else {
+            newCart[cartIndex].count += payload.data[i].qty;
+        }
+    }
+
+    for(let i = 0; i < newCart.length; i++) {
+        let productIndex = productList.findIndex(e => e.code == newCart[i].code)
+        if (productIndex != -1) {
+            productList[productIndex].count = newCart[i].count;
+        }
+    }
+
+    newState.products = productList;
+    newState.cart.products = newCart;
+
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ct.GET_PRODUCTS : return getProducts(state, action.payload)
-        case ct.GET_CATEGORIES: return getCategories(state, action.payload)
-        case ct.GET_FAVORITES: return getFavorites(state, action.payload)
-        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
-        case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
-        case ct.CHANGE_TOTAL: return editTotal(state, action.payload)
-        case ct.CHANGE_CATEGORIES: return changeCategory(state, action.payload) 
-        case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
-        case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
+        case ct.GET_PRODUCTS : return getProducts(state,action.payload)
+        case ct.GET_CATEGORIES: return getCategories(state,action.payload)
+        case ct.GET_FAVORITES: return getFavorites(state,action.payload)
+        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state,action.payload)
+        case ct.SEARCH_PRODUCTS: return searchData(state,action.payload)
+        case ct.CHANGE_TOTAL: return editTotal(state,action.payload)
+        case ct.CHANGE_CATEGORIES: return changeCategory(state,action.payload) 
+        case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload)
+        case ct.DETAIL_PRODUCT: return getDetail(state,action.payload)
         case ct.CLEAR_PRODUCTS: return clearProducts(state)
         case ct.VALIDATE_CART: return validateCart(state,action.payload)
+        case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload)
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

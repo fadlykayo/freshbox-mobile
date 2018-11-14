@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
-import { actNav } from '@navigations';
-import Container from '@components/Container';
-import NavigationBar from '@components/NavigationBar';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import StaticText from '@components/StaticText';
+import InnerContent from './components/InnerContent';
 import images from '@assets';
 import styles from './styles';
 
@@ -19,8 +17,8 @@ class Content extends Component {
 
   	render() {
   	  	return (
-			<View key={index} style={styles.info.place}>
-				<TouchableOpacity style={styles.info.title} onPress={() => this.openInfo(index)}>
+			<View style={styles.info.place}>
+				<TouchableOpacity style={styles.info.title} onPress={() => this.openInfo(this.props.index)}>
 					<StaticText 
 						property={this.props.content.title}
 						style={styles.text.title} 
@@ -33,35 +31,30 @@ class Content extends Component {
             		</View>
 				</TouchableOpacity>
 				{ this.props.content.isOpen 
-					? (this.props.content.data.map((datum, index) => {
-						return (
-							<View key={index} style={styles.info.content}>
-								{ content.title == 'termsConditions.content.info.others.title' || content.title == 'termsConditions.content.info.update.title' 
-								? (
-									<View style={styles.subinfo.place}>
-										<StaticText
-											property={datum}
-											style={styles.text.content} 
-										/>
-									</View>
-								)
-								: (
-									<View style={styles.subinfo.place}>
-                						<View style={styles.subinfo.circle}>
-                						    <Text style={styles.subinfo.index}>{index+1}</Text>
-                						</View>
-										<View style={styles.subinfo.right}>
-											<StaticText 
-												property={datum}
-												style={styles.text.content} 
-											/>
-										</View>
-									</View>
-								)
-								}
-							</View>
-						)
-					})
+					? (<View>
+						{this.props.content.preInfo == null
+							? null
+							: (
+								<View style={styles.subinfo.place}>
+									<StaticText
+										property={this.props.content.preInfo.data}
+										style={styles.text.content} 
+									/>
+								</View>
+							)
+						}
+						{ this.props.content.data.map((datum, index) => {
+							return (
+								<View key={index}>
+									<InnerContent
+										datum={datum}
+										index={index}
+										content={this.props.content}
+									/>
+								</View>
+							)
+						}) }
+					</View>
 				): null}
 			</View>
   	  	);

@@ -19,12 +19,12 @@ class Content extends Component {
 
   	render() {
   	  	return (
-			<View key={index} style={styles.info.content}>
-				{ content.title == 'termsConditions.content.info.others.title' || content.title == 'termsConditions.content.info.update.title' 
+			<View style={styles.info.content}>
+				{ this.props.content.title == 'privacyPolicy.content.info.informationStorage.title' || this.props.content.title == 'privacyPolicy.content.info.update.title' 
 				? (
 					<View style={styles.subinfo.place}>
 						<StaticText
-							property={datum}
+							property={this.props.datum}
 							style={styles.text.content} 
 						/>
 					</View>
@@ -32,17 +32,16 @@ class Content extends Component {
 				: (
 					<View style={styles.subinfo.place}>
             			<View style={styles.subinfo.circle}>
-            			    <Text style={styles.subinfo.index}>{index+1}</Text>
+            			    <Text style={styles.subinfo.index}>{this.props.index+1}</Text>
             			</View>
 						<View style={styles.subinfo.right}>
 							<StaticText 
-								property={datum}
+								property={this.props.datum}
 								style={styles.text.content} 
 							/>
 						</View>
 					</View>
-				)
-				}
+				)}
 			</View>
   	  	);
   	}

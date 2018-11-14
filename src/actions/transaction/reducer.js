@@ -27,4 +27,11 @@ action.reset_transaction = () => ({
     type: ct.RESET_TRANSACTION,
 })
 
+action.reorder_transaction = (data) => ({
+    type: ct.REORDER_TRANSACTION,
+    payload: {
+        data
+    }
+});
+
 export default action;

@@ -17,7 +17,7 @@ class ChoosePayment extends Component {
             },
             grandTotalPrice: 0,
             contents: [
-                // 'choosePayment.content.creditCard',
+                'choosePayment.content.creditCard',
                 'choosePayment.content.virtualAccount',
             ]
         }

@@ -25,30 +25,26 @@ class TransactionComponent extends Component {
 			case 'paid': return 'historyPage.static.paid'
 			case 'on_process': return 'historyPage.static.on_process'
 			case 'on_shipping': return 'historyPage.static.on_shipping'
-			case 'failed': return 'historyPage.static.failed'
 		}
 	}
 
   	render() {
-		if (this.props.data.status == 'finish') {
+		if (this.props.data.status == 'finish' || this.props.data.status == 'failed') {
 			return (
-				<TouchableOpacity 
-					onPress={() => this.props.navigateToCart()}
-					style={styles.reOrderItem}
-				>
+				<View style={styles.reOrder.button(this.props.data.status)}>
 					<StaticText
-						style={styles.reOrderText}
-						property={'historyPage.content.reOrder'}
+						style={styles.reOrder.text}
+						property={this.props.data.status == 'finish' ? 'historyPage.static.success' : 'historyPage.static.failed'}
 					/>
-				</TouchableOpacity>
+				</View>
 			);
 		}
 		else {
 			const statusOrder = this.getStatusText(this.props.data.status)
 			return (
-				<View style={styles.onProcessItem}>
+				<View style={styles.process.button}>
 					<StaticText
-						style={styles.onProcessText}
+						style={styles.process.text}
 						property={statusOrder}
 					/>
 				</View>

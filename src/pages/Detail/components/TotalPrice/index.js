@@ -45,6 +45,14 @@ class TotalPrice extends Component {
                             title={'historyDetail.content.reOrder'}
                         />
                     )
+                case 'failed': 
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
                 default: return null
             } 
         }

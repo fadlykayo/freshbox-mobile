@@ -3,7 +3,6 @@ import { ScrollView, Clipboard, ToastAndroid, Platform } from 'react-native';
 import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import StaticText from '@components/StaticText';
 import CountDown from './components/CountDown';
 import Information from './components/Information';
 import TotalPrice from '@components/TotalPrice';
@@ -11,8 +10,9 @@ import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
 import moment from 'moment';
-import numeral from 'numeral';
+import { language } from '@helpers';
 import { connect } from 'react-redux';
+import actions from '@actions';
 
 class TransferInstruction extends Component {
     constructor(props) {
@@ -106,44 +106,6 @@ class TransferInstruction extends Component {
                                 },
                             ]
                         },
-                        {
-                            name: "transferInstruction.content.bca.inBank.name",
-                            isOpen: false,
-                            step: 
-                            [
-                                {
-                                    name: "transferInstruction.content.bca.inBank.step.1"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.inBank.step.2"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.inBank.step.3"
-                                },
-                            ]
-                        },
-                        {
-                            name: "transferInstruction.content.bca.otherBank.name",
-                            isOpen: false,
-                            step: 
-                            [
-                                {
-                                    name: "transferInstruction.content.bca.otherBank.step.1"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.otherBank.step.2"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.otherBank.step.3"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.otherBank.step.4"
-                                },
-                                {
-                                    name: "transferInstruction.content.bca.otherBank.step.5"
-                                }
-                            ]
-                        },
                     ]
                 },
                 bni_virtual_account: {
@@ -175,6 +137,18 @@ class TransferInstruction extends Component {
                                 },
                                 {
                                     name: "transferInstruction.content.bni.atm.step.7",
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.atm.step.8",
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.atm.step.9",
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.atm.step.10",
+                                },
+                                {
+                                    name: "transferInstruction.content.bni.atm.step.11",
                                 }
                             ]
                         },
@@ -206,58 +180,40 @@ class TransferInstruction extends Component {
                                 },
                             ]
                         },
-                        {
-                            name: "transferInstruction.content.bni.iBanking.name",
-                            isOpen: false,
-                            step: 
-                            [
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.1"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.2"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.3"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.4"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.5"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.6"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.7"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.8"
-                                },
-                                {
-                                    name: "transferInstruction.content.bni.iBanking.step.9"
-                                },
-                            ]
-                        },
                     ]
                 },
                 permata_virtual_account: {
                     name: "virtualAccount.content.permataVA",
                     image: images.icon_logo_permata,
-                    step: [
+                    types: [
                         {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name: "transferInstruction.content.permata.atm.name",
+                            isOpen: false,
+                            step: 
+                            [
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.1"
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.2",
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.3",
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.4",
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.5",
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.6",
+                                },
+                                {
+                                    name: "transferInstruction.content.permata.atm.step.7",
+                                },
+                            ]
                         },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-                        {
-                            name: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        }
                     ]
                 },   
             },
@@ -308,7 +264,20 @@ class TransferInstruction extends Component {
     async getClipboardData(input) {
         await Clipboard.setString(String(input));
         if(Platform.OS == 'android') {
-            ToastAndroid.show('Successfully copied data', ToastAndroid.SHORT)
+            language.transformText('formSuccess.title.copyData')
+            .then(message => {
+                ToastAndroid.show(message, ToastAndroid.SHORT)
+            })
+        } else {
+            language.transformText('formSuccess.title.copyData')
+			.then(message => {
+
+				this.props.set_success_status({
+					status: true,
+					data: message,
+					title: 'formSuccess.title.default'
+				});
+			});
         }
     }
 
@@ -373,4 +342,8 @@ const mapStateToProps = (state) => ({
     detailTransaction: state.transaction.detail
 });
 
-export default connect(mapStateToProps,null)(TransferInstruction);
+const mapDispatchToProps = (dispatch) => ({
+    set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(TransferInstruction);

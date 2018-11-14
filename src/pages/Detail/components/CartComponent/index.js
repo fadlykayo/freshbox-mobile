@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import Content from '../Content';
@@ -6,7 +6,7 @@ import styles from './styles';
 import images from '@assets';
 
 
-class CartComponent extends PureComponent {
+class CartComponent extends Component {
 	constructor(){
 		super()
 		this.toggleFavorite = this.toggleFavorite.bind(this);

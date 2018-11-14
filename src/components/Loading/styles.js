@@ -19,21 +19,21 @@ const styles = {
 	loadingContainer:{
 		padding: scaling.moderateScale(10),
 		borderWidth: 1,
-		borderColor: '#FFFFFF',
-		borderRadius: 5,
+		borderColor: colour.whiteAO,
+		borderRadius: 10,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#FFFFFF',
+		backgroundColor: colour.whiteAO,
 	},
 	loadingImage:{
-		width: width * 0.2,
-		height: width * 0.2,
+		width: width * 0.3,
+		height: width * 0.3,
 	},
 	loadingText:{
 		fontFamily: 'Avenir-Book',
 		fontSize: scaling.moderateScale(14),
 		color: colour.red,
-		// paddingTop: 10,
+		paddingTop: scaling.moderateScale(5),
 	},
 }
 

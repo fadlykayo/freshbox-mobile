@@ -8,6 +8,7 @@ export const colour = {
     lightOrange: 'rgb(255, 238, 230)',
     orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',
+    whiteAO: 'rgba(255,255,255,0.8)',
     whiteTransparent: 'rgba(255,255,255,0.4)',
     blueFacebook: 'rgb(65,103,178)',
     darkGreyTransparent: 'rgba(81,81,81,0.9)',
@@ -22,6 +23,7 @@ export const colour = {
     shadowRed: 'rgba(179,0,31,0.68)',
     black: 'rgb(0,0,0)',
     blackTransparent: 'rgba(0,0,0,0.25)',
+    green: 'rgb(60,208,184)',
     softGreenTransparent: 'rgba(60,208,184,0.1)',
     softerGreenTransparent: 'rgba(60,208,184,0.05)',
 }

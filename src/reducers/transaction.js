@@ -1,6 +1,9 @@
 import ct from '@constants';
 
 const initialState = {
+    params: {
+        page: 1
+    },
     transactions: [],
     detail: {}
 }
@@ -10,6 +13,10 @@ const getTransactions = (state, payload) => {
 
     let incomingProducts = payload.data.data;
     let existingProducts = newState.transactions.slice();
+
+    if (payload.data.current_page < payload.data.last_page) {
+        newState.params.page = payload.data.current_page + 1;
+    }
 
     for(x in incomingProducts){
         let sameValue = false;
