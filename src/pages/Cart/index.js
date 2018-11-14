@@ -30,11 +30,21 @@ class Cart extends Component {
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.navigateToSignIn = this.navigateToSignIn.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
+		this.navigateToProduct = this.navigateToProduct.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
 		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
 		this.clearProductCancelation = this.clearProductCancelation.bind(this);
+	}
+
+	navigateToProduct() {
+		actNav.reset(navConstant.Product)
+	}
+
+	navigateBack() {
+		actNav.goBack()
 	}
 
 	setModalVisible(type,value){
@@ -131,7 +141,7 @@ class Cart extends Component {
 			>
 				<NavigationBar 
 					title={'cart.navigationTitle'}
-					onPress={this.props.navigation.state.params.action == 'history' ? () => actNav.reset(navConstant.Product) : actNav.goBack}
+					onPress={this.props.navigation.state.params.action == 'history' ? this.navigateToProduct : this.navigateBack}
 				/>
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
