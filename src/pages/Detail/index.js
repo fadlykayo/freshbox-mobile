@@ -189,6 +189,7 @@ class Detail extends Component {
 				<TotalPrice
 					type={'red'}
 					status={this.state.status}
+					additional={this.props.additional}
 					subTotal={this.state.totalPrice}
 					navigateToCart={this.navigateToCart}
 					grandTotal={this.state.grandTotalPrice}
@@ -203,6 +204,7 @@ class Detail extends Component {
 }
 
 const mapStateToProps = (state) => ({
+	additional: state.product.additional.credit_card,
     detailTransaction: state.transaction.detail,
     transactions: state.transaction.transactions,
     user: state.user.data,

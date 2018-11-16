@@ -6,6 +6,8 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
 import TotalPrice from '@components/TotalPrice';
+// import CreditCardNumber from './components/CreditCardNumber';
+// import ExpiredDate from './components/ExpiredDate';
 import styles from './styles';
 import images from '@assets';
 import { connect } from 'react-redux';
@@ -43,12 +45,16 @@ class CreditCard extends Component {
         this.onBlur = this.onBlur.bind(this);
         this.onBlurMonth = this.onBlurMonth.bind(this);
         this.onBlurYear = this.onBlurYear.bind(this);
+        this.countGrandTotal = this.countGrandTotal.bind(this);
     }
 
     componentDidMount() {
+        this.countGrandTotal();
+    }
+
+    countGrandTotal() {
         let state = this.state;
-		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
-        
+		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
         this.setState(state)
     }
 
@@ -222,12 +228,20 @@ class CreditCard extends Component {
 			    	title={'creditCard.navigationTitle'}
 			    	onPress={actNav.goBack}
 			    />
+                    <ScrollView 
+                        style={styles.container}
+                        // contentContainerStyle={styles.container}
+                    >
                     <TouchableWithoutFeedback onPress={this.onBlur}>
-                    <ScrollView style={styles.container}>
                         <View style={styles.content}>
+                            {/* <CreditCardNumber
+                                focusForm={this.focusForm}
+                                user={this.state.user}
+                                focused={this.state.focused}
+                            /> */}
                             <View style={styles.top.main}>
                                 <TouchableWithoutFeedback onPress={() => this.focusForm('creditNumber')}>
-                                    <View style={styles.top.content}>
+                                    <View>
                                         <StaticText
                                             style={styles.text.title}
                                             property={'creditCard.content.creditCard'}
@@ -264,49 +278,58 @@ class CreditCard extends Component {
                             />
                             <View style={styles.middle.place}>
                                 <View style={styles.middle.part}>
-                                        <View style={styles.expiredDate.main}>
-                                            <StaticText
-                                                style={styles.text.title}
-                                                property={'creditCard.content.expiredDate'}
-                                            />
-                                            <View style={styles.expiredDate.place}>
-                                                <TouchableWithoutFeedback onPress={() => this.focusForm('expiredMonth')}>
-                                                    <View style={styles.expiredDate.left(this.state.focused.expiredMonth)}>
-                                                        <TextInput
-                                                            ref={e => this.formExpiredMonth = e}
-                                                            keyboardType={'number-pad'}
-                                                            maxLength={2}
-                                                            returnKeyType={'done'}
-                                                            onBlur={this.onBlurMonth}
-                                                            value={this.state.user.expiredMonth}
-                                                            placeholder={'MM'}
-                                                            onChangeText={(value) => this.onChangeText('expiredMonth',value)}
-                                                            onSubmitEditing={this.submitExpiredMonth}
-                                                            style={styles.text.content}
-                                                        />
-                                                    </View>
-                                                </TouchableWithoutFeedback>
-                                                <View style={styles.expiredDate.middle}>
-                                                    <Text>/</Text>
+                                    {/* <ExpiredDate
+                                        focusForm={this.focusForm}
+                                        user={this.state.user}
+                                        focused={this.state.focused}
+                                        onBlurMonth={this.onBlurMonth}
+                                        onBlurYear={this.onBlurYear}
+                                        submitExpiredMonth={this.submitExpiredMonth}
+                                        submitExpiredYear={this.submitExpiredYear}
+                                    /> */}
+                                    <View style={styles.expiredDate.main}>
+                                        <StaticText
+                                            style={styles.text.title}
+                                            property={'creditCard.content.expiredDate'}
+                                        />
+                                        <View style={styles.expiredDate.place}>
+                                            <TouchableWithoutFeedback onPress={() => this.focusForm('expiredMonth')}>
+                                                <View style={styles.expiredDate.left(this.state.focused.expiredMonth)}>
+                                                    <TextInput
+                                                        ref={e => this.formExpiredMonth = e}
+                                                        keyboardType={'number-pad'}
+                                                        maxLength={2}
+                                                        returnKeyType={'done'}
+                                                        onBlur={this.onBlurMonth}
+                                                        value={this.state.user.expiredMonth}
+                                                        placeholder={'MM'}
+                                                        onChangeText={(value) => this.onChangeText('expiredMonth',value)}
+                                                        onSubmitEditing={this.submitExpiredMonth}
+                                                        style={styles.text.expMonth}
+                                                    />
                                                 </View>
-                                                <TouchableWithoutFeedback onPress={() => this.focusForm('expiredYear')}>
-                                                    <View style={styles.expiredDate.right(this.state.focused.expiredYear)}>
-                                                        <TextInput
-                                                            ref={e => this.formExpiredYear = e}
-                                                            keyboardType={'number-pad'}
-                                                            maxLength={2}
-                                                            returnKeyType={'done'}
-                                                            onBlur={this.onBlurYear}
-                                                            value={this.state.user.expiredYear}
-                                                            placeholder={'YY'}
-                                                            onChangeText={(value) => this.onChangeText('expiredYear',value)}
-                                                            onSubmitEditing={this.submitExpiredYear}
-                                                            style={styles.text.content}
-                                                        />
-                                                    </View>
-                                                </TouchableWithoutFeedback>
+                                            </TouchableWithoutFeedback>
+                                            <View style={styles.expiredDate.middle}>
+                                                <Text>/</Text>
                                             </View>
+                                            <TouchableWithoutFeedback onPress={() => this.focusForm('expiredYear')}>
+                                                <View style={styles.expiredDate.right(this.state.focused.expiredYear)}>
+                                                    <TextInput
+                                                        ref={e => this.formExpiredYear = e}
+                                                        keyboardType={'number-pad'}
+                                                        maxLength={2}
+                                                        returnKeyType={'done'}
+                                                        onBlur={this.onBlurYear}
+                                                        value={this.state.user.expiredYear}
+                                                        placeholder={'YY'}
+                                                        onChangeText={(value) => this.onChangeText('expiredYear',value)}
+                                                        onSubmitEditing={this.submitExpiredYear}
+                                                        style={styles.text.expYear}
+                                                    />
+                                                </View>
+                                            </TouchableWithoutFeedback>
                                         </View>
+                                    </View>
                                 </View>
                                 <View style={styles.middle.part}>
                                     <TouchableWithoutFeedback onPress={() => this.onChangeFocus('cvv')}>
@@ -339,16 +362,19 @@ class CreditCard extends Component {
                                 </View>
                             </View>
                         </View>
+                        </TouchableWithoutFeedback>
                     </ScrollView>
-                    </TouchableWithoutFeedback>
                     <TotalPrice
                         type={'red'}
+                        action={'creditCard'}
+                        additional={this.props.additional}
                         title={'creditCard.content.checkout'}
                         subTotal={this.props.totalPrice}
                         grandTotal={this.state.grandTotalPrice}
                         delivery_price={this.props.delivery_price}
                         onPress={this.createOrder}
                     />
+                    
             </Container>
         );
     }
@@ -357,6 +383,7 @@ class CreditCard extends Component {
 const mapStateToProps = (state) => {
 	return {
         user: state.user.data,
+        additional: state.product.additional.credit_card,
         totalPrice: state.product.total.price,
         delivery_price: state.product.delivery_price
 	}

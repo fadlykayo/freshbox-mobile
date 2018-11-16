@@ -51,7 +51,7 @@ class Information extends Component {
                     <View style={styles.middle.each.innerPlace.bottom}>
                         <TouchableOpacity style={styles.middle.each.button} onPress={() => this.getClipboardData(this.props.detailTransaction.va_number)}>
                             <Image
-                                style={styles.icon.bank}
+                                style={styles.icon.bank(this.props.bank.name)}
                                 source={this.props.bank.image}
                                 resizeMode={'stretch'}
                             />

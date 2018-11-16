@@ -144,10 +144,7 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
-			params: {
-				sort: 'nama-az',
-				stock: 'tersedia'
-			},
+			params: this.props.params
 		}
 		this.props.get_products(payload,
 			() => {
@@ -413,7 +410,6 @@ class ProductList extends Component {
 	}
 
 	render(){
-		console.log(this.props.state)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}

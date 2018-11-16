@@ -98,6 +98,8 @@ class VirtualAccount extends Component {
                     </ScrollView>
                     <TotalPrice
                         type={'red'}
+                        action={'creditCard'}
+                        additional={this.props.additional}
                         title={'virtualAccount.content.checkout'}
                         subTotal={this.props.totalPrice}
                         grandTotal={this.state.grandTotalPrice}
@@ -112,6 +114,7 @@ class VirtualAccount extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.user.data,
+    additional: state.product.additional.VA,
     totalPrice: state.product.total.price,
     delivery_price: state.product.delivery_price
 });

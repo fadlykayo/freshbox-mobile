@@ -10,12 +10,13 @@ class Content extends Component {
     }
 
     render() {
+        console.log(this.props.bank)
         return (
             <View style={styles.container}>
                 <View style={styles.subcontainer.top}>
                     <View style={styles.subcontainer.bank}>
                         <Image
-                            style={styles.icon.bank}
+                            style={styles.icon.bank(this.props.bank.name)}
                             source={this.props.bank.image}
                             resizeMode={'stretch'}
                         />

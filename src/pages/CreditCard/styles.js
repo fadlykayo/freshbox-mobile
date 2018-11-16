@@ -20,6 +20,10 @@ const styles = {
         paddingBottom: width * 0.03,
         paddingHorizontal: width * 0.05,
     },
+    bottom: {
+        flex: 0,
+
+    },
     top: {
         main: {
             flex: -1,
@@ -32,18 +36,33 @@ const styles = {
             fontSize: scaling.moderateScale(12),
             fontFamily: 'Avenir-Black',
             color: colour.black,
-            marginBottom: width * 0.02,
         },
         content: {
             fontSize: scaling.moderateScale(14),
             fontFamily: 'Avenir-Light',
             color: colour.darkGrey,
         },
-        cvv: {
+        expMonth: {
+            width: width * 0.15,
+            textAlign: 'center',
             fontSize: scaling.moderateScale(14),
             fontFamily: 'Avenir-Light',
             color: colour.darkGrey,
-            width: width * 0.1
+        },
+        expYear: {
+            width: width * 0.15,
+            textAlign: 'center',
+            fontSize: scaling.moderateScale(14),
+            fontFamily: 'Avenir-Light',
+            color: colour.darkGrey,
+        },
+        cvv: {
+            width: width * 0.2,
+            fontSize: scaling.moderateScale(14),
+            fontFamily: 'Avenir-Light',
+            color: colour.darkGrey,
+            width: width * 0.1,
+            paddingVertical: width * 0.02,
         },
         form: {
             color: 'transparent'
@@ -52,13 +71,13 @@ const styles = {
             fontSize: scaling.moderateScale(11),
             fontFamily: 'Avenir-Light',
             color: colour.grey,
-            marginTop: scaling.moderateScale(3),
+            marginTop: scaling.moderateScale(5),
         }
     },
     component: {
         height: width * 0.14,
         borderBottomColor: colour.lightGrey,
-        borderBottomWidth: 0.8,
+        borderBottomWidth: 1,
         justifyContent: 'center'
     },
     labelText: {
@@ -77,18 +96,15 @@ const styles = {
         }
     },
     creditCard: {
-        main: {
-            flex: -1,
-        },
         place: {
             width: width * 0.7,
             flexDirection: 'row',
-            justifyContent: 'space-around'
+            justifyContent: 'space-around',
         },
         part: (x) => ({
             width: width * 0.15,
             alignItems: 'center',
-            paddingBottom: width * 0.02,
+            paddingVertical: width * 0.02,
             borderBottomColor: x ? colour.red : colour.lightGrey,
             borderBottomWidth: 1,
         })
@@ -99,20 +115,20 @@ const styles = {
         },
         place: {
             flexDirection: 'row',
-            justifyContent: 'flex-start',
+            alignItems: 'center',
         },
         left: (x) => ({
-            width: width * 0.1,
+            width: width * 0.15,
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingBottom: width * 0.02,
+            paddingVertical: width * 0.02,
             marginRight: scaling.moderateScale(5),
         }),
         middle: {
             width: width * 0.05,
             alignItems: 'center',
-            marginBottom: width * 0.02,
+            justifyContent: 'center',
             marginRight: scaling.moderateScale(5),
         },
         right: (x) => ({
@@ -120,14 +136,13 @@ const styles = {
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingBottom: width * 0.02,
+            paddingVertical: width * 0.02,
         }),
         cvv: (x) => ({
             width: width * 0.2,
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingBottom: width * 0.02,
         }),
     },
     image: {

@@ -62,15 +62,13 @@ validation.register = (user) => new Promise((res,rej) => {
     } else rej('fullName');
 })
 
-validation.signInEmail = (email,password) => new Promise((res,rej) => {
-    if(email.length > 0){
-        if(emailRegex.test(email) == true){
-            if(password.length > 0){
-                if(password.length > 7) res();
-                else rej('password');
-            } else rej('passwordLength');
-        } else rej('emailFormat');
-    } else rej('emailLength');
+validation.signInEmail = (phone,password) => new Promise((res,rej) => {
+    if(phoneRegex.test(phone) == true){
+        if(password.length > 0){
+            if(password.length > 7) res();
+            else rej('password');
+        } else rej('passwordLength');
+    } else rej('phone');
 })
 
 validation.address = (address) =>  new Promise((res,rej) => {

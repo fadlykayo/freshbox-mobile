@@ -22,7 +22,7 @@ class DeliveryDate extends PureComponent {
 		let tomorrow = new Date(today).setDate(today.getDate()+1);
 		let next2days = new Date(today).setDate(today.getDate()+2);
 		let next3days = new Date(today).setDate(today.getDate()+3);
-		let next4days = new Date(today).setDate(today.getDate()+3);
+		let next4days = new Date(today).setDate(today.getDate()+4);
 
 		let date = this.state.date.slice();
 		date=[tomorrow,next2days,next3days,next4days];

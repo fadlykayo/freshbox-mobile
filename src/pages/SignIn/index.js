@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { ScrollView, StatusBar, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
@@ -18,18 +18,17 @@ class SignIn extends Component {
         super();
         this.state={
             user:{
-                email: '',
+                phone: '',
                 password: ''
             },
             validateStatus:{
-                emailFormat: true,
-                emailLength: true,
+                phone: true,
                 password: true,
                 passwordLength: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
-        this.submitEmail = this.submitEmail.bind(this);
+        this.submitPhone = this.submitPhone.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
         this.signInValidation = this.signInValidation.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
@@ -53,18 +52,17 @@ class SignIn extends Component {
 
     clearValidation(){
         let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
-        validateStatus.emailFormat = true;
-        validateStatus.emailLength = true;
+        validateStatus.phone = true;
         validateStatus.password = true;
         validateStatus.passwordLength = true;
         validateStatus.login = true;
         this.setState({validateStatus});
     }
 
-    submitEmail(){
-        let userEmail = this.state.user.email.trim();
+    submitPhone(){
+        let userPhone = this.state.user.phone.trim();
         this.clearValidation();
-        this.onChangeText('email',userEmail);
+        this.onChangeText('phone',userPhone);
         this.formPassword.focus();
     }
 
@@ -78,7 +76,7 @@ class SignIn extends Component {
 
     signInValidation(){
         this.clearValidation();
-        validation.signInEmail(this.state.user.email,this.state.user.password)
+        validation.signInEmail(this.state.user.phone,this.state.user.password)
         .then(() => {
             this.signInHandler();
         })
@@ -91,7 +89,7 @@ class SignIn extends Component {
         let payload = {
             header: {},
             body: {
-                email: this.state.user.email,
+                phone_number: this.state.user.phone,
                 password: this.state.user.password
             }
         }
@@ -106,7 +104,16 @@ class SignIn extends Component {
                 }
             },
             (err) => {
-
+                if(err.code == 400) {
+                    language.transformText('message.invalidSignIn')
+                    .then(message => {
+                        this.props.set_error_status({
+                            status: true,
+                            title: 'formError.title.default',
+                            data: message,
+                        });
+                    });
+                }
             }
         );
     }
@@ -114,7 +121,7 @@ class SignIn extends Component {
     navigateToRegister(){
         let state = this.state;
         state.user = {
-            email: '',
+            phone: '',
             password: ''
         },
         state.isWrong= false,
@@ -151,23 +158,19 @@ class SignIn extends Component {
                     contentContainerStyle={styles.content}
                 >
                     <FormInput 
-                        ref={c => {this.formEmail = c}}
-                        type={'email'}
+                        ref={c => {this.formPhone = c}}
+                        type={'phone'}
                         autoFocus={true}
-                        keyboardType={'email-address'}
-                        value={this.state.user.email}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'signIn.formLabel.email'}
-                        placeholder={'signIn.formLabel.email'}
-                        onSubmitEditing={this.submitEmail}
+                        keyboardType={'number-pad'}
+                        value={this.state.user.phone}
+                        onChangeText={this.onChangeText}
+                        label={'signIn.formLabel.phone'}
+                        placeholder={'signIn.formLabel.examplePhone'}
+                        onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.emailLength}
-                        property={'signIn.validation.emailLength'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.emailFormat}
-                        property={'signIn.validation.emailFormat'}
+                        validation={this.state.validateStatus.phone}
+                        property={'signIn.validation.phone'}
                     />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
@@ -175,7 +178,7 @@ class SignIn extends Component {
                         autoFocus={false}
                         value={this.state.user.password}
                         isPassword={true}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
                         onSubmitEditing={this.submitPassword}
@@ -206,7 +209,8 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err))
+    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 });
 
 export default connect(null,mapDispatchToProps)(SignIn);

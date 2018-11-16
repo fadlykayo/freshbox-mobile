@@ -24,12 +24,12 @@ class PhotoComponent extends PureComponent {
 					<Image
 						resizeMode={'contain'} 
                         source={ 
-                            this.props.user.user.image == '' 
+                            this.props.user.user.image == '' || this.props.user.user.image == null
                             ? images.icon_img_ava_grey
                             : {uri: `http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/media/profile/10/original-${this.props.user.user.image}`}
                         }
 						style={
-                            this.props.user.user.image == ''
+                            this.props.user.user.image == '' || this.props.user.user.image == null
                             ? styles.dummyPhoto
                             : styles.photo
                         }

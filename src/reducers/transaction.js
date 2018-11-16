@@ -10,7 +10,6 @@ const initialState = {
 
 const getTransactions = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state))
-
     let incomingProducts = payload.data.data;
     let existingProducts = newState.transactions.slice();
 

@@ -9,6 +9,7 @@ import StaticText from '@components/StaticText';
 import CountDown from './components/CountDown';
 import Verification from './components/Verification';
 import styles from './styles';
+import actions from '@actions';
 import { connect } from 'react-redux';
 
 class OTP extends Component {
@@ -38,12 +39,28 @@ class OTP extends Component {
         this.startTimer()
     }
 
+    componentWillUnmount() {
+        this.stopTimer();
+    }
+
     resendOTP() {
         let state = this.state;
         state.seconds = 60;
         state.countDownOver = false;
+
+        let payload = {
+            header: {},
+            body: {
+                phone_number: this.props.navigation.state.params.phone_number
+            }
+        }
         this.setState(state, () => {
-            this.startTimer()
+            this.startTimer();
+            this.props.otp_resend(payload,
+                () => {},
+                (err) => {
+                    console.log(err)
+                })
         })
     }
 
@@ -77,7 +94,7 @@ class OTP extends Component {
     }
 
     stopTimer() {
-        clearInterval(this.seconds)
+        clearTimeout(this.seconds)
     }
 
     onChangeText(type, value) {
@@ -103,7 +120,7 @@ class OTP extends Component {
         if (state.isFocused) {
             state.isFocused = false;
             this.setState(state, () => {
-                this.blur()
+                this.blur();
             })
         }
         else {
@@ -117,15 +134,45 @@ class OTP extends Component {
     submitOTP() {
         validation.otp(this.state.otp)
         .then(() => {
-            if (this.props.navigation.state.params.action == 'guestLogin') {
-                this.props.navigation.goBack(this.props.navigation.state.params.key)
+            let payload = {
+                header: {},
+                body: {
+                    phone_number: this.props.navigation.state.params.phone_number,
+                    otp: this.state.otp
+                }
             }
-            else {
-                actNav.reset(navConstant.Product)
-            }
+
+            this.props.otp_verification(payload,
+                () => {
+                    this.stopTimer();
+                    if (this.props.navigation.state.params.action == 'guestLogin') {
+                        this.props.navigation.goBack(this.props.navigation.state.params.key)
+                    }
+                    else {
+                        actNav.reset(navConstant.Product)
+                    }
+                },
+                (err) => {
+                    language.transformText('message.invalidOTP')
+			        .then(message => {
+			        	this.props.set_error_status({
+			        		status: true,
+			        		title: 'formError.title.default',
+			        		data: message,
+                        });
+                    });
+                })
+            
         })
         .catch(() => {
-            alert('gagal')
+            language.transformText('message.invalidPhoneFormat')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.default',
+					data: message,
+                });
+            });
         })
     }
 
@@ -168,6 +215,7 @@ class OTP extends Component {
                         autoFocus={true}
                         keyboardType={'number-pad'}
                         contextMenuHidden={true}
+                        returnKeyType={'done'}
                         value={this.state.otp}
                         caretHidden={true}
                         maxLength={4}
@@ -187,7 +235,9 @@ class OTP extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    otp_verification: (req,res,err) => dispatch(actions.auth.api.otp_verification(req,res,err)),
+    otp_resend: (req,res,err) => dispatch(actions.auth.api.otp_resend(req,res,err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
 export default connect(null, mapDispatchToProps)(OTP);

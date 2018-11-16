@@ -12,6 +12,8 @@ export const apiInstance = axios.create({
 export const path = {
     registerUser: 'v1/user/register',
     signInUser: 'v1/user/login',
+    otpVerification: 'v1/user/otp-verification',
+    otpResend: 'v1/user/otp-resend',
     forgotPassword: 'v1/user/forgot-password',
     getProducts: 'v1/product',
     getFavorites: 'v1/wishlist',

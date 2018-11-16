@@ -6,6 +6,7 @@ const { width } = Dimensions.get('window');
 
 const styles = {
     container: {
+        flex: -1,
         backgroundColor: colour.white,
         borderTopRightRadius: scaling.moderateScale(15),
         borderTopLeftRadius: scaling.moderateScale(15),
