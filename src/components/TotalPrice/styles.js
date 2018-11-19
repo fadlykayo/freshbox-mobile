@@ -13,13 +13,12 @@ const styles = {
         borderWidth: 1,
         borderColor: colour.lightGrey,
         paddingTop: width * 0.05,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+        paddingHorizontal: width * 0.05,
         paddingBottom: width * 0.03,
     },
     subcontainer:{
         content:{
-            flex: -1
+            flex: -1,
         },
         price:{
             flexDirection: 'row',

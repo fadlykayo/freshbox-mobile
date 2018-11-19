@@ -39,11 +39,20 @@ const transactionDetail = (state, payload) => {
     return newState
 }
 
-const transactionReducer = (state = initialState, action) => {
+const editFavoriteHistory = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let productIndex = newState.detail.details.findIndex(e => e.product.code == payload.data.product.product.code)
+    newState.detail.details[productIndex].product.wishlisted = newState.detail.details[productIndex].product.wishlisted == 1 ? 0 : 1;
+
+    return newState
+}
+
+const transactionReducer = (state=initialState,action) => {
     switch (action.type) {
-        case ct.GET_TRANSACTION: return getTransactions(state, action.payload)
-        case ct.DETAIL_TRANSACTION: return transactionDetail(state, action.payload)
-        case ct.RESET_TRANSACTION: return initialState
+        case ct.GET_TRANSACTION: return getTransactions(state,action.payload);
+        case ct.DETAIL_TRANSACTION: return transactionDetail(state,action.payload);
+        case ct.TOGGLE_FAVORITE_HISTORY: return editFavoriteHistory(state,action.payload);
+        case ct.RESET_TRANSACTION: return initialState;
         default: return state;
     }
 }

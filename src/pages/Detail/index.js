@@ -20,7 +20,8 @@ class Detail extends Component {
 			deliveryPrice: 0,
             grandTotalPrice: 0,
         }
-        this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.toggleFavoriteHistory = this.toggleFavoriteHistory.bind(this);
         this.navigateToCart = this.navigateToCart.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
 		this.setDetailTransaction = this.setDetailTransaction.bind(this);
@@ -95,7 +96,7 @@ class Detail extends Component {
 					},
 					body: {}
 				},
-				favorite: payload
+				favorite: payload,
 			}
 			this.props.delete_favorite(data,
 				() => {},
@@ -125,6 +126,46 @@ class Detail extends Component {
 		}
 	}
 
+	toggleFavoriteHistory(payload){
+		console.log("masuk kesini toggleFavoriteHistory", payload)
+		if (payload.wishlisted == 1) {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload,
+			}
+			this.props.delete_favorite_history(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+		else {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.product.code
+					}
+				},
+				favorite: payload
+			}
+			this.props.add_favorite_history(data,
+				() => {},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
+	}
+
     navigateToCart(){
 		let payload = {
 			header: {
@@ -135,7 +176,6 @@ class Detail extends Component {
 
 		this.props.reorder_transaction(payload,
 			(res) => {
-				console.log('berhasil')
 				actNav.navigate(navConstant.Cart,this.props.navigation.state.params);
 			},
 			(err) => {
@@ -179,7 +219,8 @@ class Detail extends Component {
 								<CartComponent 
 									data = {item}
 									index = {index} 
-                                    toggleFavorite={this.toggleFavorite}
+									toggleFavorite={this.toggleFavorite}
+									toggleFavoriteHistory={this.toggleFavoriteHistory}
                                     action={this.props.navigation.state.params.action}
 								/>
 							)}
@@ -220,6 +261,8 @@ const mapDispatchToProps = (dispatch) => ({
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),
+	delete_favorite_history: (req,res,err) => dispatch(actions.transaction.api.delete_favorite_history(req,res,err)),
 	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
 })
 

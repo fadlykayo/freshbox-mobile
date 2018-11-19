@@ -293,6 +293,7 @@
     "resetPasswordPage": {
         "navigationTitle": "Ubah kata sandi",
         "formLabel":{
+            "otp": "OTP",
             "oldPassword": "Kata sandi lama",
             "newPassword": "Kata sandi baru",
             "confirmPassword": "Konfirmasi kata sandi"
@@ -303,8 +304,9 @@
         "button":{
             "changePassword": "Ganti kata sandi"
         },
-        "validation":{
-            "oldPassword": "Kata sandi salah",
+        "validation": {
+            "otp": "Panjang OTP 4 digit",
+            "otpLength": "Tolong masukkan otp Anda",
             "password": "Panjang kata sandi Anda minimal 8 karakter",
             "passwordLength": "Tolong masukkan kata sandi Anda",
             "confirmPassword": "Kata sandi anda tidak cocok"
@@ -711,11 +713,13 @@
         }
     },
     "message":{
+        "successResetPassword": "Ubah password berhasil!",
         "invalidSignIn": "Nomor Ponsel atau Password salah",
         "invalidMonth": "Bulan tidak sesuai.",
         "invalidYear": "Tahun tidak sesuai.",
         "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
         "errorOTP": "Kode Verifikasi salah.",
+        "errorCreateOrder": "",
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
         "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",

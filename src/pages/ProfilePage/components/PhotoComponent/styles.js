@@ -18,34 +18,38 @@ const styles = {
         marginTop: width * 0.05,
         marginLeft: width * 0.05,
     },
-    backButton: {
-        height: scaling.moderateScale(22),
-        width: scaling.moderateScale(22),
-    },
-    dummyPhoto: {
-        height: width * 0.2,
-        width: width * 0.2,
-        marginBottom: width* 0.05,
+    button: {
+        back: {
+            height: scaling.moderateScale(18),
+            width: scaling.moderateScale(18),
+        }
     },
     photo: {
-        height: width * 0.26,
-        width: width * 0.26,
-        borderRadius: 200,
-        borderColor: colour.white,
-        marginBottom: width* 0.02,
+        real: {
+            height: width * 0.26,
+            width: width * 0.26,
+            borderRadius: 100,
+            borderColor: colour.white,
+            marginBottom: width* 0.02,
+        },
+        dummy: {
+            height: width * 0.2,
+            width: width * 0.2,
+            marginBottom: width* 0.05,
+        }
     },
-    userName: {
-        fontSize: scaling.moderateScale(16),
-        fontFamily: 'Avenir-Heavy',
-        fontWeight: '500',
-        color: colour.white,
-        marginBottom: scaling.moderateScale(4),
-    },
-    userEmail: {
-        fontSize: scaling.moderateScale(12),
-        fontFamily: 'Avenir-Heavy',
-        fontWeight: '400',
-        color: colour.white,
+    user: {
+        name: {
+            fontSize: scaling.moderateScale(16),
+            fontFamily: 'Avenir-Black',
+            color: colour.white,
+            marginBottom: scaling.moderateScale(4),
+        },
+        phone: {
+            fontSize: scaling.moderateScale(12),
+            fontFamily: 'Avenir-Medium',
+            color: colour.white,
+        }
     },
 }
 

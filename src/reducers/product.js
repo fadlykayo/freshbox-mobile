@@ -242,7 +242,7 @@ const editTotal = (state,payload) => {
 
     newState.total.count = count;
     newState.total.price = total;
-    newState.cart.products = currentCart;
+    newState.cart.products = currentCart.filter(e => e.count > 0);
 
     return newState;
 }
@@ -250,6 +250,7 @@ const editTotal = (state,payload) => {
 const clearProducts = (state) => {
     let newState = JSON.parse(JSON.stringify(state));
 
+    newState.params = initialState.params
     newState.products = [];
     newState.total.count = 0;
     newState.total.price = 0;

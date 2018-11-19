@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
@@ -17,6 +17,7 @@ class ResetPasswordPage extends Component {
 		super(props)
 	  	this.state = {
 			user:{
+				otp: '',
                 oldPassword: '',
 				newPassword: '',
                 confirmPassword: ''
@@ -26,18 +27,22 @@ class ResetPasswordPage extends Component {
 				oldPassword: true,
                 password: true,
                 passwordLength: true,
-                confirmPassword: true,
+				confirmPassword: true,
+				otp: true,
+				otpLength: true,
 			},
 			modalVisible:{
                 resetPasswordSuccess: false,
             }
-	  	}
+		}
+		this.createNewPassword = this.createNewPassword.bind(this);
 	  	this.setValidation = this.setValidation.bind(this);
 	  	this.clearValidation = this.clearValidation.bind(this);
 		this.onChangeText = this.onChangeText.bind(this);
 		this.submitOldPassword = this.submitOldPassword.bind(this);  
 		this.submitPassword = this.submitPassword.bind(this);
-		this.submitConfirmPassword = this.submitConfirmPassword.bind(this);  
+		this.submitConfirmPassword = this.submitConfirmPassword.bind(this);
+		this.submitOTP = this.submitOTP.bind(this);
 	  	this.passwordValidation = this.passwordValidation.bind(this);
 		this.updatePasswordHandler = this.updatePasswordHandler.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -58,7 +63,12 @@ class ResetPasswordPage extends Component {
 
     clearValidation(){
   	    let validateStatus = this.state.validateStatus;
-  	    validateStatus.phone = true;
+		validateStatus.oldPasswordLength = true;
+		validateStatus.oldPassword = true;
+        validateStatus.password = true;
+        validateStatus.passwordLength = true;
+		validateStatus.confirmPassword = true;
+		validateStatus.otp = true;
   	    this.setState({validateStatus});
     }
 
@@ -69,9 +79,9 @@ class ResetPasswordPage extends Component {
     }
 	  
 	submitOldPassword(){
-        let userPassword = this.state.user.password.trim();
+        let userPassword = this.state.user.oldPassword.trim();
         this.clearValidation();
-		this.onChangeText('password',userPassword);
+		this.onChangeText('oldPassword',userPassword);
 		this.formPassword.focus();
     }
 
@@ -86,47 +96,36 @@ class ResetPasswordPage extends Component {
         let userConfirmPassword = this.state.user.confirmPassword.trim();
         this.clearValidation();
 		this.onChangeText('confirmPassword',userConfirmPassword);
-        this.passwordValidation();
-    }
+		if(this.props.navigation.state.params.action == 'profile') {
+			this.passwordValidation();
+		} else this.formOTP.focus();
+	}
+	
+	submitOTP() {
+		let userOTP = this.state.user.otp.trim();
+        this.clearValidation();
+		this.onChangeText('otp', userOTP);
+		this.passwordValidation();
+	}
 
   	passwordValidation(){
-		validation.passwordLength(this.state.user.oldPassword)
-        .then(() => {
-			if(this.state.validateStatus.oldPasswordLength == false) this.setValidation('oldPasswordLength',true);
-			validation.password(this.state.user.newPassword)
-        	.then(() => {
-				if(this.state.validateStatus.oldPassword == false) this.setValidation('oldPassword',true);
-				validation.passwordLength(this.state.user.newPassword)
-        		.then(() => {
-        		    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
-        		    validation.password(this.state.user.newPassword)
-        		    .then(() => {
-						if(this.state.validateStatus.password == false) this.setValidation('password',true);
-        		        validation.confirmPassword(this.state.user.newPassword,this.state.user.confirmPassword)
-        		        .then(() => {
-        		            if(this.state.validateStatus.confirmPassword == false) this.setValidation('confirmPassword',true);
-        		            this.updatePasswordHandler();
-        		        })
-        		        .catch(() => {
-        		            this.setValidation('confirmPassword',false);
-        		        })
-        		    })
-        		    .catch(() => {
-        		        this.setValidation('password',false);
-        		    })
-        		})
-        		.catch(() => {
-        		    this.setValidation('passwordLength',false);
-				})
+		if(this.props.navigation.state.params.action == 'profile') {
+			validation.resetPassword(this.state.user)
+			.then(() => {
+				this.updatePasswordHandler();
 			})
-			.catch(() => {
-				this.setValidation('oldPassword',false);
+			.catch(err => {
+				this.setValidation(err, false)
 			})
-		})
-		.catch(() => {
-			this.setValidation('oldPassword', false);
-		})
-		
+		} else {
+			validation.forgotPassword(this.state.user)
+			.then(() => {
+				this.createNewPassword();
+			})
+			.catch(err => {
+				this.setValidation(err, false)
+			})
+		}
   	}
   
   	updatePasswordHandler(){
@@ -142,14 +141,40 @@ class ResetPasswordPage extends Component {
 		}
 
 		this.props.reset_password(payload,
-			(success) => {
-				Keyboard.dismiss();
-				this.setModalVisible('resetPasswordSuccess',true);
-				this.closeDialogResetPasswordSuccess();
+			(res) => {
+				language.transformText('message.successResetPassword')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.default'
+					});
+					setTimeout(() => {
+						this.props.set_success_status({
+							status: false,
+							data: '',
+							title: ''
+						});
+						actNav.goBack();
+					},2000);
+				});
 			},
 			(err) => {
 				console.log(err)
 			})
+	}
+
+	createNewPassword() {
+		let payload = {
+			header: {},
+			body: {
+				phone_number: this.props.navigation.state.params.phone,
+				new_password: this.state.user.newPassword,
+				new_password_confirmation: this.state.user.confirmPassword,
+				otp: this.state.user.otp
+			}
+		}
+		alert(`berhasil! ${JSON.stringify(payload)}`)
 	}
 	  
 	closeDialogResetPasswordSuccess(){
@@ -170,26 +195,36 @@ class ResetPasswordPage extends Component {
 				/>
   	  	  		<View style={styles.container}>
 					<View style={styles.formPassword}>
-						<FormInput 
-                    	    ref={c => {this.formOldPassword = c}}
-                    	    type={'oldPassword'}
-                    	    isPassword={true}
-                    	    value={this.state.user.oldPassword}
-                    	    onChangeText={(type,value) => this.onChangeText(type,value)}
-                    	    label={'resetPasswordPage.formLabel.oldPassword'}
-                    	    placeholder={'resetPasswordPage.formLabel.oldPassword'}
-                    	    onSubmitEditing={this.submitOldPassword}
-                    	/>
+						{this.props.navigation.state.params.action == 'profile'
+							? (
+								<FormInput 
+                    			    ref={c => {this.formOldPassword = c}}
+									type={'oldPassword'}
+									autoFocus={this.props.navigation.state.params.action == 'profile' ? true : false}
+                    			    isPassword={true}
+                    			    value={this.state.user.oldPassword}
+                    			    onChangeText={this.onChangeText}
+                    			    label={'resetPasswordPage.formLabel.oldPassword'}
+                    			    placeholder={'resetPasswordPage.formLabel.oldPassword'}
+                    			    onSubmitEditing={this.submitOldPassword}
+                    			/>
+							) : null
+						}
                     	<VerificationText
                     	    validation={this.state.validateStatus.oldPassword}
-                    	    property={'resetPasswordPage.validation.oldPassword'}
+                    	    property={'resetPasswordPage.validation.password'}
+                    	/>
+						<VerificationText
+                    	    validation={this.state.validateStatus.oldPasswordLength}
+                    	    property={'resetPasswordPage.validation.passwordLength'}
                     	/>
 						<FormInput 
                     	    ref={c => {this.formPassword = c}}
                     	    type={'newPassword'}
-                    	    isPassword={true}
+							isPassword={true}
+							autoFocus={this.props.navigation.state.params.action == 'forgotPassword' ? true : false}
                     	    value={this.state.user.newPassword}
-                    	    onChangeText={(type,value) => this.onChangeText(type,value)}
+                    	    onChangeText={this.onChangeText}
                     	    label={'resetPasswordPage.formLabel.newPassword'}
                     	    placeholder={'resetPasswordPage.formLabel.newPassword'}
                     	    onSubmitEditing={this.submitPassword}
@@ -207,7 +242,7 @@ class ResetPasswordPage extends Component {
                     	    type={'confirmPassword'}
                     	    isPassword={true}
                     	    value={this.state.user.confirmPassword}
-                    	    onChangeText={(type,value) => this.onChangeText(type,value)}
+                    	    onChangeText={this.onChangeText}
                     	    label={'resetPasswordPage.formLabel.confirmPassword'}
                     	    placeholder={'resetPasswordPage.formLabel.confirmPassword'}
                     	    onSubmitEditing={this.submitConfirmPassword}
@@ -215,6 +250,28 @@ class ResetPasswordPage extends Component {
                     	<VerificationText
                     	    validation={this.state.validateStatus.confirmPassword}
                     	    property={'resetPasswordPage.validation.confirmPassword'}
+                    	/>
+						{this.props.navigation.state.params.action == 'forgotPassword'
+							? (
+								<FormInput 
+                    			    ref={c => {this.formOTP = c}}
+									type={'otp'}
+									maxLength = {4}
+                    			    value={this.state.user.otp}
+                    			    onChangeText={this.onChangeText}
+                    			    label={'resetPasswordPage.formLabel.otp'}
+                    			    placeholder={'resetPasswordPage.formLabel.otp'}
+                    			    onSubmitEditing={this.submitOTP}
+                    			/>
+							) : null
+						}
+						<VerificationText
+                    	    validation={this.state.validateStatus.otp}
+                    	    property={'resetPasswordPage.validation.otp'}
+                    	/>
+						<VerificationText
+                    	    validation={this.state.validateStatus.otpLength}
+                    	    property={'resetPasswordPage.validation.otpLength'}
                     	/>
 					</View>
 					<View style={styles.buttonPlace}>
@@ -239,7 +296,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	reset_password: (req,res,err) => dispatch(actions.user.api.reset_password(req,res,err))
+	reset_password: (req,res,err) => dispatch(actions.user.api.reset_password(req,res,err)),
+	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage);

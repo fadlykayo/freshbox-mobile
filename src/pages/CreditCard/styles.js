@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -14,15 +14,15 @@ const styles = {
     },
     content: {
         flex: 1,
-        marginBottom: width * 0.01,
+        marginBottom: height * 0.2,
         backgroundColor: colour.white,
-        paddingTop: width * 0.1,
+        paddingTop: width * 0.06,
         paddingBottom: width * 0.03,
         paddingHorizontal: width * 0.05,
     },
     bottom: {
-        flex: 0,
-
+        flex: -1,
+        marginTop: Platform.OS == 'android' ? height * 0.02 : 0.25,
     },
     top: {
         main: {
@@ -62,10 +62,9 @@ const styles = {
             fontFamily: 'Avenir-Light',
             color: colour.darkGrey,
             width: width * 0.1,
-            paddingVertical: width * 0.02,
         },
         form: {
-            color: 'transparent'
+            color: 'transparent',
         },
         example: {
             fontSize: scaling.moderateScale(11),
@@ -101,10 +100,10 @@ const styles = {
             flexDirection: 'row',
             justifyContent: 'space-around',
         },
-        part: (x) => ({
+        part: (x,y) => ({
             width: width * 0.15,
             alignItems: 'center',
-            paddingVertical: width * 0.02,
+            paddingVertical: y > 0 ? width * 0.03 : width * 0.04,
             borderBottomColor: x ? colour.red : colour.lightGrey,
             borderBottomWidth: 1,
         })
@@ -143,6 +142,7 @@ const styles = {
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
+            paddingVertical: width * 0.02,
         }),
     },
     image: {

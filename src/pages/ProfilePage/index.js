@@ -43,7 +43,7 @@ class ProfilePage extends Component {
     }
 
     navigateToResetPasswordPage() {
-        actNav.navigate(navConstant.ResetPasswordPage)
+        actNav.navigate(navConstant.ResetPasswordPage, {action: 'profile'})
     }
 
     navigateLogOut() {
@@ -129,21 +129,15 @@ class ProfilePage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-		user: state.user.data
-	}
-}
+const mapStateToProps = (state) => ({
+	user: state.user.data
+})
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-        log_out : () => dispatch(actions.auth.reducer.log_out()),
-        reset_products : () => dispatch(actions.product.reducer.reset_products()),
-    	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
-        upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+    log_out : () => dispatch(actions.auth.reducer.log_out()),
+    reset_products : () => dispatch(actions.product.reducer.reset_products()),
+    reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
+    upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
+})
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps,mapDispatchToProps)(ProfilePage);

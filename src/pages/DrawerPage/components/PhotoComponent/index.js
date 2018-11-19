@@ -17,10 +17,7 @@ class PhotoComponent extends PureComponent {
   	render () {
 		if (this.props.user) {
 			return (
-				<TouchableOpacity 
-					onPress={ this.navigateToProfilePage }    
-					style={styles.topComponent}
-				>
+				<TouchableOpacity onPress={ this.navigateToProfilePage } style={styles.container}>
 					<Image
 						resizeMode={'contain'} 
                         source={ 
@@ -30,33 +27,26 @@ class PhotoComponent extends PureComponent {
                         }
 						style={
                             this.props.user.user.image == '' || this.props.user.user.image == null
-                            ? styles.dummyPhoto
-                            : styles.photo
+                            ? styles.photo.dummy
+                            : styles.photo.real
                         }
 					/>
 					
-					<View>
-						<Text style={styles.userName}>{this.props.user.user.name}</Text>
-						<Text style={styles.userEmail}>{this.props.user.user.email}</Text>
+					<View style={styles.text.place}>
+						<Text style={styles.user.name}>{this.props.user.user.name}</Text>
+						<Text style={styles.user.email}>{this.props.user.user.email}</Text>
 					</View>
 				</TouchableOpacity>
 				);	
 		}
 		else {
 			return (
-				<View style={styles.topComponent}>				
+				<View style={styles.container}>				
 					<Image
 						resizeMode={'contain'} 
 						source={images.icon_img_ava_grey}
-						style={styles.photo}
+						style={styles.photo.dummy}
 					/>
-					
-					{/* <View>
-						<StaticText
-							style={styles.userName}
-							property={'drawerPage.content.user'}
-						/>
-					</View> */}
 				</View>
 			);
 		}

@@ -10,10 +10,15 @@ class CartComponent extends Component {
 	constructor(){
 		super()
 		this.toggleFavorite = this.toggleFavorite.bind(this);
+		this.toggleFavoriteHistory = this.toggleFavoriteHistory.bind(this);
 	}
 
 	toggleFavorite(){
 		this.props.toggleFavorite(this.props.data);
+	}
+
+	toggleFavoriteHistory(){
+		this.props.toggleFavoriteHistory(this.props.data);
 	}
 
 	render(){
@@ -36,7 +41,7 @@ class CartComponent extends Component {
 				/>
 				<View style={styles.subcontainer.right}>
 					<TouchableOpacity
-						onPress={this.toggleFavorite}
+						onPress={this.props.action == 'history' ? this.toggleFavoriteHistory : this.toggleFavorite}
 						style={styles.subcontainer.favorite}
 					>
 						<Image
