@@ -39,6 +39,13 @@ class Cart extends Component {
 		this.clearProductCancelation = this.clearProductCancelation.bind(this);
 	}
 
+	shouldComponentUpdate(nextProps) {
+		if(nextProps.cart_product.length == 0){
+			this.navigateBack();
+		}
+		return true;
+	}
+
 	navigateToProduct() {
 		actNav.reset(navConstant.Product)
 	}

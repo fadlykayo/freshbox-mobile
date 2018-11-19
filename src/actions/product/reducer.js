@@ -83,5 +83,4 @@ action.toggle_favorite = (data) => ({
     }  
 })
 
-
 export default action;

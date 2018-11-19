@@ -34,4 +34,11 @@ action.reorder_transaction = (data) => ({
     }
 });
 
+action.toggle_favorite = (data) => ({
+    type: ct.TOGGLE_FAVORITE_HISTORY,
+    payload: {
+        data,
+    }  
+})
+
 export default action;

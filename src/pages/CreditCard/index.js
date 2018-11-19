@@ -163,7 +163,14 @@ class CreditCard extends Component {
             this.props.navigation.state.params.createOrderHandler(res.invoice);
         },
         (err) => {
-            console.log(err)
+            language.transformText('message.invalidYear')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.default',
+					data: message,
+                });
+            });
         })
 
     }
@@ -228,17 +235,13 @@ class CreditCard extends Component {
 			    	title={'creditCard.navigationTitle'}
 			    	onPress={actNav.goBack}
 			    />
+                <View style={styles.container}>
                     <ScrollView 
                         style={styles.container}
                         // contentContainerStyle={styles.container}
                     >
                     <TouchableWithoutFeedback onPress={this.onBlur}>
                         <View style={styles.content}>
-                            {/* <CreditCardNumber
-                                focusForm={this.focusForm}
-                                user={this.state.user}
-                                focused={this.state.focused}
-                            /> */}
                             <View style={styles.top.main}>
                                 <TouchableWithoutFeedback onPress={() => this.focusForm('creditNumber')}>
                                     <View>
@@ -247,16 +250,16 @@ class CreditCard extends Component {
                                             property={'creditCard.content.creditCard'}
                                         />
                                         <View style={styles.creditCard.place}>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber)}>
+                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
                                                 <Text style={styles.text.content}>{this.state.user.creditNumber.slice(0,4)}</Text>
                                             </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber)}>
+                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
                                                 <Text style={styles.text.content}>{this.state.user.creditNumber.slice(4,8)}</Text>
                                             </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber)}>
+                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
                                                 <Text style={styles.text.content}>{this.state.user.creditNumber.slice(8,12)}</Text>
                                             </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber)}>
+                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
                                                 <Text style={styles.text.content}>{this.state.user.creditNumber.slice(12,16)}</Text>
                                             </View>
                                         </View>
@@ -278,15 +281,6 @@ class CreditCard extends Component {
                             />
                             <View style={styles.middle.place}>
                                 <View style={styles.middle.part}>
-                                    {/* <ExpiredDate
-                                        focusForm={this.focusForm}
-                                        user={this.state.user}
-                                        focused={this.state.focused}
-                                        onBlurMonth={this.onBlurMonth}
-                                        onBlurYear={this.onBlurYear}
-                                        submitExpiredMonth={this.submitExpiredMonth}
-                                        submitExpiredYear={this.submitExpiredYear}
-                                    /> */}
                                     <View style={styles.expiredDate.main}>
                                         <StaticText
                                             style={styles.text.title}
@@ -374,29 +368,24 @@ class CreditCard extends Component {
                         delivery_price={this.props.delivery_price}
                         onPress={this.createOrder}
                     />
-                    
+                </View>
+                
             </Container>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
+const mapStateToProps = (state) => ({
         user: state.user.data,
         additional: state.product.additional.credit_card,
         totalPrice: state.product.total.price,
         delivery_price: state.product.delivery_price
-	}
-}
+})
 
-const mapDispatchToProps = (dispatch) => {
-    return {
+const mapDispatchToProps = (dispatch) => ({
         create_order: (req, res, err) => dispatch(actions.transaction.api.create_order(req, res, err)),
         set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
         clear_products: () => dispatch(actions.product.reducer.clear_products()),
-    }
-}
+})
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(CreditCard);
+export default connect(mapStateToProps,mapDispatchToProps)(CreditCard);

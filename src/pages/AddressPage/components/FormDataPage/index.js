@@ -103,7 +103,7 @@ class FormDataPage extends Component {
 					validation={this.props.validateStatus.phone}
 					property={'addressPage.validation.phone'}
 				/>
-				<Dropdown 
+				<Dropdown
 					type={'province'}
 					data={this.props.province}
 					isOpen={true}

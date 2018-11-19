@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
-
 import images from '@assets';
 import styles from './styles';
 
 class PhotoComponent extends Component {
     constructor() {
         super()
+        this.choosePhoto = this.choosePhoto.bind(this);
+        this.navigateBack = this.navigateBack.bind(this);
+    }
+
+    choosePhoto() {
+        this.props.choosePhoto();
+    }
+
+    navigateBack() {
+        this.props.navigateBack();
     }
 
     render() {
-        console.log(`http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/media/profile/10/original-${this.props.user.user.image}`)
         return (
             <ImageBackground
                 resizeMode={'stretch'} 
@@ -18,35 +26,33 @@ class PhotoComponent extends Component {
                 style={styles.background}
             >
                 <TouchableOpacity
-                    onPress={() => this.props.navigateBack()}
+                    onPress={this.navigateBack}
                     style={styles.touchableBackButton}
                 >
                     <Image
                         resizeMode={'contain'} 
                         source={images.icon_back_white}
-                        style={styles.backButton}
+                        style={styles.button.back}
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => this.props.choosePhoto()}
-				>
+                <TouchableOpacity onPress={this.choosePhoto}>
 					<Image
 						resizeMode={'contain'} 
                         source={ 
-                            this.props.user.user.image == '' 
+                            this.props.user.user.image == '' || this.props.user.user.image == null
                             ? images.icon_img_ava_grey
                             : {uri: `http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/media/profile/10/original-${this.props.user.user.image}`}
                         }
 						style={
-                            this.props.user.user.image == ''
-                            ? styles.dummyPhoto
-                            : styles.photo
+                            this.props.user.user.image == '' || this.props.user.user.image == null
+                            ? styles.photo.dummy
+                            : styles.photo.real
                         }
 					/>
 				</TouchableOpacity>
-                <Text style={styles.userName}>{this.props.user.user.name}</Text>
-                <Text style={styles.userEmail}>{this.props.user.user.email}</Text>
+                <Text style={styles.user.name}>{this.props.user.user.name}</Text>
+                <Text style={styles.user.phone}>{this.props.user.user.phone_number}</Text>
                 
             </ImageBackground>
         );

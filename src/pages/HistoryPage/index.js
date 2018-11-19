@@ -11,6 +11,10 @@ import actions from '@actions';
 class HistoryPage extends Component {
   	constructor(props) {
 		super(props);
+		this.state = {
+			refreshing: false,
+		}
+		this.refreshHandler = this.refreshHandler.bind(this);
 		this.getHistoryData = this.getHistoryData.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
@@ -19,6 +23,12 @@ class HistoryPage extends Component {
 	
 	componentDidMount(){
 		this.getHistoryData();
+	}
+
+	refreshHandler(){
+		this.setState({refreshing: true},() => {
+			this.getHistoryData();
+		});
 	}
 
 	getHistoryData(){
@@ -31,6 +41,7 @@ class HistoryPage extends Component {
 
 		this.props.get_transaction(payload, 
 			(success) => {
+				if(this.state.refreshing != false) this.setState({refreshing: false});
 			},
 			(err) => {
 				console.log(err);
@@ -78,6 +89,8 @@ class HistoryPage extends Component {
   	  	  		<View style={styles.container}>
 					<FlatList
 						data={this.props.transactions}
+						onRefresh={this.refreshHandler}
+						refreshing={this.state.refreshing}
 						onEndReached={this.getHistoryData}
 						onEndReachedThreshold={0.05}
 						keyExtractor={(item) => String(item.invoice)}

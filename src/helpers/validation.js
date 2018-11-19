@@ -92,4 +92,30 @@ validation.address = (address) =>  new Promise((res,rej) => {
     } else rej('name');
 })
 
+validation.resetPassword = (user) => new Promise((res,rej) => {
+    if(user.oldPassword.length > 0) {
+        if(user.oldPassword.length > 7) {
+            if(user.newPassword.length > 0) {
+                if(user.newPassword.length > 7) {
+                    if(user.newPassword == user.confirmPassword) res();
+                    else rej('confirmPassword')
+                } else rej('password')
+            } else rej('passwordLength')
+        } else rej('oldPassword')
+    } else rej('oldPasswordLength')
+})
+
+validation.forgotPassword = (user) => new Promise((res,rej) => {
+    if(user.newPassword.length > 0) {
+        if(user.newPassword.length > 7) {
+            if(user.newPassword == user.confirmPassword) {
+                if(user.otp.length > 0) {
+                    if(user.otp.length > 3) res();
+                    else rej('otp')
+                } else rej('otpLength')
+            } else rej('confirmPassword')
+        } else rej('password')
+    } else rej('passwordLength')
+})
+
 export default validation;

@@ -55,7 +55,6 @@ class SignIn extends Component {
         validateStatus.phone = true;
         validateStatus.password = true;
         validateStatus.passwordLength = true;
-        validateStatus.login = true;
         this.setState({validateStatus});
     }
 
@@ -126,19 +125,19 @@ class SignIn extends Component {
         },
         state.isWrong= false,
         state.messageWrong= '',
-        this.setState({state});
+        this.setState(state);
         actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
     }
 
     navigateToForgotPassword(){
         let state = this.state;
         state.user = {
-            email: '',
+            phone: '',
             password: ''
         },
         state.isWrong= false,
         state.messageWrong= '',
-        this.setState({state});
+        this.setState(state);
         actNav.navigate(navConstant.ForgotPassword);
     }
 
@@ -155,7 +154,7 @@ class SignIn extends Component {
                 <ScrollView
                     keyboardShouldPersistTaps={'always'} 
                     style={styles.container}
-                    contentContainerStyle={styles.content}
+                    // contentContainerStyle={styles.content}
                 >
                     <FormInput 
                         ref={c => {this.formPhone = c}}
@@ -175,7 +174,6 @@ class SignIn extends Component {
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
-                        autoFocus={false}
                         value={this.state.user.password}
                         isPassword={true}
                         onChangeText={this.onChangeText}

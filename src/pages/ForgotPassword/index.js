@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
-import { ScrollView, Keyboard, Text } from 'react-native';
+import { View, ScrollView, Keyboard, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import VerificationText from '@components/VerificationText';
@@ -30,6 +30,7 @@ class ForgotPassword extends Component {
             isWrong: false,
             messageWrong: '',
         }
+        this.navigateBack = this.navigateBack.bind(this);
         this.onChangeText = this.onChangeText.bind(this);
         this.setModalVisible = this.setModalVisible.bind(this);
         this.setValidation = this.setValidation.bind(this);
@@ -38,6 +39,10 @@ class ForgotPassword extends Component {
         this.forgotPasswordValidation = this.forgotPasswordValidation.bind(this);
         this.forgotPasswordHandler = this.forgotPasswordHandler.bind(this);
         this.closeDialogResetPasswordSuccess = this.closeDialogResetPasswordSuccess.bind(this);
+    }
+
+    navigateBack() {
+        actNav.goBack();
     }
 
     onChangeText(type,value){
@@ -91,21 +96,21 @@ class ForgotPassword extends Component {
             }
         }
 
-        this.props.forgot_password(payload,
-            (success) => {
-                this.setModalVisible('resetPasswordSuccess',true);
-                let state = this.state;
-                state.messageResetPassword = success.code_message;
-                state.isWrong= false,
-                state.messageWrong= '',
-                this.setState({state});
-            },
-            (err) => {
-                let state = this.state;
-                state.isWrong = true;
-                state.messageWrong = err.code_message;
-                this.setState({state})
-            })
+        actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
+        // this.props.forgot_password(payload,
+        //     (success) => {
+        //         actNav.navigate(navConstant.ResetPasswordPage)
+        //     },
+        //     (err) => {
+        //         language.transformText('message.invalidPhone')
+        //         .then(message => {
+        //             this.props.set_error_status({
+        //                 status: true,
+        //                 title: 'formError.title.default',
+        //                 data: message,
+        //             });
+        //         });
+        //     })
         
     }
 
@@ -122,9 +127,10 @@ class ForgotPassword extends Component {
             >
                 <NavigationBar 
                     title={'forgotPassword.navigationTitle'}
-                    onPress={actNav.goBack}
+                    onPress={this.navigateBack}
                 />
-                <ScrollView 
+                <ScrollView
+                    keyboardShouldPersistTaps={'handled'}
                     style={styles.container}
                     contentContainerStyle={styles.content}
                 >
@@ -137,36 +143,31 @@ class ForgotPassword extends Component {
                         value={this.state.user.phone}
                         onChangeText={this.onChangeText}
                         label={'forgotPassword.formLabel.phone'}
-                        placeholder={'forgotPassword.formLabel.phone'}
+                        placeholder={'signIn.formLabel.examplePhone'}
                         onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.phone}
                         property={'forgotPassword.validation.phone'}
                     />
-                    { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : (null) }
-                    <Button
-                        type={'red'}
-                        title={'forgotPassword.button.submit'}
-                        onPress={this.forgotPasswordValidation}
-                    />
+                    { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : null }
+                    <View style={styles.button}>
+                        <Button
+                            type={'red'}
+                            title={'forgotPassword.button.submit'}
+                            onPress={this.forgotPasswordValidation}
+                        />
+                    </View>
                 </ScrollView>
-                <ResetPasswordSuccess
-                    messageResetPassword = {this.state.messageResetPassword}
-                    modalVisible={this.state.modalVisible.resetPasswordSuccess}
-                    closeDialogResetPasswordSuccess={this.closeDialogResetPasswordSuccess}
-                />
             </Container>
         )
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        forgot_password: (req, success, failure) => dispatch(actions.auth.api.forgot_password(req, success, failure))
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    forgot_password: (req,res,err) => dispatch(actions.auth.api.forgot_password(req,res,err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+    set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+})
 
-export default connect(
-    null,
-    mapDispatchToProps)(ForgotPassword);
+export default connect(null,mapDispatchToProps)(ForgotPassword);

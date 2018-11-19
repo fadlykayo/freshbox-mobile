@@ -11,12 +11,15 @@ const styles = {
         paddingRight: width * 0.05,
     },
     content:{
-        flex: 1,
+        // flex: 1,
     },
     messageWrong: {
         color: colour.red,
         fontSize: scaling.moderateScale(14),
         marginBottom: scaling.moderateScale(5),
+    },
+    button: {
+        marginTop: width * 0.05,
     }
 }
 
