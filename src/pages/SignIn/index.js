@@ -1,34 +1,34 @@
 import React,{ Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StatusBar, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
-import Button from './components/Button';
+import Button from '@components/Button';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import styles from './styles';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class SignIn extends Component {
     constructor(){
         super();
         this.state={
             user:{
-                email: '',
+                phone: '',
                 password: ''
             },
             validateStatus:{
-                emailFormat: true,
-                emailLength: true,
+                phone: true,
                 password: true,
                 passwordLength: true,
-                login: true,
             }
         }
         this.onChangeText = this.onChangeText.bind(this);
-        this.submitEmail = this.submitEmail.bind(this);
+        this.submitPhone = this.submitPhone.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
         this.signInValidation = this.signInValidation.bind(this);
         this.signInHandler = this.signInHandler.bind(this);
@@ -39,31 +39,29 @@ class SignIn extends Component {
     }
 
     onChangeText(type,value){
-        let user = this.state.user;
+        let user = JSON.parse(JSON.stringify(this.state.user));
         user[type] = value;
         this.setState({user});
     }
 
     setValidation(type,value){
-        let validateStatus = this.state.validateStatus;
+        let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
         validateStatus[type] = value;
         this.setState({validateStatus});
     }
 
     clearValidation(){
-        let validateStatus = this.state.validateStatus;
-        validateStatus.emailFormat = true;
-        validateStatus.emailLength = true;
+        let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
+        validateStatus.phone = true;
         validateStatus.password = true;
         validateStatus.passwordLength = true;
-        validateStatus.login = true;
         this.setState({validateStatus});
     }
 
-    submitEmail(){
-        let userEmail = this.state.user.email.trim();
+    submitPhone(){
+        let userPhone = this.state.user.phone.trim();
         this.clearValidation();
-        this.onChangeText('email',userEmail);
+        this.onChangeText('phone',userPhone);
         this.formPassword.focus();
     }
 
@@ -76,98 +74,112 @@ class SignIn extends Component {
     }
 
     signInValidation(){
-        validation.emailLength(this.state.user.email)
+        this.clearValidation();
+        validation.signInEmail(this.state.user.phone,this.state.user.password)
         .then(() => {
-            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
-            validation.emailFormat(this.state.user.email)
-            .then(() => {
-                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
-                validation.passwordLength(this.state.user.password)
-                .then(() => {
-                    if(this.state.validateStatus.passwordLength == false) this.setValidation('passwordLength',true);
-                    validation.password(this.state.user.password)
-                    .then(() => {
-                        this.signInHandler();
-                    })
-                    .catch(() => {
-                        this.setValidation('password',false);
-                    })
-                })
-                .catch(() => {
-                    this.setValidation('passwordLength',false);
-                });
-            })
-            .catch(() => {
-                this.setValidation('emailFormat',false);
-            })
+            this.signInHandler();
         })
-        .catch(() => {
-            this.setValidation('emailLength',false);
+        .catch(err => {
+            this.setValidation(err,false);
         });
     }
 
     signInHandler(){
-        alert('SignIn')
+        let payload = {
+            header: {},
+            body: {
+                phone_number: this.state.user.phone,
+                password: this.state.user.password
+            }
+        }
+
+        this.props.sign_in(payload,
+            (success) => {
+                if (this.props.navigation.state.params.action == "menuLogin") {
+                    actNav.reset(navConstant.Product);
+                }
+                else if (this.props.navigation.state.params.action == "guestLogin") {
+                    actNav.goBack();
+                }
+            },
+            (err) => {
+                if(err.code == 400) {
+                    language.transformText('message.invalidSignIn')
+                    .then(message => {
+                        this.props.set_error_status({
+                            status: true,
+                            title: 'formError.title.default',
+                            data: message,
+                        });
+                    });
+                }
+            }
+        );
     }
 
     navigateToRegister(){
-        actNav.navigate(navConstant.Register);
+        let state = this.state;
+        state.user = {
+            phone: '',
+            password: ''
+        },
+        state.isWrong= false,
+        state.messageWrong= '',
+        this.setState(state);
+        actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
     }
 
     navigateToForgotPassword(){
+        let state = this.state;
+        state.user = {
+            phone: '',
+            password: ''
+        },
+        state.isWrong= false,
+        state.messageWrong= '',
+        this.setState(state);
         actNav.navigate(navConstant.ForgotPassword);
     }
 
     render(){
         return(
-            <Container>
+            <Container
+                bgColorBottom={'white'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar 
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}
                 />
-                <ScrollView 
+                <ScrollView
+                    keyboardShouldPersistTaps={'always'} 
                     style={styles.container}
-                    contentContainerStyle={styles.content}
+                    // contentContainerStyle={styles.content}
                 >
                     <FormInput 
-                        ref={c => {this.formEmail = c}}
-                        type={'email'}
+                        ref={c => {this.formPhone = c}}
+                        type={'phone'}
                         autoFocus={true}
-                        keyboardType={'email-address'}
-                        value={this.state.user.email}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'signIn.formLabel.email'}
-                        placeholder={'signIn.formLabel.email'}
-                        onSubmitEditing={this.submitEmail}
+                        keyboardType={'number-pad'}
+                        value={this.state.user.phone}
+                        onChangeText={this.onChangeText}
+                        label={'signIn.formLabel.phone'}
+                        placeholder={'signIn.formLabel.examplePhone'}
+                        onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.emailLength}
-                        property={'signIn.validation.emailLength'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.emailFormat}
-                        property={'signIn.validation.emailFormat'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.login}
-                        property={'signIn.validation.login'}
+                        validation={this.state.validateStatus.phone}
+                        property={'signIn.validation.phone'}
                     />
                     <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
-                        autoFocus={false}
-
-                        secureTextEntry={true}
                         value={this.state.user.password}
                         isPassword={true}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
+                        onChangeText={this.onChangeText}
                         label={'signIn.formLabel.password'}
                         placeholder={'signIn.formLabel.password'}
                         onSubmitEditing={this.submitPassword}
-                    />
-
-                    <ForgotPassword 
-                        onPress={this.navigateToForgotPassword}
                     />
                     <VerificationText
                         validation={this.state.validateStatus.password}
@@ -177,11 +189,11 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.passwordLength}
                         property={'signIn.validation.passwordLength'}
                     />
-                    <VerificationText
-                        validation={this.state.validateStatus.login}
-                        property={'signIn.validation.login'}
+                    <ForgotPassword 
+                        onPress={this.navigateToForgotPassword}
                     />
-                    <Button 
+                    <Button
+                        type={'red'}
                         title={'signIn.button.signIn'}
                         onPress={this.signInValidation}
                     />
@@ -194,4 +206,9 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+});
+
+export default connect(null,mapDispatchToProps)(SignIn);

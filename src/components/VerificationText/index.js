@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { language } from '@helpers';
 import styles from './styles';
 
-class StaticText extends PureComponent {
+class VerificationText extends PureComponent {
     constructor(){
         super();
         this.state={
@@ -16,7 +16,7 @@ class StaticText extends PureComponent {
         this.renderText(this.props.property,this.props.language,this.props.params);
     }
 
-    renderText(property = 'no_props',lang = 'english',params = {}){
+    renderText(property = 'no_props',lang = 'id',params = {}){
         language.transformText(property,lang,params)
         .then((res) => {
             this.setState({outputText: res});
@@ -31,4 +31,4 @@ class StaticText extends PureComponent {
     }
 }
 
-export default StaticText;
+export default VerificationText;

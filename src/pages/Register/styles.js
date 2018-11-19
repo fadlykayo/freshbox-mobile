@@ -8,13 +8,12 @@ const styles = {
         flex: 1,
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,
-        paddingTop: width * 0.05
+        paddingTop: width * 0.05,
     },
     content:{
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
     }
-
 }
 
 export default styles;

@@ -6,17 +6,11 @@ const { width } = Dimensions.get('window');
 
 const styles = {
     container:{
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginBottom: scaling.moderateScale(10),
     },
-    termsAndCondition:{
-        fontFamily: 'Avenir-Light',
-        fontSize: scaling.moderateScale(12),
-        color: colour.white,
-        textAlign: 'center',
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
-    }
 }
 
 export default styles;

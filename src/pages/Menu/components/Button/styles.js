@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container:{
-        height: scaling.moderateScale(50),
+        height: scaling.moderateScale(40),
         width: width * 0.9,
         alignItems: 'center',
         justifyContent: 'center',

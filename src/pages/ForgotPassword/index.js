@@ -1,40 +1,48 @@
 import React,{ Component } from 'react';
-import { ScrollView, Keyboard } from 'react-native';
+import { View, ScrollView, Keyboard, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
-import Button from './components/Button';
+import FormInput from '@components/FormInput';
+import Button from '@components/Button';
 import styles from './styles';
 import Logo from './components/Logo';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess';
+import { connect } from 'react-redux';
+import actions from '@actions';
 
 class ForgotPassword extends Component {
     constructor(){
         super();
         this.state={
             user:{
-                email: '',
-                autoFocus: true,
+                phone: '',
             }, 
             validateStatus:{
-                emailFormat: true,
-                emailLength: true
+                phone: true,
             },
             modalVisible:{
                 resetPasswordSuccess: false,
-            }
+            },
+            messageResetPassword: '',
+            isWrong: false,
+            messageWrong: '',
         }
+        this.navigateBack = this.navigateBack.bind(this);
         this.onChangeText = this.onChangeText.bind(this);
         this.setModalVisible = this.setModalVisible.bind(this);
         this.setValidation = this.setValidation.bind(this);
         this.clearValidation = this.clearValidation.bind(this);
-        this.submitEmail = this.submitEmail.bind(this);
+        this.submitPhone = this.submitPhone.bind(this);
         this.forgotPasswordValidation = this.forgotPasswordValidation.bind(this);
         this.forgotPasswordHandler = this.forgotPasswordHandler.bind(this);
         this.closeDialogResetPasswordSuccess = this.closeDialogResetPasswordSuccess.bind(this);
+    }
+
+    navigateBack() {
+        actNav.goBack();
     }
 
     onChangeText(type,value){
@@ -42,6 +50,7 @@ class ForgotPassword extends Component {
         user[type] = value;
         this.setState({user});
     }
+
 
     setModalVisible(type,value){
         let modalVisible = this.state.modalVisible;
@@ -57,38 +66,52 @@ class ForgotPassword extends Component {
 
     clearValidation(){
         let validateStatus = this.state.validateStatus;
-        validateStatus.emailFormat = true;
-        validateStatus.emailLength = true;
+        validateStatus.phone = true;
         this.setState({validateStatus});
     }
 
-    submitEmail(){
-        let userEmail = this.state.user.email.trim();
+    submitPhone(){
+        let userPhone = this.state.user.phone.trim();
         this.clearValidation();
-        this.onChangeText('email',userEmail);
+        this.onChangeText('phone',userPhone);
         this.forgotPasswordValidation();
     }
 
     forgotPasswordValidation(){
-        validation.emailLength(this.state.user.email)
+        validation.phone(this.state.user.phone)
         .then(() => {
-            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
-            validation.emailFormat(this.state.user.email)
-            .then(() => {
-                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
-                this.forgotPasswordHandler();
-            })
-            .catch(() => {
-                this.setValidation('emailFormat',false);
-            })
+            if(this.state.validateStatus.phone == false) this.setValidation('phone',true);
+            this.forgotPasswordHandler();
         })
         .catch(() => {
-            this.setValidation('emailLength',false);
-        });
+            this.setValidation('emailFormat',false);
+        })
     }
 
     forgotPasswordHandler(){
-        this.setModalVisible('resetPasswordSuccess',true);
+        let payload = {
+            header: {},
+            body: {
+                phone_number: this.state.user.phone
+            }
+        }
+
+        actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
+        // this.props.forgot_password(payload,
+        //     (success) => {
+        //         actNav.navigate(navConstant.ResetPasswordPage)
+        //     },
+        //     (err) => {
+        //         language.transformText('message.invalidPhone')
+        //         .then(message => {
+        //             this.props.set_error_status({
+        //                 status: true,
+        //                 title: 'formError.title.default',
+        //                 data: message,
+        //             });
+        //         });
+        //     })
+        
     }
 
     closeDialogResetPasswordSuccess(){
@@ -98,47 +121,53 @@ class ForgotPassword extends Component {
 
     render(){
         return(
-            <Container>
+            <Container 				
+                bgColorBottom={'veryLightGrey'} 				
+                bgColorTop={'red'} 			
+            >
                 <NavigationBar 
                     title={'forgotPassword.navigationTitle'}
-                    onPress={actNav.goBack}
+                    onPress={this.navigateBack}
                 />
-                <ScrollView 
+                <ScrollView
+                    keyboardShouldPersistTaps={'handled'}
                     style={styles.container}
                     contentContainerStyle={styles.content}
                 >
                     <Logo />
                     <FormInput 
-                        ref={c => {this.formEmail = c}}
-                        type={'email'}
-                        autoFocus={this.state.user.autoFocus}
-                        keyboardType={'email-address'}
-                        value={this.state.user.email}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'forgotPassword.formLabel.email'}
-                        placeholder={'forgotPassword.formLabel.email'}
-                        onSubmitEditing={this.submitEmail}
+                        ref={c => {this.formPhone = c}}
+                        type={'phone'}
+                        autoFocus={true}
+                        keyboardType={'number-pad'}
+                        value={this.state.user.phone}
+                        onChangeText={this.onChangeText}
+                        label={'forgotPassword.formLabel.phone'}
+                        placeholder={'signIn.formLabel.examplePhone'}
+                        onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.emailLength}
-                        property={'forgotPassword.validation.emailLength'}
+                        validation={this.state.validateStatus.phone}
+                        property={'forgotPassword.validation.phone'}
                     />
-                    <VerificationText
-                        validation={this.state.validateStatus.emailFormat}
-                        property={'forgotPassword.validation.emailFormat'}
-                    />
-                    <Button 
-                        title={'forgotPassword.button.submit'}
-                        onPress={this.forgotPasswordValidation}
-                    />
+                    { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : null }
+                    <View style={styles.button}>
+                        <Button
+                            type={'red'}
+                            title={'forgotPassword.button.submit'}
+                            onPress={this.forgotPasswordValidation}
+                        />
+                    </View>
                 </ScrollView>
-                <ResetPasswordSuccess
-                    modalVisible={this.state.modalVisible.resetPasswordSuccess}
-                    closeDialogResetPasswordSuccess={this.closeDialogResetPasswordSuccess}
-                />
             </Container>
         )
     }
 }
 
-export default ForgotPassword;
+const mapDispatchToProps = dispatch => ({
+    forgot_password: (req,res,err) => dispatch(actions.auth.api.forgot_password(req,res,err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+    set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+})
+
+export default connect(null,mapDispatchToProps)(ForgotPassword);

@@ -4,13 +4,13 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container:{
-        flex: 1,
-        minHeight: height * 0.2,
+        flex: -1,
+        height: height * 0.5,
         alignItems: 'center',
         justifyContent: 'center',
     },
     logo:{
-        width: width * 0.5,
+        width: width * 0.6,
     }
 }
 

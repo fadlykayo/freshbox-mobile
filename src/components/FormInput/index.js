@@ -38,10 +38,12 @@ class FormInput extends Component {
 
     onFocus(){
         this.focusHandler(true);
+        if(this.props.onFocusHandler) this.props.onFocusHandler()
     }
 
     onBlur(){
         this.focusHandler(false);
+        if(this.props.onBlurHandler) this.props.onBlurHandler()
     }
 
     blur(){
@@ -132,6 +134,7 @@ class FormInput extends Component {
 					multiline={this.state.multiline}
 					onChangeText={this.onChangeText}
                     value={this.props.value}
+                    numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
                     placeholder={this.state.placeholder}
 					maxLength={this.state.maxLength}
 					editable={this.state.editable}

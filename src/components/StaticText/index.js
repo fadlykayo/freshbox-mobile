@@ -1,12 +1,12 @@
-import React,{ PureComponent } from 'react';
+import React,{ Component } from 'react';
 import { Text } from 'react-native';
 import { language } from '@helpers';
 
-class StaticText extends PureComponent {
-    constructor(){
-        super();
+class StaticText extends Component {
+    constructor(props){
+        super(props);
         this.state={
-            outputText: ''
+            outputText: '',
         }
         this.renderText = this.renderText.bind(this);
     }
@@ -14,8 +14,31 @@ class StaticText extends PureComponent {
     componentDidMount(){
         this.renderText(this.props.property,this.props.language,this.props.params);
     }
+    
+    shouldComponentUpdate(nextProps,nextState){
+        if(this.state.outputText != nextState.outputText){
+            return true;
+        } else {
+            if(this.props.property != nextProps.property){
+                if(this.props.params != nextProps.params){
+                    this.renderText(nextProps.property,this.props.language,nextProps.params);
+                    return true
+                } else {
+                    this.renderText(nextProps.property,this.props.language,this.props.params);
+                    return true;
+                }
+            } else {
+                if(this.props.params != nextProps.params){
+                    this.renderText(this.props.property,this.props.language,nextProps.params);
+                    return true
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
 
-    renderText(property = 'no_props',lang = 'english',params = {}){
+    renderText(property = 'no_props',lang = 'id',params = {}){
         language.transformText(property,lang,params)
         .then((res) => {
             this.setState({outputText: res});
@@ -23,9 +46,33 @@ class StaticText extends PureComponent {
     }
 
     render(){
-        return(
-            <Text style={this.props.style}>{this.state.outputText}</Text>
+        if(this.props.numberOfLines && this.props.ellipsizeMode && this.props.onPress) return(
+            <Text
+                style={this.props.style}
+                numberOfLines={this.props.numberOfLines}
+                ellipsizeMode={this.props.ellipsizeMode}
+                onPress={this.props.onPress}
+            >
+                {this.state.outputText}
+            </Text>
         )
+        else {
+            if (this.props.onPress){
+                return(
+                    <Text
+                        onPress={this.props.onPress} 
+                        style={this.props.style}
+                    >
+                        {this.state.outputText}
+                    </Text>
+                )
+            }
+            else {
+                return(
+                    <Text style={this.props.style}>{this.state.outputText}</Text>
+                )
+            }
+        }
     }
 }
 

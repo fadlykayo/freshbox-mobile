@@ -1,27 +1,45 @@
 import React,{ PureComponent } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { GoogleSignin } from 'react-native-google-signin';
 import { actNav, navConstant } from '@navigations';
 import { socmed } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
+import TermsConditions from './components/TermsConditions';
+import StaticText from '@components/StaticText';
+import Container from '@components/Container';
 import images from '@assets';
 import styles from './styles';
 
 class Menu extends PureComponent {
     constructor(){
         super();
+        this.navigateToProduct = this.navigateToProduct.bind(this);
         this.navigateToSignIn = this.navigateToSignIn.bind(this);
         this.facebookHandler = this.facebookHandler.bind(this);
         this.setupGoogleClient = this.setupGoogleClient.bind(this);
+        this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
+        this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setupGoogleClient();
     }
 
-    navigateToSignIn(){
-        actNav.navigate(navConstant.SignIn);
+    navigateToTermsConditions() {
+        actNav.navigate(navConstant.TermsConditions)
+    }
+
+    navigateToPrivacyPolicy() {
+        actNav.navigate(navConstant.PrivacyPolicy)
+    }
+
+    navigateToProduct() {
+        actNav.reset(navConstant.Product)
+    }
+
+    navigateToSignIn() {
+        actNav.navigate(navConstant.SignIn, { action: 'menuLogin' });
     }
 
     async setupGoogleClient(){
@@ -65,15 +83,24 @@ class Menu extends PureComponent {
                     source={images.background_welcome}
                     style={styles.background}
                 >
-                    <Logo />
-                    <Content 
-                        getStartedHandler={this.navigateToSignIn}
-                        facebookHandler={this.facebookHandler}
-                        emailHandler={this.navigateToSignIn}
-                        googleHandler={this.googleHandler}
-                    />
+                    <Container
+                        noBackground={true}
+                    >
+                        <Logo />
+                        <Content 
+                            getStartedHandler={this.navigateToProduct}
+                            facebookHandler={this.facebookHandler}
+                            emailHandler={this.navigateToSignIn}
+                            googleHandler={this.googleHandler}
+                        />
+                        <TermsConditions
+                            navigateToTermsConditions={this.navigateToTermsConditions}
+                            navigateToPrivacyPolicy={this.navigateToPrivacyPolicy}
+                        />
+                    </Container>
                 </ImageBackground>
             </View>
+            
         )
     }
 }

@@ -21,17 +21,12 @@ class Content extends PureComponent {
                     onPress={this.props.facebookHandler}
                 />
                 <Button
-                    navigate={this.props.navigate} 
                     type={'email'}
                     onPress={this.props.emailHandler}
                 />
                 <Button 
                     type={'google'}
                     onPress={this.props.googleHandler}
-                />
-                <StaticText 
-                    style={styles.termsAndCondition}
-                    property={'welcome.content.termsCondition'}
                 />
             </View>
         )

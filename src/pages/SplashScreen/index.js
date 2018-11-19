@@ -1,4 +1,5 @@
 import React,{ PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { View, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import images from '@assets';
@@ -11,12 +12,22 @@ class SplashScreen extends PureComponent {
 
     componentDidMount(){
         setTimeout(() => {
-            actNav.navigate(navConstant.Menu);
-        },1000);
+            if (this.props.on_boarding) {
+                if(this.props.user == null){
+                    actNav.reset(navConstant.Menu);
+                } 
+                else {
+                    actNav.reset(navConstant.Product);
+                }
+            }
+            else {
+                actNav.navigate(navConstant.OnBoarding);
+            }
+        },2000);
     }
 
     render(){
-        return(
+        return (
             <View style={styles.container}>
                 <Image
                     resizeMode={'contain'} 
@@ -28,4 +39,9 @@ class SplashScreen extends PureComponent {
     }
 }
 
-export default SplashScreen;
+const mapStateToProps = state => ({
+    user: state.user.data,
+    on_boarding: state.utility.on_boarding
+});
+
+export default connect(mapStateToProps,null)(SplashScreen);

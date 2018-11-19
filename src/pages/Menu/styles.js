@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import { colour } from '@styles';
+import { scaling } from '@helpers';
 
 const { width } = Dimensions.get('window');
 
@@ -13,7 +14,7 @@ const styles = {
     background:{
         flex: 1,
         width: width,
-    }
+    },
 }
 
 export default styles;
