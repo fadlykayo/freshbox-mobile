@@ -12,9 +12,18 @@ const styles = {
 			color: colour.darkGrey,
 		},
 		price:{
-			fontFamily: 'Avenir-Medium',
-			fontSize: scaling.moderateScale(12),
-			color: colour.darkGrey,
+			promo: {
+				fontFamily: 'Avenir-Medium',
+				fontSize: scaling.moderateScale(12),
+				color: colour.grey,
+				textDecorationLine: 'line-through',
+				
+			},
+			normal: {
+				fontFamily: 'Avenir-Medium',
+				fontSize: scaling.moderateScale(12),
+				color: colour.darkGrey,
+			}
 		},
 		desc:{
 			fontFamily: 'Avenir-Medium',

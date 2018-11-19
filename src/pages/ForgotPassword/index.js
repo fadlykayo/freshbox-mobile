@@ -18,11 +18,10 @@ class ForgotPassword extends Component {
         super();
         this.state={
             user:{
-                email: '',
+                phone: '',
             }, 
             validateStatus:{
-                emailFormat: true,
-                emailLength: true
+                phone: true,
             },
             modalVisible:{
                 resetPasswordSuccess: false,
@@ -35,7 +34,7 @@ class ForgotPassword extends Component {
         this.setModalVisible = this.setModalVisible.bind(this);
         this.setValidation = this.setValidation.bind(this);
         this.clearValidation = this.clearValidation.bind(this);
-        this.submitEmail = this.submitEmail.bind(this);
+        this.submitPhone = this.submitPhone.bind(this);
         this.forgotPasswordValidation = this.forgotPasswordValidation.bind(this);
         this.forgotPasswordHandler = this.forgotPasswordHandler.bind(this);
         this.closeDialogResetPasswordSuccess = this.closeDialogResetPasswordSuccess.bind(this);
@@ -62,41 +61,33 @@ class ForgotPassword extends Component {
 
     clearValidation(){
         let validateStatus = this.state.validateStatus;
-        validateStatus.emailFormat = true;
-        validateStatus.emailLength = true;
+        validateStatus.phone = true;
         this.setState({validateStatus});
     }
 
-    submitEmail(){
-        let userEmail = this.state.user.email.trim();
+    submitPhone(){
+        let userPhone = this.state.user.phone.trim();
         this.clearValidation();
-        this.onChangeText('email',userEmail);
+        this.onChangeText('phone',userPhone);
         this.forgotPasswordValidation();
     }
 
     forgotPasswordValidation(){
-        validation.emailLength(this.state.user.email)
+        validation.phone(this.state.user.phone)
         .then(() => {
-            if(this.state.validateStatus.emailLength == false) this.setValidation('emailLength',true);
-            validation.emailFormat(this.state.user.email)
-            .then(() => {
-                if(this.state.validateStatus.emailFormat == false) this.setValidation('emailFormat',true);
-                this.forgotPasswordHandler();
-            })
-            .catch(() => {
-                this.setValidation('emailFormat',false);
-            })
+            if(this.state.validateStatus.phone == false) this.setValidation('phone',true);
+            this.forgotPasswordHandler();
         })
         .catch(() => {
-            this.setValidation('emailLength',false);
-        });
+            this.setValidation('emailFormat',false);
+        })
     }
 
     forgotPasswordHandler(){
         let payload = {
             header: {},
             body: {
-                email: this.state.user.email
+                phone_number: this.state.user.phone
             }
         }
 
@@ -139,23 +130,19 @@ class ForgotPassword extends Component {
                 >
                     <Logo />
                     <FormInput 
-                        ref={c => {this.formEmail = c}}
-                        type={'email'}
+                        ref={c => {this.formPhone = c}}
+                        type={'phone'}
                         autoFocus={true}
-                        keyboardType={'email-address'}
-                        value={this.state.user.email}
-                        onChangeText={(type,value) => this.onChangeText(type,value)}
-                        label={'forgotPassword.formLabel.email'}
-                        placeholder={'forgotPassword.formLabel.email'}
-                        onSubmitEditing={this.submitEmail}
+                        keyboardType={'number-pad'}
+                        value={this.state.user.phone}
+                        onChangeText={this.onChangeText}
+                        label={'forgotPassword.formLabel.phone'}
+                        placeholder={'forgotPassword.formLabel.phone'}
+                        onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
-                        validation={this.state.validateStatus.emailLength}
-                        property={'forgotPassword.validation.emailLength'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.emailFormat}
-                        property={'forgotPassword.validation.emailFormat'}
+                        validation={this.state.validateStatus.phone}
+                        property={'forgotPassword.validation.phone'}
                     />
                     { this.state.isWrong ? (<Text style={styles.messageWrong}>{ this.state.messageWrong }</Text>) : (null) }
                     <Button

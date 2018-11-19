@@ -1,15 +1,21 @@
 import ct from '@constants';
 
 const initialState = {
+    params: {
+        page: 1
+    },
     transactions: [],
     detail: {}
 }
 
 const getTransactions = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state))
-
     let incomingProducts = payload.data.data;
     let existingProducts = newState.transactions.slice();
+
+    if (payload.data.current_page < payload.data.last_page) {
+        newState.params.page = payload.data.current_page + 1;
+    }
 
     for(x in incomingProducts){
         let sameValue = false;
@@ -23,7 +29,7 @@ const getTransactions = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.transactions = existingProducts.sort((a,b) => b.checkout_date < a.checkout_date);
+    newState.transactions = existingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
     return newState
 }
 

@@ -17,7 +17,7 @@ class ChoosePayment extends Component {
             },
             grandTotalPrice: 0,
             contents: [
-                // 'choosePayment.content.creditCard',
+                'choosePayment.content.creditCard',
                 'choosePayment.content.virtualAccount',
             ]
         }
@@ -61,7 +61,9 @@ class ChoosePayment extends Component {
                         }                        
                     </View>
                     <TotalPrice
+                        action={'choosePayment'}
                         subTotal={this.props.totalPrice}
+                        additional={this.props.additional}
                         grandTotal={this.state.grandTotalPrice}
                         delivery_price={this.props.delivery_price}
                     />
@@ -72,6 +74,7 @@ class ChoosePayment extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    additional: state.product.additional.credit_card,
     user: state.user.data,
     totalPrice: state.product.total.price,
     delivery_price: state.product.delivery_price

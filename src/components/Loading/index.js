@@ -17,7 +17,7 @@ class Loading extends PureComponent {
 					<Image
 						resizeMode={'contain'}
 						style={styles.loadingImage}
-						source={images.loading}
+						source={images.loading_apple}
 					/>
 					<StaticText 
 						style={styles.loadingText}

@@ -19,6 +19,7 @@ import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
+import PrivacyPolicy from '@pages/PrivacyPolicy';
 import ContactUs from '@pages/ContactUs';
 import Checkout from '@pages/Checkout';
 import ChooseAddress from '@pages/ChooseAddress';
@@ -28,6 +29,7 @@ import TransferBank from '@pages/TransferBank';
 import VirtualAccount from '@pages/VirtualAccount';
 import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
+import OTP from '@pages/OTP'
 
 let _navigator;
 
@@ -63,8 +65,10 @@ export const AppNavigator = createStackNavigator({
     ProfilePage: {screen: ProfilePage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
+    PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
-    TransferInstruction: {screen: TransferInstruction}
+    TransferInstruction: {screen: TransferInstruction},
+    OTP: {screen: OTP},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -111,6 +115,7 @@ export const navConstant = {
     ResetPasswordPage: 'ResetPasswordPage',
     Favourites: 'Favourites',
     TermsConditions: 'TermsConditions',
+    PrivacyPolicy: 'PrivacyPolicy',
     ContactUs: 'ContactUs',
     Checkout: 'Checkout',
     HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',
@@ -122,6 +127,7 @@ export const navConstant = {
     VirtualAccount: 'VirtualAccount',
     OnBoarding: 'OnBoarding',
     TransferInstruction: 'TransferInstruction',
+    OTP: 'OTP',
 }
 
 export const setNavigator = (navigatorRef) => {

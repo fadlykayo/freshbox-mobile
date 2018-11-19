@@ -41,11 +41,14 @@ images.icon_logo_mandiri = require('./icon_logo_mandiri.png');
 images.icon_logo_bni = require('./icon_logo_bni.png');
 images.icon_logo_permata = require('./icon_logo_permata.png');
 images.loading = require('./loading.gif');
+images.loading_apple = require('./loading_apple.gif');
 images.icon_combined_shape = require('./icon_combined_shape.png');
 images.icon_all_categories = require('./icon_all_categories.png');
 images.icon_trash = require('./icon_trash.png');
 images.icon_right_red = require('./icon_right_red.png');
 images.icon_clear_search = require('./icon_clear_search.png');
-
+images.icon_copy = require('./icon_copy.png');
+images.icon_clear = require('./icon_clear.png');
+images.icon_credit_card = require('./icon_credit_card.png');
 
 export default images;

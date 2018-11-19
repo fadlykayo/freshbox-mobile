@@ -134,6 +134,7 @@ class FormInput extends Component {
 					multiline={this.state.multiline}
 					onChangeText={this.onChangeText}
                     value={this.props.value}
+                    numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
                     placeholder={this.state.placeholder}
 					maxLength={this.state.maxLength}
 					editable={this.state.editable}

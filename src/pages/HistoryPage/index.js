@@ -10,14 +10,15 @@ import actions from '@actions';
 
 class HistoryPage extends Component {
   	constructor(props) {
-  		super(props)
+		super(props);
+		this.getHistoryData = this.getHistoryData.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}
 	
 	componentDidMount(){
-		if(this.props.user) this.getHistoryData();
+		this.getHistoryData();
 	}
 
 	getHistoryData(){
@@ -25,7 +26,7 @@ class HistoryPage extends Component {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
-			params: {}
+			params: this.props.params
 		}
 
 		this.props.get_transaction(payload, 
@@ -77,6 +78,8 @@ class HistoryPage extends Component {
   	  	  		<View style={styles.container}>
 					<FlatList
 						data={this.props.transactions}
+						onEndReached={this.getHistoryData}
+						onEndReachedThreshold={0.05}
 						keyExtractor={(item) => String(item.invoice)}
 						renderItem={({item,index}) => (
 							<TransactionComponent
@@ -96,6 +99,7 @@ class HistoryPage extends Component {
 const mapStateToProps = (state) => ({
 	user: state.user.data,
 	transactions: state.transaction.transactions,
+	params: state.transaction.params,
 })
 
 const mapDispatchToProps = (dispatch) => ({

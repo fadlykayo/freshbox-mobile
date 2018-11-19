@@ -16,6 +16,10 @@ const initialState = {
         price: 0,
         count: 0,
     },
+    additional: {
+        credit_card: 5000,
+        VA: 5000
+    },
     cart: {
         products: [],
     },
@@ -46,7 +50,7 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.products = existingProducts.map(e => {
         let favoriteItem = favoriteList.filter(p => e.code == p.code);
         if(favoriteItem.length > 0){
             return favoriteItem[0];
@@ -79,7 +83,7 @@ const getFavorites = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.wishlist.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];
@@ -151,21 +155,37 @@ const getDetail = (state, payload) => {
 const searchData = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
 
-    newState.products = [];
-
-    let data = payload.params;
-    data.page = data.page + 1;
-    newState.params = data;
+    let params = payload.params;
+    params.page = params.page + 1;
+    newState.params = params;
     newState.last_page= payload.data.last_page;
+    
+    newState.products = [];
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.cart.products.slice();
+    let favoriteList = newState.wishlist.products.slice();
 
-    let listProduct = payload.data.data;
-
-    for (let i = 0; i < listProduct.length; i++) {
-        listProduct[i].count = 0;
-        listProduct[i].favorite = false;
+    for(x in incomingProducts){
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                incomingProducts[x] = Object.assign({},incomingProducts[x],existingProducts[y]);
+                break;
+            }
+        }
     }
 
-    newState.products = newState.products.concat(listProduct);
+    newState.products = incomingProducts.map(e => {
+        let favoriteItem = favoriteList.filter(p => e.code == p.code);
+        if(favoriteItem.length > 0){
+            return favoriteItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
 
     return newState
 }
@@ -176,21 +196,24 @@ const editTotal = (state,payload) => {
     let count = 0;
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
+    const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
 
 	if (payload.type == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
+		if(indexCart != -1) newState.cart.products[indexCart].count += 1;
 	}
 	else {
 		if(indexProducts != -1) newState.products[indexProducts].count -= 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
+		if(indexCart != -1) newState.cart.products[indexCart].count -= 1;
     }
 
     newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
 
     let productCart = newState.products.filter(e => e.count > 0);
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
-
+    let currentCart = newState.cart.products.slice();
     let newCart = productCart.length > 0 ? productCart : favoriteCart;
 
     if(productCart.length > 0){
@@ -198,21 +221,28 @@ const editTotal = (state,payload) => {
             for(x in favoriteCart){
                 let indexFav = productCart.findIndex(e => e.code == favoriteCart[x].code)
                 if (indexFav == -1) {
-                    productCart.push(favoriteCart[x])
+                    newCart.push(favoriteCart[x])
                 }
             }
         }
     }
 
-    for(i in newCart){
-        total = total + (newCart[i].price * newCart[i].count);
-        count = count + newCart[i].count;
-        newCart[i].maxQty = payload.data.maxQty;
+    for (x in newCart) {
+        let inputItem = currentCart.findIndex(e => e.code === newCart[x].code)
+        if (inputItem == -1) {
+            currentCart.push(newCart[x])
+        }
+    }
+
+    for(i in currentCart){
+        total = total + (currentCart[i].promo_price * currentCart[i].count);
+        count = count + currentCart[i].count;
+        currentCart[i].maxQty = payload.data.maxQty;
     }
 
     newState.total.count = count;
     newState.total.price = total;
-    newState.cart.products = newCart;
+    newState.cart.products = currentCart;
 
     return newState;
 }
@@ -232,6 +262,11 @@ const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     
     const index = newState.products.findIndex(e => e.code === payload.data.product.code);
+    const cartIndex = newState.cart.products.findIndex(e => e.code == payload.data.product.code);
+    if (cartIndex != -1) {
+        let cartProducts = newState.cart.products[cartIndex];
+        cartProducts.wishlisted = cartProducts.wishlisted == 1 ? 0 : 1;
+    }
     let productsWishList = newState.products[index];
     productsWishList.wishlisted = productsWishList.wishlisted == 1 ? 0 : 1;
     newState.detail = newState.products[index];
@@ -254,7 +289,7 @@ const editFavorite = (state,payload) => {
         if(sameValue == false) existingProducts.splice(x, 1);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => a.name - b.name).map(e => {
+    newState.wishlist.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];
@@ -292,19 +327,58 @@ const validateCart = (state,payload) => {
     return newState;
 }
 
+const reorderTransaction = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let newCart = newState.cart.products.slice();
+    let productList = newState.products.slice();
+    let total = 0;
+    let count = 0;
+
+    for (let i = 0; i < payload.data.length; i++) {
+        let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code)
+        if (cartIndex == -1) {
+            payload.data[i].product.count = payload.data[i].qty;
+            payload.data[i].product.maxQty = 1000;
+            newCart.push(payload.data[i].product)
+        } else {
+            newCart[cartIndex].count += payload.data[i].qty;
+        }
+    }
+
+    for(x in newCart) {
+        let productIndex = productList.findIndex(e => e.code == newCart[x].code)
+        if (productIndex != -1) {
+            productList[productIndex].count = newCart[x].count;
+        }
+    }
+
+    for(x in newCart) {
+        total = total + (newCart[x].promo_price * newCart[x].count);
+        count = count + newCart[x].count;
+    }
+
+    newState.products = productList;
+    newState.cart.products = newCart;
+    newState.total.count = count;
+    newState.total.price = total;
+
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ct.GET_PRODUCTS : return getProducts(state, action.payload)
-        case ct.GET_CATEGORIES: return getCategories(state, action.payload)
-        case ct.GET_FAVORITES: return getFavorites(state, action.payload)
-        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state, action.payload)
-        case ct.SEARCH_PRODUCTS: return searchData(state, action.payload)
-        case ct.CHANGE_TOTAL: return editTotal(state, action.payload)
-        case ct.CHANGE_CATEGORIES: return changeCategory(state, action.payload) 
-        case ct.TOGGLE_FAVORITE: return editFavorite(state, action.payload)
-        case ct.DETAIL_PRODUCT: return getDetail(state, action.payload)
+        case ct.GET_PRODUCTS : return getProducts(state,action.payload)
+        case ct.GET_CATEGORIES: return getCategories(state,action.payload)
+        case ct.GET_FAVORITES: return getFavorites(state,action.payload)
+        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state,action.payload)
+        case ct.SEARCH_PRODUCTS: return searchData(state,action.payload)
+        case ct.CHANGE_TOTAL: return editTotal(state,action.payload)
+        case ct.CHANGE_CATEGORIES: return changeCategory(state,action.payload) 
+        case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload)
+        case ct.DETAIL_PRODUCT: return getDetail(state,action.payload)
         case ct.CLEAR_PRODUCTS: return clearProducts(state)
         case ct.VALIDATE_CART: return validateCart(state,action.payload)
+        case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload)
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

@@ -12,6 +12,8 @@ export const apiInstance = axios.create({
 export const path = {
     registerUser: 'v1/user/register',
     signInUser: 'v1/user/login',
+    otpVerification: 'v1/user/otp-verification',
+    otpResend: 'v1/user/otp-resend',
     forgotPassword: 'v1/user/forgot-password',
     getProducts: 'v1/product',
     getFavorites: 'v1/wishlist',
@@ -29,5 +31,6 @@ export const path = {
     getProvinces: 'v1/region/province',
     getCity: 'v1/region/city',
     getSubdistrict: 'v1/region/subdistrict',
-    getZipCode: 'v1/region/zip-code'
+    getZipCode: 'v1/region/zip-code',
+    reorder: 'v1/transaction/reorder'
 }

@@ -14,7 +14,6 @@ const styles = {
         flex: 1,
     },
     middleComponent: {
-        flex: 1,
     },
     bottomComponent: {
         marginTop: height * 0.1,

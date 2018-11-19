@@ -5,16 +5,23 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container: (i,length) => ({
+    container: (i,length, search) => ({
 		alignSelf: 'center',
 		width: width * 0.9,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
 		backgroundColor: colour.white,
-		marginBottom: (i < length)
+		marginBottom: (search == true 
+			? ((i < length)
+				? 	scaling.moderateScale(10)
+				:	scaling.moderateScale(15)
+			)
+			: ((i < length)
 			? 	scaling.moderateScale(10)
 			:	scaling.moderateScale(65)
+			)
+		)
 	}),
 	subcontainer: {
 		verification:{

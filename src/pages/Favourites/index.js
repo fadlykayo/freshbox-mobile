@@ -19,6 +19,7 @@ class Favourites extends Component {
 		super(props);
 		this.state = { 
 			totalPrice: 0,
+			search: false,
 			refreshing: false,
 			modalVisible: {
 				openProduct: false,
@@ -31,6 +32,7 @@ class Favourites extends Component {
 		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.handleLoadMore = this.handleLoadMore.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.openDetailProduct = this.openDetailProduct.bind(this);
@@ -58,7 +60,9 @@ class Favourites extends Component {
 			params:{},
 		}
 		this.props.get_favorites(payload,
-			() => {},
+			() => {
+				this.setState({refreshing: false})
+			},
 			(err) => {
 				console.log(err)
 			}
@@ -221,6 +225,7 @@ class Favourites extends Component {
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem
+									search={this.state.search}
 									key={index}
 									data={item}
 									type={'favorites'}

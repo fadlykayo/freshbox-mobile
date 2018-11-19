@@ -1,5 +1,6 @@
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 const phoneRegex = /^[0-9]{10,13}$/;
+const otpRegex = /^[0-9]{4}$/;
 // const passwordRegex = /^[A-Za-z0-9!@#$%&'*+=?^_`{|}~-]{8,}$/;
 
 const validation = {};
@@ -39,6 +40,11 @@ validation.fullName = (input) => new Promise((res,rej) => {
     else rej();
 });
 
+validation.otp = (input) => new Promise ((res,rej) => {
+    if (otpRegex.test(input) == true) res();
+    else rej();
+})
+
 validation.register = (user) => new Promise((res,rej) => {
     if(user.fullName.length > 0) {
         if(user.email.length > 0){
@@ -56,15 +62,13 @@ validation.register = (user) => new Promise((res,rej) => {
     } else rej('fullName');
 })
 
-validation.signInEmail = (email,password) => new Promise((res,rej) => {
-    if(email.length > 0){
-        if(emailRegex.test(email) == true){
-            if(password.length > 0){
-                if(password.length > 7) res();
-                else rej('password');
-            } else rej('passwordLength');
-        } else rej('emailFormat');
-    } else rej('emailLength');
+validation.signInEmail = (phone,password) => new Promise((res,rej) => {
+    if(phoneRegex.test(phone) == true){
+        if(password.length > 0){
+            if(password.length > 7) res();
+            else rej('password');
+        } else rej('passwordLength');
+    } else rej('phone');
 })
 
 validation.address = (address) =>  new Promise((res,rej) => {

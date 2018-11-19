@@ -19,7 +19,6 @@ const styles = {
         },
         bottom:{
             marginTop: scaling.moderateScale(10),
-            marginHorizontal: width * 0.05,
         },
         bank:{
             flex: -1,
@@ -65,10 +64,10 @@ const styles = {
         },
     },
     icon:{
-        bank:{
-            height: scaling.moderateScale(30),
-            width: scaling.moderateScale(75),
-        },
+        bank:(x) => ({
+            height: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(25) : scaling.moderateScale(30),
+            width: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(65) : scaling.moderateScale(75),
+        }),
         circle:{
             height: scaling.moderateScale(24),
             width: scaling.moderateScale(24),

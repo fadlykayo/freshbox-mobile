@@ -12,6 +12,7 @@ class DetailOrder extends Component {
     
     getStatusText(payload) {
 		switch(payload) {
+            case 'finish': return 'historyPage.static.success'
 			case 'pending_payment': return 'historyPage.static.pending_payment'
 			case 'paid': return 'historyPage.static.paid'
 			case 'on_process': return 'historyPage.static.on_process'
@@ -51,7 +52,7 @@ class DetailOrder extends Component {
                     />
                     <View>
                         <Text style={styles.userText}>{this.props.transaction.receiver_name}</Text>
-                        {/* <Text style={styles.userText}>{this.props.transaction.phone_number}</Text> */}
+                        <Text style={styles.userText}>{this.props.transaction.phone_number}</Text>
                         <Text style={styles.userText}>
                             {this.props.transaction.address} <StaticText property={'historyDetail.content.kelurahan'}/>{this.props.transaction.zip_code.place_name}<StaticText property={'historyDetail.content.kecamatan'}/>{this.props.transaction.subdistrict.name}, {this.props.transaction.city.name}, {this.props.transaction.province.name}, {this.props.transaction.zip_code.zip_code}                                            
                             {this.props.transaction.address_detail.length == 0 

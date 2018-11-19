@@ -34,6 +34,7 @@ class Register extends Component {
             },
         }
         this.onChangeText = this.onChangeText.bind(this);
+        this.navigateBack = this.navigateBack.bind(this);
         this.submitFullName = this.submitFullName.bind(this);
         this.submitEmail = this.submitEmail.bind(this);
         this.submitPhone = this.submitPhone.bind(this);
@@ -42,6 +43,10 @@ class Register extends Component {
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
         this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
+    }
+
+    navigateBack() {
+        actNav.goBack()
     }
 
     closeDialogRegisterSuccess(){
@@ -139,12 +144,11 @@ class Register extends Component {
 
         this.props.register_user(payload,
             (res) => {
-                if (this.props.navigation.state.params.action == 'guestLogin') {
-                    this.props.navigation.goBack(this.props.navigation.state.params.key)
-                }
-                else {
-                    actNav.goBack();
-                }
+                actNav.navigate(navConstant.OTP, {
+                    action: this.props.navigation.state.params.action,
+                    key: this.props.navigation.state.params.key,
+                    phone_number: this.state.user.phone
+                })
             },
             (err)=> {
                 console.log(err);
@@ -160,7 +164,7 @@ class Register extends Component {
             >
                 <NavigationBar 
                     title={'register.navigationTitle'}
-                    onPress={actNav.goBack}
+                    onPress={this.navigateBack}
                 />
                 <ScrollView 
                     style={styles.container}
@@ -205,7 +209,7 @@ class Register extends Component {
                         value={this.state.user.phone}
                         onChangeText={this.onChangeText}
                         label={'register.formLabel.phone'}
-                        placeholder={'register.formLabel.phone'}
+                        placeholder={'register.formLabel.examplePhone'}
                         onSubmitEditing={this.submitPhone}
                     />
                     <VerificationText
@@ -253,7 +257,7 @@ class Register extends Component {
                         onPress={this.registerValidation}
                     />
                     <SignIn 
-                        onPress={actNav.goBack}
+                        onPress={this.navigateBack}
                     />
                 </ScrollView>
             </Container>

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, Dimensions, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import PageComponent from './components/PageComponent';
+import BubbleComponent from './components/BubbleComponent';
+import Button from './components/Button';
 import { connect } from 'react-redux';
 import styles from './styles';
+import images from '@assets';
 import actions from '@actions';
+
+const { height, width } = Dimensions.get('window');
 
 class OnBoarding extends Component {
     constructor(props) {
@@ -30,9 +35,16 @@ class OnBoarding extends Component {
                     content: 'onBoarding.content.third.info',
                     button: 'onBoarding.button.finish'
                 },
-            ]
+            ],
+            scrollX: 0,
+            button: ['0', '1', '2'],
+            bubble: 0,
         }
+        this.listRef = null;
         this.navigateToMenu = this.navigateToMenu.bind(this);
+        this.navigateToNextPage = this.navigateToNextPage.bind(this);
+        this.getPositionIndex = this.getPositionIndex.bind(this);
+        this.getPositionBubble = this.getPositionBubble.bind(this);
     }
 
     navigateToMenu() {
@@ -40,25 +52,55 @@ class OnBoarding extends Component {
         actNav.reset(navConstant.Menu);
     }
 
+    getPositionIndex(e) {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+    getPositionBubble() {
+        let position = Math.round(this.state.scrollX/width);
+
+        if (this.state.bubble != position) {
+            this.setState({ bubble: position })
+        }
+    }
+
+    navigateToNextPage(index) {
+        this.listRef.scrollTo({
+            x: (index * width),
+            y: 0,
+            animated: true
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <FlatList
-                    data={this.state.information}
-                    keyExtractor={(item, index) => index.toString()}
+                <ScrollView
+                    ref={(e) => { this.listRef = e}}
                     horizontal={true}
                     pagingEnabled={true}
-                    showsHorizontalScrollIndicator={true}
-                    renderItem={({item, index}) => (
-                        <View key={index}>
+                    showsHorizontalScrollIndicator={false}
+                    onScroll={(e) => this.getPositionIndex(e)}
+                    scrollEventThrottle={0}
+                >
+                    { this.state.information.map((data, index) => {
+                        return (
                             <PageComponent
-                                length={this.state.information.length - 1}
-                                data={item}
-                                index={index}
+                                key={index}
+                                length={this.state.information.length}
+                                data={data}
+                                index={index+1}
                                 navigateToMenu={this.navigateToMenu}
+                                navigateToNextPage={this.navigateToNextPage}
                             />
-                        </View>
-                    )}
+                        )
+                    }) }
+                </ScrollView>
+                <BubbleComponent
+                    bubble={this.state.bubble}
+                    button={this.state.button}
                 />
             </View>
         );

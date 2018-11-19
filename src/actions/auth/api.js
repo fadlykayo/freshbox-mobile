@@ -56,6 +56,93 @@ actions.sign_in = (req, success, failure) => {
     }
 };
 
+actions.otp_verification = (req,success,failure) => {
+	
+	payload.path = path.otpVerification;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+			console.log('otp_verification success -> ',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.sign_in(res.data));
+        			success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+			console.log('otp verification error -> ',err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+					case 403: 
+						return language.transformText('message.errorOTP')
+						.then((message) => {
+							dispatch(actNetwork.set_error_status({
+								status: true,
+								data: message
+							}));
+						});
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+
+    }
+};
+
+actions.otp_resend = (req,success,failure) => {
+	
+	payload.path = path.otpResend;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+			console.log('otp resend success -> ',res);
+        	if(res.code){
+        		if(res.code == 200){
+        			success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+			console.log('otp resend error -> ',err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+					case 403: 
+						return language.transformText('message.errorOTP')
+						.then((message) => {
+							dispatch(actNetwork.set_error_status({
+								status: true,
+								data: message
+							}));
+						});
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+
+    }
+};
+
 actions.forgot_password = (req, success, failure) => {
 	
 	payload.path = path.forgotPassword;

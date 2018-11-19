@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions } from 'react-native';
 import { language } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
+import StaticText from '@components/StaticText';
+import ZoomImage from '@components/ZoomImage';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -14,20 +16,28 @@ import Categories from './components/Categories';
 import styles from './styles';
 import actions from '@actions';
 
+const { width, height } = Dimensions.get('window');
+
 class ProductList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			refreshing: false,
 			searchItem: '',
+			search: false,
 			onCategory: '',
 			indexProduct: 0,
+			scrollX: 0,
+			bubble: 0,
 			detailDataProduct:{},
 			modalVisible: {
 				openCategories: false,
 				openProduct: false,
+				openImageDetail: false,
 			},
-		}
+		};
+		this.listRef = null;
+		this.scrollRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
 		this.onChangeText  =  this.onChangeText.bind(this);
 		this.checkCategory = this.checkCategory.bind(this);
@@ -46,13 +56,64 @@ class ProductList extends Component {
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.closeDialogCategories = this.closeDialogCategories.bind(this);
 		this.getFavorites = this.getFavorites.bind(this);
+		this._renderButton = this._renderButton.bind(this);
+		this.backToDefault = this.backToDefault.bind(this);
+		this.backToTop = this.backToTop.bind(this);
+		this.getPositionIndex = this.getPositionIndex.bind(this);
+		this.getPositionBubble = this.getPositionBubble.bind(this);
+		this.openZoomImage = this.openZoomImage.bind(this);
+		this.closeZoomImage = this.closeZoomImage.bind(this);
 	}
+
+	openZoomImage(){
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	closeZoomImage(){
+		this.setModalVisible('openImageDetail',false);
+	}
+
+	getPositionIndex(e) {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+    getPositionBubble() {
+        let position = Math.round(this.state.scrollX/(width* 0.18));
+
+        if (this.state.bubble != position) {
+            this.setState({ bubble: position })
+        }
+    }
 
 	componentDidMount(){
 		this.getProductList();
 		this.getCategories();
 		this.checkCategory();
 		this.getFavorites();
+	}
+
+	_renderButton(index, length) {
+		if(this.state.search) {
+			if (index == length) {
+				return (
+				<TouchableOpacity style={styles.clear.button} onPress={this.backToDefault}>
+					<StaticText
+						style={styles.clear.text}
+						property={'productList.button.clear'}
+					/>
+				</TouchableOpacity>
+				)
+			}
+			else return null;
+		}
+		else return null;
+	}
+
+	backToDefault() {
+		this.clearSearch();
+		this.refreshHandler();
 	}
 
 	onChangeText(type,value){
@@ -73,6 +134,7 @@ class ProductList extends Component {
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
+			if (this.state.search) this.onChangeText('search', false)
 			this.getProductList();
 		});
 	}
@@ -82,10 +144,7 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
-			params: {
-				sort: 'nama-az',
-				stock: 'tersedia'
-			},
+			params: this.props.params
 		}
 		this.props.get_products(payload,
 			() => {
@@ -154,11 +213,17 @@ class ProductList extends Component {
 		this.onChangeText('onCategory',category);
 	} 
 
+	backToTop() {
+		this.listRef.scrollToOffset({y:0, animated: true})
+	}
+
 	changeCategory(input){
 		this.onChangeText('searchItem', '')
 		if (input.name == 'Default') {
 			let payload = {
-				header: {},
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
 				body: {},
 				params: {
 					page: 1,
@@ -172,6 +237,7 @@ class ProductList extends Component {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
+					this.backToTop();
 				},
 				(err) => {
 					console.log(err)
@@ -179,12 +245,15 @@ class ProductList extends Component {
 		}
 		else {
 			let payload = {
-				header: {},
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
 				body: {},
 				params: {
+					page: 1,
+					sort: 'nama-az',
 					stock: 'tersedia',
 					category_code: input.code,
-					page: 1,
 				}
 			}
 
@@ -193,6 +262,7 @@ class ProductList extends Component {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
+					this.backToTop();
 				},
 				(err) => {
 					console.log(err)
@@ -268,15 +338,17 @@ class ProductList extends Component {
 			},
 			body: {},
 			params: {
-				name: this.state.searchItem,
-				stock: 'tersedia',
 				page: 1,
+				stock: 'tersedia',
+				sort: 'nama-az',
+				name: this.state.searchItem,
 			}
 		}
 
 		this.props.search_products(payload, 
 			(success) => {
-				console.log(success)
+				this.onChangeText('search', true)
+				this.backToTop();
 			},
 			(err) => {
 				console.log(err)
@@ -359,7 +431,9 @@ class ProductList extends Component {
 				<Notes />
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
+						
 						<FlatList
+							ref={(e) => { this.listRef = e}}
 							data={this.props.product}
 							onEndReachedThreshold={0.05}
 							onRefresh={this.refreshHandler}
@@ -367,17 +441,20 @@ class ProductList extends Component {
 							keyExtractor={(item) => item.code}
 							onEndReached={this.handleLoadMore}
 							renderItem={({item,index}) => (
-								<ProductItem
-									key={index}
-									data={item}
-									index={index+1}
-									type={'productList'}
-									user={this.props.user}
-									toggleFavorite={this.toggleFavorite}
-									changeTotalItem={this.changeTotalItem}
-									productLength={this.props.product.length}
-									openDetailProduct= {this.openDetailProduct}
-								/>
+								<View key={index}>
+									<ProductItem
+										search={this.state.search}
+										data={item}
+										index={index+1}
+										type={'productList'}
+										user={this.props.user}
+										toggleFavorite={this.toggleFavorite}
+										changeTotalItem={this.changeTotalItem}
+										productLength={this.props.product.length}
+										openDetailProduct= {this.openDetailProduct}
+									/>
+									{ this._renderButton(index, this.props.product.length - 1) }
+								</View>
 							)}
 						/>
 						<Checkout
@@ -391,10 +468,17 @@ class ProductList extends Component {
 					type={'productList'}
 					user={this.props.user}
 					data={this.props.productDetail}
+					scrollX={this.state.scrollX}
+					bubble={this.state.bubble}
 					toggleFavorite={this.toggleFavorite}
 					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
-				    modalVisible={this.state.modalVisible.openProduct}
+					modalVisible={this.state.modalVisible.openProduct}
+					getPositionIndex={this.getPositionIndex}
+					getPositionBubble={this.getPositionBubble}
+					openImageDetail={this.state.modalVisible.openImageDetail}
+					openZoomImage={this.openZoomImage}
+					closeZoomImage={this.closeZoomImage}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}

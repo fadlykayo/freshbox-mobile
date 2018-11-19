@@ -16,7 +16,7 @@ const styles = {
 	dummyPhoto: {
         height: width * 0.2,
         width: width * 0.2,
-        marginBottom: width* 0.05,
+        marginRight: width* 0.05,
     },
     photo: {
         height: width * 0.19,

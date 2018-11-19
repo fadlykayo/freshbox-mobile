@@ -3,9 +3,10 @@ import { View, ScrollView } from 'react-native';
 import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
+import Button from '@components/Button';
+import Dropdown from './components/Dropdown';
 import Logo from './components/Logo';
 import FormInput from '@components/FormInput';
-import Button from '@components/Button';
 import InputData from './components/InputData';
 import styles from './styles';
 
@@ -13,6 +14,23 @@ class ContactUs extends Component {
   	constructor(props) {
   		super(props)
 		this.state = {
+			subjects: [
+				{
+					name: 'contactUs.info.question'
+				},
+				{
+					name: 'contactUs.info.complaint'
+				},
+				{
+					name: 'contactUs.info.advice'
+				},
+				{
+					name: 'contactUs.info.review'
+				},
+				{
+					name: 'contactUs.info.others'
+				},
+			],
 			subject: '',
 			message: '',
 			placeholder: '',
@@ -46,22 +64,26 @@ class ContactUs extends Component {
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-                <Logo />
+                
 				<ScrollView 
 					style={styles.container}
                 >
+					<Logo />
 					<View style={styles.middleComponent}>
-						<InputData
-							ref={c => {this.formSubject = c}}
+						<Dropdown
 							type={'subject'}
-							onChangeText={(type, value) => this.onChangeText(type, value)}
-							title={'contactUs.content.subject'}
-							onSubmitEditing={this.submitSubject}
+							data={this.state.subjects}
+							isOpen={true}
+							value={this.state.subject}
+							onChangeText={this.onChangeText}
+							label={'contactUs.content.subject'}
+							placeholder={'contactUs.content.subject'}
 						/>
 						<FormInput
 							ref={c => {this.formMessage = c}}
 							type={'message'}
-							onChangeText={(type, value) => this.onChangeText(type, value)}
+							multiline={true}
+							onChangeText={this.onChangeText}
 							value={this.state.message}
 							label={'contactUs.label.message'}
 							placeholder={'contactUs.content.message'}

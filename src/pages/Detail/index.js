@@ -126,7 +126,21 @@ class Detail extends Component {
 	}
 
     navigateToCart(){
-		actNav.navigate(navConstant.Cart);
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			invoice: this.props.detailTransaction.invoice 
+		}
+
+		this.props.reorder_transaction(payload,
+			(res) => {
+				console.log('berhasil')
+				actNav.navigate(navConstant.Cart,this.props.navigation.state.params);
+			},
+			(err) => {
+				console.log(err)
+			})
     }
     
     navigateToChoosePayment(){
@@ -175,6 +189,7 @@ class Detail extends Component {
 				<TotalPrice
 					type={'red'}
 					status={this.state.status}
+					additional={this.props.additional}
 					subTotal={this.state.totalPrice}
 					navigateToCart={this.navigateToCart}
 					grandTotal={this.state.grandTotalPrice}
@@ -189,6 +204,7 @@ class Detail extends Component {
 }
 
 const mapStateToProps = (state) => ({
+	additional: state.product.additional.credit_card,
     detailTransaction: state.transaction.detail,
     transactions: state.transaction.transactions,
     user: state.user.data,
@@ -204,6 +220,7 @@ const mapDispatchToProps = (dispatch) => ({
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

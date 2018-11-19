@@ -5,6 +5,7 @@ import { actNav, navConstant } from '@navigations';
 import { socmed } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
+import TermsConditions from './components/TermsConditions';
 import StaticText from '@components/StaticText';
 import Container from '@components/Container';
 import images from '@assets';
@@ -17,10 +18,20 @@ class Menu extends PureComponent {
         this.navigateToSignIn = this.navigateToSignIn.bind(this);
         this.facebookHandler = this.facebookHandler.bind(this);
         this.setupGoogleClient = this.setupGoogleClient.bind(this);
+        this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
+        this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
     }
 
     componentDidMount() {
         this.setupGoogleClient();
+    }
+
+    navigateToTermsConditions() {
+        actNav.navigate(navConstant.TermsConditions)
+    }
+
+    navigateToPrivacyPolicy() {
+        actNav.navigate(navConstant.PrivacyPolicy)
     }
 
     navigateToProduct() {
@@ -82,19 +93,10 @@ class Menu extends PureComponent {
                             emailHandler={this.navigateToSignIn}
                             googleHandler={this.googleHandler}
                         />
-                        <View style={styles.termsAndConditionPlace}>
-                            <Text style={styles.termsAndCondition}>
-                                <StaticText 
-                                    property={'welcome.content.info'}
-                                /> 
-                            </Text>
-                            <TouchableOpacity>
-                                <StaticText 
-                                    style={styles.underline}
-                                    property={'welcome.content.termsCondition'}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TermsConditions
+                            navigateToTermsConditions={this.navigateToTermsConditions}
+                            navigateToPrivacyPolicy={this.navigateToPrivacyPolicy}
+                        />
                     </Container>
                 </ImageBackground>
             </View>
