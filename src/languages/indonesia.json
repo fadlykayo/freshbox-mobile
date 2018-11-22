@@ -92,6 +92,7 @@
             "email": "Email"
         },
         "button":{
+            "request": "Minta OTP",
             "submit": "Kirim"
         },
         "content":{
@@ -191,12 +192,15 @@
             "reOrder": "Pesan Kembali"
         },
         "static": {
+            "requestShippingDate": "Tanggal Kirim:",
             "pending_payment": "Belum dibayar",
             "paid": "Telah dibayar",
             "on_process": "Sedang Proses",
             "on_shipping": "Dalam Pengiriman",
             "success": "Berhasil",
-            "failed": "Gagal"
+            "failed": "Gagal",
+            "expired": "Expired",
+            "review": "Ulasan Produk"
         }
     },
     "historyDetail": {
@@ -393,8 +397,9 @@
             "question": "Pertanyaan",
             "complaint": "Ajukan Keluhan",
             "advice": "Saran",
-            "review": "Tinjau Produk",
-            "others": "Lainnya"
+            "review": "Ulasan Produk",
+            "others": "Lainnya",
+            "reviewProduct": "Ulasan Produk - {invoice}"
         },
         "content": {
             "subject": "Pilih Subjek",
@@ -447,7 +452,8 @@
             "expiredDate": "Tanggal Kadaluarsa",
             "expED": "example 08-2010",
             "cvv": "Kode CVV",
-            "checkout": "Bayar"
+            "checkout": "Bayar",
+            "examplecvv": "Contoh: 123"
         }
     },
     "transferBank": {
@@ -713,7 +719,11 @@
         }
     },
     "message":{
+        "uploadPhotoError": "Foto gagal di upload!",
+        "uploadPhotoSuccess": "Foto telah berhasil di upload!",
+        "sendInformationSuccess": "Terima Kasih atas informasi yang telah Anda berikan!",
         "successResetPassword": "Ubah password berhasil!",
+        "invalidCreditCard": "Maaf, kartu kredit Anda tidak valid",
         "invalidSignIn": "Nomor Ponsel atau Password salah",
         "invalidMonth": "Bulan tidak sesuai.",
         "invalidYear": "Tahun tidak sesuai.",

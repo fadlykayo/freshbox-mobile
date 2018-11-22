@@ -49,12 +49,22 @@ class SearchComponent extends Component {
 	render(){
 		return (
       		<View style={styles.container}>
-  	  			<View style={styles.searchContainer}>
+			  	<TouchableOpacity 
+					onPress={this.openDrawerMenu}
+					style={styles.button}
+				>
+  	  	  			<Image
+  	  	  			  resizeMode={'contain'} 
+  	  	  			  source={images.icon_menu}
+  	  	  			  style={styles.icon.menu}
+  	  	  			/>
+  	  			</TouchableOpacity>
+  	  			<View style={styles.subcontainer.search}>
 					<View>
 	  	    			<Image
   	  	    				resizeMode={'contain'} 
   	  	    				source={images.icon_search}
-  	  	    				style={styles.iconSearch}
+  	  	    				style={styles.icon.search}
   	  					/>
 					</View>
 					<TextInput
@@ -70,23 +80,12 @@ class SearchComponent extends Component {
 								<Image
   	  	    						resizeMode={'contain'} 
   	  	    						source={images.icon_clear_search}
-  	  	    						style={styles.clear.icon}
+  	  	    						style={styles.icon.clear}
   	  							/>
 							</TouchableOpacity>
 						) : null
 					}
-					
   	    		</View>
-				<TouchableOpacity 
-					onPress={this.openDrawerMenu}
-					style={styles.button}
-				>
-  	  	  			<Image
-  	  	  			  resizeMode={'contain'} 
-  	  	  			  source={images.icon_menu}
-  	  	  			  style={styles.icon}
-  	  	  			/>
-  	  			</TouchableOpacity>
       		</View>
 		);
 	}

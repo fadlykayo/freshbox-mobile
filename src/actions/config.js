@@ -32,5 +32,6 @@ export const path = {
     getCity: 'v1/region/city',
     getSubdistrict: 'v1/region/subdistrict',
     getZipCode: 'v1/region/zip-code',
-    reorder: 'v1/transaction/reorder'
+    reorder: 'v1/transaction/reorder',
+    customerservice: 'v1/customer-support'
 }

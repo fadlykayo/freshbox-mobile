@@ -25,12 +25,13 @@ class PagesComponent extends Component {
 					{ this.props.pages.map ((page, index) => {
 						if (page.selected) {
 							return (
-								<TouchableOpacity 
+								<TouchableOpacity
+                                    key={index}
 									onPress={ this.closeDrawerPage }
-									style={styles.selectedPage} key={index}
+									style={styles.page.selected}
 								>
 									<StaticText
-										style={styles.selectedText}
+										style={styles.text.selected}
 										property={page.name}
 									/>
 								</TouchableOpacity>
@@ -38,12 +39,13 @@ class PagesComponent extends Component {
 						}
 						else {
 							return (
-								<TouchableOpacity 
+								<TouchableOpacity
+                                    key={index}
 									onPress={ () => this.navigateToOtherPage(page)}
-									style={styles.unselectedPage} key={index}
+									style={styles.page.unselected}
 								>
 									<StaticText
-										style={styles.unselectedText}
+										style={styles.text.unselected}
 										property={page.name}
 									/>
 								</TouchableOpacity>
@@ -57,7 +59,7 @@ class PagesComponent extends Component {
             return (
                 <View style={styles.container}>
 					{ this.props.pages.map ((page, index) => {
-                        if (page.name == 'drawerPage.pages.favorite' || page.name == 'drawerPage.pages.history') {
+                        if (page.name == 'drawerPage.pages.favorite' || page.name == 'drawerPage.pages.history' || page.name == 'drawerPage.pages.contactUs') {
                             return null;
                         }
                         else {

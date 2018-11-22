@@ -16,24 +16,26 @@ const styles = {
 		left: 0,
 		right: 0,
 	},
-	loadingContainer:{
-		padding: scaling.moderateScale(10),
-		borderWidth: 1,
-		borderColor: colour.whiteAO,
-		borderRadius: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: colour.whiteAO,
-	},
-	loadingImage:{
-		width: width * 0.3,
-		height: width * 0.3,
-	},
-	loadingText:{
-		fontFamily: 'Avenir-Book',
-		fontSize: scaling.moderateScale(14),
-		color: colour.red,
-		paddingTop: scaling.moderateScale(5),
+	loading: {
+		container: {
+			padding: scaling.moderateScale(10),
+			borderWidth: 1,
+			borderColor: colour.whiteAO,
+			borderRadius: 10,
+			alignItems: 'center',
+			justifyContent: 'center',
+			backgroundColor: colour.whiteAO,
+		},
+		image: {
+			width: width * 0.3,
+			height: width * 0.3,
+		},
+		text: {
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(14),
+			color: colour.red,
+			paddingTop: scaling.moderateScale(5),
+		},
 	},
 }
 

@@ -28,7 +28,7 @@ const styles = {
         real: {
             height: width * 0.26,
             width: width * 0.26,
-            borderRadius: 100,
+            borderRadius: 200,
             borderColor: colour.white,
             marginBottom: width* 0.02,
         },

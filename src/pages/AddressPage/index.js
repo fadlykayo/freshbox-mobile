@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { validation, language } from '@helpers';
+import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from './components/NavigationBar';
 import Content from './components/Content';
@@ -470,6 +470,4 @@ const mapDispatchToProps = (dispatch) => ({
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(AddressPage);
+export default connect(mapStateToProps,mapDispatchToProps)(AddressPage);

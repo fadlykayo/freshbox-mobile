@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, TextInput, TouchableWithoutFeedback, Image } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableWithoutFeedback, Image, Keyboard } from 'react-native';
 import { actNav } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
-import TotalPrice from '@components/TotalPrice';
+import TotalPrice from './components/TotalPrice';
 // import CreditCardNumber from './components/CreditCardNumber';
 // import ExpiredDate from './components/ExpiredDate';
 import styles from './styles';
@@ -46,6 +46,29 @@ class CreditCard extends Component {
         this.onBlurMonth = this.onBlurMonth.bind(this);
         this.onBlurYear = this.onBlurYear.bind(this);
         this.countGrandTotal = this.countGrandTotal.bind(this);
+        this._renderCardImage = this._renderCardImage.bind(this);
+    }
+
+    _renderCardImage() {
+        switch(this.state.user.creditNumber[0]) {
+            case '5':
+                return (
+                    <Image
+                        source={images.icon_mastercard}
+                        resizeMode={'contain'}
+                        style={styles.image.cardLogo}
+                    />
+                )
+            case '4':
+                return (
+                    <Image
+                        source={images.icon_visa}
+                        resizeMode={'contain'}
+                        style={styles.image.cardLogo}
+                    />
+                )
+            default: return null
+        }
     }
 
     componentDidMount() {
@@ -58,10 +81,27 @@ class CreditCard extends Component {
         this.setState(state)
     }
 
-    onChangeText(type,value){
+    onChangeText(type,value,length){
         let user = this.state.user;
         user[type] = value;
-        this.setState({user})
+        if(user[type].length < length) {
+            this.setState({user})
+        }
+        else {
+            this.setState({user}, () => {
+                if(type == 'creditNumber') {
+                    this.submitCreditNumber();
+                }
+                else if (type == 'expiredMonth') {
+                    this.submitExpiredMonth();
+                }
+                else {
+                    this.formCVV.focus();
+                    this.onBlur();
+                    this.submitExpiredYear();
+                }
+            })
+        }
     }
     
     onChangeFocus(type) {
@@ -84,15 +124,13 @@ class CreditCard extends Component {
     }
 
     submitCreditNumber() {
-        let creditCard = this.state.user.creditNumber.trim();
-        this.onChangeText('creditCard', creditCard);
-        this.focusForm('expiredMonth')
+        this.formExpiredMonth.focus();
     }
 
     onBlurMonth() {
         let expiredMonth = this.state.user.expiredMonth;
+        let user = this.state.user;
         if (expiredMonth > 12) {
-            this.onChangeText('expiredMonth', '');
             language.transformText('message.invalidMonth')
 			.then(message => {
 				this.props.set_error_status({
@@ -100,21 +138,27 @@ class CreditCard extends Component {
 					title: 'formError.title.default',
 					data: message,
                 });
+                setTimeout(() => {
+                    expiredMonth = '';
+                    user.expiredMonth = expiredMonth;
+                    this.setState({user}, () => {
+                        this.formExpiredMonth.focus();
+                    })
+                },1000)
             });
-        }
+        } else this.formExpiredYear.focus();
     }
 
     submitExpiredMonth() {
-        let expiredMonth = this.state.user.expiredMonth.trim();
-        this.onChangeText('expiredMonth', expiredMonth);
-        this.focusForm('expiredYear')
+        this.onBlur();
+        this.onBlurMonth();
     }
 
     onBlurYear() {
         let expiredYear = this.state.user.expiredYear;
         let today = new Date().getFullYear().toString().slice(1,4);
+        let user = this.state.user;
         if (Number(expiredYear) < Number(today)) {
-            this.onChangeText('expiredYear', '');
             language.transformText('message.invalidYear')
 			.then(message => {
 				this.props.set_error_status({
@@ -122,17 +166,24 @@ class CreditCard extends Component {
 					title: 'formError.title.default',
 					data: message,
                 });
+                setTimeout(() => {
+                    expiredYear = '';
+                    user.expiredYear = expiredYear;
+                    this.setState({user}, () => {
+                        this.formExpiredYear.focus();
+                    })
+                },1000)
             });
-        }
+        } else this.formCVV.focus();
     }
 
     submitExpiredYear() {
-        let expiredYear = this.state.user.expiredYear.trim();
-        this.onChangeText('expiredYear', expiredYear);
-        this.focusForm('cvv')
+        this.onBlur();
+        this.onBlurYear();
     }
 
     submitCVV() {
+        Keyboard.dismiss();
         let cvv = this.state.user.cvv.trim();
         this.onChangeText('cvv', cvv);
         this.createOrder();
@@ -141,10 +192,9 @@ class CreditCard extends Component {
     createOrder() {
         //validation credit card number
         //validation expired date
-
         let payloadData = this.props.navigation.state.params.transaction;
         payloadData.payment_method = "credit_card";
-        payloadData.card_number = this.state.user.creditNumber;
+        payloadData.card_number = this.state.user.creditNumber.split('-').join('');
         payloadData.card_exp_month = this.state.user.expiredMonth;
         payloadData.card_exp_year = `20${this.state.user.expiredYear}`;
         payloadData.card_cvv = this.state.user.cvv;
@@ -157,13 +207,14 @@ class CreditCard extends Component {
             params: {}
         }
 
+
         this.props.create_order(payload,
         (res) => {
             this.props.clear_products();
             this.props.navigation.state.params.createOrderHandler(res.invoice);
         },
         (err) => {
-            language.transformText('message.invalidYear')
+            language.transformText('message.invalidCreditCard')
 			.then(message => {
 				this.props.set_error_status({
 					status: true,
@@ -186,17 +237,17 @@ class CreditCard extends Component {
 
     clearFocused(input) {
         let focused = this.state.focused;
-        focused.creditNumber = false;
-        focused.expiredDate = false;
-        focused.cvv = false;
         this.setState({ focused }, () => {
             if(input == 'creditNumber') {
+                focused.creditNumber = false;
                 this.formCreditNumber.blur();
             }
             else if (input == 'expiredMonth') {
+                focused.expiredDate = false;
                 this.formExpiredMonth.blur();
             }
             else if (input == 'expiredYear') {
+                focused.cvv = false;
                 this.formExpiredYear.blur();
             }
             else {
@@ -211,17 +262,20 @@ class CreditCard extends Component {
     }
 
     displayED(input) {
+        let newInput = input.split('-').join('');
         let cardNumber = '';
 
-        for (let i = 0; i < input.length; i++) {
-            if ((i+1)%4 == 0) {
-                cardNumber += `${input[i]} `;
+        for (let i = 0; i < newInput.length; i++) {
+            if (i == newInput.length - 1) {
+                cardNumber += newInput[i];
+            }
+            else if ((i+1)%4 == 0) {
+                cardNumber += `${newInput[i]}-`;
             } 
             else {
-                cardNumber += input[i];
+                cardNumber += newInput[i];
             }
         }
-
         return cardNumber;
     }
 
@@ -236,49 +290,31 @@ class CreditCard extends Component {
 			    	onPress={actNav.goBack}
 			    />
                 <View style={styles.container}>
-                    <ScrollView 
-                        style={styles.container}
-                        // contentContainerStyle={styles.container}
-                    >
+                    <ScrollView style={styles.container}>
                     <TouchableWithoutFeedback onPress={this.onBlur}>
                         <View style={styles.content}>
                             <View style={styles.top.main}>
-                                <TouchableWithoutFeedback onPress={() => this.focusForm('creditNumber')}>
-                                    <View>
-                                        <StaticText
-                                            style={styles.text.title}
-                                            property={'creditCard.content.creditCard'}
-                                        />
-                                        <View style={styles.creditCard.place}>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
-                                                <Text style={styles.text.content}>{this.state.user.creditNumber.slice(0,4)}</Text>
-                                            </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
-                                                <Text style={styles.text.content}>{this.state.user.creditNumber.slice(4,8)}</Text>
-                                            </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
-                                                <Text style={styles.text.content}>{this.state.user.creditNumber.slice(8,12)}</Text>
-                                            </View>
-                                            <View style={styles.creditCard.part(this.state.focused.creditNumber, this.state.user.creditNumber.length)}>
-                                                <Text style={styles.text.content}>{this.state.user.creditNumber.slice(12,16)}</Text>
-                                            </View>
-                                        </View>
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                <StaticText
+                                    style={styles.text.title}
+                                    property={'creditCard.content.creditCard'}
+                                />
+                                <View style={styles.top.content(this.state.focused.creditNumber)}>
+                                    <TextInput
+                                        ref={e => this.formCreditNumber = e}
+                                        autoFocus={true}
+                                        maxLength={19}
+                                        keyboardType={'number-pad'}
+                                        returnKeyType={'done'}
+                                        value={this.displayED(this.state.user.creditNumber)}
+                                        placeholder={'5009-1234-5678-XXXX'}
+                                        onFocus={() => this.focusForm('creditNumber')}
+                                        onChangeText={(value) => this.onChangeText('creditNumber',value,19)}
+                                        onSubmitEditing={this.submitCreditNumber}
+                                        style={styles.text.creditCard}
+                                    />
+                                </View>
+                                { this._renderCardImage() }
                             </View>
-                            <TextInput
-                                ref={e => this.formCreditNumber = e}
-                                autoFocus={true}
-                                keyboardType={'number-pad'}
-                                maxLength={16}
-                                returnKeyType={'done'}
-                                contextMenuHidden={true}
-                                caretHidden={true}
-                                value={this.state.user.creditNumber}
-                                onChangeText={(value) => this.onChangeText('creditNumber',value)}
-                                onSubmitEditing={this.submitCreditNumber}
-                                style={styles.text.form}
-                            />
                             <View style={styles.middle.place}>
                                 <View style={styles.middle.part}>
                                     <View style={styles.expiredDate.main}>
@@ -287,41 +323,40 @@ class CreditCard extends Component {
                                             property={'creditCard.content.expiredDate'}
                                         />
                                         <View style={styles.expiredDate.place}>
-                                            <TouchableWithoutFeedback onPress={() => this.focusForm('expiredMonth')}>
-                                                <View style={styles.expiredDate.left(this.state.focused.expiredMonth)}>
-                                                    <TextInput
-                                                        ref={e => this.formExpiredMonth = e}
-                                                        keyboardType={'number-pad'}
-                                                        maxLength={2}
-                                                        returnKeyType={'done'}
-                                                        onBlur={this.onBlurMonth}
-                                                        value={this.state.user.expiredMonth}
-                                                        placeholder={'MM'}
-                                                        onChangeText={(value) => this.onChangeText('expiredMonth',value)}
-                                                        onSubmitEditing={this.submitExpiredMonth}
-                                                        style={styles.text.expMonth}
-                                                    />
-                                                </View>
-                                            </TouchableWithoutFeedback>
+                                            <View style={styles.expiredDate.left(this.state.focused.expiredMonth)}>
+                                                <TextInput
+                                                    ref={e => this.formExpiredMonth = e}
+                                                    selectTextOnFocus={true}
+                                                    keyboardType={'number-pad'}
+                                                    maxLength={2}
+                                                    returnKeyType={'done'}
+                                                    onBlur={this.onBlurMonth}
+                                                    value={this.state.user.expiredMonth}
+                                                    onFocus={() => this.focusForm('expiredMonth')}
+                                                    placeholder={'MM'}
+                                                    onChangeText={(value) => this.onChangeText('expiredMonth',value,2)}
+                                                    onSubmitEditing={this.submitExpiredMonth}
+                                                    style={styles.text.expMonth}
+                                                />
+                                            </View>
                                             <View style={styles.expiredDate.middle}>
                                                 <Text>/</Text>
                                             </View>
-                                            <TouchableWithoutFeedback onPress={() => this.focusForm('expiredYear')}>
-                                                <View style={styles.expiredDate.right(this.state.focused.expiredYear)}>
-                                                    <TextInput
-                                                        ref={e => this.formExpiredYear = e}
-                                                        keyboardType={'number-pad'}
-                                                        maxLength={2}
-                                                        returnKeyType={'done'}
-                                                        onBlur={this.onBlurYear}
-                                                        value={this.state.user.expiredYear}
-                                                        placeholder={'YY'}
-                                                        onChangeText={(value) => this.onChangeText('expiredYear',value)}
-                                                        onSubmitEditing={this.submitExpiredYear}
-                                                        style={styles.text.expYear}
-                                                    />
-                                                </View>
-                                            </TouchableWithoutFeedback>
+                                            <View style={styles.expiredDate.right(this.state.focused.expiredYear)}>
+                                                <TextInput
+                                                    ref={e => this.formExpiredYear = e}
+                                                    keyboardType={'number-pad'}
+                                                    maxLength={2}
+                                                    returnKeyType={'done'}
+                                                    onBlur={this.onBlurYear}
+                                                    value={this.state.user.expiredYear}
+                                                    placeholder={'YY'}
+                                                    onFocus={() => this.focusForm('expiredYear')}
+                                                    onChangeText={(value) => this.onChangeText('expiredYear',value,2)}
+                                                    onSubmitEditing={this.submitExpiredYear}
+                                                    style={styles.text.expYear}
+                                                />
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
@@ -339,13 +374,17 @@ class CreditCard extends Component {
                                                     maxLength={3}
                                                     returnKeyType={'done'}
                                                     secureTextEntry={true}
+                                                    onFocus={() => this.focusForm('cvv')}
                                                     value={this.state.user.cvv}
-                                                    onChangeText={(value) => this.onChangeText('cvv',value)}
+                                                    onChangeText={(value) => this.onChangeText('cvv',value,3)}
                                                     onSubmitEditing={this.submitCVV}
                                                     style={styles.text.cvv}
                                                 />
                                             </View>
-                                            <Text style={styles.text.example}>Contoh: 123</Text>
+                                            <StaticText
+                                                style={styles.text.example}
+                                                property={'creditCard.content.examplecvv'}
+                                            />
                                         </View>
                                     </TouchableWithoutFeedback>
                                     <Image
@@ -369,7 +408,6 @@ class CreditCard extends Component {
                         onPress={this.createOrder}
                     />
                 </View>
-                
             </Container>
         );
     }

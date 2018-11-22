@@ -27,6 +27,7 @@ class Detail extends Component {
 		this.setDetailTransaction = this.setDetailTransaction.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -127,7 +128,6 @@ class Detail extends Component {
 	}
 
 	toggleFavoriteHistory(payload){
-		console.log("masuk kesini toggleFavoriteHistory", payload)
 		if (payload.wishlisted == 1) {
 			let data = {
 				request: {
@@ -191,6 +191,13 @@ class Detail extends Component {
 		actNav.navigate(navConstant.TransferInstruction);
 	}
 
+	navigateBack(key) {
+		if(key) {
+			actNav.goBack(key)
+		} else actNav.goBack();
+
+	}
+
   	render(){
   	  	return(
             <Container 				
@@ -199,6 +206,7 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
+					onPress={() => {this.props.navigation.state.params.review ? this.navigateBack(this.props.navigation.state.params.key) : this.navigateBack(null)}}
 				/>
   	  	  		<ScrollView style={styles.container}>
                     <DetailOrder
@@ -216,7 +224,7 @@ class Detail extends Component {
 							}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
-								<CartComponent 
+								<CartComponent
 									data = {item}
 									index = {index} 
 									toggleFavorite={this.toggleFavorite}

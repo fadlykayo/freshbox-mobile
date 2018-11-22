@@ -5,16 +5,16 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container:{
+	container: {
 		backgroundColor: colour.veryLightGrey,
 		flex: 1,
 		paddingTop: width * 0.03,
-    },
-    cartContainer: {
+	},
+	cartContainer: {
 		flex: 1,
 		paddingLeft: width * 0.05,
 		paddingRight: width * 0.05,
-    }
+	}
 }
 
 export default styles;

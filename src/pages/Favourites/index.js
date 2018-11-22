@@ -215,7 +215,7 @@ class Favourites extends Component {
 					title={'favourites.navigationTitle'}
 				/>
 				<View style={styles.container}>
-					<View style={styles.cartContainer}>
+					<View style={styles.subcontainer.cart}>
 						<FlatList
 							data={this.props.wishlist}
 							onEndReachedThreshold={0.05}

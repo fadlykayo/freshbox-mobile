@@ -50,35 +50,6 @@ class ZoomImage extends Component {
                         </View>
                     </View>
                 </View>
-                // <View style={styles.container}>
-                //     <View style={styles.image.place}>
-                //         <ScrollView
-                //             nestedScrollEnabled={true}
-                //             horizontal={true}
-                //             pagingEnabled={true}
-                //             showsHorizontalScrollIndicator={false}
-                //             scrollEventThrottle={0}
-                //             contentContainerStyle={styles.image.content}
-				// 	    	style={styles.image.style}
-                //         >
-                //             { this.props.images.map((image, index) => {
-                //                 return (
-                //                     <Image
-                //                         key={index}
-                //                         source={{uri: image}}
-                //                         style={styles.image.data}
-                //                     />
-                //                 )
-                //             }) }
-                //         </ScrollView>
-                //     </View>
-                //     <TouchableOpacity style={styles.clear.button} onPress={this.onPress}>
-				//     	<StaticText
-				//     		style={styles.clear.text}
-				//     		property={'productList.button.clear'}
-				//     	/>
-				//     </TouchableOpacity>
-                // </View>
             );
         }
         else return null;

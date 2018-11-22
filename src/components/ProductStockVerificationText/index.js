@@ -31,7 +31,7 @@ class VerificationText extends PureComponent {
             else return null;
         }
         else{
-            if(this.props.count > this.props.stock){
+            if(this.props.count == this.props.stock){
                 return(
                     <StaticText 
                         style={styles.text}

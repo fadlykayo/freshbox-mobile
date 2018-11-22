@@ -42,12 +42,20 @@ class ButtonCount extends PureComponent {
 						<Text style={styles.text.button}>-</Text>
 					</TouchableOpacity>
 					<Text style={styles.text.counter}>{this.props.count}</Text>
-					<TouchableOpacity 
-						style={styles.subcontainer.button}
-						onPress={this.addTotalItem}
-					>
-						<Text style={styles.text.button}>+</Text>
-					</TouchableOpacity>
+					{ this.props.data.stock == this.props.count
+						? (<View 
+								style={styles.subcontainer.button}
+								onPress={this.addTotalItem}
+							>
+								<Text style={styles.text.button}>+</Text>
+							</View>)
+						: (<TouchableOpacity 
+							style={styles.subcontainer.button}
+							onPress={this.addTotalItem}
+						>
+							<Text style={styles.text.button}>+</Text>
+						</TouchableOpacity>)
+					}
 				</View>
 			)
 		}

@@ -55,6 +55,7 @@ class ProductItem extends PureComponent {
 						}
 					</TouchableOpacity>
 					<ButtonCount
+						data={this.props.data}
 						count={this.props.data.count}
 						addTotalItem={this.addTotalItem}
 						decTotalItem={this.decTotalItem}

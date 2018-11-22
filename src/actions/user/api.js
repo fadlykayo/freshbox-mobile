@@ -18,7 +18,6 @@ actions.update_user = (req, success, failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('put',payload,dispatch)
         .then((res) => {
         	if(res.code){

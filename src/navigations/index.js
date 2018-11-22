@@ -14,8 +14,6 @@ import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
-import HomeResetNewPasswordPage from '@pages/HomeResetNewPasswordPage';
-import ResetNewPasswordPage from '@pages/ResetNewPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
 import Favourites from '@pages/Favourites';
 import TermsConditions from '@pages/TermsConditions';
@@ -54,8 +52,6 @@ export const AppNavigator = createStackNavigator({
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
     HistoryPage: {screen: HistoryPage},
-    HomeResetNewPasswordPage: {screen: HomeResetNewPasswordPage},
-    ResetNewPasswordPage: {screen: ResetNewPasswordPage},
     ChooseAddress: {screen: ChooseAddress},
     ChoosePayment: {screen: ChoosePayment},
     CreditCard: {screen: CreditCard},    
@@ -118,8 +114,6 @@ export const navConstant = {
     PrivacyPolicy: 'PrivacyPolicy',
     ContactUs: 'ContactUs',
     Checkout: 'Checkout',
-    HomeResetNewPasswordPage: 'HomeResetNewPasswordPage',
-    ResetNewPasswordPage: 'ResetNewPasswordPage',
     ChooseAddress: 'ChooseAddress',
     ChoosePayment: 'ChoosePayment',
     CreditCard: 'CreditCard',

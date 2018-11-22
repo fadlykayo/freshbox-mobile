@@ -154,7 +154,7 @@ class ForgotPassword extends Component {
                     <View style={styles.button}>
                         <Button
                             type={'red'}
-                            title={'forgotPassword.button.submit'}
+                            title={'forgotPassword.button.request'}
                             onPress={this.forgotPasswordValidation}
                         />
                     </View>

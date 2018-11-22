@@ -17,7 +17,7 @@ const styles = {
         real: {
 			height: width * 0.2,
         	width: width * 0.2,
-        	borderRadius: 100,
+        	borderRadius: 200,
         	marginRight: width * 0.05,
 		},
 		dummy: {

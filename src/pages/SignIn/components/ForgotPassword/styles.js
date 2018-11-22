@@ -11,7 +11,7 @@ const styles = {
         flexDirection: 'row',
     },
     title:{
-        fontFamily: 'Avenir-Book',
+        fontFamily: 'Avenir-Medium',
         fontSize: scaling.moderateScale(14),
         color: colour.red,
     }
