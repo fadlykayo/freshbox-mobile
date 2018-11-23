@@ -19,50 +19,45 @@ class SearchComponent extends Component {
 	render(){
 		return (
     	<View style={styles.container}>
-  	  		<View style={styles.partContainer}>
-          		<View
-          		  style={styles.eachContainer}
-          		>
-            		<StaticText
-            		  	style={styles.filterByPriceText}
-            		  	property={'productList.filter.area'}
-            		/>
-            		{/* <Image
-  	  	    		  	resizeMode={'contain'} 
-  	  	    		  	source={images.icon_dropdown}
-  	  	    		  	style={styles.icon}
-  	  				/> */}
-          		</View>
+        	<View style={styles.subcontainer.part}>
+        		<StaticText
+        		  	style={styles.text.title}
+        		  	property={'productList.filter.area'}
+        		/>
+        		{/* <Image
+  	  			  	resizeMode={'contain'} 
+  	  			  	source={images.icon_dropdown}
+  	  			  	style={styles.icon}
+  	  			/> */}
+        	</View>
 				{ this.props.onCategory == 'Default' ? (
 					<TouchableOpacity
-						style={styles.eachContainer}
+						style={styles.subcontainer.part}
 						onPress = { this.openAllCategories }
 					>
 						<StaticText
-							style={styles.categoryText}
+							style={styles.text.title}
 							property={'productList.content.default'}
 						/>
 						<Image
-		  			    	resizeMode={'contain'} 
-		  			    	source={images.icon_view_categories}
-		  			    	style={styles.icon}
+					    	resizeMode={'contain'} 
+					    	source={images.icon_view_categories}
+					    	style={styles.icon}
 						/>
 					</TouchableOpacity>
-					) : (
+				) : (
 					<TouchableOpacity
-          			  	style = {styles.eachContainer}
-          			  	onPress = {this.props.openAllCategories}
-          			>
-            		<Text style = {styles.categoryText}>{this.props.onCategory}</Text>
-            		<Image
-  	  	    		  	resizeMode = {'contain'} 
-  	  	    		  	source = {images.icon_view_categories}
-  	  	    		  	style = {styles.icon}
-  	  				/>
-          			</TouchableOpacity>
-
-					) }
-        	</View>
+        			  	style = {styles.subcontainer.part}
+        			  	onPress = {this.props.openAllCategories}
+        			>
+        				<Text style = {styles.text.title}>{this.props.onCategory}</Text>
+        				<Image
+  	  					  	resizeMode = {'contain'} 
+  	  					  	source = {images.icon_view_categories}
+  	  					  	style = {styles.icon}
+  	  					/>
+        			</TouchableOpacity>
+				) }
       	</View>
 		);
 	}

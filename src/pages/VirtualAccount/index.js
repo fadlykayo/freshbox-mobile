@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import TotalPrice from '@components/TotalPrice';
+import TotalPrice from './components/TotalPrice';
 import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
@@ -85,8 +85,7 @@ class VirtualAccount extends Component {
 			    />
                 <View style={styles.container}>
                     <ScrollView style={styles.content}>
-                        { 
-                            this.state.banks.map((bank,index) => (
+                        { this.state.banks.map((bank,index) => (
                                 <Content
                                     key={index}
                                     bank={bank}

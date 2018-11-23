@@ -27,6 +27,7 @@ class Detail extends Component {
 		this.setDetailTransaction = this.setDetailTransaction.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -38,14 +39,28 @@ class Detail extends Component {
     componentDidMount() {
 		this.setDetailTransaction();
 		if(this.props.navigation.state.params.createOrderSuccess){
-			language.transformText('message.createOrderSuccess')
-			.then(message => {
-				this.props.set_success_status({
-					status: true,
-					data: message,
-					title: 'formSuccess.title.createOrder'
+			console.log(this.props.navigation.state.params.invoice, "kartunya")
+			if(this.props.navigation.state.params.invoice == 'credit_card') {
+				language.transformText('message.paymentSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
 				});
-			});
+			}
+			else {
+				language.transformText('message.createOrderSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
+				});
+			}
+			
 		}
 	}
 
@@ -127,7 +142,6 @@ class Detail extends Component {
 	}
 
 	toggleFavoriteHistory(payload){
-		console.log("masuk kesini toggleFavoriteHistory", payload)
 		if (payload.wishlisted == 1) {
 			let data = {
 				request: {
@@ -191,6 +205,13 @@ class Detail extends Component {
 		actNav.navigate(navConstant.TransferInstruction);
 	}
 
+	navigateBack(key) {
+		if(key) {
+			actNav.goBack(key)
+		} else actNav.goBack();
+
+	}
+
   	render(){
   	  	return(
             <Container 				
@@ -216,7 +237,7 @@ class Detail extends Component {
 							}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
-								<CartComponent 
+								<CartComponent
 									data = {item}
 									index = {index} 
 									toggleFavorite={this.toggleFavorite}

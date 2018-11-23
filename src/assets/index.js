@@ -50,5 +50,7 @@ images.icon_clear_search = require('./icon_clear_search.png');
 images.icon_copy = require('./icon_copy.png');
 images.icon_clear = require('./icon_clear.png');
 images.icon_credit_card = require('./icon_credit_card.png');
+images.icon_visa = require('./icon_visa.png');
+images.icon_mastercard = require('./icon_mastercard.png');
 
 export default images;

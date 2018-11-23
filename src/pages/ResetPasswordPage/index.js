@@ -140,7 +140,7 @@ class ResetPasswordPage extends Component {
 			}
 		}
 
-		this.props.reset_password(payload,
+		this.props.edit_password(payload,
 			(res) => {
 				language.transformText('message.successResetPassword')
 				.then(message => {
@@ -169,12 +169,20 @@ class ResetPasswordPage extends Component {
 			header: {},
 			body: {
 				phone_number: this.props.navigation.state.params.phone,
-				new_password: this.state.user.newPassword,
-				new_password_confirmation: this.state.user.confirmPassword,
-				otp: this.state.user.otp
+				password: this.state.user.newPassword,
+				password_confirmation: this.state.user.confirmPassword,
+				otp_validation: this.state.user.otp
 			}
 		}
-		alert(`berhasil! ${JSON.stringify(payload)}`)
+
+		this.props.reset_password(payload,
+			(res) => {
+				console.log(res)
+				actNav.reset(navConstant.Product)
+			},
+			(err) => {
+				console.log(err)
+			})
 	}
 	  
 	closeDialogResetPasswordSuccess(){
@@ -296,7 +304,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	reset_password: (req,res,err) => dispatch(actions.user.api.reset_password(req,res,err)),
+	edit_password: (req,res,err) => dispatch(actions.user.api.edit_password(req,res,err)),
+	reset_password: (req,res,err) => dispatch(actions.auth.api.reset_password(req,res,err)),
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })

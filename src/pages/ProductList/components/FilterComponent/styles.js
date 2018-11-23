@@ -6,40 +6,33 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		flex: 1,
+		flex: -1,
 		height: scaling.moderateScale(50),
-		maxHeight: scaling.moderateScale(50),
 		borderBottomWidth: 1,
 		borderBottomColor: colour.white,
 		backgroundColor: colour.darkRed,
+    	flexDirection: 'row',
 	},
-	partContainer: {
-    	flex:1,
-    	flexDirection: 'row',
-
-  	},
-  	eachContainer: {
-    	flex: 1,
-    	flexDirection: 'row',
-    	alignItems: 'center',
-    	paddingLeft: width * 0.05,
-    	justifyContent: 'space-between',
-    	paddingRight: width * 0.05,
-  	},
+	subcontainer: {
+		part: {
+			flex: 1,
+    		flexDirection: 'row',
+    		alignItems: 'center',
+    		paddingHorizontal: width * 0.05,
+    		justifyContent: 'space-between',
+		}
+	},
   	icon:{
 		width: scaling.moderateScale(15),
     	height: scaling.moderateScale(15),
 	},
-  	categoryText: {
-    	fontFamily: 'Avenir-Heavy',
-		fontSize: scaling.moderateScale(15),
-    	color: colour.white
-  	},
-  	filterByPriceText: {
-    	fontFamily: 'Avenir-Heavy',
-		fontSize: scaling.moderateScale(15),
-    	color: colour.white
-  	}
+	text: {
+		title: {
+			fontFamily: 'Avenir-Black',
+			fontSize: scaling.moderateScale(15),
+    		color: colour.white
+		},
+	},
 }
 
 export default styles;

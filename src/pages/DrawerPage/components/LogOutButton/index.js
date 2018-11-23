@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
 class LogOutButton extends PureComponent {
     constructor() {
         super();
-        this.navigate = this.navigate.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
 
     }
 
-    navigate() {
+    navigateTo() {
         if (this.props.user) {
             this.props.navigateLogOut();
         }
@@ -22,11 +22,11 @@ class LogOutButton extends PureComponent {
     render() {
         return (
             <TouchableOpacity 
-                onPress={ this.navigate }
-                style={styles.bottomComponent}
+                onPress={this.navigateTo}
+                style={styles.container}
             >
                 <StaticText
-                    style={styles.logOutText}
+                    style={styles.text.logout}
                     property= { 
                         this.props.user 
                         ? 'drawerPage.content.logOut' 

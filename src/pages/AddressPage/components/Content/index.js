@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FormDataPage from '../FormDataPage';
-import StaticData from '../StaticData';
+import FormDataPage from './components/FormDataPage';
+import StaticData from './components/StaticData';
 
 class Content extends Component {
   	constructor(props) {

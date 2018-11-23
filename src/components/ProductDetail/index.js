@@ -76,7 +76,6 @@ class ProductDetail extends Component {
 										return (
 											<TouchableOpacity key={index} onPress={this.openZoomImage}>
 												<Image
-													
 													resizeMode={'contain'} 
 													source={{uri: image}}
 													style={styles.icon.product}
@@ -111,6 +110,7 @@ class ProductDetail extends Component {
 								<Text style={styles.text.description}>{this.props.data.description}</Text>
 							</ScrollView>
 							<ButtonCount
+								data={this.props.data}
 								count={this.props.data.count}
 								addTotalItem={this.addTotalItem}
 								decTotalItem={this.decTotalItem}
@@ -123,8 +123,7 @@ class ProductDetail extends Component {
 								stock={this.props.data.stock}
 								maxQty={this.props.data.maxQty}
 							/>
-						</View>
-						
+						</View>	
 					</View>
 					<ZoomImage
 						modalVisible={this.props.openImageDetail}

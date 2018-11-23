@@ -21,32 +21,30 @@ class AddressData extends PureComponent {
 
     render() {
         return (
-            <TouchableOpacity style={styles.addressPlace} key={this.props.index} onPress={() => this.updatePrimaryAddress(this.props.address.code)}>
-                <View style={styles.leftPart}>
+            <TouchableOpacity style={styles.container} onPress={() => this.updatePrimaryAddress(this.props.address.code)}>
+                <View style={styles.subcontainer.left}>
                     { this.props.address.primary == 1 ? (
-                        <Text style={[styles.addressText, styles.nameAddressText]}>({this.props.address.name}) <StaticText
-                        style={styles.priority}
-                        property={'chooseAddress.content.primary'}
-                    /></Text>
+                        <Text style={[styles.text.address, styles.text.nameAddress]}>({this.props.address.name}) <StaticText
+                        style={styles.text.priority} property={'chooseAddress.content.primary'}/></Text>
                     ) : (
-                        <Text style={[styles.addressText, styles.nameAddressText]}>({this.props.address.name})</Text>
+                        <Text style={[styles.text.address, styles.text.nameAddress]}>({this.props.address.name})</Text>
                     )}
-				    <Text style={styles.receiverText}>{this.props.address.receiver_name}</Text>
+				    <Text style={styles.text.receiver}>{this.props.address.receiver_name}</Text>
 				    { this.props.address.detail.length == 0 ? (
-                        <Text style={styles.addressText}>{this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}</Text>
+                        <Text style={styles.text.address}>{this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}</Text>
 				    ) : (
-                        <Text style={styles.addressText}>{this.props.address.detail}, {this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}</Text>
+                        <Text style={styles.text.address}>{this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}, {this.props.address.detail}</Text>
 				    )}
-				    <Text style={styles.addressText}>{this.props.address.phone_number}</Text>
+				    <Text style={styles.text.address}>{this.props.address.phone_number}</Text>
                 </View>
-                <View style={styles.rightPart}>
-                    <View style={styles.buttonSelected}>
-                    { this.props.address.primary == 1 ? ( <View style={styles.innerButton}></View> ) : null }
+                <View style={styles.subcontainer.right}>
+                    <View style={styles.circle.outer}>
+                    { this.props.address.primary == 1 ? ( <View style={styles.circle.inner}></View> ) : null }
                     </View>
                 </View>
-                <TouchableOpacity style={styles.iconPen} onPress={() => this.navigateToEditAddress(this.props.address)}>
+                <TouchableOpacity style={styles.place.pen} onPress={() => this.navigateToEditAddress(this.props.address)}>
                     <Image
-                        style={styles.logoPen}
+                        style={styles.logo.pen}
                         source={images.icon_pen}
                     />
                 </TouchableOpacity>

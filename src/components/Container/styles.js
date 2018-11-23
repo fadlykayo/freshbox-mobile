@@ -1,5 +1,6 @@
 import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
+
 const { height } = Dimensions.get('window');
 
 const styles = {
@@ -26,16 +27,16 @@ const styles = {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: colour[bgColor] ? colour[bgColor] : '#FFFFFF'
+        backgroundColor: colour[bgColor] ? colour[bgColor] : colour.white
     }),
-    backgroundTop: (bgColor) => ({
+    backgroundTop: (bgColor) => ({ 
         flex: 1,
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         height: 250,
-        backgroundColor: colour[bgColor] ? colour[bgColor] : '#FFFFFF'
+        backgroundColor: colour[bgColor] ? colour[bgColor] : colour.white
     })
 }
 

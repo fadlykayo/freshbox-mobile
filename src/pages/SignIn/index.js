@@ -152,9 +152,8 @@ class SignIn extends Component {
                     onPress={actNav.goBack}
                 />
                 <ScrollView
-                    keyboardShouldPersistTaps={'always'} 
+                    keyboardShouldPersistTaps={'handled'} 
                     style={styles.container}
-                    // contentContainerStyle={styles.content}
                 >
                     <FormInput 
                         ref={c => {this.formPhone = c}}

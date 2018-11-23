@@ -11,16 +11,10 @@ const styles = {
         paddingRight: width * 0.05,
     },
     content:{
-        flex: 1,
+        // flex: 1,
     },
     middleComponent: {
-    },
-    bottomComponent: {
-        marginTop: height * 0.1,
-        flex: -1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: height * 0.16,
+        marginBottom: width * 0.05,
     },
 }
 

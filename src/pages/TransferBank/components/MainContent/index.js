@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 import StaticText from '@components/StaticText';
-import InnerContent from '../InnerContent';
+import InnerContent from './components/InnerContent';
 import styles from './styles';
 import images from '@assets';
 

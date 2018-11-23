@@ -271,18 +271,17 @@ const editFavorite = (state,payload) => {
     let productsWishList = newState.products[index];
     productsWishList.wishlisted = productsWishList.wishlisted == 1 ? 0 : 1;
     newState.detail = newState.products[index];
-
-    newState.wishlist.products = payload.data.newData.data;
     
     let incomingProducts = payload.data.newData.data;
+    console.log("incomingProducts", incomingProducts)
     let existingProducts = newState.wishlist.products.slice();
     let productList = newState.products.slice();
 
-    for(x in incomingProducts){
+    for(x in existingProducts){
         let sameValue = false;
-        for(y in existingProducts){
-            if(incomingProducts[x].code == existingProducts[y].code){
-                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+        for(y in incomingProducts){
+            if(existingProducts[x].code == incomingProducts[y].code){
+                existingProducts[x] = Object.assign({},existingProducts[x],incomingProducts[y]);
                 sameValue = true;
                 break;
             }
@@ -290,7 +289,7 @@ const editFavorite = (state,payload) => {
         if(sameValue == false) existingProducts.splice(x, 1);
     }
 
-    newState.wishlist.products = existingProducts.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(e => {
+    newState.wishlist.products = existingProducts.map(e => {
         let productItem = productList.filter(p => e.code == p.code);
         if(productItem.length > 0){
             return productItem[0];

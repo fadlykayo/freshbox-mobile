@@ -10,26 +10,25 @@ const styles = {
         backgroundColor: colour.veryLightGrey,
         padding: width * 0.05,
     },
-    staticText: {
-        fontFamily: 'Avenir-Heavy',
-        fontWeight: '500',
-        fontSize: scaling.moderateScale(14),
-        color: colour.grey,
-        marginBottom: scaling.moderateScale(4),
+    text: {
+        static: {
+            fontFamily: 'Avenir-Black',
+            fontSize: scaling.moderateScale(14),
+            color: colour.grey,
+            marginBottom: scaling.moderateScale(4),
+        },
+        detail: {
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(14),
+            color: colour.darkGrey,
+            marginBottom: scaling.moderateScale(18),
+        },
+        user: {
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(14),
+            color: colour.darkGrey,
+        }
     },
-    detailText: {
-        fontFamily: 'Avenir-Book',
-        fontWeight: '400',
-        fontSize: scaling.moderateScale(14),
-        color: colour.darkGrey,
-        marginBottom: scaling.moderateScale(18),
-    },
-    userText: {
-        fontFamily: 'Avenir-Book',
-        fontWeight: '400',
-        fontSize: scaling.moderateScale(14),
-        color: colour.darkGrey,
-    }
 }
 
 export default styles;

@@ -27,13 +27,19 @@ const styles = {
 		height: scaling.moderateScale(50),
 	},
 	icon:{
-		width: scaling.moderateScale(14),
-		height: scaling.moderateScale(14),
-	},
-	iconSearch: {
-		width: scaling.moderateScale(14),
-		height: scaling.moderateScale(14),
-		marginRight: scaling.moderateScale(15),
+		search: {
+			width: scaling.moderateScale(14),
+			height: scaling.moderateScale(14),
+			marginRight: scaling.moderateScale(15),
+		},
+		menu: {
+			width: scaling.moderateScale(14),
+			height: scaling.moderateScale(14),
+		},
+		clear: {
+			width: scaling.moderateScale(20),
+			height: scaling.moderateScale(20),
+		}
 	},
 	clear: {
 		place: {
@@ -42,24 +48,22 @@ const styles = {
 			justifyContent: 'center',
 			alignItems: 'center'
 		},
-		icon: {
-			width: scaling.moderateScale(20),
-			height: scaling.moderateScale(20),
-		}
 	},
 	title:{
 		fontFamily: 'Avenir-Black',
 		fontSize: scaling.moderateScale(16),
 		color: colour.darkGrey,
 	},
-	searchContainer: {
-		backgroundColor: colour.white,
-		width: width * 0.8,
-		height: scaling.moderateScale(35),
-		borderRadius: 100,
-		alignItems: 'center',
-		flexDirection: 'row',
-		paddingLeft: scaling.moderateScale(15),
+	subcontainer: {
+		search: {
+			backgroundColor: colour.white,
+			width: width * 0.8,
+			height: scaling.moderateScale(35),
+			borderRadius: 100,
+			alignItems: 'center',
+			flexDirection: 'row',
+			paddingLeft: scaling.moderateScale(15),
+		},
 	},
 	textinput: {
 		fontFamily: 'Avenir-Light',

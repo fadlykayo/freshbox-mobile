@@ -17,7 +17,8 @@ class DetailOrder extends Component {
 			case 'paid': return 'historyPage.static.paid'
 			case 'on_process': return 'historyPage.static.on_process'
 			case 'on_shipping': return 'historyPage.static.on_shipping'
-			case 'failed': return 'historyPage.static.failed'
+            case 'failed': return 'historyPage.static.failed'
+			case 'expired': return 'historyPage.static.expired'
 		}
 	}
 
@@ -29,31 +30,31 @@ class DetailOrder extends Component {
             return (
                 <View style={styles.container}>
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.status'}
                     />
                     <StaticText
-                        style={styles.detailText}
+                        style={styles.text.detail}
                         property={transactionStatus}
                     />
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.transactionNumber'}
                     />
-                    <Text style={styles.detailText}>{this.props.transaction.invoice}</Text>
+                    <Text style={styles.text.detail}>{this.props.transaction.invoice}</Text>
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.deliveryDate'}
                     />
-                    <Text style={styles.detailText}>{dateDisplay}</Text>
+                    <Text style={styles.text.detail}>{dateDisplay}</Text>
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.address'}
                     />
                     <View>
-                        <Text style={styles.userText}>{this.props.transaction.receiver_name}</Text>
-                        <Text style={styles.userText}>{this.props.transaction.phone_number}</Text>
-                        <Text style={styles.userText}>
+                        <Text style={styles.text.user}>{this.props.transaction.receiver_name}</Text>
+                        <Text style={styles.text.user}>{this.props.transaction.phone_number}</Text>
+                        <Text style={styles.text.user}>
                             {this.props.transaction.address} <StaticText property={'historyDetail.content.kelurahan'}/>{this.props.transaction.zip_code.place_name}<StaticText property={'historyDetail.content.kecamatan'}/>{this.props.transaction.subdistrict.name}, {this.props.transaction.city.name}, {this.props.transaction.province.name}, {this.props.transaction.zip_code.zip_code}                                            
                             {this.props.transaction.address_detail.length == 0 
                                 ? null 
@@ -68,18 +69,18 @@ class DetailOrder extends Component {
             return (
                 <View style={styles.container}>
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.deliveryDate'}
                     />
-                    <Text style={styles.detailText}>{this.props.setDate.display}</Text>
+                    <Text style={styles.text.detail}>{this.props.setDate.display}</Text>
                     <StaticText
-                        style={styles.staticText}
+                        style={styles.text.static}
                         property={'historyDetail.detail.address'}
                     />
                     <View>
-                        <Text style={styles.userText}>{address.receiver_name}</Text>
-                        <Text style={styles.userText}>{address.phone_number}</Text>
-                        <Text style={styles.userText}>
+                        <Text style={styles.text.user}>{address.receiver_name}</Text>
+                        <Text style={styles.text.user}>{address.phone_number}</Text>
+                        <Text style={styles.text.user}>
                             {address.address}<StaticText property={'historyDetail.content.kelurahan'}/>{address.zip_code.place_name}<StaticText property={'historyDetail.content.kecamatan'}/>{address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}
                             { address.detail.length == 0 
                                 ? null 
