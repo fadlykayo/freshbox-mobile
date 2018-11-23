@@ -8,8 +8,17 @@ import styles from './styles';
 
 class FormDataPage extends Component {
   	constructor(props) {
-  		super(props)
-        this.onChangeText = this.onChangeText.bind(this);
+		super(props)
+		this.state = {
+		  	isOpen: {
+				province: false,
+				city: false,
+				subdistrict: false,
+				zip_code: false,
+		  	}
+		}
+		this.onChangeText = this.onChangeText.bind(this);
+		this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
         this.onPress = this.onPress.bind(this);
         this.submitNameAddress = this.submitNameAddress.bind(this);
 		this.submitReceiverName = this.submitReceiverName.bind(this);
@@ -17,11 +26,40 @@ class FormDataPage extends Component {
 		this.submitZipCode = this.submitZipCode.bind(this);
 		this.submitAddress = this.submitAddress.bind(this);
 		this.submitAddressDetails = this.submitAddressDetails.bind(this);
+		this.showDropdown = this.showDropdown.bind(this);
 	}
 
-    onChangeText(type,value) {
-        this.props.onChangeText(type, value);
+	showDropdown(type, nextType){
+		let isOpen = this.state.isOpen;
+		if(type !== null && nextType != null) {
+			isOpen[type] = !isOpen[type];
+			isOpen[nextType] = !isOpen[nextType];
+			this.setState({isOpen});
+		}
+		else if (type == null && nextType != null) {
+			isOpen[nextType] = !isOpen[nextType];
+			this.setState({isOpen});
+		}
+		else {
+			isOpen[type] = !isOpen[type];
+			this.setState({isOpen});
+		}
     }
+	
+	onChangeText(type,value) {
+		this.props.onChangeText(type,value);
+	}
+
+	onSpecificChangeText(type,value,nextValue) {
+		this.props.onSpecificChangeText(type,value);
+		if(type == 'zip_code') {
+			this.showDropdown(type,null);
+			this.formZipCode.focus();
+		}
+		else {
+			this.showDropdown(type,nextValue);
+		}
+	} 
 
     onPress() {
         this.props.onPress();
@@ -39,8 +77,8 @@ class FormDataPage extends Component {
 
     submitPhone() {
 		this.props.submitPhone();
-		this.formZipCode.focus();
-    }
+		this.showDropdown(null,'province')
+	}
 
 	submitZipCode() {
 		this.props.submitZipCode();
@@ -92,6 +130,7 @@ class FormDataPage extends Component {
 					ref={c => {this.formPhone = c}}
 					type={'phone'}
 					keyboardType={'number-pad'}
+					maxLength={13}
 					value={this.props.address.phone}
 					onChangeText={this.onChangeText}
 					label={'addressPage.label.phone'}
@@ -106,12 +145,14 @@ class FormDataPage extends Component {
 				<Dropdown
 					type={'province'}
 					data={this.props.province}
-					isOpen={true}
+					isOpen={this.state.isOpen.province}
 					value={this.props.address.province}
-					onChangeText={this.props.onSpecificChangeText}
+					nextValue={'city'}
+					onSpecificChangeText={this.onSpecificChangeText}
 					label={'addressPage.label.province'}
 					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.province'}
+					showDropdown={this.showDropdown}
 				/>
 				<VerificationText
 					validation={this.props.validateStatus.province}
@@ -120,12 +161,14 @@ class FormDataPage extends Component {
 				<Dropdown 
 					type={'city'}
 					data={this.props.city}
-					isOpen={true}
+					isOpen={this.state.isOpen.city}
 					value={this.props.address.city}
-					onChangeText={this.props.onSpecificChangeText}
+					nextValue={'subdistrict'}
+					onSpecificChangeText={this.onSpecificChangeText}
 					label={'addressPage.label.city'}
 					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.city'}
+					showDropdown={this.showDropdown}
 				/>
 				<VerificationText
 					validation={this.props.validateStatus.city}
@@ -134,12 +177,14 @@ class FormDataPage extends Component {
 				<Dropdown 
 					type={'subdistrict'}
 					data={this.props.subdistrict}
-					isOpen={true}
+					isOpen={this.state.isOpen.subdistrict}
 					value={this.props.address.subdistrict}
-					onChangeText={this.props.onSpecificChangeText}
+					nextValue={'zip_code'}
+					onSpecificChangeText={this.onSpecificChangeText}
 					label={'addressPage.label.kecamatan'}
 					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.kecamatan'}
+					showDropdown={this.showDropdown}
 				/>
 				<VerificationText
 					validation={this.props.validateStatus.subdistrict}
@@ -148,12 +193,13 @@ class FormDataPage extends Component {
 				<Dropdown 
 					type={'zip_code'}
 					data={this.props.zip_code}
-					isOpen={true}
+					isOpen={this.state.isOpen.zip_code}
 					value={this.props.address.zip_code}
-					onChangeText={this.props.onSpecificChangeText}
+					onSpecificChangeText={this.onSpecificChangeText}
 					label={'addressPage.label.kelurahan'}
 					required={'addressPage.label.required'}
 					placeholder={'addressPage.label.kelurahan'}
+					showDropdown={this.showDropdown}
 				/>
 				<VerificationText
 					validation={this.props.validateStatus.kelurahan}

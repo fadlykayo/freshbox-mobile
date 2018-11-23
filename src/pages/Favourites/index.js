@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import AlertDialog from '@components/AlertDialog'; 
@@ -13,6 +13,7 @@ import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
+const { width, height } = Dimensions.get('window');
 
 class Favourites extends Component {
 	constructor(props) {
@@ -20,11 +21,14 @@ class Favourites extends Component {
 		this.state = { 
 			totalPrice: 0,
 			search: false,
+			scrollX: 0,
+			bubble: 0,
 			refreshing: false,
 			modalVisible: {
 				openProduct: false,
 				alertDialog: false,
 				modalLoginConfirmation: false,
+				openImageDetail: false,
 			},
 			selectedProduct: null,
 		}
@@ -40,11 +44,37 @@ class Favourites extends Component {
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.clearProductCancelation = this.clearProductCancelation.bind(this);
 		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
+		this.getPositionIndex = this.getPositionIndex.bind(this);
+		this.getPositionBubble = this.getPositionBubble.bind(this);
+		this.openZoomImage = this.openZoomImage.bind(this);
+		this.closeZoomImage = this.closeZoomImage.bind(this);
 	}
 
 	componentDidMount() {
 		this.getFavorites();
 	}
+
+	openZoomImage(){
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	closeZoomImage(){
+		this.setModalVisible('openImageDetail',false);
+	}
+
+	getPositionIndex(e) {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+    getPositionBubble() {
+        let position = Math.round(this.state.scrollX/(width* 0.18));
+
+        if (this.state.bubble != position) {
+            this.setState({ bubble: position })
+        }
+    }
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
@@ -218,10 +248,8 @@ class Favourites extends Component {
 					<View style={styles.subcontainer.cart}>
 						<FlatList
 							data={this.props.wishlist}
-							onEndReachedThreshold={0.05}
 							onRefresh={this.refreshHandler}
 							refreshing={this.state.refreshing}
-							onEndReached={this.handleLoadMore}
 							keyExtractor={(item,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<ProductItem
@@ -253,6 +281,13 @@ class Favourites extends Component {
 					toggleFavorite={this.toggleFavorite}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
+					getPositionBubble={this.getPositionBubble}
+					getPositionIndex={this.getPositionIndex}
+					openZoomImage={this.openZoomImage}
+					closeZoomImage={this.closeZoomImage}
+					bubble={this.state.bubble}
+					scrollX={this.state.scrollX}
+					openImageDetail={this.state.modalVisible.openImageDetail}
 				/>
 				<ModalLoginConfirmation
 					onPress={this.navigateToSignIn} 

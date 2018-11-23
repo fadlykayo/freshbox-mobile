@@ -39,14 +39,28 @@ class Detail extends Component {
     componentDidMount() {
 		this.setDetailTransaction();
 		if(this.props.navigation.state.params.createOrderSuccess){
-			language.transformText('message.createOrderSuccess')
-			.then(message => {
-				this.props.set_success_status({
-					status: true,
-					data: message,
-					title: 'formSuccess.title.createOrder'
+			console.log(this.props.navigation.state.params.invoice, "kartunya")
+			if(this.props.navigation.state.params.invoice == 'credit_card') {
+				language.transformText('message.paymentSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
 				});
-			});
+			}
+			else {
+				language.transformText('message.createOrderSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
+				});
+			}
+			
 		}
 	}
 
@@ -206,7 +220,6 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
-					onPress={() => {this.props.navigation.state.params.review ? this.navigateBack(this.props.navigation.state.params.key) : this.navigateBack(null)}}
 				/>
   	  	  		<ScrollView style={styles.container}>
                     <DetailOrder

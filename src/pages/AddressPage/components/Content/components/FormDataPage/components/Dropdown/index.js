@@ -1,42 +1,27 @@
-import React,{ Component } from 'react';
+import React,{ PureComponent } from 'react';
 import { View, FlatList, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import { language } from '@helpers';
 import images from '@assets';
 import styles from './styles';
 
-class Dropdown extends Component {
+class Dropdown extends PureComponent {
     constructor(props){
         super(props);
         this.state={
 			isOpen: props.isOpen ? props.isOpen : false,
-            placeholder: '',
         }
         this.showDropdown = this.showDropdown.bind(this);
-        this.onChangeText = this.onChangeText.bind(this);
+        this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
         this._renderLabel = this._renderLabel.bind(this);
-        this.getPlaceholder = this.getPlaceholder.bind(this);
     }
 
-    componentDidMount(){
-        if(this.props.placeholder) this.getPlaceholder();
+    showDropdown(type){
+        this.props.showDropdown(type);
     }
 
-    showDropdown(){
-        let state = this.state;
-        state.isOpen = !state.isOpen;
-        this.setState(state);
-    }
-
-    onChangeText(value){
-        this.props.onChangeText(this.props.type,value);
-    }
-
-    getPlaceholder(){
-        language.transformText(this.props.placeholder)
-        .then((res) => {
-            this.setState({placeholder: res});
-        });
+    onSpecificChangeText(value){
+        this.props.onSpecificChangeText(this.props.type,value,this.props.nextValue);
     }
     
     _renderLabel(props){
@@ -50,68 +35,44 @@ class Dropdown extends Component {
     }
 
     render() {
-        if(this.state.isOpen == true){
-            return(
-                <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
+        return(
+            <View>
+                <TouchableOpacity style={styles.container} onPress={() => this.showDropdown(this.props.type)}>
                     {this._renderLabel(this.props)}
-                    {
-                        this.props.value.code.length == 0 ? (
-                            <Text style={styles.formInput}>{this.state.placeholder}</Text>
-                        ) : (
-                            <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
-                        )
+                    { this.props.value.code.length == 0 
+                        ? (<StaticText
+                            style={styles.formInput}
+                            property={this.props.placeholder}
+                        />) 
+                        : (<Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>)
                     }
                     <View style={styles.underline}/>
                     <View style={styles.showPasswordButton}>
                         <Image
                             resizeMode={'contain'} 
-                            source={images.icon_dropdown_arrow_down}
+                            source={this.props.isOpen ? images.icon_dropdown_arrow_up : images.icon_dropdown_arrow_down}
                             style={styles.icon}
                         />
                     </View>
                 </TouchableOpacity>
-            )
-        } else {
-            return(
-                <View>
-                    <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
-                        {this._renderLabel(this.props)}
-                        {
-                            this.props.value.code.length == 0 ? (
-                                <Text style={styles.formInput}>{this.state.placeholder}</Text>
-                            ) : (
-                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>
-                            )
-                        }
-                        <View style={styles.underline}/>
-                        <View style={styles.showPasswordButton}>
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_dropdown_arrow_up}
-                                style={styles.icon}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <FlatList
-                        nestedScrollEnabled={true}
-                        style={styles.dropdownPlace}
-                        data={this.props.data}
-                        keyExtractor={(item, index) => index.toString()}
-					    renderItem={({item,index}) => (
-                            <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
-                                this.onChangeText(item)
-                                this.showDropdown()
-                                }
-                            }>
-                                <Text style={styles.formInput}>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
-                            </TouchableOpacity>
-					    )}
-                    />
-                </View>
-            )
-        }
-
-
+                { this.props.isOpen
+                    ? (<FlatList
+                            nestedScrollEnabled={true}
+                            style={styles.dropdownPlace}
+                            data={this.props.data}
+                            keyExtractor={(item, index) => index.toString()}
+				            renderItem={({item,index}) => (
+                                <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
+                                    this.onSpecificChangeText(item)
+                                }}>
+                                    <Text style={styles.formInput}>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
+                                </TouchableOpacity>
+				            )}
+                        />)
+                    : null
+                }
+            </View>
+        )
     }
 }
 

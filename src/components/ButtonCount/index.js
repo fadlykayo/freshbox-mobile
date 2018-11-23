@@ -50,11 +50,11 @@ class ButtonCount extends PureComponent {
 								<Text style={styles.text.button}>+</Text>
 							</View>)
 						: (<TouchableOpacity 
-							style={styles.subcontainer.button}
-							onPress={this.addTotalItem}
-						>
-							<Text style={styles.text.button}>+</Text>
-						</TouchableOpacity>)
+								style={styles.subcontainer.button}
+								onPress={this.addTotalItem}
+							>
+								<Text style={styles.text.button}>+</Text>
+							</TouchableOpacity>)
 					}
 				</View>
 			)

@@ -76,7 +76,6 @@ class ProductDetail extends Component {
 										return (
 											<TouchableOpacity key={index} onPress={this.openZoomImage}>
 												<Image
-													
 													resizeMode={'contain'} 
 													source={{uri: image}}
 													style={styles.icon.product}

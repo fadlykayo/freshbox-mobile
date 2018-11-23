@@ -96,21 +96,21 @@ class ForgotPassword extends Component {
             }
         }
 
-        actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
-        // this.props.forgot_password(payload,
-        //     (success) => {
-        //         actNav.navigate(navConstant.ResetPasswordPage)
-        //     },
-        //     (err) => {
-        //         language.transformText('message.invalidPhone')
-        //         .then(message => {
-        //             this.props.set_error_status({
-        //                 status: true,
-        //                 title: 'formError.title.default',
-        //                 data: message,
-        //             });
-        //         });
-        //     })
+        // actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
+        this.props.forgot_password(payload,
+            (success) => {
+                actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
+            },
+            (err) => {
+                language.transformText('message.invalidPhone')
+                .then(message => {
+                    this.props.set_error_status({
+                        status: true,
+                        title: 'formError.title.default',
+                        data: message,
+                    });
+                });
+            })
         
     }
 

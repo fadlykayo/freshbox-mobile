@@ -78,7 +78,7 @@ class HistoryPage extends Component {
 	}
 
 	navigateToReviewProduct(payload) {
-		actNav.navigate(navConstant.ContactUs, { action: 'history', data: payload, review: 'review', key: this.props.navigation.state.key })
+		actNav.navigate(navConstant.ContactUs, { action: 'history', data: payload })
 	}
 
   	render() {

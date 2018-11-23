@@ -25,9 +25,7 @@ class AddressData extends PureComponent {
                 <View style={styles.subcontainer.left}>
                     { this.props.address.primary == 1 ? (
                         <Text style={[styles.text.address, styles.text.nameAddress]}>({this.props.address.name}) <StaticText
-                        style={styles.text.priority}
-                        property={'chooseAddress.content.primary'}
-                    /></Text>
+                        style={styles.text.priority} property={'chooseAddress.content.primary'}/></Text>
                     ) : (
                         <Text style={[styles.text.address, styles.text.nameAddress]}>({this.props.address.name})</Text>
                     )}
@@ -35,7 +33,7 @@ class AddressData extends PureComponent {
 				    { this.props.address.detail.length == 0 ? (
                         <Text style={styles.text.address}>{this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}</Text>
 				    ) : (
-                        <Text style={styles.text.address}>{this.props.address.detail}, {this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}</Text>
+                        <Text style={styles.text.address}>{this.props.address.address}, {this.props.address.zip_code.place_name}, {this.props.address.subdistrict.name}, {this.props.address.city.name}, {this.props.address.province.name}, {this.props.address.zip_code.zip_code}, {this.props.address.detail}</Text>
 				    )}
 				    <Text style={styles.text.address}>{this.props.address.phone_number}</Text>
                 </View>

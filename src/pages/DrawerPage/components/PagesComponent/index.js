@@ -67,7 +67,7 @@ class PagesComponent extends Component {
                                 return (
                                     <TouchableOpacity 
                                         onPress={ this.closeDrawerPage }
-                                        style={styles.selectedPage} key={index}
+                                        style={styles.page.selected} key={index}
                                     >
                                         <StaticText
                                             style={styles.selectedText}
@@ -80,7 +80,7 @@ class PagesComponent extends Component {
                                 return (
                                     <TouchableOpacity 
                                         onPress={ () => this.navigateToOtherPage(page)}
-                                        style={styles.unselectedPage} key={index}
+                                        style={styles.page.unselected} key={index}
                                     >
                                         <StaticText
                                             style={styles.unselectedText}

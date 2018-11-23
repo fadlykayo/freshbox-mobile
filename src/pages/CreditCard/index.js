@@ -211,7 +211,7 @@ class CreditCard extends Component {
         this.props.create_order(payload,
         (res) => {
             this.props.clear_products();
-            this.props.navigation.state.params.createOrderHandler(res.invoice);
+            this.props.navigation.state.params.createOrderHandler(res.invoice, res.payment_method);
         },
         (err) => {
             language.transformText('message.invalidCreditCard')
@@ -421,9 +421,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-        create_order: (req, res, err) => dispatch(actions.transaction.api.create_order(req, res, err)),
-        set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-        clear_products: () => dispatch(actions.product.reducer.clear_products()),
+    clear_products: () => dispatch(actions.product.reducer.clear_products()),
+    create_order: (req, res, err) => dispatch(actions.transaction.api.create_order(req, res, err)),
+    set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(CreditCard);

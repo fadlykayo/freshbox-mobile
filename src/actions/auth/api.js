@@ -145,11 +145,12 @@ actions.otp_resend = (req,success,failure) => {
 
 actions.forgot_password = (req, success, failure) => {
 	
-	payload.path = path.forgotPassword;
+	payload.path = path.resetPasswordOTP;
 	payload.header = req.header;
 	payload.body = req.body;
 	
 	return dispatch => {
+		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
@@ -163,7 +164,7 @@ actions.forgot_password = (req, success, failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-        			case 403: return failure(err);
+        			case 400: return failure(err);
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,
@@ -173,6 +174,39 @@ actions.forgot_password = (req, success, failure) => {
         	}
         })
 
+    }
+};
+
+actions.reset_password = (req, success, failure) => {
+	
+	payload.path = path.resetPassword;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.sign_in(res.data));
+        			success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
     }
 };
 

@@ -252,9 +252,9 @@ actions.set_primary_address = (req, success, failure) => {
     }
 };
 
-actions.reset_password = (req, success, failure) => {
+actions.edit_password = (req, success, failure) => {
 	
-	payload.path = path.resetPassword;
+	payload.path = path.editPassword;
 	payload.header = req.header;
 	payload.body = req.body;
 	
@@ -281,9 +281,7 @@ actions.reset_password = (req, success, failure) => {
         		}
         	}
         })
-
     }
 };
-
 
 export default actions;

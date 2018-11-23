@@ -125,12 +125,12 @@ class ContactUs extends Component {
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-                
+                <Logo />
 				<ScrollView 
 					style={styles.container}
 					keyboardShouldPersistTaps={'handled'}
                 >
-					<Logo />
+					
 					<View style={styles.middleComponent}>
 						{ this.props.navigation.state.params.action == 'history'
 							? (
@@ -161,14 +161,13 @@ class ContactUs extends Component {
 							onSubmitEditing={this.submitInformation}
 						/>
 					</View>
-					<View style={styles.bottomComponent}>
-						<Button
-							type={'red'}
-							title={'contactUs.button.submit'}
-							onPress={this.submitInformation}
-						/>
-					</View>
+					<Button
+						type={'red'}
+						title={'contactUs.button.submit'}
+						onPress={this.submitInformation}
+					/>
 				</ScrollView>
+						
 			</Container>
   	  	);
   	}
