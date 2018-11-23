@@ -383,12 +383,12 @@ class ProductList extends Component {
 		});
 	}
 
-	createOrderHandler(invoice){
+	createOrderHandler(invoice,type){
 		actNav.goBackToTop();
-		this.navigateToDetail(invoice);
+		this.navigateToDetail(invoice,type);
 	}
 
-	navigateToDetail(input) {
+	navigateToDetail(input,type) {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -401,6 +401,7 @@ class ProductList extends Component {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					createOrderSuccess: true,
+					invoice: type
 				});
 			},
 			(err) => {
@@ -431,7 +432,6 @@ class ProductList extends Component {
 				<Notes />
 				<View style={styles.container}>
 					<View style={styles.cartContainer}>
-						
 						<FlatList
 							ref={(e) => { this.listRef = e}}
 							data={this.props.product}

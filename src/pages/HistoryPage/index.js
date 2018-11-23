@@ -19,6 +19,7 @@ class HistoryPage extends Component {
 		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
+		this.navigateToReviewProduct = this.navigateToReviewProduct.bind(this);
 	}
 	
 	componentDidMount(){
@@ -76,6 +77,10 @@ class HistoryPage extends Component {
 		actNav.goBack(this.props.navigation.state.params.key);
 	}
 
+	navigateToReviewProduct(payload) {
+		actNav.navigate(navConstant.ContactUs, { action: 'history', data: payload })
+	}
+
   	render() {
   	  	return (
 			<Container 				
@@ -100,6 +105,7 @@ class HistoryPage extends Component {
 								index={index}
 								navigateToCart={this.navigateToCart}
 								navigateToDetail={this.navigateToDetail}
+								navigateToReviewProduct={this.navigateToReviewProduct}
 							/>
 						)}
 					/>

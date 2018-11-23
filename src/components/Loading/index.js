@@ -13,14 +13,14 @@ class Loading extends PureComponent {
 		if(this.props.modalVisible == false) return null;
 		else return(
 			<View style={styles.container}>
-				<View style={styles.loadingContainer}>
+				<View style={styles.loading.container}>
 					<Image
 						resizeMode={'contain'}
-						style={styles.loadingImage}
+						style={styles.loading.image}
 						source={images.loading_apple}
 					/>
 					<StaticText 
-						style={styles.loadingText}
+						style={styles.loading.text}
 						property={"loading"}
 					/>
 				</View>

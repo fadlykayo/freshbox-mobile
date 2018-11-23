@@ -23,7 +23,6 @@ const styles = {
     staticText: {
         fontFamily: 'Avenir-Medium',
         fontSize: scaling.moderateScale(12),
-        fontWeight: '500',
         color: colour.darkGrey
     },
     imagePlace: {

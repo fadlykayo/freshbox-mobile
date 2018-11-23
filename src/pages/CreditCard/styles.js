@@ -20,22 +20,29 @@ const styles = {
         paddingBottom: width * 0.03,
         paddingHorizontal: width * 0.05,
     },
-    bottom: {
-        flex: -1,
-        marginTop: Platform.OS == 'android' ? height * 0.02 : 0.25,
-    },
     top: {
         main: {
             flex: -1,
         },
-        content: {
-        },
+        content: (x) => ({
+            width: width * 0.7,
+            borderBottomWidth: 1,
+            borderBottomColor: x ? colour.red : colour.lightGrey,
+            marginBottom: width * 0.03,
+        }),
+        
     },
     text: {
         title: {
             fontSize: scaling.moderateScale(12),
             fontFamily: 'Avenir-Black',
             color: colour.black,
+        },
+        creditCard: {
+            paddingVertical: scaling.moderateScale(10),
+            fontSize: scaling.moderateScale(14),
+            fontFamily: 'Avenir-Light',
+            color: colour.darkGrey,
         },
         content: {
             fontSize: scaling.moderateScale(14),
@@ -73,18 +80,6 @@ const styles = {
             marginTop: scaling.moderateScale(5),
         }
     },
-    component: {
-        height: width * 0.14,
-        borderBottomColor: colour.lightGrey,
-        borderBottomWidth: 1,
-        justifyContent: 'center'
-    },
-    labelText: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(12),
-        fontWeight: '800',
-        marginBottom: scaling.moderateScale(5),
-    },
     middle: {
         place: {
             flexDirection: 'row',
@@ -97,8 +92,6 @@ const styles = {
     creditCard: {
         place: {
             width: width * 0.7,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
         },
         part: (x,y) => ({
             width: width * 0.15,
@@ -153,6 +146,15 @@ const styles = {
             height: scaling.moderateScale(40),
             marginRight: width * 0.06,
             marginTop: width * 0.05,
+        },
+        cardLogo: {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: scaling.moderateScale(50),
+            height: scaling.moderateScale(50),
+            marginRight: scaling.moderateScale(15),
+            marginTop: scaling.moderateScale(10),
         }
     }
 }

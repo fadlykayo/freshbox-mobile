@@ -25,12 +25,15 @@ export const path = {
     shippingCost: 'v1/shipping-cost',
     bulkAddProducts: 'v1/cart/bulk-add-and-replace',
     checkout: 'v1/transaction/checkout',
-    resetPassword: 'v1/user/edit/password',
+    editPassword: 'v1/user/edit/password',
+    resetPasswordOTP: 'v1/user/reset-password-otp',
+    resetPassword: 'v1/user/reset-password',
     favorite: 'v1/wishlist',
     transactionHistory: 'v1/transaction',
     getProvinces: 'v1/region/province',
     getCity: 'v1/region/city',
     getSubdistrict: 'v1/region/subdistrict',
     getZipCode: 'v1/region/zip-code',
-    reorder: 'v1/transaction/reorder'
+    reorder: 'v1/transaction/reorder',
+    customerservice: 'v1/customer-support'
 }

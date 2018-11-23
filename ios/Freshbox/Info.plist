@@ -32,20 +32,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.73889112804-3fj95ig6g7t9g75n2evct60npcvla02l</string>
+			<string>com.googleusercontent.apps.73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.73889112804-3fj95ig6g7t9g75n2evct60npcvla02l</string>
+				<string>com.googleusercontent.apps.73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.freshbox</string>
+			<string>com.freshboxID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.freshbox</string>
+				<string>com.freshboxID</string>
 			</array>
 		</dict>
 	</array>
@@ -103,6 +103,10 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -46,7 +46,7 @@ class Menu extends PureComponent {
         try {
             await GoogleSignin.hasPlayServices({ autoResolve: true });
             await GoogleSignin.configure({
-                iosClientId: '73889112804-3fj95ig6g7t9g75n2evct60npcvla02l.apps.googleusercontent.com',
+                iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
                 offlineAccess: false
             });
         }

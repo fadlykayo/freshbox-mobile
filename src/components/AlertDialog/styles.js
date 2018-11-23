@@ -14,25 +14,27 @@ const styles = {
         width: width,
         height: height
     },
-    boxPlace: {
-        width: width * 0.8,
-        backgroundColor: colour.white,
-        borderRadius: 8,
-    },
-    textPlace: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: width * 0.05,
-        paddingHorizontal: width * 0.05,
-    },
-    buttonContainer: {
-        height: scaling.moderateScale(50),
-        backgroundColor: colour.grey,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
+    subcontainer: {
+        box: {
+            width: width * 0.8,
+            backgroundColor: colour.white,
+            borderRadius: 8,
+        },
+        text: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: width * 0.05,
+            paddingHorizontal: width * 0.05,
+        },
+        button: {
+            height: scaling.moderateScale(50),
+            backgroundColor: colour.grey,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderBottomLeftRadius: 8,
+            borderBottomRightRadius: 8,
+        }
     },
     button: {
         red: {
@@ -62,14 +64,14 @@ const styles = {
             fontFamily: 'Avenir-Black',
             fontSize: scaling.moderateScale(14),
             color: colour.white
+        },
+        static: {
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(14),
+            color: colour.darkGrey,
+            lineHeight: 20
         }
     },
-    staticText: {
-        fontFamily: 'Avenir-Medium',
-        fontSize: scaling.moderateScale(14),
-        color: colour.darkGrey,
-        lineHeight: 20
-    }
 }
 
 export default styles;

@@ -159,6 +159,4 @@ const mapDispatchToProps = (dispatch) => ({
 	update_user: (req,res,err) => dispatch(actions.user.api.update_user(req,res,err))
 })
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)(PhonePage);
+export default connect(mapStateToProps,mapDispatchToProps)(PhonePage);

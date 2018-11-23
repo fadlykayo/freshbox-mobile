@@ -70,9 +70,7 @@ class DrawerPage extends Component {
 	}
 
 	navigateSignIn() {
-		actNav.navigate(navConstant.SignIn,{
-			action: 'menuLogin'
-		})
+		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' })
 	}
 
 	closeDrawerPage() {

@@ -6,16 +6,17 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     message: {
-        height: width * 0.15,
-        borderBottomWidth: 1,
-        borderBottomColor: colour.mediumGrey,
-        justifyContent: 'center'
-    },
-    messageText: {
-        fontFamily: 'Avenir-Book',
-        fontWeight: '400',
-        fontSize: scaling.moderateScale(14),
-        color: colour.lightGrey
+        place: {
+            height: width * 0.15,
+            borderBottomWidth: 1,
+            borderBottomColor: colour.mediumGrey,
+            justifyContent: 'center'
+        },
+        text: {
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(14),
+            color: colour.grey
+        }
     },
 }
 

@@ -9,34 +9,21 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: colour.veryLightGrey,
-        paddingTop: width * 0.015,
+        paddingTop: width * 0.01,
     },
     scrollView: {
         backgroundColor: colour.white,
     },
-    bottomComponent: {
-        flex: -1,
-        height: height * 0.15,
-        width: width,
-        backgroundColor: colour.white,
-        justifyContent: 'center',
-        alignItems: 'center',
+    subcontainer: {
+        bottom: {
+            flex: -1,
+            width: width,
+            marginBottom: width * 0.04,
+            backgroundColor: colour.white,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
     },
-    addAddress: {
-        width: width * 0.9,
-        height: width * 0.14,
-        borderColor: colour.red,
-        borderWidth: 1,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    addAddressText: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(12),
-        fontWeight: '500',
-        color: colour.red
-    }
 }
 
 export default styles

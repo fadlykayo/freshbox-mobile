@@ -24,12 +24,12 @@ class CheckoutComponent extends PureComponent {
 			return(
 				<TouchableOpacity
 					onPress={this.validateCart}
-					style={styles.checkoutButton}
+					style={styles.checkout.button}
 				>
-					<Text style={styles.checkoutText}>
+					<Text style={styles.checkout.text}>
 						{this.props.totalCount}
 						<StaticText 
-							style={styles.checkoutText}
+							style={styles.checkout.text}
 							property={'productList.content.item'}
 						/>
 						{totalPrice}
