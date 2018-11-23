@@ -20,7 +20,6 @@ class OTP extends Component {
             seconds: 60,
             countDownOver: false,
             otp: '',
-            phone_number: '081212341234',
         };
         this.seconds = null;
         this.startTimer = this.startTimer.bind(this);

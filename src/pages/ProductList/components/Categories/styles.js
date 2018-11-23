@@ -41,9 +41,8 @@ const styles = {
     },
     text:{
         title:{
-            fontFamily: 'Avenir-Heavy',
+            fontFamily: 'Avenir-Black',
             fontSize: scaling.moderateScale(20),
-            fontWeight: '800',
             color: colour.darkGrey,
         }
     },

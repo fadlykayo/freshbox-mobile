@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, ScrollView } from 'react-native';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import StaticText from '@components/StaticText';
 import TotalPrice from '@components/TotalPrice';
 import MainContent from './components/MainContent';
 import styles from './styles';
@@ -259,14 +258,13 @@ class TransferBank extends Component {
                     <View style={styles.content}>
                         { this.state.banks.map((bank, indexBank) => {
                             return (
-                                <View key={indexBank}>
-                                    <MainContent
-                                        bank={bank}
-                                        indexBank={indexBank}
-                                        openData={this.openData}
-                                        openSpecificData={this.openSpecificData}
-                                    />
-                                </View>
+                                <MainContent
+                                    key={indexBank}
+                                    bank={bank}
+                                    indexBank={indexBank}
+                                    openData={this.openData}
+                                    openSpecificData={this.openSpecificData}
+                                />
                             )
                         }) }                        
                     </View>
@@ -284,14 +282,10 @@ class TransferBank extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-        user: state.user.data,
-        totalPrice: state.product.total.price,
-        delivery_price: state.product.delivery_price
-	}
-}
+const mapStateToProps = (state) => ({
+    user: state.user.data,
+    totalPrice: state.product.total.price,
+    delivery_price: state.product.delivery_price
+})
 
-export default connect(
-	mapStateToProps,
-	null)(TransferBank);
+export default connect(mapStateToProps,null)(TransferBank);

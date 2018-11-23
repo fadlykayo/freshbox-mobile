@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { actNav, navConstant } from '@navigations';
+import { language } from '@helpers';
 import Container from '@components/Container';
 import Button from '@components/Button';
 import PhotoComponent from './components/PhotoComponent';
@@ -65,7 +66,7 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                console.log("===>",response)
+                // console.log("===>",response)
 
                 let data = {
                     uri: response.uri,
@@ -85,10 +86,34 @@ class ProfilePage extends Component {
                 }
 
                 this.props.upload_photo(payload,
-                    (success) => {
+                    (res) => {
+                        console.log("balik kesini",res)
+                        language.transformText('message.uploadPhotoSuccess')
+				        .then(message => {
+				        	this.props.set_success_status({
+				        		status: true,
+				        		data: message,
+				        		title: 'formSuccess.title.default'
+				        	});
+				        	setTimeout(() => {
+				        		this.props.set_success_status({
+				        			status: false,
+				        			data: '',
+				        			title: ''
+				        		});
+				        	},1000);
+				        });
                     },
                     (err) => {
                         console.log(err)
+                        language.transformText('message.uploadPhotoError')
+			            .then(message => {
+			            	this.props.set_error_status({
+			            		status: true,
+			            		title: 'formError.title.default',
+			            		data: message,
+                            });
+                        });
                     })
 
                 // You can also display the image using data:
@@ -116,7 +141,7 @@ class ProfilePage extends Component {
                         navigateToAddressPage={this.navigateToAddressPage}
                         navigateToResetPasswordPage={this.navigateToResetPasswordPage}
                     />
-                    <View style={styles.bottomComponent}>
+                    <View style={styles.subcontainer.bottom}>
                         <Button
                             type={'white'}
                             onPress={this.navigateLogOut}
@@ -134,6 +159,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
     log_out : () => dispatch(actions.auth.reducer.log_out()),
     reset_products : () => dispatch(actions.product.reducer.reset_products()),
     reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),

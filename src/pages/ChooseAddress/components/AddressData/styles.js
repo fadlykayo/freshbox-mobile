@@ -5,72 +5,81 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    addressPlace: {
-        height: height * 0.25,
-        paddingTop: width* 0.05,
-        paddingBottom: width * 0.05,
-        marginLeft: width* 0.05,
-        marginRight: width* 0.05,
-        paddingRight: width* 0.03,
+    container: {
+        flex: -1,
+        paddingVertical: width * 0.04,
+        marginHorizontal: width * 0.05,
         borderBottomWidth: 1,
         borderBottomColor: colour.lightGrey,
         flexDirection: 'row',
     },
-    leftPart: {
-        flex: 1,
+    subcontainer: {
+        left: {
+            flex: 1,
+        },
+        right: {
+            flex: -1,
+            width: width * 0.2,
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+        },
     },
-    rightPart: {
-        flex: -1,
-        width: width * 0.2,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
+    place: {
+        pen: {
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: width * 0.07,
+            height: width * 0.07,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: width * 0.04,
+        }
     },
-    iconPen: {
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        paddingRight: width* 0.03,
-        paddingTop: width* 0.06,
+    logo: {
+        pen: {
+            height: width * 0.04,
+            width: width * 0.04
+        },
     },
-    logoPen: {
-        height: width* 0.04,
-        width: width * 0.04
+    circle: {
+        outer: {
+            borderRadius: 100,
+            borderWidth: 1.5,
+            borderColor: colour.red,
+            height: width * 0.045,
+            width: width * 0.045,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: width * 0.015,
+        },
+        inner: {
+            backgroundColor: colour.red,
+            height: width * 0.025,
+            width: width * 0.025,
+            borderRadius: 100,
+        }
     },
-    buttonSelected: {
-        borderRadius: 100,
-        borderWidth: 1.5,
-        borderColor: colour.red,
-        height: width * 0.045,
-        width: width * 0.045,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    innerButton: {
-        backgroundColor: colour.red,
-        height: width* 0.025,
-        width: width* 0.025,
-        borderRadius: 100,
-    },
-    receiverText: {
-		fontFamily: 'Avenir-Heavy',
-		fontWeight: '500',
-		fontSize: scaling.moderateScale(12),
-		color: colour.darkGrey,
-		marginBottom: scaling.moderateScale(7),
-	},
-	addressText: {
-		fontFamily: 'Avenir-Book',
-		fontSize: scaling.moderateScale(12),
-		fontWeight: '400',
-		color: colour.darkGrey,
-		marginBottom: scaling.moderateScale(7),
-	},
-	nameAddressText: {
-		color: colour.grey
-    },
-    priority: {
-        color: colour.red,
-        fontSize: scaling.moderateScale(10)
+    text: {
+        priority: {
+            color: colour.red,
+            fontSize: scaling.moderateScale(10)
+        },
+        receiver: {
+            fontFamily: 'Avenir-Black',
+		    fontSize: scaling.moderateScale(12),
+		    color: colour.darkGrey,
+		    marginBottom: scaling.moderateScale(7),
+        },
+        address: {
+            fontFamily: 'Avenir-Medium',
+		    fontSize: scaling.moderateScale(12),
+		    color: colour.darkGrey,
+		    marginBottom: scaling.moderateScale(7),
+        },
+        nameAddress: {
+            color: colour.grey
+        }
     },
 }
 

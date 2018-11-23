@@ -5,7 +5,6 @@ import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import StaticText from '@components/StaticText';
 import Content from './components/Content';
-import images from '@assets';
 import styles from './styles';
 
 class TermsConditions extends Component {

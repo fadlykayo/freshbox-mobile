@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import AlertDialog from '@components/AlertDialog'; 
@@ -13,6 +13,7 @@ import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
+const { width, height } = Dimensions.get('window');
 
 class Cart extends Component {
 	constructor(props) {
@@ -20,10 +21,13 @@ class Cart extends Component {
 		this.state = { 
 			totalPrice: 0,
 			search: false,
+			scrollX: 0,
+			bubble: 0,
 			modalVisible: {
 				openProduct: false,
 				alertDialog: false,
 				modalLoginConfirmation: false,
+				openImageDetail: false,
 			},
 			selectedProduct: null,
 		}
@@ -37,6 +41,11 @@ class Cart extends Component {
 		this.navigateToCheckout = this.navigateToCheckout.bind(this);
 		this.clearProductConfirmation = this.clearProductConfirmation.bind(this);
 		this.clearProductCancelation = this.clearProductCancelation.bind(this);
+		this.getPositionIndex = this.getPositionIndex.bind(this);
+		this.getPositionBubble = this.getPositionBubble.bind(this);
+		this.openZoomImage = this.openZoomImage.bind(this);
+		this.closeZoomImage = this.closeZoomImage.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
 	}
 
 	shouldComponentUpdate(nextProps) {
@@ -45,6 +54,34 @@ class Cart extends Component {
 		}
 		return true;
 	}
+
+	setModalVisible(type,value){
+        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+        modalVisible[type] = value;
+        this.setState({modalVisible});
+    }
+
+	openZoomImage(){
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	closeZoomImage(){
+		this.setModalVisible('openImageDetail',false);
+	}
+
+	getPositionIndex(e) {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+    getPositionBubble() {
+        let position = Math.round(this.state.scrollX/(width* 0.18));
+
+        if (this.state.bubble != position) {
+            this.setState({ bubble: position })
+        }
+    }
 
 	navigateToProduct() {
 		actNav.reset(navConstant.Product)
@@ -183,6 +220,13 @@ class Cart extends Component {
 					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
+					getPositionBubble={this.getPositionBubble}
+					getPositionIndex={this.getPositionIndex}
+					openZoomImage={this.openZoomImage}
+					closeZoomImage={this.closeZoomImage}
+					bubble={this.state.bubble}
+					scrollX={this.state.scrollX}
+					openImageDetail={this.state.modalVisible.openImageDetail}
 				/>
 				<ModalLoginConfirmation
 					onPress={this.navigateToSignIn} 

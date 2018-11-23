@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import Container from '@components/Container';
 import { actNav, navConstant } from '@navigations';
-import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import NavigationBar from '@components/NavigationBar';
 import AddressData from './components/AddressData';
@@ -14,6 +13,7 @@ class ChooseAddress extends Component {
     constructor(props) {
         super(props)
         this.updatePrimaryAddress = this.updatePrimaryAddress.bind(this);
+        this.navigateBack = this.navigateBack.bind(this);
         this.navigateToEditAddress = this.navigateToEditAddress.bind(this);
         this.navigateToAddAddress = this.navigateToAddAddress.bind(this);
         this.getAddress = this.getAddress.bind(this);
@@ -32,7 +32,7 @@ class ChooseAddress extends Component {
 			params: {}
 		}
 		this.props.get_address(payload, 
-			(success) => {},
+			(res) => {},
 			(err) => {
 				console.log(err)
 			})
@@ -63,6 +63,10 @@ class ChooseAddress extends Component {
         actNav.navigate(navConstant.AddressPage, {action: 'addAddress', key: this.props.navigation.state.key})
     }
 
+    navigateBack() {
+        actNav.goBack();
+    }
+
     render() {
         return (
             <Container 				
@@ -71,24 +75,23 @@ class ChooseAddress extends Component {
             >
                 <NavigationBar
                     title={'chooseAddress.navigationTitle'}
-					onPress={actNav.goBack}
+					onPress={this.navigateBack}
                 />
                 <View style={styles.container}>
                     <ScrollView style={styles.scrollView}>
                         { this.props.addresses.map((address, index) => {
                             return (
-                                <View key={index}>
-                                    <AddressData
-                                        address={address}
-                                        index={index}
-                                        updatePrimaryAddress={this.updatePrimaryAddress}
-                                        navigateToEditAddress={this.navigateToEditAddress}
-                                    />
-                                </View>
+                                <AddressData
+                                    key={index}
+                                    address={address}
+                                    index={index}
+                                    updatePrimaryAddress={this.updatePrimaryAddress}
+                                    navigateToEditAddress={this.navigateToEditAddress}
+                                />
                             )
                         }) }
                     </ScrollView>
-                    <View style={styles.bottomComponent}>
+                    <View style={styles.subcontainer.bottom}>
                         <Button
                             type={'white'}
                             onPress={this.navigateToAddAddress}

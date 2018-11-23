@@ -45,14 +45,14 @@ class AlertDialog extends Component {
         if (this.props.modalVisible) {
             return (
                 <View style={styles.container}>
-                    <View style={styles.boxPlace}>
-                        <View style={styles.textPlace}>
+                    <View style={styles.subcontainer.box}>
+                        <View style={styles.subcontainer.text}>
                             <StaticText
                                 property={informText}
                                 style={styles.staticText}
                             />
                         </View>
-                        <View style={styles.answerPlace}>
+                        <View style={styles.subcontainer.answer}>
                             <TouchableOpacity style={styles.button.red} onPress={this.props.isEdit ? this.props.navigateBack : this.requestCancel}>
                                 <StaticText
                                     property={'addressPage.info.no'}

@@ -390,6 +390,7 @@
 		00E356EE1AD99517003FC87E /* FreshboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreshboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FreshboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreshboxTests.m; sourceTree = "<group>"; };
+		01F6B83721A692120012E65A /* Freshbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Freshbox.entitlements; path = Freshbox/Freshbox.entitlements; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Freshbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freshbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,6 +615,7 @@
 		13B07FAE1A68108700A75B9A /* Freshbox */ = {
 			isa = PBXGroup;
 			children = (
+				01F6B83721A692120012E65A /* Freshbox.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				A124F7CF21A3E8A3006104AB /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -917,6 +919,14 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = RCWT9F32HU;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1562,6 +1572,7 @@
 			baseConfigurationReference = 7173FB79037709C8117B14F1 /* Pods-Freshbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
@@ -1596,6 +1607,7 @@
 			baseConfigurationReference = 7C02AA1B10174E089A67ED68 /* Pods-Freshbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
 				FRAMEWORK_SEARCH_PATHS = (

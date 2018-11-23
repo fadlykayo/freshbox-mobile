@@ -22,15 +22,15 @@ class AlertDialog extends Component {
         if(this.props.modalVisible){
             return (
                 <View style={styles.container}>
-                    <View style={styles.boxPlace}>
-                        <View style={styles.textPlace}>
+                    <View style={styles.subcontainer.box}>
+                        <View style={styles.subcontainer.text}>
                             <StaticText
                                 property={this.props.content}
-                                style={styles.staticText}
+                                style={styles.text.static}
                                 params={this.props.params}
                             />
                         </View>
-                        <View style={styles.buttonContainer}>
+                        <View style={styles.subcontainer.button}>
                             <TouchableOpacity 
                                 style={styles.button.red} 
                                 onPress={this.requestCancel}
