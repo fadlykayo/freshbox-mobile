@@ -252,9 +252,10 @@ const clearProducts = (state) => {
 
     newState.params = initialState.params
     newState.products = [];
+    newState.wishlist.products = [];
+    newState.cart.products = [];
     newState.total.count = 0;
     newState.total.price = 0;
-    newState.cart.products = [];
     
     return newState;
 }
@@ -273,7 +274,6 @@ const editFavorite = (state,payload) => {
     newState.detail = newState.products[index];
     
     let incomingProducts = payload.data.newData.data;
-    console.log("incomingProducts", incomingProducts)
     let existingProducts = newState.wishlist.products.slice();
     let productList = newState.products.slice();
 
@@ -367,18 +367,18 @@ const reorderTransaction = (state,payload) => {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ct.GET_PRODUCTS : return getProducts(state,action.payload)
-        case ct.GET_CATEGORIES: return getCategories(state,action.payload)
-        case ct.GET_FAVORITES: return getFavorites(state,action.payload)
-        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state,action.payload)
-        case ct.SEARCH_PRODUCTS: return searchData(state,action.payload)
-        case ct.CHANGE_TOTAL: return editTotal(state,action.payload)
-        case ct.CHANGE_CATEGORIES: return changeCategory(state,action.payload) 
-        case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload)
-        case ct.DETAIL_PRODUCT: return getDetail(state,action.payload)
-        case ct.CLEAR_PRODUCTS: return clearProducts(state)
-        case ct.VALIDATE_CART: return validateCart(state,action.payload)
-        case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload)
+        case ct.GET_PRODUCTS : return getProducts(state,action.payload);
+        case ct.GET_CATEGORIES: return getCategories(state,action.payload);
+        case ct.GET_FAVORITES: return getFavorites(state,action.payload);
+        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state,action.payload);
+        case ct.SEARCH_PRODUCTS: return searchData(state,action.payload);
+        case ct.CHANGE_TOTAL: return editTotal(state,action.payload);
+        case ct.CHANGE_CATEGORIES: return changeCategory(state,action.payload); 
+        case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload);
+        case ct.DETAIL_PRODUCT: return getDetail(state,action.payload);
+        case ct.CLEAR_PRODUCTS: return clearProducts(state);
+        case ct.VALIDATE_CART: return validateCart(state,action.payload);
+        case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload);
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

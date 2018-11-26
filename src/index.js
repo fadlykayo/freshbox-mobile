@@ -3,7 +3,7 @@ import { Platform, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
 import { AppNavigator, setNavigator } from '@navigations';
-// import actions from '@action';
+import actions from '@actions';
 // import helpers from '@helper';
 
 class App extends Component {
@@ -40,6 +40,7 @@ class App extends Component {
 
     onIds(device){
         console.log('Device info: ', device);
+        this.props.get_user_id(device);
     }
 
     render(){
@@ -68,9 +69,10 @@ const styles = {
 //     user: state.user,
 // })
 
-// const mapDispatchToProps = (dispatch) => ({
-//     set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
-//     add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+    get_user_id: (payload) => dispatch(actions.user.reducer.get_user_id(payload)),
+    // set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
+    // add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
+});
 
-export default connect(null,null)(App);
+export default connect(null,mapDispatchToProps)(App);

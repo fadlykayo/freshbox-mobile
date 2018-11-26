@@ -22,7 +22,7 @@ helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
-                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToken : '',
             },
             params: payload.params
         })
@@ -60,7 +60,7 @@ helper.post = (payload,dispatch) => new Promise((resolve,reject) => {
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
-                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToken : '',
             }
         })
     .then(response => {
@@ -97,7 +97,7 @@ helper.put = (payload,dispatch) => new Promise((resolve,reject) => {
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
-                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToken : '',
             }
     })
     .then(response => {
@@ -133,7 +133,7 @@ helper.delete = (payload,dispatch) => new Promise((resolve,reject) => {
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
-                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToke : '',
+                'X-Player': payload.header.onesignalToken ? payload.header.onesignalToken : '',
             }
         })
     .then(response => {

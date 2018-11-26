@@ -395,13 +395,13 @@ class ProductList extends Component {
 			},
 			invoice: input
 		}
-		this.refreshHandler();
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					createOrderSuccess: true,
-					invoice: type
+					invoice: type,
+					refreshHandler: this.refreshHandler,
 				});
 			},
 			(err) => {
