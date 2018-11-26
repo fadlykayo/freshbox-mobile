@@ -24,7 +24,6 @@ class HistoryPage extends Component {
 	}
 	
 	componentWillUnmount() {
-		console.log("sebelum pindah ke drawer",this.props.navigation.state.params)
 		if(this.props.navigation.state.params.refreshProductList) {
 			this.props.navigation.state.params.refreshProductList();
 		}
@@ -85,7 +84,8 @@ class HistoryPage extends Component {
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
-					action: 'history'
+					action: 'history',
+					refreshHandler: this.refreshHandler
 				});
 			},
 			(err) => {

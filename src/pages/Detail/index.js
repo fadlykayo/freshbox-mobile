@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, FlatList } from 'react-native';
+import { View, ScrollView, FlatList, RefreshControl } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -13,12 +13,13 @@ import actions from '@actions';
 
 class Detail extends Component {
   	constructor(props) {
-  		super(props)
+		super(props)
 		this.state = {
 			status: 'historyDetail.content.checkout',
 			totalPrice: 0,
 			deliveryPrice: 0,
-            grandTotalPrice: 0,
+			grandTotalPrice: 0,
+			refreshing: false,
         }
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.toggleFavoriteHistory = this.toggleFavoriteHistory.bind(this);
@@ -28,6 +29,8 @@ class Detail extends Component {
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
+		this._onRefresh = this._onRefresh.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -39,7 +42,6 @@ class Detail extends Component {
     componentDidMount() {
 		this.setDetailTransaction();
 		if(this.props.navigation.state.params.createOrderSuccess){
-			console.log(this.props.navigation.state.params.invoice, "kartunya")
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
@@ -171,7 +173,7 @@ class Detail extends Component {
 				},
 				favorite: payload
 			}
-			
+
 			this.props.add_favorite_history(data,
 				() => {},
 				(err) => {
@@ -210,7 +212,29 @@ class Detail extends Component {
 		if(key) {
 			actNav.goBack(key)
 		} else actNav.goBack();
+	}
 
+	refreshHandler(){
+		this.setState({refreshing: true},() => {
+			this._onRefresh();
+		});
+	}
+
+	_onRefresh() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: this.props.detailTransaction.invoice
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				if(this.state.refreshing) this.setState({refreshing: false});
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 
   	render(){
@@ -222,7 +246,16 @@ class Detail extends Component {
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
 				/>
-  	  	  		<ScrollView style={styles.container}>
+				<ScrollView
+					refreshControl= {this.props.navigation.state.params.action == 'history'
+						? <RefreshControl
+							  refreshing={this.state.refreshing}
+							  onRefresh={this._onRefresh}
+							/>
+						: null
+					}
+					style={styles.container}
+				>
                     <DetailOrder
                         setDate={this.props.navigation.state.params.date}
                         addresses={this.props.addresses}
@@ -278,6 +311,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
     toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
