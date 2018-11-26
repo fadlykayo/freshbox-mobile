@@ -39,7 +39,8 @@ const styles = {
             color: colour.black,
         },
         creditCard: {
-            paddingVertical: scaling.moderateScale(10),
+            paddingHorizontal: 0,
+            paddingVertical: Platform.OS == 'android' ? scaling.moderateScale(5) : scaling.moderateScale(5),
             fontSize: scaling.moderateScale(14),
             fontFamily: 'Avenir-Light',
             color: colour.darkGrey,
@@ -50,6 +51,8 @@ const styles = {
             color: colour.darkGrey,
         },
         expMonth: {
+            paddingHorizontal: 0,
+            paddingVertical: Platform.OS == 'android' ? 0 : scaling.moderateScale(5),
             width: width * 0.15,
             textAlign: 'center',
             fontSize: scaling.moderateScale(14),
@@ -57,6 +60,8 @@ const styles = {
             color: colour.darkGrey,
         },
         expYear: {
+            paddingHorizontal: 0,
+            paddingVertical: Platform.OS == 'android' ? 0 : scaling.moderateScale(5),
             width: width * 0.15,
             textAlign: 'center',
             fontSize: scaling.moderateScale(14),
@@ -64,6 +69,8 @@ const styles = {
             color: colour.darkGrey,
         },
         cvv: {
+            paddingHorizontal: 0,
+            paddingVertical: Platform.OS == 'android' ? 0 : scaling.moderateScale(5),
             width: width * 0.2,
             fontSize: scaling.moderateScale(14),
             fontFamily: 'Avenir-Light',
@@ -114,7 +121,6 @@ const styles = {
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingVertical: width * 0.02,
             marginRight: scaling.moderateScale(5),
         }),
         middle: {
@@ -128,14 +134,12 @@ const styles = {
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingVertical: width * 0.02,
         }),
         cvv: (x) => ({
             width: width * 0.2,
             borderBottomColor: x ? colour.red : colour.grey,
             borderBottomWidth: 1,
             alignItems: 'center',
-            paddingVertical: width * 0.02,
         }),
     },
     image: {
