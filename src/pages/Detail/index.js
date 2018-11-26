@@ -142,7 +142,7 @@ class Detail extends Component {
 	}
 
 	toggleFavoriteHistory(payload){
-		if (payload.wishlisted == 1) {
+		if (payload.product.wishlisted == 1) {
 			let data = {
 				request: {
 					header: {
@@ -171,6 +171,7 @@ class Detail extends Component {
 				},
 				favorite: payload
 			}
+			
 			this.props.add_favorite_history(data,
 				() => {},
 				(err) => {

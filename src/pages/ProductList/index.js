@@ -63,6 +63,7 @@ class ProductList extends Component {
 		this.getPositionBubble = this.getPositionBubble.bind(this);
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
+		this.refreshProductList = this.refreshProductList.bind(this);
 	}
 
 	openZoomImage(){
@@ -135,8 +136,30 @@ class ProductList extends Component {
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
 			if (this.state.search) this.onChangeText('search', false)
-			this.getProductList();
+			this.refreshProductList();
 		});
+	}
+
+	refreshProductList() {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			params: {
+				page: 1,
+				per_page: this.props.product.length,
+				stock: 'tersedia',
+				sort: 'nama-az'
+			}
+		}
+		this.props.get_products(payload,
+			() => {
+				if(this.state.refreshing != false) this.setState({refreshing: false});
+			},
+			(err) => {
+				console.log(err)
+			}
+		);
 	}
 
 	getProductList(){

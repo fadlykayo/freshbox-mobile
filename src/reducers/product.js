@@ -33,7 +33,6 @@ const getProducts = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let incomingProducts = payload.data.data;
     let existingProducts = newState.products.slice();
-    let favoriteList = newState.wishlist.products.slice();
 
     newState.params.page = payload.data.current_page + 1;
     newState.last_page= payload.data.last_page;
@@ -50,16 +49,22 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
+    // newState.products = existingProducts.map(e => {
+    //     let favoriteItem = favoriteList.filter(p => e.code == p.code);
+    //     if(favoriteItem.length > 0){
+    //         return favoriteItem[0];
+    //     }
+    //     else{
+    //         if(!e.count) e.count = 0;
+    //         if(!e.maxQty) e.maxQty = 1000;
+    //         return e;
+    //     }
+    // }).filter(e => e.stock > 0);
+
     newState.products = existingProducts.map(e => {
-        let favoriteItem = favoriteList.filter(p => e.code == p.code);
-        if(favoriteItem.length > 0){
-            return favoriteItem[0];
-        }
-        else{
-            if(!e.count) e.count = 0;
-            if(!e.maxQty) e.maxQty = 1000;
-            return e;
-        }
+        if(!e.count) e.count = 0;
+        if(!e.maxQty) e.maxQty = 1000;
+        return e;
     }).filter(e => e.stock > 0);
 
     return newState;

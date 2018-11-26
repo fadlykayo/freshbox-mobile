@@ -223,9 +223,7 @@ actions.add_favorite_history = (req,success,failure) => {
 	payload.path = path.favorite;
 	payload.header = req.request.header;
 	payload.body = req.request.body;
-	
 	return dispatch => {
-		
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	console.log('Add Favourite res',res);
@@ -258,7 +256,7 @@ actions.add_favorite_history = (req,success,failure) => {
 
 actions.delete_favorite_history = (req,success,failure) => {
 	
-	payload.path = `${path.favorite}/${req.favorite.code}`;
+	payload.path = `${path.favorite}/${req.favorite.product.code}`;
 	payload.header = req.request.header;
 	
 	return dispatch => {
