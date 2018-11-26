@@ -57,5 +57,6 @@ ct.RESET_REGION = 'RESET_REGION';
 
 // WELCOME
 ct.ON_BOARDING = 'ON_BOARDING';
+ct.USER_ID = 'USER_ID';
 
 export default ct;

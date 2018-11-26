@@ -15,6 +15,7 @@ class HistoryPage extends Component {
 			refreshing: false,
 		}
 		this.refreshHandler = this.refreshHandler.bind(this);
+		this.getRefreshData = this.getRefreshData.bind(this);
 		this.getHistoryData = this.getHistoryData.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
@@ -22,13 +23,19 @@ class HistoryPage extends Component {
 		this.navigateToReviewProduct = this.navigateToReviewProduct.bind(this);
 	}
 	
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.refreshProductList) {
+			this.props.navigation.state.params.refreshProductList();
+		}
+	}
+
 	componentDidMount(){
 		this.getHistoryData();
 	}
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
-			this.getHistoryData();
+			this.getRefreshData();
 		});
 	}
 
@@ -41,13 +48,30 @@ class HistoryPage extends Component {
 		}
 
 		this.props.get_transaction(payload, 
-			(success) => {
-				if(this.state.refreshing != false) this.setState({refreshing: false});
+			() => {},
+			(err) => {
+				console.log(err);
+			})
+	}
+
+	getRefreshData() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			params: {
+				page: 1,
+				per_page: this.props.transactions.length
+			}
+		}
+
+		this.props.get_transaction(payload, 
+			() => {
+				if(this.state.refreshing != false) this.setState({refreshing: false})
 			},
 			(err) => {
 				console.log(err);
-			}
-		)
+			})
 	}
 
 	navigateToDetail(input) {
@@ -60,7 +84,8 @@ class HistoryPage extends Component {
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
-					action: 'history'
+					action: 'history',
+					refreshHandler: this.refreshHandler
 				});
 			},
 			(err) => {
@@ -94,7 +119,7 @@ class HistoryPage extends Component {
   	  	  		<View style={styles.container}>
 					<FlatList
 						data={this.props.transactions}
-						onRefresh={this.refreshHandler}
+						onRefresh={this.getRefreshData}
 						refreshing={this.state.refreshing}
 						onEndReached={this.getHistoryData}
 						onEndReachedThreshold={0.05}

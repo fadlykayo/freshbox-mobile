@@ -34,4 +34,11 @@ action.update_user = data => ({
     }
 })
 
+action.get_user_id = data => ({
+    type: ct.USER_ID,
+    payload: {
+        data: data
+    }
+})
+
 export default action;

@@ -10,36 +10,25 @@ class Dropdown extends Component {
         super(props);
         this.state={
 			isOpen: props.isOpen ? props.isOpen : false,
-            placeholder: '',
         }
+        this.submitSubject = this.submitSubject.bind(this);
         this.showDropdown = this.showDropdown.bind(this);
         this.onChangeText = this.onChangeText.bind(this);
         this._renderLabel = this._renderLabel.bind(this);
-        this.getPlaceholder = this.getPlaceholder.bind(this);
     }
 
-    componentDidMount(){
-        if(this.props.placeholder) this.getPlaceholder();
+    showDropdown() {
+        this.props.showDropdown(null,this.props.type)
     }
 
-    showDropdown(){
-        let state = this.state;
-        state.isOpen = !state.isOpen;
-        this.setState(state);
+    submitSubject() {
+        this.props.submitSubject(this.props.type,this.props.nextValue)
     }
 
     onChangeText(value){
         language.transformText(value)
         .then((res) => {
             this.props.onChangeText(this.props.type,res);
-        });
-        
-    }
-
-    getPlaceholder(){
-        language.transformText(this.props.placeholder)
-        .then((res) => {
-            this.setState({placeholder: res});
         });
     }
     
@@ -54,13 +43,16 @@ class Dropdown extends Component {
     }
 
     render() {
-        if(this.state.isOpen == true){
-            return(
+        return(
+            <View>
                 <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
                     {this._renderLabel(this.props)}
                     {
                         this.props.value.length == 0 ? (
-                            <Text style={styles.formInput}>{this.state.placeholder}</Text>
+                            <StaticText
+                                style={styles.formInput}
+                                property={this.props.placeholder}
+                            />
                         ) : (
                             <Text style={styles.formInput}>{this.props.value}</Text>
                         )
@@ -69,42 +61,21 @@ class Dropdown extends Component {
                     <View style={styles.showPasswordButton}>
                         <Image
                             resizeMode={'contain'} 
-                            source={images.icon_dropdown_arrow_down}
+                            source={this.props.isOpen ? images.icon_dropdown_arrow_up : images.icon_dropdown_arrow_down}
                             style={styles.icon}
                         />
                     </View>
                 </TouchableOpacity>
-            )
-        } else {
-            return(
-                <View>
-                    <TouchableOpacity style={styles.container} onPress={this.showDropdown}>
-                        {this._renderLabel(this.props)}
-                        {
-                            this.props.value.length == 0 ? (
-                                <Text style={styles.formInput}>{this.state.placeholder}</Text>
-                            ) : (
-                                <Text style={styles.formInput}>{this.props.value}</Text>
-                            )
-                        }
-                        <View style={styles.underline}/>
-                        <View style={styles.showPasswordButton}>
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_dropdown_arrow_up}
-                                style={styles.icon}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <FlatList
+                { this.props.isOpen
+                    ? (<FlatList
                         nestedScrollEnabled={true}
                         style={styles.dropdownPlace}
                         data={this.props.data}
                         keyExtractor={(item, index) => index.toString()}
-					    renderItem={({item,index}) => (
+                        renderItem={({item,index}) => (
                             <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
-                                this.onChangeText(item.name)
-                                this.showDropdown()
+                                this.onChangeText(item.name);
+                                this.submitSubject();
                                 }
                             }>
                                 <StaticText
@@ -112,13 +83,12 @@ class Dropdown extends Component {
                                     property={item.name}
                                 />
                             </TouchableOpacity>
-					    )}
-                    />
-                </View>
-            )
-        }
-
-
+                        )}
+                    />)
+                    : null
+                }
+            </View>
+        )
     }
 }
 

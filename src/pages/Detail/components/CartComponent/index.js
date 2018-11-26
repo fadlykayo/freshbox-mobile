@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
-import Content from '../Content';
+import Content from './components/Content';
 import styles from './styles';
 import images from '@assets';
 
@@ -44,11 +44,15 @@ class CartComponent extends Component {
 						onPress={this.props.action == 'history' ? this.toggleFavoriteHistory : this.toggleFavorite}
 						style={styles.subcontainer.favorite}
 					>
+
 						<Image
 							style={styles.icon.favorite}
 							resizeMode={'contain'} 
-							source={
-								this.props.data.wishlisted == 1
+							source={ this.props.action == 'history'
+								? this.props.data.product.wishlisted == 1
+									? images.icon_favorited
+									: images.icon_favorite
+								: this.props.data.wishlisted == 1
 									? images.icon_favorited
 									: images.icon_favorite
 							}
