@@ -4,7 +4,8 @@ const initialState = {
     on_boarding: false,
     data: null,
     address: [],
-    address_detail: {}
+    address_detail: {},
+    userId: '',
 };
 
 
@@ -45,6 +46,12 @@ const update_user = (state, payload) => {
     return newState;
 }
 
+const getUserID = (state,payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.userId = payload.data;
+    return newState;
+}
+
 const user = (state = initialState, action) => {
     switch(action.type){
         case ct.SIGN_IN: return signin(state,action.payload.profile)
@@ -53,6 +60,7 @@ const user = (state = initialState, action) => {
         case ct.GET_ADDRESS: return get_address(state, action.payload)
         case ct.GET_ADDRESS_DETAIL: return get_address_detail(state, action.payload)
         case ct.UPDATE_USER: return update_user(state,action.payload)
+        case ct.USER_ID: return getUserID(state, action.payload)
         default: return state;
     };
 };

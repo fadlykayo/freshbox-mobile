@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TextInput } from 'react-native';
 import { actNav } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
@@ -34,6 +34,9 @@ class ContactUs extends Component {
 					name: 'contactUs.info.others'
 				},
 			],
+			isOpen: {
+				subject: false
+			},
 			subject: '',
 			message: '',
 			placeholder: '',
@@ -42,11 +45,30 @@ class ContactUs extends Component {
 		this.submitInformation = this.submitInformation.bind(this);
 		this.submitSubject = this.submitSubject.bind(this);
 		this.renderSubjectHistory = this.renderSubjectHistory.bind(this);
+		this.showDropdown = this.showDropdown.bind(this);
 	}
 
 	componentDidMount() {
 		this.renderSubjectHistory();
 	}
+
+	submitSubject(value,nextValue) {
+		this.showDropdown(value,nextValue)
+	}
+
+	showDropdown(value, nextValue){
+		let isOpen = this.state.isOpen;
+		if(value != null && nextValue == null) {
+			isOpen[value] = !isOpen[value];
+			this.setState({isOpen}, () =>{
+				this.formMessage.focus();
+			})
+		}
+		else {
+			isOpen[nextValue] = !isOpen[nextValue];
+			this.setState({isOpen});
+		}    
+    }
 
 	onChangeText(type,value){
         let user = this.state;
@@ -63,10 +85,6 @@ class ContactUs extends Component {
 		}
 	}
 
-	submitSubject() {
-		this.formMessage.focus();
-	}
-
 	submitInformation() {
 		let payload = {
 			header: {
@@ -80,7 +98,6 @@ class ContactUs extends Component {
 
 		this.props.message_to_cs(payload,
 			(res) => {
-				console.log(res)
 				let state = this.state;
 				language.transformText('message.sendInformationSuccess')
 				.then(message => {
@@ -104,14 +121,6 @@ class ContactUs extends Component {
 			},
 			(err) => {
 				console.log(err)
-				// language.transformText('message.invalidCreditCard')
-				// .then(message => {
-				// 	this.props.set_error_status({
-				// 		status: true,
-				// 		title: 'formError.title.default',
-				// 		data: message,
-            	//     });
-            	// });
 			})
 	}
 
@@ -125,12 +134,14 @@ class ContactUs extends Component {
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-                <Logo />
-				<ScrollView 
+                
+				<ScrollView
 					style={styles.container}
+					bounces={true}
 					keyboardShouldPersistTaps={'handled'}
+					keyboardDismissMode={'on-drag'}
                 >
-					
+					<Logo />
 					<View style={styles.middleComponent}>
 						{ this.props.navigation.state.params.action == 'history'
 							? (
@@ -142,16 +153,20 @@ class ContactUs extends Component {
 								<Dropdown
 									type={'subject'}
 									data={this.state.subjects}
-									isOpen={true}
+									isOpen={this.state.isOpen.subject}
 									value={this.state.subject}
+									nextValue={null}
 									onChangeText={this.onChangeText}
 									label={'contactUs.content.subject'}
 									placeholder={'contactUs.content.subject'}
+									showDropdown={this.showDropdown}
+									submitSubject={this.submitSubject}
 								/>
 							)
 						}
 						<FormInput
 							ref={c => {this.formMessage = c}}
+							returnKeyType={'done'}
 							type={'message'}
 							multiline={true}
 							onChangeText={this.onChangeText}
@@ -167,7 +182,6 @@ class ContactUs extends Component {
 						onPress={this.submitInformation}
 					/>
 				</ScrollView>
-						
 			</Container>
   	  	);
   	}

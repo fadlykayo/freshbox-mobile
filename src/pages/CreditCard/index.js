@@ -49,6 +49,10 @@ class CreditCard extends Component {
         this._renderCardImage = this._renderCardImage.bind(this);
     }
 
+    componentDidMount() {
+        this.countGrandTotal();
+    }
+
     _renderCardImage() {
         switch(this.state.user.creditNumber[0]) {
             case '5':
@@ -69,10 +73,6 @@ class CreditCard extends Component {
                 )
             default: return null
         }
-    }
-
-    componentDidMount() {
-        this.countGrandTotal();
     }
 
     countGrandTotal() {
@@ -207,7 +207,6 @@ class CreditCard extends Component {
             params: {}
         }
 
-
         this.props.create_order(payload,
         (res) => {
             this.props.clear_products();
@@ -302,13 +301,13 @@ class CreditCard extends Component {
                                     <TextInput
                                         ref={e => this.formCreditNumber = e}
                                         autoFocus={true}
-                                        maxLength={19}
+                                        maxLength={this.state.focused.creditNumber ? 16 : 19}
                                         keyboardType={'number-pad'}
                                         returnKeyType={'done'}
-                                        value={this.displayED(this.state.user.creditNumber)}
+                                        value={this.state.focused.creditNumber ? this.state.user.creditNumber : this.displayED(this.state.user.creditNumber)}
                                         placeholder={'5009-1234-5678-XXXX'}
                                         onFocus={() => this.focusForm('creditNumber')}
-                                        onChangeText={(value) => this.onChangeText('creditNumber',value,19)}
+                                        onChangeText={(value) => this.onChangeText('creditNumber',value,16)}
                                         onSubmitEditing={this.submitCreditNumber}
                                         style={styles.text.creditCard}
                                     />

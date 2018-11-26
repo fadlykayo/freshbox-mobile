@@ -86,7 +86,9 @@ class SignIn extends Component {
 
     signInHandler(){
         let payload = {
-            header: {},
+            header: {
+                onesignalToken: this.props.userId.userId
+            },
             body: {
                 phone_number: this.state.user.phone,
                 password: this.state.user.password
@@ -205,9 +207,13 @@ class SignIn extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userId: state.user.userId
+})
+
 const mapDispatchToProps = dispatch => ({
     sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 });
 
-export default connect(null,mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);

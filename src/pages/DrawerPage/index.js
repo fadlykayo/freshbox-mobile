@@ -44,13 +44,33 @@ class DrawerPage extends Component {
 		this.navigateLogOut = this.navigateLogOut.bind(this);
 		this.navigateSignIn = this.navigateSignIn.bind(this);
 		this.closeDrawerPage = this.closeDrawerPage.bind(this);
+		this.refreshProductList = this.refreshProductList.bind(this);
   	}
 
-  	navigateToOtherPage(payload){
+	refreshProductList() {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			params: {
+				page: 1,
+				per_page: this.props.product.length,
+				stock: 'tersedia',
+				sort: 'nama-az'
+			}
+		}
+		this.props.get_products(payload,
+			() => {},
+			(err) => {
+				console.log(err)
+			}
+		);
+	}
 
+  	navigateToOtherPage(payload){
 		switch (payload.name) {
 			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
-			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage)
+			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
 			case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
 			case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
 			case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
@@ -101,10 +121,12 @@ class DrawerPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-		user: state.user.data
+	user: state.user.data,
+	product: state.product.products,
 })
 
 const mapDispatchToProps = (dispatch) => ({
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
 	log_out : () => dispatch(actions.auth.reducer.log_out()),
 	reset_products : () => dispatch(actions.product.reducer.reset_products()),
 	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction())
