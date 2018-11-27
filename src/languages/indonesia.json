@@ -454,6 +454,15 @@
             "cvv": "Kode CVV",
             "checkout": "Bayar",
             "examplecvv": "Contoh: 123"
+        },
+        "validation": {
+            "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",
+            "creditNumber": "Masukkan 16 digit angka di kartu kredit Anda",
+            "expiredMonthLength": "Mohon masukkan bulan kartu kredit yang terletak pada kartu kredit Anda",
+            "expiredMonthFormat": "Mohon tambahkan angka 0 jika bulan pada kartu kredit Anda kurang dari 10",
+            "expiredYearLength": "Mohon masukkan tahun kartu kredit yang tertera pada kartu kredit Anda",
+            "expiredYearFormat": "Mohon masukkan kartu kredit yang masih valid",
+            "cvvFormat": "Masukkan 3 digit angka CVV yang tertulis pada kartu kredit Anda"
         }
     },
     "transferBank": {

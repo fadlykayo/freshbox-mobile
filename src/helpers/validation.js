@@ -1,6 +1,7 @@
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 const phoneRegex = /^[0-9]{10,13}$/;
 const otpRegex = /^[0-9]{4}$/;
+let today = new Date().getFullYear().toString().slice(1,4);
 // const passwordRegex = /^[A-Za-z0-9!@#$%&'*+=?^_`{|}~-]{8,}$/;
 
 const validation = {};
@@ -116,6 +117,19 @@ validation.forgotPassword = (user) => new Promise((res,rej) => {
             } else rej('confirmPassword')
         } else rej('password')
     } else rej('passwordLength')
+})
+
+validation.creditCard = (user) => new Promise((res,rej) => {
+    if(user.creditNumber.length > 0) {
+        if(user.creditNumber.length > 15) {
+            if(user.expiredMonth.length > 0) {
+                    if(user.expiredYear.length > 0) {
+                            if(user.cvv.length > 2) res();
+                            else rej('cvvFormat');
+                    } else rej('expiredYearLength');
+            } else rej('expiredMonthLength');
+        } else rej('creditNumber');
+    } else rej('creditNumberLength');
 })
 
 export default validation;
