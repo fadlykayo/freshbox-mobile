@@ -7,11 +7,11 @@ const { width, height } = Dimensions.get('window');
 const styles = {
     container:{
         flex: -1,
+        minHeight: height * 0.2,
         height: height * 0.3,
-        maxHeight: height * 0.4,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: width* 0.05,
+        paddingVertical: width * 0.1,
     },
     logo:{
         width: width * 0.1,

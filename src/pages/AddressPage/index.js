@@ -214,14 +214,6 @@ class AddressPage extends Component {
 			}
         })
         .catch((err) => {
-			// language.transformText('message.emptyCart')
-			// .then(message => {
-			// 	this.props.set_error_status({
-			// 		status: true,
-			// 		title: 'formError.title.emptyCart',
-			// 		data: message,
-			// 	});
-			// });
             this.setValidation(err,false);
         });
 		
@@ -247,7 +239,7 @@ class AddressPage extends Component {
 			data: this.props.address_detail
 		}
 		this.props.update_address(payload,
-			(success) => {
+			(res) => {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
@@ -275,7 +267,7 @@ class AddressPage extends Component {
 		}
 
 		this.props.add_address(payload,
-			(success) => {
+			(res) => {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
@@ -298,7 +290,7 @@ class AddressPage extends Component {
 		}
 
 		this.props.delete_address(payload,
-			(success) => {
+			(res) => {
 				actNav.goBack()
 			},
 			(err) => {
@@ -320,10 +312,12 @@ class AddressPage extends Component {
 
 	loadProvince() {
 		let payload = {
-			header: this.props.user.authorization
+			header: {
+				apiToken: this.props.user.authorization,
+			},
 		}
 		this.props.load_province(payload, 
-			(success) => {
+			(res) => {
 			},
 			(err) => {
 				console.log(err)
@@ -333,11 +327,13 @@ class AddressPage extends Component {
 	loadCity() {
 		if (this.state.user.province.code.length !== 0) {
 			let payload = {
-				header: this.props.user.authorization,
+				header: {
+					apiToken: this.props.user.authorization,
+				},
 				provinceCode: this.state.user.province.code
 			}
 			this.props.load_city(payload, 
-				(success) => {
+				(res) => {
 				},
 				(err) => {
 					console.log(err)
@@ -348,11 +344,13 @@ class AddressPage extends Component {
 	loadSubdistrict() {
 		if (this.state.user.city.code.length !== 0) {
 			let payload = {
-				header: this.props.user.authorization,
+				header: {
+					apiToken: this.props.user.authorization,
+				},
 				cityCode: this.state.user.city.code
 			}
 			this.props.load_subdistrict(payload, 
-				(success) => {
+				(res) => {
 				},
 				(err) => {
 					console.log(err)
@@ -363,11 +361,13 @@ class AddressPage extends Component {
 	loadZipCode() {
 		if (this.state.user.subdistrict.code.length !== 0) {
 			let payload = {
-				header: this.props.user.authorization,
+				header: {
+					apiToken: this.props.user.authorization,
+				},
 				subdistrictCode: this.state.user.subdistrict.code
 			}
 			this.props.load_zip_code(payload, 
-				(success) => {
+				(res) => {
 				},
 				(err) => {
 					console.log(err)

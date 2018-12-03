@@ -30,7 +30,7 @@ class Content extends Component {
                     />
                 )
             case 'editAddress':
-                if (this.props.isEdit == true) {
+                if (this.props.isEdit) {
                     return (
                         <FormDataPage
                             province={this.props.province}

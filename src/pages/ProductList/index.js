@@ -508,7 +508,6 @@ class ProductList extends Component {
 					categories = {this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
-					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
 			</Container>
 		);

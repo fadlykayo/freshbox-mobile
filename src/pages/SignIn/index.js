@@ -36,6 +36,7 @@ class SignIn extends Component {
         this.clearValidation = this.clearValidation.bind(this);
         this.navigateToRegister = this.navigateToRegister.bind(this);
         this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
+        this.clearData = this.clearData.bind(this);
     }
 
     onChangeText(type,value){
@@ -96,7 +97,7 @@ class SignIn extends Component {
         }
 
         this.props.sign_in(payload,
-            (success) => {
+            (res) => {
                 if (this.props.navigation.state.params.action == "menuLogin") {
                     actNav.reset(navConstant.Product);
                 }
@@ -119,7 +120,7 @@ class SignIn extends Component {
         );
     }
 
-    navigateToRegister(){
+    clearData() {
         let state = this.state;
         state.user = {
             phone: '',
@@ -128,18 +129,15 @@ class SignIn extends Component {
         state.isWrong= false,
         state.messageWrong= '',
         this.setState(state);
+    }
+
+    navigateToRegister(){
+        this.clearData();
         actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
     }
 
     navigateToForgotPassword(){
-        let state = this.state;
-        state.user = {
-            phone: '',
-            password: ''
-        },
-        state.isWrong= false,
-        state.messageWrong= '',
-        this.setState(state);
+        this.clearData();
         actNav.navigate(navConstant.ForgotPassword);
     }
 
