@@ -17,7 +17,7 @@ var options = {
       skipBackup: true,
       path: 'images'
     }
-  };
+};
 
 
 class ProfilePage extends Component {

@@ -68,6 +68,8 @@ class SearchComponent extends Component {
   	  					/>
 					</View>
 					<TextInput
+						autoCapitalize={'none'}
+						returnKeyType={'done'}
 						value={this.props.value} 
   	        			onChangeText={this.onChangeText}
   	        			placeholder={this.state.placeholder}
@@ -75,15 +77,14 @@ class SearchComponent extends Component {
 		    		  	style={styles.textinput}
 		    		/>
 					{this.props.value.length > 0
-						? (
-							<TouchableOpacity style={styles.clear.place} onPress={this.clearSearch}>
+						? (<TouchableOpacity style={styles.clear.place} onPress={this.clearSearch}>
 								<Image
   	  	    						resizeMode={'contain'} 
   	  	    						source={images.icon_clear_search}
   	  	    						style={styles.icon.clear}
   	  							/>
-							</TouchableOpacity>
-						) : null
+							</TouchableOpacity>) 
+						: null
 					}
   	    		</View>
       		</View>

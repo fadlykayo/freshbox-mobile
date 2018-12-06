@@ -27,6 +27,9 @@ const styles = {
             fontSize: scaling.moderateScale(13),
             color: colour.white,
             lineHeight: scaling.moderateScale(21),
+        },
+        italic: {
+            fontStyle: 'italic'
         }
     },
 }

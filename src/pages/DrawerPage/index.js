@@ -68,14 +68,25 @@ class DrawerPage extends Component {
 	}
 
   	navigateToOtherPage(payload){
-		switch (payload.name) {
-			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
-			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
-			case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
-			case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
-			case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
-			default: return actNav.navigate(navConstant.ProductList)
-		}
+		let newPages = this.state.pages;
+
+		newPages.map((newPage) => {
+			if(payload.name == newPage.name) newPage.selected = true;
+			else newPage.selected = false;
+			return newPage
+		})
+
+		this.setState({pages: newPages}, () => {
+			switch (payload.name) {
+				case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
+				case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
+				case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
+				case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
+				case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
+				default: return this.closeDrawerPage(payload);
+			}
+		})
+
 	}
 	  
 	navigateToProfilePage() {
@@ -93,8 +104,22 @@ class DrawerPage extends Component {
 		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' })
 	}
 
-	closeDrawerPage() {
-		this.props.navigation.closeDrawer()
+	closeDrawerPage(input) {
+		if(input == undefined) {	
+			let newPages = this.state.pages;
+			
+			newPages.map((newPage) => {
+				if('drawerPage.pages.dashboard' == newPage.name) newPage.selected = true;
+				else newPage.selected = false;
+				return newPage
+			})
+			
+			this.setState({pages: newPages}, () => {
+				this.props.navigation.closeDrawer()
+			})
+		} else {
+			this.props.navigation.closeDrawer()
+		}
 	}
 
   	render () {

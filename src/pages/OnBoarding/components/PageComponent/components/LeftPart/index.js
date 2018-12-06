@@ -19,7 +19,7 @@ class LeftPart extends Component {
         return (
             <View style={styles.subContainer.red}>
                 <CircleComponent />
-                <Content data={this.props.data} />
+                <Content data={this.props.data} index={this.props.index}/>
                 <View style={styles.skip.place}>
                     <TouchableOpacity onPress={this.onPress} style={styles.skip.button}>
                         <StaticText

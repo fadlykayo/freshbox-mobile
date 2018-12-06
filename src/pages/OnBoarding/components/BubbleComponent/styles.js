@@ -10,7 +10,7 @@ const styles = {
             position: 'absolute',
             bottom: 0,
             left: 0,
-            marginBottom: height * 0.25,
+            marginBottom: height * 0.18,
             marginLeft: width * 0.05,
             flexDirection: 'row',
         },

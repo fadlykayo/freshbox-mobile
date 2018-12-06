@@ -49,6 +49,8 @@ const getProducts = (state, payload) => {
         if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
 
+    let cartList = newState.cart.products;
+
     // newState.products = existingProducts.map(e => {
     //     let favoriteItem = favoriteList.filter(p => e.code == p.code);
     //     if(favoriteItem.length > 0){
@@ -62,9 +64,14 @@ const getProducts = (state, payload) => {
     // }).filter(e => e.stock > 0);
 
     newState.products = existingProducts.map(e => {
-        if(!e.count) e.count = 0;
-        if(!e.maxQty) e.maxQty = 1000;
-        return e;
+        let cartItem = cartList.filter(p => e.code == p.code);
+        if(cartItem.length > 0) {
+            return cartItem[0];
+        } else {
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
     }).filter(e => e.stock > 0);
 
     return newState;
@@ -252,6 +259,12 @@ const editTotal = (state,payload) => {
     return newState;
 }
 
+const clearProductList = (state) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.products = [];
+    return newState;
+}
+
 const clearProducts = (state) => {
     let newState = JSON.parse(JSON.stringify(state));
 
@@ -370,6 +383,14 @@ const reorderTransaction = (state,payload) => {
     return newState;
 }
 
+const resetParams = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+
+    newState.params = initialState.params;
+
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS : return getProducts(state,action.payload);
@@ -382,8 +403,10 @@ const productReducer = (state = initialState, action) => {
         case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload);
         case ct.DETAIL_PRODUCT: return getDetail(state,action.payload);
         case ct.CLEAR_PRODUCTS: return clearProducts(state);
+        case ct.CLEAR_PRODUCT_LISTS: return clearProductList(state);
         case ct.VALIDATE_CART: return validateCart(state,action.payload);
         case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload);
+        case ct.RESET_PARAMS: return resetParams(state,action.payload);
         case ct.RESET_PRODUCTS: return initialState
         default: return state;
     }

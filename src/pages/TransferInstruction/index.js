@@ -230,6 +230,12 @@ class TransferInstruction extends Component {
         this.getGrandTotalPrice();
     }
 
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.refreshHandler) {
+            this.props.navigation.state.params.refreshHandler();
+        }
+    }
+
     getGrandTotalPrice() {
         let state = this.state;
 		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;

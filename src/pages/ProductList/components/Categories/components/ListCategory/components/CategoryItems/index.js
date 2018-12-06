@@ -55,8 +55,7 @@ class CategoryItems extends PureComponent {
 				onPress={this.changeCategory}
 				style={styles.container}
 			>
-				{
-					this.props.category.check
+				{ this.props.category.check
 					?	<View style={styles.subcontainer.check}>
 							<Image
 								resizeMode={'contain'} 

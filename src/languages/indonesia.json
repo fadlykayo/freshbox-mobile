@@ -16,16 +16,20 @@
     "onBoarding": {
         "content": {
             "first": {
-                "title": "Title 1. Lorem ipsum dolor.",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "SELALU SEGAR",
+                "info": "Sayur & buah FreshBox didatangkan langsung dari petani terpercaya sehingga semua produk FreshBox dijamin selalu segar."
             },
             "second": {
-                "title": "Title 2. Lorem ipsum dolor",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "FLEKSIBEL DAN MENGUTAMAKAN KENYAMANAN ANDA",
+                "info": {
+                    "1": "Sibuk? Sering tak ada di tempat?",
+                    "2": " Worry no more",
+                    "3": ", FreshBox memberikan pilihan pengiriman sampai dengan tiga hari ke depan. Anda selalu dapat memilih waktu yang sesuai."
+                }
             }, 
             "third": {
-                "title": "Title 3. Lorem ipsum dolor",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "BERAGAM PILIHAN",
+                "info": "FreshBox selalu menawarkan buah dan sayur yang beragam sesuai dengan musimnya."
             }
         },
         "button": {

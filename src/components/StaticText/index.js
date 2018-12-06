@@ -27,6 +27,8 @@ class StaticText extends Component {
                     this.renderText(nextProps.property,this.props.language,this.props.params);
                     return true;
                 }
+            } else if (this.props.style != nextProps.style) {
+                return true;
             } else {
                 if(this.props.params != nextProps.params){
                     this.renderText(this.props.property,this.props.language,nextProps.params);

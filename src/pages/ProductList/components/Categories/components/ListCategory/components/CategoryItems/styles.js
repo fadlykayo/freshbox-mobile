@@ -9,7 +9,7 @@ const styles = {
         flexDirection: 'row',
         height: scaling.moderateScale(50),
         alignItems: 'center',
-        borderColor: colour.lightGrey,
+        borderColor: colour.mediumLightGrey,
         borderBottomWidth: 1,
         paddingHorizontal: scaling.moderateScale(5),
     },

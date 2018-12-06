@@ -8,7 +8,6 @@ import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
-import ZoomImage from '@components/ZoomImage';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -34,6 +33,7 @@ class ProductList extends Component {
 				openCategories: false,
 				openProduct: false,
 				openImageDetail: false,
+				checkout: false,
 			},
 		};
 		this.listRef = null;
@@ -64,6 +64,17 @@ class ProductList extends Component {
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
+		this.counterTotalCount = this.counterTotalCount.bind(this);
+	}
+
+	counterTotalCount() {
+		if(this.props.total_count > 0) {
+			if(this.state.modalVisible.checkout == false) {
+				this.setModalVisible('checkout',true);
+			}
+		} else {
+			this.setModalVisible('checkout',false);
+		}
 	}
 
 	openZoomImage(){
@@ -113,8 +124,15 @@ class ProductList extends Component {
 	}
 
 	backToDefault() {
-		this.clearSearch();
-		this.refreshHandler();
+		this.props.clear_product_lists();
+		this.onChangeText('searchItem', '');
+		this.props.reset_params();
+		this.setState({refreshing: true},() => {
+			if (this.state.search) {
+				this.onChangeText('search', false);
+			}
+			this.getProductList();
+		});
 	}
 
 	onChangeText(type,value){
@@ -135,7 +153,9 @@ class ProductList extends Component {
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
-			if (this.state.search) this.onChangeText('search', false)
+			if (this.state.search) {
+				this.onChangeText('search', false);
+			}
 			this.refreshProductList();
 		});
 	}
@@ -352,6 +372,7 @@ class ProductList extends Component {
 
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
+		this.counterTotalCount();
 	}
 	
 	submitSearch() {
@@ -481,6 +502,7 @@ class ProductList extends Component {
 							)}
 						/>
 						<Checkout
+							modalVisible={this.state.modalVisible.checkout}
 							totalCount={this.props.total_count}
 							totalPrice={this.props.total_price}
 							validateCart={this.validateCart}
@@ -530,11 +552,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
+	reset_params: () => dispatch(actions.product.reducer.reset_params()),
+	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
-	change_total : (index,type) => dispatch(actions.product.reducer.change_total(index,type)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),

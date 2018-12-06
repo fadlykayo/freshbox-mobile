@@ -106,6 +106,7 @@ class SignIn extends Component {
                 }
             },
             (err) => {
+                console.log("error pas login",err)
                 if(err.code == 400) {
                     language.transformText('message.invalidSignIn')
                     .then(message => {
@@ -125,9 +126,7 @@ class SignIn extends Component {
         state.user = {
             phone: '',
             password: ''
-        },
-        state.isWrong= false,
-        state.messageWrong= '',
+        }
         this.setState(state);
     }
 

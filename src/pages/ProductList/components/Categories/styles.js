@@ -31,8 +31,6 @@ const styles = {
             flex: -1,
             marginHorizontal: width* 0.05,
             paddingBottom: scaling.moderateScale(5),
-            borderColor: colour.grey,
-            borderBottomWidth: 1,
         },
         button:{
             alignItems: 'center',
