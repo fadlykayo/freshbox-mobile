@@ -5,6 +5,15 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
+	main: {
+		normal: {
+			flex: 1,
+		},
+		modal: {
+			flex: 1,
+			backgroundColor: colour.darkGreyTransparent
+		},
+	},
 	container: {
 		flex: 1,
 		backgroundColor: colour.veryLightGrey,

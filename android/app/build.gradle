@@ -153,6 +153,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-vector-icons')

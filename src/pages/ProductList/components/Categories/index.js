@@ -18,12 +18,12 @@ class OpenCategories extends PureComponent {
 	render(){
 		if(this.props.modalVisible){
 			return(
-				<Modal
-					animationType={'slide'}
-					transparent={true}
-					visible={this.props.modalVisible}
-				>
-					<View style={styles.background}>
+				<View style={styles.background}>
+					<Modal
+						animationType={'slide'}
+						transparent={true}
+						visible={this.props.modalVisible}
+					>
 						<TouchableOpacity style={styles.touchable} onPress={this.closeCategory}></TouchableOpacity>
 						<View style={styles.container}>
 							<View style={styles.subcontainer.title}>
@@ -47,8 +47,8 @@ class OpenCategories extends PureComponent {
 								changeCategory={this.props.changeCategory}
 							/>
 						</View>
-					</View>
-				</Modal>
+					</Modal>
+				</View>
 			)
 		} else {
 			return null;

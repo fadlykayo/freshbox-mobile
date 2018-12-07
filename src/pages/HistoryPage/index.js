@@ -29,6 +29,10 @@ class HistoryPage extends Component {
 		}
 	}
 
+	componentWillMount() {
+		// this.props.reset_transaction();
+	}
+
 	componentDidMount(){
 		this.getHistoryData();
 	}

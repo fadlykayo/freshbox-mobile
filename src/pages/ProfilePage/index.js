@@ -11,15 +11,6 @@ import actions from '@actions';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 
-var options = {
-    title: 'Select Image',
-    storageOptions: {
-      skipBackup: true,
-      path: 'images'
-    }
-};
-
-
 class ProfilePage extends Component {
     constructor(props) {
         super(props)
@@ -55,6 +46,14 @@ class ProfilePage extends Component {
     }
     
     choosePhoto() {
+        const options = {
+            title: 'Select Image',
+            storageOptions: {
+              skipBackup: true,
+              path: 'images'
+            }
+        };
+        
         ImagePicker.showImagePicker( options, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -66,11 +65,11 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                // console.log("===>",response)
+                console.log("===>",response)
 
                 let data = {
                     uri: response.uri,
-                    type: response.type,
+                    type: response.type == undefined ? 'image/jpeg' : response.type,
                     name: response.fileName,
                     data: response.data
                 }
@@ -105,7 +104,7 @@ class ProfilePage extends Component {
 				        });
                     },
                     (err) => {
-                        console.log(err)
+                        console.log("error nich",err)
                         language.transformText('message.uploadPhotoError')
 			            .then(message => {
 			            	this.props.set_error_status({

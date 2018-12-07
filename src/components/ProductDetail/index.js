@@ -53,12 +53,12 @@ class ProductDetail extends Component {
 	render(){
 		if(this.props.modalVisible) {
 			return (
-				<Modal
-					animationType={'slide'}
-					transparent={true}
-					visible={this.props.modalVisible}
-				>
-					<View style={styles.background}>
+				<View style={styles.background}>
+					<Modal
+						animationType={'slide'}
+						transparent={true}
+						visible={this.props.modalVisible}
+					>
 						<TouchableOpacity style={styles.touchable} onPress={this.closeDetailProduct}></TouchableOpacity>
 						<View style={styles.container}>
 							<ScrollDown
@@ -134,8 +134,8 @@ class ProductDetail extends Component {
 							closeZoomImage={this.closeZoomImage}
 							images={this.props.data.images_sizes_url.original}
 						/>
-					</View>
-				</Modal>
+					</Modal>
+				</View>
 				)
 		} else return null;
 	}

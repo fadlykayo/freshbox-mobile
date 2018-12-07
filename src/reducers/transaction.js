@@ -30,6 +30,7 @@ const getTransactions = (state, payload) => {
     }
 
     newState.transactions = existingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
+    console.log("BARU", newState)
     return newState
 }
 
@@ -43,7 +44,6 @@ const editFavoriteHistory = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let productIndex = newState.detail.details.findIndex(e => e.product.code == payload.data.product.product.code);
     newState.detail.details[productIndex].product.wishlisted = newState.detail.details[productIndex].product.wishlisted == 1 ? 0 : 1;
-
     return newState
 }
 

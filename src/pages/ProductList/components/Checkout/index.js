@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Image, TouchableOpacity, Text } from 'react-native';
+import { Image, TouchableOpacity, Text, View } from 'react-native';
 import StaticText from '@components/StaticText';
 import numeral from 'numeral';
 import images from '@assets';
@@ -17,9 +17,7 @@ class CheckoutComponent extends PureComponent {
 
 	render(){
 		const totalPrice = numeral(this.props.totalPrice).format('0,0');
-		if(this.props.totalCount == 0){
-			return null;
-		}
+		if(this.props.totalCount == 0) return null;
 		else {
 			return(
 				<TouchableOpacity
