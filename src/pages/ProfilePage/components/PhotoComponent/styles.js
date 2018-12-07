@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -28,7 +28,7 @@ const styles = {
         real: {
             height: width * 0.26,
             width: width * 0.26,
-            borderRadius: 200,
+            borderRadius: Platform.OS == 'android' ? 200 : 50,
             borderColor: colour.white,
             marginBottom: width* 0.02,
         },

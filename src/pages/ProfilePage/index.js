@@ -86,7 +86,6 @@ class ProfilePage extends Component {
 
                 this.props.upload_photo(payload,
                     (res) => {
-                        console.log("balik kesini",res)
                         language.transformText('message.uploadPhotoSuccess')
 				        .then(message => {
 				        	this.props.set_success_status({
@@ -122,6 +121,7 @@ class ProfilePage extends Component {
     }
 
     render() {
+        console.log(this.props.user)
         return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				
