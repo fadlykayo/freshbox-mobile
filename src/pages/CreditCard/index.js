@@ -109,8 +109,6 @@ class CreditCard extends Component {
                     this.submitExpiredMonth();
                 }
                 else if (type == 'expiredYear') {
-                    this.formCVV.focus();
-                    this.onBlur();
                     this.submitExpiredYear();
                 }
                 else {
@@ -186,6 +184,7 @@ class CreditCard extends Component {
         if(expiredMonth.length > 0) {
             let user = this.state.user;
             if (expiredMonth > 12) {
+                Keyboard.dismiss();
                 language.transformText('message.invalidMonth')
                 .then(message => {
                     this.props.set_error_status({
@@ -194,9 +193,13 @@ class CreditCard extends Component {
                         data: message,
                     });
                     setTimeout(() => {
-                        expiredMonth = '';
-                        user.expiredMonth = expiredMonth;
+                        user.expiredMonth = '';
                         this.setState({user}, () => {
+                            this.props.set_error_status({
+                                status: false,
+                                title: '',
+                                data: '',
+                            });
                             this.formExpiredMonth.focus();
                         })
                     },1000)
@@ -212,10 +215,12 @@ class CreditCard extends Component {
 
     onBlurYear() {
         let expiredYear = this.state.user.expiredYear;
+        let today = new Date().getFullYear().toString().slice(1,4);
         if (expiredYear.length > 0) {
-            let today = new Date().getFullYear().toString().slice(1,4);
             let user = this.state.user;
+            console.log(`${Number(expiredYear)} < ${Number(today)}`)
             if (Number(expiredYear) < Number(today)) {
+                Keyboard.dismiss();
                 language.transformText('message.invalidYear')
                 .then(message => {
                     this.props.set_error_status({
@@ -224,9 +229,13 @@ class CreditCard extends Component {
                         data: message,
                     });
                     setTimeout(() => {
-                        expiredYear = '';
-                        user.expiredYear = expiredYear;
+                        user.expiredYear = '';
                         this.setState({user}, () => {
+                            this.props.set_error_status({
+                                status: false,
+                                title: '',
+                                data: '',
+                            });
                             this.formExpiredYear.focus();
                         })
                     },1000)

@@ -68,6 +68,7 @@ class SearchComponent extends Component {
   	  					/>
 					</View>
 					<TextInput
+						autoCorrect={false}
 						autoCapitalize={'none'}
 						returnKeyType={'done'}
 						value={this.props.value} 

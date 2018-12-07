@@ -37,7 +37,6 @@ class ProductList extends Component {
 			},
 		};
 		this.listRef = null;
-		this.scrollRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
 		this.onChangeText  =  this.onChangeText.bind(this);
 		this.checkCategory = this.checkCategory.bind(this);
@@ -125,6 +124,7 @@ class ProductList extends Component {
 
 	backToDefault() {
 		this.props.clear_product_lists();
+		this.onChangeText('search', false);
 		this.onChangeText('searchItem', '');
 		this.props.reset_params();
 		this.setState({refreshing: true},() => {
@@ -154,9 +154,10 @@ class ProductList extends Component {
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
 			if (this.state.search) {
-				this.onChangeText('search', false);
+				this.backToDefault();
+			} else {
+				this.refreshProductList();
 			}
-			this.refreshProductList();
 		});
 	}
 
@@ -460,55 +461,55 @@ class ProductList extends Component {
                 bgColorBottom={'veryLightGrey'}
                 bgColorTop={'red'}
             >
-				<SearchComponent
-					type={'searchItem'}
-					title={'productList.searchPlaceHolder'}
-					value={this.state.searchItem}
-					onChangeText={this.onChangeText}
-					onSubmitEditing={this.submitSearch}
-					openDrawerMenu={this.openDrawerMenu}
-					clearSearch={this.clearSearch}
-				/>
-				<FilterComponent 
-					onCategory={this.props.on_category}
-					openAllCategories={this.openAllCategories}
-				/>
-				<Notes />
-				<View style={styles.container}>
-					<View style={styles.cartContainer}>
-						<FlatList
-							ref={(e) => { this.listRef = e}}
-							data={this.props.product}
-							onEndReachedThreshold={0.05}
-							onRefresh={this.refreshHandler}
-							refreshing={this.state.refreshing}
-							keyExtractor={(item) => item.code}
-							onEndReached={this.handleLoadMore}
-							renderItem={({item,index}) => (
-								<View key={index}>
-									<ProductItem
-										search={this.state.search}
-										data={item}
-										index={index+1}
-										type={'productList'}
-										user={this.props.user}
-										toggleFavorite={this.toggleFavorite}
-										changeTotalItem={this.changeTotalItem}
-										productLength={this.props.product.length}
-										openDetailProduct= {this.openDetailProduct}
-									/>
-									{ this._renderButton(index, this.props.product.length - 1) }
-								</View>
-							)}
-						/>
-						<Checkout
-							modalVisible={this.state.modalVisible.checkout}
-							totalCount={this.props.total_count}
-							totalPrice={this.props.total_price}
-							validateCart={this.validateCart}
-						/>
+					<SearchComponent
+						type={'searchItem'}
+						title={'productList.searchPlaceHolder'}
+						value={this.state.searchItem}
+						onChangeText={this.onChangeText}
+						onSubmitEditing={this.submitSearch}
+						openDrawerMenu={this.openDrawerMenu}
+						clearSearch={this.clearSearch}
+					/>
+					<FilterComponent 
+						onCategory={this.props.on_category}
+						openAllCategories={this.openAllCategories}
+					/>
+					<Notes />
+					<View style={styles.container}>
+						<View style={styles.cartContainer}>
+							<FlatList
+								ref={(e) => { this.listRef = e}}
+								data={this.props.product}
+								onEndReachedThreshold={0.05}
+								onRefresh={this.refreshHandler}
+								refreshing={this.state.refreshing}
+								keyExtractor={(item) => item.code}
+								onEndReached={this.handleLoadMore}
+								renderItem={({item,index}) => (
+									<View key={index}>
+										<ProductItem
+											search={this.state.search}
+											data={item}
+											index={index+1}
+											type={'productList'}
+											user={this.props.user}
+											toggleFavorite={this.toggleFavorite}
+											changeTotalItem={this.changeTotalItem}
+											productLength={this.props.product.length}
+											openDetailProduct= {this.openDetailProduct}
+										/>
+										{ this._renderButton(index, this.props.product.length - 1) }
+									</View>
+								)}
+							/>
+							<Checkout
+								modalVisible={this.state.modalVisible.checkout}
+								totalCount={this.props.total_count}
+								totalPrice={this.props.total_price}
+								validateCart={this.validateCart}
+							/>
+						</View>
 					</View>
-				</View>
 				<ProductDetail
 					type={'productList'}
 					user={this.props.user}
