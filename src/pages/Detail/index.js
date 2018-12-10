@@ -31,6 +31,8 @@ class Detail extends Component {
 		this.navigateBack = this.navigateBack.bind(this);
 		this.refreshHandler = this.refreshHandler.bind(this);
 		this._onRefresh = this._onRefresh.bind(this);
+		this.messageOrderSuccess = this.messageOrderSuccess.bind(this);
+		this.clearNotification = this.clearNotification.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -41,6 +43,17 @@ class Detail extends Component {
     
     componentDidMount() {
 		this.setDetailTransaction();
+		this.messageOrderSuccess();
+		this.clearNotification();
+	}
+
+	clearNotification() {
+		if(this.props.notif) {
+			this.props.reset_notification();
+		}
+	}
+
+	messageOrderSuccess() {
 		if(this.props.navigation.state.params.createOrderSuccess){
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
@@ -62,7 +75,6 @@ class Detail extends Component {
 					});
 				});
 			}
-			
 		}
 	}
 
@@ -301,6 +313,7 @@ class Detail extends Component {
 }
 
 const mapStateToProps = (state) => ({
+	notif: state.notif.notification,
 	additional: state.product.additional.credit_card,
     detailTransaction: state.transaction.detail,
     transactions: state.transaction.transactions,
@@ -321,6 +334,7 @@ const mapDispatchToProps = (dispatch) => ({
 	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),
 	delete_favorite_history: (req,res,err) => dispatch(actions.transaction.api.delete_favorite_history(req,res,err)),
 	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
+	reset_notification: () => dispatch(actions.notif.reducer.reset_notification()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

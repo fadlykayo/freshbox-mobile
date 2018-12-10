@@ -64,6 +64,45 @@ class ProductList extends Component {
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
 		this.counterTotalCount = this.counterTotalCount.bind(this);
+		this.checkNotification = this.checkNotification.bind(this);
+		this.openFromNotification = this.openFromNotification.bind(this);
+	}
+
+	componentDidMount(){
+		this.getProductList();
+		this.getCategories();
+		this.checkCategory();
+		this.getFavorites();
+		this.checkNotification();
+	}
+
+	checkNotification() {
+		if(this.props.notif) {
+			if(this.props.notif.action == 'open.transaction') {
+				this.openFromNotification(this.props.notif.invoice);
+			}
+		}
+	}
+
+	openFromNotification(input) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: false,
+					refreshHandler: this.refreshHandler,
+				});
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 
 	counterTotalCount() {
@@ -97,13 +136,6 @@ class ProductList extends Component {
             this.setState({ bubble: position })
         }
     }
-
-	componentDidMount(){
-		this.getProductList();
-		this.getCategories();
-		this.checkCategory();
-		this.getFavorites();
-	}
 
 	_renderButton(index, length) {
 		if(this.state.search) {
@@ -538,6 +570,7 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => ({
+	notif: state.notif.notification,
 	user: state.user.data,
 	state: state.product,
 	cart_product: state.product.cart.products,

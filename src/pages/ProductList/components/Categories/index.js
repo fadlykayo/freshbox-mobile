@@ -23,6 +23,7 @@ class OpenCategories extends PureComponent {
 						animationType={'slide'}
 						transparent={true}
 						visible={this.props.modalVisible}
+						onRequestClose={this.closeCategory}
 					>
 						<TouchableOpacity style={styles.touchable} onPress={this.closeCategory}></TouchableOpacity>
 						<View style={styles.container}>

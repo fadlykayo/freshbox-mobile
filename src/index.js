@@ -32,6 +32,7 @@ class App extends Component {
     }
 
     onOpened(openResult){
+        this.props.get_notification(openResult.notification.payload.additionalData)
         console.log('Message: ', openResult.notification.payload.body);
         console.log('Data: ', openResult.notification.payload.additionalData);
         console.log('isActive: ', openResult.notification.isAppInFocus);
@@ -71,6 +72,7 @@ const styles = {
 
 const mapDispatchToProps = (dispatch) => ({
     get_user_id: (payload) => dispatch(actions.user.reducer.get_user_id(payload)),
+    get_notification: (payload) => dispatch(actions.notif.reducer.get_notification(payload)),
     // set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
     // add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
 });
