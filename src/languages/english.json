@@ -17,7 +17,7 @@
         "content": {
             "first": {
                 "title": "FRESH",
-                "info": "Sayur & buah FreshBox didatangkan langsung dari petani terpercaya sehingga semua produk FreshBox dijamin selalu segar."
+                "info": "FreshBox vegetables & fruits are imported directly from trusted farmers so that all FreshBox products are guaranteed to always be fresh."
             },
             "second": {
                 "title": "CONVENIENCE",
@@ -29,7 +29,7 @@
             }, 
             "third": {
                 "title": "SELECTION",
-                "info": "FreshBox selalu menawarkan buah dan sayur yang beragam sesuai dengan musimnya."
+                "info": "FreshBox always offers fruit and vegetables that vary according to the season."
             }
         },
         "button": {
@@ -45,10 +45,10 @@
             "password": "Password"
         },
         "validation":{
-            "phone": "Please input your phone number at least between 10 to 13 digits",
-            "password": "password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "login": "invalid email or password, please try again"
+            "phone": "Please enter your phone number at least between 10 to 13 digits",
+            "password": "Password must be at least 8 characters",
+            "passwordLength": "Please enter your password",
+            "login": "Invalid email or password, please try again"
         },
         "button":{
             "signIn": "SIGN IN"
@@ -77,13 +77,13 @@
             "signIn": "Sign In"
         },
         "validation":{
-            "fullName": "please input your name",
-            "emailFormat": "please input your email with a valid email format",
-            "emailLength": "please input your email",
-            "password": "your password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "phone": "please input your phone number at least between 10 to 13 digits",
-            "confirmPassword": "your password did not match"
+            "fullName": "Please enter your name",
+            "emailFormat": "Please enter your email with a valid email format",
+            "emailLength": "Please enter your email",
+            "password": "Your password must be at least 8 characters",
+            "passwordLength": "Please enter your password",
+            "phone": "Please enter your phone number at least between 10 to 13 digits",
+            "confirmPassword": "Your password did not match"
         }
     },
     "forgotPassword":{
@@ -96,7 +96,7 @@
             "submit": "SUBMIT"
         },
         "validation":{
-            "phone": "Please input your phone number at least between 10 to 13 digits"
+            "phone": "Please enter your phone number at least between 10 to 13 digits"
         }
     },
     "cart": {
@@ -135,7 +135,7 @@
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",
-            "adminCharge": "Administration",
+            "adminCharge": "Admin Charge",
             "discount": "Discount",
             "grandTotal": "Grand Total",
             "otherAddress": "Other Address",
@@ -146,8 +146,8 @@
             "checkout": "CHECKOUT"
         },
         "validation":{
-            "fullName": "Please input your name",
-            "phone": "Please input your phone number at least between 10 to 13 digits number"
+            "fullName": "Please enter your name",
+            "phone": "Please enter your phone number at least between 10 to 13 digits number"
         }
     },
     "productList": {
@@ -166,7 +166,7 @@
             "clear": "CLEAR"
         },
         "content": {
-            "default": "Semua Kategori",
+            "default": "All Categories",
             "subTotal": "Sub Total",
             "pack": "/ ",
             "addItem": "+ Add",
@@ -244,13 +244,13 @@
             "save": "Save"
         },
         "validation":{
-            "phone": "Please input your phone number at least between 10 to 13 digits"
+            "phone": "Please enter your phone number at least between 10 to 13 digits"
         }
     },
     "addressPage": {
         "navigationTitle": "ADDRESS",
         "label": {
-            "nameAddress": "Save address as",
+            "nameAddress": "Save Address as",
             "name": "Name",
             "phone": "Phone Number",
             "province": "Province",
@@ -275,15 +275,15 @@
             "delete": "DELETE"
         },
         "validation":{
-            "name": "Please input info save address",
-            "receiver_name": "Mohon masukkan nama penerima",
-            "phone": "please input your phone number at least between 10 to 13 digits number",
-            "province": "Please input Province",
-            "city": "Please input City",
-            "subdistrict": "Please input Kecamatan",
-            "kelurahan": "Please input Kelurahan",
-            "zip_code": "Please input Zip Code",
-            "address": "Please input address"
+            "name": "Please enter info save address",
+            "receiver_name": "Please enter your receiver name",
+            "phone": "please enter your phone number at least between 10 to 13 digits number",
+            "province": "Please enter Province",
+            "city": "Please enter City",
+            "subdistrict": "Please enter Kecamatan",
+            "kelurahan": "Please enter Kelurahan",
+            "zip_code": "Please enter Zip Code",
+            "address": "Please enter address"
             
         }
     },
@@ -302,7 +302,7 @@
             "changePassword": "CHANGE PASSWORD"
         },
         "validation":{
-            "otp": "Please input 4 digits OTP",
+            "otp": "Please input 4 digit numbers OTP",
             "otpLength": "Please input your OTP",
             "password": "Your password must be at least 8 characters",
             "passwordLength": "Please input your password",
@@ -315,16 +315,16 @@
     "termsConditions": {
         "navigationTitle": "TERMS & CONDITIONS",
         "content": {
-            "introduction": "Syarat & Ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Berkah Tani Sejahtera terkait penggunaan aplikasi FreshBox. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.\n \nDengan mendaftar dan/atau menggunakan aplikasi FreshBox, maka Pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & Ketentuan. Syarat & Ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. Berkah Tani Sejahtera. Jika Pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & Ketentuan, maka Pengguna tidak diperkenankan menggunakan layanan aplikasi FreshBox.",
+            "introduction": "Terms & Conditions set forth below govern the use of services offered by PT. Berkah Tani Sejahtera related to the use of the FreshBox application. Users are advised to read carefully because it can have an impact on the rights and obligations of Users under the law.\n\nBy registering and/or using the FreshBox application, User is deemed to have read, understood, understood and agreed to all contents in the Terms & Conditions. These Terms & Conditions constitute a form of agreement as outlined in a legal agreement between the User and PT. Berkah Tani Sejahtera. If User does not approve one, part, or all of the contents of the Terms & Conditions, then User is not permitted to use the FreshBox application service.",
             "info": {
                 "definition": {
                     "title" : "Definition",
                     "data": {
-                        "1": "PT. Berkah Tani Sejahtera adalah suatu perseroan terbatas yang menjalankan kegiatan usaha aplikasi business to consumer.",
-                        "2": "Situs FreshBox adalah www.freshbox.id.",
-                        "3": "Syarat & Ketentuan adalah perjanjian antara Pengguna dan FreshBox yang berisikan seperangkat peraturan yang mengatur hak, kewajiban, tanggung jawab pengguna dan FreshBox, serta tata cara penggunaan sistem layanan FreshBox.",
-                        "4": "Pengguna adalah pihak yang menggunakan layanan FreshBox, termasuk namun tidak terbatas pada pembeli ataupun pihak lain yang sekedar menggunakan aplikasi FreshBox.",
-                        "5": "Pembeli adalah Pengguna terdaftar yang melakukan permintaan atas barang yang di aplikasi FreshBox."
+                        "1": "PT. Berkah Tani Sejahtera is a limited liability company that runs business to consumer application business activities.",
+                        "2": "Freshbox website is www.freshbox.id.",
+                        "3": "Terms & Conditions are agreements between Users and FreshBox which contain a set of rules governing rights, obligations, user responsibilities and FreshBox, as well as procedures for using the FreshBox service system.",
+                        "4": "Users are parties who use FreshBox services, including but not limited to buyers or other parties who only use the FreshBox application.",
+                        "5": "Consumer is a registered User who requests for items in the FreshBox application."
                     }
                 }, 
                 "security": {
@@ -352,7 +352,7 @@
                     "title" : "Promotion",
                     "data": {
                         "1": "FreshBox sewaktu-waktu dapat mengadakan kegiatan promosi (selanjutnya disebut sebagai “Promo”) dengan Syarat dan Ketentuan yang mungkin berbeda pada masing-masing kegiatan Promo. Pengguna dihimbau untuk membaca dengan seksama Syarat dan Ketentuan Promo tersebut.",
-                        "2": "Pengguna hanya boleh menggunakan 1 (satu) akun FreshBox untuk mengikuti setiap promo FreshBox. "
+                        "2": "User can only use 1 (one) FreshBox account to participate in every FreshBox promo."
                     }
                 },
                 "delivery": {
@@ -366,30 +366,30 @@
                     }
                 },
                 "refund": {
-                    "title" : "Kebijakan Refund",
+                    "title" : "Privacy Refund",
                     "preInfo": {
                         "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
                         "2": "mails@freshbox.id",
                         "3": " dengan alasan salah satu di antara:"
                     },
                     "data": {
-                        "1": "Barang kurang.",
-                        "2": "Barang busuk.",
-                        "3": "Barang tidak diantarkan tepat waktu.",
+                        "1": "Less goods.",
+                        "2": "Rotten goods.",
+                        "3": "Goods not delivered on time.",
                         "4": "Lainnya."
                     }
                 },
                 "others": {
-                    "title" : "Ketentuan Lain",
+                    "title" : "Other Provisions",
                     "data": {
                         "1": "Apabila Pengguna mempergunakan fitur-fitur yang tersedia dalam aplikasi FreshBox maka Pengguna dengan ini menyatakan memahami dan menyetujui segala syarat dan ketentuan yang diatur khusus sehubungan dengan fitur-fitur tersebut di bawah ini, yakni:",
                         "2": "Segala hal yang belum dan/atau tidak diatur dalam syarat dan ketentuan khusus dalam fitur tersebut maka akan sepenuhnya merujuk pada syarat dan ketentuan FreshBox secara umum."
                     }
                 },
                 "update": {
-                    "title" : "Pembaharuan",
+                    "title" : "Renewal",
                     "data": {
-                        "1": "Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. FreshBox menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & Ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan FreshBox, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & Ketentuan."
+                        "1": "Terms & conditions may be changed and / or updated from time to time without prior notice. FreshBox recommends that you read carefully and check this Terms & Conditions page from time to time to find out about any changes. By continuing to access and use FreshBox services, the user is deemed to agree to changes in the Terms & Conditions."
                     }
                 }
             }
@@ -433,7 +433,7 @@
     "chooseAddress": {
         "navigationTitle": "CHOOSE ADDRESS",
         "content": {
-            "primary": "Utama"
+            "primary": "Primary"
         },
         "label": {
             "addAddress": "ADD ADDRESS"
@@ -446,9 +446,9 @@
             "transferBank": "Transfer Bank",
             "virtualAccount": "Transfer Virtual Account",
             "subTotal": "Sub Total",
-            "delivery": "Pengiriman",
+            "delivery": "Delivery",
             "grandTotal": "Grand Total",
-            "price": "Rp. "
+            "price": "IDR "
         }
     },
     "creditCard": {
@@ -462,13 +462,11 @@
             "examplecvv": "Example: 123"
         },
         "validation": {
-            "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",
-            "creditNumber": "Masukkan 16 digit angka di kartu kredit Anda",
-            "expiredMonthLength": "Mohon masukkan bulan kartu kredit yang terletak pada kartu kredit Anda",
-            "expiredMonthFormat": "Mohon tambahkan angka 0 jika bulan pada kartu kredit Anda kurang dari 10",
-            "expiredYearLength": "Mohon masukkan tahun kartu kredit yang tertera pada kartu kredit Anda",
-            "expiredYearFormat": "Mohon masukkan kartu kredit yang masih valid",
-            "cvvFormat": "Masukkan 3 digit angka CVV yang tertulis pada kartu kredit Anda"
+            "creditNumberLength": "Enter your credit card number",
+            "creditNumber": "Please enter a 16 digit number on your credit card",
+            "expiredMonthLength": "Please enter a month info on your credit card",
+            "expiredYearLength": "Please enter a year info on your credit card",
+            "cvvFormat": "Please enter a cvv code on your credit card"
         }
     },
     "transferBank": {
@@ -492,7 +490,7 @@
                 "mBanking": "M-Banking",
                 "iBanking": "KLIK BRI"
             },
-            "checkout": "Bayar"
+            "checkout": "CHECKOUT"
         }
     },
     "virtualAccount": {
@@ -562,17 +560,17 @@
                 "atm": {
                     "name":"ATM BNI",
                     "step": {
-                        "1": "Masukkan Kartu Anda.",
-                        "2": "Pilih Bahasa.",
-                        "3": "Masukkan PIN ATM Anda.",
-                        "4": "Pilih \"Menu Lainnya\"",
-                        "5": "Pilih \"Transfer\"",
-                        "6": "Pilih \"Rekening Tabungan\"",
-                        "7": "Pilih \"Ke Rekening BNI\"",
-                        "8": "Masukkan nomor Virtual Account yang tertera di halaman ini.",
-                        "9": "Masukkan nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
-                        "10": "Konfirmasi, apabila telah sesuai, lanjutkan transaksi.",
-                        "11": "Transaksi telah selesai."
+                        "1": "Insert your card.",
+                        "2": "Choose language.",
+                        "3": "Enter your PIN.",
+                        "4": "Choose \"Other Menu\"",
+                        "5": "Choose \"Transfer\"",
+                        "6": "Choose \"Saving Account\"",
+                        "7": "Choose \"To BNI Account\"",
+                        "8": "Enter the Virtual Account number listed on this page.",
+                        "9": "Enter the transfer amount according to your bill or obligation. Different numbers cannot be processed.",
+                        "10": "Confirm, if appropriate, continue the transaction.",
+                        "11": "The transaction has been completed."
                     }
                 },
                 "mBanking": {
@@ -602,29 +600,17 @@
                         "7": "Pilih akun pembayaran Anda, lalu tekan \"Benar\""
                     }
                 }
-            },
-            "bniVA": {
-                "name": "BNI Virtual Account",
-                "atm": "ATM Mandiri",
-                "mBanking": "M-Banking",
-                "iBanking": "CLICKPAY MANDIRI"
-            },
-            "bri": {
-                "name": "Bank BRI",
-                "atm": "ATM BRI",
-                "mBanking": "M-Banking",
-                "iBanking": "KLIK BRI"
             }
         }
     },
     "otp": {
         "navigationTitle": "VERIFICATION",
         "content": {
-            "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
+            "info": "Enter the 4 digit verification code that we sent via SMS."
         },
         "button": {
-            "resend": "Kirim Ulang Kode Verifikasi",
-            "submit": "Kirim"
+            "resend": "RESEND VERIFICATION CODE",
+            "submit": "SUBMIT"
         }
     },
     "privacyPolicy": {
@@ -702,35 +688,35 @@
     },
     "formError":{
         "title": {
-            "default": "GAGAL",
-            "emptyCart": "KERANJANG KOSONG",
-            "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
-            "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
-            "createOrder": "PEMESANAN GAGAL",
+            "default": "FAILED",
+            "emptyCart": "EMPTY CART",
+            "emptyAddress": "EMPTY SHIPPING ADDRESS",
+            "emptyDate": "EMPTY DELIVERY DATE",
+            "createOrder": "ORDER FAILED",
             "outOfStock": "JUMLAH BARANG BERLEBIH",
             "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
-            "serverError": "SERVER GANGGUAN"
+            "serverError": "NETWORK ERROR"
         }
     },
     "formSuccess":{
         "title": {
-            "default": "SUKSES",
-            "createOrder": "PEMESANAN SUKSES",
-            "copyData": "Data berhasil disalin"
+            "default": "SUCCESS",
+            "createOrder": "ORDER SUCCESS",
+            "copyData": "Successfully copied data"
         }
     },
     "button": {
-        "close": "TUTUP",
-        "login": "MASUK",
-        "yes": "YA",
-        "no": "TIDAK"
+        "close": "CLOSE",
+        "login": "SIGN IN",
+        "yes": "YES",
+        "no": "NO"
     },
     "modal":{
         "title":{
-            "loginConfirmation": "Sebelum anda membayar"
+            "loginConfirmation": "Before you pay"
         },
         "content":{
-            "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran."
+            "loginConfirmation": "Please login before you make a payment."
         }
     },
     "message":{
@@ -742,16 +728,15 @@
         "invalidSignIn": "Phone number or Password is invalid",
         "invalidMonth": "Incorrect month.",
         "invalidYear": "Incorrect year.",
-        "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
+        "invalidPhoneFormat": "Please enter the correct phone number format.",
         "errorOTP": "Verification code is invalid.",
-        "errorCreateOrder": "",
-        "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
-        "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
-        "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",
-        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
+        "errorRegisterEmail": "Registration failed, Your email has been registered.",
+        "errorLogin": "Login failed, Phone Number or Password is not correct, please try again.",
+        "paymentSuccess": "Thank you for making a payment. Orders will be processed immediately.",
+        "createOrderSuccess": "Order successfully created, please make a payment so the order can be processed.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
         "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
-        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
+        "noPaymentMethodSelected": "Please choose one of the payment methods before you place your order.",
         "emptyCart": "Please fill in your cart with at least 1 type of product before you continue the order process.",
         "emptyAddress": "Please fill in your shipping address before you continue the order process.",
         "emptyDate": "Please select a delivery date before you proceed with the order process.",

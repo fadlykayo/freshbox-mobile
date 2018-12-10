@@ -467,9 +467,7 @@
             "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",
             "creditNumber": "Masukkan 16 digit angka di kartu kredit Anda",
             "expiredMonthLength": "Mohon masukkan bulan kartu kredit yang terletak pada kartu kredit Anda",
-            "expiredMonthFormat": "Mohon tambahkan angka 0 jika bulan pada kartu kredit Anda kurang dari 10",
             "expiredYearLength": "Mohon masukkan tahun kartu kredit yang tertera pada kartu kredit Anda",
-            "expiredYearFormat": "Mohon masukkan kartu kredit yang masih valid",
             "cvvFormat": "Masukkan 3 digit angka CVV yang tertulis pada kartu kredit Anda"
         }
     },
@@ -604,18 +602,6 @@
                         "7": "Pilih akun pembayaran Anda, lalu tekan \"Benar\""
                     }
                 }
-            },
-            "bniVA": {
-                "name": "BNI Virtual Account",
-                "atm": "ATM Mandiri",
-                "mBanking": "M-Banking",
-                "iBanking": "CLICKPAY MANDIRI"
-            },
-            "bri": {
-                "name": "Bank BRI",
-                "atm": "ATM BRI",
-                "mBanking": "M-Banking",
-                "iBanking": "KLIK BRI"
             }
         }
     },
@@ -625,8 +611,8 @@
             "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
         },
         "button": {
-            "resend": "Kirim Ulang Kode Verifikasi",
-            "submit": "Kirim"
+            "resend": "KIRIM ULANG KODE VERIFIKASI",
+            "submit": "KIRIM"
         }
     },
     "privacyPolicy": {
@@ -746,7 +732,6 @@
         "invalidYear": "Tahun tidak sesuai.",
         "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
         "errorOTP": "Kode Verifikasi salah.",
-        "errorCreateOrder": "",
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
         "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",
