@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions } from 'react-native';
-import { language } from '@helpers'
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
@@ -74,6 +74,9 @@ class ProductList extends Component {
 		this.checkCategory();
 		this.getFavorites();
 		this.checkNotification();
+		if(Platform.OS == 'android') {
+			permission.requestSaveExternal();
+		}
 	}
 
 	checkNotification() {

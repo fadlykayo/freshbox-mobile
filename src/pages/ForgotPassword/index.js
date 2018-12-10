@@ -96,7 +96,6 @@ class ForgotPassword extends Component {
             }
         }
 
-        // actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
         this.props.forgot_password(payload,
             (success) => {
                 actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})

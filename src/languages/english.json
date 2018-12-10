@@ -8,24 +8,50 @@
         },
         "content":{
             "info": "By logging in you aggree to Freshbox",
-            "termsCondition": "Terms of Services and Privacy Policy"
+            "termsCondition": "Terms of Services and Privacy Policy",
+            "also": ", also ",
+            "privacyPolicy": "Privacy Policy"
+        }
+    },
+    "onBoarding": {
+        "content": {
+            "first": {
+                "title": "FRESH",
+                "info": "Sayur & buah FreshBox didatangkan langsung dari petani terpercaya sehingga semua produk FreshBox dijamin selalu segar."
+            },
+            "second": {
+                "title": "CONVENIENCE",
+                "info": {
+                    "1": "Want to make specific delivery date?",
+                    "2": " No problem",
+                    "3": ", we have flexible scheduling, up to three days devlivery option."
+                }
+            }, 
+            "third": {
+                "title": "SELECTION",
+                "info": "FreshBox selalu menawarkan buah dan sayur yang beragam sesuai dengan musimnya."
+            }
+        },
+        "button": {
+            "skip": "SKIP",
+            "finish": "FINISH"
         }
     },
     "signIn":{
-        "navigationTitle": "Sign In",
+        "navigationTitle": "SIGN IN",
         "formLabel":{
-            "email": "Email",
+            "phone": "Phone Number",
+            "examplePhone": "example: 08181234xxxx",
             "password": "Password"
         },
         "validation":{
-            "emailFormat": "please input a valid email format",
-            "emailLength": "please input your email",
+            "phone": "Please input your phone number at least between 10 to 13 digits",
             "password": "password must be at least 8 characters",
             "passwordLength": "please input your password",
             "login": "invalid email or password, please try again"
         },
         "button":{
-            "signIn": "Sign In"
+            "signIn": "SIGN IN"
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
@@ -34,22 +60,21 @@
         }
     },
     "register":{
-        "navigationTitle": "Register",
+        "navigationTitle": "REGISTER",
         "formLabel":{
             "fullName": "Full Name",
             "phone": "Phone Number",
+            "examplePhone": "example: 08181234xxxx",
             "email": "Email",
             "password": "Password",
             "confirmPassword": "Confirm Password"
         },
         "button":{
-            "register": "Register"
+            "register": "REGISTER"
         },
         "content":{
             "haveAnAccount": "Have an Account, ",
-            "signIn": "Sign In",
-            "success": "Success!",
-            "email": "Registration success! Please check your email to activate the account!"
+            "signIn": "Sign In"
         },
         "validation":{
             "fullName": "please input your name",
@@ -57,56 +82,50 @@
             "emailLength": "please input your email",
             "password": "your password must be at least 8 characters",
             "passwordLength": "please input your password",
-            "phone": "please input your phone number at least between 9 to 15 digits number",
+            "phone": "please input your phone number at least between 10 to 13 digits",
             "confirmPassword": "your password did not match"
         }
     },
     "forgotPassword":{
-        "navigationTitle": "Forgot Password",
+        "navigationTitle": "FORGOT PASSWORD",
         "formLabel":{
-            "email": "Email"
+            "phone": "Phone Number"
         },
         "button":{
-            "submit": "Submit"
-        },
-        "content":{
-            "newToFreshbox": "New to Freshbox? ",
-            "register": "Register",
-            "forgotPassword": "Forgot Password",
-            "resetPasswordSuccess": "Reset Password Success!",
-            "checkEmail": "Please check your email"
+            "request": "REQUEST OTP",
+            "submit": "SUBMIT"
         },
         "validation":{
-            "emailFormat": "please input your email with a valid email format",
-            "emailLength": "please input your email"
+            "phone": "Please input your phone number at least between 10 to 13 digits"
         }
     },
     "cart": {
-        "navigationTitle": "Cart",
+        "navigationTitle": "CART",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "Checkout"
+            "checkout": "Choose Delivery Date"
         },
         "content": {
             "price": "IDR ",
             "subTotal": "Sub Total",
-            "pack": "/1 pack"
+            "pack": "/ pack"
         }
 
     },
     "checkout": {
-        "navigationTitle": "Checkout",
+        "navigationTitle": "ADDRESS & DELIVERY DATE",
         "label": {
+            "deliveryAddress": "Delivery Address",
             "name": "Name",
             "phone": "Phone Number",
             "province": "Province",
             "city": "City",
             "zipCode": "Zip Code",
-            "kecamatan": "Kecamatan",
-            "kelurahan": "Kelurahan",
+            "kecamatan": "District",
+            "kelurahan": "Subdistrict",
             "address": "Address",
             "addressDetails": "Address Details (Optional)"
         },
@@ -116,18 +135,24 @@
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",
-            "grandTotal": "Grand Total"
+            "adminCharge": "Administration",
+            "discount": "Discount",
+            "grandTotal": "Grand Total",
+            "otherAddress": "Other Address",
+            "addAddress": "Add Address",
+            "chooseDate": "Choose Delivery Date"
         },
         "button": {
-            "checkout": "Checkout"
+            "checkout": "CHECKOUT"
         },
         "validation":{
-            "fullName": "please input your name",
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "fullName": "Please input your name",
+            "phone": "Please input your phone number at least between 10 to 13 digits number"
         }
     },
     "productList": {
         "searchPlaceHolder": "Search product...",
+        "notes": "Order before 10 PM for tomorrow delivery",
         "filter": {
             "categories": "All Categories",
             "area": "Jabodetabek"
@@ -137,40 +162,59 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Checkout"
+            "checkout": "CART",
+            "clear": "CLEAR"
         },
         "content": {
+            "default": "Semua Kategori",
             "subTotal": "Sub Total",
-            "pack": "/1 ",
+            "pack": "/ ",
             "addItem": "+ Add",
             "items": " Items | IDR ",
             "item": " Item | IDR ",
             "categories": "Categories",
-            "price": "IDR "
+            "price": "IDR ",
+            "count": "{bubble}/{length}"
         }
     },
     "historyPage": {
-        "navigationTitle": "History",
+        "navigationTitle": "HISTORY",
         "content": {
             "price": "IDR ",
             "reOrder": "Re-order"
+        },
+        "static": {
+            "requestShippingDate": "Delivery Date:",
+            "pending_payment": "Pending Payment",
+            "paid": "Paid",
+            "on_process": "On Process",
+            "on_shipping": "On Shipping",
+            "success": "Success",
+            "failed": "Failed",
+            "expired": "Expired",
+            "review": "Review Product"
         }
     },
     "historyDetail": {
-        "navigationTitle": "Detail",
+        "navigationTitle": "DETAIL",
         "content": {
             "price": "IDR ",
-            "reOrder": "Re-order",
+            "reOrder": "RE-ORDER",
+            "checkout": "CHOOSE PAYMENT METHOD",
+            "pay": "CHECKOUT",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",
-            "grandTotal": "Grand Total"
+            "grandTotal": "Grand Total",
+            "comma": ", ",
+            "kecamatan": ", Kec. ",
+            "kelurahan": ", Kel. "
         },
         "detail": {
             "status": "Status",
-            "nomorResi": "Nomor Resi",
-            "tanggal": "Tanggal Pembelian",
-            "alamat": "Alamat Pengiriman"
+            "transactionNumber": "Transaction Number",
+            "deliveryDate": "Delivery Date",
+            "address": "Address"   
         }
     },
     "profilePage": {
@@ -184,11 +228,11 @@
             "resetPassword": "Reset Password"
         },
         "button": {
-            "signOut": "Sign Out"
+            "signOut": "SIGN OUT"
         }
     },
     "phonePage": {
-        "navigationTitle": "Phone Number",
+        "navigationTitle": "PHONE NUMBER",
         "label": {
             "phone": "Phone Number"
         },
@@ -200,34 +244,53 @@
             "save": "Save"
         },
         "validation":{
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "phone": "Please input your phone number at least between 10 to 13 digits"
         }
     },
     "addressPage": {
-        "navigationTitle": "Address",
+        "navigationTitle": "ADDRESS",
         "label": {
+            "nameAddress": "Save address as",
             "name": "Name",
             "phone": "Phone Number",
             "province": "Province",
             "city": "City",
             "zipCode": "Zip Code",
+            "comma": ", ",
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
             "address": "Address",
-            "addressDetails": "Address Details (Optional)"
+            "addressDetails": "Address Details (Optional)",
+            "required": " *"
+        },
+        "info": {
+            "delete": "Are you sure you want to delete this address?",
+            "edit": "Do you want to save changes to this address data?",
+            "yes": "YES",
+            "no": "NO"
         },
         "button": {
-            "edit": "Edit",
-            "save": "Save"
+            "edit": "EDIT",
+            "save": "SAVE",
+            "delete": "DELETE"
         },
         "validation":{
-            "fullName": "please input your name",
-            "phone": "please input your phone number at least between 9 to 15 digits number"
+            "name": "Please input info save address",
+            "receiver_name": "Mohon masukkan nama penerima",
+            "phone": "please input your phone number at least between 10 to 13 digits number",
+            "province": "Please input Province",
+            "city": "Please input City",
+            "subdistrict": "Please input Kecamatan",
+            "kelurahan": "Please input Kelurahan",
+            "zip_code": "Please input Zip Code",
+            "address": "Please input address"
+            
         }
     },
     "resetPasswordPage": {
-        "navigationTitle": "Reset Password",
+        "navigationTitle": "RESET PASSWORD",
         "formLabel":{
+            "otp": "OTP",
             "oldPassword": "Old Password",
             "newPassword": "New Password",
             "confirmPassword": "Confirm Password"
@@ -236,50 +299,473 @@
             "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
-            "changePassword": "Change Password"
+            "changePassword": "CHANGE PASSWORD"
         },
         "validation":{
-            "oldPassword": "Password Incorrect",
-            "password": "your password must be at least 8 characters",
-            "passwordLength": "please input your password",
-            "confirmPassword": "your password did not match"
+            "otp": "Please input 4 digits OTP",
+            "otpLength": "Please input your OTP",
+            "password": "Your password must be at least 8 characters",
+            "passwordLength": "Please input your password",
+            "confirmPassword": "Your password did not match"
         }
     },
     "favourites": {
-        "navigationTitle": "Favourites"
+        "navigationTitle": "FAVOURITE"
     },
     "termsConditions": {
-        "navigationTitle": "Terms & Conditions",
+        "navigationTitle": "TERMS & CONDITIONS",
         "content": {
-            "title1": "Lorem 1",
-            "content1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci! \n \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at numquam soluta nulla deserunt provident. Unde ducimus sequi necessitatibus. Necessitatibus architecto ea fuga. Sunt corrupti quasi assumenda dolores! Consequuntur, adipisci!",
-            "title2": "Lorem 2",
-            "content2": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo ut id expedita. Ea placeat reprehenderit nulla officiis? Ipsum esse qui rem nesciunt aut nostrum, voluptate ipsam, minus eum dignissimos perferendis."
+            "introduction": "Syarat & Ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Berkah Tani Sejahtera terkait penggunaan aplikasi FreshBox. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.\n \nDengan mendaftar dan/atau menggunakan aplikasi FreshBox, maka Pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & Ketentuan. Syarat & Ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. Berkah Tani Sejahtera. Jika Pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & Ketentuan, maka Pengguna tidak diperkenankan menggunakan layanan aplikasi FreshBox.",
+            "info": {
+                "definition": {
+                    "title" : "Definition",
+                    "data": {
+                        "1": "PT. Berkah Tani Sejahtera adalah suatu perseroan terbatas yang menjalankan kegiatan usaha aplikasi business to consumer.",
+                        "2": "Situs FreshBox adalah www.freshbox.id.",
+                        "3": "Syarat & Ketentuan adalah perjanjian antara Pengguna dan FreshBox yang berisikan seperangkat peraturan yang mengatur hak, kewajiban, tanggung jawab pengguna dan FreshBox, serta tata cara penggunaan sistem layanan FreshBox.",
+                        "4": "Pengguna adalah pihak yang menggunakan layanan FreshBox, termasuk namun tidak terbatas pada pembeli ataupun pihak lain yang sekedar menggunakan aplikasi FreshBox.",
+                        "5": "Pembeli adalah Pengguna terdaftar yang melakukan permintaan atas barang yang di aplikasi FreshBox."
+                    }
+                }, 
+                "security": {
+                    "title" : "Account, Password, and Security",
+                    "data": {
+                        "1": "Pengguna dengan ini menyatakan bahwa pengguna adalah orang yang cakap dan mampu untuk mengikatkan dirinya dalam sebuah perjanjian yang sah menurut hukum.",
+                        "2": "FreshBox tidak memungut biaya pendaftaran kepada Pengguna.",
+                        "3": "Pengguna yang telah mendaftar berhak bertindak sebagai Pembeli.", 
+                        "4": "Pengguna bertanggung jawab secara pribadi untuk menjaga kerahasiaan akun dan password untuk semua aktivitas yang terjadi dalam akun Pengguna.",
+                        "5": "FreshBox tidak akan meminta username, password maupun kode SMS verifikasi atau kode OTP milik akun Pengguna untuk alasan apapun, oleh karena itu FreshBox menghimbau Pengguna agar tidak memberikan data tersebut maupun data penting lainnya kepada pihak yang mengatasnamakan FreshBox atau pihak lain yang tidak dapat dijamin keamanannya.",
+                        "6": "Pengguna dengan ini menyatakan bahwa FreshBox tidak bertanggung jawab atas kerugian ataupun kendala yang timbul atas penyalahgunaan akun Pengguna yang diakibatkan oleh kelalaian Pengguna, termasuk namun tidak terbatas pada meminjamkan atau memberikan akses akun kepada pihak lain, mengakses link atau tautan yang diberikan oleh pihak lain, memberikan atau memperlihatkan kode verifikasi (OTP), password atau email kepada pihak lain, maupun kelalaian Pengguna lainnya yang mengakibatkan kerugian ataupun kendala pada akun Pengguna.",
+                        "7": "Pengguna memahami dan menyetujui bahwa untuk mempergunakan fasilitas keamanan one time password (OTP) maka penyedia jasa telekomunikasi terkait dapat sewaktu-waktu mengenakan biaya kepada Pengguna."
+                    }
+                },
+                "creditCard": {
+                    "title" : "Credit Card",
+                    "data": {
+                        "1": "Pengguna dapat memilih untuk mempergunakan pilihan metode pembayaran menggunakan kartu kredit untuk transaksi pembelian barang melalui aplikasi FreshBox.",
+                        "2": "Transaksi pembelian barang dengan menggunakan kartu kredit wajib mengikuti syarat dan ketentuan yang diatur oleh FreshBox dan mempergunakan kurir/logistik yang disediakan dan terhubung dengan aplikasi FreshBox.",
+                        "3": "Pengguna dilarang untuk mempergunakan metode pembayaran kartu kredit di luar peruntukan sebagai alat pembayaran.", 
+                        "4": "Kartu kredit yang dapat digunakan untuk bertransaksi di FreshBox hanya kartu kredit yang diterbitkan di Indonesia."
+                    }
+                },
+                "promo": {
+                    "title" : "Promotion",
+                    "data": {
+                        "1": "FreshBox sewaktu-waktu dapat mengadakan kegiatan promosi (selanjutnya disebut sebagai “Promo”) dengan Syarat dan Ketentuan yang mungkin berbeda pada masing-masing kegiatan Promo. Pengguna dihimbau untuk membaca dengan seksama Syarat dan Ketentuan Promo tersebut.",
+                        "2": "Pengguna hanya boleh menggunakan 1 (satu) akun FreshBox untuk mengikuti setiap promo FreshBox. "
+                    }
+                },
+                "delivery": {
+                    "title" : "Pengiriman Barang",
+                    "data": {
+                        "1": "Pengiriman Barang dalam sistem FreshBox menggunakan jasa perusahaan ekspedisi yang menjadi rekanan FreshBox.",
+                        "2": "Setiap ketentuan berkenaan dengan proses pengiriman Barang adalah wewenang sepenuhnya penyedia jasa layanan pengiriman Barang.",
+                        "3": "Penjual wajib memenuhi ketentuan yang ditetapkan oleh jasa layanan pengiriman barang tersebut dan bertanggung jawab atas setiap Barang yang dikirimkan.", 
+                        "4": "Pengguna memahami dan menyetujui bahwa setiap permasalahan yang terjadi pada saat proses pengiriman Barang oleh penyedia jasa layanan pengiriman Barang adalah merupakan tanggung jawab penyedia jasa layanan pengiriman.",
+                        "5": "Dalam hal diperlukan untuk mengajukan keluhan atas layanan, diwajibkan untuk mengirimkan bukti berupa gambar Barang dan invoice atas transaksi yang dilakukan oleh Pengguna dalam kondisi apapun."
+                    }
+                },
+                "refund": {
+                    "title" : "Kebijakan Refund",
+                    "preInfo": {
+                        "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
+                        "2": "mails@freshbox.id",
+                        "3": " dengan alasan salah satu di antara:"
+                    },
+                    "data": {
+                        "1": "Barang kurang.",
+                        "2": "Barang busuk.",
+                        "3": "Barang tidak diantarkan tepat waktu.",
+                        "4": "Lainnya."
+                    }
+                },
+                "others": {
+                    "title" : "Ketentuan Lain",
+                    "data": {
+                        "1": "Apabila Pengguna mempergunakan fitur-fitur yang tersedia dalam aplikasi FreshBox maka Pengguna dengan ini menyatakan memahami dan menyetujui segala syarat dan ketentuan yang diatur khusus sehubungan dengan fitur-fitur tersebut di bawah ini, yakni:",
+                        "2": "Segala hal yang belum dan/atau tidak diatur dalam syarat dan ketentuan khusus dalam fitur tersebut maka akan sepenuhnya merujuk pada syarat dan ketentuan FreshBox secara umum."
+                    }
+                },
+                "update": {
+                    "title" : "Pembaharuan",
+                    "data": {
+                        "1": "Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. FreshBox menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & Ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan FreshBox, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & Ketentuan."
+                    }
+                }
+            }
         }
     },
     "contactUs": {
-        "navigationTitle": "Contact Us",
+        "navigationTitle": "CONTACT US",
         "label": {
             "message": "Message"
+        },
+        "info": {
+            "question": "QUESTION",
+            "complaint": "Complaint",
+            "advice": "Suggestions",
+            "review": "Review Product",
+            "others": "Others",
+            "reviewProduct": "Review Product - {invoice}"
         },
         "content": {
             "subject": "Choose Subject",
             "message": "Messages..."
         },
         "button": {
-            "submit": "Submit"
+            "submit": "SUBMIT"
         }
     },
     "drawerPage": {
         "content": {
-            "logOut": "Log Out"
+            "logOut": "Log Out",
+            "user": "Guest",
+            "login": "Log In / Register"
         },
         "pages": {
             "dashboard": "Dashboard",
-            "favorite": "Favorite",
+            "favorite": "Favourite",
             "history": "History",
             "termsConditions": "Terms & Conditions",
             "contactUs": "Contact Us"
         }
-    }
+    },
+    "chooseAddress": {
+        "navigationTitle": "CHOOSE ADDRESS",
+        "content": {
+            "primary": "Utama"
+        },
+        "label": {
+            "addAddress": "ADD ADDRESS"
+        }
+    },
+    "choosePayment": {
+        "navigationTitle": "PAYMENT METHODS",
+        "content": {
+            "creditCard": "Credit Card",
+            "transferBank": "Transfer Bank",
+            "virtualAccount": "Transfer Virtual Account",
+            "subTotal": "Sub Total",
+            "delivery": "Pengiriman",
+            "grandTotal": "Grand Total",
+            "price": "Rp. "
+        }
+    },
+    "creditCard": {
+        "navigationTitle": "CREDIT CARD",
+        "content": {
+            "creditCard": "Card Number",
+            "expiredDate": "Expired Date",
+            "expED": "example: 08/20",
+            "cvv": "CVV code",
+            "checkout": "CHECKOUT",
+            "examplecvv": "Example: 123"
+        },
+        "validation": {
+            "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",
+            "creditNumber": "Masukkan 16 digit angka di kartu kredit Anda",
+            "expiredMonthLength": "Mohon masukkan bulan kartu kredit yang terletak pada kartu kredit Anda",
+            "expiredMonthFormat": "Mohon tambahkan angka 0 jika bulan pada kartu kredit Anda kurang dari 10",
+            "expiredYearLength": "Mohon masukkan tahun kartu kredit yang tertera pada kartu kredit Anda",
+            "expiredYearFormat": "Mohon masukkan kartu kredit yang masih valid",
+            "cvvFormat": "Masukkan 3 digit angka CVV yang tertulis pada kartu kredit Anda"
+        }
+    },
+    "transferBank": {
+        "navigationTitle": "TRANSFER BANK",
+        "content": {
+            "bca": {
+                "name": "Bank BCA",
+                "atm": "ATM BCA",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BCA"
+            },
+            "mandiri": {
+                "name": "Bank Mandiri",
+                "atm": "ATM Mandiri",
+                "mBanking": "M-Banking",
+                "iBanking": "CLICKPAY MANDIRI"
+            },
+            "bri": {
+                "name": "Bank BRI",
+                "atm": "ATM BRI",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BRI"
+            },
+            "checkout": "Bayar"
+        }
+    },
+    "virtualAccount": {
+        "navigationTitle": "VIRTUAL ACCOUNT",
+        "content": {
+            "bcaVA": "BCA Virtual Account",
+            "mandiriVA": "Mandiri Virtual Account",
+            "briVA": "BRI Virtual Account",
+            "bniVA": "BNI Virtual Account",
+            "permataVA": "Permata Virtual Account",
+            "checkout": "CHECKOUT"
+        }
+    },
+    "transferInstruction": {
+        "navigationTitle": "TRANSFER INSTRUCTION",
+        "content": {
+            "checkout": "Check Payment Status",
+            "top": {
+                "info": "Make payment Immediately before",
+                "dateInfo": "{date} WIB"
+            },
+            "middle": {
+                "infoPrice": "Amount to be paid",
+                "transferTo": "Transfer to Virtual Account number",
+                "price": "IDR {price}"
+            },
+            "bca": {
+                "name": "Bank BCA",
+                "atm": {
+                    "name":"ATM BCA",
+                    "step": {
+                        "1": "Masukkan Kartu ATM BCA & PIN",
+                        "2": "Pilih menu Transaksi Lainnya > Transfer > ke Rekening BCA Virtual Account",
+                        "3": "Masukkan nomor Virtual Account yang tertera di halaman ini.",
+                        "4": "Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti No VA, Nama, Perus/Produk dan Total Tagihan",
+                        "5": "Masukkan Jumlah Transfer sesuai dengan Total Tagihan",
+                        "6": "Ikuti instruksi untuk menyelesaikan transaksi",
+                        "7": "Simpan struk transaksi sebagai bukti pembayaran"
+                    }
+                },
+                "mBanking": {
+                    "name": "m-BCA (BCA Mobile)",
+                    "step": {
+                        "1": "Lakukan log in pada aplikasi BCA Mobile",
+                        "2": "Pilih menu m-BCA, kemudian masukkan kode akses m-BCA",
+                        "3": "Pilih m-Transfer > BCA Virtual Account",
+                        "4": "Pilih dari Daftar Transfer, atau Masukkan nomor Virtual Account yang tertera di halaman ini.",
+                        "5": "Masukkan jumlah yang ingin dibayarkan",
+                        "6": "Masukkan pin m-BCA",
+                        "7": "Pembayaran selesai. Simpan notifikasi yang muncul sebagai bukti pembayaran"
+                    }
+                },
+                "iBanking": {
+                    "name": "Internet Banking BCA",
+                    "step": {
+                        "1": "Login pada alamat Internet Banking BCA (https://klikbca.com)",
+                        "2": "Pilih menu Pembayaran Tagihan > Pembayaran > BCA Virtual Account",
+                        "3": "Pada kolom kode bayar, Masukkan nomor Virtual Account yang tertera di halaman ini.",
+                        "4": "Di halaman konfirmasi, pastikan detil pembayaran sudah sesuai seperti Nomor BCA Virtual Account, Nama Pelanggan dan Jumlah Pembayaran",
+                        "5": "Masukkan password dan mToken",
+                        "6": "Cetak/simpan struk pembayaran BCA Virtual Account sebagai bukti pembayaran"
+                    }
+                }
+            },
+            "bni": {
+                "name": "Bank BNI",
+                "atm": {
+                    "name":"ATM BNI",
+                    "step": {
+                        "1": "Masukkan Kartu Anda.",
+                        "2": "Pilih Bahasa.",
+                        "3": "Masukkan PIN ATM Anda.",
+                        "4": "Pilih \"Menu Lainnya\"",
+                        "5": "Pilih \"Transfer\"",
+                        "6": "Pilih \"Rekening Tabungan\"",
+                        "7": "Pilih \"Ke Rekening BNI\"",
+                        "8": "Masukkan nomor Virtual Account yang tertera di halaman ini.",
+                        "9": "Masukkan nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
+                        "10": "Konfirmasi, apabila telah sesuai, lanjutkan transaksi.",
+                        "11": "Transaksi telah selesai."
+                    }
+                },
+                "mBanking": {
+                    "name": "Mobile Banking BNI",
+                    "step": {
+                        "1": "Akses BNI Mobile Banking dari handphone kemudian masukkan user ID dan password.",
+                        "2": "Pilih menu Transfer.",
+                        "3": "Pilih \"Antar Rekening BNI\" kemudian \"Input Rekening Baru\"",
+                        "4": "Masukkan nomor Virtual Account yang tertera di halaman ini.",
+                        "5": "Masukkan nominal transfer sesuai tagihan atau kewajiban Anda. Nominal yang berbeda tidak dapat diproses.",
+                        "6": "Konfirmasi transaksi dan masukkan Password Transaksi.",
+                        "7": "Transaksi Anda telah Berhasil."
+                    }
+                }
+            },
+            "permata": {
+                "name": "Bank Permata",
+                "atm": {
+                    "name":"ATM Permata",
+                    "step": {
+                        "1": "Pada halaman menu, pilih \"Transaksi Lain\".",
+                        "2": "Pilih Pembayaran.",
+                        "3": "Pilih Pembayaran Lain.",
+                        "4": "Pilih Virtual Account",
+                        "5": "Masukkan nomor Virtual Account yang tertera di halaman ini, lalu tekan \"Benar\"",
+                        "6": "Jumlah yang harus dibayarkan, nomor akun, dan nama pedagang akan tampil pada layar konfirmasi pembayaran. Jika informasi itu benar, tekan \"Benar\"",
+                        "7": "Pilih akun pembayaran Anda, lalu tekan \"Benar\""
+                    }
+                }
+            },
+            "bniVA": {
+                "name": "BNI Virtual Account",
+                "atm": "ATM Mandiri",
+                "mBanking": "M-Banking",
+                "iBanking": "CLICKPAY MANDIRI"
+            },
+            "bri": {
+                "name": "Bank BRI",
+                "atm": "ATM BRI",
+                "mBanking": "M-Banking",
+                "iBanking": "KLIK BRI"
+            }
+        }
+    },
+    "otp": {
+        "navigationTitle": "VERIFICATION",
+        "content": {
+            "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
+        },
+        "button": {
+            "resend": "Kirim Ulang Kode Verifikasi",
+            "submit": "Kirim"
+        }
+    },
+    "privacyPolicy": {
+        "navigationTitle": "PRIVACY POLICY",
+        "content": {
+            "introduction": "Adanya Kebijakan Privasi ini adalah komitmen nyata dari FreshBox untuk menghargai dan melindungi setiap data atau informasi pribadi Pengguna aplikasi FreshBox. Kebijakan Privasi ini (beserta syarat-syarat penggunaan dari aplikasi FreshBox sebagaimana tercantum dalam \"Syarat & Ketentuan\" dan informasi lain yang tercantum) menetapkan dasar atas perolehan, pengumpulan, pengolahan, penganalisisan, penampilan, pembukaan, dan/atau segala bentuk pengelolaan yang terkait dengan data atau informasi yang Pengguna berikan kepada FreshBox atau yang FreshBox kumpulkan dari Pengguna, termasuk data pribadi Pengguna, baik pada saat Pengguna melakukan pendaftaran di aplikasi, mengakses aplikasi, maupun mempergunakan layanan-layanan pada aplikasi (selanjutnya disebut sebagai \"data\").\n\nDengan mengakses dan/atau mempergunakan layanan FreshBox, Pengguna menyatakan bahwa setiap data Pengguna merupakan data yang benar dan sah, serta Pengguna memberikan persetujuan kepada FreshBox untuk memperoleh, mengumpulkan, menyimpan, mengelola dan mempergunakan data tersebut sebagaimana tercantum dalam Kebijakan Privasi maupun Syarat dan Ketentuan FreshBox.",
+            "info": {
+                "collectData": {
+                    "title" : "Perolehan dan Pengumpulan Data Pengguna",
+                    "preInfo": "FreshBox mengumpulkan data Pengguna dengan tujuan untuk memproses transaksi Pengguna, mengelola dan memperlancar proses penggunaan Situs, serta tujuan-tujuan lainnya selama diizinkan oleh peraturan perundang-undangan yang berlaku. Adapun data Pengguna yang dikumpulkan adalah sebagai berikut:",
+                    "data": {
+                        "1": "Data yang diserahkan secara mandiri oleh Pengguna, termasuk namun tidak terbatas pada data yang diserahkan pada saat Pengguna:\n\n- Membuat atau memperbarui akun FreshBox, termasuk diantaranya nama pengguna (username), alamat email, nomor telepon, password, alamat, foto, dan lain-lain;\n- Menghubungi FreshBox, termasuk melalui layanan konsumen;\n- Mengisi survei yang dikirimkan oleh FreshBox atau atas nama FreshBox;\n- Melakukan interaksi dengan Pengguna lainnya melalui fitur pesan, diskusi produk, ulasan, rating, Pusat Resolusi dan sebagainya;\n- Mempergunakan layanan-layanan pada aplikasi, termasuk data transaksi yang detil, di antaranya jenis, jumlah dan/atau keterangan dari produk atau layanan yang dibeli, alamat pengiriman, kanal pembayaran yang digunakan, jumlah transaksi, tanggal dan waktu transaksi, serta detil transaksi lainnya;\n- Mengisi data-data pembayaran pada saat Pengguna melakukan aktivitas transaksi pembayaran melalui aplikasi, termasuk namun tidak terbatas pada data rekening bank, kartu kredit, virtual account, internet banking dan/atau\n- Menggunakan fitur yang membutuhkan izin akses terhadap perangkat Pengguna.",
+                        "2": "Data yang diperoleh dari sumber lain, termasuk:\n\n- Mitra usaha FreshBox yang turut membantu FreshBox dalam mengembangkan dan menyajikan layanan-layanan dalam aplikasi kepada Pengguna, antara lain mitra penyedia layanan pembayaran, logistik atau kurir, infrastruktur FreshBox, dan mitra-mitra lainnya.\n- Mitra usaha FreshBox tempat Pengguna membuat atau mengakses akun FreshBox, seperti layanan media sosial, atau situs/aplikasi yang menggunakan API FreshBox atau yang digunakan FreshBox;"
+                    }
+                }, 
+                "useData": {
+                    "title" : "Penggunaan Data",
+                    "preInfo": "FreshBox dapat menggunakan keseluruhan atau sebagian data yang diperoleh dan dikumpulkan dari Pengguna sebagaimana disebutkan dalam bagian sebelumnya untuk hal-hal sebagai berikut:",
+                    "data": {
+                        "1": "Memproses segala bentuk permintaan, aktivitas maupun transaksi yang dilakukan oleh Pengguna melalui aplikasi, termasuk untuk keperluan pengiriman produk kepada Pengguna.",
+                        "2": "Membantu Pengguna pada saat berkomunikasi dengan Layanan Pelanggan FreshBox, diantaranya untuk:\n\n- Memeriksa dan mengatasi permasalahan Pengguna;\n- Mengarahkan pertanyaan Pengguna kepada petugas Layanan Pelanggan yang tepat untuk mengatasi permasalahan; dan\n- Mengawasi dan memperbaiki tanggapan Layanan Pelanggan FreshBox.",
+                        "3": "Menghubungi Pengguna melalui email, surat, telepon, fax, dan lain-lain, termasuk namun tidak terbatas, untuk membantu dan/atau menyelesaikan proses transaksi maupun proses penyelesaian kendala.", 
+                        "4": "Menggunakan informasi yang diperoleh dari Pengguna untuk tujuan penelitian, analisis, pengembangan dan pengujian produk guna meningkatkan keamanan dan keamanan layanan-layanan pada Situs, serta mengembangkan fitur dan produk baru.",
+                        "5": "Menginformasikan kepada Pengguna terkait produk, layanan, promosi, studi, survei, berita, perkembangan terbaru, acara dan lain-lain, baik melalui Situs maupun melalui media lainnya. FreshBox juga dapat menggunakan informasi tersebut untuk mempromosikan dan memproses kontes dan undian, memberikan hadiah, serta menyajikan iklan dan konten yang relevan tentang layanan FreshBox dan mitra usahanya.",
+                        "6": "Melakukan monitoring ataupun investigasi terhadap transaksi-transaksi mencurigakan atau transaksi yang terindikasi mengandung unsur kecurangan atau pelanggaran terhadap Syarat dan Ketentuan atau ketentuan hukum yang berlaku, serta melakukan tindakan-tindakan yang diperlukan sebagai tindak lanjut dari hasil monitoring atau investigasi transaksi tersebut.",
+                        "7": "Dalam keadaan tertentu, FreshBox mungkin perlu untuk menggunakan ataupun mengungkapkan data Pengguna untuk tujuan penegakan hukum atau untuk pemenuhan persyaratan hukum dan peraturan yang berlaku, termasuk dalam hal terjadinya sengketa atau proses hukum antara Pengguna dan FreshBox."
+                    }
+                },
+                "disclosure": {
+                    "title" : "Pengungkapan Data Pribadi Pengguna",
+                    "preInfo": "FreshBox menjamin tidak ada penjualan, pengalihan, distribusi atau meminjamkan data pribadi Anda kepada pihak ketiga lain, tanpa terdapat izin dari Anda, kecuali dalam hal-hal sebagai berikut:",
+                    "data": {
+                        "1": "Dibutuhkan adanya pengungkapan data Pengguna kepada mitra atau pihak ketiga lain yang membantu FreshBox dalam menyajikan layanan pada Situs dan memproses segala bentuk aktivitas Pengguna dalam Situs, termasuk memproses transaksi, verifikasi pembayaran, pengiriman produk, dan lain-lain.",
+                        "2": "FreshBox dapat menyediakan informasi yang relevan kepada mitra usaha sesuai dengan persetujuan Pengguna untuk menggunakan layanan mitra usaha, termasuk diantaranya aplikasi atau situs lain yang telah saling mengintegrasikan API atau layanannya, atau mitra usaha yang mana FreshBox telah bekerjasama untuk mengantarkan promosi, kontes, atau layanan yang dikhususkan",
+                        "3": "Dibutuhkan adanya komunikasi antara mitra usaha FreshBox (seperti penyedia logistik, pembayaran, dan lain-lain) dengan Pengguna dalam hal penyelesaian kendala maupun hal-hal lainnya.", 
+                        "4": "FreshBox dapat menyediakan informasi yang relevan kepada vendor, konsultan, mitra pemasaran, firma riset, atau penyedia layanan sejenis.",
+                        "5": "Pengguna menghubungi FreshBox melalui media publik seperti blog, media sosial, dan fitur tertentu pada Situs, komunikasi antara Pengguna dan FreshBox mungkin dapat dilihat secara publik.",
+                        "6": "FreshBox dapat membagikan informasi Pengguna kepada anak perusahaan dan afiliasinya untuk membantu memberikan layanan atau melakukan pengolahan data untuk dan atas nama FreshBox.",
+                        "7": "FreshBox mengungkapkan data Pengguna dalam upaya mematuhi kewajiban hukum dan/atau adanya permintaan yang sah dari aparat penegak hukum."
+                    }
+                },
+                "cookies": {
+                    "title" : "Cookies",
+                    "data": {
+                        "1": "Cookies adalah file kecil yang secara otomatis akan mengambil tempat di dalam perangkat Pengguna yang menjalankan fungsi dalam menyimpan preferensi maupun konfigurasi Pengguna selama mengunjungi suatu situs.",
+                        "2": "Cookies tersebut tidak diperuntukkan untuk digunakan pada saat melakukan akses data lain yang Pengguna miliki di perangkat komputer Pengguna, selain dari yang telah Pengguna setujui untuk disampaikan.",
+                        "3": "Walaupun secara otomatis perangkat komputer Pengguna akan menerima cookies, Pengguna dapat menentukan pilihan untuk melakukan modifikasi melalui pengaturan browser Pengguna yaitu dengan memilih untuk menolak cookies (pilihan ini dapat membatasi layanan optimal pada saat melakukan akses ke Situs).",
+                        "4": "FreshBox dapat menggunakan fitur-fitur yang disediakan oleh pihak ketiga dalam rangka meningkatkan layanan dan konten FreshBox, termasuk diantaranya ialah penyesuaian dan penyajian iklan kepada setiap Pengguna berdasarkan minat atau riwayat kunjungan. Jika Anda tidak ingin iklan ditampilkan berdasarkan penyesuaian tersebut, maka Anda dapat mengaturnya melalui browser."
+                    }
+                },
+                "userChoice": {
+                    "title" : "Pilihan Pengguna dan Transparansi",
+                    "data": {
+                        "1": "Perangkat seluler pada umumnya (iOS, Android, dan sebagainya) memiliki pengaturan sehingga aplikasi FreshBox tidak dapat mengakses data tertentu tanpa persetujuan dari Pengguna. Perangkat iOS akan memberikan pemberitahuan kepada Pengguna saat aplikasi FreshBox pertama kali meminta akses terhadap data tersebut, sedangkan perangkat Android akan memberikan pemberitahuan kepada Pengguna saat aplikasi FreshBox pertama kali dimuat. Dengan menggunakan aplikasi dan memberikan akses terhadap aplikasi, Pengguna dianggap memberikan persetujuannya terhadap Kebijakan Privasi.",
+                        "2": "Setelah transaksi jual beli melalui marketplace berhasil, Penjual maupun Pembeli memiliki kesempatan untuk memberikan penilaian dan ulasan terhadap satu sama lain. Informasi ini mungkin dapat dilihat secara publik dengan persetujuan Pengguna.",
+                        "3": "Pengguna dapat mengakses dan mengubah informasi berupa alamat email, nomor telepon, tanggal lahir, jenis kelamin, daftar alamat, metode pembayaran, dan rekening bank melalui fitur Pengaturan pada Situs.", 
+                        "4": "Pengguna dapat menarik diri dari informasi atau notifikasi berupa buletin, ulasan, diskusi produk, pesan pribadi, atau pesan pribadi dari Admin yang dikirimkan oleh FreshBox melalui fitur Pengaturan pada Situs. FreshBox tetap dapat mengirimkan pesan atau email berupa keterangan transaksi atau informasi terkait akun Pengguna.",
+                        "5": "Sejauh diizinkan oleh ketentuan yang berlaku, Pengguna dapat menghubungi FreshBox untuk melakukan penarikan persetujuan terhadap perolehan, pengumpulan, penyimpanan, pengelolaan dan penggunaan data Pengguna. Apabila terjadi demikian maka Pengguna memahami konsekuensi bahwa Pengguna tidak dapat menggunakan layanan aplikasi layanan FreshBox lainnya."
+                    }
+                },
+                "informationStorage": {
+                    "title" : "Penyimpanan dan Penghapusan Informasi",
+                    "data": {
+                        "1": "FreshBox akan menyimpan informasi selama akun Pengguna tetap aktif dan dapat melakukan penghapusan sesuai dengan ketentuan peraturan hukum yang berlaku."
+                    }
+                },
+                "update": {
+                    "title" : "Pembaharuan Kebijakan Privasi",
+                    "data": {
+                        "1": "FreshBox dapat sewaktu-waktu melakukan perubahan atau pembaruan terhadap Kebijakan Privasi ini. FreshBox menyarankan agar Pengguna membaca secara seksama dan memeriksa halaman Kebijakan Privasi ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan Situs maupun layanan FreshBox lainnya, maka Pengguna dianggap menyetujui perubahan-perubahan dalam Kebijakan Privasi."
+                    }
+                }
+            }
+        }
+    },
+    "formError":{
+        "title": {
+            "default": "GAGAL",
+            "emptyCart": "KERANJANG KOSONG",
+            "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
+            "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
+            "createOrder": "PEMESANAN GAGAL",
+            "outOfStock": "JUMLAH BARANG BERLEBIH",
+            "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
+            "serverError": "SERVER GANGGUAN"
+        }
+    },
+    "formSuccess":{
+        "title": {
+            "default": "SUKSES",
+            "createOrder": "PEMESANAN SUKSES",
+            "copyData": "Data berhasil disalin"
+        }
+    },
+    "button": {
+        "close": "TUTUP",
+        "login": "MASUK",
+        "yes": "YA",
+        "no": "TIDAK"
+    },
+    "modal":{
+        "title":{
+            "loginConfirmation": "Sebelum anda membayar"
+        },
+        "content":{
+            "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran."
+        }
+    },
+    "message":{
+        "uploadPhotoError": "Photo failed to upload!",
+        "uploadPhotoSuccess": "Photos success to upload!",
+        "sendInformationSuccess": "Thank you for the information you have provided!",
+        "successResetPassword": "Change password success!",
+        "invalidCreditCard": "Sorry, your credit card is invalid",
+        "invalidSignIn": "Phone number or Password is invalid",
+        "invalidMonth": "Incorrect month.",
+        "invalidYear": "Incorrect year.",
+        "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
+        "errorOTP": "Verification code is invalid.",
+        "errorCreateOrder": "",
+        "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
+        "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
+        "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",
+        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
+        "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
+        "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
+        "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
+        "emptyCart": "Please fill in your cart with at least 1 type of product before you continue the order process.",
+        "emptyAddress": "Please fill in your shipping address before you continue the order process.",
+        "emptyDate": "Please select a delivery date before you proceed with the order process.",
+        "expiredDate": "You cannot place an order for {date} because it has passed 22:00 WIB, please change your order date.",
+        "serverError": "A server error has occurred, please try again later.",
+        "copyData": "Successfully copied data"
+    },
+    "dialog":{
+        "clearProduct": "Are you sure you want to delete {item} from cart?",
+        "clearFavorite": "Are you sure you want to delete {item} from favourite?"
+    },
+    "verification":{
+        "maxQuantity": "Only {qty} pack",
+        "outOfStock": "Out of stock"
+    },
+    "loading": "Loading"
 }

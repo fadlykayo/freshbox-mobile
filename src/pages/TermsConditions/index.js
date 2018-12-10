@@ -8,6 +8,7 @@ import StaticText from '@components/StaticText';
 import Content from './components/Content';
 import styles from './styles';
 import { connect } from 'react-redux';
+import actions from '@actions';
 
 class TermsConditions extends Component {
   	constructor(props) {

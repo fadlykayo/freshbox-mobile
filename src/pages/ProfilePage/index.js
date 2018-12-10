@@ -51,8 +51,7 @@ class ProfilePage extends Component {
             mediaType: 'photo',
             maxWidth: 500,
             maxHeight: 500,
-            quality: 0.9,
-            rotation: 90,
+            quality: Platform.OS == 'android' ? 0.9 : 0.6,
             storageOptions: {
               skipBackup: true,
               path: 'images'
@@ -127,6 +126,7 @@ class ProfilePage extends Component {
     }
 
     render() {
+        console.log(this.props.user)
         return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				
