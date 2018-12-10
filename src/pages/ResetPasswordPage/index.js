@@ -131,7 +131,8 @@ class ResetPasswordPage extends Component {
   	updatePasswordHandler(){
 		let payload = {
 			header: {
-				apiToken: this.props.user.authorization
+				apiToken: this.props.user.authorization,
+				onesignalToken: this.props.userId.userId
 			},
 			body: {
 				old_password: this.state.user.oldPassword,
@@ -166,7 +167,9 @@ class ResetPasswordPage extends Component {
 
 	createNewPassword() {
 		let payload = {
-			header: {},
+			header: {
+				onesignalToken: this.props.userId.userId
+			},
 			body: {
 				phone_number: this.props.navigation.state.params.phone,
 				password: this.state.user.newPassword,
@@ -177,7 +180,6 @@ class ResetPasswordPage extends Component {
 
 		this.props.reset_password(payload,
 			(res) => {
-				console.log(res)
 				actNav.reset(navConstant.Product)
 			},
 			(err) => {

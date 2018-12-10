@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
@@ -48,12 +48,18 @@ class ProfilePage extends Component {
     choosePhoto() {
         const options = {
             title: 'Select Image',
+            mediaType: 'photo',
+            maxWidth: 500,
+            maxHeight: 500,
+            quality: 0.9,
+            rotation: 90,
             storageOptions: {
               skipBackup: true,
               path: 'images'
             }
         };
         
+
         ImagePicker.showImagePicker( options, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -66,6 +72,7 @@ class ProfilePage extends Component {
             }
             else {
                 console.log("===>",response)
+                
 
                 let data = {
                     uri: response.uri,
@@ -103,7 +110,6 @@ class ProfilePage extends Component {
 				        });
                     },
                     (err) => {
-                        console.log("error nich",err)
                         language.transformText('message.uploadPhotoError')
 			            .then(message => {
 			            	this.props.set_error_status({
@@ -121,7 +127,6 @@ class ProfilePage extends Component {
     }
 
     render() {
-        console.log(this.props.user)
         return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				

@@ -27,6 +27,10 @@ const styles = {
             fontFamily: 'Avenir-Light',
             fontSize: scaling.moderateScale(13),
             color: colour.darkGrey,
+        },
+        link: {
+            color: colour.red,
+            textDecorationLine: 'underline'
         }
     },
     info: {
@@ -64,6 +68,10 @@ const styles = {
             minHeight: height * 0.1,
             flexDirection: 'row',
             alignItems: 'center',
+        },
+        preInfo: {
+            paddingVertical: width * 0.02,
+            paddingHorizontal: width * 0.05
         },
         circle: {
             height: height * 0.05,

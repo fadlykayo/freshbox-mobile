@@ -218,7 +218,6 @@ class CreditCard extends Component {
         let today = new Date().getFullYear().toString().slice(1,4);
         if (expiredYear.length > 0) {
             let user = this.state.user;
-            console.log(`${Number(expiredYear)} < ${Number(today)}`)
             if (Number(expiredYear) < Number(today)) {
                 Keyboard.dismiss();
                 language.transformText('message.invalidYear')

@@ -376,6 +376,20 @@
                         "5": "Dalam hal diperlukan untuk mengajukan keluhan atas layanan, diwajibkan untuk mengirimkan bukti berupa gambar Barang dan invoice atas transaksi yang dilakukan oleh Pengguna dalam kondisi apapun."
                     }
                 },
+                "refund": {
+                    "title" : "Kebijakan Refund",
+                    "preInfo": {
+                        "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
+                        "2": "mails@freshbox.id",
+                        "3": " dengan alasan salah satu di antara:"
+                    },
+                    "data": {
+                        "1": "Barang kurang.",
+                        "2": "Barang busuk.",
+                        "3": "Barang tidak diantarkan tepat waktu.",
+                        "4": "Lainnya."
+                    }
+                },
                 "others": {
                     "title" : "Ketentuan Lain",
                     "data": {

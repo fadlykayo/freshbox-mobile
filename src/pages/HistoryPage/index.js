@@ -29,12 +29,13 @@ class HistoryPage extends Component {
 		}
 	}
 
-	componentWillMount() {
-		// this.props.reset_transaction();
-	}
+	componentDidMount() {
+		if(this.props.transactions.length == 0) {
+			this.getHistoryData();
+		} else {
+			this.refreshHandler();
+		}
 
-	componentDidMount(){
-		this.getHistoryData();
 	}
 
 	refreshHandler(){
