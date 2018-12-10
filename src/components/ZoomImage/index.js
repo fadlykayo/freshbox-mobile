@@ -20,6 +20,7 @@ class ZoomImage extends Component {
                     animationType={'slide'}
                     transparent={true}
                     visible={this.props.modalVisible}
+                    onRequestClose={this.onPress}
                 >
                     <View style={styles.background}>
                         <TouchableOpacity style={styles.touchable} onPress={this.onPress}></TouchableOpacity>

@@ -7,6 +7,7 @@ import transaction from './transaction';
 import region from './region';
 import utility from './utility';
 import cs from './cs';
+import notif from './notification';
 
 const action = {
     registration: registration,
@@ -18,6 +19,7 @@ const action = {
     region: region,
     utility: utility,
     cs: cs,
+    notif: notif
 }
 
 export default action;

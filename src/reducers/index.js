@@ -5,6 +5,7 @@ import network from './network';
 import transaction from './transaction';
 import region from './region';
 import utility from './utility';
+import notif from './notification';
 
 const rootReducer = combineReducers({
 	user,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	network,
 	transaction,
 	region,
-	utility
+	utility,
+	notif
 });
 
 export default rootReducer;

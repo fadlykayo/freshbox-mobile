@@ -58,6 +58,7 @@ class ProductDetail extends Component {
 						animationType={'slide'}
 						transparent={true}
 						visible={this.props.modalVisible}
+						onRequestClose={this.closeDetailProduct}
 					>
 						<TouchableOpacity style={styles.touchable} onPress={this.closeDetailProduct}></TouchableOpacity>
 						<View style={styles.container}>
