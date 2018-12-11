@@ -106,7 +106,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Choose Delivery Date"
+            "checkout": "CHOOSE SHIPPING DATE"
         },
         "content": {
             "price": "IDR ",
@@ -116,16 +116,16 @@
 
     },
     "checkout": {
-        "navigationTitle": "ADDRESS & DELIVERY DATE",
+        "navigationTitle": "ADDRESS & SHIPPING DATE",
         "label": {
-            "deliveryAddress": "Delivery Address",
+            "deliveryAddress": "Shipping Address",
             "name": "Name",
             "phone": "Phone Number",
             "province": "Province",
             "city": "City",
             "zipCode": "Zip Code",
-            "kecamatan": "District",
-            "kelurahan": "Subdistrict",
+            "kecamatan": "Kecamatan",
+            "kelurahan": "Kelurahan",
             "address": "Address",
             "addressDetails": "Address Details (Optional)"
         },
@@ -184,7 +184,7 @@
             "reOrder": "Re-order"
         },
         "static": {
-            "requestShippingDate": "Delivery Date:",
+            "requestShippingDate": "Shipping Date:",
             "pending_payment": "Pending Payment",
             "paid": "Paid",
             "on_process": "On Process",
@@ -275,15 +275,15 @@
             "delete": "DELETE"
         },
         "validation":{
-            "name": "Please enter info save address",
-            "receiver_name": "Please enter your receiver name",
-            "phone": "please enter your phone number at least between 10 to 13 digits number",
-            "province": "Please enter Province",
-            "city": "Please enter City",
-            "subdistrict": "Please enter Kecamatan",
-            "kelurahan": "Please enter Kelurahan",
-            "zip_code": "Please enter Zip Code",
-            "address": "Please enter address"
+            "name": "Please input info save address",
+            "receiver_name": "Please input your receiver name",
+            "phone": "Please input your phone number at least between 10 to 13 digits number",
+            "province": "Please input Province",
+            "city": "Please input City",
+            "subdistrict": "Please input Kecamatan",
+            "kelurahan": "Please input Kelurahan",
+            "zip_code": "Please input Zip Code",
+            "address": "Please input address"
             
         }
     },
@@ -562,13 +562,13 @@
                     "step": {
                         "1": "Insert your card.",
                         "2": "Choose language.",
-                        "3": "Enter your PIN.",
+                        "3": "Input your PIN.",
                         "4": "Choose \"Other Menu\"",
                         "5": "Choose \"Transfer\"",
                         "6": "Choose \"Saving Account\"",
                         "7": "Choose \"To BNI Account\"",
-                        "8": "Enter the Virtual Account number listed on this page.",
-                        "9": "Enter the transfer amount according to your bill or obligation. Different numbers cannot be processed.",
+                        "8": "Input the Virtual Account number listed on this page.",
+                        "9": "Input the transfer amount according to your bill or obligation. Different numbers cannot be processed.",
                         "10": "Confirm, if appropriate, continue the transaction.",
                         "11": "The transaction has been completed."
                     }

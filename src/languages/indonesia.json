@@ -33,8 +33,8 @@
             }
         },
         "button": {
-            "skip": "SKIP",
-            "finish": "FINISH"
+            "skip": "LEWATI",
+            "finish": "SELESAI"
         }
     },
     "signIn":{
@@ -45,7 +45,7 @@
             "password": "Kata Sandi"
         },
         "validation":{
-            "phone": "Tolong masukkan nomor telfon diantara 10 sampai 13 digit",
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
             "password": "Kata sandi minimal 8 karakter",
             "passwordLength": "Tolong masukkan kata sandi",
             "login": "Email atau kata sandi tidak valid"
@@ -84,7 +84,7 @@
             "emailLength": "Tolong masukkan email anda",
             "password": "Kata sandi minimal 8 karakter",
             "passwordLength": "Tolong masukkan kata sandi",
-            "phone": "Tolong masukkan nomor telfon diantara 10 sampai 13 digit",
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
             "confirmPassword": "Kata sandi tidak cocok"
         }
     },
@@ -98,7 +98,7 @@
             "submit": "KIRIM"
         },
         "validation":{
-            "phone": "Tolong masukkan nomor telfon diantara 10 sampai 13 digit"
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit"
         }
     },
     "cart": {
@@ -108,7 +108,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Pilih Waktu Pengiriman"
+            "checkout": "PILIH WAKTU PENGIRIMAN"
         },
         "content": {
             "price": "Rp. ",
@@ -242,8 +242,8 @@
             "phone": "Nomor Telepon"
         },
         "button": {
-            "edit": "Ubah",
-            "save": "Simpan"
+            "edit": "UBAH",
+            "save": "SIMPAN"
         },
         "validation":{
             "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 digit angka"
