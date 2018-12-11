@@ -6,11 +6,10 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		backgroundColor: colour.white,
 		flex: 1,
+		backgroundColor: colour.white,
 		paddingTop: height * 0.05,
-		paddingLeft: width * 0.05,
-		paddingRight: width * 0.05,
+		paddingHorizontal: width * 0.05,
 		marginBottom: height * 0.05,
 	},
 	content:{

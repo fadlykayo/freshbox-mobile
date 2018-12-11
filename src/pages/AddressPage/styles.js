@@ -9,8 +9,7 @@ const styles = {
 		backgroundColor: colour.white,
 		flex: 1,
 		paddingTop: height * 0.05,
-		paddingLeft: width * 0.05,
-		paddingRight: width * 0.05,
+		paddingHorizontal: width * 0.05,
 		marginBottom: height * 0.05,
 	},
 	content:{

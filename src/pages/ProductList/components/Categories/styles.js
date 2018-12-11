@@ -21,7 +21,7 @@ const styles = {
     container: {
         flex: -1,
         width: width,
-        height: height * 0.4,
+        marginBottom: width * 0.08,
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
         backgroundColor: colour.white,

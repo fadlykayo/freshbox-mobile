@@ -8,7 +8,7 @@ const styles = {
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: colour.veryLightGrey,
+        backgroundColor: colour.white,
         paddingTop: width * 0.01,
     },
     scrollView: {

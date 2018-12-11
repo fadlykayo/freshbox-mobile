@@ -21,7 +21,7 @@ class AddressData extends PureComponent {
 
     render() {
         return (
-            <TouchableOpacity style={styles.container} onPress={() => this.updatePrimaryAddress(this.props.address.code)}>
+            <TouchableOpacity style={styles.container(this.props.index,this.props.length)} onPress={() => this.updatePrimaryAddress(this.props.address.code)}>
                 <View style={styles.subcontainer.left}>
                     { this.props.address.primary == 1 ? (
                         <Text style={[styles.text.address, styles.text.nameAddress]}>({this.props.address.name}) <StaticText

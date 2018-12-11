@@ -5,14 +5,14 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container: {
+    container: (i,length) => ({
         flex: -1,
         paddingVertical: width * 0.04,
         marginHorizontal: width * 0.05,
-        borderBottomWidth: 1,
-        borderBottomColor: colour.lightGrey,
+        borderBottomWidth: i < length ? 1 : 0,
+        borderBottomColor: colour.mediumGrey,
         flexDirection: 'row',
-    },
+    }),
     subcontainer: {
         left: {
             flex: 1,

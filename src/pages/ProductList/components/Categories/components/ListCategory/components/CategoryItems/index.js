@@ -53,7 +53,7 @@ class CategoryItems extends PureComponent {
 		return(
 			<TouchableOpacity
 				onPress={this.changeCategory}
-				style={styles.container}
+				style={styles.container(this.props.index,this.props.length)}
 			>
 				{ this.props.category.check
 					?	<View style={styles.subcontainer.check}>

@@ -5,14 +5,14 @@ import { colour } from '@styles';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container: {
+    container: (i,length) => ({
         flexDirection: 'row',
         height: scaling.moderateScale(50),
         alignItems: 'center',
         borderColor: colour.mediumLightGrey,
-        borderBottomWidth: 1,
+        borderBottomWidth: i < length ? 1 : 0,
         paddingHorizontal: scaling.moderateScale(5),
-    },
+    }),
     subcontainer:{
         check:{
             height: scaling.moderateScale(15),
