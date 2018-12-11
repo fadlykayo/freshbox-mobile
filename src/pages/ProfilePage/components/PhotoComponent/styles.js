@@ -26,9 +26,9 @@ const styles = {
     },
     photo: {
         real: {
-            height: width * 0.2,
-            width: width * 0.2,
-            borderRadius: Platform.OS == 'android' ? 200 : 50,
+            height: width * 0.26,
+            width: width * 0.26,
+            borderRadius: Platform.OS == 'android' ? 200 : 60,
             borderColor: colour.white,
             marginBottom: width * 0.02,
         },

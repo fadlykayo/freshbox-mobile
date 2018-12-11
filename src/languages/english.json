@@ -138,7 +138,7 @@
             "adminCharge": "Admin Charge",
             "discount": "Discount",
             "grandTotal": "Grand Total",
-            "otherAddress": "Other Address",
+            "otherAddress": "CHOOSE ADDRESS",
             "addAddress": "Add Address",
             "chooseDate": "Choose Delivery Date"
         },
@@ -534,13 +534,13 @@
                 "mBanking": {
                     "name": "m-BCA (BCA Mobile)",
                     "step": {
-                        "1": "Lakukan log in pada aplikasi BCA Mobile",
-                        "2": "Pilih menu m-BCA, kemudian masukkan kode akses m-BCA",
-                        "3": "Pilih m-Transfer > BCA Virtual Account",
-                        "4": "Pilih dari Daftar Transfer, atau Masukkan nomor Virtual Account yang tertera di halaman ini.",
-                        "5": "Masukkan jumlah yang ingin dibayarkan",
-                        "6": "Masukkan pin m-BCA",
-                        "7": "Pembayaran selesai. Simpan notifikasi yang muncul sebagai bukti pembayaran"
+                        "1": "Log In BCA Mobile Apps",
+                        "2": "Choose m-BCA, then input m-BCA access code",
+                        "3": "Choose m-Transfer > BCA Virtual Account",
+                        "4": "Choose from Transfer List, or input Virtual Account number in this page.",
+                        "5": "Enter the amount you want to pay",
+                        "6": "Input m-BCA PIN",
+                        "7": "Payment complete. Save the notification that appears as proof of payment."
                     }
                 },
                 "iBanking": {

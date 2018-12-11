@@ -76,7 +76,7 @@ class ProfilePage extends Component {
                 let data = {
                     uri: response.uri,
                     type: response.type == undefined ? 'image/jpeg' : response.type,
-                    name: response.fileName,
+                    name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
                     data: response.data
                 }
 

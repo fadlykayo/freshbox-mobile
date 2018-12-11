@@ -288,6 +288,7 @@ class CreditCard extends Component {
     createOrder() {
         //validation credit card number
         //validation expired date
+        Keyboard.dismiss();
         let payloadData = this.props.navigation.state.params.transaction;
         payloadData.payment_method = "credit_card";
         payloadData.card_number = this.state.user.creditNumber.split('-').join('');

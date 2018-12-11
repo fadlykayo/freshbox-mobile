@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView, StatusBar, Platform } from 'react-native';
+import { ScrollView, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation, language } from '@helpers';
 import Container from '@components/Container';
@@ -75,6 +75,7 @@ class SignIn extends Component {
     }
 
     signInValidation(){
+        Keyboard.dismiss();
         this.clearValidation();
         validation.signInEmail(this.state.user.phone,this.state.user.password)
         .then(() => {
@@ -106,7 +107,6 @@ class SignIn extends Component {
                 }
             },
             (err) => {
-                console.log("error pas login",err)
                 if(err.code == 400) {
                     language.transformText('message.invalidSignIn')
                     .then(message => {
