@@ -10,8 +10,6 @@ const styles = {
         flexDirection: 'row',
         height: width * 0.115,
         backgroundColor: colour.veryLightGrey,
-        // borderBottomColor: colour.grey,
-        // borderBottomWidth: 0.8,
         alignItems: 'center',
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,

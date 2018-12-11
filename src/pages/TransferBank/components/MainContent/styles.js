@@ -9,8 +9,6 @@ const styles = {
         flex: 1,
         flexDirection: 'row',
         height: width * 0.14,
-        borderBottomColor: colour.lightGrey,
-        borderBottomWidth: 0.8,
         alignItems: 'center',
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,

@@ -10,7 +10,7 @@ const styles = {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		borderBottomWidth : 0.5,
+		borderBottomWidth : 1,
 		borderColor: colour.mediumGrey,
 		backgroundColor: colour.white,
 		paddingVertical: width * 0.1,

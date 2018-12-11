@@ -7,29 +7,28 @@ const { width, height } = Dimensions.get('window');
 const styles = {
     container: {
         flex: 1,
-        paddingLeft: width * 0.07,
-        paddingRight: width * 0.07,
+        paddingHorizontal: width * 0.07,
         paddingTop: width * 0.03,
     },
     subcontainer: {
         phone: {
             flex: -1,
-            borderBottomColor: colour.grey,
-            borderBottomWidth: 0.5,
+            borderBottomColor: colour.mediumGrey,
+            borderBottomWidth: 1,
             marginBottom: scaling.moderateScale(15),
             justifyContent: 'center'
         },
         address: {
             flex: -1,
-            borderBottomColor: colour.grey,
-            borderBottomWidth: 0.5,
+            borderBottomColor: colour.mediumGrey,
+            borderBottomWidth: 1,
             marginBottom: scaling.moderateScale(15),
             justifyContent: 'center'
         },
         password: {
             flex: -1,
-            borderBottomColor: colour.grey,
-            borderBottomWidth: 0.5,
+            borderBottomColor: colour.mediumGrey,
+            borderBottomWidth: 1,
             marginBottom: scaling.moderateScale(25),
             justifyContent: 'center'
         }

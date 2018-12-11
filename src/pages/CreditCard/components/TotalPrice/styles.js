@@ -13,7 +13,7 @@ const styles = {
 		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 0}  : {width: 0,height: 0},
 		shadowRadius: Platform.OS == 'ios' ? 30 : 0,
 		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-		elevation: Platform.OS == 'android' ? 5 : 0,
+		elevation: Platform.OS == 'android' ? 10 : 0,
         borderWidth: 1,
         borderTopRightRadius: scaling.moderateScale(15),
         borderTopLeftRadius: scaling.moderateScale(15),
