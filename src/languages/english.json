@@ -38,7 +38,7 @@
         }
     },
     "signIn":{
-        "navigationTitle": "SIGN IN",
+        "navigationTitle": "Sign In",
         "formLabel":{
             "phone": "Phone Number",
             "examplePhone": "example: 08181234xxxx",
@@ -51,7 +51,7 @@
             "login": "Invalid email or password, please try again"
         },
         "button":{
-            "signIn": "SIGN IN"
+            "signIn": "Sign In"
         },
         "content":{
             "newToFreshbox": "New to Freshbox? ",
@@ -60,7 +60,7 @@
         }
     },
     "register":{
-        "navigationTitle": "REGISTER",
+        "navigationTitle": "Register",
         "formLabel":{
             "fullName": "Full Name",
             "phone": "Phone Number",
@@ -70,7 +70,7 @@
             "confirmPassword": "Confirm Password"
         },
         "button":{
-            "register": "REGISTER"
+            "register": "Register"
         },
         "content":{
             "haveAnAccount": "Have an Account, ",
@@ -87,26 +87,26 @@
         }
     },
     "forgotPassword":{
-        "navigationTitle": "FORGOT PASSWORD",
+        "navigationTitle": "Forgot Password",
         "formLabel":{
             "phone": "Phone Number"
         },
         "button":{
-            "request": "REQUEST OTP",
-            "submit": "SUBMIT"
+            "request": "Request OTP",
+            "submit": "Submit"
         },
         "validation":{
             "phone": "Please enter your phone number at least between 10 to 13 digits"
         }
     },
     "cart": {
-        "navigationTitle": "CART",
+        "navigationTitle": "Cart",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "CHOOSE SHIPPING DATE"
+            "checkout": "Choose Shipping Date"
         },
         "content": {
             "price": "IDR ",
@@ -116,7 +116,7 @@
 
     },
     "checkout": {
-        "navigationTitle": "ADDRESS & SHIPPING DATE",
+        "navigationTitle": "Address & Delivery Date",
         "label": {
             "deliveryAddress": "Shipping Address",
             "name": "Name",
@@ -143,7 +143,7 @@
             "chooseDate": "Choose Delivery Date"
         },
         "button": {
-            "checkout": "CHECKOUT"
+            "checkout": "Checkout"
         },
         "validation":{
             "fullName": "Please enter your name",
@@ -178,7 +178,7 @@
         }
     },
     "historyPage": {
-        "navigationTitle": "HISTORY",
+        "navigationTitle": "History",
         "content": {
             "price": "IDR ",
             "reOrder": "Re-order"
@@ -196,12 +196,12 @@
         }
     },
     "historyDetail": {
-        "navigationTitle": "DETAIL",
+        "navigationTitle": "Detail",
         "content": {
             "price": "IDR ",
-            "reOrder": "RE-ORDER",
-            "checkout": "CHOOSE PAYMENT METHOD",
-            "pay": "CHECKOUT",
+            "reOrder": "Re-Order",
+            "checkout": "Choose Payment Method",
+            "pay": "Checkout",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",
@@ -232,7 +232,7 @@
         }
     },
     "phonePage": {
-        "navigationTitle": "PHONE NUMBER",
+        "navigationTitle": "Phone Number",
         "label": {
             "phone": "Phone Number"
         },
@@ -248,7 +248,7 @@
         }
     },
     "addressPage": {
-        "navigationTitle": "ADDRESS",
+        "navigationTitle": "Address",
         "label": {
             "nameAddress": "Save Address as",
             "name": "Name",
@@ -270,9 +270,9 @@
             "no": "NO"
         },
         "button": {
-            "edit": "EDIT",
-            "save": "SAVE",
-            "delete": "DELETE"
+            "edit": "Edit",
+            "save": "Save",
+            "delete": "Delete"
         },
         "validation":{
             "name": "Please input info save address",
@@ -288,7 +288,7 @@
         }
     },
     "resetPasswordPage": {
-        "navigationTitle": "RESET PASSWORD",
+        "navigationTitle": "Reset Password",
         "formLabel":{
             "otp": "OTP",
             "oldPassword": "Old Password",
@@ -299,7 +299,7 @@
             "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
-            "changePassword": "CHANGE PASSWORD"
+            "changePassword": "Change Password"
         },
         "validation":{
             "otp": "Please input 4 digit numbers OTP",
@@ -310,10 +310,10 @@
         }
     },
     "favourites": {
-        "navigationTitle": "FAVOURITE"
+        "navigationTitle": "Favorite"
     },
     "termsConditions": {
-        "navigationTitle": "TERMS & CONDITIONS",
+        "navigationTitle": "Terms & Conditions",
         "content": {
             "introduction": "Terms & Conditions set forth below govern the use of services offered by PT. Berkah Tani Sejahtera related to the use of the FreshBox application. Users are advised to read carefully because it can have an impact on the rights and obligations of Users under the law.\n\nBy registering and/or using the FreshBox application, User is deemed to have read, understood, understood and agreed to all contents in the Terms & Conditions. These Terms & Conditions constitute a form of agreement as outlined in a legal agreement between the User and PT. Berkah Tani Sejahtera. If User does not approve one, part, or all of the contents of the Terms & Conditions, then User is not permitted to use the FreshBox application service.",
             "info": {
@@ -396,7 +396,7 @@
         }
     },
     "contactUs": {
-        "navigationTitle": "CONTACT US",
+        "navigationTitle": "Contact Us",
         "label": {
             "message": "Message"
         },
@@ -413,7 +413,7 @@
             "message": "Messages..."
         },
         "button": {
-            "submit": "SUBMIT"
+            "submit": "Submit"
         }
     },
     "drawerPage": {
@@ -431,16 +431,16 @@
         }
     },
     "chooseAddress": {
-        "navigationTitle": "CHOOSE ADDRESS",
+        "navigationTitle": "Choose Address",
         "content": {
             "primary": "Primary"
         },
         "label": {
-            "addAddress": "ADD ADDRESS"
+            "addAddress": "Add Address"
         }
     },
     "choosePayment": {
-        "navigationTitle": "PAYMENT METHODS",
+        "navigationTitle": "Payment Methods",
         "content": {
             "creditCard": "Credit Card",
             "transferBank": "Transfer Bank",
@@ -452,7 +452,7 @@
         }
     },
     "creditCard": {
-        "navigationTitle": "CREDIT CARD",
+        "navigationTitle": "Credit Card",
         "content": {
             "creditCard": "Card Number",
             "expiredDate": "Expired Date",
@@ -470,7 +470,7 @@
         }
     },
     "transferBank": {
-        "navigationTitle": "TRANSFER BANK",
+        "navigationTitle": "Transfer Bank",
         "content": {
             "bca": {
                 "name": "Bank BCA",
@@ -494,18 +494,18 @@
         }
     },
     "virtualAccount": {
-        "navigationTitle": "VIRTUAL ACCOUNT",
+        "navigationTitle": "Virtual Account",
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
             "briVA": "BRI Virtual Account",
             "bniVA": "BNI Virtual Account",
             "permataVA": "Permata Virtual Account",
-            "checkout": "CHECKOUT"
+            "checkout": "Checkout"
         }
     },
     "transferInstruction": {
-        "navigationTitle": "TRANSFER INSTRUCTION",
+        "navigationTitle": "Transfer Instruction",
         "content": {
             "checkout": "Check Payment Status",
             "top": {
@@ -604,17 +604,17 @@
         }
     },
     "otp": {
-        "navigationTitle": "VERIFICATION",
+        "navigationTitle": "Verification",
         "content": {
             "info": "Enter the 4 digit verification code that we sent via SMS."
         },
         "button": {
-            "resend": "RESEND VERIFICATION CODE",
-            "submit": "SUBMIT"
+            "resend": "Resend Verification Code",
+            "submit": "Submit"
         }
     },
     "privacyPolicy": {
-        "navigationTitle": "PRIVACY POLICY",
+        "navigationTitle": "Privacy Policy",
         "content": {
             "introduction": "Adanya Kebijakan Privasi ini adalah komitmen nyata dari FreshBox untuk menghargai dan melindungi setiap data atau informasi pribadi Pengguna aplikasi FreshBox. Kebijakan Privasi ini (beserta syarat-syarat penggunaan dari aplikasi FreshBox sebagaimana tercantum dalam \"Syarat & Ketentuan\" dan informasi lain yang tercantum) menetapkan dasar atas perolehan, pengumpulan, pengolahan, penganalisisan, penampilan, pembukaan, dan/atau segala bentuk pengelolaan yang terkait dengan data atau informasi yang Pengguna berikan kepada FreshBox atau yang FreshBox kumpulkan dari Pengguna, termasuk data pribadi Pengguna, baik pada saat Pengguna melakukan pendaftaran di aplikasi, mengakses aplikasi, maupun mempergunakan layanan-layanan pada aplikasi (selanjutnya disebut sebagai \"data\").\n\nDengan mengakses dan/atau mempergunakan layanan FreshBox, Pengguna menyatakan bahwa setiap data Pengguna merupakan data yang benar dan sah, serta Pengguna memberikan persetujuan kepada FreshBox untuk memperoleh, mengumpulkan, menyimpan, mengelola dan mempergunakan data tersebut sebagaimana tercantum dalam Kebijakan Privasi maupun Syarat dan Ketentuan FreshBox.",
             "info": {
@@ -688,28 +688,28 @@
     },
     "formError":{
         "title": {
-            "default": "FAILED",
-            "emptyCart": "EMPTY CART",
-            "emptyAddress": "EMPTY SHIPPING ADDRESS",
-            "emptyDate": "EMPTY DELIVERY DATE",
-            "createOrder": "ORDER FAILED",
+            "default": "Failed",
+            "emptyCart": "Empty CART",
+            "emptyAddress": "Empty Shipping Address",
+            "emptyDate": "Empty Delivery Date",
+            "createOrder": "Order Failed",
             "outOfStock": "JUMLAH BARANG BERLEBIH",
             "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
-            "serverError": "NETWORK ERROR"
+            "serverError": "Network Error"
         }
     },
     "formSuccess":{
         "title": {
-            "default": "SUCCESS",
-            "createOrder": "ORDER SUCCESS",
+            "default": "Success",
+            "createOrder": "Order Success",
             "copyData": "Successfully copied data"
         }
     },
     "button": {
-        "close": "CLOSE",
-        "login": "SIGN IN",
-        "yes": "YES",
-        "no": "NO"
+        "close": "Close",
+        "login": "Sign In",
+        "yes": "Yes",
+        "no": "No"
     },
     "modal":{
         "title":{

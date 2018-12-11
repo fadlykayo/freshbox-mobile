@@ -38,7 +38,7 @@
         }
     },
     "signIn":{
-        "navigationTitle": "MASUK",
+        "navigationTitle": "Masuk",
         "formLabel":{
             "phone": "Nomor Telepon",
             "examplePhone": "contoh: 08181234xxxx",
@@ -51,7 +51,7 @@
             "login": "Email atau kata sandi tidak valid"
         },
         "button":{
-            "signIn": "MASUK"
+            "signIn": "Masuk"
         },
         "content":{
             "newToFreshbox": "Baru di FreshBox? ",
@@ -60,7 +60,7 @@
         }
     },
     "register":{
-        "navigationTitle": "DAFTAR",
+        "navigationTitle": "Daftar",
         "formLabel":{
             "fullName": "Nama",
             "phone": "Nomor Telepon",
@@ -70,7 +70,7 @@
             "confirmPassword": "Konfirmasi Kata Sandi"
         },
         "button":{
-            "register": "DAFTAR"
+            "register": "Daftar"
         },
         "content":{
             "haveAnAccount": "Punya Akun, ",
@@ -89,26 +89,26 @@
         }
     },
     "forgotPassword":{
-        "navigationTitle": "LUPA KATA SANDI",
+        "navigationTitle": "Lupa Kata Sandi",
         "formLabel":{
-            "phone": "Nomor Ponsel"
+            "phone": "Nomor Telepon"
         },
         "button":{
-            "request": "MINTA OTP",
-            "submit": "KIRIM"
+            "request": "Minta OTP",
+            "submit": "Kirim"
         },
         "validation":{
             "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit"
         }
     },
     "cart": {
-        "navigationTitle": "KERANJANG",
+        "navigationTitle": "Keranjang",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "PILIH WAKTU PENGIRIMAN"
+            "checkout": "Pilih Waktu Pengiriman"
         },
         "content": {
             "price": "Rp. ",
@@ -118,7 +118,7 @@
 
     },
     "checkout": {
-        "navigationTitle": "ALAMAT & WAKTU PENGIRIMAN",
+        "navigationTitle": "Alamat & Waktu Pengiriman",
         "label": {
             "deliveryAddress": "Alamat Pengiriman",
             "name": "Nama",
@@ -133,14 +133,14 @@
         },
         "content": {
             "price": "Rp. ",
-            "checkout": "RINCIAN PESANAN",
+            "checkout": "Rincian Pesanan",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
             "adminCharge": "Biaya Admin",
             "discount": "Diskon",
             "grandTotal": "Grand Total",
-            "otherAddress": "PILIH ALAMAT",
+            "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim"
         },
@@ -164,7 +164,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "KERANJANG",
+            "checkout": "Keranjang",
             "clear": "Kembali"
         },
         "content": {
@@ -180,7 +180,7 @@
         }
     },
     "historyPage": {
-        "navigationTitle": "HISTORI",
+        "navigationTitle": "Histori",
         "content": {
             "price": "Rp. ",
             "reOrder": "Pesan Kembali"
@@ -198,12 +198,12 @@
         }
     },
     "historyDetail": {
-        "navigationTitle": "RINCIAN PESANAN",
+        "navigationTitle": "Rincian Pesanan",
         "content": {
             "price": "Rp. ",
-            "reOrder": "PESAN KEMBALI",
-            "checkout": "PILIH METODE PEMBAYARAN",
-            "pay": "BAYAR",
+            "reOrder": "Pesan Kembali",
+            "checkout": "Pilih Metode Pembayaran",
+            "pay": "Bayar",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -230,11 +230,11 @@
             "resetPassword": "Ubah Password"
         },
         "button": {
-            "signOut": "KELUAR"
+            "signOut": "Keluar"
         }
     },
     "phonePage": {
-        "navigationTitle": "NOMOR TELEPON",
+        "navigationTitle": "Nomor Telepon",
         "label": {
             "phone": "Nomor Telepon"
         },
@@ -250,7 +250,7 @@
         }
     },
     "addressPage": {
-        "navigationTitle": "ALAMAT",
+        "navigationTitle": "Alamat",
         "label": {
             "nameAddress": "Simpan Alamat Sebagai",
             "name": "Nama Penerima",
@@ -268,13 +268,13 @@
         "info": {
             "delete": "Apakah Anda yakin ingin menghapus alamat ini?",
             "edit": "Apakah Anda ingin menyimpan perubahan data alamat ini?",
-            "yes": "IYA",
-            "no": "TIDAK"
+            "yes": "Iya",
+            "no": "Tidak"
         },
         "button": {
-            "edit": "EDIT",
-            "save": "SIMPAN",
-            "delete": "HAPUS"
+            "edit": "Edit",
+            "save": "Simpan",
+            "delete": "Hapus"
         },
         "validation":{
             "name": "Mohon masukkan keterangan alamat",
@@ -289,7 +289,7 @@
         }
     },
     "resetPasswordPage": {
-        "navigationTitle": "UBAH KATA SANDI",
+        "navigationTitle": "Ubah Kata Sandi",
         "formLabel":{
             "otp": "OTP",
             "oldPassword": "Kata sandi lama",
@@ -300,7 +300,7 @@
             "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
-            "changePassword": "GANTI KATA SANDI"
+            "changePassword": "Ganti Kata Sandi"
         },
         "validation": {
             "otp": "Panjang OTP 4 digit",
@@ -311,10 +311,10 @@
         }
     },
     "favourites": {
-        "navigationTitle": "FAVORIT"
+        "navigationTitle": "Favorit"
     },
     "termsConditions": {
-        "navigationTitle": "SYARAT & KETENTUAN",
+        "navigationTitle": "Syarat & Ketentuan",
         "content": {
             "introduction": "Syarat & Ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Berkah Tani Sejahtera terkait penggunaan aplikasi FreshBox. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.\n \nDengan mendaftar dan/atau menggunakan aplikasi FreshBox, maka Pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & Ketentuan. Syarat & Ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. Berkah Tani Sejahtera. Jika Pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & Ketentuan, maka Pengguna tidak diperkenankan menggunakan layanan aplikasi FreshBox.",
             "info": {
@@ -397,7 +397,7 @@
         }
     },
     "contactUs": {
-        "navigationTitle": "HUBUNGI KAMI",
+        "navigationTitle": "Hubungi Kami",
         "label": {
             "message": "Pesan"
         },
@@ -414,7 +414,7 @@
             "message": "Pesan..."
         },
         "button": {
-            "submit": "KIRIM PESAN"
+            "submit": "Kirim Pesan"
         }
     },
     "drawerPage": {
@@ -433,16 +433,16 @@
         }
     },
     "chooseAddress": {
-        "navigationTitle": "PILIH ALAMAT",
+        "navigationTitle": "Pilih Alamat",
         "content": {
             "primary": "Utama"
         },
         "label": {
-            "addAddress": "TAMBAH ALAMAT"
+            "addAddress": "Tambah Alamat"
         }
     },
     "choosePayment": {
-        "navigationTitle": "METODE PEMBAYARAN",
+        "navigationTitle": "Metode Pembayaran",
         "content": {
             "creditCard": "Kartu Kredit",
             "transferBank": "Bank Transfer",
@@ -454,7 +454,7 @@
         }
     },
     "creditCard": {
-        "navigationTitle": "KARTU KREDIT",
+        "navigationTitle": "Kartu Kredit",
         "content": {
             "creditCard": "Nomor Kartu",
             "expiredDate": "Tanggal Kadaluarsa",
@@ -472,7 +472,7 @@
         }
     },
     "transferBank": {
-        "navigationTitle": "BANK TRANSFER",
+        "navigationTitle": "Bank Transfer",
         "content": {
             "bca": {
                 "name": "Bank BCA",
@@ -496,18 +496,18 @@
         }
     },
     "virtualAccount": {
-        "navigationTitle": "VIRTUAL ACCOUNT",
+        "navigationTitle": "Virtual Account",
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
             "briVA": "BRI Virtual Account",
             "bniVA": "BNI Virtual Account",
             "permataVA": "Permata Virtual Account",
-            "checkout": "BAYAR"
+            "checkout": "Bayar"
         }
     },
     "transferInstruction": {
-        "navigationTitle": "INSTRUKSI PEMBAYARAN",
+        "navigationTitle": "Instruksi Pembayaran",
         "content": {
             "checkout": "Cek Status Pembayaran",
             "top": {
@@ -606,17 +606,17 @@
         }
     },
     "otp": {
-        "navigationTitle": "VERIFIKASI",
+        "navigationTitle": "Verifikasi",
         "content": {
             "info": "Masukkan 4 digit kode verifikasi yang telah kami kirimkan melalui SMS."
         },
         "button": {
-            "resend": "KIRIM ULANG KODE VERIFIKASI",
-            "submit": "KIRIM"
+            "resend": "Kirim Ulang Kode Verifikasi",
+            "submit": "Kirim"
         }
     },
     "privacyPolicy": {
-        "navigationTitle": "KEBIJAKAN PRIVASI",
+        "navigationTitle": "Kebijakan Privasi",
         "content": {
             "introduction": "Adanya Kebijakan Privasi ini adalah komitmen nyata dari FreshBox untuk menghargai dan melindungi setiap data atau informasi pribadi Pengguna aplikasi FreshBox. Kebijakan Privasi ini (beserta syarat-syarat penggunaan dari aplikasi FreshBox sebagaimana tercantum dalam \"Syarat & Ketentuan\" dan informasi lain yang tercantum) menetapkan dasar atas perolehan, pengumpulan, pengolahan, penganalisisan, penampilan, pembukaan, dan/atau segala bentuk pengelolaan yang terkait dengan data atau informasi yang Pengguna berikan kepada FreshBox atau yang FreshBox kumpulkan dari Pengguna, termasuk data pribadi Pengguna, baik pada saat Pengguna melakukan pendaftaran di aplikasi, mengakses aplikasi, maupun mempergunakan layanan-layanan pada aplikasi (selanjutnya disebut sebagai \"data\").\n\nDengan mengakses dan/atau mempergunakan layanan FreshBox, Pengguna menyatakan bahwa setiap data Pengguna merupakan data yang benar dan sah, serta Pengguna memberikan persetujuan kepada FreshBox untuk memperoleh, mengumpulkan, menyimpan, mengelola dan mempergunakan data tersebut sebagaimana tercantum dalam Kebijakan Privasi maupun Syarat dan Ketentuan FreshBox.",
             "info": {
@@ -690,28 +690,28 @@
     },
     "formError":{
         "title": {
-            "default": "GAGAL",
-            "emptyCart": "KERANJANG KOSONG",
-            "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
-            "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
-            "createOrder": "PEMESANAN GAGAL",
-            "outOfStock": "JUMLAH BARANG BERLEBIH",
-            "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
-            "serverError": "SERVER GANGGUAN"
+            "default": "Gagal",
+            "emptyCart": "Keranjang Kosong",
+            "emptyAddress": "Alamat Pengiriman Kosong",
+            "emptyDate": "Tanggal Pengiriman Kosong",
+            "createOrder": "Pemesanan Gagal",
+            "outOfStock": "Jumlah Barang Berlebih",
+            "expiredDate": "Waktu Pemesanan Telah Habis",
+            "serverError": "Server Gangguan"
         }
     },
     "formSuccess":{
         "title": {
-            "default": "SUKSES",
-            "createOrder": "PEMESANAN SUKSES",
+            "default": "Sukses",
+            "createOrder": "Pemesanan Sukses",
             "copyData": "Data berhasil disalin"
         }
     },
     "button": {
-        "close": "TUTUP",
-        "login": "MASUK",
-        "yes": "YA",
-        "no": "TIDAK"
+        "close": "Tutup",
+        "login": "Masuk",
+        "yes": "Ya",
+        "no": "Tidak"
     },
     "modal":{
         "title":{
