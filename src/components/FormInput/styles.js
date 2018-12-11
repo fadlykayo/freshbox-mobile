@@ -26,7 +26,7 @@ const styles = {
     underline: {
         height: 1,
         borderTopWidth: 1,
-        borderColor: colour.lightGrey,
+        borderColor: colour.mediumGrey,
     },
     showPasswordButton: {
         position: 'absolute',

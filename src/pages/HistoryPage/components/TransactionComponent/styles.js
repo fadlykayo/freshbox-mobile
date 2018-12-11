@@ -6,15 +6,14 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container: {
+		flex: -1,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		height: height * 0.2,
 		borderBottomWidth : 0.5,
-		borderColor: colour.lightGrey,
+		borderColor: colour.mediumGrey,
 		backgroundColor: colour.white,
-		paddingTop: width * 0.05,
-		paddingBottom: width * 0.05,
+		paddingVertical: width * 0.1,
 		paddingRight: width * 0.05,
 		marginLeft: width * 0.05,
 	},

@@ -16,7 +16,7 @@ const styles = {
 	},
 	container: {
 		flex: 1,
-		backgroundColor: colour.veryLightGrey,
+		backgroundColor: colour.white,
 	},
 	cartContainer: {
 		flex: 1,
@@ -37,7 +37,6 @@ const styles = {
 		},
 		text: {
 			fontFamily: 'Avenir-Black',
-			fontWeight: 'bold',
 			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 		}

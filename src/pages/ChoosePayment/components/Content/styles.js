@@ -8,11 +8,11 @@ const styles = {
     container: {
         flex: -1,
         height: scaling.moderateScale(50),
-        borderBottomColor: colour.lightGrey,
+        borderBottomColor: colour.mediumGrey,
         borderBottomWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: width * 0.05,
+        marginLeft: width * 0.05,
         paddingRight: width * 0.05,
     },
     subcontainer: {

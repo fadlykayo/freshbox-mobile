@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -12,6 +12,11 @@ const styles = {
 		borderRadius: 8,
 		borderColor: colour.white,
 		backgroundColor: colour.white,
+		shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
+		shadowRadius: Platform.OS == 'ios' ? 30 : 0,
+		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		elevation: Platform.OS == 'android' ? 5 : 0,
 		marginBottom: (search == true 
 			? ((i < length)
 				? 	scaling.moderateScale(10)
@@ -21,7 +26,7 @@ const styles = {
 			? 	scaling.moderateScale(10)
 			:	scaling.moderateScale(65)
 			)
-		)
+		),
 	}),
 	subcontainer: {
 		verification:{

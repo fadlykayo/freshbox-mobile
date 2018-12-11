@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -10,17 +10,22 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		backgroundColor: colour.white,
-		paddingTop: width * 0.02,
-		paddingBottom: width * 0.03,
+		paddingVertical: width * 0.05,
+		paddingHorizontal: width * 0.05,
 	},
 	subcontainer:{
 		image:{
-			height: width * 0.2,
-			width: width * 0.2,
+			height: scaling.moderateScale(80),
+			width: scaling.moderateScale(80),
 			borderWidth: 1,
 			borderRadius: 8,
-			borderColor: colour.lightGrey,
+			borderColor: colour.white,
 			backgroundColor: colour.white,
+			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
+			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+			elevation: Platform.OS == 'android' ? 5 : 0,
 			padding: width * 0.05,
 			marginRight: width * 0.05,
 			justifyContent: 'center',

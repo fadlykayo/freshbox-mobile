@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -20,13 +20,23 @@ const styles = {
 		},
 		add:{
 			backgroundColor: colour.red,
-			borderColor: colour.white,
+			borderColor: colour.red,
 			paddingHorizontal: scaling.moderateScale(15),
 			paddingVertical: scaling.moderateScale(5),
+			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
+			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
+			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+			elevation: Platform.OS == 'android' ? 5 : 0,
 		},
 		counter:{
 			backgroundColor: colour.white,
-			borderColor: colour.lightGrey,
+			borderColor: colour.white,
+			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
+			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+			elevation: Platform.OS == 'android' ? 5 : 0,
 		}
 	},
 	subcontainer:{

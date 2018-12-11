@@ -7,26 +7,27 @@ const { width, height } = Dimensions.get('window');
 const styles = {
 	container:{
 		flex: 1,
-		marginTop: width * 0.02,
-		marginBottom: width * 0.02,
-		backgroundColor: colour.veryLightGrey,
+		marginVertical: width * 0.02,
+		backgroundColor: colour.white,
+		paddingHorizontal: width * 0.05,
 	},
 	subcontainer:{
 		label:{
 			width: width * 0.9,
 		},
 		bottom:{
-			flex: 1,
+			flex: -1,
+			height: height * 0.32,
 			backgroundColor: colour.white,
-			padding: width * 0.05,
-			justifyContent: 'center',
+			paddingHorizontal: width * 0.05,
+			paddingTop: scaling.moderateScale(53),
 			alignItems: 'center',
 		},
 		buttonDate:{
 			width: width * 0.9,
 			height: width * 0.1,
 			justifyContent: 'center',
-			borderBottomColor: colour.lightGrey,
+			borderBottomColor: colour.mediumGrey,
 			borderBottomWidth: 1,
 		},
 		icon:{

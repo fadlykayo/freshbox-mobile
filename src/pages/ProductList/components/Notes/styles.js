@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		paddingVertical: scaling.moderateScale(5),
+		paddingTop: scaling.moderateScale(5),
 		paddingHorizontal: width * 0.05,
 		backgroundColor: colour.softRedTransparent
 	},

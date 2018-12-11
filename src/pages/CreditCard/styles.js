@@ -27,7 +27,7 @@ const styles = {
         content: (x) => ({
             width: width * 0.7,
             borderBottomWidth: 1,
-            borderBottomColor: x ? colour.red : colour.lightGrey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             marginBottom: width * 0.03,
         }),
         
@@ -104,7 +104,7 @@ const styles = {
             width: width * 0.15,
             alignItems: 'center',
             paddingVertical: y > 0 ? width * 0.03 : width * 0.04,
-            borderBottomColor: x ? colour.red : colour.lightGrey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
         })
     },
@@ -118,7 +118,7 @@ const styles = {
         },
         left: (x) => ({
             width: width * 0.15,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
             marginRight: scaling.moderateScale(5),
@@ -131,13 +131,13 @@ const styles = {
         },
         right: (x) => ({
             width: width * 0.15,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
         }),
         cvv: (x) => ({
             width: width * 0.2,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
         }),

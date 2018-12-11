@@ -9,9 +9,10 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomWidth: 1,
-        paddingHorizontal: width * 0.05,
+        paddingRight: width * 0.05,
+        marginLeft: width * 0.05,
         height: scaling.moderateScale(50),
-        borderBottomColor: colour.lightGrey,
+        borderBottomColor: colour.mediumGrey,
         backgroundColor: colour.white,
     },
     subcontainer:{

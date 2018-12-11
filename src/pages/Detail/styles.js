@@ -8,8 +8,7 @@ const styles = {
     },
     subcontainer: {
         flex: -1,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+
     },
 }
 

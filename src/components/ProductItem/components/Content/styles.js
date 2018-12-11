@@ -8,7 +8,7 @@ const styles = {
 	text:{
 		title:{
 			fontFamily: 'Avenir-Black',
-			fontSize: scaling.moderateScale(14),
+			fontSize: scaling.moderateScale(13),
 			color: colour.darkGrey,
 		},
 		price:{

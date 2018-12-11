@@ -37,7 +37,7 @@ const styles = {
             height: scaling.moderateScale(50),
             justifyContent: 'center',
             paddingHorizontal: width * 0.05,
-            backgroundColor: colour.mediumGrey
+            backgroundColor: colour.lightMediumGrey
         },
         arrow: {
             place: {
