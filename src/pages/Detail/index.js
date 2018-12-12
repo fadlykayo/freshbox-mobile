@@ -217,7 +217,7 @@ class Detail extends Component {
 	}
 
 	navigateToTransferInstruction(){
-		actNav.navigate(navConstant.TransferInstruction, {refreshHandler: this.props.refreshHandler});
+		actNav.navigate(navConstant.TransferInstruction, {refreshHandler: this.refreshHandler});
 	}
 
 	navigateBack(key) {
@@ -262,7 +262,7 @@ class Detail extends Component {
 					refreshControl= {this.props.navigation.state.params.action == 'history'
 						? <RefreshControl
 							  refreshing={this.state.refreshing}
-							  onRefresh={this._onRefresh}
+							  onRefresh={this.refreshHandler}
 							/>
 						: null
 					}
@@ -305,7 +305,6 @@ class Detail extends Component {
 					action={this.props.navigation.state.params.action}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
-					refreshHandler={this.refreshHandler}
 				/>
 			</Container>
   	  	);

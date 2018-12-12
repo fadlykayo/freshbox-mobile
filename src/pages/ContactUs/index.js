@@ -56,6 +56,12 @@ class ContactUs extends Component {
 		this.renderSubjectHistory();
 	}
 
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+	}
+
 	scrollToMessage() {
 		this.listRef.scrollTo({y: 115, animated: true})
 	}

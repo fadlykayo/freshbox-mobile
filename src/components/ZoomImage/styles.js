@@ -44,7 +44,7 @@ const styles = {
 		    shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 12}  : {width: 0,height: 0},
 		    shadowRadius: Platform.OS == 'ios' ? 20 : 0,
 		    shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-            elevation: Platform.OS == 'android' ? 10 : 0,
+            elevation: Platform.OS == 'android' ? 8 : 0,
             justifyContent: 'center',
             alignItems: 'center',
         },

@@ -8,9 +8,8 @@ const styles = {
 	container:{
 		backgroundColor: colour.white,
 		flex: 1,
-		paddingTop: height * 0.05,
-		paddingLeft: width * 0.05,
-		paddingRight: width * 0.05,
+		marginTop: width * 0.05,
+		paddingHorizontal: scaling.moderateScale(30),
 		marginBottom: height * 0.05,
 	},
 }

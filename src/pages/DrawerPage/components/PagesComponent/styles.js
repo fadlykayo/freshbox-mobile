@@ -13,7 +13,7 @@ const styles = {
 			height: height * 0.085,
 			justifyContent: 'center',
 			borderLeftWidth: 5,
-			borderLeftColor: colour.red,
+			borderLeftColor: colour.white,
 			paddingLeft: width * 0.05,
 		},
 		unselected: {
@@ -28,7 +28,7 @@ const styles = {
 		selected: {
 			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(16),
-			color: colour.red
+			color: colour.darkGrey
 		},
 		unselected: {
 			fontFamily: 'Avenir-Roman',

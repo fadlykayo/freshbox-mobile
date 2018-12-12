@@ -16,7 +16,7 @@ class Content extends PureComponent {
                     onPress={this.props.getStartedHandler}
                 />
                 <Button
-                    type={'email'}
+                    type={'phone'}
                     onPress={this.props.emailHandler}
                 />
                 <Button 

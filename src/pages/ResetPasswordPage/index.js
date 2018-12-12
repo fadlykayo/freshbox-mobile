@@ -123,6 +123,7 @@ class ResetPasswordPage extends Component {
 				this.createNewPassword();
 			})
 			.catch(err => {
+				console.log("gagal?", err)
 				this.setValidation(err, false)
 			})
 		}
@@ -194,6 +195,8 @@ class ResetPasswordPage extends Component {
     }
 
   	render() {
+
+		console.log("punya userId", this.props.userId.userId)
   	  	return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
@@ -302,7 +305,8 @@ class ResetPasswordPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	user: state.user.data
+	user: state.user.data,
+	userId: state.user.userId
 })
 
 const mapDispatchToProps = (dispatch) => ({

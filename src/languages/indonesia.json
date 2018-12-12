@@ -3,7 +3,7 @@
         "button":{
             "getStarted":"Mulai",
             "facebook":"Masuk dengan Facebook",
-            "email":"Masuk dengan Nomor Telepon",
+            "phone":"Masuk dengan Nomor Telepon",
             "google":"Masuk dengan Google"
         },
         "content":{
@@ -242,8 +242,8 @@
             "phone": "Nomor Telepon"
         },
         "button": {
-            "edit": "UBAH",
-            "save": "SIMPAN"
+            "edit": "Ubah",
+            "save": "Simpan"
         },
         "validation":{
             "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 digit angka"
@@ -461,7 +461,7 @@
             "expED": "contoh: 08/20",
             "cvv": "Kode CVV",
             "checkout": "BAYAR",
-            "examplecvv": "example: 123"
+            "examplecvv": "contoh: 123"
         },
         "validation": {
             "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",

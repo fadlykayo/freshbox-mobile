@@ -16,13 +16,13 @@ const styles = {
 			paddingHorizontal: width * 0.05,
 		},
 		red: {
-			borderColor: colour.white,
+			borderColor: colour.red,
 			backgroundColor: colour.red,
 			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 10 : 0,
 			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-			elevation: Platform.OS == 'android' ? 4 : 0,
+			elevation: Platform.OS == 'android' ? 3 : 0,
 		},
 		white: {
 			borderColor: colour.red,

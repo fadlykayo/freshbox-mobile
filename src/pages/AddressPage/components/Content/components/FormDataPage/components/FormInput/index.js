@@ -85,7 +85,7 @@ class FormInput extends Component {
     _renderLabel(props){
         if(this.state.isFocused == false && props.value.length == 0) return null;
         else return (
-            <Text style={styles.label}>
+            <Text style={styles.text.label}>
                 <StaticText
                     property={props.label}
                 />
@@ -99,43 +99,13 @@ class FormInput extends Component {
         )
     }
 
-    _renderShowPasswordButton(props){
-        if(this.state.isPassword == false) return null;
-        else {
-            if(props.value.length == 0) return null;
-            else {
-                if(this.state.isSecret == true){
-                    return(
-                        <TouchableOpacity style={styles.showPasswordButton} onPress={this.showPasswordHandler}>
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_show_password}
-                                style={styles.icon}
-                            />
-                        </TouchableOpacity>
-                    )
-                } else {
-                    return(
-                        <TouchableOpacity style={styles.showPasswordButton} onPress={this.showPasswordHandler}>
-                            <Image
-                                resizeMode={'contain'} 
-                                source={images.icon_hide_password}
-                                style={styles.icon}
-                            />
-                        </TouchableOpacity>
-                    )
-                }
-            }
-        }
-    }
-
     render(){
         return (
             <View style={styles.container}>
                 {this._renderLabel(this.props)}
                 <TextInput
                     ref={c => {this.TextInput = c}}
-					style={styles.formInput}
+					style={styles.text.placeholder}
                     autoCapitalize={'none'}
                     autoFocus={this.state.autoFocus}
 					multiline={this.state.multiline}
@@ -153,7 +123,6 @@ class FormInput extends Component {
 					onSubmitEditing={this.onSubmitEditing}
 				/>
                 <View style={styles.underline}/>
-                {this._renderShowPasswordButton(this.props)}
             </View>
         )
     }

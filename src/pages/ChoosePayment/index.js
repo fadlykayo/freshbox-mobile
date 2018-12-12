@@ -55,15 +55,13 @@ class ChoosePayment extends Component {
 			    />
                 <View style={styles.container}>
                     <View style={styles.content}>
-                        { 
-                            this.state.contents.map((content,index) => (
-                                <Content 
-                                    key={index}
-                                    content={content}
-                                    navigateToOtherPage={this.navigateToOtherPage}
-                                />
-                            )) 
-                        }                        
+                        { this.state.contents.map((content,index) => (
+                            <Content 
+                                key={index}
+                                content={content}
+                                navigateToOtherPage={this.navigateToOtherPage}
+                            />
+                        )) }                        
                     </View>
                     <TotalPrice
                         action={'choosePayment'}

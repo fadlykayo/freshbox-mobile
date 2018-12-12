@@ -30,7 +30,7 @@ const styles = {
     },
     icon:{
         height: scaling.moderateScale(12),
-        width: scaling.moderateScale(12)
+        width: scaling.moderateScale(6)
     }
 }
 

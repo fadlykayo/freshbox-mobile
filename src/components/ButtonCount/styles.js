@@ -27,7 +27,7 @@ const styles = {
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
 			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-			elevation: Platform.OS == 'android' ? 5 : 0,
+			elevation: Platform.OS == 'android' ? 2 : 0,
 		},
 		counter:{
 			backgroundColor: colour.white,
@@ -36,7 +36,7 @@ const styles = {
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
 			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-			elevation: Platform.OS == 'android' ? 5 : 0,
+			elevation: Platform.OS == 'android' ? 2 : 0,
 		}
 	},
 	subcontainer:{

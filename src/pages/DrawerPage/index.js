@@ -45,6 +45,7 @@ class DrawerPage extends Component {
 		this.navigateSignIn = this.navigateSignIn.bind(this);
 		this.closeDrawerPage = this.closeDrawerPage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
+		this.actToNavigate = this.actToNavigate.bind(this);
   	}
 
 	refreshProductList() {
@@ -78,19 +79,24 @@ class DrawerPage extends Component {
 
 		this.setState({pages: newPages}, () => {
 			switch (payload.name) {
-				case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
-				case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
-				case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
-				case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
-				case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
+				case 'drawerPage.pages.favorite': return this.actToNavigate(navConstant.Favourites);
+				case 'drawerPage.pages.history': return this.actToNavigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
+				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions)
+				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy)
+				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs)
 				default: return this.closeDrawerPage(payload);
 			}
+			
 		})
 
 	}
-	  
+	
+	actToNavigate(input) {
+		actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer});
+	}
+
 	navigateToProfilePage() {
-		actNav.navigate(navConstant.ProfilePage)
+		actNav.navigate(navConstant.ProfilePage, {closeDrawer: this.props.navigation.closeDrawer})
 	}
 
 	navigateLogOut() {

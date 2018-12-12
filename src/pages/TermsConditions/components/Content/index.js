@@ -40,7 +40,7 @@ class Content extends Component {
 					<View style={styles.info.arrow.place}>
             		    <Image
             		        source={this.props.content.isOpen ? images.icon_arrow_up_red : images.icon_arrow_right_red}
-            		        style={styles.info.arrow.logo}
+            		        style={styles.info.arrow.logo(this.props.content.isOpen)}
             		    />
             		</View>
 				</TouchableOpacity>

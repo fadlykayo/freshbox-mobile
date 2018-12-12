@@ -10,6 +10,24 @@ const styles = {
         marginBottom: scaling.moderateScale(10),
         marginTop: scaling.moderateScale(10),
     },
+    text: {
+        label: {
+            fontFamily: 'Avenir-Heavy',
+            fontSize: scaling.moderateScale(12),
+            color: colour.darkGrey,
+        },
+        placeholder: {
+            fontFamily: 'Avenir-Book',
+            fontSize: scaling.moderateScale(14),
+            color: colour.lightGrey,
+            paddingHorizontal: 0,
+            paddingTop: scaling.moderateScale(10),
+            paddingBottom: scaling.moderateScale(5)
+        },
+        content: {
+            color: colour.darkGrey,
+        }
+    },
     label: {
         fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(12),

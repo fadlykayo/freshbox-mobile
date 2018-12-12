@@ -8,7 +8,8 @@ const styles = {
     container: (i,length) => ({
         flex: -1,
         paddingVertical: width * 0.04,
-        marginHorizontal: width * 0.05,
+        marginLeft: scaling.moderateScale(30),
+        paddingRight: scaling.moderateScale(30),
         borderBottomWidth: i < length ? 1 : 0,
         borderBottomColor: colour.mediumGrey,
         flexDirection: 'row',
@@ -34,12 +35,13 @@ const styles = {
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: width * 0.04,
+            marginRight: scaling.moderateScale(30),
         }
     },
     logo: {
         pen: {
-            height: width * 0.04,
-            width: width * 0.04
+            height: scaling.moderateScale(12),
+            width: scaling.moderateScale(12)
         },
     },
     circle: {
@@ -47,16 +49,16 @@ const styles = {
             borderRadius: 100,
             borderWidth: 1.5,
             borderColor: colour.red,
-            height: width * 0.045,
-            width: width * 0.045,
+            height: scaling.moderateScale(14),
+            width: scaling.moderateScale(14),
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: width * 0.015,
         },
         inner: {
             backgroundColor: colour.red,
-            height: width * 0.025,
-            width: width * 0.025,
+            height: scaling.moderateScale(8),
+            width: scaling.moderateScale(8),
             borderRadius: 100,
         }
     },

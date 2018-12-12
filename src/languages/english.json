@@ -3,7 +3,7 @@
         "button":{
             "getStarted":"Get Started",
             "facebook":"Continue with Facebook",
-            "email":"Continue with Email",
+            "phone":"Continue with Email",
             "google":"Continue with Google"
         },
         "content":{

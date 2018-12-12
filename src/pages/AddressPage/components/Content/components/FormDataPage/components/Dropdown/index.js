@@ -27,10 +27,17 @@ class Dropdown extends PureComponent {
     _renderLabel(props){
         if(this.props.value.code.length == 0) return null;
         else return (
-            <StaticText 
-                style={styles.label}
-                property={props.label}
-            />
+            <Text style={styles.text.label}>
+                <StaticText
+                    property={props.label}
+                />
+                { props.required.length == 0
+                    ? null
+                    : <StaticText
+                    property={props.required}
+                />
+                }
+            </Text>
         )
     }
 
@@ -41,31 +48,31 @@ class Dropdown extends PureComponent {
                     {this._renderLabel(this.props)}
                     { this.props.value.code.length == 0 
                         ? (<StaticText
-                            style={styles.formInput}
+                            style={styles.text.placeholder}
                             property={this.props.placeholder}
                         />) 
-                        : (<Text style={styles.formInput}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>)
+                        : (<Text style={[styles.text.placeholder,styles.text.content]}>{this.props.type == 'zip_code'? this.props.value.place_name : this.props.value.name}</Text>)
                     }
                     <View style={styles.underline}/>
-                    <View style={styles.showPasswordButton}>
+                    <View style={styles.arrow.place}>
                         <Image
                             resizeMode={'contain'} 
-                            source={this.props.isOpen ? images.icon_dropdown_arrow_up : images.icon_dropdown_arrow_down}
-                            style={styles.icon}
+                            source={this.props.isOpen ? images.icon_arrow_up_red : images.icon_arrow_down_red}
+                            style={styles.arrow.icon}
                         />
                     </View>
                 </TouchableOpacity>
                 { this.props.isOpen
                     ? (<FlatList
                             nestedScrollEnabled={true}
-                            style={styles.dropdownPlace}
+                            style={styles.dropdown.place}
                             data={this.props.data}
                             keyExtractor={(item, index) => index.toString()}
 				            renderItem={({item,index}) => (
-                                <TouchableOpacity key={index} style={styles.dropdown} onPress={() => {
+                                <TouchableOpacity key={index} style={styles.dropdown.part} onPress={() => {
                                     this.onSpecificChangeText(item)
                                 }}>
-                                    <Text style={styles.formInput}>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
+                                    <Text style={[styles.text.placeholder,styles.text.content]}>{this.props.type == 'zip_code'? item.place_name : item.name}</Text>
                                 </TouchableOpacity>
 				            )}
                         />)

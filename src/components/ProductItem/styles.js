@@ -16,7 +16,7 @@ const styles = {
 		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
 		shadowRadius: Platform.OS == 'ios' ? 30 : 0,
 		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-		elevation: Platform.OS == 'android' ? 4 : 0,
+		elevation: Platform.OS == 'android' ? 3 : 0,
 		marginBottom: (search == true 
 			? ((i < length)
 				? 	scaling.moderateScale(10)

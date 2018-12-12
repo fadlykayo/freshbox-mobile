@@ -27,6 +27,9 @@ class HistoryPage extends Component {
 		if(this.props.navigation.state.params.refreshProductList) {
 			this.props.navigation.state.params.refreshProductList();
 		}
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
 	}
 
 	componentDidMount() {

@@ -21,7 +21,7 @@ const styles = {
                     backgroundColor: colour.blueFacebook,
                     marginBottom: scaling.moderateScale(10),
                 })
-            case 'email':
+            case 'phone':
                 return ({
                     borderWidth: 1,
                     borderColor: colour.darkGrey,

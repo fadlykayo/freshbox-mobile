@@ -64,6 +64,12 @@ class TermsConditions extends Component {
 		this.getClipboardData = this.getClipboardData.bind(this);
 	}
 
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+	}
+
 	navigateBack() {
 		actNav.goBack();
 	}

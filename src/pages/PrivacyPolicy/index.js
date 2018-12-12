@@ -67,6 +67,12 @@ class TermsConditions extends Component {
 		this.openInfo = this.openInfo.bind(this);
 	}
 
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+	}
+
 	navigateBack() {
 		actNav.goBack();
 	}

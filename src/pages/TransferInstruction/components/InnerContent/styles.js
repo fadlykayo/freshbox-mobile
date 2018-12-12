@@ -25,11 +25,11 @@ const styles = {
         right: 0,
         marginRight: scaling.moderateScale(10),
     },
-    logo: {
-        height: scaling.moderateScale(10),
-        width: scaling.moderateScale(10),
+    logo: (x) => ({
+        height: x ? scaling.moderateScale(6) : scaling.moderateScale(12),
+        width: x ? scaling.moderateScale(12) : scaling.moderateScale(6),
         marginRight: scaling.moderateScale(10)
-    },
+    }),
     bankLogo: {
         height: scaling.moderateScale(28),
         width: scaling.moderateScale(79),

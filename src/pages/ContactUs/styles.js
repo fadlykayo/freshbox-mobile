@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 const styles = {
     container:{
         flex: 1,
-        paddingHorizontal: width * 0.05,
+        paddingHorizontal: scaling.moderateScale(30),
         marginVertical: width * 0.05,
     },
     content:{
@@ -18,7 +18,7 @@ const styles = {
         },
         bottom: {
             flex: -1,
-            alignItems: 'center',
+            paddingHorizontal: scaling.moderateScale(30),
             marginBottom: width * 0.025,
         }
     },

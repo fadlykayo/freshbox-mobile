@@ -34,16 +34,16 @@ class Button extends PureComponent {
                         />
                     </TouchableOpacity>
                 )
-            case 'email':
+            case 'phone':
                 return(
                     <TouchableOpacity style={[styles.container,styles.button(this.props.type)]} onPress={this.props.onPress}>
                         <StaticText 
                             style={styles.content(this.props.type)}
-                            property={'welcome.button.email'}
+                            property={'welcome.button.phone'}
                         />
                         <Image
                             resizeMode={'contain'} 
-                            source={images.icon_mail}
+                            source={images.icon_phone}
                             style={styles.logo}
                         />
                     </TouchableOpacity>

@@ -27,7 +27,7 @@ class InnerContent extends Component {
                     <View style={styles.imagePlace}>
                         <Image
                             source={this.props.type.isOpen ? images.icon_arrow_up_red : images.icon_arrow_right_red}
-                            style={styles.logo}
+                            style={styles.logo(this.props.type.isOpen)}
                         />
                     </View>
                 </TouchableOpacity>

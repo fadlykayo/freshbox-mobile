@@ -33,7 +33,7 @@ const styles = {
 			marginRight: scaling.moderateScale(15),
 		},
 		menu: {
-			width: scaling.moderateScale(14),
+			width: scaling.moderateScale(16),
 			height: scaling.moderateScale(14),
 		},
 		clear: {

@@ -22,6 +22,12 @@ class ProfilePage extends Component {
         this.choosePhoto = this.choosePhoto.bind(this);
     }
 
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+    }
+
     navigateBack() {
         actNav.goBack();
     }
@@ -126,7 +132,6 @@ class ProfilePage extends Component {
     }
 
     render() {
-        console.log(this.props.user)
         return (
             <Container 				
                 bgColorBottom={'veryLightGrey'} 				

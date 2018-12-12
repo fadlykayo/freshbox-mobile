@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -9,7 +9,7 @@ const styles = {
 		flex: 1,
 		marginVertical: width * 0.02,
 		backgroundColor: colour.white,
-		paddingHorizontal: width * 0.05,
+		paddingHorizontal: scaling.moderateScale(30),
 	},
 	subcontainer:{
 		label:{
@@ -17,14 +17,11 @@ const styles = {
 		},
 		bottom:{
 			flex: -1,
-			height: height * 0.32,
+			height: Platform.OS == 'ios' ? height * 0.32 : height * 0.28,
 			backgroundColor: colour.white,
-			paddingHorizontal: width * 0.05,
 			paddingTop: scaling.moderateScale(53),
-			alignItems: 'center',
 		},
 		buttonDate:{
-			width: width * 0.9,
 			height: width * 0.1,
 			justifyContent: 'center',
 			borderBottomColor: colour.mediumGrey,
@@ -49,7 +46,7 @@ const styles = {
 		}
 	},
 	icon:{
-		height: scaling.moderateScale(14),
+		height: scaling.moderateScale(15),
 		width: scaling.moderateScale(14) 
 	},
 }

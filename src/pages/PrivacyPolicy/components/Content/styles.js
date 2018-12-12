@@ -45,10 +45,10 @@ const styles = {
                 right: 0,
                 marginRight: width * 0.05,
             },
-            logo: {
-                height: scaling.moderateScale(10),
-                width: scaling.moderateScale(10),
-            }
+            logo: (x) => ({
+                height: x ? scaling.moderateScale(6) : scaling.moderateScale(12),
+                width: x ? scaling.moderateScale(12) : scaling.moderateScale(6),
+            })
         },
         content: {
             flex: -1,
