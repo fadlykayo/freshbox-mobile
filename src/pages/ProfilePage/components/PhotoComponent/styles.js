@@ -41,13 +41,13 @@ const styles = {
     user: {
         name: {
             fontSize: scaling.moderateScale(16),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.white,
             marginBottom: scaling.moderateScale(4),
         },
         phone: {
             fontSize: scaling.moderateScale(12),
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             color: colour.white,
         }
     },

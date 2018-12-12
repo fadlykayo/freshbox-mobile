@@ -26,12 +26,12 @@ const styles = {
 	},
 	text: {
 		selected: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(16),
 			color: colour.red
 		},
 		unselected: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(16),
 			color: colour.darkGrey
 		}

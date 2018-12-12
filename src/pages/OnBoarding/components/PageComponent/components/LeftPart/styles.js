@@ -49,7 +49,7 @@ const styles = {
             justifyContent: 'center',
         },
         text: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(16),
             color: colour.white,
         }

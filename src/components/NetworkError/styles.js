@@ -39,12 +39,12 @@ const styles = {
         width: scaling.moderateScale(36),
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
     },
     content:{
-        fontFamily: 'Avenir-Light',
+        fontFamily: 'Avenir-Book',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
     },

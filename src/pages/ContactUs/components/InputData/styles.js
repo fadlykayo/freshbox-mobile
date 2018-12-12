@@ -13,7 +13,7 @@ const styles = {
             justifyContent: 'center'
         },
         text: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.grey
         }

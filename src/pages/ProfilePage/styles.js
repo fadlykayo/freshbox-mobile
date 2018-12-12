@@ -12,10 +12,8 @@ const styles = {
     subcontainer: {
         bottom: {
             flex: -1,
-            height: height * 0.15,
-            padding: width * 0.05,
-            justifyContent: 'center',
-            alignItems: 'center',
+            paddingHorizontal: width * 0.05,
+            marginBottom: width * 0.05,
         }
     },
 }

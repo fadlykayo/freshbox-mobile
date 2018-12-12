@@ -62,7 +62,7 @@ const styles = {
 	},
 	text:{
 		desc:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey
 		}

@@ -36,7 +36,7 @@ const styles = {
 			marginBottom: scaling.moderateScale(10),
 		},
 		text: {
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 		}

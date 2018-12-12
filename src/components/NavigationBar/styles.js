@@ -35,7 +35,7 @@ const styles = {
         height: scaling.moderateScale(14),
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(14),
         color: colour.darkGrey,
     }

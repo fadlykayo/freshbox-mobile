@@ -37,7 +37,7 @@ const styles = {
     },
     text:{
         category:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey
         }

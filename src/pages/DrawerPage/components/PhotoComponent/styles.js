@@ -28,13 +28,13 @@ const styles = {
 	},
 	user: {
 		name: {
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 			marginBottom: scaling.moderateScale(3),
 		},
 		email: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey
 		}

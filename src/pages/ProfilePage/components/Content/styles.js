@@ -36,13 +36,13 @@ const styles = {
     text: {
         title: {
             fontSize: scaling.moderateScale(12),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.grey,
             marginBottom: scaling.moderateScale(7),
         },
         content: {
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             color: colour.darkGrey,
             marginBottom: scaling.moderateScale(15),
         }

@@ -21,13 +21,13 @@ const styles = {
 		marginBottom: scaling.moderateScale(15),
     },
     checkoutText: {
-		fontFamily: 'Avenir-Medium',
+		fontFamily: 'Avenir-Heavy',
 		fontSize: scaling.moderateScale(14),
 		color: colour.white,
 	},
 	icon:{
-		width: scaling.moderateScale(20),
-		height: scaling.moderateScale(20),
+		width: scaling.moderateScale(16),
+		height: scaling.moderateScale(12),
 	},
 }
 

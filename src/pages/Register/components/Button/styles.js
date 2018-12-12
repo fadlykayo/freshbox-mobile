@@ -7,14 +7,13 @@ const { width } = Dimensions.get('window');
 const styles = {
     button:{
         height: scaling.moderateScale(50),
-        width: width * 0.9,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colour.red,
         borderRadius: 8,
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(14),
         color: colour.white,
     }

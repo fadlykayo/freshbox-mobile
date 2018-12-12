@@ -13,13 +13,11 @@ const styles = {
         justifyContent: 'center',
     },
     content:{
-        fontFamily: 'Avenir-Light',
+        fontFamily: 'Avenir-Book',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
     },
     signIn:{
-        fontFamily: 'Avenir-Light',
-        fontSize: scaling.moderateScale(12),
         color: colour.red,
     }
 }

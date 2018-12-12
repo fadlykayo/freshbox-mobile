@@ -94,6 +94,9 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Avenir-Book.ttf</string>
+		<string>Avenir-Roman.ttf</string>
+		<string>Avenir-Heavy.ttf</string>
 		<string>Avenir-Medium.ttf</string>
 		<string>Avenir-Black.ttf</string>
 		<string>Avenir-Light.ttf</string>

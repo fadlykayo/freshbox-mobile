@@ -1,7 +1,8 @@
 import React,{ PureComponent } from 'react';
-import { View, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableOpacity, Modal, Image } from 'react-native';
 import DateItem from './components/DateItem';
 import styles from './styles';
+import images from '@assets';
 
 class DeliveryDate extends PureComponent {
 	constructor(props){
@@ -45,9 +46,27 @@ class DeliveryDate extends PureComponent {
 			let minutes = today.getMinutes();
 			let renderDate = (hours <= 21 || (hours <= 21 && minutes < 55)) ? this.state.date.slice(0,3) : this.state.date.slice(1,4);
 			return(
-				<TouchableWithoutFeedback onPress={this.closeDeliveryDate}>
-					<View style={styles.overlay}>
+				<View style={styles.background}>
+					<Modal
+						animationType={'slide'}
+						transparent={true}
+						visible={this.props.modalVisible}
+						onRequestClose={this.closeDeliveryDate}
+					>
+						<TouchableOpacity style={styles.touchable} onPress={this.closeDeliveryDate}></TouchableOpacity>
 						<View style={styles.container}>
+							<View style={styles.subcontainer.title}>
+								<TouchableOpacity
+									onPress={this.closeDeliveryDate}
+									style={styles.subcontainer.button}
+								>
+									<Image
+										resizeMode={'contain'}
+										source={images.icon_scroll_down}
+										style={styles.icon}
+									/>
+								</TouchableOpacity>
+							</View>
 							{ 
 								renderDate.map((data,index) => (
 									<DateItem 
@@ -60,8 +79,9 @@ class DeliveryDate extends PureComponent {
 								))
 							}
 						</View>
-					</View>
-				</TouchableWithoutFeedback>
+					</Modal>
+					{/* </TouchableWithoutFeedback> */}
+				</View>
 			)
 		} else {
 			return null;
