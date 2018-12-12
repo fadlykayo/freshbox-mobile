@@ -14,8 +14,8 @@ const styles = {
             alignItems: 'center'
         },
         unselected: {
-            width: scaling.moderateScale(3),
-            height: scaling.moderateScale(3),
+            width: scaling.moderateScale(4),
+            height: scaling.moderateScale(4),
             backgroundColor: colour.lightGrey,
             borderRadius: 100,
             marginRight: width * 0.005,

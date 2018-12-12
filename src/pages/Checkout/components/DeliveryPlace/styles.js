@@ -26,7 +26,7 @@ const styles = {
 	},
 	text: {
 		address: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey,
 			marginBottom: scaling.moderateScale(10),
@@ -35,7 +35,7 @@ const styles = {
 			color: colour.grey
 		},
 		static: {
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(12),
 			color: colour.grey,
 			marginBottom: scaling.moderateScale(10),

@@ -66,13 +66,13 @@ const styles = {
             fontSize: scaling.moderateScale(10)
         },
         receiver: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
 		    fontSize: scaling.moderateScale(12),
 		    color: colour.darkGrey,
 		    marginBottom: scaling.moderateScale(7),
         },
         address: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
 		    fontSize: scaling.moderateScale(12),
 		    color: colour.darkGrey,
 		    marginBottom: scaling.moderateScale(7),

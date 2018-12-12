@@ -39,7 +39,7 @@ const styles = {
     },
     text:{
         title:{
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(20),
             color: colour.darkGrey,
         }

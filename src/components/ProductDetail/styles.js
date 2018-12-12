@@ -27,8 +27,7 @@ const styles = {
         height: height * 0.55,
         borderRadius: 20,
         backgroundColor: colour.white,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+        paddingHorizontal: width * 0.05,
         paddingBottom: width * 0.1,
     },
     subcontainer:{
@@ -97,7 +96,7 @@ const styles = {
     },
     text:{
         description:{
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             marginBottom: scaling.moderateScale(12),
             color: colour.grey,
             lineHeight: scaling.moderateScale(24),

@@ -28,19 +28,19 @@ const styles = {
         },
         text: {
             top: {
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.darkGrey,
                 lineHeight: scaling.moderateScale(25)
             },
             middle: {
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(18),
                 color: colour.red,
                 lineHeight: scaling.moderateScale(25)
             },
             bottom: {
-                fontFamily: 'Avenir-Light',
+                fontFamily: 'Avenir-Book',
                 fontSize: scaling.moderateScale(12),
                 color: colour.darkGrey,
                 lineHeight: scaling.moderateScale(25)
@@ -84,12 +84,12 @@ const styles = {
             },
             text: {
                 static: {
-                    fontFamily: 'Avenir-Black',
+                    fontFamily: 'Avenir-Heavy',
                     fontSize: scaling.moderateScale(14),
                     color: colour.darkGrey
                 },
                 price: {
-                    fontFamily: 'Avenir-Black',
+                    fontFamily: 'Avenir-Heavy',
                     fontSize: scaling.moderateScale(14),
                     color: colour.red
                 }

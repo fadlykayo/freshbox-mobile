@@ -24,20 +24,20 @@ const styles = {
 	},
 	text:{
 		title:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
 			color: colour.black,
 			textAlign: 'center',
 			marginBottom: scaling.moderateScale(10),
 		},
 		content:{
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(12),
             color: colour.grey,
 			marginBottom: scaling.moderateScale(10),
 		},
 		button:{
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(12),
             color: colour.white,
 		}

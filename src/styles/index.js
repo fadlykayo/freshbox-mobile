@@ -19,6 +19,7 @@ export const colour = {
     lightMediumGrey: 'rgb(238, 238, 238)',
     greyTransparent: 'rgba(172,179,187,0.7)',
     grey: 'rgb(172, 179, 187)',
+    softGrey: 'rgb(184,184,184)',
     lightGrey: 'rgb(198,198,198)',
     mediumLightGrey: 'rgb(244,244,244)',
     veryLightGrey: 'rgb(245,245,245)',

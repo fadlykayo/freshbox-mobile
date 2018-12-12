@@ -32,17 +32,17 @@ const styles = {
     },
     text:{
         title:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey
         },
         price:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.grey
         },
         total:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.red
         }

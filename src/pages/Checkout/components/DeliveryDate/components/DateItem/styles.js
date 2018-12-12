@@ -10,7 +10,7 @@ const styles = {
         borderBottomWidth: (x == y) ? 0 : 1,
     }),
     text:{
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey
     }

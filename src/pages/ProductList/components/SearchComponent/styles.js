@@ -50,7 +50,7 @@ const styles = {
 		},
 	},
 	title:{
-		fontFamily: 'Avenir-Black',
+		fontFamily: 'Avenir-Heavy',
 		fontSize: scaling.moderateScale(16),
 		color: colour.darkGrey,
 	},
@@ -66,14 +66,12 @@ const styles = {
 		},
 	},
 	textinput: {
-		fontFamily: 'Avenir-Light',
+		fontFamily: 'Avenir-Book',
 		fontSize: scaling.moderateScale(14),
 		width: width * 0.58,
-    	color: colour.darkGrey,
-    	paddingLeft: 0,
-    	paddingRight: 0,
-    	paddingTop: scaling.moderateScale(8),
-    	paddingBottom: scaling.moderateScale(8)
+		color: colour.darkGrey,
+		paddingHorizontal: 0,
+    	paddingVertical: scaling.moderateScale(8),
 	}
 }
 

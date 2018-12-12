@@ -6,13 +6,10 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container: {
+		flex: 1,
 		backgroundColor: colour.white,
-		flex: 1,
-		paddingTop: width * 0.03,
+		marginTop: width * 0.03,
 	},
-	cartContainer: {
-		flex: 1,
-	}
 }
 
 export default styles;

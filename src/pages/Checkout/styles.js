@@ -37,13 +37,13 @@ const styles = {
 	},
 	text:{
 		label:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.grey,
 			marginBottom: scaling.moderateScale(5),
 		},
 		date:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey
 		}

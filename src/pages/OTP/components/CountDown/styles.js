@@ -31,7 +31,7 @@ const styles = {
         },
         text: {
             fontSize: scaling.moderateScale(20),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.red,
 
         },
@@ -49,21 +49,21 @@ const styles = {
         },
         text: {
             red: {
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.red,
                 paddingVertical: width * 0.025,
                 textAlign: 'center'
             },
             grey: {
-                fontFamily: 'Avenir-Medium',
+                fontFamily: 'Avenir-Roman',
                 fontSize: scaling.moderateScale(14),
                 color: colour.grey,
                 paddingVertical: width * 0.025,
                 textAlign: 'center'
             },
             darkGrey: (type) => ({
-                fontFamily: 'Avenir-Medium',
+                fontFamily: 'Avenir-Roman',
                 fontSize: scaling.moderateScale(14),
                 color: colour.darkGrey,
                 textDecorationLine: type ? 'underline' : 'none',

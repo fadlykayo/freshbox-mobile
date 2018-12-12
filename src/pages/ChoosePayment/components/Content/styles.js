@@ -24,7 +24,7 @@ const styles = {
         }
     },
     text:{
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey
     },

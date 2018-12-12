@@ -17,7 +17,7 @@ class Button extends PureComponent {
                 />
                 <TouchableOpacity onPress={this.props.onPress}>
                     <StaticText 
-                        style={styles.register}
+                        style={[styles.content,styles.register]}
                         property={'signIn.content.register'}
                     />
                 </TouchableOpacity>

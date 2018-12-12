@@ -78,6 +78,7 @@ class ForgotPassword extends Component {
     }
 
     forgotPasswordValidation(){
+        Keyboard.dismiss();
         validation.phone(this.state.user.phone)
         .then(() => {
             if(this.state.validateStatus.phone == false) this.setValidation('phone',true);

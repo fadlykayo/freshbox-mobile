@@ -1,12 +1,12 @@
 import React,{ Component } from 'react';
-import { ScrollView, Text, Keyboard } from 'react-native';
+import { ScrollView, View, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation } from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
-import Button from './components/Button';
+import Button from '@components/Button';
 import SignIn from './components/SignIn';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -252,10 +252,13 @@ class Register extends Component {
                         validation={this.state.validateStatus.confirmPassword}
                         property={'register.validation.confirmPassword'}
                     />
-                    <Button 
-                        title={'register.button.register'}
-                        onPress={this.registerValidation}
-                    />
+                    <View style={styles.subcontainer.button}>
+                        <Button
+                            type={'red'}
+                            title={'register.button.register'}
+                            onPress={this.registerValidation}
+                        />
+                    </View>
                     <SignIn 
                         onPress={this.navigateBack}
                     />

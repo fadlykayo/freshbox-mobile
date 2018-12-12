@@ -19,7 +19,7 @@ const styles = {
         marginRight: scaling.moderateScale(10),
     },
     staticText: {
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey
     },

@@ -19,12 +19,12 @@ const styles = {
     },
     text: {
         title: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
         },
         content: {
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(13),
             color: colour.darkGrey,
         }
@@ -75,7 +75,7 @@ const styles = {
         },
         index: {
             color: colour.red,
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
         },
         right: {

@@ -16,7 +16,7 @@ const styles = {
         },
         text: {
             fontSize: scaling.moderateScale(20),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.red,
 
         },

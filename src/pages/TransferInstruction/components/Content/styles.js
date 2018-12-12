@@ -47,17 +47,17 @@ const styles = {
     },
     text:{
         bank:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(12),
             color: colour.darkGrey
         },
         index:{
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(12),
             color: colour.red,
         },
         instruction:{
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(12),
             color: colour.darkGrey,
             lineHeight: scaling.moderateScale(20)

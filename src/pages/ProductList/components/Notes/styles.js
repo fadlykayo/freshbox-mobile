@@ -12,8 +12,8 @@ const styles = {
 	},
 	text:{
 		notes:{
-			fontFamily: 'Avenir-Light',
-			fontSize: scaling.moderateScale(12),
+			fontFamily: 'Avenir-Book',
+			fontSize: scaling.moderateScale(11),
 			color: colour.red,
 		}
 	}
