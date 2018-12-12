@@ -1,7 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { View, FlatList, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
-import { language } from '@helpers';
 import images from '@assets';
 import styles from './styles';
 

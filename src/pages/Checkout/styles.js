@@ -16,8 +16,7 @@ const styles = {
 			width: width * 0.9,
 		},
 		bottom:{
-			flex: -1,
-			height: Platform.OS == 'ios' ? height * 0.32 : height * 0.28,
+			flex: 1,
 			backgroundColor: colour.white,
 			paddingTop: scaling.moderateScale(53),
 		},

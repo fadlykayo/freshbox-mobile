@@ -39,8 +39,8 @@ const styles = {
             marginRight: scaling.moderateScale(10),
         },
         check:{
-            width: scaling.moderateScale(15),
-            height: scaling.moderateScale(10),
+            width: scaling.moderateScale(12),
+            height: scaling.moderateScale(8),
         }
     },
 

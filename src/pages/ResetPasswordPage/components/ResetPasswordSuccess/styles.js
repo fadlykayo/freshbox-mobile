@@ -16,7 +16,7 @@ const styles = {
         alignItems: 'center',
         width: width,
         height: height,
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
     },
     container: {
         flexDirection: 'row',

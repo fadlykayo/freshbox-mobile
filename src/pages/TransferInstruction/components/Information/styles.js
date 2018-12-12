@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles'
 import { scaling } from '@helpers';
 
@@ -8,25 +8,30 @@ const styles = {
     middle: {
         place: {
             flex: -1,
-            height: height * 0.31,
+            height: height * 0.3,
             justifyContent: 'center',
-            alignItems: 'center',
+            paddingHorizontal: scaling.moderateScale(20),
             paddingVertical: width * 0.01,
         },
         each: {
             place: {
                 flex: 1,
-                width: width * 0.9,
 
             },
             button: {
-                height: height * 0.08,
-                borderColor: colour.lightGrey,
+                height: scaling.moderateScale(68),
+                backgroundColor: colour.white,
+                borderColor: colour.white,
                 borderWidth: 1,
+                shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+		        shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
+		        shadowRadius: Platform.OS == 'ios' ? 10 : 0,
+		        shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		        elevation: Platform.OS == 'android' ? 3 : 0,
                 borderRadius: 8,
                 flexDirection: 'row',
                 alignItems: 'center',
-                paddingHorizontal: width * 0.03,
+                paddingHorizontal: scaling.moderateScale(10),
 
             },
             innerPlace: {
@@ -56,16 +61,16 @@ const styles = {
     },
     icon:{
         bank: (x) => ({
-            height: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(25) : scaling.moderateScale(30),
-            width: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(65) : scaling.moderateScale(75),
-            marginRight: scaling.moderateScale(5)
+            height: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(25) : scaling.moderateScale(28),
+            width: x == 'virtualAccount.content.permataVA' ? scaling.moderateScale(65) : scaling.moderateScale(79),
+            marginRight: scaling.moderateScale(10)
         }),
         copy: {
             position: 'absolute',
             right: 0,
             marginRight: width * 0.05,
-            height: scaling.moderateScale(20),
-            width: scaling.moderateScale(20),
+            height: scaling.moderateScale(15),
+            width: scaling.moderateScale(15),
         }
     }
 }

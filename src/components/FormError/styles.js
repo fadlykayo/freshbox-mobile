@@ -14,7 +14,7 @@ const styles = {
         bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
     },
     container: {
         flexDirection: 'row',

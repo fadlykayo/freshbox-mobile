@@ -8,6 +8,7 @@ const styles = {
     container: {
         flex: 1,
         backgroundColor: colour.white,
+        marginTop: width * 0.05,
     },
     top: {
         place: {
@@ -50,7 +51,7 @@ const styles = {
     middle: {
         place: {
             flex: -1,
-            height: height * 0.31,
+            // height: height * 0.31,
             justifyContent: 'center',
             alignItems: 'center',
             paddingVertical: width * 0.01,

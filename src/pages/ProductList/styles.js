@@ -11,7 +11,7 @@ const styles = {
 		},
 		modal: {
 			flex: 1,
-			backgroundColor: colour.darkGreyTransparent
+			backgroundColor: colour.blackTranslucent
 		},
 	},
 	container: {

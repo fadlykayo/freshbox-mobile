@@ -19,7 +19,6 @@ class Information extends Component {
         const productPrice = numeral(this.props.detailTransaction.grand_total).format('0,0');
         if(this.props.type == 'price') {
             return (
-            
                 <TouchableOpacity style={styles.middle.each.button} onPress={() => this.getClipboardData(this.props.detailTransaction.grand_total)}>
                     <StaticText
                         style={styles.middle.each.text.price}

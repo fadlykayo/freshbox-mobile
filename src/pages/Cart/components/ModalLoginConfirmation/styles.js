@@ -11,7 +11,7 @@ const styles = {
         top: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'

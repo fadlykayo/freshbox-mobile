@@ -10,15 +10,14 @@ class CountDown extends Component {
 
     render(){
         return (
-            <View style={styles.top.place}>
-                <View style={styles.top.innerPlace}>
+            <View style={styles.container}>
+                <View style={styles.subcontainer.inner}>
                     <StaticText
-                        style={styles.top.text.top}
+                        style={styles.text.top}
                         property={'transferInstruction.content.top.info'}
                     />
-                    {/* <Text style={styles.top.text.middle}>{this.props.countDown}</Text> */}
                     <StaticText
-                        style={styles.top.text.bottom}
+                        style={styles.text.bottom}
                         property={'transferInstruction.content.top.dateInfo'}
                         params={this.props.params}
                     />

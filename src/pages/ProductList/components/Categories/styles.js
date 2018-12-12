@@ -12,7 +12,7 @@ const styles = {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
     },
     touchable: {
         flex: 1,
@@ -20,11 +20,14 @@ const styles = {
     },
     container: {
         flex: -1,
-        width: width,
-        marginBottom: width * 0.08,
-        borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
+        position: 'absolute',
+        bottom: -1 * (0.1 * width),
+        left: 0,
+        right: 0,
+        borderRadius: 20,
         backgroundColor: colour.white,
+        paddingHorizontal: width * 0.05,
+        paddingBottom: width * 0.1,
     },
     subcontainer:{
         title:{

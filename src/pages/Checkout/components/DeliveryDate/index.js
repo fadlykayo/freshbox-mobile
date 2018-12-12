@@ -67,20 +67,17 @@ class DeliveryDate extends PureComponent {
 									/>
 								</TouchableOpacity>
 							</View>
-							{ 
-								renderDate.map((data,index) => (
-									<DateItem 
-										key={index}
-										data={data}
-										index={index+1}
-										renderDate={renderDate}
-										getDeliveryDate={this.getDeliveryDate}
-									/>
-								))
-							}
+							{ renderDate.map((data,index) => (
+								<DateItem 
+									key={index}
+									data={data}
+									index={index+1}
+									renderDate={renderDate}
+									getDeliveryDate={this.getDeliveryDate}
+								/>
+							))}
 						</View>
 					</Modal>
-					{/* </TouchableWithoutFeedback> */}
 				</View>
 			)
 		} else {

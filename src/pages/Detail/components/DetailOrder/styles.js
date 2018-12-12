@@ -8,7 +8,7 @@ const styles = {
     container: {
         flex: -1,
         backgroundColor: colour.veryLightGrey,
-        padding: width * 0.05,
+        padding: scaling.moderateScale(20),
     },
     text: {
         static: {
@@ -27,6 +27,7 @@ const styles = {
             fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
+            marginBottom: scaling.moderateScale(4),
         }
     },
 }

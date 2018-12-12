@@ -24,13 +24,13 @@ class TermsConditions extends PureComponent {
                 <Text style={styles.termsAndCondition}>
                     <StaticText 
                         property={'welcome.content.info'}
-                    /> <StaticText
+                    /><StaticText
                         onPress={this.navigateToTermsConditions}
                         style={styles.underline}
                         property={'welcome.content.termsCondition'}
-                    /> <StaticText 
+                    /><StaticText 
                         property={'welcome.content.also'}
-                    /> <StaticText
+                    /><StaticText
                         onPress={this.navigateToPrivacyPolicy}
                         style={styles.underline}
                         property={'welcome.content.privacyPolicy'}
