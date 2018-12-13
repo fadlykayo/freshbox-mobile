@@ -17,7 +17,7 @@ const styles = {
         unselected: {
             width: scaling.moderateScale(10),
             height: scaling.moderateScale(10),
-            backgroundColor: colour.lightGrey,
+            backgroundColor: colour.veryLightGreyButton,
             borderRadius: 100,
             marginRight: width * 0.02,
         },
