@@ -42,7 +42,7 @@ const styles = {
 	},
 	text:{
 		add:{
-			fontFamily: 'Avenir-Roman',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(12),
 			color: colour.white,
 		},
@@ -53,7 +53,7 @@ const styles = {
 		},
 		button:{
 			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(14),
+			fontSize: scaling.moderateScale(12),
 			color: colour.red,
 		}
 	},

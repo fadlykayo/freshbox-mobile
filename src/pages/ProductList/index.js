@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -66,6 +66,9 @@ class ProductList extends Component {
 		this.counterTotalCount = this.counterTotalCount.bind(this);
 		this.checkNotification = this.checkNotification.bind(this);
 		this.openFromNotification = this.openFromNotification.bind(this);
+		this.introAnimate = this.introAnimate.bind(this);
+		this.outroAnimate = this.outroAnimate.bind(this);
+		this.showCheckout = new Animated.Value(0);
 	}
 
 	componentDidMount(){
@@ -77,6 +80,54 @@ class ProductList extends Component {
 		if(Platform.OS == 'android') {
 			permission.requestSaveExternal();
 		}
+	}
+
+	counterTotalCount(type) {
+		if(this.props.total_count == 1 && type == 'desc') {
+			this.outroAnimate();
+		} else if(this.props.total_count == 0 && type == 'inc') {
+			if(this.state.modalVisible.checkout) {
+				this.introAnimate();
+			} else {
+				let modalVisible = this.state.modalVisible;
+				modalVisible.checkout = true;
+				this.setState({modalVisible},() => {
+					this.introAnimate();
+				})
+			}
+		}
+	}
+
+	introAnimate() {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start()
+	}
+
+	outroAnimate() {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
 	}
 
 	checkNotification() {
@@ -106,16 +157,6 @@ class ProductList extends Component {
 				console.log(err)
 			}
 		)
-	}
-
-	counterTotalCount() {
-		if(this.props.total_count > 0) {
-			if(this.state.modalVisible.checkout == false) {
-				this.setModalVisible('checkout',true);
-			}
-		} else {
-			this.setModalVisible('checkout',false);
-		}
 	}
 
 	openZoomImage(){
@@ -408,7 +449,7 @@ class ProductList extends Component {
 
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
-		this.counterTotalCount();
+		this.counterTotalCount(type);
 	}
 	
 	submitSearch() {
@@ -492,6 +533,14 @@ class ProductList extends Component {
 	}
 
 	render(){
+		const introButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [-(width * 0.3), 0]
+		})
+		const outroButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, -(width * 0.3)]
+		})
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}
@@ -539,6 +588,8 @@ class ProductList extends Component {
 								)}
 							/>
 							<Checkout
+								introButton={introButton}
+								outroButton={outroButton}
 								modalVisible={this.state.modalVisible.checkout}
 								totalCount={this.props.total_count}
 								totalPrice={this.props.total_price}
