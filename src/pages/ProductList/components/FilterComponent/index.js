@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, FlatList, TouchableOpacity, Image, Text, TextInput } from 'react-native';
-import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 import images from '@assets';
+import LinearGradient from 'react-native-linear-gradient';
+import { colour } from '@styles';
 
 
 class SearchComponent extends Component {
@@ -30,34 +30,27 @@ class SearchComponent extends Component {
   	  			  	style={styles.icon}
   	  			/> */}
         	</View>
-				{ this.props.onCategory == 'Default' ? (
-					<TouchableOpacity
-						style={styles.subcontainer.part}
-						onPress = { this.openAllCategories }
-					>
+			<TouchableOpacity
+				style={styles.subcontainer.part}
+				onPress = { this.openAllCategories }
+			>
+				{ this.props.onCategory == 'Default'
+					? (
 						<StaticText
 							style={styles.text.title}
 							property={'productList.content.default'}
 						/>
-						<Image
-					    	resizeMode={'contain'} 
-					    	source={images.icon_view_categories}
-					    	style={styles.icon}
-						/>
-					</TouchableOpacity>
-				) : (
-					<TouchableOpacity
-        			  	style = {styles.subcontainer.part}
-        			  	onPress = {this.props.openAllCategories}
-        			>
-        				<Text style = {styles.text.title}>{this.props.onCategory}</Text>
-        				<Image
-  	  					  	resizeMode = {'contain'} 
-  	  					  	source = {images.icon_view_categories}
-  	  					  	style = {styles.icon}
-  	  					/>
-        			</TouchableOpacity>
-				) }
+					)
+					: (
+						<Text style={styles.text.title}>{this.props.onCategory}</Text>
+					)
+				}
+				<Image
+					resizeMode={'contain'} 
+					source={images.icon_view_categories}
+					style={styles.icon}
+				/>
+			</TouchableOpacity>
       	</View>
 		);
 	}

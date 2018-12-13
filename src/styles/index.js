@@ -1,5 +1,7 @@
 export const colour = {
     red: 'rgb(229,37,70)',
+    darkRedTransition: 'rgb(217, 0, 62)',
+    redTransition: 'rgb(249, 0, 64)',
     redTransparent: 'rgba(179, 0, 31, 0.2)',
     darkRed: 'rgb(200, 39, 67)',
     hotPink: 'rgb(255,105,180)',

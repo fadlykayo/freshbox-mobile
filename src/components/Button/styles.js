@@ -11,13 +11,12 @@ const styles = {
 			alignItems: 'center',
 			justifyContent: 'center',
 			height: scaling.moderateScale(50),
-			borderWidth: 1,
 			borderRadius: scaling.moderateScale(8),
 			paddingHorizontal: width * 0.05,
 		},
 		red: {
+			borderWidth: 1,
 			borderColor: colour.red,
-			backgroundColor: colour.red,
 			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 10 : 0,
@@ -25,6 +24,7 @@ const styles = {
 			elevation: Platform.OS == 'android' ? 3 : 0,
 		},
 		white: {
+			borderWidth: 1,
 			borderColor: colour.red,
 			backgroundColor: colour.white,
 		}
