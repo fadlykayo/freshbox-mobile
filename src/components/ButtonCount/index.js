@@ -2,8 +2,6 @@ import React,{ PureComponent } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
-import LinearGradient from 'react-native-linear-gradient';
-import { colour } from '@styles';
 
 class ButtonCount extends PureComponent {
 	constructor(){
@@ -23,14 +21,12 @@ class ButtonCount extends PureComponent {
 	render(){
 		if(this.props.count == 0){
 			return(
-				<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colour.darkRedTransition, colour.redTransition]} style={[styles.container.base,styles.container.place]}>
-					<TouchableOpacity onPress={this.addTotalItem} style={styles.button.place}>
-						<StaticText
-							style={styles.text.add}
-							property={'productList.content.addItem'}
-						/>
-					</TouchableOpacity>
-				</LinearGradient>
+				<TouchableOpacity onPress={this.addTotalItem} style={[styles.container.base,styles.container.add]}>
+					<StaticText
+						style={styles.text.add}
+						property={'productList.content.addItem'}
+					/>
+				</TouchableOpacity>
 			)
 		}
 		else {

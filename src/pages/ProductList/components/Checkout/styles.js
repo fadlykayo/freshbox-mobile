@@ -34,6 +34,12 @@ const styles = {
 		width: scaling.moderateScale(16),
 		height: scaling.moderateScale(12),
 	},
+	animated: {
+		checkout: (x,y,a,b) => ({
+			bottom: x == 0 && y == true ? a : b,
+			position: 'absolute',
+		}),
+	}
 }
 
 export default styles;

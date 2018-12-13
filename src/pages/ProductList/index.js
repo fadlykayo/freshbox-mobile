@@ -68,7 +68,7 @@ class ProductList extends Component {
 		this.openFromNotification = this.openFromNotification.bind(this);
 		this.introAnimate = this.introAnimate.bind(this);
 		this.outroAnimate = this.outroAnimate.bind(this);
-		this.showCheckout = new Animated.Value(0);
+		this.showCheckout = new Animated.Value(0.01);
 	}
 
 	componentDidMount(){
@@ -107,7 +107,7 @@ class ProductList extends Component {
 					toValue: 1,
 					duration,
 					easing,
-					delay
+					delay,
 			 	}
 			)
 		}
@@ -123,7 +123,7 @@ class ProductList extends Component {
 					toValue: 1,
 					duration,
 					easing,
-					delay
+					delay,
 			 	}
 			)
 		}
