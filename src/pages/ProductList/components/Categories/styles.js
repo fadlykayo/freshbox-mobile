@@ -26,7 +26,7 @@ const styles = {
         right: 0,
         borderRadius: 20,
         backgroundColor: colour.white,
-        paddingHorizontal: width * 0.05,
+        paddingLeft: scaling.moderateScale(30),
         paddingBottom: width * 0.1,
     },
     subcontainer:{

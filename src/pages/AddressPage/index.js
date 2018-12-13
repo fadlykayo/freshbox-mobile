@@ -8,6 +8,7 @@ import Content from './components/Content';
 import AlertDialog from './components/AlertDialog';
 import { connect } from 'react-redux';
 import actions from '@actions';
+import styles from './styles';
 
 class AddressPage extends Component {
   	constructor(props) {
@@ -407,6 +408,7 @@ class AddressPage extends Component {
 					setAction={this.setAction}
 				/>
 				<ScrollView
+					style={styles.container}
 					keyboardShouldPersistTaps={'handled'}
 					keyboardDismissMode={'on-drag'}
 				>

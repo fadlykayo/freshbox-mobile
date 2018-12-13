@@ -61,7 +61,7 @@ class Dropdown extends Component {
                     <View style={styles.showPasswordButton}>
                         <Image
                             resizeMode={'contain'} 
-                            source={this.props.isOpen ? images.icon_dropdown_arrow_up : images.icon_dropdown_arrow_down}
+                            source={this.props.isOpen ? images.icon_arrow_up_red : images.icon_arrow_down_red}
                             style={styles.icon}
                         />
                     </View>

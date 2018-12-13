@@ -21,7 +21,7 @@ const styles = {
             alignItems: 'center',
             position: 'absolute',
             right: 0,
-            marginRight: width * 0.03,
+            marginRight: scaling.moderateScale(30),
         }
     },
     icon:{

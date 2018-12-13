@@ -28,33 +28,10 @@ const styles = {
             color: colour.darkGrey,
         }
     },
-    label: {
-        fontFamily: 'Avenir-Heavy',
-        fontSize: scaling.moderateScale(12),
-        color: colour.darkGrey,
-    },
-    formInput: {
-        fontFamily: 'Avenir-Book',
-        fontSize: scaling.moderateScale(14),
-        color: colour.darkGrey,
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingTop: scaling.moderateScale(10),
-        paddingBottom: scaling.moderateScale(5)
-    },
     underline: {
         height: 1,
         borderTopWidth: 1,
-        borderColor: colour.lightGrey,
-    },
-    showPasswordButton: {
-        position: 'absolute',
-        right: 0,
-        bottom: 10,
-    },
-    icon:{
-        height: scaling.moderateScale(20),
-        width: scaling.moderateScale(20),
+        borderColor: colour.mediumGrey,
     },
 }
 

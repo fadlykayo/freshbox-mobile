@@ -105,7 +105,7 @@ class FormInput extends Component {
                 {this._renderLabel(this.props)}
                 <TextInput
                     ref={c => {this.TextInput = c}}
-					style={styles.text.placeholder}
+					style={this.props.value.length == 0 ? styles.text.placeholder : [styles.text.placeholder,styles.text.content]}
                     autoCapitalize={'none'}
                     autoFocus={this.state.autoFocus}
 					multiline={this.state.multiline}
