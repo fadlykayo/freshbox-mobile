@@ -13,16 +13,11 @@ const styles = {
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			borderWidth: 1,
 			borderRadius: 100,
 			marginRight: scaling.moderateScale(10),
 			marginBottom: scaling.moderateScale(10),
 		},
 		add:{
-			backgroundColor: colour.red,
-			borderColor: colour.red,
-			paddingHorizontal: scaling.moderateScale(15),
-			paddingVertical: scaling.moderateScale(5),
 			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
@@ -62,6 +57,13 @@ const styles = {
 			color: colour.red,
 		}
 	},
+	button: {
+		place: {
+			borderColor: colour.red,
+			paddingHorizontal: scaling.moderateScale(15),
+			paddingVertical: scaling.moderateScale(5),
+		}
+	}
 }
 
 export default styles;

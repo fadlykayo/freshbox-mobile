@@ -20,11 +20,6 @@ const styles = {
     		alignItems: 'center',
     		paddingHorizontal: width * 0.05,
 			justifyContent: 'space-between',
-			shadowColor: Platform.OS == 'ios' ? colour.blackTransparent : null,
-			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 2}  : {width: 0,height: 0},
-			shadowRadius: Platform.OS == 'ios' ? 15 : 0,
-			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-			elevation: Platform.OS == 'android' ? 3 : 0,
 		}
 	},
   	icon:{

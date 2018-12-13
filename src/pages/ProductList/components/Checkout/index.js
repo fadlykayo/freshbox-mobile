@@ -22,8 +22,8 @@ class CheckoutComponent extends PureComponent {
 		if(this.props.totalCount == 0) return null;
 		else {
 			return(
-				<TouchableOpacity onPress={this.validateCart} >
-					<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colour.darkRedTransition, colour.redTransition]} style={styles.checkoutButton}>
+				<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colour.darkRedTransition, colour.redTransition]} style={styles.container}>
+					<TouchableOpacity onPress={this.validateCart} style={styles.subcontainer.button}>
 					<Text style={styles.checkoutText}>
 						{this.props.totalCount}
 						<StaticText 
@@ -37,8 +37,8 @@ class CheckoutComponent extends PureComponent {
 						source={images.icon_cart}
 						style={styles.icon}
 					/>
-					</LinearGradient>
-				</TouchableOpacity>
+					</TouchableOpacity>
+				</LinearGradient>
 			)
 		}
 	}

@@ -16,12 +16,11 @@ class CheckoutComponent extends PureComponent {
 			<View style={styles.container}>
 				<View style={styles.totalPrice}>
 					<StaticText 
-						style={styles.textData}
+						style={styles.text.base}
 						property={'cart.content.subTotal'}
 					/>
-					<Text style={styles.textData}>
+					<Text style={[styles.text.base,styles.text.price]}>
 						<StaticText 
-							style={styles.textData}
 							property={'cart.content.price'}
 						/> 
 						{subtotal}

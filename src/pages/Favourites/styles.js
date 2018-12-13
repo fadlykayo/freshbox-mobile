@@ -8,7 +8,7 @@ const styles = {
 	container: {
 		backgroundColor: colour.white,
 		flex: 1,
-		paddingTop: width * 0.03,
+		marginTop: width * 0.03,
 	},
 	subcontainer: {
 		cart: {
