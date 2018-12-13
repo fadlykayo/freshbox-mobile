@@ -18,23 +18,25 @@ class DeliveryPlace extends PureComponent {
 		const address = this.props.addresses.filter(e => e.primary == 1)[0];
         return (
             <View style={styles.container}>
-				{ this.props.addresses.length == 0 
-					? (<View style={styles.subcontainer.static}></View>)
-					: 	(<View style={styles.subcontainer.top}>
-		    				<StaticText
-		    					style={styles.text.static}
-		    					property={'checkout.label.deliveryAddress'}
-		    				/>
-		    			    <Text style={styles.text.address}>{address.receiver_name} <Text style={styles.text.nameAddress}>({address.name})</Text></Text>
-		    			    { address.detail.length == 0 ? (
-            			        <Text style={styles.text.address}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
-		    			    ) : (
-            			        <Text style={styles.text.address}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}, {address.detail}</Text>
-		    			    )}
-		    			    <Text style={styles.text.address}>{address.phone_number}</Text>
-						</View>
-					)
-				}
+				<View style={styles.subcontainer.top}>
+					{ this.props.addresses.length == 0 
+						? (<View style={styles.subcontainer.static}></View>)
+						: 	(<View style={styles.subcontainer.top}>
+								<StaticText
+									style={styles.text.static}
+									property={'checkout.label.deliveryAddress'}
+								/>
+								<Text style={styles.text.address}>{address.receiver_name} <Text style={styles.text.nameAddress}>({address.name})</Text></Text>
+								{ address.detail.length == 0 ? (
+									<Text style={styles.text.address}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}</Text>
+								) : (
+									<Text style={styles.text.address}>{address.address}, {address.zip_code.place_name}, {address.subdistrict.name}, {address.city.name}, {address.province.name}, {address.zip_code.zip_code}, {address.detail}</Text>
+								)}
+								<Text style={styles.text.address}>{address.phone_number}</Text>
+							</View>
+						)
+					}
+				</View>
 				<View style={styles.subcontainer.bottom}>
 					<Button
 						type={this.props.type}

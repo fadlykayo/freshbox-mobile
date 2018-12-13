@@ -145,7 +145,7 @@
             "chooseDate": "Pilih Tanggal Kirim"
         },
         "button": {
-            "checkout": "BAYAR"
+            "checkout": "Bayar"
         },
         "validation":{
             "fullName": "Tolong masukkan nama anda",
@@ -460,7 +460,7 @@
             "expiredDate": "Tanggal Kadaluarsa",
             "expED": "contoh: 08/20",
             "cvv": "Kode CVV",
-            "checkout": "BAYAR",
+            "checkout": "Bayar",
             "examplecvv": "contoh: 123"
         },
         "validation": {

@@ -11,6 +11,8 @@ target 'Freshbox' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
 end
 
 post_install do |installer|

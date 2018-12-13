@@ -453,6 +453,7 @@ class ProductList extends Component {
 			});
 		}
 		else{
+			console.log("masuk")
 			this.navigateToCart();
 		}
 	}
