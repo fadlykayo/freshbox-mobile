@@ -73,10 +73,11 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index.js",
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
+// apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../react.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -153,7 +154,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-linear-gradient')
+    implementation project(':react-native-linear-gradient')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-vector-icons')
