@@ -15,6 +15,7 @@ class FormInput extends Component {
 			autoFocus: props.autoFocus ? props.autoFocus : false,
             multiline: props.multiline ? props.multiline : false,
             editable: props.editable ? props.editable : true,
+            textContentType: props.textContentType ? props.textContentType : 'none',
             keyboardType: props.keyboardType ? props.keyboardType : 'default',
             returnKeyType: props.returnKeyType ? props.returnKeyType : 'done',
             maxLength: props.maxLength ? props.maxLength : 9999,
@@ -140,7 +141,8 @@ class FormInput extends Component {
 					editable={this.state.editable}
 					keyboardType={this.state.keyboardType}
 					returnKeyType={this.state.returnKeyType}
-					secureTextEntry={this.state.isSecret}
+                    secureTextEntry={this.state.isSecret}
+                    textContentType={this.state.textContentType}
 					onFocus={this.onFocus}
 					onBlur={this.onBlur}
 					underlineColorAndroid='transparent'

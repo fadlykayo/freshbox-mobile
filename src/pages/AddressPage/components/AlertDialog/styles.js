@@ -10,7 +10,7 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
         width: width,
         height: height
     },
@@ -56,18 +56,18 @@ const styles = {
     },
     text: {
         red: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.white
         },
         white: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.white
         }
     },
     staticText: {
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(14),
         color: colour.darkGrey,
         lineHeight: 20

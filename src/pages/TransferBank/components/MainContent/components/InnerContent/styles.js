@@ -10,14 +10,12 @@ const styles = {
         flexDirection: 'row',
         height: width * 0.115,
         backgroundColor: colour.veryLightGrey,
-        // borderBottomColor: colour.grey,
-        // borderBottomWidth: 0.8,
         alignItems: 'center',
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,
     },
     staticText: {
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         fontWeight: '500',
         color: colour.darkGrey
@@ -62,7 +60,7 @@ const styles = {
     },
     indexContent: {
         color: colour.red,
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(14),
     },
     rightPart: {
@@ -71,7 +69,7 @@ const styles = {
     },
     contentText: {
         color: colour.veryDarkGrey,
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         lineHeight: scaling.moderateScale(15)
     }

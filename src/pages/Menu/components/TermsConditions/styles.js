@@ -13,7 +13,7 @@ const styles = {
         backgroundColor: colour.whiteTransparent,
     },
     termsAndCondition:{
-        fontFamily: 'Avenir-Light',
+        fontFamily: 'Avenir-Book',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
         textAlign: 'center',

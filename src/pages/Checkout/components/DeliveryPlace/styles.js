@@ -6,20 +6,28 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container: {
-		flex: 2,
+		flex: -1,
+		// height: height * 0.33,
 		backgroundColor: colour.white,
-		padding: width * 0.05,
-		borderBottomColor: colour.lightGrey,
+		borderBottomColor: colour.mediumGrey,
 		borderBottomWidth: 1,
+		paddingVertical: width * 0.03,
 	},
 	subcontainer: {
 		static: {
 			flex: 1,
+		},
+		top: {
+			flex: -1,
+		},
+		bottom: {
+			flex: -1,
+			paddingVertical: width * 0.02,
 		}
 	},
 	text: {
 		address: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey,
 			marginBottom: scaling.moderateScale(10),
@@ -28,38 +36,11 @@ const styles = {
 			color: colour.grey
 		},
 		static: {
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(12),
 			color: colour.grey,
 			marginBottom: scaling.moderateScale(10),
 		},
-		otherAddress: {
-
-		}
-	},
-	button: {
-		otherAddress: {
-			marginTop: scaling.moderateScale(10),
-			width: width * 0.9,
-			height: scaling.moderateScale(50),
-			borderColor: colour.red,
-			borderWidth: 1,
-			borderRadius: 8,
-			alignItems: 'center',
-			justifyContent: 'center',
-			paddingTop: scaling.moderateScale(6),
-		}
-	},
-	buttonOtherAddress: {
-		marginTop: scaling.moderateScale(10),
-		width: width * 0.9,
-		height: scaling.moderateScale(50),
-		borderColor: colour.red,
-		borderWidth: 1,
-		borderRadius: 8,
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingTop: scaling.moderateScale(6),
 	},
 }
 

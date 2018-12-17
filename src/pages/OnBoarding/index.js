@@ -26,7 +26,7 @@ class OnBoarding extends Component {
                 {
                     type: 'white',
                     title: 'onBoarding.content.second.title',
-                    content: 'onBoarding.content.second.info',
+                    content: ['onBoarding.content.second.info.1','onBoarding.content.second.info.2','onBoarding.content.second.info.3'],
                     button: 'onBoarding.button.skip'
                 },
                 {

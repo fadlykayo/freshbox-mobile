@@ -85,6 +85,7 @@ class ChooseAddress extends Component {
                                     key={index}
                                     address={address}
                                     index={index}
+                                    length={this.props.addresses.length-1}
                                     updatePrimaryAddress={this.updatePrimaryAddress}
                                     navigateToEditAddress={this.navigateToEditAddress}
                                 />

@@ -19,14 +19,18 @@ const styles = {
     },
     text: {
         title: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
         },
         content: {
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(13),
             color: colour.darkGrey,
+        },
+        link: {
+            color: colour.red,
+            textDecorationLine: 'underline'
         }
     },
     info: {
@@ -45,10 +49,10 @@ const styles = {
                 right: 0,
                 marginRight: width * 0.05,
             },
-            logo: {
-                height: scaling.moderateScale(10),
-                width: scaling.moderateScale(10),
-            }
+            logo: (x) => ({
+                height: x ? scaling.moderateScale(6) : scaling.moderateScale(12),
+                width: x ? scaling.moderateScale(12) : scaling.moderateScale(6),
+            })
         },
         content: {
             flex: -1,
@@ -65,6 +69,10 @@ const styles = {
             flexDirection: 'row',
             alignItems: 'center',
         },
+        preInfo: {
+            paddingVertical: width * 0.02,
+            paddingHorizontal: width * 0.05
+        },
         circle: {
             height: height * 0.05,
             width: height * 0.05,
@@ -75,7 +83,7 @@ const styles = {
         },
         index: {
             color: colour.red,
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
         },
         right: {

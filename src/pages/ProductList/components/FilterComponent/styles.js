@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -19,7 +19,7 @@ const styles = {
     		flexDirection: 'row',
     		alignItems: 'center',
     		paddingHorizontal: width * 0.05,
-    		justifyContent: 'space-between',
+			justifyContent: 'space-between',
 		}
 	},
   	icon:{
@@ -28,7 +28,7 @@ const styles = {
 	},
 	text: {
 		title: {
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(15),
     		color: colour.white
 		},

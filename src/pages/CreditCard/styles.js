@@ -27,7 +27,7 @@ const styles = {
         content: (x) => ({
             width: width * 0.7,
             borderBottomWidth: 1,
-            borderBottomColor: x ? colour.red : colour.lightGrey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             marginBottom: width * 0.03,
         }),
         
@@ -35,19 +35,19 @@ const styles = {
     text: {
         title: {
             fontSize: scaling.moderateScale(12),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.black,
         },
         creditCard: {
             paddingHorizontal: 0,
             paddingVertical: Platform.OS == 'android' ? scaling.moderateScale(5) : scaling.moderateScale(5),
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
         },
         content: {
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
         },
         expMonth: {
@@ -56,7 +56,7 @@ const styles = {
             width: width * 0.15,
             textAlign: 'center',
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
         },
         expYear: {
@@ -65,7 +65,7 @@ const styles = {
             width: width * 0.15,
             textAlign: 'center',
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
         },
         cvv: {
@@ -73,7 +73,7 @@ const styles = {
             paddingVertical: Platform.OS == 'android' ? 0 : scaling.moderateScale(5),
             width: width * 0.2,
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
             width: width * 0.1,
         },
@@ -82,7 +82,7 @@ const styles = {
         },
         example: {
             fontSize: scaling.moderateScale(11),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.grey,
             marginTop: scaling.moderateScale(5),
         }
@@ -104,7 +104,7 @@ const styles = {
             width: width * 0.15,
             alignItems: 'center',
             paddingVertical: y > 0 ? width * 0.03 : width * 0.04,
-            borderBottomColor: x ? colour.red : colour.lightGrey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
         })
     },
@@ -118,7 +118,7 @@ const styles = {
         },
         left: (x) => ({
             width: width * 0.15,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
             marginRight: scaling.moderateScale(5),
@@ -131,13 +131,13 @@ const styles = {
         },
         right: (x) => ({
             width: width * 0.15,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
         }),
         cvv: (x) => ({
             width: width * 0.2,
-            borderBottomColor: x ? colour.red : colour.grey,
+            borderBottomColor: x ? colour.red : colour.mediumGrey,
             borderBottomWidth: 1,
             alignItems: 'center',
         }),

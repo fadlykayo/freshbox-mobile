@@ -27,10 +27,18 @@ class HistoryPage extends Component {
 		if(this.props.navigation.state.params.refreshProductList) {
 			this.props.navigation.state.params.refreshProductList();
 		}
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
 	}
 
-	componentDidMount(){
-		this.getHistoryData();
+	componentDidMount() {
+		if(this.props.transactions.length == 0) {
+			this.getHistoryData();
+		} else {
+			this.refreshHandler();
+		}
+
 	}
 
 	refreshHandler(){

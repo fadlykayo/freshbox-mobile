@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -12,6 +12,11 @@ const styles = {
 			borderWidth: 2,
 			borderRadius: 100,
 			borderColor: colour.lightOrange,
+			shadowColor: Platform.OS == 'ios' ? colour.lightOrange : null,
+			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 0}  : {width: 0,height: 0},
+			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+			elevation: Platform.OS == 'android' ? 3 : 0,
 			backgroundColor: colour.white,
 			alignItems: 'center',
 			justifyContent: 'center',
@@ -20,7 +25,7 @@ const styles = {
 		},
 		text: {
 			color: colour.orange,
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(12),
 		}
 	},
@@ -32,13 +37,18 @@ const styles = {
 			borderRadius: 100,
 			borderColor: x == 'finish' ? colour.green : colour.red,
 			backgroundColor: x == 'finish' ? colour.green : colour.red,
+			shadowColor: Platform.OS == 'ios' ? x == 'finish' ? colour.softGreenTransparent: colour.redTransparent : null,
+			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
+			shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+			elevation: Platform.OS == 'android' ? 2 : 0,
 			alignItems: 'center',
 			justifyContent: 'center',
 			paddingHorizontal: scaling.moderateScale(10),
 		}),
 		text: {
 			color: colour.white,
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(12),
 		},
 		
@@ -50,7 +60,7 @@ const styles = {
 		},
 		text: {
 			color: colour.red,
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(13),
 		}
 	}

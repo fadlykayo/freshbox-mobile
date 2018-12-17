@@ -41,6 +41,10 @@ action.clear_products = () => ({
     type: ct.CLEAR_PRODUCTS,
 })
 
+action.clear_product_lists = () => ({
+    type: ct.CLEAR_PRODUCT_LISTS
+})
+
 action.reset_products = () => ({
     type: ct.RESET_PRODUCTS,
 })
@@ -81,6 +85,10 @@ action.toggle_favorite = (data) => ({
     payload: {
         data,
     }  
+})
+
+action.reset_params = () => ({
+    type: ct.RESET_PARAMS
 })
 
 export default action;

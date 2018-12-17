@@ -10,11 +10,11 @@ const onBoarding = (state) => {
     return newState;
 }
 
-const utility = (state = initialState, action) => {
+const utilityReducer = (state = initialState, action) => {
     switch(action.type){
         case ct.ON_BOARDING: return onBoarding(state)
         default: return state;
     };
 };
 
-export default utility;
+export default utilityReducer;

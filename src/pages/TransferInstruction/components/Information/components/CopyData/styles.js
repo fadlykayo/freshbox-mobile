@@ -42,12 +42,12 @@ const styles = {
             },
             text: {
                 static: {
-                    fontFamily: 'Avenir-Black',
+                    fontFamily: 'Avenir-Heavy',
                     fontSize: scaling.moderateScale(14),
                     color: colour.darkGrey
                 },
                 price: {
-                    fontFamily: 'Avenir-Black',
+                    fontFamily: 'Avenir-Heavy',
                     fontSize: scaling.moderateScale(14),
                     color: colour.red
                 }

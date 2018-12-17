@@ -6,20 +6,17 @@ const { width } = Dimensions.get('window');
 
 const styles = {
     container:{
-        height: scaling.moderateScale(50),
-        width: width * 0.9,
+        paddingTop: scaling.moderateScale(30),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
     },
     content:{
-        fontFamily: 'Avenir-Light',
+        fontFamily: 'Avenir-Book',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
     },
     register:{
-        fontFamily: 'Avenir-Light',
-        fontSize: scaling.moderateScale(12),
         color: colour.red,
     }
 }

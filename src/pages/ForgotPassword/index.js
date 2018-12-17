@@ -84,7 +84,7 @@ class ForgotPassword extends Component {
             this.forgotPasswordHandler();
         })
         .catch(() => {
-            this.setValidation('emailFormat',false);
+            this.setValidation('phone',false);
         })
     }
 
@@ -96,9 +96,8 @@ class ForgotPassword extends Component {
             }
         }
 
-        // actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
         this.props.forgot_password(payload,
-            (success) => {
+            (res) => {
                 actNav.navigate(navConstant.ResetPasswordPage, {action: 'forgotPassword', phone: this.state.user.phone})
             },
             (err) => {

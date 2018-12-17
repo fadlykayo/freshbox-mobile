@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { TouchableOpacity, View, Image, ScrollView, Text } from 'react-native';
+import { TouchableOpacity, View, Image, ScrollView, Text, Modal } from 'react-native';
 import ButtonFav from '@components/ButtonFav';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonCount from '@components/ButtonCount';
@@ -9,7 +9,6 @@ import ScrollDown from './components/ScrollDown';
 import CountImage from './components/CountImage';
 import BubbleComponent from './components/BubbleComponent';
 import styles from './styles';
-import images from '@assets';
 
 class ProductDetail extends Component {
 	constructor(){
@@ -52,89 +51,94 @@ class ProductDetail extends Component {
 	}
 
 	render(){
-		if(this.props.modalVisible){
-			return(
+		if(this.props.modalVisible) {
+			return (
 				<View style={styles.background}>
-					<TouchableOpacity style={styles.touchable} onPress={this.closeDetailProduct}></TouchableOpacity>
-					<View style={styles.container}>
-						<ScrollDown
-							closeDetailProduct={this.props.closeDetailProduct}
-						/>
-						<View style={styles.subcontainer.mid}>
-							<View style={styles.subcontainer.product}>
-								<ScrollView
-									ref={ e => { this.scrollRef = e }}
-									horizontal={true}
-									pagingEnabled={true}
-									showsHorizontalScrollIndicator={false}
-									onScroll={(e) => this.getPositionIndex(e)}
-									scrollEventThrottle={0}
-									contentContainerStyle={styles.image.content}
-									style={styles.image.style}
-								>
-									{ this.props.data.images_sizes_url.original.map((image,index) => {
-										return (
-											<TouchableOpacity key={index} onPress={this.openZoomImage}>
-												<Image
-													resizeMode={'contain'} 
-													source={{uri: image}}
-													style={styles.icon.product}
-												/>
-											</TouchableOpacity>
+					<Modal
+						animationType={'slide'}
+						transparent={true}
+						visible={this.props.modalVisible}
+						onRequestClose={this.closeDetailProduct}
+					>
+						<TouchableOpacity style={styles.touchable} onPress={this.closeDetailProduct}></TouchableOpacity>
+						<View style={styles.container}>
+							<ScrollDown
+								closeDetailProduct={this.props.closeDetailProduct}
+							/>
+							<View style={styles.subcontainer.mid}>
+								<View style={styles.subcontainer.product}>
+									<ScrollView
+										ref={ e => { this.scrollRef = e }}
+										horizontal={true}
+										pagingEnabled={true}
+										showsHorizontalScrollIndicator={false}
+										onScroll={(e) => this.getPositionIndex(e)}
+										scrollEventThrottle={0}
+										contentContainerStyle={styles.image.content}
+										style={styles.image.style}
+									>
+										{ this.props.data.images_sizes_url.original.map((image,index) => {
+											return (
+												<TouchableOpacity key={index} onPress={this.openZoomImage}>
+													<Image
+														resizeMode={'contain'} 
+														source={{uri: image}}
+														style={styles.icon.product}
+													/>
+												</TouchableOpacity>
+											)}
 										)}
-									)}
+									</ScrollView>
+									<BubbleComponent
+										images={this.props.data.images_sizes_url.original}
+										bubble={this.props.bubble}
+									/>
+									<CountImage
+										images={this.props.data.images_sizes_url.original}
+										bubble={this.props.bubble}
+									/>
+								</View>
+								<Content data={this.props.data}/>
+								{
+									this.props.type == 'cart'
+									? 	null
+									:	<ButtonFav 
+											data={this.props.data}
+											user={this.props.user}
+											isFavorite={this.props.data.favorite}
+											toggleFavorite={this.props.toggleFavorite}
+										/>
+								}
+							</View>
+							<View style={styles.subcontainer.bottom}>
+								<ScrollView style={styles.bottomContainer}>
+									<Text style={styles.text.description}>{this.props.data.description}</Text>
 								</ScrollView>
-								<BubbleComponent
-									images={this.props.data.images_sizes_url.original}
-									bubble={this.props.bubble}
-								/>
-								<CountImage
-									images={this.props.data.images_sizes_url.original}
-									bubble={this.props.bubble}
+								<ButtonCount
+									data={this.props.data}
+									count={this.props.data.count}
+									addTotalItem={this.addTotalItem}
+									decTotalItem={this.decTotalItem}
 								/>
 							</View>
-							<Content data={this.props.data}/>
-							{
-								this.props.type == 'cart'
-								? 	null
-								:	<ButtonFav 
-										data={this.props.data}
-										user={this.props.user}
-										isFavorite={this.props.data.favorite}
-										toggleFavorite={this.props.toggleFavorite}
-									/>
-							}
+							<View style={styles.subcontainer.verification}>
+								<ProductStockVerificationText 
+									type={this.props.type}
+									count={this.props.data.count}
+									stock={this.props.data.stock}
+									maxQty={this.props.data.maxQty}
+								/>
+							</View>	
 						</View>
-						<View style={styles.subcontainer.bottom}>
-							<ScrollView style={styles.bottomContainer}>
-								<Text style={styles.text.description}>{this.props.data.description}</Text>
-							</ScrollView>
-							<ButtonCount
-								data={this.props.data}
-								count={this.props.data.count}
-								addTotalItem={this.addTotalItem}
-								decTotalItem={this.decTotalItem}
-							/>
-						</View>
-						<View style={styles.subcontainer.verification}>
-							<ProductStockVerificationText 
-								type={this.props.type}
-								count={this.props.data.count}
-								stock={this.props.data.stock}
-								maxQty={this.props.data.maxQty}
-							/>
-						</View>	
-					</View>
-					<ZoomImage
-						modalVisible={this.props.openImageDetail}
-						closeZoomImage={this.closeZoomImage}
-						images={this.props.data.images_sizes_url.original}
-					/>
+						<ZoomImage
+							modalVisible={this.props.openImageDetail}
+							closeZoomImage={this.closeZoomImage}
+							images={this.props.data.images_sizes_url.original}
+						/>
+					</Modal>
 				</View>
-			)
-		} else {
-			return null;
-		}
+				)
+		} else return null;
 	}
 }
 

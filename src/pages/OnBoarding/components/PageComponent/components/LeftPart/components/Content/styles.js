@@ -11,7 +11,7 @@ const styles = {
     },
     title: {
         text: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(20),
             color: colour.white,
             lineHeight: scaling.moderateScale(24),
@@ -23,10 +23,13 @@ const styles = {
             width: width * 0.7
         }, 
         text: {
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(13),
             color: colour.white,
             lineHeight: scaling.moderateScale(21),
+        },
+        italic: {
+            fontStyle: 'italic'
         }
     },
 }

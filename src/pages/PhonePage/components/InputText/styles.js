@@ -12,12 +12,12 @@ const styles = {
     },
     text: { 
         title: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(12),
-            color: colour.grey,
+            color: colour.darkGrey,
         },
         content: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
             paddingVertical: scaling.moderateScale(10),
@@ -26,7 +26,7 @@ const styles = {
     underline: {
         height: 1,
         borderTopWidth: 1,
-        borderColor: colour.lightGrey,
+        borderColor: colour.mediumGrey,
     },
 }
 

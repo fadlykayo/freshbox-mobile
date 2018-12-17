@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions } from 'react-native';
-import { language } from '@helpers'
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing } from 'react-native';
+import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
-import ZoomImage from '@components/ZoomImage';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -34,10 +33,10 @@ class ProductList extends Component {
 				openCategories: false,
 				openProduct: false,
 				openImageDetail: false,
+				checkout: false,
 			},
 		};
 		this.listRef = null;
-		this.scrollRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
 		this.onChangeText  =  this.onChangeText.bind(this);
 		this.checkCategory = this.checkCategory.bind(this);
@@ -64,6 +63,100 @@ class ProductList extends Component {
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
+		this.counterTotalCount = this.counterTotalCount.bind(this);
+		this.checkNotification = this.checkNotification.bind(this);
+		this.openFromNotification = this.openFromNotification.bind(this);
+		this.introAnimate = this.introAnimate.bind(this);
+		this.outroAnimate = this.outroAnimate.bind(this);
+		this.showCheckout = new Animated.Value(0);
+	}
+
+	componentDidMount(){
+		this.getProductList();
+		this.getCategories();
+		this.checkCategory();
+		this.getFavorites();
+		this.checkNotification();
+		if(Platform.OS == 'android') {
+			permission.requestSaveExternal();
+		}
+	}
+
+	counterTotalCount(type) {
+		if(this.props.total_count == 1 && type == 'desc') {
+			this.outroAnimate();
+		} else if(this.props.total_count == 0 && type == 'inc') {
+			if(this.state.modalVisible.checkout) {
+				this.introAnimate();
+			} else {
+				let modalVisible = this.state.modalVisible;
+				modalVisible.checkout = true;
+				this.setState({modalVisible},() => {
+					this.introAnimate();
+				})
+			}
+		}
+	}
+
+	introAnimate() {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start()
+	}
+
+	outroAnimate() {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+	}
+
+	checkNotification() {
+		if(this.props.notif) {
+			if(this.props.notif.action == 'open.transaction') {
+				this.openFromNotification(this.props.notif.invoice);
+			}
+		}
+	}
+
+	openFromNotification(input) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: false,
+					refreshHandler: this.refreshHandler,
+				});
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 
 	openZoomImage(){
@@ -88,13 +181,6 @@ class ProductList extends Component {
         }
     }
 
-	componentDidMount(){
-		this.getProductList();
-		this.getCategories();
-		this.checkCategory();
-		this.getFavorites();
-	}
-
 	_renderButton(index, length) {
 		if(this.state.search) {
 			if (index == length) {
@@ -113,8 +199,16 @@ class ProductList extends Component {
 	}
 
 	backToDefault() {
-		this.clearSearch();
-		this.refreshHandler();
+		this.props.clear_product_lists();
+		this.onChangeText('search', false);
+		this.onChangeText('searchItem', '');
+		this.props.reset_params();
+		this.setState({refreshing: true},() => {
+			if (this.state.search) {
+				this.onChangeText('search', false);
+			}
+			this.getProductList();
+		});
 	}
 
 	onChangeText(type,value){
@@ -135,8 +229,11 @@ class ProductList extends Component {
 
 	refreshHandler(){
 		this.setState({refreshing: true},() => {
-			if (this.state.search) this.onChangeText('search', false)
-			this.refreshProductList();
+			if (this.state.search) {
+				this.backToDefault();
+			} else {
+				this.refreshProductList();
+			}
 		});
 	}
 
@@ -352,6 +449,7 @@ class ProductList extends Component {
 
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
+		this.counterTotalCount(type);
 	}
 	
 	submitSearch() {
@@ -396,6 +494,7 @@ class ProductList extends Component {
 			});
 		}
 		else{
+			console.log("masuk")
 			this.navigateToCart();
 		}
 	}
@@ -434,59 +533,70 @@ class ProductList extends Component {
 	}
 
 	render(){
+		const introButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [-(width * 0.3), 0]
+		})
+		const outroButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, -(width * 0.3)]
+		})
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}
                 bgColorTop={'red'}
             >
-				<SearchComponent
-					type={'searchItem'}
-					title={'productList.searchPlaceHolder'}
-					value={this.state.searchItem}
-					onChangeText={this.onChangeText}
-					onSubmitEditing={this.submitSearch}
-					openDrawerMenu={this.openDrawerMenu}
-					clearSearch={this.clearSearch}
-				/>
-				<FilterComponent 
-					onCategory={this.props.on_category}
-					openAllCategories={this.openAllCategories}
-				/>
-				<Notes />
-				<View style={styles.container}>
-					<View style={styles.cartContainer}>
-						<FlatList
-							ref={(e) => { this.listRef = e}}
-							data={this.props.product}
-							onEndReachedThreshold={0.05}
-							onRefresh={this.refreshHandler}
-							refreshing={this.state.refreshing}
-							keyExtractor={(item) => item.code}
-							onEndReached={this.handleLoadMore}
-							renderItem={({item,index}) => (
-								<View key={index}>
-									<ProductItem
-										search={this.state.search}
-										data={item}
-										index={index+1}
-										type={'productList'}
-										user={this.props.user}
-										toggleFavorite={this.toggleFavorite}
-										changeTotalItem={this.changeTotalItem}
-										productLength={this.props.product.length}
-										openDetailProduct= {this.openDetailProduct}
-									/>
-									{ this._renderButton(index, this.props.product.length - 1) }
-								</View>
-							)}
-						/>
-						<Checkout
-							totalCount={this.props.total_count}
-							totalPrice={this.props.total_price}
-							validateCart={this.validateCart}
-						/>
+					<SearchComponent
+						type={'searchItem'}
+						title={'productList.searchPlaceHolder'}
+						value={this.state.searchItem}
+						onChangeText={this.onChangeText}
+						onSubmitEditing={this.submitSearch}
+						openDrawerMenu={this.openDrawerMenu}
+						clearSearch={this.clearSearch}
+					/>
+					<FilterComponent 
+						onCategory={this.props.on_category}
+						openAllCategories={this.openAllCategories}
+					/>
+					<Notes />
+					<View style={styles.container}>
+						<View style={styles.cartContainer}>
+							<FlatList
+								ref={(e) => { this.listRef = e}}
+								data={this.props.product}
+								onEndReachedThreshold={0.05}
+								onRefresh={this.refreshHandler}
+								refreshing={this.state.refreshing}
+								keyExtractor={(item) => item.code}
+								onEndReached={this.handleLoadMore}
+								renderItem={({item,index}) => (
+									<View key={index}>
+										<ProductItem
+											search={this.state.search}
+											data={item}
+											index={index+1}
+											type={'productList'}
+											user={this.props.user}
+											toggleFavorite={this.toggleFavorite}
+											changeTotalItem={this.changeTotalItem}
+											productLength={this.props.product.length}
+											openDetailProduct= {this.openDetailProduct}
+										/>
+										{ this._renderButton(index, this.props.product.length - 1) }
+									</View>
+								)}
+							/>
+							<Checkout
+								introButton={introButton}
+								outroButton={outroButton}
+								modalVisible={this.state.modalVisible.checkout}
+								totalCount={this.props.total_count}
+								totalPrice={this.props.total_price}
+								validateCart={this.validateCart}
+							/>
+						</View>
 					</View>
-				</View>
 				<ProductDetail
 					type={'productList'}
 					user={this.props.user}
@@ -508,7 +618,6 @@ class ProductList extends Component {
 					categories = {this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
-					modalVisible={this.state.modalVisible.openCategories}
 		  		/>
 			</Container>
 		);
@@ -516,6 +625,7 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => ({
+	notif: state.notif.notification,
 	user: state.user.data,
 	state: state.product,
 	cart_product: state.product.cart.products,
@@ -531,11 +641,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
-	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
+	reset_params: () => dispatch(actions.product.reducer.reset_params()),
+	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
-	change_total : (index,type) => dispatch(actions.product.reducer.change_total(index,type)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),

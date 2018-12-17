@@ -7,11 +7,10 @@ const { width, height } = Dimensions.get('window');
 const styles = {
     container:{
         flex: 1,
-        paddingTop: width * 0.05,
-        paddingHorizontal: width * 0.05,
+        paddingTop: scaling.moderateScale(50),
+        paddingHorizontal: scaling.moderateScale(30),
     },
     content:{
-        // flex: 1,
         justifyContent: 'center',
     },
     messageWrong: {

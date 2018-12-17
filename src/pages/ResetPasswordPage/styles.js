@@ -8,8 +8,7 @@ const styles = {
 		backgroundColor: colour.white,
 		flex: 1,
 		paddingTop: width * 0.05,
-		paddingLeft: width * 0.05,
-		paddingRight: width * 0.05,
+		paddingHorizontal: width * 0.05,
     },
     formPassword: {
         flex: 1,

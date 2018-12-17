@@ -8,25 +8,26 @@ const styles = {
     container: {
         flex: -1,
         backgroundColor: colour.veryLightGrey,
-        padding: width * 0.05,
+        padding: scaling.moderateScale(20),
     },
     text: {
         static: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.grey,
             marginBottom: scaling.moderateScale(4),
         },
         detail: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
             marginBottom: scaling.moderateScale(18),
         },
         user: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
+            marginBottom: scaling.moderateScale(4),
         }
     },
 }

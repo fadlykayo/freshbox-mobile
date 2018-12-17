@@ -8,6 +8,7 @@ import Content from './components/Content';
 import AlertDialog from './components/AlertDialog';
 import { connect } from 'react-redux';
 import actions from '@actions';
+import styles from './styles';
 
 class AddressPage extends Component {
   	constructor(props) {
@@ -79,6 +80,79 @@ class AddressPage extends Component {
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.setAction = this.setAction.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.reset_region();
+		this.loadProvince();
+		this.loadCity();
+		this.loadSubdistrict();
+		this.loadZipCode();
+	}
+
+	loadProvince() {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+		}
+		this.props.load_province(payload, 
+			(res) => {
+			},
+			(err) => {
+				console.log(err)
+			})
+	}
+
+	loadCity() {
+		if (this.state.user.province.code.length !== 0) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				provinceCode: this.state.user.province.code
+			}
+			this.props.load_city(payload, 
+				(res) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
+	}
+
+	loadSubdistrict() {
+		if (this.state.user.city.code.length !== 0) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				cityCode: this.state.user.city.code
+			}
+			this.props.load_subdistrict(payload, 
+				(res) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
+	}
+
+	loadZipCode() {
+		if (this.state.user.subdistrict.code.length !== 0) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				subdistrictCode: this.state.user.subdistrict.code
+			}
+			this.props.load_zip_code(payload, 
+				(res) => {
+				},
+				(err) => {
+					console.log(err)
+				})
+		}
 	}
 
 	setStateValidation(input) {
@@ -214,14 +288,6 @@ class AddressPage extends Component {
 			}
         })
         .catch((err) => {
-			// language.transformText('message.emptyCart')
-			// .then(message => {
-			// 	this.props.set_error_status({
-			// 		status: true,
-			// 		title: 'formError.title.emptyCart',
-			// 		data: message,
-			// 	});
-			// });
             this.setValidation(err,false);
         });
 		
@@ -247,7 +313,7 @@ class AddressPage extends Component {
 			data: this.props.address_detail
 		}
 		this.props.update_address(payload,
-			(success) => {
+			(res) => {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
@@ -275,7 +341,7 @@ class AddressPage extends Component {
 		}
 
 		this.props.add_address(payload,
-			(success) => {
+			(res) => {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
@@ -298,7 +364,7 @@ class AddressPage extends Component {
 		}
 
 		this.props.delete_address(payload,
-			(success) => {
+			(res) => {
 				actNav.goBack()
 			},
 			(err) => {
@@ -308,71 +374,6 @@ class AddressPage extends Component {
 
 	navigateToProfilePage() {
 		actNav.navigate(navConstant.ProfilePage)
-	}
-
-	componentDidMount() {
-		this.props.reset_region();
-		this.loadProvince();
-		this.loadCity();
-		this.loadSubdistrict();
-		this.loadZipCode();
-	}
-
-	loadProvince() {
-		let payload = {
-			header: this.props.user.authorization
-		}
-		this.props.load_province(payload, 
-			(success) => {
-			},
-			(err) => {
-				console.log(err)
-			})
-	}
-
-	loadCity() {
-		if (this.state.user.province.code.length !== 0) {
-			let payload = {
-				header: this.props.user.authorization,
-				provinceCode: this.state.user.province.code
-			}
-			this.props.load_city(payload, 
-				(success) => {
-				},
-				(err) => {
-					console.log(err)
-				})
-		}
-	}
-
-	loadSubdistrict() {
-		if (this.state.user.city.code.length !== 0) {
-			let payload = {
-				header: this.props.user.authorization,
-				cityCode: this.state.user.city.code
-			}
-			this.props.load_subdistrict(payload, 
-				(success) => {
-				},
-				(err) => {
-					console.log(err)
-				})
-		}
-	}
-
-	loadZipCode() {
-		if (this.state.user.subdistrict.code.length !== 0) {
-			let payload = {
-				header: this.props.user.authorization,
-				subdistrictCode: this.state.user.subdistrict.code
-			}
-			this.props.load_zip_code(payload, 
-				(success) => {
-				},
-				(err) => {
-					console.log(err)
-				})
-		}
 	}
 
 	setModalVisible(type) {
@@ -407,6 +408,8 @@ class AddressPage extends Component {
 					setAction={this.setAction}
 				/>
 				<ScrollView
+					style={styles.container}
+					keyboardShouldPersistTaps={'handled'}
 					keyboardDismissMode={'on-drag'}
 				>
 					<Content

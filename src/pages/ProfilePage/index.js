@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
@@ -11,15 +11,6 @@ import actions from '@actions';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 
-var options = {
-    title: 'Select Image',
-    storageOptions: {
-      skipBackup: true,
-      path: 'images'
-    }
-  };
-
-
 class ProfilePage extends Component {
     constructor(props) {
         super(props)
@@ -29,6 +20,12 @@ class ProfilePage extends Component {
         this.navigateToResetPasswordPage = this.navigateToResetPasswordPage.bind(this);
         this.navigateLogOut = this.navigateLogOut.bind(this);
         this.choosePhoto = this.choosePhoto.bind(this);
+    }
+
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
     }
 
     navigateBack() {
@@ -55,6 +52,19 @@ class ProfilePage extends Component {
     }
     
     choosePhoto() {
+        const options = {
+            title: 'Select Image',
+            mediaType: 'photo',
+            maxWidth: 500,
+            maxHeight: 500,
+            quality: Platform.OS == 'android' ? 0.9 : 0.6,
+            storageOptions: {
+              skipBackup: true,
+              path: 'images'
+            }
+        };
+        
+
         ImagePicker.showImagePicker( options, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -66,12 +76,13 @@ class ProfilePage extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                // console.log("===>",response)
+                console.log("===>",response)
+                
 
                 let data = {
                     uri: response.uri,
-                    type: response.type,
-                    name: response.fileName,
+                    type: response.type == undefined ? 'image/jpeg' : response.type,
+                    name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
                     data: response.data
                 }
 
@@ -87,7 +98,6 @@ class ProfilePage extends Component {
 
                 this.props.upload_photo(payload,
                     (res) => {
-                        console.log("balik kesini",res)
                         language.transformText('message.uploadPhotoSuccess')
 				        .then(message => {
 				        	this.props.set_success_status({
@@ -105,7 +115,6 @@ class ProfilePage extends Component {
 				        });
                     },
                     (err) => {
-                        console.log(err)
                         language.transformText('message.uploadPhotoError')
 			            .then(message => {
 			            	this.props.set_error_status({

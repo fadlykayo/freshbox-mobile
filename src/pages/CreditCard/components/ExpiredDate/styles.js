@@ -8,7 +8,7 @@ const styles = {
     text: {
         title: {
             fontSize: scaling.moderateScale(12),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.black,
             marginBottom: scaling.moderateScale(5),
         },
@@ -16,7 +16,7 @@ const styles = {
             width: width * 0.15,
             textAlign: 'center',
             fontSize: scaling.moderateScale(14),
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             color: colour.darkGrey,
         },
     },

@@ -12,23 +12,23 @@ const styles = {
 	},
 	text:{
 		title:{
-			fontFamily: 'Avenir-Black',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
 		price:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
 		category:{
-			fontFamily: 'Avenir-Light',
+			fontFamily: 'Avenir-Book',
 			fontSize: scaling.moderateScale(12),
 			color: colour.lightGrey,
 			marginBottom: scaling.moderateScale(8),
 		},
 		pack:{
-			fontFamily: 'Avenir-Light',
+			fontFamily: 'Avenir-Book',
 			fontSize: scaling.moderateScale(12),
 			color: colour.lightGrey,
 		}

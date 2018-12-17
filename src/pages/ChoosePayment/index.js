@@ -22,9 +22,14 @@ class ChoosePayment extends Component {
             ]
         }
         this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
+        this.countTotalPrice = this.countTotalPrice.bind(this);
     }
 
     componentDidMount() {
+        this.countTotalPrice();
+    }
+
+    countTotalPrice() {
         let state = this.state;
 		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
         this.setState(state);
@@ -50,15 +55,13 @@ class ChoosePayment extends Component {
 			    />
                 <View style={styles.container}>
                     <View style={styles.content}>
-                        { 
-                            this.state.contents.map((content,index) => (
-                                <Content 
-                                    key={index}
-                                    content={content}
-                                    navigateToOtherPage={this.navigateToOtherPage}
-                                />
-                            )) 
-                        }                        
+                        { this.state.contents.map((content,index) => (
+                            <Content 
+                                key={index}
+                                content={content}
+                                navigateToOtherPage={this.navigateToOtherPage}
+                            />
+                        )) }                        
                     </View>
                     <TotalPrice
                         action={'choosePayment'}

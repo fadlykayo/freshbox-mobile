@@ -16,7 +16,7 @@ const styles = {
         alignItems: 'center',
         width: width,
         height: height,
-        backgroundColor: colour.darkGreyTransparent,
+        backgroundColor: colour.blackTranslucent,
     },
     container: {
         flexDirection: 'row',
@@ -45,7 +45,7 @@ const styles = {
         width: scaling.moderateScale(50),
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(15),
         color: colour.darkGrey,
     },

@@ -19,8 +19,8 @@ const styles = {
         justifyContent: 'center'
     },
     text: {
-        fontFamily: 'Avenir-Medium',
-        fontSize: scaling.moderateScale(8),
+        fontFamily: 'Avenir-Heavy',
+        fontSize: scaling.moderateScale(7),
         color: colour.white
     },
 }

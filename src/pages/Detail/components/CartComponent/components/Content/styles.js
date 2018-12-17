@@ -10,25 +10,25 @@ const styles = {
 	},
 	text:{
 		title:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
 		price:{
 			promo: {
-				fontFamily: 'Avenir-Medium',
+				fontFamily: 'Avenir-Roman',
 				fontSize: scaling.moderateScale(14),
 				color: colour.grey,
 				textDecorationLine: 'line-through'
 			},
 			normal: {
-				fontFamily: 'Avenir-Medium',
+				fontFamily: 'Avenir-Roman',
 				fontSize: scaling.moderateScale(14),
 				color: colour.darkGrey,
 			}
 		},
 		desc:{
-			fontFamily: 'Avenir-Light',
+			fontFamily: 'Avenir-Book',
 			fontSize: scaling.moderateScale(10),
 			color: colour.lightGrey,
 		}

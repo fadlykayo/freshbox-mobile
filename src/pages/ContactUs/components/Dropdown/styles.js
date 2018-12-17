@@ -11,12 +11,12 @@ const styles = {
         marginTop: scaling.moderateScale(10),
     },
     label: {
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey,
     },
     formInput: {
-        fontFamily: 'Avenir-Light',
+        fontFamily: 'Avenir-Book',
         fontSize: scaling.moderateScale(14),
         color: colour.darkGrey,
         paddingLeft: 0,
@@ -27,7 +27,7 @@ const styles = {
     underline: {
         height: 1,
         borderTopWidth: 1,
-        borderColor: colour.lightGrey,
+        borderColor: colour.mediumGrey,
     },
     showPasswordButton: {
         position: 'absolute',

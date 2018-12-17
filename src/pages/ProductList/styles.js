@@ -5,9 +5,18 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
+	main: {
+		normal: {
+			flex: 1,
+		},
+		modal: {
+			flex: 1,
+			backgroundColor: colour.blackTranslucent
+		},
+	},
 	container: {
 		flex: 1,
-		backgroundColor: colour.veryLightGrey,
+		backgroundColor: colour.white,
 	},
 	cartContainer: {
 		flex: 1,
@@ -27,8 +36,7 @@ const styles = {
 			marginBottom: scaling.moderateScale(10),
 		},
 		text: {
-			fontFamily: 'Avenir-Black',
-			fontWeight: 'bold',
+			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 		}

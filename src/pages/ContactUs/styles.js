@@ -6,15 +6,21 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container:{
-        flex: -1,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+        flex: 1,
+        paddingHorizontal: scaling.moderateScale(30),
+        marginVertical: width * 0.05,
     },
     content:{
         flex: 1,
     },
-    middleComponent: {
-        marginBottom: width * 0.05,
+    subcontainer: {
+        middle: {
+        },
+        bottom: {
+            flex: -1,
+            paddingHorizontal: scaling.moderateScale(30),
+            marginBottom: width * 0.025,
+        }
     },
 }
 

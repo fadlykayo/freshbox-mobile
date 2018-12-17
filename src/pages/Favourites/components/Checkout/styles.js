@@ -22,7 +22,7 @@ const styles = {
 			marginBottom: scaling.moderateScale(15),
 		},
 		text: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(14),
 			color: colour.white,
 		},

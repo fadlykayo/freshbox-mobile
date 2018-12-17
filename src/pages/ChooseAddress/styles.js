@@ -8,8 +8,8 @@ const styles = {
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: colour.veryLightGrey,
-        paddingTop: width * 0.01,
+        backgroundColor: colour.white,
+        marginTop: width * 0.02,
     },
     scrollView: {
         backgroundColor: colour.white,
@@ -18,10 +18,10 @@ const styles = {
         bottom: {
             flex: -1,
             width: width,
-            marginBottom: width * 0.04,
+            paddingHorizontal: scaling.moderateScale(30),
+            marginVertical: width * 0.035,
             backgroundColor: colour.white,
             justifyContent: 'center',
-            alignItems: 'center',
         }
     },
 }

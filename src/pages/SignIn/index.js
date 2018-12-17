@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView, StatusBar, Platform } from 'react-native';
+import { ScrollView, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation, language } from '@helpers';
 import Container from '@components/Container';
@@ -36,6 +36,13 @@ class SignIn extends Component {
         this.clearValidation = this.clearValidation.bind(this);
         this.navigateToRegister = this.navigateToRegister.bind(this);
         this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
+        this.clearData = this.clearData.bind(this);
+    }
+
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
     }
 
     onChangeText(type,value){
@@ -74,6 +81,7 @@ class SignIn extends Component {
     }
 
     signInValidation(){
+        Keyboard.dismiss();
         this.clearValidation();
         validation.signInEmail(this.state.user.phone,this.state.user.password)
         .then(() => {
@@ -96,7 +104,7 @@ class SignIn extends Component {
         }
 
         this.props.sign_in(payload,
-            (success) => {
+            (res) => {
                 if (this.props.navigation.state.params.action == "menuLogin") {
                     actNav.reset(navConstant.Product);
                 }
@@ -119,27 +127,22 @@ class SignIn extends Component {
         );
     }
 
-    navigateToRegister(){
+    clearData() {
         let state = this.state;
         state.user = {
             phone: '',
             password: ''
-        },
-        state.isWrong= false,
-        state.messageWrong= '',
+        }
         this.setState(state);
+    }
+
+    navigateToRegister(){
+        this.clearData();
         actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
     }
 
     navigateToForgotPassword(){
-        let state = this.state;
-        state.user = {
-            phone: '',
-            password: ''
-        },
-        state.isWrong= false,
-        state.messageWrong= '',
-        this.setState(state);
+        this.clearData();
         actNav.navigate(navConstant.ForgotPassword);
     }
 

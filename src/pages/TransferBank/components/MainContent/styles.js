@@ -9,8 +9,6 @@ const styles = {
         flex: 1,
         flexDirection: 'row',
         height: width * 0.14,
-        borderBottomColor: colour.lightGrey,
-        borderBottomWidth: 0.8,
         alignItems: 'center',
         paddingLeft: width * 0.05,
         paddingRight: width * 0.05,
@@ -21,7 +19,7 @@ const styles = {
         marginRight: scaling.moderateScale(10),
     },
     staticText: {
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey
     },

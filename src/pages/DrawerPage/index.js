@@ -45,6 +45,7 @@ class DrawerPage extends Component {
 		this.navigateSignIn = this.navigateSignIn.bind(this);
 		this.closeDrawerPage = this.closeDrawerPage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
+		this.actToNavigate = this.actToNavigate.bind(this);
   	}
 
 	refreshProductList() {
@@ -68,18 +69,38 @@ class DrawerPage extends Component {
 	}
 
   	navigateToOtherPage(payload){
-		switch (payload.name) {
-			case 'drawerPage.pages.favorite': return actNav.navigate(navConstant.Favourites);
-			case 'drawerPage.pages.history': return actNav.navigate(navConstant.HistoryPage, {refreshProductList: this.refreshProductList})
-			case 'drawerPage.pages.termsConditions': return actNav.navigate(navConstant.TermsConditions)
-			case 'drawerPage.pages.privacyPolicy': return actNav.navigate(navConstant.PrivacyPolicy)
-			case 'drawerPage.pages.contactUs': return actNav.navigate(navConstant.ContactUs)
-			default: return actNav.navigate(navConstant.ProductList)
+		let newPages = this.state.pages;
+
+		newPages.map((newPage) => {
+			if(payload.name == newPage.name) newPage.selected = true;
+			else newPage.selected = false;
+			return newPage
+		})
+
+		this.setState({pages: newPages}, () => {
+			switch (payload.name) {
+				case 'drawerPage.pages.favorite': return this.actToNavigate(navConstant.Favourites);
+				case 'drawerPage.pages.history': return this.actToNavigate(navConstant.HistoryPage)
+				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions)
+				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy)
+				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs)
+				default: return this.closeDrawerPage(payload);
+			}
+			
+		})
+
+	}
+	
+	actToNavigate(input) {
+		if(input == 'drawerPage.pages.history') {
+			actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer, refreshProductList: this.refreshProductList});
+		} else {
+			actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer});
 		}
 	}
-	  
+
 	navigateToProfilePage() {
-		actNav.navigate(navConstant.ProfilePage)
+		actNav.navigate(navConstant.ProfilePage, {closeDrawer: this.props.navigation.closeDrawer})
 	}
 
 	navigateLogOut() {
@@ -90,11 +111,25 @@ class DrawerPage extends Component {
 	}
 
 	navigateSignIn() {
-		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' })
+		actNav.navigate(navConstant.SignIn, { action: 'menuLogin', closeDrawer: this.props.navigation.closeDrawer})
 	}
 
-	closeDrawerPage() {
-		this.props.navigation.closeDrawer()
+	closeDrawerPage(input) {
+		if(input == undefined) {	
+			let newPages = this.state.pages;
+			
+			newPages.map((newPage) => {
+				if('drawerPage.pages.dashboard' == newPage.name) newPage.selected = true;
+				else newPage.selected = false;
+				return newPage
+			})
+			
+			this.setState({pages: newPages}, () => {
+				this.props.navigation.closeDrawer()
+			})
+		} else {
+			this.props.navigation.closeDrawer()
+		}
 	}
 
   	render () {

@@ -3,11 +3,11 @@
         "button":{
             "getStarted":"Mulai",
             "facebook":"Masuk dengan Facebook",
-            "email":"Masuk dengan Nomor Telepon",
+            "phone":"Masuk dengan Nomor Telepon",
             "google":"Masuk dengan Google"
         },
         "content":{
-            "info": "Dengan masuk ke dalam Freshbox, Anda telah menyetujui",
+            "info": "Dengan masuk ke dalam Freshbox, Anda telah menyetujui ",
             "termsCondition": "Syarat dan Ketentuan",
             "also": ", serta ",
             "privacyPolicy": "Kebijakan Privasi"
@@ -16,21 +16,25 @@
     "onBoarding": {
         "content": {
             "first": {
-                "title": "Title 1. Lorem ipsum dolor.",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "SELALU SEGAR",
+                "info": "Sayur & buah FreshBox didatangkan langsung dari petani terpercaya sehingga semua produk FreshBox dijamin selalu segar."
             },
             "second": {
-                "title": "Title 2. Lorem ipsum dolor",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "FLEKSIBEL DAN MENGUTAMAKAN KENYAMANAN ANDA",
+                "info": {
+                    "1": "Sibuk? Sering tak ada di tempat?",
+                    "2": " Worry no more",
+                    "3": ", FreshBox memberikan pilihan pengiriman sampai dengan tiga hari ke depan. Anda selalu dapat memilih waktu yang sesuai."
+                }
             }, 
             "third": {
-                "title": "Title 3. Lorem ipsum dolor",
-                "info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, quidem eos ipsa pariatur totam maiores, laboriosam quisquam ab et recusandae iusto accusamus."
+                "title": "BERAGAM PILIHAN",
+                "info": "FreshBox selalu menawarkan buah dan sayur yang beragam sesuai dengan musimnya."
             }
         },
         "button": {
-            "skip": "SKIP",
-            "finish": "FINISH"
+            "skip": "LEWATI",
+            "finish": "SELESAI"
         }
     },
     "signIn":{
@@ -41,10 +45,9 @@
             "password": "Kata Sandi"
         },
         "validation":{
-            "emailFormat": "Tolong masukkan email dengan format yang valid",
-            "emailLength": "Tolong masukkan email",
-            "password": "Tolong masukkan kata sandi",
-            "passwordLength": "Kata sandi minimal 8 karakter",
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
+            "password": "Kata sandi minimal 8 karakter",
+            "passwordLength": "Tolong masukkan kata sandi",
             "login": "Email atau kata sandi tidak valid"
         },
         "button":{
@@ -81,50 +84,41 @@
             "emailLength": "Tolong masukkan email anda",
             "password": "Kata sandi minimal 8 karakter",
             "passwordLength": "Tolong masukkan kata sandi",
-            "phone": "Tolong masukkan nomor telfon diantara 9 sampai 15 digit",
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
             "confirmPassword": "Kata sandi tidak cocok"
         }
     },
     "forgotPassword":{
         "navigationTitle": "Lupa Kata Sandi",
         "formLabel":{
-            "phone": "Nomor Ponsel",
-            "email": "Email"
+            "phone": "Nomor Telepon"
         },
         "button":{
             "request": "Minta OTP",
             "submit": "Kirim"
         },
-        "content":{
-            "newToFreshbox": "New to Freshbox? ",
-            "register": "Daftar",
-            "forgotPassword": "Lupa Password",
-            "resetPasswordSuccess": "Ganti kata sandi berhasil!",
-            "checkEmail": "Tolong lihat email anda"
-        },
         "validation":{
-            "emailFormat": "Tolong masukkan email anda dengan format yang benar",
-            "emailLength": "Tolong masukkan email anda"
+            "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit"
         }
     },
     "cart": {
-        "navigationTitle": "KERANJANG",
+        "navigationTitle": "Keranjang",
         "symbol": {
             "minus": "-",
             "plus": "+"
         },
         "button": {
-            "checkout": "PILIH WAKTU PENGIRIMAN"
+            "checkout": "Pilih Waktu Pengiriman"
         },
         "content": {
             "price": "Rp. ",
             "subTotal": "Sub Total",
-            "pack": "/1 pack"
+            "pack": "/ pack"
         }
 
     },
     "checkout": {
-        "navigationTitle": "ALAMAT & WAKTU PENGIRIMAN",
+        "navigationTitle": "Alamat & Waktu Pengiriman",
         "label": {
             "deliveryAddress": "Alamat Pengiriman",
             "name": "Nama",
@@ -139,7 +133,7 @@
         },
         "content": {
             "price": "Rp. ",
-            "checkout": "RINCIAN PESANAN",
+            "checkout": "Rincian Pesanan",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -170,7 +164,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Checkout",
+            "checkout": "Keranjang",
             "clear": "Kembali"
         },
         "content": {
@@ -204,12 +198,12 @@
         }
     },
     "historyDetail": {
-        "navigationTitle": "RINCIAN PESANAN",
+        "navigationTitle": "Rincian Pesanan",
         "content": {
             "price": "Rp. ",
-            "reOrder": "PESAN KEMBALI",
-            "checkout": "PILIH METODE PEMBAYARAN",
-            "pay": "BAYAR",
+            "reOrder": "Pesan Kembali",
+            "checkout": "Pilih Metode Pembayaran",
+            "pay": "Bayar",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
@@ -233,7 +227,7 @@
             "comma": ", ",
             "kecamatan": ", Kec. ",
             "kelurahan": ", Kel. ",
-            "resetPassword": "Reset Password"
+            "resetPassword": "Ubah Password"
         },
         "button": {
             "signOut": "Keluar"
@@ -274,8 +268,8 @@
         "info": {
             "delete": "Apakah Anda yakin ingin menghapus alamat ini?",
             "edit": "Apakah Anda ingin menyimpan perubahan data alamat ini?",
-            "yes": "IYA",
-            "no": "TIDAK"
+            "yes": "Iya",
+            "no": "Tidak"
         },
         "button": {
             "edit": "Edit",
@@ -295,7 +289,7 @@
         }
     },
     "resetPasswordPage": {
-        "navigationTitle": "Ubah kata sandi",
+        "navigationTitle": "Ubah Kata Sandi",
         "formLabel":{
             "otp": "OTP",
             "oldPassword": "Kata sandi lama",
@@ -306,7 +300,7 @@
             "resetPasswordSuccess": "Reset Password Success!"
         },
         "button":{
-            "changePassword": "Ganti kata sandi"
+            "changePassword": "Ganti Kata Sandi"
         },
         "validation": {
             "otp": "Panjang OTP 4 digit",
@@ -372,6 +366,20 @@
                         "5": "Dalam hal diperlukan untuk mengajukan keluhan atas layanan, diwajibkan untuk mengirimkan bukti berupa gambar Barang dan invoice atas transaksi yang dilakukan oleh Pengguna dalam kondisi apapun."
                     }
                 },
+                "refund": {
+                    "title" : "Kebijakan Refund",
+                    "preInfo": {
+                        "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
+                        "2": "mails@freshbox.id",
+                        "3": " dengan alasan salah satu di antara:"
+                    },
+                    "data": {
+                        "1": "Barang kurang.",
+                        "2": "Barang busuk.",
+                        "3": "Barang tidak diantarkan tepat waktu.",
+                        "4": "Lainnya."
+                    }
+                },
                 "others": {
                     "title" : "Ketentuan Lain",
                     "data": {
@@ -434,7 +442,7 @@
         }
     },
     "choosePayment": {
-        "navigationTitle": "METODE PEMBAYARAN",
+        "navigationTitle": "Metode Pembayaran",
         "content": {
             "creditCard": "Kartu Kredit",
             "transferBank": "Bank Transfer",
@@ -450,10 +458,17 @@
         "content": {
             "creditCard": "Nomor Kartu",
             "expiredDate": "Tanggal Kadaluarsa",
-            "expED": "example 08-2010",
+            "expED": "contoh: 08/20",
             "cvv": "Kode CVV",
             "checkout": "Bayar",
-            "examplecvv": "Contoh: 123"
+            "examplecvv": "contoh: 123"
+        },
+        "validation": {
+            "creditNumberLength": "Mohon masukkan nomor kartu kredit Anda",
+            "creditNumber": "Masukkan 16 digit angka di kartu kredit Anda",
+            "expiredMonthLength": "Mohon masukkan bulan kartu kredit yang terletak pada kartu kredit Anda",
+            "expiredYearLength": "Mohon masukkan tahun kartu kredit yang tertera pada kartu kredit Anda",
+            "cvvFormat": "Masukkan 3 digit angka CVV yang tertulis pada kartu kredit Anda"
         }
     },
     "transferBank": {
@@ -481,7 +496,7 @@
         }
     },
     "virtualAccount": {
-        "navigationTitle": "VIRTUAL ACCOUNT",
+        "navigationTitle": "Virtual Account",
         "content": {
             "bcaVA": "BCA Virtual Account",
             "mandiriVA": "Mandiri Virtual Account",
@@ -587,18 +602,6 @@
                         "7": "Pilih akun pembayaran Anda, lalu tekan \"Benar\""
                     }
                 }
-            },
-            "bniVA": {
-                "name": "BNI Virtual Account",
-                "atm": "ATM Mandiri",
-                "mBanking": "M-Banking",
-                "iBanking": "CLICKPAY MANDIRI"
-            },
-            "bri": {
-                "name": "Bank BRI",
-                "atm": "ATM BRI",
-                "mBanking": "M-Banking",
-                "iBanking": "KLIK BRI"
             }
         }
     },
@@ -687,28 +690,28 @@
     },
     "formError":{
         "title": {
-            "default": "GAGAL",
-            "emptyCart": "KERANJANG KOSONG",
-            "emptyAddress": "ALAMAT PENGIRIMAN KOSONG",
-            "emptyDate": "TANGGAL PENGIRIMAN KOSONG",
-            "createOrder": "PEMESANAN GAGAL",
-            "outOfStock": "JUMLAH BARANG BERLEBIH",
-            "expiredDate": "WAKTU PEMESANAN TELAH HABIS",
-            "serverError": "SERVER GANGGUAN"
+            "default": "Gagal",
+            "emptyCart": "Keranjang Kosong",
+            "emptyAddress": "Alamat Pengiriman Kosong",
+            "emptyDate": "Tanggal Pengiriman Kosong",
+            "createOrder": "Pemesanan Gagal",
+            "outOfStock": "Jumlah Barang Berlebih",
+            "expiredDate": "Waktu Pemesanan Telah Habis",
+            "serverError": "Server Gangguan"
         }
     },
     "formSuccess":{
         "title": {
-            "default": "SUKSES",
-            "createOrder": "PEMESANAN SUKSES",
+            "default": "Sukses",
+            "createOrder": "Pemesanan Sukses",
             "copyData": "Data berhasil disalin"
         }
     },
     "button": {
-        "close": "TUTUP",
-        "login": "MASUK",
-        "yes": "YA",
-        "no": "TIDAK"
+        "close": "Tutup",
+        "login": "Masuk",
+        "yes": "Ya",
+        "no": "Tidak"
     },
     "modal":{
         "title":{
@@ -729,7 +732,6 @@
         "invalidYear": "Tahun tidak sesuai.",
         "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
         "errorOTP": "Kode Verifikasi salah.",
-        "errorCreateOrder": "",
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
         "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",

@@ -9,9 +9,10 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomWidth: 1,
-        paddingHorizontal: width * 0.05,
+        paddingRight: width * 0.05,
+        marginLeft: width * 0.05,
         height: scaling.moderateScale(50),
-        borderBottomColor: colour.lightGrey,
+        borderBottomColor: colour.mediumGrey,
         backgroundColor: colour.white,
     },
     subcontainer:{
@@ -26,7 +27,7 @@ const styles = {
     },
     text:{
         bankName: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(12),
             color: colour.darkGrey
         }
@@ -38,8 +39,8 @@ const styles = {
             marginRight: scaling.moderateScale(10),
         },
         check:{
-            width: scaling.moderateScale(15),
-            height: scaling.moderateScale(10),
+            width: scaling.moderateScale(12),
+            height: scaling.moderateScale(8),
         }
     },
 

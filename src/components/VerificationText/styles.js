@@ -3,7 +3,7 @@ import { colour } from '@styles';
 
 const styles = {
     verificationText:{
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(14),
         color: colour.red,
         marginBottom: scaling.moderateScale(5),

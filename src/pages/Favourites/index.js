@@ -54,6 +54,12 @@ class Favourites extends Component {
 		this.getFavorites();
 	}
 
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+	}
+
 	openZoomImage(){
 		this.setModalVisible('openImageDetail',true);
 	}

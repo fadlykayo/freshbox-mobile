@@ -19,8 +19,8 @@ const styles = {
     },
     icon:{
         dropdown:{
-            height: scaling.moderateScale(36),
-            width: scaling.moderateScale(36),
+            height: scaling.moderateScale(8),
+            width: scaling.moderateScale(38),
         },
     },
 }

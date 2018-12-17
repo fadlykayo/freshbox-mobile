@@ -226,12 +226,14 @@ class TransferInstruction extends Component {
         this.navigateBack = this.navigateBack.bind(this);
     }
 
-    // componentDidUpdate() {
-    //     this.updateCountDown();
-    // }
-
     componentDidMount() {
         this.getGrandTotalPrice();
+    }
+
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.refreshHandler) {
+            this.props.navigation.state.params.refreshHandler();
+        }
     }
 
     getGrandTotalPrice() {

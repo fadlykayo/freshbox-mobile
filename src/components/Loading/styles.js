@@ -31,7 +31,7 @@ const styles = {
 			height: width * 0.3,
 		},
 		text: {
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 			paddingTop: scaling.moderateScale(5),

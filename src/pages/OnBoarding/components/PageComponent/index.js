@@ -14,6 +14,7 @@ class PageComponent extends Component {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <LeftPart
+                        index={this.props.index}
                         data={this.props.data}
                         navigateToMenu={this.props.navigateToMenu}
                     />

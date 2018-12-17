@@ -12,15 +12,15 @@ class ListCategoryComponent extends PureComponent {
 		return(
 			<ScrollView style={styles.container}>
 				<View style={styles.categories}>
-					{ 
-						this.props.categories.map((category) => 
-							<CategoryItems 
-								key={category.code}
-								category={category}
-								changeCategory={this.props.changeCategory}
-							/>
-						)
-					}
+					{ this.props.categories.map((category,index) => 
+						<CategoryItems 
+							key={category.code}
+							category={category}
+							changeCategory={this.props.changeCategory}
+							length={this.props.categories.length-1}
+							index={index}
+						/>
+					)}
 				</View>
 			</ScrollView>
 		)

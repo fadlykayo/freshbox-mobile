@@ -13,6 +13,11 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* FreshboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FreshboxTests.m */; };
+		019C521F21BFF1E600EAE3C1 /* Avenir-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C51F221BFF1E500EAE3C1 /* Avenir-Heavy.ttf */; };
+		019C522021BFF1E600EAE3C1 /* Avenir-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C521D21BFF1E500EAE3C1 /* Avenir-Roman.ttf */; };
+		019C522321BFF41A00EAE3C1 /* Avenir-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C522221BFF41A00EAE3C1 /* Avenir-Book.ttf */; };
+		01A7028921B9601D00DE7730 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7028721B95FD100DE7730 /* libRNImagePicker.a */; };
+		01F2883121C1EBD9006F8EB9 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F2880421C1EB76006F8EB9 /* libBVLinearGradient.a */; };
 		0C21A04E003F4770AB396568 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B211DA9595D4394826E7F63 /* Feather.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -118,6 +123,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Freshbox;
+		};
+		01A7028621B95FD100DE7730 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01A7025A21B95FD100DE7730 /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
+		01F2880321C1EB76006F8EB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
+		01F2880521C1EB76006F8EB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64AA15081EF7F30100718508;
+			remoteInfo = "BVLinearGradient-tvOS";
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -390,6 +416,11 @@
 		00E356EE1AD99517003FC87E /* FreshboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreshboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FreshboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreshboxTests.m; sourceTree = "<group>"; };
+		019C51F221BFF1E500EAE3C1 /* Avenir-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir-Heavy.ttf"; sourceTree = "<group>"; };
+		019C521D21BFF1E500EAE3C1 /* Avenir-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir-Roman.ttf"; sourceTree = "<group>"; };
+		019C522221BFF41A00EAE3C1 /* Avenir-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir-Book.ttf"; sourceTree = "<group>"; };
+		01A7025A21B95FD100DE7730 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		01F6B83721A692120012E65A /* Freshbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Freshbox.entitlements; path = Freshbox/Freshbox.entitlements; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -465,6 +496,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F2883121C1EBD9006F8EB9 /* libBVLinearGradient.a in Frameworks */,
+				01A7028921B9601D00DE7730 /* libRNImagePicker.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				A1F6EAFE21681716005814E6 /* libRCTAnimation.a in Frameworks */,
 				A124F7E021A3EA6E006104AB /* FBSDKCoreKit.framework in Frameworks */,
@@ -592,6 +625,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		01A7025B21B95FD100DE7730 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01A7028721B95FD100DE7730 /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01F287FF21C1EB76006F8EB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01F2880421C1EB76006F8EB9 /* libBVLinearGradient.a */,
+				01F2880621C1EB76006F8EB9 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -694,6 +744,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */,
+				01A7025A21B95FD100DE7730 /* RNImagePicker.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -806,6 +858,9 @@
 		B1E33F959A5648DC8782ACFF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				019C522221BFF41A00EAE3C1 /* Avenir-Book.ttf */,
+				019C51F221BFF1E500EAE3C1 /* Avenir-Heavy.ttf */,
+				019C521D21BFF1E500EAE3C1 /* Avenir-Roman.ttf */,
 				A12712182146595800BEC6E6 /* Avenir-Black.ttf */,
 				A12712192146595800BEC6E6 /* Avenir-Light.ttf */,
 				A12712172146595800BEC6E6 /* Avenir-Medium.ttf */,
@@ -915,6 +970,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = RCWT9F32HU;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -951,6 +1007,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 01F287FF21C1EB76006F8EB9 /* Products */;
+					ProjectRef = 01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1012,6 +1072,10 @@
 					ProjectRef = CE5872A863B943B497CE6EC9 /* RNGoogleSignin.xcodeproj */;
 				},
 				{
+					ProductGroup = 01A7025B21B95FD100DE7730 /* Products */;
+					ProjectRef = 01A7025A21B95FD100DE7730 /* RNImagePicker.xcodeproj */;
+				},
+				{
 					ProductGroup = A1271212214658CA00BEC6E6 /* Products */;
 					ProjectRef = 638A812F010B40CCBAB3A1A6 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1060,6 +1124,27 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		01A7028721B95FD100DE7730 /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 01A7028621B95FD100DE7730 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		01F2880421C1EB76006F8EB9 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 01F2880321C1EB76006F8EB9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		01F2880621C1EB76006F8EB9 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 01F2880521C1EB76006F8EB9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -1340,11 +1425,14 @@
 				831FAB1C74DB4DFE81E9FA91 /* FontAwesome5_Solid.ttf in Resources */,
 				A127121C2146595800BEC6E6 /* Avenir-Light.ttf in Resources */,
 				1A074D4575F44F0D920649A1 /* Foundation.ttf in Resources */,
+				019C522321BFF41A00EAE3C1 /* Avenir-Book.ttf in Resources */,
 				8A0D2F320E9E433FAD4CC4B4 /* Ionicons.ttf in Resources */,
+				019C522021BFF1E600EAE3C1 /* Avenir-Roman.ttf in Resources */,
 				AB7688E382F849EAB150D1CA /* MaterialCommunityIcons.ttf in Resources */,
 				FD20E0D4FECA401FB49F21D6 /* MaterialIcons.ttf in Resources */,
 				994E86BEE00641D5927B2D9B /* Octicons.ttf in Resources */,
 				B61897EA0D2D4AB7B0943FE5 /* SimpleLineIcons.ttf in Resources */,
+				019C521F21BFF1E600EAE3C1 /* Avenir-Heavy.ttf in Resources */,
 				A124F7D021A3E8A3006104AB /* GoogleService-Info.plist in Resources */,
 				60946C3320FE4A27BC14A866 /* Zocial.ttf in Resources */,
 				A127121A2146595800BEC6E6 /* Avenir-Medium.ttf in Resources */,
@@ -1504,6 +1592,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = RCWT9F32HU;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1540,6 +1629,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = RCWT9F32HU;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",

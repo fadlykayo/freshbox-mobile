@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TextInput } from 'react-native';
+import { View, ScrollView, Keyboard, Dimensions } from 'react-native';
 import { actNav } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
@@ -12,6 +12,8 @@ import InputData from './components/InputData';
 import { connect } from 'react-redux';
 import styles from './styles';
 import actions from '@actions';
+
+const { height, width } = Dimensions.get('window')
 
 class ContactUs extends Component {
   	constructor(props) {
@@ -41,15 +43,27 @@ class ContactUs extends Component {
 			message: '',
 			placeholder: '',
 		}
+		this.listRef = null;
 		this.onChangeText = this.onChangeText.bind(this);
 		this.submitInformation = this.submitInformation.bind(this);
 		this.submitSubject = this.submitSubject.bind(this);
 		this.renderSubjectHistory = this.renderSubjectHistory.bind(this);
 		this.showDropdown = this.showDropdown.bind(this);
+		this.scrollToMessage = this.scrollToMessage.bind(this);
 	}
 
 	componentDidMount() {
 		this.renderSubjectHistory();
+	}
+
+	componentWillUnmount() {
+		if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+	}
+
+	scrollToMessage() {
+		this.listRef.scrollTo({y: 115, animated: true})
 	}
 
 	submitSubject(value,nextValue) {
@@ -60,11 +74,13 @@ class ContactUs extends Component {
 		let isOpen = this.state.isOpen;
 		if(value != null && nextValue == null) {
 			isOpen[value] = !isOpen[value];
-			this.setState({isOpen}, () =>{
+			this.setState({isOpen}, () => {
+				this.scrollToMessage();
 				this.formMessage.focus();
 			})
 		}
 		else {
+			Keyboard.dismiss();
 			isOpen[nextValue] = !isOpen[nextValue];
 			this.setState({isOpen});
 		}    
@@ -134,54 +150,49 @@ class ContactUs extends Component {
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-                
 				<ScrollView
+					ref={(e) => { this.listRef = e}}
 					style={styles.container}
-					bounces={true}
 					keyboardShouldPersistTaps={'handled'}
-					keyboardDismissMode={'on-drag'}
                 >
 					<Logo />
-					<View style={styles.middleComponent}>
-						{ this.props.navigation.state.params.action == 'history'
-							? (
-								<InputData
-									data={this.props.navigation.state.params.data}
-								/>
-							)
-							: (
-								<Dropdown
-									type={'subject'}
-									data={this.state.subjects}
-									isOpen={this.state.isOpen.subject}
-									value={this.state.subject}
-									nextValue={null}
-									onChangeText={this.onChangeText}
-									label={'contactUs.content.subject'}
-									placeholder={'contactUs.content.subject'}
-									showDropdown={this.showDropdown}
-									submitSubject={this.submitSubject}
-								/>
-							)
-						}
-						<FormInput
-							ref={c => {this.formMessage = c}}
-							returnKeyType={'done'}
-							type={'message'}
-							multiline={true}
-							onChangeText={this.onChangeText}
-							value={this.state.message}
-							label={'contactUs.label.message'}
-							placeholder={'contactUs.content.message'}
-							onSubmitEditing={this.submitInformation}
-						/>
-					</View>
+					{ this.props.navigation.state.params.action == 'history'
+						? ( <InputData
+								data={this.props.navigation.state.params.data}
+							/>)
+						: ( <Dropdown
+								type={'subject'}
+								data={this.state.subjects}
+								isOpen={this.state.isOpen.subject}
+								value={this.state.subject}
+								nextValue={null}
+								onChangeText={this.onChangeText}
+								label={'contactUs.content.subject'}
+								placeholder={'contactUs.content.subject'}
+								showDropdown={this.showDropdown}
+								submitSubject={this.submitSubject}
+							/>)
+					}
+					<FormInput
+						ref={c => {this.formMessage = c}}
+						returnKeyType={'done'}
+						type={'message'}
+						multiline={true}
+						onChangeText={this.onChangeText}
+						value={this.state.message}
+						onFocusHandler={this.scrollToMessage}
+						label={'contactUs.label.message'}
+						placeholder={'contactUs.content.message'}
+						onSubmitEditing={this.submitInformation}
+					/>
+				</ScrollView>
+				<View style={styles.subcontainer.bottom}>
 					<Button
 						type={'red'}
 						title={'contactUs.button.submit'}
 						onPress={this.submitInformation}
 					/>
-				</ScrollView>
+				</View>
 			</Container>
   	  	);
   	}

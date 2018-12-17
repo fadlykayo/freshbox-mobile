@@ -21,7 +21,7 @@ const styles = {
                     backgroundColor: colour.blueFacebook,
                     marginBottom: scaling.moderateScale(10),
                 })
-            case 'email':
+            case 'phone':
                 return ({
                     borderWidth: 1,
                     borderColor: colour.darkGrey,
@@ -50,13 +50,13 @@ const styles = {
     content: (type) => {
         if(type == 'google'){
             return({
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.darkGrey,
             })
         } else {
             return({
-                fontFamily: 'Avenir-Black',
+                fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.white,
             })
@@ -64,8 +64,8 @@ const styles = {
     },
     logo:{
         position: 'absolute',
-        height: scaling.moderateScale(15),
-        width: scaling.moderateScale(15),
+        height: scaling.moderateScale(14),
+        width: scaling.moderateScale(14),
         left: scaling.moderateScale(25),
     },
 }

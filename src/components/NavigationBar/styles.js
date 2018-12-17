@@ -6,13 +6,18 @@ const { height } = Dimensions.get('window');
 
 const styles = {
     container:{
-        flex: 1,
+        flex: -1,
         height: scaling.moderateScale(50),
-        maxHeight: scaling.moderateScale(50),
         alignItems: 'center',
         justifyContent: 'center',
+        shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 2}  : {width: 0,height: 0},
+		shadowRadius: Platform.OS == 'ios' ? 15 : 0,
+		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		elevation: Platform.OS == 'android' ? 5 : 0,
         borderBottomWidth: 1,
-        borderBottomColor: colour.lightGrey,
+        borderBottomColor: colour.white,
+        backgroundColor: colour.white
     },
     button:{
         position: 'absolute',
@@ -30,7 +35,7 @@ const styles = {
         height: scaling.moderateScale(14),
     },
     title:{
-        fontFamily: 'Avenir-Black',
+        fontFamily: 'Avenir-Heavy',
         fontSize: scaling.moderateScale(14),
         color: colour.darkGrey,
     }

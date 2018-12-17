@@ -19,12 +19,12 @@ const styles = {
     },
     text: {
         title: {
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
         },
         content: {
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(13),
             color: colour.darkGrey,
         }
@@ -37,7 +37,7 @@ const styles = {
             height: scaling.moderateScale(50),
             justifyContent: 'center',
             paddingHorizontal: width * 0.05,
-            backgroundColor: colour.mediumGrey
+            backgroundColor: colour.lightMediumGrey
         },
         arrow: {
             place: {
@@ -45,10 +45,10 @@ const styles = {
                 right: 0,
                 marginRight: width * 0.05,
             },
-            logo: {
-                height: scaling.moderateScale(10),
-                width: scaling.moderateScale(10),
-            }
+            logo: (x) => ({
+                height: x ? scaling.moderateScale(6) : scaling.moderateScale(12),
+                width: x ? scaling.moderateScale(12) : scaling.moderateScale(6),
+            })
         },
         content: {
             flex: -1,
@@ -75,7 +75,7 @@ const styles = {
         },
         index: {
             color: colour.red,
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(14),
         },
         right: {

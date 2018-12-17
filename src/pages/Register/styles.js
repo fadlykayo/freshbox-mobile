@@ -1,18 +1,22 @@
 import { Dimensions } from 'react-native';
 import { colour } from '@styles';
+import { scaling } from '@helpers';
 
 const { width, height } = Dimensions.get('window');
 
 const styles = {
     container:{
         flex: 1,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+        paddingHorizontal: scaling.moderateScale(30),
         paddingTop: width * 0.05,
     },
     content:{
-        // flex: 1,
         justifyContent: 'center',
+    },
+    subcontainer: {
+        button: {
+            paddingVertical: width * 0.05,
+        }
     }
 }
 

@@ -8,11 +8,11 @@ const styles = {
     container: {
         flex: -1,
         height: scaling.moderateScale(50),
-        borderBottomColor: colour.lightGrey,
+        borderBottomColor: colour.mediumGrey,
         borderBottomWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: width * 0.05,
+        marginLeft: width * 0.05,
         paddingRight: width * 0.05,
     },
     subcontainer: {
@@ -24,13 +24,13 @@ const styles = {
         }
     },
     text:{
-        fontFamily: 'Avenir-Medium',
+        fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.darkGrey
     },
     icon:{
         height: scaling.moderateScale(12),
-        width: scaling.moderateScale(12)
+        width: scaling.moderateScale(6)
     }
 }
 

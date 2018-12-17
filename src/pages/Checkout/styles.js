@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -7,9 +7,9 @@ const { width, height } = Dimensions.get('window');
 const styles = {
 	container:{
 		flex: 1,
-		marginTop: width * 0.02,
-		marginBottom: width * 0.02,
-		backgroundColor: colour.veryLightGrey,
+		marginVertical: width * 0.02,
+		backgroundColor: colour.white,
+		paddingHorizontal: scaling.moderateScale(30),
 	},
 	subcontainer:{
 		label:{
@@ -18,15 +18,12 @@ const styles = {
 		bottom:{
 			flex: 1,
 			backgroundColor: colour.white,
-			padding: width * 0.05,
-			justifyContent: 'center',
-			alignItems: 'center',
+			paddingTop: scaling.moderateScale(53),
 		},
 		buttonDate:{
-			width: width * 0.9,
 			height: width * 0.1,
 			justifyContent: 'center',
-			borderBottomColor: colour.lightGrey,
+			borderBottomColor: colour.mediumGrey,
 			borderBottomWidth: 1,
 		},
 		icon:{
@@ -36,19 +33,19 @@ const styles = {
 	},
 	text:{
 		label:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.grey,
 			marginBottom: scaling.moderateScale(5),
 		},
 		date:{
-			fontFamily: 'Avenir-Medium',
+			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey
 		}
 	},
 	icon:{
-		height: scaling.moderateScale(14),
+		height: scaling.moderateScale(15),
 		width: scaling.moderateScale(14) 
 	},
 }

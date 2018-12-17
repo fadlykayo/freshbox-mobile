@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { scaling } from '@helpers';
 import { colour } from '@styles';
 
@@ -12,7 +12,7 @@ const styles = {
         top: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: colour.greyTransparent,
+        backgroundColor: colour.blackTranslucent,
     },
     touchable: {
         flex: 1,
@@ -24,11 +24,10 @@ const styles = {
         bottom: -1 * (0.1 * width),
         left: 0,
         right: 0,
-        height: height * 0.6,
+        height: height * 0.55,
         borderRadius: 20,
         backgroundColor: colour.white,
-        paddingLeft: width * 0.05,
-        paddingRight: width * 0.05,
+        paddingHorizontal: width * 0.05,
         paddingBottom: width * 0.1,
     },
     subcontainer:{
@@ -47,14 +46,20 @@ const styles = {
         },
         bottom:{
             flex: 1,
+            marginBottom: width * 0.075,
         },
         product:{
             height: width * 0.28,
             width: width * 0.28,
             backgroundColor: colour.white,
+            borderColor: colour.white,
             borderWidth: 1,
             borderRadius: 8,
-            borderColor: colour.lightGrey,
+            shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+		    shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 12}  : {width: 0,height: 0},
+		    shadowRadius: Platform.OS == 'ios' ? 8 : 0,
+		    shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		    elevation: Platform.OS == 'android' ? 6 : 0,
             marginRight: scaling.moderateScale(5),
             justifyContent: 'center',
             alignItems: 'center',
@@ -91,7 +96,7 @@ const styles = {
     },
     text:{
         description:{
-            fontFamily: 'Avenir-Light',
+            fontFamily: 'Avenir-Book',
             marginBottom: scaling.moderateScale(12),
             color: colour.grey,
             lineHeight: scaling.moderateScale(24),

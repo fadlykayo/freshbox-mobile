@@ -13,7 +13,7 @@ const styles = {
     },
     text: {
         logout: {
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(16),
             color: colour.darkGrey
         },

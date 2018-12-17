@@ -3,6 +3,8 @@ package com.freshbox;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.imagepicker.ImagePickerPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -35,12 +37,13 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReactNativeOneSignalPackage(),
-            new ImagePickerPackage(),
-            new RNGoogleSigninPackage(),
-          new FBSDKPackage(mCallbackManager),
-          new VectorIconsPackage()
+        new MainReactPackage(),
+        new LinearGradientPackage(),
+        new ImagePickerPackage(),
+        new ReactNativeOneSignalPackage(),
+        new RNGoogleSigninPackage(),
+        new FBSDKPackage(mCallbackManager),
+        new VectorIconsPackage()
       );
     }
 

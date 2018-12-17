@@ -123,6 +123,7 @@ class ResetPasswordPage extends Component {
 				this.createNewPassword();
 			})
 			.catch(err => {
+				console.log("gagal?", err)
 				this.setValidation(err, false)
 			})
 		}
@@ -131,7 +132,8 @@ class ResetPasswordPage extends Component {
   	updatePasswordHandler(){
 		let payload = {
 			header: {
-				apiToken: this.props.user.authorization
+				apiToken: this.props.user.authorization,
+				onesignalToken: this.props.userId.userId
 			},
 			body: {
 				old_password: this.state.user.oldPassword,
@@ -166,7 +168,9 @@ class ResetPasswordPage extends Component {
 
 	createNewPassword() {
 		let payload = {
-			header: {},
+			header: {
+				onesignalToken: this.props.userId.userId
+			},
 			body: {
 				phone_number: this.props.navigation.state.params.phone,
 				password: this.state.user.newPassword,
@@ -177,7 +181,6 @@ class ResetPasswordPage extends Component {
 
 		this.props.reset_password(payload,
 			(res) => {
-				console.log(res)
 				actNav.reset(navConstant.Product)
 			},
 			(err) => {
@@ -192,6 +195,8 @@ class ResetPasswordPage extends Component {
     }
 
   	render() {
+
+		console.log("punya userId", this.props.userId.userId)
   	  	return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
@@ -300,7 +305,8 @@ class ResetPasswordPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	user: state.user.data
+	user: state.user.data,
+	userId: state.user.userId
 })
 
 const mapDispatchToProps = (dispatch) => ({

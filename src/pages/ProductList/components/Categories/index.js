@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, View, Image, Text } from 'react-native';
+import { TouchableOpacity, View, Image, Modal } from 'react-native';
 import ListCategory from './components/ListCategory';
 import styles from './styles';
 import StaticText from '@components/StaticText';
@@ -19,29 +19,36 @@ class OpenCategories extends PureComponent {
 		if(this.props.modalVisible){
 			return(
 				<View style={styles.background}>
-					<TouchableOpacity style={styles.touchable} onPress={this.closeCategory}></TouchableOpacity>
-					<View style={styles.container}>
-						<View style={styles.subcontainer.title}>
-							<TouchableOpacity
-								onPress={this.closeCategory}
-								style={styles.subcontainer.button}
-							>
-								<Image
-									resizeMode={'contain'}
-									source={images.icon_scroll_down}
-									style={styles.icon}
+					<Modal
+						animationType={'slide'}
+						transparent={true}
+						visible={this.props.modalVisible}
+						onRequestClose={this.closeCategory}
+					>
+						<TouchableOpacity style={styles.touchable} onPress={this.closeCategory}></TouchableOpacity>
+						<View style={styles.container}>
+							<View style={styles.subcontainer.title}>
+								<TouchableOpacity
+									onPress={this.closeCategory}
+									style={styles.subcontainer.button}
+								>
+									<Image
+										resizeMode={'contain'}
+										source={images.icon_scroll_down}
+										style={styles.icon}
+									/>
+								</TouchableOpacity>
+								<StaticText
+									style={styles.text.title}
+									property={'productList.content.categories'}
 								/>
-							</TouchableOpacity>
-							<StaticText
-								style={styles.text.title}
-								property={'productList.content.categories'}
+							</View>
+							<ListCategory
+								categories={this.props.categories}
+								changeCategory={this.props.changeCategory}
 							/>
 						</View>
-						<ListCategory
-							categories={this.props.categories}
-							changeCategory={this.props.changeCategory}
-						/>
-					</View>
+					</Modal>
 				</View>
 			)
 		} else {

@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
@@ -28,9 +28,9 @@ const styles = {
         real: {
             height: width * 0.26,
             width: width * 0.26,
-            borderRadius: 200,
+            borderRadius: Platform.OS == 'android' ? 200 : 50,
             borderColor: colour.white,
-            marginBottom: width* 0.02,
+            marginBottom: width * 0.02,
         },
         dummy: {
             height: width * 0.2,
@@ -41,13 +41,13 @@ const styles = {
     user: {
         name: {
             fontSize: scaling.moderateScale(16),
-            fontFamily: 'Avenir-Black',
+            fontFamily: 'Avenir-Heavy',
             color: colour.white,
             marginBottom: scaling.moderateScale(4),
         },
         phone: {
             fontSize: scaling.moderateScale(12),
-            fontFamily: 'Avenir-Medium',
+            fontFamily: 'Avenir-Roman',
             color: colour.white,
         }
     },

@@ -1,6 +1,4 @@
-import { Dimensions } from 'react-native';
 import { colour } from '@styles';
-
 
 const styles = {
     container: {

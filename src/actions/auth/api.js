@@ -177,7 +177,7 @@ actions.forgot_password = (req, success, failure) => {
     }
 };
 
-actions.reset_password = (req, success, failure) => {
+actions.reset_password = (req,success,failure) => {
 	
 	payload.path = path.resetPassword;
 	payload.header = req.header;

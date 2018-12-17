@@ -6,14 +6,16 @@ const { width } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		paddingVertical: scaling.moderateScale(5),
+		marginTop: scaling.moderateScale(2),
 		paddingHorizontal: width * 0.05,
-		backgroundColor: colour.softRedTransparent
+		backgroundColor: colour.softRedTransparent,
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	text:{
 		notes:{
-			fontFamily: 'Avenir-Light',
-			fontSize: scaling.moderateScale(12),
+			fontFamily: 'Avenir-Book',
+			fontSize: scaling.moderateScale(11),
 			color: colour.red,
 		}
 	}
