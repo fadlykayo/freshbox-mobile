@@ -39,6 +39,12 @@ class SignIn extends Component {
         this.clearData = this.clearData.bind(this);
     }
 
+    componentWillUnmount() {
+        if(this.props.navigation.state.params.closeDrawer) {
+			this.props.navigation.state.params.closeDrawer();
+		}
+    }
+
     onChangeText(type,value){
         let user = JSON.parse(JSON.stringify(this.state.user));
         user[type] = value;
