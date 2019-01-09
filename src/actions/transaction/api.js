@@ -60,6 +60,113 @@ actions.bulk_add_products = (req,success,failure) => {
     }
 };
 
+actions.request_snap_token = (req,success,failure) => {
+	
+	payload.path = path.checkout;
+	payload.header = req.header;
+	payload.body = req.body;
+	payload.params = req.params;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+        	console.log('Request Snap Token res ->',res);
+        	if(res.code){
+        		if(res.code == 200){
+					success(res.data);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Request Snap Token err ->', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+					case 400: return failure(err);
+					case 403:
+						if(err.data.payment_method){
+							return (
+								language.transformText('message.noPaymentMethodSelected')
+								.then(message => {
+									dispatch(actNetwork.set_error_status({
+										status: true,
+										data: message,
+										title: 'formError.title.createOrder'
+									}));
+								})
+							)
+						}
+						else{
+							return dispatch(actNetwork.set_error_status({
+								status: true,
+								data: JSON.stringify(err)
+							}));
+						}
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
+actions.cancel_checkout = (req,success,failure) => {
+	
+	payload.path = path.cancelCheckout;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+        	console.log('Cancel Checkout res ->',res);
+        	if(res.code){
+        		if(res.code == 200){
+					success(res.data);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Cancel Checkout err ->', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+					case 400: return failure(err);
+					case 403:
+						if(err.data.payment_method){
+							return (
+								language.transformText('message.noPaymentMethodSelected')
+								.then(message => {
+									dispatch(actNetwork.set_error_status({
+										status: true,
+										data: message,
+										title: 'formError.title.createOrder'
+									}));
+								})
+							)
+						}
+						else{
+							return dispatch(actNetwork.set_error_status({
+								status: true,
+								data: JSON.stringify(err)
+							}));
+						}
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
+
 actions.create_order = (req,success,failure) => {
 	
 	payload.path = path.checkout;
@@ -153,16 +260,19 @@ actions.detail_transaction = (req,success,failure) => {
 	
 	payload.path = `${path.transactionHistory}/${req.invoice}`;
 	payload.header = req.header;
+	payload.params = {};
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('get',payload,dispatch)
         .then((res) => {
         	console.log('Get Detail Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.detail_transaction(res.data))
-					success(res);
+					if(req.type) success(res);
+					else{
+						dispatch(actReducer.detail_transaction(res.data))
+						success(res);
+					}
         		}
         	}
         })
@@ -173,11 +283,13 @@ actions.detail_transaction = (req,success,failure) => {
         	} else {
         		switch(err.code){
         			case 400: return failure(err);
-        			default:
-        				dispatch(actNetwork.set_error_status({
+					default:
+						if(req.type) failure(err);
+        				else dispatch(actNetwork.set_error_status({
         					status: true,
         					data: JSON.stringify(err)
-        				}));
+						}));
+						
         		}
         	}
         })

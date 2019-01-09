@@ -35,5 +35,6 @@ export const path = {
     getSubdistrict: 'v1/region/subdistrict',
     getZipCode: 'v1/region/zip-code',
     reorder: 'v1/transaction/reorder',
-    customerservice: 'v1/customer-support'
+    customerservice: 'v1/customer-support',
+    cancelCheckout: 'v1/transaction/cancel'
 }

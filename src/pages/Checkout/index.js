@@ -29,6 +29,7 @@ class Checkout extends Component {
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
+		this.cancelInvoice = this.cancelInvoice.bind(this);
 		this.getDeliveryDate = this.getDeliveryDate.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
@@ -156,6 +157,26 @@ class Checkout extends Component {
 		}
 	}
 
+	cancelInvoice(token){
+        let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+                token: token,
+            }
+        }
+        
+        this.props.cancel_checkout(payload,
+            res => {
+				console.log(res);
+            },
+            rej => {
+
+            }
+        );
+	}
+
 	navigateToDetail(address){
 		let payload = {};
 		
@@ -167,6 +188,7 @@ class Checkout extends Component {
 				action: 'checkout', 
 				transaction: payload, 
 				date: this.state.date,
+				cancelInvoice: this.cancelInvoice,
 				...this.props.navigation.state.params
 			}
 		)
@@ -260,6 +282,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	cancel_checkout: (req,res,err) => dispatch(actions.transaction.api.cancel_checkout(req,res,err)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 });
 

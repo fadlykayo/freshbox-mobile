@@ -13,6 +13,9 @@ const styles = {
         flex: 1,
         backgroundColor: colour.white,
     },
+    webview:{
+        
+    }
 }
 
 export default styles;

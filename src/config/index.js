@@ -18,7 +18,7 @@ const staging = {
         android: '1.0.0-staging',
         ios: '1.0.0-staging',
     },
-    url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/api/',
+    url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/',
     googleKeyMap: '',
     store:{
         android: '',
