@@ -30,10 +30,7 @@ class ChoosePayment extends Component {
     render() {
         let params = this.props.navigation.state.params;
         return (
-            <Container
-                bgColorTop={'red'}
-                bgColorBottom={'veryLightGrey'}
-            >
+            <View style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
 			    />
@@ -48,7 +45,7 @@ class ChoosePayment extends Component {
                             />
                     }
                 </View>
-            </Container>
+            </View>
         );
     }
 }
