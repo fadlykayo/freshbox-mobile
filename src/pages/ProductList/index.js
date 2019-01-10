@@ -63,7 +63,6 @@ class ProductList extends Component {
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
-		this.counterTotalCount = this.counterTotalCount.bind(this);
 		this.checkNotification = this.checkNotification.bind(this);
 		this.openFromNotification = this.openFromNotification.bind(this);
 		this.introAnimate = this.introAnimate.bind(this);
@@ -82,20 +81,12 @@ class ProductList extends Component {
 		}
 	}
 
-	counterTotalCount(type) {
-		if(this.props.total_count == 1 && type == 'desc') {
-			this.outroAnimate();
-		} else if(this.props.total_count == 0 && type == 'inc') {
-			if(this.state.modalVisible.checkout) {
-				this.introAnimate();
-			} else {
-				let modalVisible = this.state.modalVisible;
-				modalVisible.checkout = true;
-				this.setState({modalVisible},() => {
-					this.introAnimate();
-				})
-			}
+	shouldComponentUpdate(nextProps,nextState){
+		if(nextProps.total_count == 0) this.outroAnimate();
+		else{
+			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
 		}
+		return true;
 	}
 
 	introAnimate() {
@@ -269,7 +260,7 @@ class ProductList extends Component {
 		this.props.get_products(payload,
 			() => {
 				if(this.state.refreshing != false) this.setState({refreshing: false});
-				if(this.props.navigation.state.params.action) this.validateCart();
+				if(this.props.navigation.state.params.action) this.navigateToCart();
 			},
 			(err) => {
 				console.log(err)
@@ -450,7 +441,6 @@ class ProductList extends Component {
 
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
-		this.counterTotalCount(type);
 	}
 	
 	submitSearch() {
@@ -512,7 +502,7 @@ class ProductList extends Component {
 		})
 		.then(() => {
 			actNav.goBackToTop();
-			this.navigateToDetail(invoice,type);
+			setTimeout(() => this.navigateToDetail(invoice,type),500);
 		});
 	}
 

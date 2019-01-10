@@ -21,7 +21,7 @@ class TransferInstruction extends Component {
             grandTotalPrice: 0,
             countDown: moment(moment(this.props.detailTransaction.expired_date) - moment(new Date())).format('HH:mm:ss'),
             banks:{
-                bca_virtual_account: {
+                bca: {
                     name: "virtualAccount.content.bcaVA",
                     image: images.icon_logo_bca,
                     types: [
@@ -108,7 +108,7 @@ class TransferInstruction extends Component {
                         },
                     ]
                 },
-                bni_virtual_account: {
+                bni: {
                     name: "virtualAccount.content.bniVA",
                     image: images.icon_logo_bni,
                     types: [
@@ -182,7 +182,7 @@ class TransferInstruction extends Component {
                         },
                     ]
                 },
-                permata_virtual_account: {
+                permata: {
                     name: "virtualAccount.content.permataVA",
                     image: images.icon_logo_permata,
                     types: [
@@ -302,7 +302,7 @@ class TransferInstruction extends Component {
 
     render(){
         const dateDisplay = moment(this.props.detailTransaction.expired_date).format('dddd, Do MMMM YYYY, HH:mm');
-        const bank = this.state.banks[this.props.detailTransaction.payment_method] ? this.state.banks[this.props.detailTransaction.payment_method] : this.state.banks.bni_virtual_account;
+        const bank = this.state.banks[this.props.detailTransaction.va_bank] ? this.state.banks[this.props.detailTransaction.va_bank] : this.state.banks.bni;
         return (
             <Container
                 bgColorBottom={'veryLightGrey'} 				
