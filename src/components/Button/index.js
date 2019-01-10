@@ -19,20 +19,21 @@ class Button extends PureComponent {
         switch(this.props.type){
             case 'red' :
             return (
-                // <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colour.darkRedTransition, colour.redTransition]} style={styles.container.base}>
-                    <TouchableOpacity onPress={this.onPress} style={[styles.container.base,styles.container.red]}>
+                    <TouchableOpacity 
+                        onPress={this.onPress} 
+                        style={[styles.container.base,styles.container.red]}
+                    >
                         <StaticText 
                             style={styles.staticText.white}
                             property={this.props.title}
                         />
                     </TouchableOpacity>
-                // </LinearGradient>
             );
             case 'white':
             return (
                 <TouchableOpacity 
-                    style={[styles.container.base,styles.container.white]} 
                     onPress={this.onPress}
+                    style={[styles.container.base,styles.container.white]} 
                 >
                     <StaticText 
                         style={styles.staticText.red}
