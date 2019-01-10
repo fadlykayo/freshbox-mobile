@@ -22,7 +22,6 @@ class ChoosePayment extends Component {
     }
 
     navigationStateChangeHandler(event){
-        console.log(event);
         if(event.loading == false && event.url.search(`transaction_status`) != -1){
             actNav.goBack();
         }
