@@ -76,6 +76,7 @@ class ProductList extends Component {
 		this.checkCategory();
 		this.getFavorites();
 		this.checkNotification();
+		this.checkCart();
 		if(Platform.OS == 'android') {
 			permission.requestSaveExternal();
 		}
@@ -119,6 +120,10 @@ class ProductList extends Component {
 			)
 		}
 		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+	}
+
+	checkCart(){
+		if(this.props.total_count > 0) this.introAnimate();
 	}
 
 	checkNotification() {
