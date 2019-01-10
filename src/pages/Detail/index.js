@@ -25,6 +25,7 @@ class Detail extends Component {
             token: '',
             invoice: '',
 			refreshing: false,
+			isNavigateBack: false,
         }
 		this._onRefresh = this._onRefresh.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
@@ -42,17 +43,20 @@ class Detail extends Component {
 	}
 	
 	componentWillUnmount() {
-		if (this.props.navigation.state.params.refreshHandler){
-			this.props.navigation.state.params.refreshHandler();
-		}
-		else{
-			if(this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0){
-				this.props.navigation.state.params.cancelInvoice(this.state.token);
+		if(this.state.isNavigateBack == true){
+			if (this.props.navigation.state.params.refreshHandler){
+				this.props.navigation.state.params.refreshHandler();
+			}
+			else{
+				if(this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0){
+					this.props.navigation.state.params.cancelInvoice(this.state.token);
+				}
 			}
 		}
 	}
     
     componentDidMount() {
+		console.log(this.props.navigation.state.params);
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
@@ -242,8 +246,10 @@ class Detail extends Component {
 		}
 
 		this.props.reorder_transaction(payload,
-			(res) => {
-				actNav.navigate(navConstant.Cart,this.props.navigation.state.params);
+			() => {
+				actNav.reset(navConstant.Product,{
+					action: 'reorder'
+				});
 			},
 			(err) => {
 				console.log(err)
@@ -302,9 +308,12 @@ class Detail extends Component {
 	}
 
 	navigateBack(key) {
-		if(key) {
-			actNav.goBack(key)
-		} else actNav.goBack();
+		this.setState({
+			isNavigateBack: true
+		}, () => {
+			if(key) actNav.goBack(key)
+			else actNav.goBack();
+		});
 	}
 
 	refreshHandler(){
@@ -339,6 +348,7 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
+					onPress={this.navigateBack}
 				/>
 				<ScrollView
 					refreshControl= {this.props.navigation.state.params.action == 'history'

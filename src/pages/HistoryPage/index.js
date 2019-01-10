@@ -13,22 +13,24 @@ class HistoryPage extends Component {
 		super(props);
 		this.state = {
 			refreshing: false,
+			isNavigateBack: false,
 		}
+		this.navigateBack = this.navigateBack.bind(this);
 		this.refreshHandler = this.refreshHandler.bind(this);
 		this.getRefreshData = this.getRefreshData.bind(this);
 		this.getHistoryData = this.getHistoryData.bind(this);
-		this.navigateBack = this.navigateBack.bind(this);
-		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 		this.navigateToReviewProduct = this.navigateToReviewProduct.bind(this);
 	}
 	
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.refreshProductList) {
-			this.props.navigation.state.params.refreshProductList();
-		}
-		if(this.props.navigation.state.params.closeDrawer) {
-			this.props.navigation.state.params.closeDrawer();
+		if(this.state.isNavigateBack == true){
+			if(this.props.navigation.state.params.refreshProductList) {
+				this.props.navigation.state.params.refreshProductList();
+			}
+			if(this.props.navigation.state.params.closeDrawer) {
+				this.props.navigation.state.params.closeDrawer();
+			}
 		}
 	}
 
@@ -102,16 +104,17 @@ class HistoryPage extends Component {
 		)
 	}
 
-	navigateToCart(payload){
-		// actNav.navigate(navConstant.Cart);
-	}
-
 	navigateBack(){
-		actNav.goBack(this.props.navigation.state.params.key);
+		this.setState({
+			isNavigateBack: true
+		},() => actNav.goBack(this.props.navigation.state.params.key))
 	}
 
 	navigateToReviewProduct(payload) {
-		actNav.navigate(navConstant.ContactUs, { action: 'history', data: payload })
+		actNav.navigate(navConstant.ContactUs,{ 
+			action: 'history', 
+			data: payload 
+		})
 	}
 
   	render() {
@@ -136,7 +139,6 @@ class HistoryPage extends Component {
 							<TransactionComponent
 								data={item}
 								index={index}
-								navigateToCart={this.navigateToCart}
 								navigateToDetail={this.navigateToDetail}
 								navigateToReviewProduct={this.navigateToReviewProduct}
 							/>

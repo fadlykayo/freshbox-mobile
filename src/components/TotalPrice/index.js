@@ -45,10 +45,8 @@ class TotalPrice extends Component {
                             {deliveryPrice}
                         </Text>
                     </View>
-                        { this.props.action == undefined
-                            ? null
-                            : (
-                            <View>
+                    { this.props.action
+                        ?   <View>
                                 <View style={styles.subcontainer.price}>
                                     <StaticText
                                         style={styles.text.title}
@@ -76,7 +74,8 @@ class TotalPrice extends Component {
                                     </Text>
                                 </View>
                             </View>
-                        )}
+                        : null
+                    }
                     <View style={styles.subcontainer.price}>
                         <StaticText
                             style={styles.text.total}

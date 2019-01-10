@@ -129,11 +129,14 @@ export const setNavigator = (navigatorRef) => {
 }
 
 export const actNav = {
-    reset: (route) => {
+    reset: (route, params = {}) => {
         _navigator.dispatch(StackActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ routeName: route})
+                NavigationActions.navigate({ 
+                    routeName: route,
+                    params: params
+                })
             ]
         }));
     },

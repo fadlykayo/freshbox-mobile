@@ -269,6 +269,7 @@ class ProductList extends Component {
 		this.props.get_products(payload,
 			() => {
 				if(this.state.refreshing != false) this.setState({refreshing: false});
+				if(this.props.navigation.state.params.action) this.validateCart();
 			},
 			(err) => {
 				console.log(err)
