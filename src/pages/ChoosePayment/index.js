@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, WebView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
@@ -21,8 +21,11 @@ class ChoosePayment extends Component {
         if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus();
     }
 
-    navigationStateChangeHandler(e){
-        console.log(e);
+    navigationStateChangeHandler(event){
+        console.log(event);
+        if(event.loading == false && event.url.search(`transaction_status`) != -1){
+            actNav.goBack();
+        }
     }
 
     render() {

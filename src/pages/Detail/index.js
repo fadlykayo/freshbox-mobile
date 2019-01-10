@@ -78,13 +78,7 @@ class Detail extends Component {
 					invoice: '',
 					redirect_url: '',
 				},() => {
-					console.log('handle transaction',res);
-					if(res.data.payment_method == BANK_TRANSFER){
-						actNav.navigate(navConstant.VirtualAccount,this.props.navigation.state.params);
-					}
-					else{
-						actNav.navigate(navConstant.CreditCard,this.props.navigation.state.params);
-					}
+					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
 				})
 			},
 			(err) => {
