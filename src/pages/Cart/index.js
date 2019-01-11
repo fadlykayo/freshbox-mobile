@@ -188,23 +188,25 @@ class Cart extends Component {
 					onPress={this.props.navigation.state.params.action == 'history' ? this.navigateToProduct : this.navigateBack}
 				/>
 				<View style={styles.container}>
-					<FlatList
-						data={this.props.cart_product}
-						keyExtractor={(item,index) => index.toString()}
-						renderItem={({item,index}) => (
-							<ProductItem
-								search={this.state.search}
-								key={index}
-								data={item}
-								type={'cart'}
-								index={index+1}
-								user={this.props.user}
-								changeTotalItem={this.changeTotalItem}
-								productLength={this.props.cart_product.length}
-								openDetailProduct={this.openDetailProduct}
-							/>
-						)}
-					/>
+					<View style={{flex: 1}}>
+						<FlatList
+							data={this.props.cart_product}
+							keyExtractor={(item,index) => index.toString()}
+							renderItem={({item,index}) => (
+								<ProductItem
+									search={this.state.search}
+									key={index}
+									data={item}
+									type={'cart'}
+									index={index+1}
+									user={this.props.user}
+									changeTotalItem={this.changeTotalItem}
+									productLength={this.props.cart_product.length}
+									openDetailProduct={this.openDetailProduct}
+								/>
+							)}
+						/>
+					</View>
 					<Checkout
 						type={'red'}
 						totalPrice={this.props.total_price}

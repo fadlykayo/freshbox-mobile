@@ -697,7 +697,8 @@
             "createOrder": "Pemesanan Gagal",
             "outOfStock": "Jumlah Barang Berlebih",
             "expiredDate": "Waktu Pemesanan Telah Habis",
-            "serverError": "Server Gangguan"
+            "serverError": "Server Gangguan",
+            "paymentCanceled": "Pembayaran Batal"
         }
     },
     "formSuccess":{

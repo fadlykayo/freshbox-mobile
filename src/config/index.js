@@ -2,10 +2,10 @@ export const url = '';
 
 const production = {
     version: {
-        android: '1.1.0',
-        ios: '1.1.0',
+        android: '1.0.0',
+        ios: '1.0.0',
     },
-    url: '',
+    url: 'https://api.freshbox.id/',
     googleKeyMap: '',
     store:{
         android: '',
@@ -18,7 +18,7 @@ const staging = {
         android: '1.0.0-staging',
         ios: '1.0.0-staging',
     },
-    url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/api/',
+    url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/',
     googleKeyMap: '',
     store:{
         android: '',
@@ -26,6 +26,6 @@ const staging = {
     }
 }
 
-const config = staging;
+const config = production;
 
 export default config;

@@ -11,6 +11,8 @@ import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
+const BANK_TRANSFER = 'bank_transfer';
+
 class Detail extends Component {
   	constructor(props) {
 		super(props)
@@ -19,38 +21,78 @@ class Detail extends Component {
 			totalPrice: 0,
 			deliveryPrice: 0,
 			grandTotalPrice: 0,
+            redirect_url: '',
+            token: '',
+            invoice: '',
 			refreshing: false,
+			isNavigateBack: false,
         }
-		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.toggleFavoriteHistory = this.toggleFavoriteHistory.bind(this);
-        this.navigateToCart = this.navigateToCart.bind(this);
-		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
-		this.setDetailTransaction = this.setDetailTransaction.bind(this);
-		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
-		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
-		this.navigateBack = this.navigateBack.bind(this);
-		this.refreshHandler = this.refreshHandler.bind(this);
 		this._onRefresh = this._onRefresh.bind(this);
-		this.messageOrderSuccess = this.messageOrderSuccess.bind(this);
+		this.navigateBack = this.navigateBack.bind(this);
+		this.toggleFavorite = this.toggleFavorite.bind(this);
+        this.navigateToCart = this.navigateToCart.bind(this);
+		this.refreshHandler = this.refreshHandler.bind(this);
+		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
 		this.clearNotification = this.clearNotification.bind(this);
+		this.messageOrderSuccess = this.messageOrderSuccess.bind(this);
+		this.setDetailTransaction = this.setDetailTransaction.bind(this);
+		this.toggleFavoriteHistory = this.toggleFavoriteHistory.bind(this);
+		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
+		this.validateTransactionStatus = this.validateTransactionStatus.bind(this);
+		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
 	}
 	
 	componentWillUnmount() {
-		if (this.props.navigation.state.params.refreshHandler) {
-			this.props.navigation.state.params.refreshHandler();
+		if(this.state.isNavigateBack == true){
+			if (this.props.navigation.state.params.refreshHandler){
+				this.props.navigation.state.params.refreshHandler();
+			}
+			else{
+				if(this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0){
+					this.props.navigation.state.params.cancelInvoice(this.state.token);
+				}
+			}
 		}
 	}
     
     componentDidMount() {
+		console.log(this.props.navigation.state.params);
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
 	}
 
 	clearNotification() {
-		if(this.props.notif) {
-			this.props.reset_notification();
+		if(this.props.notif) this.props.reset_notification();
+	}
+
+	validateTransactionStatus(){
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			type: 'validation',
+			invoice: this.state.invoice
 		}
+
+		this.props.detail_transaction(payload, 
+			(res) => {
+				this.setState({
+					token: '',
+					invoice: '',
+					redirect_url: '',
+				},() => {
+					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
+				})
+			},
+			(err) => {
+				this.props.set_error_status({
+					status: true,
+					data: 'Pembayaran batal dilakukan.',
+					title: 'formError.title.paymentCanceled'
+				});
+			}
+		)
 	}
 
 	messageOrderSuccess() {
@@ -204,26 +246,74 @@ class Detail extends Component {
 		}
 
 		this.props.reorder_transaction(payload,
-			(res) => {
-				actNav.navigate(navConstant.Cart,this.props.navigation.state.params);
+			() => {
+				actNav.reset(navConstant.Product,{
+					action: 'reorder'
+				});
 			},
 			(err) => {
 				console.log(err)
-			})
-    }
+			}
+		)
+	}
     
     navigateToChoosePayment(){
-        actNav.navigate(navConstant.ChoosePayment,this.props.navigation.state.params);
+		if(this.state.token.length == 0){
+			let address = this.props.addresses.filter(address => address.primary == 1)[0];
+	
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {
+					address_code: address.code,
+					request_shipping_date: this.props.navigation.state.params.date.value
+				}
+			}
+			
+			this.props.request_snap_token(payload,
+				res => {
+					this.setState({
+						token: res.token,
+						invoice: res.invoice,
+						redirect_url: res.redirect_url,
+					},() => {
+						actNav.navigate(navConstant.ChoosePayment,{
+							...this.props.navigation.state.params,
+							token: this.state.token,
+							invoice: this.state.invoice,
+							redirect_url: this.state.redirect_url,
+							validateTransactionStatus: this.validateTransactionStatus
+						});
+					});
+				},
+				rej => {
+	
+				}
+			);
+		}
+		else{
+			actNav.navigate(navConstant.ChoosePayment,{
+				...this.props.navigation.state.params,
+				token: this.state.token,
+				invoice: this.state.invoice,
+				redirect_url: this.state.redirect_url,
+				validateTransactionStatus: this.validateTransactionStatus
+			});
+		}
 	}
 
 	navigateToTransferInstruction(){
-		actNav.navigate(navConstant.TransferInstruction, {refreshHandler: this.refreshHandler});
+		actNav.navigate(navConstant.TransferInstruction,{refreshHandler: this.refreshHandler});
 	}
 
 	navigateBack(key) {
-		if(key) {
-			actNav.goBack(key)
-		} else actNav.goBack();
+		this.setState({
+			isNavigateBack: true
+		}, () => {
+			if(key) actNav.goBack(key)
+			else actNav.goBack();
+		});
 	}
 
 	refreshHandler(){
@@ -239,6 +329,7 @@ class Detail extends Component {
 			},
 			invoice: this.props.detailTransaction.invoice
 		}
+
 		this.props.detail_transaction(payload,
 			() => {
 				if(this.state.refreshing) this.setState({refreshing: false});
@@ -257,6 +348,7 @@ class Detail extends Component {
             >
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
+					onPress={this.navigateBack}
 				/>
 				<ScrollView
 					refreshControl= {this.props.navigation.state.params.action == 'history'
@@ -281,7 +373,7 @@ class Detail extends Component {
 								? this.props.detailTransaction.details 
 								: this.props.cart_product
 							}
-							keyExtractor={(item,index) => index.toString()}
+							keyExtractor={(_,index) => index.toString()}
 							renderItem={({item,index}) => (
 								<CartComponent
 									data = {item}
@@ -312,28 +404,30 @@ class Detail extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	notif: state.notif.notification,
-	additional: state.product.additional.credit_card,
-    detailTransaction: state.transaction.detail,
-    transactions: state.transaction.transactions,
     user: state.user.data,
     addresses: state.user.address,
-    cart_product: state.product.cart.products,
+	notif: state.notif.notification,
     totalPrice: state.product.total.price,
-	delivery_price: state.product.delivery_price
-})
+    cart_product: state.product.cart.products,
+    detailTransaction: state.transaction.detail,
+    transactions: state.transaction.transactions,
+	delivery_price: state.product.delivery_price,
+	additional: state.product.additional.credit_card,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	reset_notification: () => dispatch(actions.notif.reducer.reset_notification()),
     toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
-	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
-	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
 	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),
 	delete_favorite_history: (req,res,err) => dispatch(actions.transaction.api.delete_favorite_history(req,res,err)),
-	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
-	reset_notification: () => dispatch(actions.notif.reducer.reset_notification()),
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps,mapDispatchToProps)(Detail);

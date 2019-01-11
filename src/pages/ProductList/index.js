@@ -63,7 +63,6 @@ class ProductList extends Component {
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.refreshProductList = this.refreshProductList.bind(this);
-		this.counterTotalCount = this.counterTotalCount.bind(this);
 		this.checkNotification = this.checkNotification.bind(this);
 		this.openFromNotification = this.openFromNotification.bind(this);
 		this.introAnimate = this.introAnimate.bind(this);
@@ -77,25 +76,18 @@ class ProductList extends Component {
 		this.checkCategory();
 		this.getFavorites();
 		this.checkNotification();
+		this.checkCart();
 		if(Platform.OS == 'android') {
 			permission.requestSaveExternal();
 		}
 	}
 
-	counterTotalCount(type) {
-		if(this.props.total_count == 1 && type == 'desc') {
-			this.outroAnimate();
-		} else if(this.props.total_count == 0 && type == 'inc') {
-			if(this.state.modalVisible.checkout) {
-				this.introAnimate();
-			} else {
-				let modalVisible = this.state.modalVisible;
-				modalVisible.checkout = true;
-				this.setState({modalVisible},() => {
-					this.introAnimate();
-				})
-			}
+	shouldComponentUpdate(nextProps,nextState){
+		if(nextProps.total_count == 0) this.outroAnimate();
+		else{
+			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
 		}
+		return true;
 	}
 
 	introAnimate() {
@@ -128,6 +120,10 @@ class ProductList extends Component {
 			)
 		}
 		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+	}
+
+	checkCart(){
+		if(this.props.total_count > 0) this.introAnimate();
 	}
 
 	checkNotification() {
@@ -269,6 +265,7 @@ class ProductList extends Component {
 		this.props.get_products(payload,
 			() => {
 				if(this.state.refreshing != false) this.setState({refreshing: false});
+				if(this.props.navigation.state.params.action) this.navigateToCart();
 			},
 			(err) => {
 				console.log(err)
@@ -449,7 +446,6 @@ class ProductList extends Component {
 
 	changeTotalItem(payload,type){
 		this.props.change_total(payload,type);
-		this.counterTotalCount(type);
 	}
 	
 	submitSearch() {
@@ -494,7 +490,6 @@ class ProductList extends Component {
 			});
 		}
 		else{
-			console.log("masuk")
 			this.navigateToCart();
 		}
 	}
@@ -506,8 +501,14 @@ class ProductList extends Component {
 	}
 
 	createOrderHandler(invoice,type){
-		actNav.goBackToTop();
-		this.navigateToDetail(invoice,type);
+		new Promise((res) => {
+			this.props.clear_products();
+			res();
+		})
+		.then(() => {
+			actNav.goBackToTop();
+			setTimeout(() => this.navigateToDetail(invoice,type),500);
+		});
 	}
 
 	navigateToDetail(input,type) {
@@ -590,28 +591,28 @@ class ProductList extends Component {
 							<Checkout
 								introButton={introButton}
 								outroButton={outroButton}
-								modalVisible={this.state.modalVisible.checkout}
+								validateCart={this.validateCart}
 								totalCount={this.props.total_count}
 								totalPrice={this.props.total_price}
-								validateCart={this.validateCart}
+								modalVisible={this.state.modalVisible.checkout}
 							/>
 						</View>
 					</View>
 				<ProductDetail
 					type={'productList'}
 					user={this.props.user}
-					data={this.props.productDetail}
-					scrollX={this.state.scrollX}
 					bubble={this.state.bubble}
-					toggleFavorite={this.toggleFavorite}
-					changeTotalItem={this.changeTotalItem}
-					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct}
-					getPositionIndex={this.getPositionIndex}
-					getPositionBubble={this.getPositionBubble}
-					openImageDetail={this.state.modalVisible.openImageDetail}
+					scrollX={this.state.scrollX}
+					data={this.props.productDetail}
 					openZoomImage={this.openZoomImage}
 					closeZoomImage={this.closeZoomImage}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					getPositionIndex={this.getPositionIndex}
+					getPositionBubble={this.getPositionBubble}
+					closeDetailProduct={this.closeDetailProduct}
+					modalVisible={this.state.modalVisible.openProduct}
+					openImageDetail={this.state.modalVisible.openImageDetail}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}
@@ -641,20 +642,21 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
 	reset_params: () => dispatch(actions.product.reducer.reset_params()),
-	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
-	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
+	clear_products: () => dispatch(actions.product.reducer.clear_products()),
+	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
-	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
+	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
+	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
-	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

@@ -23,6 +23,7 @@ class CheckoutComponent extends PureComponent {
 		else {
 			return(
 				<Animated.View
+    				// style={styles.checkout}>
     				style={styles.animated.checkout(this.props.totalCount,this.props.modalVisible,this.props.outroButton,this.props.introButton)}>
 					<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colour.darkRedTransition, colour.redTransition]} style={styles.container}>
 						<TouchableOpacity onPress={this.validateCart} style={styles.subcontainer.button}>

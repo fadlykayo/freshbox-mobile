@@ -6,17 +6,12 @@ import styles from './styles';
 class TransactionComponent extends Component {
   	constructor() {
 		super()
-		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 		this.navigateToReviewProduct = this.navigateToReviewProduct.bind(this);
 	}
 	 
 	navigateToDetail(index) {
 		this.props.navigateToDetail(index)
-	}
-
-	navigateToCart(payload) {
-		this.props.navigateToCart(payload)
 	}
 
 	getStatusText(payload) {

@@ -10,14 +10,14 @@ class TransactionComponent extends Component {
 		this.navigateToDetail = this.navigateToDetail.bind(this);
 	}
 	 
-	navigateToDetail(invoice) {
-		this.props.navigateToDetail(invoice)
+	navigateToDetail() {
+		this.props.navigateToDetail(this.props.data);
 	}
 
   	render() {
   	  	return (
             <TouchableOpacity
-                onPress={() => this.navigateToDetail(this.props.data)}
+                onPress={this.navigateToDetail}
                 style={styles.container}
             >
 				<Content
@@ -25,7 +25,6 @@ class TransactionComponent extends Component {
 				/>
 				<Button
 					data ={this.props.data}
-					navigateToCart={this.props.navigateToCart}
 					navigateToDetail={this.props.navigateToDetail}
 					navigateToReviewProduct={this.props.navigateToReviewProduct}
 				/>

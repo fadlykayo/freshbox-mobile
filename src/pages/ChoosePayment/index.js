@@ -1,86 +1,60 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import { View, WebView } from 'react-native';
+import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import TotalPrice from './components/TotalPrice';
-import Content from './components/Content';
 import styles from './styles';
 import { connect } from 'react-redux';
 
 class ChoosePayment extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            user: {
-                deliveryPrice: 0
-            },
-            grandTotalPrice: 0,
-            contents: [
-                'choosePayment.content.creditCard',
-                'choosePayment.content.virtualAccount',
-            ]
+            redirect_url: '',
+            token: '',
+            invoice: '',
         }
-        this.navigateToOtherPage = this.navigateToOtherPage.bind(this);
-        this.countTotalPrice = this.countTotalPrice.bind(this);
+        this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
     }
 
-    componentDidMount() {
-        this.countTotalPrice();
+    componentWillUnmount(){
+        if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus();
     }
 
-    countTotalPrice() {
-        let state = this.state;
-		state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
-        this.setState(state);
-    }
-
-    navigateToOtherPage(payload) {
-        switch(payload) {
-            case 'choosePayment.content.virtualAccount': 
-                return actNav.navigate(navConstant.VirtualAccount,this.props.navigation.state.params);
-            default: 
-                return actNav.navigate(navConstant.CreditCard,this.props.navigation.state.params);
+    navigationStateChangeHandler(event){
+        if(event.loading == false && event.url.search(`transaction_status`) != -1){
+            actNav.goBack();
         }
-    } 
+    }
 
     render() {
+        let params = this.props.navigation.state.params;
         return (
-            <Container
-                bgColorBottom={'veryLightGrey'}
-                bgColorTop={'red'}
-            >
+            <View style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
 			    />
                 <View style={styles.container}>
-                    <View style={styles.content}>
-                        { this.state.contents.map((content,index) => (
-                            <Content 
-                                key={index}
-                                content={content}
-                                navigateToOtherPage={this.navigateToOtherPage}
+                    {
+                        params.redirect_url.length == 0 
+                        ?   null
+                        :   <WebView
+                                onNavigationStateChange={this.navigationStateChangeHandler}
+                                source={{uri: params.redirect_url}}
+                                style={{flex: 1}}
                             />
-                        )) }                        
-                    </View>
-                    <TotalPrice
-                        action={'choosePayment'}
-                        subTotal={this.props.totalPrice}
-                        additional={this.props.additional}
-                        grandTotal={this.state.grandTotalPrice}
-                        delivery_price={this.props.delivery_price}
-                    />
+                    }
                 </View>
-            </Container>
+            </View>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    additional: state.product.additional.credit_card,
     user: state.user.data,
     totalPrice: state.product.total.price,
-    delivery_price: state.product.delivery_price
+    delivery_price: state.product.delivery_price,
+    additional: state.product.additional.credit_card,
 });
 
 export default connect(mapStateToProps,null)(ChoosePayment);

@@ -306,7 +306,6 @@ class CreditCard extends Component {
 
         this.props.create_order(payload,
         (res) => {
-            this.props.clear_products();
             this.props.navigation.state.params.createOrderHandler(res.invoice, res.payment_method);
         },
         (err) => {

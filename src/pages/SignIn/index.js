@@ -18,8 +18,8 @@ class SignIn extends Component {
         super();
         this.state={
             user:{
-                phone: '',
-                password: ''
+                phone: '083896786000',
+                password: 'secret123'
             },
             validateStatus:{
                 phone: true,
