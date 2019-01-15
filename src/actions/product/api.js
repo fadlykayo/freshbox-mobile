@@ -17,7 +17,7 @@ let payload = {
 
 
 actions.get_products = (req,success,failure) => {
-	console.log("payload get_products",req);
+	// console.log("payload get_products",req);
 	
 	payload.path = path.getProducts;
 	payload.header = req.header;
@@ -26,7 +26,7 @@ actions.get_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Products res ->',res);
+        	// console.log('Get Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_products(res.data));
@@ -35,7 +35,7 @@ actions.get_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Products err ->', err);
+        	// console.log('Get Products err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -61,7 +61,7 @@ actions.get_favorites = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Favorites res ->',res);
+        	// console.log('Get Favorites res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_favorites(res.data));
@@ -70,7 +70,7 @@ actions.get_favorites = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Favorites err ->', err);
+        	// console.log('Get Favorites err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -98,7 +98,7 @@ actions.get_categories = (req, success, failure) => {
 
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Categories res',res);
+        	// console.log('Get Categories res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_categories(res.data));
@@ -106,7 +106,7 @@ actions.get_categories = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Categories err', err);
+        	// console.log('Get Categories err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -132,7 +132,7 @@ actions.search_products = (req, success, failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Search Products res',res);
+        	// console.log('Search Products res',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res)
@@ -141,7 +141,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Search Products err', err);
+        	// console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -167,7 +167,7 @@ actions.get_delivery_price = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Shipping Cost res',res);
+        	// console.log('Get Shipping Cost res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_delivery_price(res.data));
@@ -176,7 +176,7 @@ actions.get_delivery_price = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Shipping Cost err', err);
+        	// console.log('Get Shipping Cost err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -203,7 +203,7 @@ actions.add_favorite = (req,success,failure) => {
 		
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Add Favourite res',res);
+        	// console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -214,7 +214,7 @@ actions.add_favorite = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Add Favourite err', err);
+        	// console.log('Add Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -239,7 +239,7 @@ actions.delete_favorite = (req,success,failure) => {
 	return dispatch => {
         requestHandler('delete',payload,dispatch)
         .then((res) => {
-        	console.log('Delete Favourite res',res);
+        	// console.log('Delete Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -251,7 +251,7 @@ actions.delete_favorite = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Delete Favourite err', err);
+        	// console.log('Delete Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

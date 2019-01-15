@@ -99,7 +99,7 @@ class PhonePage extends Component {
 				actNav.goBack()
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 

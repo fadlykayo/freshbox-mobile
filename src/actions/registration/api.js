@@ -21,7 +21,7 @@ actions.register_user = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('register user res ->',res);
+        	// console.log('register user res ->',res);
         	if(res.code){
         		if(res.code == 200){
         			success(res);
@@ -29,7 +29,7 @@ actions.register_user = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('register user err ->', err);
+        	// console.log('register user err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

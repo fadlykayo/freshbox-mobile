@@ -52,7 +52,7 @@ actions.upload_photo = (req, success, failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-		console.log(payload);
+		// console.log(payload);
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
@@ -199,7 +199,6 @@ actions.delete_address = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-			console.log("masuk nih error nya", err)
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -224,7 +223,6 @@ actions.set_primary_address = (req, success, failure) => {
 	payload.header = req.header;
 	
 	return dispatch => {
-		console.log(payload)
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){

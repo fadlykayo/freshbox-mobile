@@ -34,7 +34,7 @@ class ChooseAddress extends Component {
 		this.props.get_address(payload, 
 			(res) => {},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 
@@ -50,7 +50,7 @@ class ChooseAddress extends Component {
                 actNav.goBack()
             }, 
             (err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 

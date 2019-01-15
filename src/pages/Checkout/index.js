@@ -62,7 +62,7 @@ class Checkout extends Component {
 				this.setState(state)
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			}
 		)
 	}
@@ -80,7 +80,7 @@ class Checkout extends Component {
 
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			}
 		)
 	}
@@ -169,7 +169,7 @@ class Checkout extends Component {
         
         this.props.cancel_checkout(payload,
             res => {
-				console.log(res);
+				// console.log(res);
             },
             rej => {
 

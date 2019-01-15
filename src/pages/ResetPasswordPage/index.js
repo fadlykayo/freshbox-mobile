@@ -123,7 +123,6 @@ class ResetPasswordPage extends Component {
 				this.createNewPassword();
 			})
 			.catch(err => {
-				console.log("gagal?", err)
 				this.setValidation(err, false)
 			})
 		}
@@ -162,7 +161,7 @@ class ResetPasswordPage extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			})
 	}
 
@@ -184,7 +183,7 @@ class ResetPasswordPage extends Component {
 				actNav.reset(navConstant.Product)
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			})
 	}
 	  
@@ -195,8 +194,6 @@ class ResetPasswordPage extends Component {
     }
 
   	render() {
-
-		console.log("punya userId", this.props.userId.userId)
   	  	return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				

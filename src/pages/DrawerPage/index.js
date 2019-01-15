@@ -63,7 +63,7 @@ class DrawerPage extends Component {
 		this.props.get_products(payload,
 			() => {},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		);
 	}

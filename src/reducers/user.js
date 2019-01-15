@@ -48,7 +48,6 @@ const update_user = (state, payload) => {
 
 const getUserID = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    console.log(payload.data)
     newState.userId = payload.data;
     return newState;
 }

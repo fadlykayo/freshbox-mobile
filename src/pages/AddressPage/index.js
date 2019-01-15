@@ -100,7 +100,7 @@ class AddressPage extends Component {
 			(res) => {
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 
@@ -116,7 +116,7 @@ class AddressPage extends Component {
 				(res) => {
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err)
 				})
 		}
 	}
@@ -133,7 +133,7 @@ class AddressPage extends Component {
 				(res) => {
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err)
 				})
 		}
 	}
@@ -150,7 +150,7 @@ class AddressPage extends Component {
 				(res) => {
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err)
 				})
 		}
 	}
@@ -317,7 +317,7 @@ class AddressPage extends Component {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 
@@ -345,7 +345,7 @@ class AddressPage extends Component {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 
@@ -368,7 +368,7 @@ class AddressPage extends Component {
 				actNav.goBack()
 			},
 			(err) => {
-				console.log("error nih", err)
+				// console.log("error nih", err)
 			})
 	}
 

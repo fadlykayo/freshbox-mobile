@@ -125,7 +125,6 @@ class Register extends Component {
             this.registerHandler();
         })
         .catch((err) => {
-            console.log(err);
             this.setValidation(err,false);
         });
     }
@@ -151,7 +150,7 @@ class Register extends Component {
                 })
             },
             (err)=> {
-                console.log(err);
+                // console.log(err);
             }
         )
     }

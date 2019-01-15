@@ -6,11 +6,6 @@ const production = {
         ios: '1.0.0',
     },
     url: 'https://api.freshbox.id/',
-    googleKeyMap: '',
-    store:{
-        android: '',
-        ios: '',
-    }
 }
 
 const staging = {
@@ -19,11 +14,6 @@ const staging = {
         ios: '1.0.0-staging',
     },
     url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/',
-    googleKeyMap: '',
-    store:{
-        android: '',
-        ios: '',
-    }
 }
 
 const config = production;

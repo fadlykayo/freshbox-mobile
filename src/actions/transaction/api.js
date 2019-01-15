@@ -26,7 +26,7 @@ actions.bulk_add_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Bulk Add Products res ->',res);
+        	// console.log('Bulk Add Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res);
@@ -34,7 +34,7 @@ actions.bulk_add_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Bulk Add Products err ->', err);
+        	// console.log('Bulk Add Products err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -70,7 +70,7 @@ actions.request_snap_token = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Request Snap Token res ->',res);
+        	// console.log('Request Snap Token res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res.data);
@@ -78,7 +78,7 @@ actions.request_snap_token = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Request Snap Token err ->', err);
+        	// console.log('Request Snap Token err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -123,7 +123,7 @@ actions.cancel_checkout = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Cancel Checkout res ->',res);
+        	// console.log('Cancel Checkout res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res.data);
@@ -131,7 +131,7 @@ actions.cancel_checkout = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Cancel Checkout err ->', err);
+        	// console.log('Cancel Checkout err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -177,7 +177,7 @@ actions.create_order = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Create Transaction res ->',res);
+        	// console.log('Create Transaction res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					success(res.data);
@@ -185,7 +185,7 @@ actions.create_order = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Create Transaction err ->', err);
+        	// console.log('Create Transaction err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -230,7 +230,7 @@ actions.get_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Transactions res',res);
+        	// console.log('Get Transactions res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_transaction(res.data))
@@ -239,7 +239,7 @@ actions.get_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Transactions err', err);
+        	// console.log('Get Transactions err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -265,7 +265,7 @@ actions.detail_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Detail Transaction res',res);
+        	// console.log('Get Detail Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 					if(req.type) success(res);
@@ -277,7 +277,7 @@ actions.detail_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Detail Transaction err', err);
+        	// console.log('Get Detail Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -304,7 +304,7 @@ actions.reorder_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Get Reorder Transaction res',res);
+        	// console.log('Get Reorder Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.reorder_transaction(res.data))
@@ -313,7 +313,7 @@ actions.reorder_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Reorder Transaction err', err);
+        	// console.log('Get Reorder Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -338,7 +338,7 @@ actions.add_favorite_history = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Add Favourite res',res);
+        	// console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -349,7 +349,7 @@ actions.add_favorite_history = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Add Favourite err', err);
+        	// console.log('Add Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -374,7 +374,7 @@ actions.delete_favorite_history = (req,success,failure) => {
 	return dispatch => {
         requestHandler('delete',payload,dispatch)
         .then((res) => {
-        	console.log('Delete Favourite res',res);
+        	// console.log('Delete Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -386,7 +386,7 @@ actions.delete_favorite_history = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Delete Favourite err', err);
+        	// console.log('Delete Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

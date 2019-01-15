@@ -150,7 +150,7 @@ class ProductList extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}
@@ -250,7 +250,7 @@ class ProductList extends Component {
 				if(this.state.refreshing != false) this.setState({refreshing: false});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		);
 	}
@@ -268,7 +268,7 @@ class ProductList extends Component {
 				if(this.props.navigation.state.params.action) this.navigateToCart();
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		);
 	}
@@ -284,7 +284,7 @@ class ProductList extends Component {
 				(success) => {
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				})
 		}
 	}
@@ -297,7 +297,7 @@ class ProductList extends Component {
 		this.props.get_categories(payload,
 			() => {},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		);
 	}
@@ -314,7 +314,7 @@ class ProductList extends Component {
 			this.props.get_products(payload,
 				() => {},
 				(err) => {
-					console.log(err);
+					// console.log(err);
 				});
 		}
 	}
@@ -357,7 +357,7 @@ class ProductList extends Component {
 					this.backToTop();
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				});
 		}
 		else {
@@ -382,7 +382,7 @@ class ProductList extends Component {
 					this.backToTop();
 				},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				});
 		}		
 	}
@@ -419,7 +419,7 @@ class ProductList extends Component {
 			this.props.delete_favorite(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -438,7 +438,7 @@ class ProductList extends Component {
 			this.props.add_favorite(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -468,7 +468,7 @@ class ProductList extends Component {
 				this.backToTop();
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			});
 	}
 
@@ -528,7 +528,7 @@ class ProductList extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}

@@ -100,7 +100,7 @@ class Favourites extends Component {
 				this.setState({refreshing: false})
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}
@@ -126,7 +126,7 @@ class Favourites extends Component {
 			this.props.add_favorite(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -142,7 +142,7 @@ class Favourites extends Component {
 		// this.props.get_favorites(payload,
 		// 	() => {},
 		// 	(err) => {
-		// 		console.log(err)
+		//		console.log(err);
 		// 	}
 		// )
 	}
@@ -182,7 +182,7 @@ class Favourites extends Component {
 				this.setModalVisible('openProduct',false);
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 		
@@ -236,7 +236,7 @@ class Favourites extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}

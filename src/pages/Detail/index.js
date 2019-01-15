@@ -56,7 +56,6 @@ class Detail extends Component {
 	}
     
     componentDidMount() {
-		console.log(this.props.navigation.state.params);
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
@@ -153,7 +152,7 @@ class Detail extends Component {
 				});
 			},
 			(err) => {
-				console.log(err);
+				// console.log(err);
 			}
 		)
 	}
@@ -172,7 +171,7 @@ class Detail extends Component {
 			this.props.delete_favorite(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -191,7 +190,7 @@ class Detail extends Component {
 			this.props.add_favorite(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -211,7 +210,7 @@ class Detail extends Component {
 			this.props.delete_favorite_history(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -231,7 +230,7 @@ class Detail extends Component {
 			this.props.add_favorite_history(data,
 				() => {},
 				(err) => {
-					console.log(err)
+					// console.log(err);
 				}
 			)
 		}
@@ -252,7 +251,7 @@ class Detail extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}
@@ -335,7 +334,7 @@ class Detail extends Component {
 				if(this.state.refreshing) this.setState({refreshing: false});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}

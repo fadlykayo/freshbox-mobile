@@ -58,20 +58,20 @@ class Menu extends PureComponent {
     facebookHandler(){
         socmed.facebookLogin()
         .then((res) => {
-            console.log(res);
+            // console.log(res);
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
         })
     }
 
     googleHandler(){
         socmed.googleLogin()
         .then((res) => {
-            console.log(res);
+            // console.log(res);
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
         })
     }
 

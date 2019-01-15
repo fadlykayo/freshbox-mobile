@@ -60,7 +60,7 @@ class HistoryPage extends Component {
 		this.props.get_transaction(payload, 
 			() => {},
 			(err) => {
-				console.log(err);
+				// console.log(err);
 			})
 	}
 
@@ -80,7 +80,7 @@ class HistoryPage extends Component {
 				if(this.state.refreshing != false) this.setState({refreshing: false})
 			},
 			(err) => {
-				console.log(err);
+				// console.log(err);
 			})
 	}
 
@@ -99,7 +99,7 @@ class HistoryPage extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err);
 			}
 		)
 	}

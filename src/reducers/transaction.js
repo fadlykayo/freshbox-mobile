@@ -30,7 +30,6 @@ const getTransactions = (state, payload) => {
     }
 
     newState.transactions = existingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
-    console.log("BARU", newState)
     return newState
 }
 

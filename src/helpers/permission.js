@@ -17,7 +17,6 @@ permission.requestSaveExternal = () => new Promise((resolve,reject) => {
         }
     )
     .then(res => {
-        console.log(res);
         if(res === PermissionsAndroid.RESULTS.GRANTED){
             resolve();
         }
@@ -26,7 +25,6 @@ permission.requestSaveExternal = () => new Promise((resolve,reject) => {
         }
     })
     .catch(err => {
-        console.log(err);
         reject()
     })
 })

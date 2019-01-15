@@ -136,7 +136,7 @@ class ContactUs extends Component {
 				});
 			},
 			(err) => {
-				console.log(err)
+				// console.log(err)
 			})
 	}
 
