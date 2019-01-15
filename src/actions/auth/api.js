@@ -56,6 +56,42 @@ actions.sign_in = (req, success, failure) => {
     }
 };
 
+actions.sign_in_socmed = (req, success, failure) => {
+	
+	payload.path = path.signInSocmed;
+	payload.header = req.header;
+	payload.body = req.body;
+	
+	return dispatch => {
+        requestHandler('post',payload,dispatch)
+        .then((res) => {
+			// console.log('sign in socmed success -> ',res);
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.sign_in(res.data));
+        			success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+			// console.log('sign in socmed error -> ',err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 404: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+						}));
+						return failure(err);
+        		}
+        	}
+        })
+    }
+};
+
 actions.otp_verification = (req,success,failure) => {
 	
 	payload.path = path.otpVerification;

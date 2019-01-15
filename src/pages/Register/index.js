@@ -13,13 +13,13 @@ import { connect } from 'react-redux';
 import actions from '@actions';
 
 class Register extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             user:{
-                fullName: '',
+                fullName: props.navigation.state.params.socmed == undefined ? '' : props.navigation.state.params.socmed.name,
                 phone: '',
-                email: '',
+                email: props.navigation.state.params.socmed == undefined ? '' : props.navigation.state.params.socmed.email,
                 password: '',
                 confirmPassword: ''
             },
@@ -43,6 +43,7 @@ class Register extends Component {
         this.registerValidation = this.registerValidation.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
         this.closeDialogRegisterSuccess = this.closeDialogRegisterSuccess.bind(this);
+        this.registerSocmed = this.registerSocmed.bind(this);
     }
 
     navigateBack() {
@@ -122,16 +123,23 @@ class Register extends Component {
         this.clearValidation();
         validation.register(this.state.user)
         .then(() => {
-            this.registerHandler();
+            if(this.props.navigation.state.params.socmed == undefined) {
+                this.registerHandler();
+            } else {
+                this.registerSocmed();
+            }
         })
         .catch((err) => {
+            console.log(err);
             this.setValidation(err,false);
         });
     }
 
     registerHandler(){
         let payload = {
-            header: {},
+            header: {
+                onesignalToken: this.props.userId.userId
+            },
             body: {
                 name: this.state.user.fullName,
                 email: this.state.user.email,
@@ -150,7 +158,42 @@ class Register extends Component {
                 })
             },
             (err)=> {
-                // console.log(err);
+                console.log(err);
+            }
+        )
+    }
+
+    registerSocmed() {
+        let payload = {
+            header: {
+                onesignalToken: this.props.userId.userId
+            },
+            body: {
+                name: this.state.user.fullName,
+                email: this.state.user.email,
+                phone_number: this.state.user.phone,
+                password: this.state.user.password,
+                password_confirmation: this.state.user.confirmPassword,
+                sosmed: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.sosmed : '',
+                fb_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.fb_token !== undefined ? this.props.navigation.state.params.socmed.fb_token : '' : '',
+                google_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.google_token !== undefined ? this.props.navigation.state.params.socmed.google_token : '' : '',
+            }
+        }
+
+        this.props.register_user_socmed(payload,
+            (res) => {
+                if(res.code == 201) {
+                    actNav.navigate(navConstant.OTP, {
+                        action: this.props.navigation.state.params.action,
+                        key: this.props.navigation.state.params.key,
+                        phone_number: this.state.user.phone
+                    })
+                } else {
+                    actNav.reset(navConstant.Product)
+                }
+            },
+            (err)=> {
+                console.log(err);
             }
         )
     }
@@ -172,8 +215,9 @@ class Register extends Component {
                     <FormInput 
                         ref={c => {this.formFullName = c}}
                         type={'fullName'}
-                        autoFocus={true}
+                        autoFocus={this.props.navigation.state.params.socmed == undefined ? true : false}
                         value={this.state.user.fullName}
+                        editable={this.props.navigation.state.params.socmed == undefined ? true : false}
                         onChangeText={this.onChangeText}
                         label={'register.formLabel.fullName'}
                         placeholder={'register.formLabel.fullName'}
@@ -188,6 +232,7 @@ class Register extends Component {
                         type={'email'}
                         keyboardType={'email-address'}
                         value={this.state.user.email}
+                        editable={this.props.navigation.state.params.socmed == undefined ? true : false}
                         onChangeText={this.onChangeText}
                         label={'register.formLabel.email'}
                         placeholder={'register.formLabel.email'}
@@ -267,9 +312,13 @@ class Register extends Component {
     }
 }
 
-
-const mapDispatchToProps = (dispatch) => ({
-    register_user: (req,res,err) => dispatch(actions.registration.api.register_user(req,res,err))
+const mapStateToProps = state => ({
+    userId: state.user.userId
 })
 
-export default connect(null,mapDispatchToProps)(Register);
+const mapDispatchToProps = (dispatch) => ({
+    register_user: (req,res,err) => dispatch(actions.registration.api.register_user(req,res,err)),
+    register_user_socmed: (req,res,err) => dispatch(actions.registration.api.register_user_socmed(req,res,err))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register);

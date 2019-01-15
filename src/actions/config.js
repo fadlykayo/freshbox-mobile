@@ -36,5 +36,7 @@ export const path = {
     getZipCode: 'v1/region/zip-code',
     reorder: 'v1/transaction/reorder',
     customerservice: 'v1/customer-support',
-    cancelCheckout: 'v1/transaction/cancel'
+    cancelCheckout: 'v1/transaction/cancel',
+    signInSocmed: 'v1/user/login-with-sosmed',
+    registerSocmed: 'v1/user/register-with-sosmed',
 }

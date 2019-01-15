@@ -1,25 +1,27 @@
-import React,{ PureComponent } from 'react';
-import { View, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import React,{ Component } from 'react';
+import { View, ImageBackground } from 'react-native';
+import { connect } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import { actNav, navConstant } from '@navigations';
 import { socmed } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
 import TermsConditions from './components/TermsConditions';
-import StaticText from '@components/StaticText';
 import Container from '@components/Container';
 import images from '@assets';
 import styles from './styles';
+import actions from '@actions';
 
-class Menu extends PureComponent {
+class Menu extends Component {
     constructor(){
         super();
-        this.navigateToProduct = this.navigateToProduct.bind(this);
-        this.navigateToSignIn = this.navigateToSignIn.bind(this);
+        this.googleHandler = this.googleHandler.bind(this);
         this.facebookHandler = this.facebookHandler.bind(this);
+        this.navigateToSignIn = this.navigateToSignIn.bind(this);
+        this.navigateToProduct = this.navigateToProduct.bind(this);
         this.setupGoogleClient = this.setupGoogleClient.bind(this);
-        this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
         this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
+        this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
     }
 
     componentDidMount() {
@@ -57,8 +59,32 @@ class Menu extends PureComponent {
 
     facebookHandler(){
         socmed.facebookLogin()
-        .then((res) => {
-            // console.log(res);
+        .then((result) => {
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "facebook",
+                    fb_token: result.id
+                }   
+            }
+
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Product)
+                },
+                (err) => {
+                    let params = {
+                        name: result.name,
+                        email: result.email,
+                        sosmed: "facebook",
+                        fb_token: result.id
+                    }
+                    if(err.code == 404) {
+                        actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    }
+                })
         })
         .catch((err) => {
             // console.log(err);
@@ -67,8 +93,32 @@ class Menu extends PureComponent {
 
     googleHandler(){
         socmed.googleLogin()
-        .then((res) => {
-            // console.log(res);
+        .then((result) => {
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "google",
+                    google_token: result.id
+                }   
+            }
+
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Product)
+                },
+                (err) => {
+                    let params = {
+                        name: result.name,
+                        email: result.email,
+                        sosmed: "google",
+                        google_token: result.id
+                    }
+                    if(err.code == 404) {
+                        actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    }
+                })
         })
         .catch((err) => {
             // console.log(err);
@@ -100,9 +150,16 @@ class Menu extends PureComponent {
                     </Container>
                 </ImageBackground>
             </View>
-            
         )
     }
 }
 
-export default Menu;
+const mapStateToProps = state => ({
+    userId: state.user.userId
+})
+
+const mapDispatchToProps = dispatch => ({
+    sign_in_socmed: (req,res,err) => dispatch(actions.auth.api.sign_in_socmed(req,res,err))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Menu);
