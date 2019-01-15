@@ -130,7 +130,7 @@ class Register extends Component {
             }
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             this.setValidation(err,false);
         });
     }
@@ -158,7 +158,7 @@ class Register extends Component {
                 })
             },
             (err)=> {
-                console.log(err);
+                // console.log(err);
             }
         )
     }
@@ -193,7 +193,7 @@ class Register extends Component {
                 }
             },
             (err)=> {
-                console.log(err);
+                // console.log(err);
             }
         )
     }
