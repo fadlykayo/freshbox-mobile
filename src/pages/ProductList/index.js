@@ -90,6 +90,7 @@ class ProductList extends Component {
 		return true;
 	}
 
+	// cart button slide up animation
 	introAnimate() {
 		this.showCheckout.setValue(0);
 		const createAnimation = (value, duration, easing, delay = 0) => {
@@ -106,6 +107,7 @@ class ProductList extends Component {
 		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start()
 	}
 
+	// cart button slide down animation
 	outroAnimate() {
 		this.showCheckout.setValue(0);
 		const createAnimation = (value, duration, easing, delay = 0) => {
@@ -122,10 +124,12 @@ class ProductList extends Component {
 		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
 	}
 
+	// validate if cart not empty
 	checkCart(){
 		if(this.props.total_count > 0) this.introAnimate();
 	}
 
+	// check notification from onesignal
 	checkNotification() {
 		if(this.props.notif) {
 			if(this.props.notif.action == 'open.transaction') {
@@ -134,6 +138,7 @@ class ProductList extends Component {
 		}
 	}
 
+	// open notification from onesignal -> navigate to page Detail
 	openFromNotification(input) {
 		let payload = {
 			header: {
@@ -155,14 +160,17 @@ class ProductList extends Component {
 		)
 	}
 
+	// handling zoom products' image
 	openZoomImage(){
 		this.setModalVisible('openImageDetail',true);
 	}
 
+	// handling zoom products' image
 	closeZoomImage(){
 		this.setModalVisible('openImageDetail',false);
 	}
 
+	// get position of scrollbar
 	getPositionIndex(e) {
         this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
             this.getPositionBubble();
@@ -502,12 +510,12 @@ class ProductList extends Component {
 
 	createOrderHandler(invoice,type){
 		new Promise((res) => {
+			actNav.goBackToTop();
 			this.props.clear_products();
 			res();
 		})
 		.then(() => {
-			actNav.goBackToTop();
-			setTimeout(() => this.navigateToDetail(invoice,type),500);
+			setTimeout(() => this.navigateToDetail(invoice,type),1000);
 		});
 	}
 
