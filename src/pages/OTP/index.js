@@ -36,6 +36,9 @@ class OTP extends Component {
 
     componentDidMount() {
         this.startTimer()
+        if(this.props.navigation.state.params.verifyOTP) {
+            this.resendOTP();
+        };
     }
 
     componentWillUnmount() {
@@ -198,6 +201,7 @@ class OTP extends Component {
                     <TouchableWithoutFeedback onPress={this.clickOTP}>
                         <View style={styles.static.place}>
                             <Text style={styles.static.text.red}>{this.props.navigation.state.params.phone_number == undefined ? '' : this.props.navigation.state.params.phone_number}</Text>
+
                             <StaticText
                                 property={'otp.content.info'}
                                 style={styles.static.text.grey}
@@ -222,11 +226,13 @@ class OTP extends Component {
                         onChangeText={(value) => this.onChangeText('otp', value)}
                         onSubmitEditing={this.submitOTP}
                     />
+                    <View style={styles.button.container}>
                         <Button
                             type={'red'}
                             title={'otp.button.submit'}
                             onPress={this.submitOTP}
                         />
+                    </View>
                 </ScrollView>
             </Container>
         );

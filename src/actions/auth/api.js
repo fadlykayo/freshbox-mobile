@@ -83,7 +83,7 @@ actions.sign_in_socmed = (req, success, failure) => {
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,
-        					data: JSON.stringify(err)
+        					data: err.code_message
 						}));
 						return failure(err);
         		}

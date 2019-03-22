@@ -81,8 +81,18 @@ class Menu extends Component {
                         sosmed: "facebook",
                         fb_token: result.id
                     }
-                    if(err.code == 404) {
-                        actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // if(err.code == 404) {
+                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // }
+                    switch (err.code) {
+                        case 404:
+                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});
+                            break;
+                        default:
+                            break;
                     }
                 })
         })
@@ -115,8 +125,17 @@ class Menu extends Component {
                         sosmed: "google",
                         google_token: result.id
                     }
-                    if(err.code == 404) {
-                        actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // if(err.code == 404) {
+                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // }
+                    switch (err.code) {
+                        case 404:
+                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});                            break;
+                        default:
+                            break;
                     }
                 })
         })

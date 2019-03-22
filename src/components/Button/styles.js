@@ -10,6 +10,7 @@ const styles = {
 			flex: -1,
 			justifyContent: 'center',
 			height: scaling.moderateScale(50),
+			// width: scaling.moderateScale(60),
 			borderRadius: scaling.moderateScale(8),
 		},
 		red: {

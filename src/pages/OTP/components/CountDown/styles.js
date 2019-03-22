@@ -75,6 +75,7 @@ const styles = {
     resend: {
         place: {
             flexDirection: 'row',
+            alignItems: 'center'
         },
         button: {
             marginRight: width * 0.02,

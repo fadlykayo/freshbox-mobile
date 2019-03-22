@@ -69,6 +69,11 @@ const styles = {
             color: 'transparent'
         }
     },
+    button: {
+        container: {
+            width: scaling.moderateScale(80),
+        }
+    }
     
 }
 
