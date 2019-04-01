@@ -54,5 +54,9 @@ images.icon_visa = require('./icon_visa.png');
 images.icon_mastercard = require('./icon_mastercard.png');
 images.icon_phone = require('./icon_phone.png');
 images.icon_arrow_down_red = require('./icon_arrow_down_red.png');
+images.icon_onboarding1 = require('./onboarding1.png');
+images.icon_onboarding2 = require('./onboarding2.png');
+images.icon_onboarding3 = require('./onboarding3.png');
+
 
 export default images;

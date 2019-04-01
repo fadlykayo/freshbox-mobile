@@ -21,19 +21,22 @@ class OnBoarding extends Component {
                     type: 'red',
                     title: 'onBoarding.content.first.title',
                     content: 'onBoarding.content.first.info',
-                    button: 'onBoarding.button.skip'
+                    button: 'onBoarding.button.skip',
+                    image: images.icon_onboarding1,
                 },
                 {
                     type: 'white',
                     title: 'onBoarding.content.second.title',
                     content: ['onBoarding.content.second.info.1','onBoarding.content.second.info.2','onBoarding.content.second.info.3'],
-                    button: 'onBoarding.button.skip'
+                    button: 'onBoarding.button.skip',
+                    image: images.icon_onboarding2,
                 },
                 {
                     type: 'red',
                     title: 'onBoarding.content.third.title',
                     content: 'onBoarding.content.third.info',
-                    button: 'onBoarding.button.finish'
+                    button: 'onBoarding.button.finish',
+                    image: images.icon_onboarding3,
                 },
             ],
             scrollX: 0,

@@ -25,7 +25,11 @@ const styles = {
             width: width * 0.33,
             borderRadius: 100,
             backgroundColor: colour.pink,
+            alignItems: 'center',
         },
+        image: {
+            marginTop: 20,
+        }
     },
 }
 

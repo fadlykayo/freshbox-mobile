@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import styles from './styles';
 
 class CircleComponent extends Component {
@@ -11,7 +11,9 @@ class CircleComponent extends Component {
         return (
             <View style={styles.topComponent}>
                 <View style={styles.circle.outer}>
-                    <View style={styles.circle.inner}></View>
+                    <View style={styles.circle.inner}>
+                        <Image source={this.props.data.image} resizeMode='contain' style={styles.circle.image}></Image>
+                    </View>
                 </View>
             </View>
         );
