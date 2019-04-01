@@ -23,14 +23,6 @@
           }
         },
         {
-          "client_id": "73889112804-hm6ihpilpjfvlt87t4v93bt413cmkg07.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.freshbox",
-            "certificate_hash": "b102b3d0b483d6824d6333b06074d4bfd1adfa8d"
-          }
-        },
-        {
           "client_id": "73889112804-3lequnciqmah8j8pmu9poeh1onq1gh6h.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -52,10 +44,10 @@
               "client_type": 3
             },
             {
-              "client_id": "73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com",
+              "client_id": "73889112804-3fj95ig6g7t9g75n2evct60npcvla02l.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.freshboxID"
+                "bundle_id": "com.freshbox"
               }
             }
           ]

@@ -4,6 +4,7 @@ import { actNav, navConstant } from '@navigations';
 import PageComponent from './components/PageComponent';
 import BubbleComponent from './components/BubbleComponent';
 import Button from './components/Button';
+import Menu from '../Menu';
 import { connect } from 'react-redux';
 import styles from './styles';
 import images from '@assets';
@@ -42,6 +43,8 @@ class OnBoarding extends Component {
             scrollX: 0,
             button: ['0', '1', '2'],
             bubble: 0,
+            scrollEnabled: true,
+            onLastPage: false,
         }
         this.listRef = null;
         this.navigateToMenu = this.navigateToMenu.bind(this);
@@ -63,9 +66,14 @@ class OnBoarding extends Component {
     
     getPositionBubble() {
         let position = Math.round(this.state.scrollX/width);
-
         if (this.state.bubble != position) {
             this.setState({ bubble: position })
+        }
+        if (position == 3) {
+            this.setState({
+                scrollEnabled: false,
+                onLastPage: true
+            })
         }
     }
 
@@ -75,6 +83,15 @@ class OnBoarding extends Component {
             y: 0,
             animated: true
         })
+    }
+
+    onLastPage () {
+        this.props.on_boarding();
+        return (
+            <>
+                <Menu/>
+            </>
+        )
     }
 
     render() {
@@ -87,6 +104,7 @@ class OnBoarding extends Component {
                     showsHorizontalScrollIndicator={false}
                     onScroll={(e) => this.getPositionIndex(e)}
                     scrollEventThrottle={0}
+                    scrollEnabled={this.state.scrollEnabled}
                 >
                     { this.state.information.map((data, index) => {
                         return (
@@ -100,11 +118,19 @@ class OnBoarding extends Component {
                             />
                         )
                     }) }
+                    
+                    { this.onLastPage() }
+                    
                 </ScrollView>
-                <BubbleComponent
-                    bubble={this.state.bubble}
-                    button={this.state.button}
-                />
+                {
+                    this.state.onLastPage ? 
+                    null :
+                    <BubbleComponent
+                        bubble={this.state.bubble}
+                        button={this.state.button}
+                    />
+                }
+                
             </View>
         );
     }
