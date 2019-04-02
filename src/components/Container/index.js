@@ -1,5 +1,6 @@
 import React,{ PureComponent } from 'react';
-import { Platform, KeyboardAvoidingView, SafeAreaView, View } from 'react-native';
+import { Platform, KeyboardAvoidingView, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 import actions from '@actions';
 import Loading from '../Loading';
@@ -57,9 +58,9 @@ class Container extends PureComponent {
             return (
                 <View style={styles.container}>
                     {this._renderBackground()}
-                    <SafeAreaView style={styles.container}>
+                    <SafeAreaView style={styles.container} forceInset={{bottom: 'never', top: 40}}>
                         <KeyboardAvoidingView 
-                            behavior='padding' 
+                            // behavior='padding' 
                             style={styles.contentContainer(this.props.noBackground)}
                         >
                             {this.props.children}

@@ -103,6 +103,9 @@ class OTP extends Component {
         let state = this.state;
         state[type] = value;
         this.setState(state);
+        if(this.state.otp.length == 4) {
+            this.submitOTP();
+        };
     }
 
     navigateBack() {

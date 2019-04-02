@@ -35,7 +35,7 @@ const styles = {
 		},
 		email: {
 			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(12),
+			fontSize: scaling.moderateScale(11),
 			color: colour.darkGrey
 		}
 	},

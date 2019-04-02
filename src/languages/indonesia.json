@@ -180,7 +180,7 @@
         }
     },
     "historyPage": {
-        "navigationTitle": "Histori",
+        "navigationTitle": "Riwayat",
         "content": {
             "price": "Rp. ",
             "reOrder": "Pesan Kembali"
@@ -426,7 +426,7 @@
         "pages": {
             "dashboard": "Beranda",
             "favorite": "Favorit",
-            "history": "Histori",
+            "history": "Riwayat",
             "termsConditions": "Syarat & Ketentuan",
             "privacyPolicy": "Kebijakan Privasi",
             "contactUs": "Bantuan"

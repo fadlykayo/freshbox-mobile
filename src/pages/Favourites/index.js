@@ -8,6 +8,7 @@ import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
+import EmptyState from '@components/EmptyState'
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import { language } from '@helpers';
 import styles from './styles';
@@ -252,26 +253,35 @@ class Favourites extends Component {
 				/>
 				<View style={styles.container}>
 					<View style={styles.subcontainer.cart}>
-						<FlatList
-							data={this.props.wishlist}
-							onRefresh={this.refreshHandler}
-							refreshing={this.state.refreshing}
-							keyExtractor={(item,index) => index.toString()}
-							renderItem={({item,index}) => (
-								<ProductItem
-									search={this.state.search}
-									key={index}
-									data={item}
-									type={'favorites'}
-									index={index+1}
-									user={this.props.user}
-									toggleFavorite={this.toggleFavorite}
-									changeTotalItem={this.changeTotalItem}
-									productLength={this.props.wishlist.length}
-									openDetailProduct={this.openDetailProduct}
-								/>
-							)}
-						/>
+
+						{
+							this.props.wishlist.length == 0 ? 
+							
+							<EmptyState/> :
+							<FlatList
+								data={this.props.wishlist}
+								onRefresh={this.refreshHandler}
+								refreshing={this.state.refreshing}
+								keyExtractor={(item,index) => index.toString()}
+								renderItem={({item,index}) => (
+									<ProductItem
+										search={this.state.search}
+										key={index}
+										data={item}
+										type={'favorites'}
+										index={index+1}
+										user={this.props.user}
+										toggleFavorite={this.toggleFavorite}
+										changeTotalItem={this.changeTotalItem}
+										productLength={this.props.wishlist.length}
+										openDetailProduct={this.openDetailProduct}
+									/>
+								)}
+							/>
+
+						}
+						
+						
 					</View>
 					<Checkout
 						totalCount={this.props.total_count}

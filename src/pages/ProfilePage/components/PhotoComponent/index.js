@@ -38,7 +38,7 @@ class PhotoComponent extends Component {
 
                 <TouchableOpacity onPress={this.choosePhoto}>
 					<Image
-						resizeMode={'contain'} 
+						resizeMode={'cover'} 
                         source={ 
                             this.props.user.user.image == '' || this.props.user.user.image == null
                             ? images.icon_img_ava_grey

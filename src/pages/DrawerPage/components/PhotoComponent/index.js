@@ -19,7 +19,7 @@ class PhotoComponent extends PureComponent {
 			return (
 				<TouchableOpacity onPress={ this.navigateToProfilePage } style={styles.container}>
 					<Image
-						resizeMode={'contain'} 
+						resizeMode={'cover'} 
                         source={ 
                             this.props.user.user.image == '' || this.props.user.user.image == null
                             ? images.icon_img_ava_grey

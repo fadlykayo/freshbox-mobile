@@ -5,7 +5,7 @@ const { height } = Dimensions.get('window');
 
 const styles = {
     container: {
-        flex: 1
+        flex: 1,
     },
     contentContainer: (x) => {
         if(x){

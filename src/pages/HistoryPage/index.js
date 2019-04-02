@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import TransactionComponent from './components/TransactionComponent';
+import EmptyState from '@components/EmptyState';
 import styles from './styles';
 import actions from '@actions';
 
@@ -117,8 +118,9 @@ class HistoryPage extends Component {
 		})
 	}
 
-  	render() {
-  	  	return (
+	render() {
+		console.warn(this.props.transactions)
+		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
 				bgColorTop={'red'} 			
@@ -127,27 +129,40 @@ class HistoryPage extends Component {
 					title={'historyPage.navigationTitle'}
 					onPress={this.navigateBack}
 				/>
-  	  	  		<View style={styles.container}>
-					<FlatList
-						data={this.props.transactions}
-						onRefresh={this.getRefreshData}
-						refreshing={this.state.refreshing}
-						onEndReached={this.getHistoryData}
-						onEndReachedThreshold={0.05}
-						keyExtractor={(item) => String(item.invoice)}
-						renderItem={({item,index}) => (
-							<TransactionComponent
-								data={item}
-								index={index}
-								navigateToDetail={this.navigateToDetail}
-								navigateToReviewProduct={this.navigateToReviewProduct}
-							/>
-						)}
-					/>
-  	  	  		</View>
+
+				<View style={styles.container}>
+
+					
+					{
+						this.props.transactions.length == 0 ? 
+
+						<EmptyState/> :
+						<FlatList
+							data={this.props.transactions}
+							onRefresh={this.getRefreshData}
+							refreshing={this.state.refreshing}
+							onEndReached={this.getHistoryData}
+							onEndReachedThreshold={0.05}
+							keyExtractor={(item) => String(item.invoice)}
+							renderItem={({item,index}) => (
+
+								<TransactionComponent
+									data={item}
+									index={index}
+									navigateToDetail={this.navigateToDetail}
+									navigateToReviewProduct={this.navigateToReviewProduct}
+								/>
+
+							)}
+						/>
+					}
+					
+
+				</View>
+
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 const mapStateToProps = (state) => ({
