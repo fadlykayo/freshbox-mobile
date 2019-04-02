@@ -12,6 +12,7 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
 import Categories from './components/Categories';
+import { debounce } from 'lodash'
 import styles from './styles';
 import actions from '@actions';
 
@@ -35,6 +36,7 @@ class ProductList extends Component {
 				openImageDetail: false,
 				checkout: false,
 			},
+			wasSearching: false,
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -88,7 +90,7 @@ class ProductList extends Component {
 			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
 		}
 		return true;
-	}
+	} 
 
 	// cart button slide up animation
 	introAnimate() {
@@ -215,10 +217,19 @@ class ProductList extends Component {
 		});
 	}
 
-	onChangeText(type,value){
-        let state = JSON.parse(JSON.stringify(this.state));
-        state[type] = value;
-        this.setState(state);
+	onChangeText(type,value) {	
+
+		clearTimeout(this.timeout); //clear old timeout
+
+		let state = JSON.parse(JSON.stringify(this.state));
+		state[type] = value;
+
+		this.setState(state, () => {
+			if(type == 'searchItem') {
+				this.timeout = setTimeout(() => this.submitSearch(), 500); //wait until user finish their input
+			};
+		});
+		
 	}
 
 	clearSearch() {
@@ -457,6 +468,7 @@ class ProductList extends Component {
 	}
 	
 	submitSearch() {
+
 		let payload={
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -478,6 +490,7 @@ class ProductList extends Component {
 			(err) => {
 				// console.log(err);
 			});
+	
 	}
 
 	openDrawerMenu(){

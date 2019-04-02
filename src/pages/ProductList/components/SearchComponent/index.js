@@ -72,8 +72,8 @@ class SearchComponent extends Component {
 						autoCapitalize={'none'}
 						returnKeyType={'done'}
 						value={this.props.value} 
-  	        			onChangeText={this.onChangeText}
-  	        			placeholder={this.state.placeholder}
+								onChangeText={this.onChangeText}
+								placeholder={this.state.placeholder}
 		    		  	onSubmitEditing={this.onSubmitEditing}
 		    		  	style={styles.textinput}
 		    		/>
