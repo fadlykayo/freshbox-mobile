@@ -16,21 +16,23 @@ const styles = {
 	subcontainer: {
 		part: {
 			flex: 1,
-    		flexDirection: 'row',
-    		alignItems: 'center',
-    		paddingHorizontal: width * 0.05,
-			justifyContent: 'space-between',
+			flexDirection: 'row',
+			alignItems: 'center',
+			paddingHorizontal: width * 0.05,
+			justifyContent: 'center',
 		}
 	},
-  	icon:{
+	icon: {
 		width: scaling.moderateScale(15),
-    	height: scaling.moderateScale(15),
+		height: scaling.moderateScale(15),
+		position: 'absolute',
+		right: 12
 	},
 	text: {
 		title: {
 			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(15),
-    		color: colour.white
+			color: colour.white
 		},
 	},
 }

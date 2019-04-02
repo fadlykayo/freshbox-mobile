@@ -32,7 +32,7 @@ const styles = {
     subcontainer:{
         title:{
             flex: -1,
-            marginHorizontal: width* 0.05,
+            marginHorizontal: width* 0.02,
             paddingBottom: scaling.moderateScale(5),
         },
         button:{

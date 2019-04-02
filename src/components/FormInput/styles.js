@@ -5,9 +5,22 @@ import { colour } from '@styles';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    container:{
-        flex: -1,
-        marginVertical: scaling.moderateScale(10),
+    container: (multiline) => {
+        if(!multiline) {
+            return {
+                flex: -1,
+                marginVertical: scaling.moderateScale(10), 
+            }
+        } else {
+            return {
+                flex: -1,
+                marginVertical: scaling.moderateScale(10),
+                height: 150,
+                borderWidth: 1,
+                borderColor: colour.mediumGrey,
+                paddingHorizontal: 10, 
+            }
+        }
     },
     label: {
         fontFamily: 'Avenir-Heavy',

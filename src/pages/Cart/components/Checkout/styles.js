@@ -29,6 +29,7 @@ const styles = {
 	text: {
 		base: {
 			fontFamily: 'Avenir-Roman',
+			fontWeight: 'bold',
 			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey
 		},

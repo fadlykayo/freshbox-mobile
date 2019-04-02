@@ -6,7 +6,7 @@ const styles = {
         fontFamily: 'Avenir-Roman',
         fontSize: scaling.moderateScale(12),
         color: colour.red,
-        marginBottom: scaling.moderateScale(5),
+        marginBottom: scaling.moderateScale(20),
         fontStyle: 'italic',
     },
 }

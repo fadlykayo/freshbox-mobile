@@ -125,7 +125,7 @@ class FormInput extends Component {
 
     render(){
         return (
-            <View style={styles.container}>
+            <View style={styles.container(this.state.multiline)}>
                 {this._renderLabel(this.props)}
                 <TextInput
                     ref={c => {this.TextInput = c}}
@@ -148,7 +148,7 @@ class FormInput extends Component {
 					underlineColorAndroid='transparent'
 					onSubmitEditing={this.onSubmitEditing}
 				/>
-                <View style={styles.underline}/>
+                {this.props.multiline ? null : <View style={styles.underline}/> }
                 {this._renderShowPasswordButton(this.props)}
             </View>
         )

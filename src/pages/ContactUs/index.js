@@ -178,6 +178,7 @@ class ContactUs extends Component {
 						returnKeyType={'done'}
 						type={'message'}
 						multiline={true}
+						numberOfLines={10}
 						onChangeText={this.onChangeText}
 						value={this.state.message}
 						onFocusHandler={this.scrollToMessage}
@@ -185,6 +186,7 @@ class ContactUs extends Component {
 						placeholder={'contactUs.content.message'}
 						onSubmitEditing={this.submitInformation}
 					/>
+					
 				</ScrollView>
 				<View style={styles.subcontainer.bottom}>
 					<Button

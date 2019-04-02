@@ -40,7 +40,7 @@ const styles = {
     },
     dropdownPlace: {
         maxHeight: scaling.moderateScale(200),
-        width: width * 0.9,
+        width: width * 0.826,
         backgroundColor: colour.white,
         borderColor: colour.lightGrey,
         borderWidth: 1,
@@ -49,9 +49,9 @@ const styles = {
     },
     dropdown: {
         height: scaling.moderateScale(50),
-        width: width * 0.9,
+        width: width * 0.826,
         borderColor: colour.lightGrey,
-        borderBottomWidth: 1,
+        // borderBottomWidth: 1,
         alignItems: 'center',
         justifyContent: 'center'
     }

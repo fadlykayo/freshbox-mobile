@@ -13,6 +13,7 @@ const styles = {
         right: 0,
         bottom: 0,
         backgroundColor: colour.blackTranslucent,
+        // paddingBottom: 20,
     },
     touchable: {
         flex: 1,
