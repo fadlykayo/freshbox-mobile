@@ -516,7 +516,7 @@
             },
             "middle": {
                 "infoPrice": "Jumlah yang harus dibayar",
-                "transferTo": "Transfer ke nomor Virtual Account",
+                "transferTo": "Transfer ke nomor rekening",
                 "price": "Rp. {price}"
             },
             "bca": {
