@@ -257,7 +257,9 @@ class Favourites extends Component {
 						{
 							this.props.wishlist.length == 0 ? 
 							
-							<EmptyState/> :
+							<EmptyState
+								property='emptyState.favorites'
+							/> :
 							<FlatList
 								data={this.props.wishlist}
 								onRefresh={this.refreshHandler}

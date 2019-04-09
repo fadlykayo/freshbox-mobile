@@ -136,7 +136,9 @@ class HistoryPage extends Component {
 					{
 						this.props.transactions.length == 0 ? 
 
-						<EmptyState/> :
+						<EmptyState
+							property='emptyState.history'
+						/> :
 						<FlatList
 							data={this.props.transactions}
 							onRefresh={this.getRefreshData}

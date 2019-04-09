@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -8,6 +8,7 @@ import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
 import StaticText from '@components/StaticText';
+import EmptyState from '@components/EmptyState';
 import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
@@ -350,7 +351,9 @@ class ProductList extends Component {
 	} 
 
 	backToTop() {
-		this.listRef.scrollToOffset({y:0, animated: true})
+		if(this.props.product.length > 0) {
+			this.listRef.scrollToOffset({y:0, animated: true});
+		};
 	}
 
 	changeCategory(input){
@@ -484,11 +487,12 @@ class ProductList extends Component {
 
 		this.props.search_products(payload, 
 			(success) => {
+				console.log(success)
 				this.onChangeText('search', true)
 				this.backToTop();
 			},
 			(err) => {
-				// console.log(err);
+				console.log(err);
 			});
 	
 	}
@@ -584,6 +588,8 @@ class ProductList extends Component {
 					<Notes />
 					<View style={styles.container}>
 						<View style={styles.cartContainer}>
+						{
+							this.props.product.length > 0 ? 
 							<FlatList
 								ref={(e) => { this.listRef = e}}
 								data={this.props.product}
@@ -608,7 +614,12 @@ class ProductList extends Component {
 										{ this._renderButton(index, this.props.product.length - 1) }
 									</View>
 								)}
+							/> :
+							<EmptyState
+								property='emptyState.search'
 							/>
+							
+						}							
 							<Checkout
 								introButton={introButton}
 								outroButton={outroButton}

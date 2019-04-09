@@ -106,7 +106,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Choose Shipping Date"
+            "checkout": "Checkout "
         },
         "content": {
             "price": "IDR ",
@@ -752,5 +752,10 @@
         "maxQuantity": "Only {qty} pack",
         "outOfStock": "Out of stock"
     },
-    "loading": "Loading"
+    "loading": "Loading",
+    "emptyState" : {
+        "history"   : "No Transaction history available",
+        "search"    : "No product available",
+        "favorites" : "No favorite products"
+    }
 }

@@ -108,7 +108,7 @@
             "plus": "+"
         },
         "button": {
-            "checkout": "Pilih Waktu Pengiriman"
+            "checkout": "Checkout"
         },
         "content": {
             "price": "Rp. ",
@@ -755,5 +755,10 @@
         "maxQuantity": "Hanya tersedia {qty} pack",
         "outOfStock": "Barang telah habis"
     },
-    "loading": "Mohon tunggu"
+    "loading": "Mohon tunggu",
+    "emptyState" : {
+        "search"    : "Produk tidak tersedia",
+        "history"   : "Tidak ada riwayat transaksi",
+        "favorites" : "Tidak ada produk favorit"
+    }
 }

@@ -126,7 +126,7 @@ actions.get_categories = (req, success, failure) => {
 actions.search_products = (req, success, failure) => {
 	payload.path = path.getProducts;
 	payload.header = req.header;
-    payload.body = req.body;
+	payload.body = req.body;
 	payload.params = req.params;
 	
 	return dispatch => {
@@ -141,7 +141,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Search Products err', err);
+        	console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
