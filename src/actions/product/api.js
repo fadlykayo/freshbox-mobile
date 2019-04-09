@@ -141,7 +141,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Search Products err', err);
+        	// console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

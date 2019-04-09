@@ -492,7 +492,7 @@ class ProductList extends Component {
 				this.backToTop();
 			},
 			(err) => {
-				console.log(err);
+				// console.log(err);
 			});
 	
 	}
