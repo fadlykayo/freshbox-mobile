@@ -44,19 +44,21 @@ const styles = {
         borderColor: colour.mediumGrey,
     },
     dropdown: {
-        place: {
-            maxHeight: scaling.moderateScale(200),
-            backgroundColor: colour.white,
-            borderColor: colour.mediumGrey,
-            borderWidth: 1,
-            borderRadius: 4,
-            marginBottom: scaling.moderateScale(10),
+        place: (height) => {
+            return {
+                maxHeight: scaling.moderateScale(height),
+                backgroundColor: colour.white,
+                borderColor: colour.mediumGrey,
+                borderWidth: 1,
+                borderRadius: 4,
+                marginBottom: scaling.moderateScale(10),
+            }
         },
         part: {
             height: scaling.moderateScale(50),
-            width: width * 0.9,
+            width: width * 0.83,
             borderColor: colour.lightGrey,
-            borderBottomWidth: 1,
+            // borderBottomWidth: 1,
             alignItems: 'center',
             justifyContent: 'center'
         }

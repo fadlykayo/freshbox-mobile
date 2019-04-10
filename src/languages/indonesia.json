@@ -142,7 +142,8 @@
             "grandTotal": "Grand Total",
             "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
-            "chooseDate": "Pilih Tanggal Kirim"
+            "chooseDate": "Pilih Tanggal Kirim",
+            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai"
         },
         "button": {
             "checkout": "Bayar"

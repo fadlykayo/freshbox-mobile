@@ -383,6 +383,7 @@ class ProductList extends Component {
 				});
 		}
 		else {
+			console.log(input.code, 'ini input code category')
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -425,6 +426,11 @@ class ProductList extends Component {
 
 	closeDetailProduct(){
 		this.setModalVisible('openProduct',false);
+	}
+
+	openDetailProductPicture(payload){
+		this.props.detail_product(payload);
+		this.setModalVisible('openProduct', true);
 	}
 	
 	toggleFavorite(payload){

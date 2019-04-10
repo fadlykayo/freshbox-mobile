@@ -245,6 +245,7 @@ class Checkout extends Component {
 									/>
 								: 	<Text style={styles.text.date}>{this.state.date.display}</Text>
 							}
+							
 							<View style={styles.subcontainer.icon}>
 								<Image
 									source={images.icon_calendar}
@@ -252,6 +253,10 @@ class Checkout extends Component {
 								/>
 							</View>
 						</TouchableOpacity>
+						<StaticText
+							property	= 'checkout.content.confirmDate'
+							style			= { styles.text.confirmDate }
+						/>
 					</View>
 				</View>
 				<TotalPrice

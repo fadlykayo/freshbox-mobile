@@ -34,8 +34,8 @@ const styles = {
     image: {
         place: {
             flex: -1,
-            height: width * 0.5,
-            width: width * 0.5,
+            height: width * 0.8,
+            width: width * 0.8,
             backgroundColor: colour.white,
             borderColor: colour.white,
             borderWidth: 1,
@@ -54,12 +54,12 @@ const styles = {
         },
         style: {
             flex: -1,
-            width: width * 0.4,
-            height: width * 0.4,
+            width: width * 0.8,
+            height: width * 0.8,
         },
         data: {
-            width: width * 0.4,
-            height: width * 0.4,
+            width: width * 0.8,
+            height: width * 0.8,
         }
     },
     icon: {

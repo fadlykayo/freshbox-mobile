@@ -140,7 +140,8 @@
             "grandTotal": "Grand Total",
             "otherAddress": "CHOOSE ADDRESS",
             "addAddress": "Add Address",
-            "chooseDate": "Choose Delivery Date"
+            "chooseDate": "Choose Delivery Date",
+            "confirmDate": "Please Make Sure The Delivery Date is Correct"
         },
         "button": {
             "checkout": "Checkout"

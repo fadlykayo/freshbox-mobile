@@ -42,6 +42,11 @@ const styles = {
 			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.moderateScale(12),
 			color: colour.darkGrey
+		},
+		confirmDate: {
+			fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(10),
+			color: colour.darkGrey
 		}
 	},
 	icon:{

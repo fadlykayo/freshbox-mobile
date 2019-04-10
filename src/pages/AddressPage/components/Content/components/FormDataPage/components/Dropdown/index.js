@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, FlatList, TouchableOpacity, Image, Text } from 'react-native';
+import { View, FlatList, TouchableOpacity, Image, Text, Animated } from 'react-native';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 import styles from './styles';
@@ -9,11 +9,19 @@ class Dropdown extends PureComponent {
         super(props);
         this.state={
 			isOpen: props.isOpen ? props.isOpen : false,
+            height: new Animated.Value(0)
         }
         this.showDropdown = this.showDropdown.bind(this);
         this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
         this._renderLabel = this._renderLabel.bind(this);
     }
+
+    componentDidUpdate() {
+        if(this.props.isOpen) {
+            this.startAnimation();
+        };
+    };
+    
 
     showDropdown(type){
         this.props.showDropdown(type);
@@ -40,6 +48,18 @@ class Dropdown extends PureComponent {
         )
     }
 
+    startAnimation () {
+
+        Animated.spring(
+            this.state.height,
+            {
+                toValue: 200,
+                duration: 500
+            }
+        ).start();
+
+    };
+
     render() {
         return(
             <View>
@@ -64,7 +84,7 @@ class Dropdown extends PureComponent {
                 { this.props.isOpen
                     ? (<FlatList
                             nestedScrollEnabled={true}
-                            style={styles.dropdown.place}
+                            style={styles.dropdown.place(this.state.height)}
                             data={this.props.data}
                             keyExtractor={(item, index) => index.toString()}
 				            renderItem={({item,index}) => (
