@@ -261,7 +261,7 @@ class ProductList extends Component {
 			params: {
 				page: 1,
 				per_page: this.props.product.length,
-				stock: 'tersedia',
+				// stock: 'tersedia',
 				sort: 'nama-az'
 			}
 		}
@@ -357,7 +357,7 @@ class ProductList extends Component {
 	}
 
 	changeCategory(input){
-		this.onChangeText('searchItem', '')
+		// this.onChangeText('searchItem', '')
 		if (input.name == 'Default') {
 			let payload = {
 				header: {
@@ -367,7 +367,7 @@ class ProductList extends Component {
 				params: {
 					page: 1,
 					sort: 'nama-az',
-					stock: 'tersedia'
+					// stock: 'tersedia'
 				}
 			}
 
@@ -392,7 +392,7 @@ class ProductList extends Component {
 				params: {
 					page: 1,
 					sort: 'nama-az',
-					stock: 'tersedia',
+					// stock: 'tersedia',
 					category_code: input.code,
 				}
 			}
@@ -485,7 +485,7 @@ class ProductList extends Component {
 			body: {},
 			params: {
 				page: 1,
-				stock: 'tersedia',
+				// stock: 'tersedia',
 				sort: 'nama-az',
 				name: this.state.searchItem,
 			}
@@ -565,6 +565,7 @@ class ProductList extends Component {
 	}
 
 	render(){
+		console.log(this.props.product, 'ini products lists')
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
 			outputRange: [-(width * 0.3), 0]

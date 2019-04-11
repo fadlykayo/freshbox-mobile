@@ -5,7 +5,7 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container: (i,length, search) => ({
+    container: (i,length, search, stock) => ({
 		alignSelf: 'center',
 		width: width * 0.9,
 		borderWidth: 1,
@@ -17,6 +17,7 @@ const styles = {
 		shadowRadius: Platform.OS == 'ios' ? 30 : 0,
 		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
 		elevation: Platform.OS == 'android' ? 3 : 0,
+		opacity: stock > 0 ? 1 : 0.5,
 		marginBottom: (search == true 
 			? ((i < length)
 				? 	scaling.moderateScale(10)

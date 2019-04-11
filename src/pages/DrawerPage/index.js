@@ -56,7 +56,7 @@ class DrawerPage extends Component {
 			params: {
 				page: 1,
 				per_page: this.props.product.length,
-				stock: 'tersedia',
+				// stock: 'tersedia',
 				sort: 'nama-az'
 			}
 		}

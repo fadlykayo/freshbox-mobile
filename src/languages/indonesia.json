@@ -177,7 +177,8 @@
             "item": " Item | Rp. ",
             "categories": "Kategori",
             "price": "Rp. ",
-            "count": "{bubble}/{length}"
+            "count": "{bubble}/{length}",
+            "unavailable": "Tidak Tersedia"
         }
     },
     "historyPage": {

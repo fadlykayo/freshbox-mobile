@@ -28,8 +28,9 @@ class ProductItem extends PureComponent {
 
 	render(){
 		const productImage = this.props.data.images_sizes_url.original[0];
+		console.log(this.props.data.stock, 'jumlah stock')
 		return(
-			<View style={styles.container(this.props.index,this.props.productLength, this.props.search)}>
+			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock)}>
 				<View style={styles.subcontainer.card}>
 					<TouchableOpacity 
 						onPress={this.openDetailProduct}
