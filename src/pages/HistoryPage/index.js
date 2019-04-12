@@ -119,7 +119,6 @@ class HistoryPage extends Component {
 	}
 
 	render() {
-		console.warn(this.props.transactions)
 		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
