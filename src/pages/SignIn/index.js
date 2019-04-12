@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { ScrollView, Keyboard } from 'react-native';
+import { ScrollView, Keyboard, View, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { validation, language } from '@helpers';
 import Container from '@components/Container';
@@ -9,6 +9,7 @@ import VerificationText from '@components/VerificationText';
 import Button from '@components/Button';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
+import Sosmed from './components/Sosmed';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -146,128 +147,128 @@ class SignIn extends Component {
         actNav.navigate(navConstant.ForgotPassword);
     }
 
-    fromPageOnBoarding () {
-        if(this.props.fromOnBoarding) {
-            return (
-                <>
-                <NavigationBar 
-                    title={'signIn.navigationTitle'}
-                    onPress={actNav.goBack}
-                />
-                <ScrollView
-                    keyboardShouldPersistTaps={'handled'} 
-                    style={styles.container}
-                >
-                    <FormInput 
-                        ref={c => {this.formPhone = c}}
-                        type={'phone'}
-                        autoFocus={true}
-                        keyboardType={'number-pad'}
-                        value={this.state.user.phone}
-                        onChangeText={this.onChangeText}
-                        label={'signIn.formLabel.phone'}
-                        placeholder={'signIn.formLabel.examplePhone'}
-                        onSubmitEditing={this.submitPhone}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.phone}
-                        property={'signIn.validation.phone'}
-                    />
-                    <FormInput 
-                        ref={c => {this.formPassword = c}}
-                        type={'password'}
-                        value={this.state.user.password}
-                        isPassword={true}
-                        onChangeText={this.onChangeText}
-                        label={'signIn.formLabel.password'}
-                        placeholder={'signIn.formLabel.password'}
-                        onSubmitEditing={this.submitPassword}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.password}
-                        property={'signIn.validation.password'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.passwordLength}
-                        property={'signIn.validation.passwordLength'}
-                    />
-                    <ForgotPassword 
-                        onPress={this.navigateToForgotPassword}
-                    />
-                    <Button
-                        type={'red'}
-                        title={'signIn.button.signIn'}
-                        onPress={this.signInValidation}
-                    />
-                    <Register 
-                        onPress={this.navigateToRegister}
-                    />
-                </ScrollView>
-                </>
+    // fromPageOnBoarding () {
+    //     if(this.props.fromOnBoarding) {
+    //         return (
+    //             <>
+    //             <NavigationBar 
+    //                 title={'signIn.navigationTitle'}
+    //                 onPress={actNav.goBack}
+    //             />
+    //             <ScrollView
+    //                 keyboardShouldPersistTaps={'handled'} 
+    //                 style={styles.container}
+    //             >
+    //                 <FormInput 
+    //                     ref={c => {this.formPhone = c}}
+    //                     type={'phone'}
+    //                     autoFocus={true}
+    //                     keyboardType={'number-pad'}
+    //                     value={this.state.user.phone}
+    //                     onChangeText={this.onChangeText}
+    //                     label={'signIn.formLabel.phone'}
+    //                     placeholder={'signIn.formLabel.examplePhone'}
+    //                     onSubmitEditing={this.submitPhone}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.phone}
+    //                     property={'signIn.validation.phone'}
+    //                 />
+    //                 <FormInput 
+    //                     ref={c => {this.formPassword = c}}
+    //                     type={'password'}
+    //                     value={this.state.user.password}
+    //                     isPassword={true}
+    //                     onChangeText={this.onChangeText}
+    //                     label={'signIn.formLabel.password'}
+    //                     placeholder={'signIn.formLabel.password'}
+    //                     onSubmitEditing={this.submitPassword}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.password}
+    //                     property={'signIn.validation.password'}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.passwordLength}
+    //                     property={'signIn.validation.passwordLength'}
+    //                 />
+    //                 <ForgotPassword 
+    //                     onPress={this.navigateToForgotPassword}
+    //                 />
+    //                 <Button
+    //                     type={'red'}
+    //                     title={'signIn.button.signIn'}
+    //                     onPress={this.signInValidation}
+    //                 />
+    //                 <Register 
+    //                     onPress={this.navigateToRegister}
+    //                 />
+    //             </ScrollView>
+    //             </>
 
-            )
-        } else {
-            <Container
-                bgColorBottom={'white'}
-                bgColorTop={'red'}
-            >
-                <NavigationBar 
-                    title={'signIn.navigationTitle'}
-                    onPress={actNav.goBack}
-                />
-                <ScrollView
-                    keyboardShouldPersistTaps={'handled'} 
-                    style={styles.container}
-                >
-                    <FormInput 
-                        ref={c => {this.formPhone = c}}
-                        type={'phone'}
-                        autoFocus={true}
-                        keyboardType={'number-pad'}
-                        value={this.state.user.phone}
-                        onChangeText={this.onChangeText}
-                        label={'signIn.formLabel.phone'}
-                        placeholder={'signIn.formLabel.examplePhone'}
-                        onSubmitEditing={this.submitPhone}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.phone}
-                        property={'signIn.validation.phone'}
-                    />
-                    <FormInput 
-                        ref={c => {this.formPassword = c}}
-                        type={'password'}
-                        value={this.state.user.password}
-                        isPassword={true}
-                        onChangeText={this.onChangeText}
-                        label={'signIn.formLabel.password'}
-                        placeholder={'signIn.formLabel.password'}
-                        onSubmitEditing={this.submitPassword}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.password}
-                        property={'signIn.validation.password'}
-                    />
-                    <VerificationText
-                        validation={this.state.validateStatus.passwordLength}
-                        property={'signIn.validation.passwordLength'}
-                    />
-                    <ForgotPassword 
-                        onPress={this.navigateToForgotPassword}
-                    />
-                    <Button
-                        type={'red'}
-                        title={'signIn.button.signIn'}
-                        onPress={this.signInValidation}
-                    />
-                    <Register 
-                        onPress={this.navigateToRegister}
-                    />
-                </ScrollView>
-            </Container>
+    //         )
+    //     } else {
+    //         <Container
+    //             bgColorBottom={'white'}
+    //             bgColorTop={'red'}
+    //         >
+    //             <NavigationBar 
+    //                 title={'signIn.navigationTitle'}
+    //                 onPress={actNav.goBack}
+    //             />
+    //             <ScrollView
+    //                 keyboardShouldPersistTaps={'handled'} 
+    //                 style={styles.container}
+    //             >
+    //                 <FormInput 
+    //                     ref={c => {this.formPhone = c}}
+    //                     type={'phone'}
+    //                     autoFocus={true}
+    //                     keyboardType={'number-pad'}
+    //                     value={this.state.user.phone}
+    //                     onChangeText={this.onChangeText}
+    //                     label={'signIn.formLabel.phone'}
+    //                     placeholder={'signIn.formLabel.examplePhone'}
+    //                     onSubmitEditing={this.submitPhone}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.phone}
+    //                     property={'signIn.validation.phone'}
+    //                 />
+    //                 <FormInput 
+    //                     ref={c => {this.formPassword = c}}
+    //                     type={'password'}
+    //                     value={this.state.user.password}
+    //                     isPassword={true}
+    //                     onChangeText={this.onChangeText}
+    //                     label={'signIn.formLabel.password'}
+    //                     placeholder={'signIn.formLabel.password'}
+    //                     onSubmitEditing={this.submitPassword}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.password}
+    //                     property={'signIn.validation.password'}
+    //                 />
+    //                 <VerificationText
+    //                     validation={this.state.validateStatus.passwordLength}
+    //                     property={'signIn.validation.passwordLength'}
+    //                 />
+    //                 <ForgotPassword 
+    //                     onPress={this.navigateToForgotPassword}
+    //                 />
+    //                 <Button
+    //                     type={'red'}
+    //                     title={'signIn.button.signIn'}
+    //                     onPress={this.signInValidation}
+    //                 />
+    //                 <Register 
+    //                     onPress={this.navigateToRegister}
+    //                 />
+    //             </ScrollView>
+    //         </Container>
 
-        }
-    }
+    //     }
+    // }
 
     render(){
         return(
@@ -324,6 +325,14 @@ class SignIn extends Component {
                         title={'signIn.button.signIn'}
                         onPress={this.signInValidation}
                     />
+                    <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+                        <Text style={{marginVertical: 10}}>atau masuk dengan</Text>
+                        <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                            <Sosmed/>
+                            <Sosmed/>
+                        </View>
+                    </View>
+                    
                     <Register 
                         onPress={this.navigateToRegister}
                     />

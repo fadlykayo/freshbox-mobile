@@ -57,6 +57,7 @@ images.icon_arrow_down_red = require('./icon_arrow_down_red.png');
 images.icon_onboarding1 = require('./onboarding1.png');
 images.icon_onboarding2 = require('./onboarding2.png');
 images.icon_onboarding3 = require('./onboarding3.png');
+images.icon_facebook = require('./facebook_circle.png');
 
 
 export default images;
