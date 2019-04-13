@@ -7,12 +7,13 @@ const style = {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      flexDirection: 'row',
+      flexDirection: 'column',
     },
     text: {
       fontFamily: 'Avenir-Roman',
       fontSize: scaling.moderateScale(14),
-      color: colour.darkGrey
+      color: colour.darkGrey,
+      marginTop: 20,
     }
   }
 }

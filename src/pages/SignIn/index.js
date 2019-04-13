@@ -7,8 +7,10 @@ import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from '@components/Button';
+import StaticText from '@components/StaticText';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
+import { socmed } from '@helpers';
 import Sosmed from './components/Sosmed';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -38,6 +40,8 @@ class SignIn extends Component {
         this.navigateToRegister = this.navigateToRegister.bind(this);
         this.navigateToForgotPassword = this.navigateToForgotPassword.bind(this);
         this.clearData = this.clearData.bind(this);
+        this.facebookHandler = this.facebookHandler.bind(this);
+        this.googleHandler = this.googleHandler.bind(this);
     }
 
     componentWillUnmount() {
@@ -147,128 +151,93 @@ class SignIn extends Component {
         actNav.navigate(navConstant.ForgotPassword);
     }
 
-    // fromPageOnBoarding () {
-    //     if(this.props.fromOnBoarding) {
-    //         return (
-    //             <>
-    //             <NavigationBar 
-    //                 title={'signIn.navigationTitle'}
-    //                 onPress={actNav.goBack}
-    //             />
-    //             <ScrollView
-    //                 keyboardShouldPersistTaps={'handled'} 
-    //                 style={styles.container}
-    //             >
-    //                 <FormInput 
-    //                     ref={c => {this.formPhone = c}}
-    //                     type={'phone'}
-    //                     autoFocus={true}
-    //                     keyboardType={'number-pad'}
-    //                     value={this.state.user.phone}
-    //                     onChangeText={this.onChangeText}
-    //                     label={'signIn.formLabel.phone'}
-    //                     placeholder={'signIn.formLabel.examplePhone'}
-    //                     onSubmitEditing={this.submitPhone}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.phone}
-    //                     property={'signIn.validation.phone'}
-    //                 />
-    //                 <FormInput 
-    //                     ref={c => {this.formPassword = c}}
-    //                     type={'password'}
-    //                     value={this.state.user.password}
-    //                     isPassword={true}
-    //                     onChangeText={this.onChangeText}
-    //                     label={'signIn.formLabel.password'}
-    //                     placeholder={'signIn.formLabel.password'}
-    //                     onSubmitEditing={this.submitPassword}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.password}
-    //                     property={'signIn.validation.password'}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.passwordLength}
-    //                     property={'signIn.validation.passwordLength'}
-    //                 />
-    //                 <ForgotPassword 
-    //                     onPress={this.navigateToForgotPassword}
-    //                 />
-    //                 <Button
-    //                     type={'red'}
-    //                     title={'signIn.button.signIn'}
-    //                     onPress={this.signInValidation}
-    //                 />
-    //                 <Register 
-    //                     onPress={this.navigateToRegister}
-    //                 />
-    //             </ScrollView>
-    //             </>
+    facebookHandler(){
+        socmed.facebookLogin()
+        .then((result) => {
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "facebook",
+                    fb_token: result.id
+                }   
+            }
 
-    //         )
-    //     } else {
-    //         <Container
-    //             bgColorBottom={'white'}
-    //             bgColorTop={'red'}
-    //         >
-    //             <NavigationBar 
-    //                 title={'signIn.navigationTitle'}
-    //                 onPress={actNav.goBack}
-    //             />
-    //             <ScrollView
-    //                 keyboardShouldPersistTaps={'handled'} 
-    //                 style={styles.container}
-    //             >
-    //                 <FormInput 
-    //                     ref={c => {this.formPhone = c}}
-    //                     type={'phone'}
-    //                     autoFocus={true}
-    //                     keyboardType={'number-pad'}
-    //                     value={this.state.user.phone}
-    //                     onChangeText={this.onChangeText}
-    //                     label={'signIn.formLabel.phone'}
-    //                     placeholder={'signIn.formLabel.examplePhone'}
-    //                     onSubmitEditing={this.submitPhone}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.phone}
-    //                     property={'signIn.validation.phone'}
-    //                 />
-    //                 <FormInput 
-    //                     ref={c => {this.formPassword = c}}
-    //                     type={'password'}
-    //                     value={this.state.user.password}
-    //                     isPassword={true}
-    //                     onChangeText={this.onChangeText}
-    //                     label={'signIn.formLabel.password'}
-    //                     placeholder={'signIn.formLabel.password'}
-    //                     onSubmitEditing={this.submitPassword}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.password}
-    //                     property={'signIn.validation.password'}
-    //                 />
-    //                 <VerificationText
-    //                     validation={this.state.validateStatus.passwordLength}
-    //                     property={'signIn.validation.passwordLength'}
-    //                 />
-    //                 <ForgotPassword 
-    //                     onPress={this.navigateToForgotPassword}
-    //                 />
-    //                 <Button
-    //                     type={'red'}
-    //                     title={'signIn.button.signIn'}
-    //                     onPress={this.signInValidation}
-    //                 />
-    //                 <Register 
-    //                     onPress={this.navigateToRegister}
-    //                 />
-    //             </ScrollView>
-    //         </Container>
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Product)
+                },
+                (err) => {
+                    let params = {
+                        name: result.name,
+                        email: result.email,
+                        sosmed: "facebook",
+                        fb_token: result.id
+                    }
+                    // if(err.code == 404) {
+                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // }
+                    switch (err.code) {
+                        case 404:
+                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});
+                            break;
+                        default:
+                            break;
+                    }
+                })
+        })
+        .catch((err) => {
+            // console.log(err);
+        })
+    }
 
-    //     }
-    // }
+    googleHandler(){
+        socmed.googleLogin()
+        .then((result) => {
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "google",
+                    google_token: result.id
+                }   
+            }
+
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Product)
+                },
+                (err) => {
+                    let params = {
+                        name: result.name,
+                        email: result.email,
+                        sosmed: "google",
+                        google_token: result.id
+                    }
+                    // if(err.code == 404) {
+                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                    // }
+                    switch (err.code) {
+                        case 404:
+                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});                            break;
+                        default:
+                            break;
+                    }
+                })
+        })
+        .catch((err) => {
+            // console.log(err);
+        })
+    }
+
 
     render(){
         return(
@@ -325,11 +294,15 @@ class SignIn extends Component {
                         title={'signIn.button.signIn'}
                         onPress={this.signInValidation}
                     />
+
                     <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                        <Text style={{marginVertical: 10}}>atau masuk dengan</Text>
+                        <StaticText 
+                            style={styles.socmedText}
+                            property={'signIn.validation.social'}
+                        />
                         <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                            <Sosmed/>
-                            <Sosmed/>
+                            <Sosmed type={'facebook'} onPress={this.facebookHandler}/>
+                            <Sosmed type={'google'} onPress={this.googleHandler}/>
                         </View>
                     </View>
                     
@@ -348,6 +321,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
+    sign_in_socmed: (req,res,err) => dispatch(actions.auth.api.sign_in_socmed(req,res,err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 });
 

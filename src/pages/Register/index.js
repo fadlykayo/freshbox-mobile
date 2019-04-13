@@ -121,7 +121,7 @@ class Register extends Component {
 
     registerValidation(){
         this.clearValidation();
-        validation.register(this.state.user)
+        validation.register(this.state.user, this.props.navigation.state.params.socmed)
         .then(() => {
             if(this.props.navigation.state.params.socmed == undefined) {
                 this.registerHandler();
@@ -172,8 +172,8 @@ class Register extends Component {
                 name: this.state.user.fullName,
                 email: this.state.user.email,
                 phone_number: this.state.user.phone,
-                password: this.state.user.password,
-                password_confirmation: this.state.user.confirmPassword,
+                // password: this.state.user.password,
+                // password_confirmation: this.state.user.confirmPassword,
                 sosmed: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.sosmed : '',
                 fb_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.fb_token !== undefined ? this.props.navigation.state.params.socmed.fb_token : '' : '',
                 google_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.google_token !== undefined ? this.props.navigation.state.params.socmed.google_token : '' : '',
@@ -196,6 +196,54 @@ class Register extends Component {
                 // console.log(err);
             }
         )
+    }
+
+    renderPasswordForm() {
+        if(this.props.navigation.state.params.socmed == undefined) {
+            return (
+                <>
+                <FormInput 
+                    ref={c => {this.formPassword = c}}
+                    type={'password'}
+                    isPassword={true}
+                    value={this.state.user.password}
+                    onChangeText={this.onChangeText}
+                    label={'register.formLabel.password'}
+                    placeholder={'register.formLabel.password'}
+                    onSubmitEditing={this.submitPassword}
+                />
+                <VerificationText
+                    validation={this.state.validateStatus.passwordLength}
+                    property={'register.validation.passwordLength'}
+                />
+                <VerificationText
+                    validation={this.state.validateStatus.password}
+                    property={'register.validation.password'}
+                />
+                <VerificationText
+                    validation={this.state.validateStatus.confirmPassword}
+                    property={'register.validation.confirmPassword'}
+                />
+                <FormInput 
+                    ref={c => {this.formConfirmPassword = c}}
+                    type={'confirmPassword'}
+                    isPassword={true}
+                    value={this.state.user.confirmPassword}
+                    onChangeText={this.onChangeText}
+                    label={'register.formLabel.confirmPassword'}
+                    placeholder={'register.formLabel.confirmPassword'}
+                    onSubmitEditing={this.submitConfirmPassword}
+                />
+                <VerificationText
+                    validation={this.state.validateStatus.confirmPassword}
+                    property={'register.validation.confirmPassword'}
+                />
+                </>
+
+            )
+        } else {
+            return null
+        }
     }
 
     render(){
@@ -260,7 +308,8 @@ class Register extends Component {
                         validation={this.state.validateStatus.phone}
                         property={'register.validation.phone'}
                     />
-                    <FormInput 
+                    {this.renderPasswordForm()}
+                    {/* <FormInput 
                         ref={c => {this.formPassword = c}}
                         type={'password'}
                         isPassword={true}
@@ -295,7 +344,7 @@ class Register extends Component {
                     <VerificationText
                         validation={this.state.validateStatus.confirmPassword}
                         property={'register.validation.confirmPassword'}
-                    />
+                    /> */}
                     <View style={styles.subcontainer.button}>
                         <Button
                             type={'red'}

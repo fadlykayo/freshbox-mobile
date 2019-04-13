@@ -65,7 +65,7 @@ class CategoryItems extends PureComponent {
 						</View>
 					:	null
 				}
-				{this._renderImage(this.props.category)}
+				{/* {this._renderImage(this.props.category)} */}
 				{this._renderDesc(this.props.category)}
 			</TouchableOpacity>
 		)

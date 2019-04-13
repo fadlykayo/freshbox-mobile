@@ -17,6 +17,12 @@ const styles = {
         color: colour.red,
         fontSize: scaling.moderateScale(14),
         marginBottom: scaling.moderateScale(5),
+    },
+    socmedText: {
+        marginVertical: 10,
+        fontFamily: 'Avenir-Book',
+        fontSize: scaling.moderateScale(12),
+        color: colour.darkGrey,
     }
 }
 

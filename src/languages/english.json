@@ -48,7 +48,8 @@
             "phone": "Please enter your phone number at least between 10 to 13 digits",
             "password": "Password must be at least 8 characters",
             "passwordLength": "Please enter your password",
-            "login": "Invalid email or password, please try again"
+            "login": "Invalid email or password, please try again",
+            "social": "or enter with"
         },
         "button":{
             "signIn": "Sign In"
@@ -757,7 +758,7 @@
     "loading": "Loading",
     "emptyState" : {
         "history"   : "No Transaction history available",
-        "search"    : "No product available",
+        "search"    : "The product you are looking for is not available",
         "favorites" : "No favorite products"
     }
 }

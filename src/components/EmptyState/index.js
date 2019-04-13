@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { language } from '@helpers';
 import styles from './styles';
 
@@ -24,6 +24,11 @@ export default class EmptyState extends Component {
   render() {
     return (
       <View style={styles.emptyState.container}>
+        <Image
+          resizeMode  = 'contain' 
+          source      = {this.props.image}
+          style       = {{paddingVertical: 10}}
+        />
         <Text style={styles.emptyState.text}>{this.state.text}</Text>
       </View>
     )

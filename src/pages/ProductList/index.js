@@ -13,6 +13,7 @@ import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
 import Categories from './components/Categories';
+import images from '@assets';
 import { debounce } from 'lodash'
 import styles from './styles';
 import actions from '@actions';
@@ -383,7 +384,6 @@ class ProductList extends Component {
 				});
 		}
 		else {
-			console.log(input.code, 'ini input code category')
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -565,7 +565,6 @@ class ProductList extends Component {
 	}
 
 	render(){
-		console.log(this.props.product, 'ini products lists')
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
 			outputRange: [-(width * 0.3), 0]
@@ -623,7 +622,8 @@ class ProductList extends Component {
 								)}
 							/> :
 							<EmptyState
-								property='emptyState.search'
+								property 	={'emptyState.search'}
+								image 		= {images.empty_search}
 							/>
 							
 						}							

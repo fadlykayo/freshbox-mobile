@@ -48,7 +48,8 @@
             "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
             "password": "Kata sandi minimal 8 karakter",
             "passwordLength": "Tolong masukkan kata sandi",
-            "login": "Email atau kata sandi tidak valid"
+            "login": "Email atau kata sandi tidak valid",
+            "social": "atau masuk dengan"
         },
         "button":{
             "signIn": "Masuk"
@@ -759,7 +760,7 @@
     },
     "loading": "Mohon tunggu",
     "emptyState" : {
-        "search"    : "Produk tidak tersedia",
+        "search"    : "Produk yang anda cari tidak tersedia",
         "history"   : "Tidak ada riwayat transaksi",
         "favorites" : "Tidak ada produk favorit"
     }

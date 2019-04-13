@@ -66,7 +66,7 @@ export const AppNavigator = createStackNavigator({
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
 },{
-    initialRouteName  : 'SignIn',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {

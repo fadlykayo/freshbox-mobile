@@ -13,6 +13,7 @@ import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import { language } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
+import images from '@assets';
 
 const { width, height } = Dimensions.get('window');
 
@@ -258,6 +259,7 @@ class Favourites extends Component {
 							this.props.wishlist.length == 0 ? 
 							
 							<EmptyState
+								image={images.empty_favorite}
 								property='emptyState.favorites'
 							/> :
 							<FlatList

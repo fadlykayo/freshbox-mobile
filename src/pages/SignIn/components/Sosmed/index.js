@@ -8,24 +8,24 @@ export default class Facebook extends Component {
     super(props);
     this.state = {
     };
-    // this.onPressButton = this.onPressButton.bind(this);
+    this.onPressButton = this.onPressButton.bind(this);
   }
 
-  // onPressButton () {
-  //   this.props.onPress();
-  // }
+  onPressButton () {
+    this.props.onPress();
+  }
 
   render() {
     return (
       
       <View style = { styles.container }>
-        {/* <TouchableWithoutFeedback onPress={this.onPressButton}> */}
+        <TouchableWithoutFeedback onPress={this.onPressButton}>
           <Image
             resizeMode    = { 'contain' }
-            source        = { images.icon_facebook }
-            style         = { styles.image }
+            source        = { this.props.type == 'facebook' ? images.icon_facebook : images.icon_google }
+            style         = { styles.image(this.props.type) }
           />
-        {/* </TouchableWithoutFeedback> */}
+        </TouchableWithoutFeedback>
       </View>
       
     );

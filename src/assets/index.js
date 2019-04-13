@@ -58,6 +58,8 @@ images.icon_onboarding1 = require('./onboarding1.png');
 images.icon_onboarding2 = require('./onboarding2.png');
 images.icon_onboarding3 = require('./onboarding3.png');
 images.icon_facebook = require('./facebook_circle.png');
-
+images.icon_google = require('./google_circle.png');
+images.empty_favorite = require('./ilu_empty_favourite.png');
+images.empty_search = require('./ilu_empty_search.png');
 
 export default images;

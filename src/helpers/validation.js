@@ -46,17 +46,21 @@ validation.otp = (input) => new Promise ((res,rej) => {
     else rej();
 })
 
-validation.register = (user) => new Promise((res,rej) => {
+validation.register = (user, socmed) => new Promise((res,rej) => {
     if(user.fullName.length > 0) {
         if(user.email.length > 0){
             if(emailRegex.test(user.email) == true){
                 if(phoneRegex.test(user.phone) == true){
-                    if(user.password.length > 0){
-                        if(user.password.length > 7){
-                            if(user.password == user.confirmPassword) res();
-                            else rej('confirmPassword');
-                        } else rej('password');
-                    } else rej('passwordLength');
+                    if(socmed == undefined) {
+                        if(user.password.length > 0){
+                            if(user.password.length > 7){
+                                if(user.password == user.confirmPassword) res();
+                                else rej('confirmPassword');
+                            } else rej('password');
+                        } else rej('passwordLength');
+                    } else {
+                        res();
+                    }
                 } else rej('phone');
             } else rej('emailFormat');
         } else rej('emailLength');
