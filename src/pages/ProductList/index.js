@@ -255,6 +255,18 @@ class ProductList extends Component {
 	}
 
 	refreshProductList() {
+		let category_code = null;
+
+		this.props.categories.map(c => {
+			if(this.props.on_category !== "Default") {
+				
+				if(c.name == this.props.on_category) {
+					category_code = c.code
+				}
+
+			}
+		});
+
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -263,7 +275,8 @@ class ProductList extends Component {
 				page: 1,
 				per_page: this.props.product.length,
 				// stock: 'tersedia',
-				sort: 'nama-az'
+				sort: 'nama-az',
+				category_code: category_code
 			}
 		}
 		this.props.get_products(payload,
@@ -324,13 +337,25 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
+		let category_code = null;
+
+		this.props.categories.map(c => {
+			if(this.props.on_category !== "Default") {
+				
+				if(c.name == this.props.on_category) {
+					category_code = c.code
+				}
+
+			}
+		});
+
 		if(this.props.current_page <= this.props.last_page) {
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
 				},
 				body: {},
-				params: this.props.params
+				params: {...this.props.params, category_code: category_code}
 			}
 			this.props.get_products(payload,
 				() => {},
@@ -478,6 +503,20 @@ class ProductList extends Component {
 	
 	submitSearch() {
 
+		let category_code = null;
+
+		this.props.categories.map(c => {
+			if(this.props.on_category !== "Default") {
+				
+				if(c.name == this.props.on_category) {
+					category_code = c.code
+				}
+
+			}
+		});
+
+		// console.warn(category_code)
+
 		let payload={
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -488,12 +527,12 @@ class ProductList extends Component {
 				// stock: 'tersedia',
 				sort: 'nama-az',
 				name: this.state.searchItem,
+				category_code: category_code
 			}
 		}
 
 		this.props.search_products(payload, 
 			(success) => {
-				console.log(success)
 				this.onChangeText('search', true)
 				this.backToTop();
 			},
@@ -573,6 +612,7 @@ class ProductList extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
+		console.log(this.props.product)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}

@@ -27,8 +27,9 @@ class ProductItem extends PureComponent {
 	}
 
 	render(){
-		const productImage = this.props.data.images_sizes_url.original[0];
-		console.log(this.props.data.stock, 'jumlah stock')
+		// const productImage = this.props.data.images_sizes_url.original[0];
+		// console.log(this.props.data.images_sizes_url["50x50"][0])
+		const productImage = this.props.data.images_sizes_url["100x100"][0]
 		return(
 			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock)}>
 				<View style={styles.subcontainer.card}>
@@ -41,6 +42,7 @@ class ProductItem extends PureComponent {
 								resizeMode={'contain'} 
 								source={{uri: productImage}}
 								style={styles.icon.product}
+								resizeMethod={'resize'}
 							/>
 						</View>
 						<Content data={this.props.data}/>

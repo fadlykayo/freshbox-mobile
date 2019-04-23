@@ -60,7 +60,7 @@ class Container extends PureComponent {
                     {this._renderBackground()}
                     <SafeAreaView style={styles.container} forceInset={{bottom: 20, top: 40}}>
                         <KeyboardAvoidingView 
-                            // behavior='padding' 
+                            behavior='padding' 
                             style={styles.contentContainer(this.props.noBackground)}
                         >
                             {this.props.children}

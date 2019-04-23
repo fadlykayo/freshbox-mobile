@@ -102,7 +102,9 @@ class Register extends Component {
         let userPhone = this.state.user.phone.trim();
         this.clearValidation();
         this.onChangeText('phone',userPhone);
-        this.formPassword.focus();
+        if (this.props.navigation.state.params.socmed == undefined) {
+            this.formPassword.focus();
+        }
     }
 
     submitPassword(){
@@ -189,11 +191,12 @@ class Register extends Component {
                         phone_number: this.state.user.phone
                     })
                 } else {
-                    actNav.reset(navConstant.Product)
+                    console.log(res)
+                    // actNav.reset(navConstant.Product)
                 }
             },
             (err)=> {
-                // console.log(err);
+                console.log(err);
             }
         )
     }

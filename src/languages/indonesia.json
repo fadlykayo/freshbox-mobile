@@ -734,6 +734,7 @@
         "invalidSignIn": "Nomor Ponsel atau Password salah",
         "invalidMonth": "Bulan tidak sesuai.",
         "invalidYear": "Tahun tidak sesuai.",
+        "invalidPhone": "Nomer telpon yang anda masukan tidak terdaftar",
         "invalidPhoneFormat": "Mohon masukkan format nomor ponsel yang benar.",
         "errorOTP": "Kode Verifikasi salah.",
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",

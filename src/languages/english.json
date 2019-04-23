@@ -731,6 +731,7 @@
         "invalidSignIn": "Phone number or Password is invalid",
         "invalidMonth": "Incorrect month.",
         "invalidYear": "Incorrect year.",
+        "invalidPhone": "The selected phone number is not registered",
         "invalidPhoneFormat": "Please enter the correct phone number format.",
         "errorOTP": "Verification code is invalid.",
         "errorRegisterEmail": "Registration failed, Your email has been registered.",

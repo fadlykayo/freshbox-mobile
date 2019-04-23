@@ -15,21 +15,22 @@ class PhotoComponent extends PureComponent {
 	}
 
   	render () {
-		if (this.props.user) {
+		if (this.props.user && this.props.user.user) {
+			console.log(this.props.user)
 			return (
 				<TouchableOpacity onPress={ this.navigateToProfilePage } style={styles.container}>
 					<Image
 						resizeMode={'cover'} 
-                        source={ 
-                            this.props.user.user.image == '' || this.props.user.user.image == null
-                            ? images.icon_img_ava_grey
+						source={ 
+								this.props.user.user.image == '' || this.props.user.user.image == null
+								? images.icon_img_ava_grey
 							: {uri: this.props.user.user.images_sizes_url.original}
 						}
 						style={
-                            this.props.user.user.image == '' || this.props.user.user.image == null
-                            ? styles.photo.dummy
-                            : styles.photo.real
-                        }
+								this.props.user.user.image == '' || this.props.user.user.image == null
+								? styles.photo.dummy
+								: styles.photo.real
+						}
 					/>
 					
 					<View style={styles.text.place}>

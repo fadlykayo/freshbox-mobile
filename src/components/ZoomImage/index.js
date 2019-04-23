@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Modal, Dimensions } from 'react-native';
 import styles from './styles';
 import images from '@assets';
 
@@ -14,6 +14,7 @@ class ZoomImage extends Component {
     }
 
     render() {
+        const { height, width } = Dimensions.get('window');
         if (this.props.modalVisible) {
             return (
                 <Modal

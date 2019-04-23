@@ -109,11 +109,12 @@ class OTP extends Component {
     }
 
     navigateBack() {
-        actNav.goBack();
+        // actNav.goBack();
+        actNav.reset(navConstant.Menu)
     }
 
     blur(){
-        this.TextInput.blur();
+        this.TextInput.blur(navConstant.menu);
     }
 
     focus(){
@@ -158,7 +159,7 @@ class OTP extends Component {
                     }
                 },
                 (err) => {
-                    language.transformText('message.invalidOTP')
+                    language.transformText('message.errorOTP')
 			        .then(message => {
 			        	this.props.set_error_status({
 			        		status: true,

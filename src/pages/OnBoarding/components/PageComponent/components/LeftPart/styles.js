@@ -6,11 +6,11 @@ const { height, width } = Dimensions.get('window');
 
 const styles = {
     subContainer: {
-        red: (color) => {
-            return {
-                flex: 1,
-                backgroundColor: colour.red
-            }
+        red: {
+
+            flex: 1,
+            backgroundColor: colour.red
+
         },
     },
     topComponent: {

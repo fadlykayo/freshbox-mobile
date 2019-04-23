@@ -6,7 +6,7 @@ const initialState = {
     params: {
         page: 1,
         sort: 'nama-az',
-        stock: 'tersedia'
+        // stock: 'tersedia'
     },
     products: [],
     categories: [],
@@ -35,19 +35,25 @@ const getProducts = (state, payload) => {
     let existingProducts = newState.products.slice();
 
     newState.params.page = payload.data.current_page + 1;
-    newState.last_page= payload.data.last_page;
+    newState.last_page = payload.data.last_page;
 
-    for(x in incomingProducts){
-        let sameValue = false;
-        for(y in existingProducts){
-            if(incomingProducts[x].code == existingProducts[y].code){
-                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
-                sameValue = true;
-                break;
+    if(payload.data.current_page == 1) {
+        existingProducts = incomingProducts;
+    } else {
+        for(x in incomingProducts){
+            let sameValue = false;
+            for(y in existingProducts){
+                if(incomingProducts[x].code == existingProducts[y].code){
+                    existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                    sameValue = true;
+                    break;
+                }
             }
+            if(sameValue == false) existingProducts.push(incomingProducts[x]);
         }
-        if(sameValue == false) existingProducts.push(incomingProducts[x]);
     }
+
+
 
     let cartList = newState.cart.products;
 
@@ -72,7 +78,7 @@ const getProducts = (state, payload) => {
             if(!e.maxQty) e.maxQty = 1000;
             return e;
         }
-    }).filter(e => e.stock > 0);
+    })
 
     return newState;
 }
@@ -393,21 +399,21 @@ const resetParams = (state, payload) => {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ct.GET_PRODUCTS : return getProducts(state,action.payload);
-        case ct.GET_CATEGORIES: return getCategories(state,action.payload);
-        case ct.GET_FAVORITES: return getFavorites(state,action.payload);
-        case ct.GET_DELIVERY_PRICE: return getDeliveryPrice(state,action.payload);
-        case ct.SEARCH_PRODUCTS: return searchData(state,action.payload);
-        case ct.CHANGE_TOTAL: return editTotal(state,action.payload);
-        case ct.CHANGE_CATEGORIES: return changeCategory(state,action.payload); 
-        case ct.TOGGLE_FAVORITE: return editFavorite(state,action.payload);
-        case ct.DETAIL_PRODUCT: return getDetail(state,action.payload);
-        case ct.CLEAR_PRODUCTS: return clearProducts(state);
-        case ct.CLEAR_PRODUCT_LISTS: return clearProductList(state);
-        case ct.VALIDATE_CART: return validateCart(state,action.payload);
-        case ct.REORDER_TRANSACTION: return reorderTransaction(state,action.payload);
-        case ct.RESET_PARAMS: return resetParams(state,action.payload);
-        case ct.RESET_PRODUCTS: return initialState
+        case ct.GET_PRODUCTS        : return getProducts(state,action.payload);
+        case ct.GET_CATEGORIES      : return getCategories(state,action.payload);
+        case ct.GET_FAVORITES       : return getFavorites(state,action.payload);
+        case ct.GET_DELIVERY_PRICE  : return getDeliveryPrice(state,action.payload);
+        case ct.SEARCH_PRODUCTS     : return searchData(state,action.payload);
+        case ct.CHANGE_TOTAL        : return editTotal(state,action.payload);
+        case ct.CHANGE_CATEGORIES   : return changeCategory(state,action.payload); 
+        case ct.TOGGLE_FAVORITE     : return editFavorite(state,action.payload);
+        case ct.DETAIL_PRODUCT      : return getDetail(state,action.payload);
+        case ct.CLEAR_PRODUCTS      : return clearProducts(state);
+        case ct.CLEAR_PRODUCT_LISTS : return clearProductList(state);
+        case ct.VALIDATE_CART       : return validateCart(state,action.payload);
+        case ct.REORDER_TRANSACTION : return reorderTransaction(state,action.payload);
+        case ct.RESET_PARAMS        : return resetParams(state,action.payload);
+        case ct.RESET_PRODUCTS      : return initialState
         default: return state;
     }
 }

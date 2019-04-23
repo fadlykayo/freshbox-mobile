@@ -65,7 +65,8 @@ actions.register_user_socmed = (req,success,failure) => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
-				dispatch(actReducerAuth.sign_in(res.data));
+						// console.log('register user res ->',res);
+						dispatch(actReducerAuth.sign_in(res.data));
         		success(res);
         	}
         })

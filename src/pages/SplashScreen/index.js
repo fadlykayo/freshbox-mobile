@@ -17,6 +17,8 @@ class SplashScreen extends PureComponent {
                     actNav.reset(navConstant.Menu);
                 } 
                 else {
+                    // console.log(this.props.user)
+                    // actNav.reset(navConstant.Menu);
                     actNav.reset(navConstant.Product);
                 }
             }
