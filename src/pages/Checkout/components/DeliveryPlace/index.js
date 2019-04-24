@@ -19,7 +19,7 @@ class DeliveryPlace extends PureComponent {
         return (
             <View style={styles.container}>
 				<View style={styles.subcontainer.top}>
-					{ this.props.addresses.length == 0 
+					{ this.props.addresses.length == 0 || address == undefined
 						? (<View style={styles.subcontainer.static}></View>)
 						: 	(<View style={styles.subcontainer.top}>
 								<StaticText
@@ -45,7 +45,8 @@ class DeliveryPlace extends PureComponent {
 					/>
 				</View>
 		    </View>
-        )
+		)
+		// return null;
     }
 }
 
