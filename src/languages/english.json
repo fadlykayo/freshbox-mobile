@@ -737,7 +737,7 @@
         "errorRegisterEmail": "Registration failed, Your email has been registered.",
         "errorLogin": "Login failed, Phone Number or Password is not correct, please try again.",
         "paymentSuccess": "Thank you for making a payment. Orders will be processed immediately.",
-        "createOrderSuccess": "Order successfully created, please make a payment so the order can be processed.",
+        "createOrderSuccess": "Order successfully created, if you choose bank transfer as your payment method, please make a payment so the order can be processed.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
         "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
         "noPaymentMethodSelected": "Please choose one of the payment methods before you place your order.",

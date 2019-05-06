@@ -105,6 +105,7 @@ class Detail extends Component {
 						title: 'formSuccess.title.createOrder'
 					});
 				});
+				this.props.navigation.state.params.createOrderSuccess = null;
 			}
 			else {
 				language.transformText('message.createOrderSuccess')

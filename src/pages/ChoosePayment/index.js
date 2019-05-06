@@ -28,13 +28,15 @@ class ChoosePayment extends Component {
     }
 
     render() {
+        
         let params = this.props.navigation.state.params;
+        // console.log(params.redirect_url, 'url')
         return (
             <View style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
 			    />
-                <View style={styles.container}>
+                {/* <View style={styles.container}>
                     {
                         params.redirect_url.length == 0 
                         ?   null
@@ -44,7 +46,11 @@ class ChoosePayment extends Component {
                                 style={{flex: 1}}
                             />
                     }
-                </View>
+                </View> */}
+                <Button
+                    onPress     =   {}
+                    title       =   {'GoPay'}
+                />
             </View>
         );
     }

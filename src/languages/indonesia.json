@@ -740,7 +740,7 @@
         "errorRegisterEmail": "Registrasi gagal, Email anda telah terdaftar.",
         "errorLogin": "Login gagal, Nomor Ponsel atau Password anda salah, silahkan coba lagi.",
         "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",
-        "createOrderSuccess": "Pesanan berhasil dibuat, silahkan lakukan pembayaran agar pesanan dapat diproses.",
+        "createOrderSuccess": "Pemesanan sukses, apabila anda memilih pembayaran dengan metode transfer, silahkan lakukan pembayaran agar pesanan dapat diproses.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
         "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
         "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
