@@ -46,6 +46,8 @@
 		3D4D1A4039E6473695827341 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA30B73F66468990D59F32 /* libRNVectorIcons.a */; };
 		4780331217F04B48924BFA1D /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA98A05060D489288610D11 /* libRCTOneSignal.a */; };
 		579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */; };
+		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
+		5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */; };
 		60946C3320FE4A27BC14A866 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A26A33DF21EC432EA06A738E /* Zocial.ttf */; };
 		768840006D0448BAAB434D61 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE19B473BD6449778768E897 /* libRNGoogleSignin.a */; };
 		831FAB1C74DB4DFE81E9FA91 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35A905CA095B4621ACDC2DCE /* FontAwesome5_Solid.ttf */; };
@@ -440,7 +442,10 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = libReact.a; path = "../Debug-iphonesimulator/libReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A905CA095B4621ACDC2DCE /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		37401CB765BC4F698752C68A /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
+		3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CADEC9B6A3441EC9B2828FB /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
+		58F8058122803A8A005B8C16 /* GoPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoPay.h; sourceTree = "<group>"; };
 		5B211DA9595D4394826E7F63 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		638A812F010B40CCBAB3A1A6 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -527,6 +532,7 @@
 				579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */,
 				8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */,
 				4780331217F04B48924BFA1D /* libRCTOneSignal.a in Frameworks */,
+				5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +670,8 @@
 		13B07FAE1A68108700A75B9A /* Freshbox */ = {
 			isa = PBXGroup;
 			children = (
+				58F8058122803A8A005B8C16 /* GoPay.h */,
+				58F8057F22803A6F005B8C16 /* GoPay.m */,
 				01F6B83721A692120012E65A /* Freshbox.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				A124F7CF21A3E8A3006104AB /* GoogleService-Info.plist */,
@@ -718,6 +726,7 @@
 				B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */,
 				F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */,
 				FA552F3662694F3F8566CA22 /* AddressBook.framework */,
+				3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -974,6 +983,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = RCWT9F32HU;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1494,11 +1504,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Freshbox/Pods-Freshbox-resources.sh",
 				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/MidtransKit/MidtransKit.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GTMOAuth2ViewTouch.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MidtransKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1538,6 +1550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58F8058022803A6F005B8C16 /* GoPay.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -1661,6 +1674,7 @@
 			baseConfigurationReference = 7173FB79037709C8117B14F1 /* Pods-Freshbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1687,6 +1701,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.freshboxID;
 				PRODUCT_NAME = Freshbox;
+				SWIFT_OBJC_BRIDGING_HEADER = "Freshbox-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1696,6 +1713,7 @@
 			baseConfigurationReference = 7C02AA1B10174E089A67ED68 /* Pods-Freshbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
@@ -1721,6 +1739,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.freshboxID;
 				PRODUCT_NAME = Freshbox;
+				SWIFT_OBJC_BRIDGING_HEADER = "Freshbox-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

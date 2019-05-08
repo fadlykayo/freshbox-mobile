@@ -10,15 +10,22 @@
 #import <React/RCTRootView.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin.h>
+#import <MidtransKit/MidtransKit.h>
 
 @implementation AppDelegate;
 @synthesize oneSignal = _oneSignal;
+
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  
+  [CONFIG setClientKey:@"SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg"
+           environment:MidtransServerEnvironmentSandbox
+     merchantServerURL:@"https://api.freshbox.id"];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];

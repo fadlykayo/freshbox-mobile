@@ -19,9 +19,17 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
+  - MidtransCoreKit (1.13.1)
+  - MidtransKit (1.13.1):
+    - MidtransCoreKit (~> 1.13.1)
+    - MidtransKit/UI (= 1.13.1)
+  - MidtransKit/UI (1.13.1):
+    - MidtransCoreKit (~> 1.13.1)
 
 DEPENDENCIES:
   - GoogleSignIn
+  - MidtransCoreKit
+  - MidtransKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -29,13 +37,17 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMOAuth2
     - GTMSessionFetcher
+    - MidtransCoreKit
+    - MidtransKit
 
 SPEC CHECKSUMS:
   GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  MidtransCoreKit: 2b9d26f05875dd6487f247a00eb93eaf303c37ae
+  MidtransKit: 28808f1bb75f0deb34f03faeb06a6b2c20b4acbe
 
-PODFILE CHECKSUM: c15cd3c977d8b8e1cd2176403cb759fefe5f657a
+PODFILE CHECKSUM: 34ef3cdde354baa9f336b6bacb3c15400e81983e
 
 COCOAPODS: 1.5.3
