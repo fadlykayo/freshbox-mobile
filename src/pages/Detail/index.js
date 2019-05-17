@@ -23,7 +23,8 @@ class Detail extends Component {
 			grandTotalPrice: 0,
             redirect_url: '',
             token: '',
-            invoice: '',
+						invoice: '',
+						midtrans: '',
 			refreshing: false,
 			isNavigateBack: false,
         }
@@ -59,10 +60,10 @@ class Detail extends Component {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
-		console.log(this.props.user, 'USER')
-		console.log(this.props.totalPrice, 'total price')
-		console.log(this.props.cart_product, 'PRODUCTS ORDERED')
-		console.log(this.props.addresses, 'address')
+		// console.log(this.props.user, 'USER')
+		// console.log(this.props.totalPrice, 'total price')
+		// console.log(this.props.cart_product, 'PRODUCTS ORDERED')
+		// console.log(this.props.addresses, 'address')
 
 	// 	user: state.user.data,
 	// addresses: state.user.address,
@@ -285,27 +286,29 @@ class Detail extends Component {
 				}
 			}
 			
-			// this.props.request_snap_token(payload,
-			// 	res => {
-			// 		this.setState({
-			// 			token: res.token,
-			// 			invoice: res.invoice,
-			// 			redirect_url: res.redirect_url,
-			// 		},() => {
-			// 			actNav.navigate(navConstant.ChoosePayment,{
-			// 				...this.props.navigation.state.params,
-			// 				token: this.state.token,
-			// 				invoice: this.state.invoice,
-			// 				redirect_url: this.state.redirect_url,
-			// 				validateTransactionStatus: this.validateTransactionStatus
-			// 			});
-			// 		});
-			// 	},
-			// 	rej => {
+			this.props.request_snap_token(payload,
+				res => {
+					this.setState({
+						token: res.token,
+						invoice: res.invoice,
+						redirect_url: res.redirect_url,
+						midtrans: res.midtrans_json
+					},() => {
+						actNav.navigate(navConstant.ChoosePayment,{
+							...this.props.navigation.state.params,
+							token: this.state.token,
+							invoice: this.state.invoice,
+							redirect_url: this.state.redirect_url,
+							midtrans: this.state.midtrans,
+							validateTransactionStatus: this.validateTransactionStatus
+						});
+					});
+				},
+				rej => {
 	
-			// 	}
-			// );
-			actNav.navigate(navConstant.ChoosePayment)
+				}
+			);
+			// actNav.navigate(navConstant.ChoosePayment)
 		}
 		else{
 			actNav.navigate(navConstant.ChoosePayment,{

@@ -7,14 +7,12 @@
 
 #import "AppDelegate.h"
 #import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin.h>
-#import <MidtransKit/MidtransKit.h>
 
-@implementation AppDelegate;
+@implementation AppDelegate
 @synthesize oneSignal = _oneSignal;
-
+@synthesize rootView = _rootView;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -25,22 +23,22 @@
   
   [CONFIG setClientKey:@"SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg"
            environment:MidtransServerEnvironmentSandbox
-     merchantServerURL:@"https://api.freshbox.id"];
+     merchantServerURL:@"http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com"];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
 
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+  self.rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Freshbox"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  self.rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"1a6751a7-bcef-4a4c-8ae5-f95484cede94"
                                                       settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
+  rootViewController.view = self.rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
@@ -62,6 +60,16 @@
       ];
 }
 
+- (void)goToNativeView:(MidtransUIPaymentViewController *)paymentVC  {
+  self.window.rootViewController = paymentVC;
+}
 
+- (void)goToReactNative {
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  UIViewController *rootViewController = [UIViewController new];
+  rootViewController.view = self.rootView;
+  self.window.rootViewController = rootViewController;
+  [self.window makeKeyAndVisible];
+}
 
 @end

@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { View, WebView, NativeModules } from 'react-native';
-import { actNav } from '@navigations';
+import { View, WebView, NativeModules, NativeEventEmitter } from 'react-native';
+import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
 import { connect } from 'react-redux';
+
+const Gopay = NativeModules.GoPay;
+const GoPayEventEmitter = new NativeEventEmitter(Gopay);
+
+
+
 
 class ChoosePayment extends Component {
     constructor() {
@@ -20,6 +26,8 @@ class ChoosePayment extends Component {
 
     componentWillUnmount(){
         if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus();
+        // this.GoPaySubscription.remove();
+        GoPayEventEmitter.removeListener();
     }
 
     navigationStateChangeHandler(event){
@@ -30,44 +38,48 @@ class ChoosePayment extends Component {
 
     componentDidMount() {
         let params = this.props.navigation.state.params;
-        const Gopay = NativeModules.GoPay
-        console.log(this.props.totalPrice)
-        console.log(this.props.navigation.state.params.invoice)
-        console.log(this.props.user)
-        console.log(this.props.addresses, 'address')
-
-        let cartItem = [];
-
-        this.props.cart.map((cart, index) => {
-            let items = {
-                'item_id'        : cart.code,
-                'item_name'      : cart.name,
-                'item_price'     : Number(cart.price),
-                'item_quantity'  : Number(cart.count),
-            }
-            cartItem.push(items);
-            items = {}
+        this.GoPaySubscription();
+        Gopay.payWithGoPay(params.midtrans.item_details, params.midtrans.customer_details, params.midtrans.transaction_details, params.token,  (res)=> {
+            console.warn(res, 'ini res gopay')
         });
-
-        // console.log(userInfo)
-        
-        Gopay.payWithGoPay(cartItem, this.props.user.user, this.props.addresses, (res)=> {
-            console.warn(res)
-        })
     }
+
+    GoPaySubscription = () => {
+        // handle gopay response here
+
+        // console.log(GoPayEventEmitter, 'emiter')
+
+        GoPayEventEmitter.addListener(
+            'onPaymentResult',
+            (result) => this.handleGoPayResponse(result)
+        );
+
+    };
+
+    handleGoPayResponse = (result) => {
+        switch (result) {
+            case 'success'  : return actNav.reset(navConstant.Product, {createOrderSuccess: 'gopay'});
+            case 'failed'   : return actNav.reset(navConstant.Product);
+            case 'pending'  : break;
+            default         : break;
+        }
+        // actNav.reset(navConstant.Product)
+
+    };
+    
     
 
     render() {
         
         let params = this.props.navigation.state.params;
-        console.warn(params, 'token')
+        // console.warn(params, 'token')
         return (
             <View style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
 			    />
-                {/* <View style={styles.container}>
-                    {
+                <View style={styles.container}>
+                    {/* {
                         params.redirect_url.length == 0 
                         ?   null
                         :   <WebView
@@ -75,12 +87,8 @@ class ChoosePayment extends Component {
                                 source={{uri: params.redirect_url}}
                                 style={{flex: 1}}
                             />
-                    }
-                </View> */}
-                {/* <Button
-                    // onPress     =   {}
-                    title       =   {'GoPay'}
-                /> */}
+                    } */}
+                </View>
             </View>
         );
     }

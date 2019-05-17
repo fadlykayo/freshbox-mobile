@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <React/RCTBridgeModule.h>
+#import <MidtransKit/MidtransKit.h>
+#import <React/RCTComponent.h>
+#import <React/RCTEventEmitter.h>
 
-@interface GoPay : NSObject <RCTBridgeModule>
-@property (nonatomic, strong) UIWindow *window;
+@interface GoPay : RCTEventEmitter <RCTBridgeModule, MidtransUIPaymentViewControllerDelegate>
+
+@property (nonatomic, copy) RCTBubblingEventBlock onPaymentStatusChange;
+
 @end

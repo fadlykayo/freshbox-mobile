@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTViewManager.h>
 #import "GoPay.h"
-#import <MidtransKit/MidtransKit.h>
+#import "AppDelegate.h"
 
 @implementation GoPay
 
@@ -23,75 +24,118 @@
 }
 
 
-
 RCT_EXPORT_MODULE();
-RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) cartItem andUserInfo: (NSObject *) userInfo andAddress: (NSObject *)address callback:(RCTResponseSenderBlock)callback) {
-//
-//
-//  NSMutableArray *items = [[NSMutableArray alloc] init];
-//  for (NSDictionary *item in cartItem) {
-//
-//    MidtransItemDetail *itemDetail = [[MidtransItemDetail alloc] initWithItemID:[item objectForKey:@"item_id"]
-//                                          name:[item objectForKey:@"item_name"]
-//                                         price:[item objectForKey:@"item_price"]
-//                                      quantity:[item objectForKey:@"item_quantity"]];
-//
-//    [items addObject:itemDetail];
-//  }
-//
-//  MidtransAddress *shippingAddress = [[MidtransAddress alloc] init];
-//
-//  shippingAddress.firstName = userInfo;
-//  shippingAddress.lastName = @"";
-//  shippingAddress.phone = @"";
-//  shippingAddress.address = @"";
-//  shippingAddress.city = @"";
-//  shippingAddress.postalCode = @"";
-//  shippingAddress.countryCode = @"";
-//
-//  MidtransAddress *billingAddress = [[MidtransAddress alloc] init];
-//
-//  shippingAddress.firstName = @"";
-//  shippingAddress.lastName = @"";
-//  shippingAddress.phone = @"";
-//  shippingAddress.address = @"";
-//  shippingAddress.city = @"";
-//  shippingAddress.postalCode = @"";
-//  shippingAddress.countryCode = @"";
-//
-//  MidtransCustomerDetails *customerDetail =
-//  [[MidtransCustomerDetails alloc] initWithFirstName:@"user_firstname"
-//                                            lastName:@"user_lastname"
-//                                               email:@"user_email"
-//                                               phone:@"user_phone"
-//                                     shippingAddress:shippingAddress
-//                                      billingAddress:billingAddress];
-//
-//  MidtransTransactionDetails *transactionDetail =
-//  [[MidtransTransactionDetails alloc] initWithOrderID:@"order_id"
-//                                       andGrossAmount:[items_gross_amount]];
-//
-//  [[MidtransMerchantClient shared]
-//   requestTransactionTokenWithTransactionDetails:transactionDetail
-//   itemDetails:items
-//   customerDetails:customerDetail
-//   completion:^(MidtransTransactionTokenResponse *token, NSError *error)
-//   {
-//     if (token) {
-//
-//     }
-//     else {
-//
-//     }
-//   }];
-//
-//  MidtransUIPaymentViewController *paymentVC =
-//  [[MidtransUIPaymentViewController alloc] initWithToken:token
-//                                       andPaymentFeature:MidtransPaymentFeatureGOPAY];
-//  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//  self.window.rootViewController = paymentVC;
-//
-//  callback(@[cartItem]);
+
+- (NSArray<NSString *> *)supportedEvents
+{
+  return @[@"onPaymentResult"];
 }
+
+RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) item_details andCustomerDetails: (NSDictionary *)customer_details
+                  andTransactionDetail: (NSDictionary *) transaction_detail andToken: (NSString *) tokenID  callback:(RCTResponseSenderBlock)callback) {
+  
+  [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"test event emitter"}];
+  NSMutableArray *items = [[NSMutableArray alloc] init];
+  for (NSDictionary *item in item_details) {
+    
+    MidtransItemDetail *itemDetail = [[MidtransItemDetail alloc] initWithItemID:[item objectForKey:@"id"]
+                                                                           name:[item objectForKey:@"name"]
+                                                                          price:[item objectForKey:@"price"]
+                                                                       quantity:[item objectForKey:@"quantity"]];
+    
+    [items addObject:itemDetail];
+  }
+  
+  MidtransAddress *shippingAddress = [MidtransAddress addressWithFirstName:@"Angga" lastName:@"IdaBagus" phone:@"087877280598" address:@"Jalan Jalan" city:@"Jakarta" postalCode:@"11630" countryCode:@"+62"];
+  
+  MidtransAddress *billingAddress = [MidtransAddress addressWithFirstName:@"Angga" lastName:@"IdaBagus" phone:@"087877280598" address:@"Jalan Jalan" city:@"Jakarta" postalCode:@"11630" countryCode:@"+62"];
+  
+  
+  MidtransCustomerDetails *customerDetail =
+  [[MidtransCustomerDetails alloc] initWithFirstName:[customer_details objectForKey:@"first_name"]
+                                            lastName:[customer_details objectForKey:@"last_name"]
+                                               email:[customer_details objectForKey:@"email"]
+                                               phone:[customer_details objectForKey:@"phone"]
+                                     shippingAddress:shippingAddress
+                                      billingAddress:billingAddress];
+  
+  MidtransTransactionDetails *transactionDetail =
+  [[MidtransTransactionDetails alloc] initWithOrderID:[transaction_detail objectForKey:@"order_id"]
+                                       andGrossAmount:[transaction_detail objectForKey:@"gross_amount"]];
+  
+  NSDictionary *dic = @{ @"tokenId" : tokenID,
+                         @"transactionDetails" : transactionDetail,
+                         @"customerDetails" : customerDetail,
+                         @"itemDetails" : items};
+  
+  MidtransTransactionTokenResponse *token = [MidtransTransactionTokenResponse modelObjectWithDictionary:dic transactionDetails:transactionDetail customerDetails:customerDetail itemDetails:items];
+  token.tokenId=tokenID;
+  
+  MidtransUIPaymentViewController *paymentVC = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                    andPaymentFeature:MidtransPaymentFeatureGOPAY];
+  paymentVC.paymentDelegate = self;
+  
+  AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [appDelegate goToNativeView:paymentVC];
+}
+
+#pragma mark - MidtransUIPaymentViewControllerDelegate
+
+
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result {
+//  NSLog(@"success: %@", result);
+//  _onPaymentStatusChange(@{
+//                           @"status": @"Success"
+//                           });
+  if(result) {
+    [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"success"}];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate goToReactNative];
+  }
+//  NSString *Msg = @"Success";
+}
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentFailed:(NSError *)error {
+//  NSString *Msg = @"Failed";
+  if(error) {
+    [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"failed"}];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate goToReactNative];
+  }
+}
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentPending:(MidtransTransactionResult *)result {
+//  _onPaymentStatusChange(@{
+//                           @"status": @"Pending"
+//                           });
+  
+  if(result) {
+    [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"pending"}];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate goToReactNative];
+  }
+  
+  
+  NSLog(@"pending: %@", result);
+//  NSString *Msg = @"Pending";
+}
+
+- (void)paymentViewController_paymentCanceled:(MidtransUIPaymentViewController *)viewController {
+  NSLog(@"canceled");
+//  NSString *Msg = @"Canceled";
+  AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+  [appDelegate goToReactNative];
+}
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController saveCard:(MidtransMaskedCreditCard *)result {
+  
+}
+
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController saveCardFailed:(NSError *)error {
+  
+}
+
 
 @end

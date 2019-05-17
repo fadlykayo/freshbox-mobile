@@ -7,11 +7,11 @@ const { height, width } = Dimensions.get('window')
 const styles = {
     container: {
         flex: 1,
-        backgroundColor: colour.white,
+        // backgroundColor: colour.white,
     },
     content: {
         flex: 1,
-        backgroundColor: colour.white,
+        // backgroundColor: colour.white,
     },
     webview:{
         
