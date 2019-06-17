@@ -102,8 +102,8 @@ android {
         applicationId "com.freshbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.0.5"
+        versionCode 9
+        versionName "1.0.6"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -151,9 +151,19 @@ android {
             }
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    maven { url "http://dl.bintray.com/pt-midtrans/maven" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
+    // implementation 'com.midtrans:uikit:1.22.0-SANDBOX'
+    // implementation 'com.midtrans:corekit:1.22.0-SANDBOX'
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')

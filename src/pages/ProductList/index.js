@@ -39,6 +39,7 @@ class ProductList extends Component {
 				checkout: false,
 			},
 			wasSearching: false,
+			broadcast_message: '',
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -81,10 +82,13 @@ class ProductList extends Component {
 		this.getFavorites();
 		this.checkNotification();
 		this.checkCart();
+		this.apiBroadcastMessage();
 		if(Platform.OS == 'android') {
 			permission.requestSaveExternal();
 		}
 	}
+
+
 
 	shouldComponentUpdate(nextProps,nextState){
 		if(nextProps.total_count == 0) this.outroAnimate();
@@ -92,6 +96,28 @@ class ProductList extends Component {
 			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
 		}
 		return true;
+	}
+
+	apiBroadcastMessage() {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {}
+		}
+		this.props.get_broadcast_message(
+			payload,
+			() => {
+				let state = this.state;
+				state.broadcast_message = this.props.broadcast_message
+				this.setState(state)
+				// console.warn('success')
+			},
+			(err) => {
+				
+			}
+		)
 	} 
 
 	// cart button slide up animation
@@ -250,6 +276,7 @@ class ProductList extends Component {
 				this.backToDefault();
 			} else {
 				this.refreshProductList();
+				this.apiBroadcastMessage();
 			}
 		});
 	}
@@ -612,7 +639,6 @@ class ProductList extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
-		console.log(this.props.product)
 		return (
 			<Container
                 bgColorBottom={'veryLightGrey'}
@@ -631,7 +657,9 @@ class ProductList extends Component {
 						onCategory={this.props.on_category}
 						openAllCategories={this.openAllCategories}
 					/>
-					<Notes />
+					<Notes 
+						text={this.props.broadcast_message}
+					/>
 					<View style={styles.container}>
 						<View style={styles.cartContainer}>
 						{
@@ -718,6 +746,7 @@ const mapStateToProps = state => ({
 	total_price: state.product.total.price,
 	total_count: state.product.total.count,
 	productDetail: state.product.detail,
+	broadcast_message: state.utility.broadcast_message,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -736,6 +765,7 @@ const mapDispatchToProps = dispatch => ({
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	get_broadcast_message: (req,res,err) => dispatch(actions.utility.api.broadcast_message(req,res,err)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

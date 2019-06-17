@@ -32,6 +32,7 @@ helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
         resolve(response.data);
     })
     .catch(error => {
+        console.log(error)
         // console.log('http error',error);
 		dispatch(actNetwork.set_loading_status(false));
         if(error.response){

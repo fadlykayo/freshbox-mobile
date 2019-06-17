@@ -24,8 +24,9 @@ class Checkout extends Component {
 			grandTotalPrice: 0,
 			date: null,
 			modalVisible:{
-                showDeliveryDate: false,
-            }
+				showDeliveryDate: false,
+			},
+			delivery_date: [],
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
@@ -43,6 +44,30 @@ class Checkout extends Component {
 	componentDidMount() {
 		this.getDeliveryPrice();
 		this.getAddress();
+		this.apiDeliveryDate();
+	}
+
+	apiDeliveryDate() {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {}
+		}
+		this.props.get_delivery_date(
+			payload,
+			() => {
+				let state = this.state;
+				state.delivery_date = this.props.delivery_date
+				// console.warn(state.delivery_date)
+				this.setState(state)
+				// console.warn('success')
+			},
+			(err) => {
+				
+			}
+		)
 	}
 
 	getDeliveryPrice() {
@@ -269,8 +294,9 @@ class Checkout extends Component {
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
-                    modalVisible={this.state.modalVisible.showDeliveryDate}
-                    closeDeliveryDate={this.closeDeliveryDate}
+							modalVisible={this.state.modalVisible.showDeliveryDate}
+							closeDeliveryDate={this.closeDeliveryDate}
+							dates={this.state.delivery_date}
                 />
 			</Container>
 		);
@@ -281,7 +307,8 @@ const mapStateToProps = (state) => ({
 	user: state.user.data,
 	addresses: state.user.address,
 	totalPrice: state.product.total.price,
-	delivery_price: state.product.delivery_price
+	delivery_price: state.product.delivery_price,
+	delivery_date: state.utility.delivery_date
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -289,6 +316,7 @@ const mapDispatchToProps = (dispatch) => ({
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	cancel_checkout: (req,res,err) => dispatch(actions.transaction.api.cancel_checkout(req,res,err)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
+	get_delivery_date: (req, res, err) => dispatch(actions.utility.api.delivery_date(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

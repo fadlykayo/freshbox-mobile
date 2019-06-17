@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, FlatList, RefreshControl } from 'react-native';
+import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -21,17 +21,31 @@ class Detail extends Component {
 			totalPrice: 0,
 			deliveryPrice: 0,
 			grandTotalPrice: 0,
-            redirect_url: '',
-            token: '',
-						invoice: '',
-						midtrans: '',
+			redirect_url: '',
+			token: '',
+			invoice: '',
+			midtrans: '',
 			refreshing: false,
 			isNavigateBack: false,
-        }
+			radio: [
+					{
+						name	: 'cod',
+						status: false,
+					},
+					{
+						name:'transfer',
+						status:true,
+					},
+					{
+						name:'gopay',
+						status:false,
+					},
+				]
+			}
 		this._onRefresh = this._onRefresh.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
-        this.navigateToCart = this.navigateToCart.bind(this);
+		this.navigateToCart = this.navigateToCart.bind(this);
 		this.refreshHandler = this.refreshHandler.bind(this);
 		this.getDeliveryPrice = this.getDeliveryPrice.bind(this);
 		this.clearNotification = this.clearNotification.bind(this);
@@ -41,6 +55,7 @@ class Detail extends Component {
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
 		this.validateTransactionStatus = this.validateTransactionStatus.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
+		this.onPressRadio = this.onPressRadio.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -60,20 +75,6 @@ class Detail extends Component {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
-		// console.log(this.props.user, 'USER')
-		// console.log(this.props.totalPrice, 'total price')
-		// console.log(this.props.cart_product, 'PRODUCTS ORDERED')
-		// console.log(this.props.addresses, 'address')
-
-	// 	user: state.user.data,
-	// addresses: state.user.address,
-	// notif: state.notif.notification,
-	// totalPrice: state.product.total.price,
-	// cart_product: state.product.cart.products,
-	// detailTransaction: state.transaction.detail,
-	// transactions: state.transaction.transactions,
-	// delivery_price: state.product.delivery_price,
-	// additional: state.product.additional.credit_card,
 	}
 
 	clearNotification() {
@@ -282,7 +283,8 @@ class Detail extends Component {
 				},
 				body: {
 					address_code: address.code,
-					request_shipping_date: this.props.navigation.state.params.date.value
+					request_shipping_date: this.props.navigation.state.params.date.value,
+					cash_on_delivery: this.state.radio[0].status,
 				}
 			}
 			
@@ -294,14 +296,25 @@ class Detail extends Component {
 						redirect_url: res.redirect_url,
 						midtrans: res.midtrans_json
 					},() => {
-						actNav.navigate(navConstant.ChoosePayment,{
-							...this.props.navigation.state.params,
-							token: this.state.token,
-							invoice: this.state.invoice,
-							redirect_url: this.state.redirect_url,
-							midtrans: this.state.midtrans,
-							validateTransactionStatus: this.validateTransactionStatus
-						});
+							if(this.state.redirect_url.length !== 0) {
+								actNav.navigate(navConstant.ChoosePayment,{
+									...this.props.navigation.state.params,
+									token: this.state.token,
+									invoice: this.state.invoice,
+									redirect_url: this.state.redirect_url,
+									midtrans: this.state.midtrans,
+									validateTransactionStatus: this.validateTransactionStatus
+								});
+							} else {
+								actNav.navigate(navConstant.Product,{
+									...this.props.navigation.state.params,
+									token: this.state.token,
+									invoice: this.state.invoice,
+									redirect_url: this.state.redirect_url,
+									midtrans: this.state.midtrans,
+									validateTransactionStatus: this.validateTransactionStatus
+								});
+							}
 					});
 				},
 				rej => {
@@ -358,6 +371,24 @@ class Detail extends Component {
 		)
 	}
 
+	onPressRadio (type) {
+		let radio = this.state.radio;
+		// console.warn(type)
+		for (let index = 0; index < radio.length; index++) {
+			if (radio[index].name == type) {
+				radio[index].status = !radio[index].status
+			} else {
+				radio[index].status = false
+			}
+			
+		}
+		this.setState({
+			radio: radio
+		});
+
+		// console.warn(this.state.radio)
+	}
+
   	render(){
   	  	return(
             <Container 				
@@ -378,32 +409,46 @@ class Detail extends Component {
 					}
 					style={styles.container}
 				>
-                    <DetailOrder
-                        setDate={this.props.navigation.state.params.date}
-                        addresses={this.props.addresses}
-                        transaction={this.props.detailTransaction}
-                        action={this.props.navigation.state.params.action}
-                    />
-                    <View style={styles.subcontainer}>
-                        <FlatList
-							data={
-								this.props.navigation.state.params.action == 'history' 
-								? this.props.detailTransaction.details 
-								: this.props.cart_product
-							}
-							keyExtractor={(_,index) => index.toString()}
-							renderItem={({item,index}) => (
-								<CartComponent
-									data = {item}
-									index = {index} 
-									toggleFavorite={this.toggleFavorite}
-									toggleFavoriteHistory={this.toggleFavoriteHistory}
-                                    action={this.props.navigation.state.params.action}
-								/>
-							)}
+					<DetailOrder
+							setDate={this.props.navigation.state.params.date}
+							addresses={this.props.addresses}
+							transaction={this.props.detailTransaction}
+							action={this.props.navigation.state.params.action}
+					/>
+					<View style={styles.subcontainer}>
+						<FlatList
+						data={
+							this.props.navigation.state.params.action == 'history' 
+							? this.props.detailTransaction.details 
+							: this.props.cart_product
+						}
+						keyExtractor={(_,index) => index.toString()}
+						renderItem={({item,index}) => (
+							<CartComponent
+								data = {item}
+								index = {index} 
+								toggleFavorite={this.toggleFavorite}
+								toggleFavoriteHistory={this.toggleFavoriteHistory}
+								action={this.props.navigation.state.params.action}
+							/>
+						)}
 						/>
-                    </View>
-  	  	  		</ScrollView>
+					</View>
+
+					</ScrollView>
+
+					<View style={styles.outerContainer}>
+						<View style={styles.radioContainer}>
+							<Text>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+						</View>
+						<View style={styles.radioContainer}>
+							<Text>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
+						</View>
+						<View style={styles.radioContainer}>
+							<Text>Cash On Delivery (COD)</Text><TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
+						</View>
+					</View>
+
 				<TotalPrice
 					type={'red'}
 					status={this.state.status}
@@ -416,6 +461,7 @@ class Detail extends Component {
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 				/>
+				
 			</Container>
   	  	);
   	}
@@ -435,7 +481,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	reset_notification: () => dispatch(actions.notif.reducer.reset_notification()),
-    toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
+	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
