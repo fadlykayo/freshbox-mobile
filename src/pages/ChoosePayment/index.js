@@ -23,6 +23,11 @@ class ChoosePayment extends Component {
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
         
     }
+
+    componentDidMount() {
+        this.androidGoPay();
+    }
+    
     
 
     componentWillUnmount(){
@@ -40,6 +45,8 @@ class ChoosePayment extends Component {
     }
 
     androidGoPay () {
+
+        // console.warn('masuk sini')
         let params = this.props.navigation.state.params;
 
         const optionConnect = {
@@ -84,7 +91,7 @@ class ChoosePayment extends Component {
 
         // var callback = (res)=>{console.warn(res)};
 
-        Gopay.pay(params.token, (res) => console.log(res));
+        Gopay.pay(params.token, (res) => console.warn(res));
 
         // console.log(optionConnect, transRequest, itemDetails, userDetail);
 
@@ -125,7 +132,7 @@ class ChoosePayment extends Component {
 			    	title={'choosePayment.navigationTitle'}
 			    />
                 <View style={styles.container}>
-                    {
+                    {/* {
                         params.redirect_url.length == 0 
                         ?   null
                         :   <WebView
@@ -133,7 +140,7 @@ class ChoosePayment extends Component {
                                 source={{uri: params.redirect_url}}
                                 style={{flex: 1}}
                             />
-                    }
+                    } */}
                 </View>
             </View>
         );

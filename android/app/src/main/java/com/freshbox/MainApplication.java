@@ -2,7 +2,7 @@ package com.freshbox;
 
 import android.app.Application;
 
-// import com.facebook.BuildConfig;
+//import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -17,7 +17,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-// import com.freshbox.GoPayPackage;
+import com.freshbox.GoPayPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
         new ReactNativeOneSignalPackage(),
         new RNGoogleSigninPackage(),
         new FBSDKPackage(mCallbackManager),
-        new VectorIconsPackage()
+        new VectorIconsPackage(),
+        new GoPayPackage()
       );
     }
 
