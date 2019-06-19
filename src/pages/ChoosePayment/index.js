@@ -54,7 +54,7 @@ class ChoosePayment extends Component {
             urlMerchant:"http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com",
         };
 
-        const transRequest = params.midtrans.transaction_details;
+        const transId = params.midtrans.transaction_details;
         
         var itemDetails = params.midtrans.item_details;
 
@@ -91,9 +91,9 @@ class ChoosePayment extends Component {
 
         // var callback = (res)=>{console.warn(res)};
 
-        Gopay.pay(params.token, (res) => console.warn(res));
+        Gopay.pay(params.token, transId, userDetail, (res) => this.handleGoPayResponse(res));
 
-        // console.log(optionConnect, transRequest, itemDetails, userDetail);
+        // console.warn(params.midtrans);
 
     }
 
@@ -111,8 +111,8 @@ class ChoosePayment extends Component {
 
     handleGoPayResponse = (result) => {
         switch (result) {
-            case 'success'  : return actNav.reset(navConstant.Product, {createOrderSuccess: 'gopay'});
-            case 'failed'   : return actNav.reset(navConstant.Product);
+            case 'success'  : return actNav.goBack();
+            case 'failed'   : break;
             case 'pending'  : break;
             default         : break;
         }

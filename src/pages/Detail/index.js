@@ -436,18 +436,22 @@ class Detail extends Component {
 					</View>
 
 					</ScrollView>
-
-					<View style={styles.outerContainer}>
-						<View style={styles.radioContainer}>
-							<Text>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
-						</View>
-						<View style={styles.radioContainer}>
-							<Text>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
-						</View>
-						<View style={styles.radioContainer}>
-							<Text>Cash On Delivery (COD)</Text><TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
-						</View>
-					</View>
+					{
+						this.props.navigation.state.params.action !== 'history'
+						? <View style={styles.outerContainer}>
+								<View style={styles.radioContainer}>
+									<Text>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+								</View>
+								<View style={styles.radioContainer}>
+									<Text>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
+								</View>
+								<View style={styles.radioContainer}>
+									<Text>Cash On Delivery (COD)</Text><TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
+								</View>
+							</View>
+						: null
+					}
+					
 
 				<TotalPrice
 					type={'red'}
