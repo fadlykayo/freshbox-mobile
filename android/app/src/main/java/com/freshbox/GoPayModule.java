@@ -40,12 +40,12 @@ public class GoPayModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void pay(final String token, ReadableMap transID, ReadableMap userInfo, final Callback successCallback) {
+  public void pay(final String token, ReadableMap transID, ReadableMap userInfo, ReadableMap config, final Callback successCallback) {
 
 
       //init SDK
       SdkUIFlowBuilder.init()
-              .setClientKey("SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg")
+              .setClientKey(config.getString("clientKey"))
               .setContext(mContext)
               .setTransactionFinishedCallback(new TransactionFinishedCallback() {
                   public void onTransactionFinished(TransactionResult transactionResult) {
@@ -57,9 +57,9 @@ public class GoPayModule extends ReactContextBaseJavaModule {
                       }
                   }
               })
-              .setMerchantBaseUrl("http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com")
+              .setMerchantBaseUrl(config.getString("urlMerchant"))
               .enableLog(true)
-              .setColorTheme(new CustomColorTheme("#FFE51255", "#B61548", "#FFE51255"))
+              .setColorTheme(new CustomColorTheme("#E52546", "#FFFFFF", "#ACB3BB"))
               .buildSDK();
 
       //set user detail

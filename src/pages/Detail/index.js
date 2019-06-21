@@ -254,6 +254,7 @@ class Detail extends Component {
 	}
 
     navigateToCart(){
+			//test
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -303,17 +304,11 @@ class Detail extends Component {
 									invoice: this.state.invoice,
 									redirect_url: this.state.redirect_url,
 									midtrans: this.state.midtrans,
+									gopay: this.state.radio[2].status,
 									validateTransactionStatus: this.validateTransactionStatus
 								});
 							} else {
-								actNav.navigate(navConstant.Product,{
-									...this.props.navigation.state.params,
-									token: this.state.token,
-									invoice: this.state.invoice,
-									redirect_url: this.state.redirect_url,
-									midtrans: this.state.midtrans,
-									validateTransactionStatus: this.validateTransactionStatus
-								});
+								this.validateTransactionStatus()
 							}
 					});
 				},
@@ -329,6 +324,8 @@ class Detail extends Component {
 				token: this.state.token,
 				invoice: this.state.invoice,
 				redirect_url: this.state.redirect_url,
+				midtrans: this.state.midtrans,
+				gopay: this.state.radio[2].status,
 				validateTransactionStatus: this.validateTransactionStatus
 			});
 		}
@@ -373,7 +370,7 @@ class Detail extends Component {
 
 	onPressRadio (type) {
 		let radio = this.state.radio;
-		// console.warn(type)
+
 		for (let index = 0; index < radio.length; index++) {
 			if (radio[index].name == type) {
 				radio[index].status = !radio[index].status
@@ -386,7 +383,6 @@ class Detail extends Component {
 			radio: radio
 		});
 
-		// console.warn(this.state.radio)
 	}
 
   	render(){
