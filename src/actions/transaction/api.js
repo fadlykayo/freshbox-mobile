@@ -265,14 +265,21 @@ actions.detail_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Detail Transaction res',res);
+        	console.log('Get Detail Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
-					if(req.type) success(res);
-					else{
-						dispatch(actReducer.detail_transaction(res.data))
-						success(res);
-					}
+							if(req.type){
+								if(res.data.status == 'pending_payment') {
+									failure(res)
+								} else {
+									success(res);
+								}
+								// success(res);
+							} 
+							else{
+								dispatch(actReducer.detail_transaction(res.data))
+								success(res);
+							}
         		}
         	}
         })

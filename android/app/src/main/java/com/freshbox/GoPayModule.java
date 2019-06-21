@@ -17,6 +17,7 @@ import com.midtrans.sdk.corekit.core.TransactionRequest;
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
 import com.midtrans.sdk.corekit.models.UserAddress;
 import com.midtrans.sdk.corekit.models.UserDetail;
+import com.midtrans.sdk.corekit.models.snap.Gopay;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
 
@@ -82,8 +83,7 @@ public class GoPayModule extends ReactContextBaseJavaModule {
       userDetail.setUserAddresses(userAddresses);
       LocalDataHandler.saveObject("user_details", userDetail);
       TransactionRequest transactionRequest = new TransactionRequest(transID.getString("order_id"), transID.getInt("gross_amount"));
-
-
+      transactionRequest.setGopay(new Gopay("freshbox://payment"));
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
       MidtransSDK.getInstance().startPaymentUiFlow(mContext, PaymentMethod.GO_PAY, token);
 

@@ -17,6 +17,7 @@ class ChoosePayment extends Component {
             redirect_url: '',
             token: '',
             invoice: '',
+            paymentStatus: '',
         }
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
         
@@ -30,7 +31,7 @@ class ChoosePayment extends Component {
     
     
     componentWillUnmount(){
-        if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus();
+        if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentStatus);
         if(Platform.OS == 'ios') gopay.removeResponseListener();
     }
 
@@ -51,16 +52,15 @@ class ChoosePayment extends Component {
 
 
     handleGoPayResponse = (result) => {
+        this.setState({paymentStatus: result})
         switch (result) {
             case 'success'  : return actNav.goBack();
-            case 'failed'   : return actNav.goBack();
-            case 'pending'  : break;
+            case 'failed'   : return actNav.navigate(navConstant.Product)
+            case 'pending'  : return actNav.navigate(navConstant.Product)
             default         : break;
         }
 
     };
-    
-    
 
     render() {
         

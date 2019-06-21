@@ -81,7 +81,7 @@ class Detail extends Component {
 		if(this.props.notif) this.props.reset_notification();
 	}
 
-	validateTransactionStatus(){
+	validateTransactionStatus(status){
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -89,7 +89,7 @@ class Detail extends Component {
 			type: 'validation',
 			invoice: this.state.invoice
 		}
-
+		
 		this.props.detail_transaction(payload, 
 			(res) => {
 				this.setState({
