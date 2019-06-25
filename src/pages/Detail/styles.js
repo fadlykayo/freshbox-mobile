@@ -13,7 +13,7 @@ const styles = {
     },
     outerContainer: {
         width: width,
-        flex: 1,
+        flex: -1,
         flexDirection: 'column',
     },
     radioContainer: {

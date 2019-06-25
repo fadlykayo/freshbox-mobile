@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { View, WebView, Platform } from 'react-native';
+import { View, WebView, Platform, Linking } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { gopay } from '@helpers';
-
-
 
 
 class ChoosePayment extends Component {
@@ -17,9 +15,10 @@ class ChoosePayment extends Component {
             redirect_url: '',
             token: '',
             invoice: '',
-            paymentStatus: '',
+            paymentStatus: 'pending',
         }
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
+        this.handleBackButtonGopay = this.handleBackButtonGopay.bind(this);
         
     }
 
@@ -27,8 +26,12 @@ class ChoosePayment extends Component {
         if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
             this.GoPay();
         }
+        // Linking.addEventListener('url', this.handleOpenURL);
     }
     
+    // handleOpenURL (event) {
+    //     console.log(event);
+    // }
     
     componentWillUnmount(){
         if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentStatus);
@@ -41,17 +44,32 @@ class ChoosePayment extends Component {
         }
     }
 
+    handleBackButtonGopay () {
+        let params = this.props.navigation.state.params;
+        if(Platform.OS == 'ios') {
+            if(params.gopay && this.state.paymentStatus == 'pending') {
+                actNav.navigate(navConstant.Product);
+            } else {
+                actNav.goBack();
+            }
+        } else {
+            actNav.goBack();
+        }
+    }
+
     GoPay () {
         const params = this.props.navigation.state.params;
         if(Platform.OS !== 'ios') {
             gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
         } else {
             gopay.responseListener(this.handleGoPayResponse);
+            gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
         }
     }
 
 
     handleGoPayResponse = (result) => {
+        console.warn(result);
         this.setState({paymentStatus: result})
         switch (result) {
             case 'success'  : return actNav.goBack();
@@ -65,11 +83,11 @@ class ChoosePayment extends Component {
     render() {
         
         let params = this.props.navigation.state.params;
-        // console.warn(params, 'token')
         return (
             <View style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
+                    onPress={this.handleBackButtonGopay}
 			    />
                 <View style={styles.container}>
                     {

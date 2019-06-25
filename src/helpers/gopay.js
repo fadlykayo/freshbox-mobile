@@ -7,7 +7,7 @@ const gopay = {};
 
 gopay.payment = (snaptoken, midtrans, callback) => {
   if (Platform.OS == 'ios') {
-
+    Gopay.payWithGoPay(midtrans.item_details, midtrans.customer_details, midtrans.transaction_details, snaptoken, (res) => callback(res));
   } else {
 
     //required
@@ -36,7 +36,7 @@ gopay.payment = (snaptoken, midtrans, callback) => {
   }
 }
 
-gopay.responselistener = (eventHandler) => {
+gopay.responseListener = (eventHandler) => {
   GoPayEventEmitter.addListener (
     'onPaymentResult',
     (result) => eventHandler(result)

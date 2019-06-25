@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
-import { AppNavigator, setNavigator } from '@navigations';
+import { AppNavigator, setNavigator, actNav } from '@navigations';
 import actions from '@actions';
 // import helpers from '@helper';
 
@@ -28,7 +28,11 @@ class App extends Component {
     }
 
     onReceived(notification){
-        // console.log("Notification received: ", notification);
+        if(notification.payload.title == 'Pembayaran Berhasil') {
+            console.warn('test')
+            this.props.get_notification(notification.payload)
+            // actNav.goBack();
+        }
     }
 
     onOpened(openResult){

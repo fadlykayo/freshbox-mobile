@@ -34,7 +34,6 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) item_details andCustomerDetails: (NSDictionary *)customer_details
                   andTransactionDetail: (NSDictionary *) transaction_detail andToken: (NSString *) tokenID  callback:(RCTResponseSenderBlock)callback) {
   
-  [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"test event emitter"}];
   NSMutableArray *items = [[NSMutableArray alloc] init];
   for (NSDictionary *item in item_details) {
     
@@ -75,23 +74,26 @@ RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) item_details andCustomerDetails: (NSD
                                                                                     andPaymentFeature:MidtransPaymentFeatureGOPAY];
   paymentVC.paymentDelegate = self;
   
+ 
+  
   AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
   [appDelegate goToNativeView:paymentVC];
+
 }
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
-
-
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result {
 //  NSLog(@"success: %@", result);
 //  _onPaymentStatusChange(@{
 //                           @"status": @"Success"
 //                           });
+//  [self sendEventWithName:@"onPaymentResult" body:@{@"result": result}];
   if(result) {
     [self sendEventWithName:@"onPaymentResult" body:@{@"result": @"success"}];
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate goToReactNative];
+    
   }
 //  NSString *Msg = @"Success";
 }
