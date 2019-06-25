@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity, Platform } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -80,8 +80,8 @@ class Detail extends Component {
 	clearNotification() {
 		if(this.props.notif) this.props.reset_notification();
 	}
-
-	validateTransactionStatus(status){
+	//status itu payment method
+	validateTransactionStatus(paymentMethod){
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -101,11 +101,20 @@ class Detail extends Component {
 				})
 			},
 			(err) => {
-				this.props.set_error_status({
-					status: true,
-					data: 'Pembayaran batal dilakukan.',
-					title: 'formError.title.paymentCanceled'
-				});
+				if(paymentMethod == 'gopay') {
+					actNav.navigate(navConstant.Product)
+					this.props.set_error_status({
+						status: true,
+						data: 'Pembayaran batal dilakukan.',
+						title: 'formError.title.paymentCanceled'
+					});
+				} else {
+					this.props.set_error_status({
+						status: true,
+						data: 'Pembayaran batal dilakukan.',
+						title: 'formError.title.paymentCanceled'
+					});
+				}
 			}
 		)
 	}

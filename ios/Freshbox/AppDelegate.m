@@ -9,6 +9,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin.h>
+#import <React/RCTLinkingManager.h>
 
 @implementation AppDelegate
 @synthesize oneSignal = _oneSignal;
@@ -48,16 +49,33 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
   
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                        openURL:url
-                                              sourceApplication:sourceApplication
-                                                     annotation:annotation
-          ]
-  || [RNGoogleSignin application:application
-                         openURL:url
-               sourceApplication:sourceApplication
-                      annotation:annotation
-      ];
+  BOOL FBSDKHandler = [[FBSDKApplicationDelegate sharedInstance]
+                        application:application
+                        openURL:url
+                        sourceApplication:sourceApplication
+                        annotation:annotation
+ ];
+  
+  BOOL GoogleHandler = [RNGoogleSignin application:application
+                                           openURL:url
+                                 sourceApplication:sourceApplication
+                                        annotation:annotation
+                        ];
+  BOOL RCT = [RCTLinkingManager application:application openURL:url
+              sourceApplication:sourceApplication annotation:annotation];
+  
+  return FBSDKHandler || GoogleHandler || RCT;
+  
+//  return [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                        openURL:url
+//                                              sourceApplication:sourceApplication
+//                                                     annotation:annotation
+//          ]
+//  || [RNGoogleSignin application:application
+//                         openURL:url
+//               sourceApplication:sourceApplication
+//                      annotation:annotation
+  //      ];
 }
 
 - (void)goToNativeView:(MidtransUIPaymentViewController *)paymentVC  {

@@ -26,6 +26,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb266227334002571</string>
+				<string>freshbox</string>
 			</array>
 		</dict>
 		<dict>
