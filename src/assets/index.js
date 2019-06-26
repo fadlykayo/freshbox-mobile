@@ -61,5 +61,6 @@ images.icon_facebook = require('./facebook_circle.png');
 images.icon_google = require('./google_circle.png');
 images.empty_favorite = require('./ilu_empty_favourite.png');
 images.empty_search = require('./ilu_empty_search.png');
+images.gopay = require('./gopaylogo.jpg')
 
 export default images;

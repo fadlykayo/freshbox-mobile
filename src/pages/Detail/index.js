@@ -80,8 +80,9 @@ class Detail extends Component {
 	clearNotification() {
 		if(this.props.notif) this.props.reset_notification();
 	}
+
 	//status itu payment method
-	validateTransactionStatus(paymentMethod){
+	validateTransactionStatus(paymentMethod, midtransObject){
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -102,12 +103,7 @@ class Detail extends Component {
 			},
 			(err) => {
 				if(paymentMethod == 'gopay') {
-					actNav.navigate(navConstant.Product)
-					this.props.set_error_status({
-						status: true,
-						data: 'Pembayaran batal dilakukan.',
-						title: 'formError.title.paymentCanceled'
-					});
+					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 				} else {
 					this.props.set_error_status({
 						status: true,
@@ -117,6 +113,20 @@ class Detail extends Component {
 				}
 			}
 		)
+	}
+
+	cancelGopayInvoice (invoice) {
+		console.log(invoice)
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				invoice: invoice
+			}
+		};
+
+		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log(err))
 	}
 
 	messageOrderSuccess() {
@@ -501,6 +511,7 @@ const mapDispatchToProps = (dispatch) => ({
 	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
 	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),
 	delete_favorite_history: (req,res,err) => dispatch(actions.transaction.api.delete_favorite_history(req,res,err)),
+	cancel_invoice: (req,res,err) => dispatch(actions.transaction.api.cancel_invoice(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Detail);

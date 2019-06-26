@@ -70,7 +70,7 @@ helper.post = (payload,dispatch) => new Promise((resolve,reject) => {
         resolve(response.data);
     })
     .catch(error => {
-        // console.log('http error',error);
+        // console.warn('http error',error);
 		dispatch(actNetwork.set_loading_status(false));
         if(error.response){
             if(error.response.data.code == 401){

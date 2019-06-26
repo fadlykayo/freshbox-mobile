@@ -16,6 +16,42 @@ let payload = {
 	params: {}
 };
 
+actions.cancel_invoice = (req, success, failure) => {
+
+	payload.path = path.cancelCheckout;
+	payload.header = req.header;
+	payload.body = req.body;
+
+	return dispatch => {
+		requestHandler('post', payload, dispatch)
+		.then((res) => {
+			if(res.code){
+				if(res.code == 200) {
+					console.warn('cancel invoice ==>', res)
+					dispatch(actNetwork.set_error_status({
+						status: true,
+						data: 'Pembayaran batal dilakukan',
+						title: 'formError.title.paymentCanceled'
+					}));
+					success(res);
+				}
+			}
+		})
+		.catch((err) => {
+			if(!err.code){
+				dispatch(actNetwork.set_network_error_status(true));
+				failure(err);
+			} else {
+				dispatch(actNetwork.set_error_status({
+					status: true,
+					data: JSON.stringify(err)
+				}));
+				failure(err);
+			}
+		})
+	}
+}
+
 
 actions.bulk_add_products = (req,success,failure) => {
 	

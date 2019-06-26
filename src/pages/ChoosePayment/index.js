@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, WebView, Platform } from 'react-native';
+import { View, Text, WebView, Platform, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { gopay } from '@helpers';
+import images from '@assets';
 
 
 class ChoosePayment extends Component {
@@ -29,7 +30,7 @@ class ChoosePayment extends Component {
     }
     
     componentWillUnmount(){
-        if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentType);
+        if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentType, this.props.navigation.state.params.midtrans);
         if(Platform.OS == 'ios') gopay.removeResponseListener();
     }
 
@@ -75,19 +76,33 @@ class ChoosePayment extends Component {
 
     };
 
+    renderGoPay () {
+        return (
+            <View style={styles.gopay.container}>
+                <View style={styles.gopay.imageContainer}>
+                    <Image source={images.gopay} style={styles.gopay.image} resizeMode={'contain'}/>
+                </View>
+                <View style={styles.gopay.textContainer}>
+                    <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the back button.</Text>
+                </View>
+            </View>
+        )
+    }
+
     render() {
         
         let params = this.props.navigation.state.params;
         return (
-            <View style={styles.container}>
+            <Container style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
                     // onPress={this.handleBackButtonGopay}
+                    style
 			    />
-                <View style={styles.container}>
+                <View style={styles.content}>
                     {
                         params.gopay
-                        ?   null
+                        ?   this.renderGoPay()
                         :   <WebView
                                 onNavigationStateChange={this.navigationStateChangeHandler}
                                 source={{uri: params.redirect_url}}
@@ -95,7 +110,7 @@ class ChoosePayment extends Component {
                             />
                     }
                 </View>
-            </View>
+            </Container>
         );
     }
 }
