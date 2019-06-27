@@ -14,6 +14,11 @@ class TotalPrice extends Component {
         this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
     }
 
+    componentDidMount() {
+        console.warn(this.props.paymentMethod, 'ini paymentmethod')
+    }
+    
+
     navigateToCart(){
         this.props.navigateToCart();
     }
@@ -30,13 +35,17 @@ class TotalPrice extends Component {
         if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 
-                    return (
-                        <Button
-                            type={this.props.type}
-                            onPress={this.navigateToTransferInstruction}
-                            title={'historyDetail.content.pay'}
-                        />
-                    )
+                    if(this.props.paymentMethod == 'cash_on_delivery') {
+                        return null
+                    } else {
+                        return (
+                            <Button
+                                type={this.props.type}
+                                onPress={this.navigateToTransferInstruction}
+                                title={'historyDetail.content.pay'}
+                            />
+                        )
+                    }
                 case 'finish': 
                     return (
                         <Button

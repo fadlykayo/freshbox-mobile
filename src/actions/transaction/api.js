@@ -306,7 +306,11 @@ actions.detail_transaction = (req,success,failure) => {
         		if(res.code == 200){
 							if(req.type){
 								if(res.data.status == 'pending_payment') {
-									failure(res)
+									if(res.data.payment_method == "cash_on_delivery") {
+										success(res)
+									} else {
+										failure(res)
+									}
 								} else {
 									success(res);
 								}
@@ -320,7 +324,7 @@ actions.detail_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Detail Transaction err', err);
+        	console.log('Get Detail Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

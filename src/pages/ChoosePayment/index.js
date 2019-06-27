@@ -19,7 +19,6 @@ class ChoosePayment extends Component {
             paymentType: '',
         }
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
-        this.handleBackButtonGopay = this.handleBackButtonGopay.bind(this);
         
     }
 
@@ -36,20 +35,6 @@ class ChoosePayment extends Component {
 
     navigationStateChangeHandler(event){
         if(event.loading == false && event.url.search(`transaction_status`) != -1){
-            actNav.goBack();
-        }
-    }
-
-    handleBackButtonGopay () {
-        let params = this.props.navigation.state.params;
-        console.log(this.state.paymentStatus);
-        if(Platform.OS == 'ios') {
-            if(params.gopay && this.state.paymentStatus == 'pending') {
-                actNav.navigate(navConstant.Product);
-            } else {
-                actNav.goBack();
-            }
-        } else {
             actNav.goBack();
         }
     }
@@ -79,12 +64,15 @@ class ChoosePayment extends Component {
     renderGoPay () {
         return (
             <View style={styles.gopay.container}>
+
                 <View style={styles.gopay.imageContainer}>
                     <Image source={images.gopay} style={styles.gopay.image} resizeMode={'contain'}/>
                 </View>
+
                 <View style={styles.gopay.textContainer}>
                     <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the back button.</Text>
                 </View>
+
             </View>
         )
     }
@@ -96,10 +84,8 @@ class ChoosePayment extends Component {
             <Container style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
-                    // onPress={this.handleBackButtonGopay}
-                    style
 			    />
-                <View style={styles.content}>
+                <View style={styles.content(params.gopay)}>
                     {
                         params.gopay
                         ?   this.renderGoPay()

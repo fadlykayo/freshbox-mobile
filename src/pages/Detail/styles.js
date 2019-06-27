@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import { colour } from '@styles';
+import { scaling } from '@helpers';
 
 const { width } = Dimensions.get('window');
 
@@ -38,7 +39,17 @@ const styles = {
         width: 12,
         borderRadius: 5,
         backgroundColor: status ? colour.red  : 'white'
-    })
+    }),
+    text: {
+        fontFamily: 'Avenir-Roman',
+        fontSize: scaling.moderateScale(14),
+        color: colour.darkGrey
+    },
+    codText: {
+        fontFamily: 'Avenir-Roman',
+        fontSize: scaling.moderateScale(10),
+        color: colour.red
+    }
 }
 
 export default styles;

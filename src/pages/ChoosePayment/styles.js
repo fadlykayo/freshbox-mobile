@@ -11,11 +11,23 @@ const styles = {
         backgroundColor: colour.white,
         
     },
-    content: {
-        flex: 1,
-        // backgroundColor: colour.white,
-        alignItems: 'center',
-        justifyContent: 'center',
+    content: (gopay) => {
+        if(gopay) {
+            return (
+                {flex: 1,
+                // backgroundColor: colour.white,
+                alignItems: 'center',
+                justifyContent: 'center',}
+            )
+        } else {
+            return ({
+                flex: 1,
+                // backgroundColor: colour.white,
+                // alignItems: 'center',
+                // justifyContent: 'center',
+            })
+        }
+        
     },
     webview:{
         

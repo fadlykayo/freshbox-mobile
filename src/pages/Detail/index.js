@@ -75,6 +75,11 @@ class Detail extends Component {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
+
+		// detailTransaction: state.transaction.detail,
+		// transactions: state.transaction.transactions,
+		// console.warn('detailTransaction ->', this.props.detailTransaction)
+		// console.warn('transactions ->', this.props.transactions)
 	}
 
 	clearNotification() {
@@ -90,7 +95,6 @@ class Detail extends Component {
 			type: 'validation',
 			invoice: this.state.invoice
 		}
-		
 		this.props.detail_transaction(payload, 
 			(res) => {
 				this.setState({
@@ -116,7 +120,6 @@ class Detail extends Component {
 	}
 
 	cancelGopayInvoice (invoice) {
-		console.log(invoice)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -126,7 +129,7 @@ class Detail extends Component {
 			}
 		};
 
-		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log(err))
+		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())
 	}
 
 	messageOrderSuccess() {
@@ -294,6 +297,7 @@ class Detail extends Component {
 	}
     
     navigateToChoosePayment(){
+		
 		if(this.state.token.length == 0){
 			let address = this.props.addresses.filter(address => address.primary == 1)[0];
 	
@@ -310,26 +314,36 @@ class Detail extends Component {
 			
 			this.props.request_snap_token(payload,
 				res => {
-					this.setState({
-						token: res.token,
-						invoice: res.invoice,
-						redirect_url: res.redirect_url,
-						midtrans: res.midtrans_json
-					},() => {
-							if(this.state.redirect_url.length !== 0) {
-								actNav.navigate(navConstant.ChoosePayment,{
-									...this.props.navigation.state.params,
-									token: this.state.token,
-									invoice: this.state.invoice,
-									redirect_url: this.state.redirect_url,
-									midtrans: this.state.midtrans,
-									gopay: this.state.radio[2].status,
-									validateTransactionStatus: this.validateTransactionStatus
-								});
-							} else {
-								this.validateTransactionStatus()
-							}
-					});
+					if(res.redirect_url) {
+
+						this.setState({
+							token: res.token,
+							invoice: res.invoice,
+							redirect_url: res.redirect_url,
+							midtrans: res.midtrans_json
+						},() => {
+								if(this.state.redirect_url.length !== 0) {
+									actNav.navigate(navConstant.ChoosePayment,{
+										...this.props.navigation.state.params,
+										token: this.state.token,
+										invoice: this.state.invoice,
+										redirect_url: this.state.redirect_url,
+										midtrans: this.state.midtrans,
+										gopay: this.state.radio[2].status,
+										validateTransactionStatus: this.validateTransactionStatus
+									});
+								} else {
+									this.validateTransactionStatus()
+								}
+						});
+
+					} else {
+						this.setState({
+							invoice: res.invoice,
+						}, () => {
+							this.validateTransactionStatus();
+						})
+					}
 				},
 				rej => {
 	
@@ -455,13 +469,23 @@ class Detail extends Component {
 						this.props.navigation.state.params.action !== 'history'
 						? <View style={styles.outerContainer}>
 								<View style={styles.radioContainer}>
-									<Text>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+									<Text style={styles.text}>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
 								</View>
 								<View style={styles.radioContainer}>
-									<Text>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
+									<Text style={styles.text}>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
 								</View>
 								<View style={styles.radioContainer}>
-									<Text>Cash On Delivery (COD)</Text><TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
+									<View>
+										<Text style={styles.text}>Cash On Delivery (COD)</Text>
+
+										{
+											this.state.radio[0].status ? 
+											<Text style={styles.codText}>Pembayaran dengan metode COD tidak dapat dibatalkan</Text> :
+											null
+										}
+										
+									</View>
+									<TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
 								</View>
 							</View>
 						: null
@@ -471,6 +495,7 @@ class Detail extends Component {
 				<TotalPrice
 					type={'red'}
 					status={this.state.status}
+					paymentMethod={this.props.detailTransaction.payment_method}
 					additional={this.props.additional}
 					subTotal={this.state.totalPrice}
 					navigateToCart={this.navigateToCart}
