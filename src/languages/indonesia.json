@@ -207,6 +207,7 @@
             "reOrder": "Pesan Kembali",
             "checkout": "Pilih Metode Pembayaran",
             "pay": "Bayar",
+            "cancel": "Batalkan Pembayaran",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",

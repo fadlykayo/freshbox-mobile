@@ -24,7 +24,7 @@ actions.get_products = (req,success,failure) => {
 	payload.params = req.params;
 	
 	return dispatch => {
-        requestHandler('get',payload,dispatch)
+        requestHandler('get',payload,dispatch, true)
         .then((res) => {
         	// console.log('Get Products res ->',res);
         	if(res.code){

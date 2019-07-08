@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -38,6 +38,7 @@ class ProductList extends Component {
 				openImageDetail: false,
 				checkout: false,
 			},
+			listLoading: false,
 			wasSearching: false,
 			broadcast_message: '',
 		};
@@ -389,6 +390,7 @@ class ProductList extends Component {
 				(err) => {
 					// console.log(err);
 				});
+
 		}
 	}
 
@@ -561,7 +563,7 @@ class ProductList extends Component {
 		this.props.search_products(payload, 
 			(success) => {
 				this.onChangeText('search', true)
-				this.backToTop();
+				// this.backToTop();
 			},
 			(err) => {
 				// console.log(err);
@@ -630,6 +632,17 @@ class ProductList extends Component {
 		)
 	}
 
+	renderFlatListFooter() {
+		// console.warn('masuk')
+		if(!this.props.network.isLoading) return null;
+		return (
+			<ActivityIndicator
+				style={{color: '#000'}}
+			/>
+		)
+		
+	}
+
 	render(){
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
@@ -667,11 +680,12 @@ class ProductList extends Component {
 							<FlatList
 								ref={(e) => { this.listRef = e}}
 								data={this.props.product}
-								onEndReachedThreshold={0.05}
+								onEndReachedThreshold={0.005}
 								onRefresh={this.refreshHandler}
 								refreshing={this.state.refreshing}
 								keyExtractor={(item) => item.code}
 								onEndReached={this.handleLoadMore}
+								ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
 									<View key={index}>
 										<ProductItem
@@ -747,6 +761,7 @@ const mapStateToProps = state => ({
 	total_count: state.product.total.count,
 	productDetail: state.product.detail,
 	broadcast_message: state.utility.broadcast_message,
+	network: state.network
 })
 
 const mapDispatchToProps = dispatch => ({

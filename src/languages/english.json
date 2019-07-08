@@ -205,6 +205,7 @@
             "reOrder": "Re-Order",
             "checkout": "Choose Payment Method",
             "pay": "Checkout",
+            "cancel": "Cancel Payment",
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",

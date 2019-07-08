@@ -4,18 +4,22 @@ import actNetwork from './network/reducer';
 
 const helper = {};
 
-const requestHandler = (type,payload,dispatch) => {
+const requestHandler = (type,payload,dispatch, noLoading) => {
     switch(type){
-        case 'get': return helper.get(payload,dispatch);
+        case 'get': return helper.get(payload,dispatch, noLoading);
         case 'post': return helper.post(payload,dispatch);
         case 'put': return helper.put(payload,dispatch);
         case 'delete': return helper.delete(payload, dispatch);
-        default: return helper.get(payload,dispatch);
+        default: return helper.get(payload,dispatch, noLoading);
     }
 }
 
-helper.get = (payload,dispatch) => new Promise((resolve,reject) => {
-    dispatch(actNetwork.set_loading_status(true));
+helper.get = (payload,dispatch, noLoading) => new Promise((resolve,reject) => {
+    if(noLoading){
+        dispatch(actNetwork.set_loading_status(false))
+    } else {
+        dispatch(actNetwork.set_loading_status(true));
+    }
     apiInstance.get(
         payload.path,
         {

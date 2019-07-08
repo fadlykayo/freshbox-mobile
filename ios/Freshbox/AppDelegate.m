@@ -10,6 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin.h>
 #import <React/RCTLinkingManager.h>
+#import <MidtransKit/MidtransKit.h>
 
 @implementation AppDelegate
 @synthesize oneSignal = _oneSignal;
@@ -21,10 +22,14 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-  
-  [CONFIG setClientKey:@"SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg"
-           environment:MidtransServerEnvironmentSandbox
-     merchantServerURL:@"http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com"];
+  //staging
+//   [CONFIG setClientKey:@"SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg"
+//            environment:MidtransServerEnvironmentSandbox
+//      merchantServerURL:@"http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com"];
+  //production
+//    [CONFIG setClientKey:@"Mid-server-d0vVkAso9h39yw3KYzxG7NJg"
+//           environment:MidtransServerEnvironmentProduction
+//     merchantServerURL:@"https://api.freshbox.id/"];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];

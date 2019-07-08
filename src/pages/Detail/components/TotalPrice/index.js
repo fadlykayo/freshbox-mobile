@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { actNav, navConstant } from '@navigations';
 import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import numeral from 'numeral';
 import styles from './styles';
+import actions from '@actions';
 
 class TotalPrice extends Component {
   	constructor() {
@@ -12,13 +15,22 @@ class TotalPrice extends Component {
         this.navigateToCart = this.navigateToCart.bind(this);
         this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
         this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
-    }
-
-    componentDidMount() {
-        console.warn(this.props.paymentMethod, 'ini paymentmethod')
+        this.cancelInvoice = this.cancelInvoice.bind(this);
     }
     
 
+    cancelInvoice() {
+       let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				invoice: this.props.detailTransaction.invoice
+			}
+		};
+        this.props.cancel_invoice(payload, () => actNav.goBack(), () => console.log())
+    }
+    
     navigateToCart(){
         this.props.navigateToCart();
     }
@@ -39,11 +51,19 @@ class TotalPrice extends Component {
                         return null
                     } else {
                         return (
+                            <>
                             <Button
                                 type={this.props.type}
                                 onPress={this.navigateToTransferInstruction}
                                 title={'historyDetail.content.pay'}
                             />
+                            <View style={{marginVertical: 5}}></View>
+                            <Button
+                                type={'white'}
+                                onPress={this.cancelInvoice}
+                                title={'historyDetail.content.cancel'}
+                            />
+                            </>
                         )
                     }
                 case 'finish': 
@@ -166,4 +186,13 @@ class TotalPrice extends Component {
   	}
 }
 
-export default TotalPrice;
+const mapStateToProps = (state) => ({
+    user: state.user.data,
+    detailTransaction: state.transaction.detail,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    cancel_invoice: (req,res,err) => dispatch(actions.transaction.api.cancel_invoice(req,res,err)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TotalPrice);

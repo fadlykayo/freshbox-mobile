@@ -19,8 +19,8 @@ class FormDataPage extends Component {
 		}
 		this.onChangeText = this.onChangeText.bind(this);
 		this.onSpecificChangeText = this.onSpecificChangeText.bind(this);
-        this.onPress = this.onPress.bind(this);
-        this.submitNameAddress = this.submitNameAddress.bind(this);
+		this.onPress = this.onPress.bind(this);
+		this.submitNameAddress = this.submitNameAddress.bind(this);
 		this.submitReceiverName = this.submitReceiverName.bind(this);
 		this.submitPhone = this.submitPhone.bind(this);
 		this.submitZipCode = this.submitZipCode.bind(this);

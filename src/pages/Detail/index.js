@@ -76,10 +76,6 @@ class Detail extends Component {
 		this.messageOrderSuccess();
 		this.clearNotification();
 
-		// detailTransaction: state.transaction.detail,
-		// transactions: state.transaction.transactions,
-		// console.warn('detailTransaction ->', this.props.detailTransaction)
-		// console.warn('transactions ->', this.props.transactions)
 	}
 
 	clearNotification() {
@@ -298,7 +294,8 @@ class Detail extends Component {
     
     navigateToChoosePayment(){
 		
-		if(this.state.token.length == 0){
+		// if(this.state.token.length == 0){
+
 			let address = this.props.addresses.filter(address => address.primary == 1)[0];
 	
 			let payload = {
@@ -350,18 +347,18 @@ class Detail extends Component {
 				}
 			);
 			// actNav.navigate(navConstant.ChoosePayment)
-		}
-		else{
-			actNav.navigate(navConstant.ChoosePayment,{
-				...this.props.navigation.state.params,
-				token: this.state.token,
-				invoice: this.state.invoice,
-				redirect_url: this.state.redirect_url,
-				midtrans: this.state.midtrans,
-				gopay: this.state.radio[2].status,
-				validateTransactionStatus: this.validateTransactionStatus
-			});
-		}
+		// }
+		// else{
+		// 	actNav.navigate(navConstant.ChoosePayment,{
+		// 		...this.props.navigation.state.params,
+		// 		token: this.state.token,
+		// 		invoice: this.state.invoice,
+		// 		redirect_url: this.state.redirect_url,
+		// 		midtrans: this.state.midtrans,
+		// 		gopay: this.state.radio[2].status,
+		// 		validateTransactionStatus: this.validateTransactionStatus
+		// 	});
+		// }
 	}
 
 	navigateToTransferInstruction(){

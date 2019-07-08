@@ -25,18 +25,27 @@ class ChoosePayment extends Component {
     componentDidMount() {
         if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
             this.GoPay();
+            // this.checkPaymentGopay();
         }
     }
     
     componentWillUnmount(){
         if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentType, this.props.navigation.state.params.midtrans);
-        if(Platform.OS == 'ios') gopay.removeResponseListener();
+        if(Platform.OS == 'ios'){
+            // this.checkPaymentGopay(); 
+            gopay.removeResponseListener();
+        } 
+
     }
 
     navigationStateChangeHandler(event){
         if(event.loading == false && event.url.search(`transaction_status`) != -1){
             actNav.goBack();
         }
+    }
+
+    checkPaymentGopay () {
+        gopay.checkPaymentGopayStatus();
     }
 
     GoPay () {

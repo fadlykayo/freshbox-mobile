@@ -6,15 +6,26 @@ const GoPayEventEmitter = new NativeEventEmitter(Gopay);
 const gopay = {};
 
 gopay.payment = (snaptoken, midtrans, callback) => {
-  if (Platform.OS == 'ios') {
-    Gopay.payWithGoPay(midtrans.item_details, midtrans.customer_details, midtrans.transaction_details, snaptoken, (res) => callback(res));
-  } else {
-
     //required
+    //staging
     const config      = {
       clientKey   : "SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg",
+      environment: 'sandbox',
       urlMerchant : "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com", 
     };
+
+    // production
+    // const config      = {
+    //   clientKey   : 'Mid-server-d0vVkAso9h39yw3KYzxG7NJg',
+        //  environment: 'production',
+    //   urlMerchant : 'https://api.freshbox.id/', 
+    // };
+
+  if (Platform.OS == 'ios') {
+    Gopay.payWithGoPay(config, midtrans.item_details, midtrans.customer_details, midtrans.transaction_details, snaptoken, (res) => callback(res));
+  } else {
+
+
 
     //required
     const transID     = midtrans.transaction_details;
@@ -45,6 +56,10 @@ gopay.responseListener = (eventHandler) => {
 
 gopay.removeResponseListener = () => {
   GoPayEventEmitter.removeListener();
+}
+
+gopay.checkPaymentGopayStatus = () => {
+  Gopay.checkPaymentGopayStatus();
 }
 
 export default gopay

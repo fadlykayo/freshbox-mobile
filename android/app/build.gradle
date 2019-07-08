@@ -163,8 +163,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.midtrans:uikit:1.22.0-SANDBOX'
-    implementation 'com.midtrans:corekit:1.22.0-SANDBOX'
+    implementation 'com.midtrans:uikit:1.22.0'
+    implementation 'com.midtrans:corekit:1.22.0'
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')

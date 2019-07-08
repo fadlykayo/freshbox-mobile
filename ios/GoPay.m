@@ -31,8 +31,34 @@ RCT_EXPORT_MODULE();
   return @[@"onPaymentResult"];
 }
 
-RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) item_details andCustomerDetails: (NSDictionary *)customer_details
+RCT_EXPORT_METHOD(checkPaymentGopayStatus) {
+  [[MidtransMerchantClient shared] performCheckStatusTransactionWcompletion:^(MidtransTransactionResult * _Nullable result, NSError * _Nullable error) {
+    if (!error) {
+      if (result.statusCode == 200) {
+//        [self sendEventWithName:@"onPaymentResult" body:@{@"result": result}];
+      }
+    } else {
+      //handle error
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(payWithGoPay:(NSDictionary *)config andItemDetails: (NSArray *) item_details andCustomerDetails: (NSDictionary *)customer_details
                   andTransactionDetail: (NSDictionary *) transaction_detail andToken: (NSString *) tokenID  callback:(RCTResponseSenderBlock)callback) {
+  //staging
+  if ([[config objectForKey:@"environment"]  isEqual: @"sandbox"]) {
+    [CONFIG setClientKey:[config objectForKey:@"clientKey"]
+            environment:MidtransServerEnvironmentSandbox
+            merchantServerURL:[config objectForKey:@"urlMerchant"]];
+  } else {
+    [CONFIG setClientKey:[config objectForKey:@"clientKey"]
+            environment:MidtransServerEnvironmentProduction
+            merchantServerURL:[config objectForKey:@"urlMerchant"]];
+  }
+  
+  
+  //production
+  
   
   NSMutableArray *items = [[NSMutableArray alloc] init];
   for (NSDictionary *item in item_details) {
@@ -78,8 +104,11 @@ RCT_EXPORT_METHOD(payWithGoPay:(NSArray *) item_details andCustomerDetails: (NSD
   
   AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
   [appDelegate goToNativeView:paymentVC];
+  
+
 
 }
+
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
