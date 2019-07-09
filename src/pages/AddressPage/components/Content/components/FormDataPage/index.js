@@ -97,7 +97,7 @@ class FormDataPage extends Component {
   	render() {
 		return (
 			<View style={styles.container}>
-                <FormInput 
+				<FormInput 
 					ref={c => {this.formNameAddress = c}}
 					type={'name'}
 					autoFocus={true}

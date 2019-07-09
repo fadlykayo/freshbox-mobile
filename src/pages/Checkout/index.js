@@ -14,6 +14,7 @@ import images from '@assets';
 import styles from './styles';
 import { language } from '@helpers';
 import actions from '@actions';
+import FormInput from '@components/FormInput';
 
 moment.locale('id',id);
 
@@ -39,6 +40,8 @@ class Checkout extends Component {
 		this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
 		this.addressDateValidation = this.addressDateValidation.bind(this);
 		this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
+		// this.onChangeTextVoucher = this.onChangeTextVoucher.bind(this);
+		// this.checkVoucherApi = this.checkVoucherApi.bind(this);
 	}
 
 	componentDidMount() {
@@ -239,6 +242,45 @@ class Checkout extends Component {
 		)
 	}
 
+	_renderVoucherInput = () => {
+		return (
+			<View style={styles.subcontainer.voucher.container}>
+				<FormInput 
+					// ref={c => {this.formNameAddress = c}}
+					type={'voucher'}
+					autoFocus={true}
+					value={''}
+					onChangeText={this.onChangeTextVoucher}
+					label={'checkout.label.voucher'}
+					// required={'addressPage.label.required'}
+					placeholder={'checkout.label.voucher'}
+					onSubmitEditing={this.checkVoucherApi}
+				/>
+			</View>
+		)
+	}
+
+	checkVoucherApi = () => {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+				voucher_code: this.state.voucher_code,
+				subtotal: this.props.totalPrice
+			}
+		}
+        
+		this.props.checkVoucherValidity(payload,
+			res => {
+
+			},
+			rej => {
+
+			}
+		);
+	}
+
   	render() {
 		return (
 			<Container 				
@@ -282,22 +324,23 @@ class Checkout extends Component {
 							property	= 'checkout.content.confirmDate'
 							style			= { styles.text.confirmDate }
 						/>
+						{this._renderVoucherInput()}
 					</View>
 				</View>
 				<TotalPrice
 					type={'red'}
 					title={'checkout.content.checkout'}
-                    subTotal={this.props.totalPrice}
-                    grandTotal={this.state.grandTotalPrice}
+					subTotal={this.props.totalPrice}
+					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.props.delivery_price}
 					onPress={this.addressDateValidation}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
-							modalVisible={this.state.modalVisible.showDeliveryDate}
-							closeDeliveryDate={this.closeDeliveryDate}
-							dates={this.state.delivery_date}
-                />
+					modalVisible={this.state.modalVisible.showDeliveryDate}
+					closeDeliveryDate={this.closeDeliveryDate}
+					dates={this.state.delivery_date}
+				/>
 			</Container>
 		);
   	}

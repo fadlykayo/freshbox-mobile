@@ -130,7 +130,8 @@
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
             "address": "Alamat",
-            "addressDetails": "Alamat Detil (Opsi)"
+            "addressDetails": "Alamat Detil (Opsi)",
+            "voucher": "Masukan Kode Voucher"
         },
         "content": {
             "price": "Rp. ",

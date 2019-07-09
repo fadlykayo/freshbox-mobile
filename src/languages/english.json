@@ -128,7 +128,8 @@
             "kecamatan": "Kecamatan",
             "kelurahan": "Kelurahan",
             "address": "Address",
-            "addressDetails": "Address Details (Optional)"
+            "addressDetails": "Address Details (Optional)",
+            "voucher": "Enter your Voucher Code"
         },
         "content": {
             "price": "IDR ",

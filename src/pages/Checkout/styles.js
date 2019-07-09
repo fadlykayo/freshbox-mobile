@@ -29,6 +29,11 @@ const styles = {
 		icon:{
 			position: 'absolute',
 			right: 0,
+		},
+		voucher: {
+			container: {
+				paddingTop: scaling.moderateScale(20),
+			}
 		}
 	},
 	text:{
