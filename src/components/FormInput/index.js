@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
-import { View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
+import Button from '@components/Button';
 import { language } from '@helpers';
 import images from '@assets';
 import styles from './styles';
@@ -31,6 +32,7 @@ class FormInput extends Component {
         this.onSubmitEditing = this.onSubmitEditing.bind(this);
         this._renderLabel = this._renderLabel.bind(this);
         this.getPlaceholder = this.getPlaceholder.bind(this);
+        this.voucherAPI = this.voucherAPI.bind(this);
     }
 
     componentDidMount(){
@@ -69,6 +71,10 @@ class FormInput extends Component {
 
     onChangeText(value){
 		this.props.onChangeText(this.props.type,value);
+    }
+
+    voucherAPI() {
+        this.props.voucherAPI();
     }
 
     onSubmitEditing(){
@@ -123,6 +129,31 @@ class FormInput extends Component {
         }
     }
 
+    _renderVoucherChecker () {
+        if(this.props.statusVerification == '') {
+            return (
+                <View style={styles.showVoucherButton}>
+                    <TouchableOpacity onPress={this.props.voucherAPI}>
+                        <Text style={styles.textVoucher}>
+                            Apply
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )
+
+        } else {
+            return (
+                <View style={styles.successVoucher}>
+                    <Image
+                        resizeMode={'contain'}
+                        source={images.icon_combined_shape}
+                        style={styles.icon}
+                    />
+                </View>
+            )
+        }
+    }
+
     render(){
         return (
             <View style={styles.container(this.state.multiline)}>
@@ -150,6 +181,7 @@ class FormInput extends Component {
 				/>
                 {this.props.multiline ? null : <View style={styles.underline}/> }
                 {this._renderShowPasswordButton(this.props)}
+                {this.props.type == 'voucher' ? this._renderVoucherChecker() : null}
             </View>
         )
     }

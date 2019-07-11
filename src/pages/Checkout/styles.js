@@ -33,6 +33,11 @@ const styles = {
 		voucher: {
 			container: {
 				paddingTop: scaling.moderateScale(20),
+				// flexDirection: 'row',
+			},
+			buttonRight: {
+				position: 'absolute',
+				right: 0,
 			}
 		}
 	},

@@ -57,7 +57,6 @@ RCT_EXPORT_METHOD(payWithGoPay:(NSDictionary *)config andItemDetails: (NSArray *
   }
   
   
-  //production
   
   
   NSMutableArray *items = [[NSMutableArray alloc] init];

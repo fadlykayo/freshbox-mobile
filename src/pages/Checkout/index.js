@@ -28,6 +28,8 @@ class Checkout extends Component {
 				showDeliveryDate: false,
 			},
 			delivery_date: [],
+			voucher_code: '',
+			voucherValidation: ''
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
@@ -246,18 +248,23 @@ class Checkout extends Component {
 		return (
 			<View style={styles.subcontainer.voucher.container}>
 				<FormInput 
-					// ref={c => {this.formNameAddress = c}}
 					type={'voucher'}
 					autoFocus={true}
 					value={''}
 					onChangeText={this.onChangeTextVoucher}
 					label={'checkout.label.voucher'}
-					// required={'addressPage.label.required'}
-					placeholder={'checkout.label.voucher'}
-					onSubmitEditing={this.checkVoucherApi}
+					placeholder={'checkout.placeholder.voucher'}
+					voucherAPI={this.checkVoucherApi}
+					statusVerification={this.state.voucherValidation}
 				/>
 			</View>
 		)
+	}
+
+	onChangeTextVoucher = (type, value) => {
+		let voucher_code = this.state.voucher_code;
+		voucher_code = value;
+		this.setState({voucher_code});
 	}
 
 	checkVoucherApi = () => {
@@ -266,8 +273,8 @@ class Checkout extends Component {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {
-				voucher_code: this.state.voucher_code,
-				subtotal: this.props.totalPrice
+				coupon_code: this.state.voucher_code,
+				subtotal: this.state.grandTotalPrice
 			}
 		}
         

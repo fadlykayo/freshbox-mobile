@@ -20,6 +20,7 @@ const initialState = {
         credit_card: 5000,
         VA: 5000
     },
+    discount: 0,
     cart: {
         products: [],
     },
@@ -397,6 +398,30 @@ const resetParams = (state, payload) => {
     return newState;
 }
 
+const setDiscountPrice = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let totalPrice = newState.total.price;
+    let discount = 0;
+
+    payload.forEach(object => {
+        if(object.category == 'Percentage') {
+            let discountedPrice;
+            discountedPrice = totalPrice * (object.amount/100);
+            totalPrice = totalPrice - discountedPrice;
+            discount = discountedPrice
+        } else {
+            let discountedPrice = object.amount;
+            totalPrice = totalPrice - discountedPrice;
+            discount = object.amount
+        }
+    });
+    
+    newState.discount = discount;
+    newState.total.price = totalPrice;
+
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS        : return getProducts(state,action.payload);
@@ -413,6 +438,7 @@ const productReducer = (state = initialState, action) => {
         case ct.VALIDATE_CART       : return validateCart(state,action.payload);
         case ct.REORDER_TRANSACTION : return reorderTransaction(state,action.payload);
         case ct.RESET_PARAMS        : return resetParams(state,action.payload);
+        case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
         case ct.RESET_PRODUCTS      : return initialState
         default: return state;
     }

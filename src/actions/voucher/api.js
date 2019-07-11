@@ -13,7 +13,7 @@ let payload = {
 
 actions.checkVoucherValidity = (req, success, failure) => {
 
-  payload.path = `${path.checkVoucher}/${req.voucher_code}`;
+  payload.path = path.checkVoucher;
   payload.header = req.header;
   payload.body = req.body;
 
@@ -22,7 +22,15 @@ actions.checkVoucherValidity = (req, success, failure) => {
     .then((res) => {
       if(res.code){
         if(res.code == 200) {
-          success();
+          if(!res.data.length) {
+            dispatch(actNetwork.set_error_status({
+              status: true,
+              data: err.code_message
+            }))
+          } else {
+            dispatch(actReducer.set_discount_total(res.data))
+            success();
+          }
         }
       }
     })
@@ -35,7 +43,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
           default:
           dispatch(actNetwork.set_error_status({
             status: true,
-            data: JSON.stringify(err)
+            data: err.code_message
           }));
         }
       }
