@@ -74,7 +74,7 @@ actions.sign_in_socmed = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-			console.warn('sign in socmed error -> ',err);
+			// console.warn('sign in socmed error -> ',err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

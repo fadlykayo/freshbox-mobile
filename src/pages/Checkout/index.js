@@ -28,8 +28,8 @@ class Checkout extends Component {
 				showDeliveryDate: false,
 			},
 			delivery_date: [],
-			voucher_code: '',
-			voucherValidation: ''
+			coupon_code: '',
+			voucherValidation: false
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
@@ -50,6 +50,17 @@ class Checkout extends Component {
 		this.getDeliveryPrice();
 		this.getAddress();
 		this.apiDeliveryDate();
+		this.setVoucherLabel();
+	}
+
+	setVoucherLabel() {
+		if(this.props.discount == 0) {
+			this.setState({
+				voucherValidation: false
+			})
+		} else {
+			this.checkVoucherApi();
+		}
 	}
 
 	apiDeliveryDate() {
@@ -87,7 +98,7 @@ class Checkout extends Component {
 		this.props.get_delivery_price(payload, 
 			() => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
 
 				this.setState(state)
 			},
@@ -250,21 +261,23 @@ class Checkout extends Component {
 				<FormInput 
 					type={'voucher'}
 					autoFocus={true}
-					value={''}
+					value={this.props.coupon_code}
 					onChangeText={this.onChangeTextVoucher}
 					label={'checkout.label.voucher'}
 					placeholder={'checkout.placeholder.voucher'}
 					voucherAPI={this.checkVoucherApi}
 					statusVerification={this.state.voucherValidation}
+					editable={this.state.voucherValidation ? false : true}
+					cancelVoucherAPI={this.cancelVoucherAPI}
 				/>
 			</View>
 		)
 	}
 
 	onChangeTextVoucher = (type, value) => {
-		let voucher_code = this.state.voucher_code;
-		voucher_code = value;
-		this.setState({voucher_code});
+		let coupon_code = this.state.coupon_code;
+		coupon_code = value;
+		this.setState({coupon_code});
 	}
 
 	checkVoucherApi = () => {
@@ -273,19 +286,48 @@ class Checkout extends Component {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {
-				coupon_code: this.state.voucher_code,
-				subtotal: this.state.grandTotalPrice
+				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
+				subtotal: this.props.totalPrice
 			}
 		}
         
-		this.props.checkVoucherValidity(payload,
+		this.props.check_voucher_api(payload,
 			res => {
-
+				let state = this.state;
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
+				state.voucherValidation = true;
+				this.setState(state);
 			},
 			rej => {
-
+				// console.warn(rej)
 			}
 		);
+	}
+
+	cancelVoucherAPI = () => {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
+				// subtotal: this.props.totalPrice
+			}
+		}
+		
+		this.props.cancel_voucher(payload,
+			res => {
+				let state = this.state;
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+				state.voucherValidation = false;
+				state.coupon_code = '';
+				this.setState(state);
+			},
+			rej => {
+				console.log(rej)
+			}
+		);
+
 	}
 
   	render() {
@@ -340,7 +382,9 @@ class Checkout extends Component {
 					subTotal={this.props.totalPrice}
 					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.props.delivery_price}
+					discount = {this.props.discount}
 					onPress={this.addressDateValidation}
+					action={'checkout'}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
@@ -357,6 +401,8 @@ const mapStateToProps = (state) => ({
 	user: state.user.data,
 	addresses: state.user.address,
 	totalPrice: state.product.total.price,
+	discount: state.product.discount,
+	coupon_code: state.product.coupon_code,
 	delivery_price: state.product.delivery_price,
 	delivery_date: state.utility.delivery_date
 });
@@ -367,6 +413,8 @@ const mapDispatchToProps = (dispatch) => ({
 	cancel_checkout: (req,res,err) => dispatch(actions.transaction.api.cancel_checkout(req,res,err)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 	get_delivery_date: (req, res, err) => dispatch(actions.utility.api.delivery_date(req,res,err)),
+	check_voucher_api: (req,res,err) => dispatch(actions.voucher.api.checkVoucherValidity(req,res,err)),
+	cancel_voucher: (req, res, err) => dispatch(actions.voucher.api.cancel_voucher(req, res, err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

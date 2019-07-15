@@ -29,7 +29,7 @@ class App extends Component {
 
     onReceived(notification){
         if(notification.payload.title == 'Pembayaran Berhasil') {
-            console.warn('test')
+            // console.warn('test')
             this.props.get_notification(notification.payload)
             // actNav.goBack();
         }

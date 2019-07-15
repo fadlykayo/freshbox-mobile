@@ -7,5 +7,9 @@ action.set_discount_total = (payload) => ({
   payload: payload,
 })
 
+action.cancel_voucher = () => ({
+  type: ct.CANCEL_VOUCHER,
+})
+
 
 export default action;

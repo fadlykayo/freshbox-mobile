@@ -8,6 +8,7 @@ import region from './region';
 import utility from './utility';
 import cs from './cs';
 import notif from './notification';
+import voucher from './voucher';
 
 const action = {
     registration: registration,
@@ -19,7 +20,8 @@ const action = {
     region: region,
     utility: utility,
     cs: cs,
-    notif: notif
+    notif: notif,
+    voucher: voucher,
 }
 
 export default action;

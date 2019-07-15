@@ -21,6 +21,7 @@ const initialState = {
         VA: 5000
     },
     discount: 0,
+    coupon_code: '',
     cart: {
         products: [],
     },
@@ -402,24 +403,44 @@ const setDiscountPrice = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let totalPrice = newState.total.price;
     let discount = 0;
+    let coupon_code = newState.coupon_code;
 
     payload.forEach(object => {
+
+        coupon_code = object.coupon_code;
+
         if(object.category == 'Percentage') {
             let discountedPrice;
             discountedPrice = totalPrice * (object.amount/100);
-            totalPrice = totalPrice - discountedPrice;
-            discount = discountedPrice
+            // totalPrice = totalPrice - discountedPrice;
+            discount = discountedPrice;
         } else {
             let discountedPrice = object.amount;
-            totalPrice = totalPrice - discountedPrice;
-            discount = object.amount
+            // totalPrice = totalPrice - discountedPrice;
+            discount = object.amount;
         }
+
     });
     
     newState.discount = discount;
     newState.total.price = totalPrice;
-
+    newState.coupon_code = coupon_code;
+    // console.warn(discount)
     return newState;
+}
+
+const cancelVoucher = (state) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let totalPrice = newState.total.price;
+    let discount = newState.discount;
+    let coupon = newState.coupon_code;
+
+    discount = 0;
+    coupon = '';
+    newState.discount = discount;
+    newState.coupon_code = coupon;
+    return newState;
+    
 }
 
 const productReducer = (state = initialState, action) => {
@@ -439,6 +460,7 @@ const productReducer = (state = initialState, action) => {
         case ct.REORDER_TRANSACTION : return reorderTransaction(state,action.payload);
         case ct.RESET_PARAMS        : return resetParams(state,action.payload);
         case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
+        case ct.CANCEL_VOUCHER      : return cancelVoucher(state);
         case ct.RESET_PRODUCTS      : return initialState
         default: return state;
     }

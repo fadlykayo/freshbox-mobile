@@ -5,7 +5,7 @@ import { colour } from '@styles';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    container: (multiline) => {
+    container: (multiline, voucher) => {
         if(!multiline) {
             return {
                 flex: -1,
@@ -48,6 +48,7 @@ const styles = {
     icon:{
         height: scaling.moderateScale(20),
         width: scaling.moderateScale(20),
+
     },
     showVoucherButton: {
         position: 'absolute',
@@ -67,14 +68,33 @@ const styles = {
         elevation: Platform.OS == 'android' ? 3 : 0,
         fontFamily: 'Avenir-Heavy',
     },
+    showCancelVoucher: {
+        position: 'absolute',
+        right: 0,
+        bottom: 10,
+    },
+    textCancel: {
+        fontFamily: 'Avenir-Book',
+        fontSize: scaling.moderateScale(12),
+        color: colour.grey,
+    },
     textVoucher: {
         fontSize: scaling.moderateScale(12),
         color: colour.white,
     },
     successVoucher: {
-        position: 'absolute',
-        right: 0,
-        bottom: 10,
+        flexDirection: 'row',
+        marginVertical: scaling.moderateScale(5),
+        // height: 35,
+        borderBottomWidth: 1,
+        borderBottomColor: colour.mediumGrey,
+    },
+    successText: {
+        fontFamily: 'Avenir-Book',
+        fontSize: scaling.moderateScale(14),
+        color: colour.darkGrey,
+        marginRight: scaling.moderateScale(5),
+        paddingTop: scaling.moderateScale(2)
     }
 }
 

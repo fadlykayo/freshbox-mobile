@@ -27,7 +27,7 @@ actions.cancel_invoice = (req, success, failure) => {
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200) {
-					console.warn('cancel invoice ==>', res)
+					// console.warn('cancel invoice ==>', res)
 					dispatch(actNetwork.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan',

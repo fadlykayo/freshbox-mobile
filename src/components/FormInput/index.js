@@ -130,7 +130,7 @@ class FormInput extends Component {
     }
 
     _renderVoucherChecker () {
-        if(this.props.statusVerification == '') {
+        if(!this.props.statusVerification) {
             return (
                 <View style={styles.showVoucherButton}>
                     <TouchableOpacity onPress={this.props.voucherAPI}>
@@ -143,44 +143,67 @@ class FormInput extends Component {
 
         } else {
             return (
-                <View style={styles.successVoucher}>
+                <View style={styles.showCancelVoucher}>
+                    <TouchableOpacity onPress={this.props.cancelVoucherAPI}>
+                        <Text style={styles.textCancel}>
+                            Cancel
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+    }
+
+    _renderContent () {
+        if(!this.props.statusVerification) {
+            return (
+                <>
+                <TextInput
+                    ref={c => {this.TextInput = c}}
+                    style={styles.formInput}
+                    autoCapitalize={'none'}
+                    autoFocus={this.state.autoFocus}
+                    multiline={this.state.multiline}
+                    onChangeText={this.onChangeText}
+                    value={this.props.value}
+                    numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
+                    placeholder={this.state.placeholder}
+                    maxLength={this.state.maxLength}
+                    editable={this.props.editable}
+                    keyboardType={this.state.keyboardType}
+                    returnKeyType={this.state.returnKeyType}
+                    secureTextEntry={this.state.isSecret}
+                    textContentType={this.state.textContentType}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    underlineColorAndroid='transparent'
+                    onSubmitEditing={this.onSubmitEditing}
+                />
+                {this.props.multiline ? null : <View style={styles.underline}/> }
+                {this._renderShowPasswordButton(this.props)}
+                </>
+            )
+        } else {
+            return (
+                <View style ={styles.successVoucher}>
+                    <Text style={styles.successText}>{this.props.value}</Text>
                     <Image
                         resizeMode={'contain'}
                         source={images.icon_combined_shape}
                         style={styles.icon}
                     />
                 </View>
+
             )
         }
+
     }
 
     render(){
         return (
             <View style={styles.container(this.state.multiline)}>
                 {this._renderLabel(this.props)}
-                <TextInput
-                    ref={c => {this.TextInput = c}}
-					style={styles.formInput}
-                    autoCapitalize={'none'}
-                    autoFocus={this.state.autoFocus}
-					multiline={this.state.multiline}
-					onChangeText={this.onChangeText}
-                    value={this.props.value}
-                    numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
-                    placeholder={this.state.placeholder}
-					maxLength={this.state.maxLength}
-					editable={this.state.editable}
-					keyboardType={this.state.keyboardType}
-					returnKeyType={this.state.returnKeyType}
-                    secureTextEntry={this.state.isSecret}
-                    textContentType={this.state.textContentType}
-					onFocus={this.onFocus}
-					onBlur={this.onBlur}
-					underlineColorAndroid='transparent'
-					onSubmitEditing={this.onSubmitEditing}
-				/>
-                {this.props.multiline ? null : <View style={styles.underline}/> }
-                {this._renderShowPasswordButton(this.props)}
+                {this._renderContent()}
                 {this.props.type == 'voucher' ? this._renderVoucherChecker() : null}
             </View>
         )

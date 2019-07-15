@@ -97,12 +97,27 @@ class TotalPrice extends Component {
     }
 
   	render(){
-        const subTotal = numeral(this.props.subTotal).format('0,0');
-        const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
-        const grandTotal = numeral(this.props.grandTotal).format('0,0');
-        const additional = numeral(this.props.additional).format('0,0');
-        const discount = numeral(this.props.additional).format('0,0');
+        // const subTotal = numeral(this.props.subTotal).format('0,0');
+        // const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
+        // const grandTotal = numeral(this.props.grandTotal).format('0,0');
+        // const additional = numeral(this.props.additional).format('0,0');
+        // const discount = numeral(this.props.additional).format('0,0');
         
+        let subTotal = numeral(this.props.subTotal).format('0,0');
+        let deliveryPrice = numeral(this.props.delivery_price).format('0,0');
+        let additional = numeral(this.props.additional).format('0,0');
+        let discount = numeral(this.props.additional).format('0,0');
+        let grandTotal = numeral(this.props.grandTotal).format('0,0');
+
+
+        if(this.props.discount) {
+            
+            let totalDiscount = Number(this.props.additional) + Number(this.props.discount);
+            discount = numeral(totalDiscount).format('0,0');
+
+        } else {
+            discount = numeral(this.props.additional).format('0,0');
+        };
   	  	return (
             <View style={styles.container}>
                 <View style={styles.subcontainer.content}>

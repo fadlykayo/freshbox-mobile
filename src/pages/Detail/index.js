@@ -183,7 +183,7 @@ class Detail extends Component {
 					status: 'historyDetail.content.checkout',
 					totalPrice: this.props.totalPrice,
 					deliveryPrice: this.props.delivery_price,
-					grandTotalPrice: this.props.delivery_price + this.props.totalPrice,
+					grandTotalPrice: this.props.delivery_price + this.props.totalPrice - this.props.discount,
 				});
 			},
 			(err) => {
@@ -494,13 +494,14 @@ class Detail extends Component {
 					status={this.state.status}
 					paymentMethod={this.props.detailTransaction.payment_method}
 					additional={this.props.additional}
-					subTotal={this.state.totalPrice}
+					subTotal={this.props.totalPrice}
 					navigateToCart={this.navigateToCart}
 					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.state.deliveryPrice}
 					action={this.props.navigation.state.params.action}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
+					discount={this.props.discount}
 				/>
 				
 			</Container>
@@ -518,6 +519,7 @@ const mapStateToProps = (state) => ({
 	transactions: state.transaction.transactions,
 	delivery_price: state.product.delivery_price,
 	additional: state.product.additional.credit_card,
+	discount: state.product.discount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
