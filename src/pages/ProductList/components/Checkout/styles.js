@@ -10,7 +10,7 @@ const styles = {
 		bottom: 0,
 		justifyContent: 'center',
 		height: scaling.moderateScale(50),
-		opacity: 0.9,
+		opacity: 0.85,
 		width: width * 0.9,
 		borderRadius: 8,
 		marginHorizontal: width * 0.05,

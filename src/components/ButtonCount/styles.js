@@ -8,8 +8,8 @@ const styles = {
 	container:{
 		base:{
 			position: 'absolute',
-			right: 0,
-			bottom: 0,
+			right: 5,
+			bottom: 5,
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
@@ -21,7 +21,7 @@ const styles = {
 			borderColor: colour.red,
 			backgroundColor: colour.red,
 			borderWidth: 1,
-			paddingHorizontal: scaling.moderateScale(15),
+			paddingHorizontal: scaling.moderateScale(12),
 			paddingVertical: scaling.moderateScale(5),
 			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 3}  : {width: 0,height: 0},
@@ -32,6 +32,7 @@ const styles = {
 		counter:{
 			paddingHorizontal: scaling.moderateScale(4),
 			paddingVertical: scaling.moderateScale(3),
+			// borderWidth: 1,
 			backgroundColor: colour.white,
 			borderColor: colour.white,
 			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
@@ -43,7 +44,7 @@ const styles = {
 	},
 	subcontainer:{
 		button:{
-			paddingHorizontal: scaling.moderateScale(15),
+			paddingHorizontal: scaling.moderateScale(12),
 			paddingVertical: scaling.moderateScale(5),
 		}
 	},

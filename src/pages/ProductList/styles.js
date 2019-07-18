@@ -34,6 +34,7 @@ const styles = {
 			borderWidth: 1,
 			borderRadius: 100,
 			marginBottom: scaling.moderateScale(10),
+			marginTop: scaling.moderateScale(10)
 		},
 		text: {
 			fontFamily: 'Avenir-Heavy',

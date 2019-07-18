@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ActivityIndicator } from 'react-native';
 import StaticText from '../StaticText';
 import styles from './styles';
 import images from '@assets';
@@ -14,15 +14,18 @@ class Loading extends PureComponent {
 		else return(
 			<View style={styles.container}>
 				<View style={styles.loading.container}>
-					<Image
+					{/* <Image
 						resizeMode={'contain'}
 						style={styles.loading.image}
 						source={images.loading_apple}
+					/> */}
+					<ActivityIndicator
+						size={'large'}
 					/>
-					<StaticText 
+					{/* <StaticText 
 						style={styles.loading.text}
 						property={"loading"}
-					/>
+					/> */}
 				</View>
 			</View>
 		)

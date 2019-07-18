@@ -1,6 +1,7 @@
 import React,{ PureComponent } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 class ButtonCount extends PureComponent {
@@ -38,7 +39,8 @@ class ButtonCount extends PureComponent {
 							style={styles.subcontainer.button}
 							onPress={this.decTotalItem}
 						>
-							<Text style={styles.text.button}>-</Text>
+							{/* <Text style={styles.text.button}>-</Text> */}
+							<Icon name="minus" size={12} color="#E52546"/>
 						</TouchableOpacity>
 						<Text style={styles.text.counter}>{this.props.count}</Text>
 						{ this.props.data.stock == this.props.count
@@ -46,13 +48,15 @@ class ButtonCount extends PureComponent {
 									style={styles.subcontainer.button}
 									onPress={this.addTotalItem}
 								>
-									<Text style={styles.text.button}>+</Text>
+									{/* <Text style={styles.text.button}>+</Text> */}
+									<Icon name="plus" size={12} color="#E52546"/>
 								</View>)
 							: (<TouchableOpacity 
 									style={styles.subcontainer.button}
 									onPress={this.addTotalItem}
 								>
-									<Text style={styles.text.button}>+</Text>
+									{/* <Text style={styles.text.button}>+</Text> */}
+									<Icon name="plus" size={12} color="#E52546"/>
 								</TouchableOpacity>)
 						}
 					</View>

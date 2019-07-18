@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
@@ -72,6 +72,7 @@ class ProductItem extends PureComponent {
 						maxQty={this.props.data.maxQty}
 					/>
 				</View>
+				
 			</View>
 		);
 	}

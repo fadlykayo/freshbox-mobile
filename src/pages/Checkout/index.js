@@ -373,7 +373,7 @@ class Checkout extends Component {
 							property	= 'checkout.content.confirmDate'
 							style			= { styles.text.confirmDate }
 						/>
-						{this._renderVoucherInput()}
+						{/* {this._renderVoucherInput()} */}
 					</View>
 				</View>
 				<TotalPrice
@@ -384,7 +384,7 @@ class Checkout extends Component {
 					delivery_price={this.props.delivery_price}
 					discount = {this.props.discount}
 					onPress={this.addressDateValidation}
-					action={'checkout'}
+					// action={'checkout'}
                 />
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}

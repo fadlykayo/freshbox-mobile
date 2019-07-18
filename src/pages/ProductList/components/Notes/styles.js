@@ -6,11 +6,14 @@ const { width } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		marginTop: scaling.moderateScale(2),
+		margin: scaling.moderateScale(10),
 		paddingHorizontal: width * 0.05,
+		paddingVertical: scaling.moderateScale(5),
 		backgroundColor: colour.softRedTransparent,
 		alignItems: 'center',
 		justifyContent: 'center',
+		flexDirection: 'row',
+		borderRadius: 5,
 	},
 	text:{
 		notes:{

@@ -53,21 +53,23 @@ const styles = {
                 fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.darkGrey,
+                textAlign: 'left'
             })
         } else {
             return({
                 fontFamily: 'Avenir-Heavy',
                 fontSize: scaling.moderateScale(14),
                 color: colour.white,
+                textAlign: 'left'
             })
         }
     },
-    logo:{
+    logo:(type) => ({
         position: 'absolute',
-        height: scaling.moderateScale(14),
-        width: scaling.moderateScale(14),
-        left: scaling.moderateScale(25),
-    },
+        height: type == 'phone' ? scaling.moderateScale(14) : type == 'google' ? scaling.moderateScale(40) : scaling.moderateScale(30),
+        width: type == 'phone' ? scaling.moderateScale(14) : type == 'google' ? scaling.moderateScale(40) : scaling.moderateScale(30),
+        left: type == 'phone' ? scaling.moderateScale(25) : type == 'google' ? scaling.moderateScale(15) : scaling.moderateScale(18),
+    }),
 }
 
 export default styles;

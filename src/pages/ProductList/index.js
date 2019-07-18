@@ -365,6 +365,7 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
+		this.setState({listLoading: true})
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -386,11 +387,13 @@ class ProductList extends Component {
 				params: {...this.props.params, category_code: category_code}
 			}
 			this.props.get_products(payload,
-				() => {},
+				() => {this.setState({listLoading: false})},
 				(err) => {
 					// console.log(err);
 				});
 
+		} else {
+			this.setState({listLoading: false})
 		}
 	}
 
@@ -407,7 +410,7 @@ class ProductList extends Component {
 
 	backToTop() {
 		if(this.props.product.length > 0) {
-			this.listRef.scrollToOffset({y:0, animated: true});
+			this.listRef.scrollToOffset({y:0.5, animated: true});
 		};
 	}
 
@@ -431,7 +434,7 @@ class ProductList extends Component {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
-					this.backToTop();
+					// this.backToTop();
 				},
 				(err) => {
 					// console.log(err);
@@ -456,7 +459,7 @@ class ProductList extends Component {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
-					this.backToTop();
+					// this.backToTop();
 				},
 				(err) => {
 					// console.log(err);
@@ -531,7 +534,7 @@ class ProductList extends Component {
 	}
 	
 	submitSearch() {
-
+		this.setState({listLoading : false})
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -634,10 +637,10 @@ class ProductList extends Component {
 
 	renderFlatListFooter() {
 		// console.warn('masuk')
-		if(!this.props.network.isLoading) return null;
+		if(!this.state.listLoading) return null;
 		return (
 			<ActivityIndicator
-				style={{color: '#000'}}
+				size={'small'}
 			/>
 		)
 		
@@ -680,7 +683,7 @@ class ProductList extends Component {
 							<FlatList
 								ref={(e) => { this.listRef = e}}
 								data={this.props.product}
-								onEndReachedThreshold={0.005}
+								onEndReachedThreshold={0.5}
 								onRefresh={this.refreshHandler}
 								refreshing={this.state.refreshing}
 								keyExtractor={(item) => item.code}
@@ -699,6 +702,7 @@ class ProductList extends Component {
 											productLength={this.props.product.length}
 											openDetailProduct= {this.openDetailProduct}
 										/>
+										
 										{ this._renderButton(index, this.props.product.length - 1) }
 									</View>
 								)}
@@ -708,7 +712,9 @@ class ProductList extends Component {
 								image 		= {images.empty_search}
 							/>
 							
-						}							
+						}
+						
+										
 							<Checkout
 								introButton={introButton}
 								outroButton={outroButton}

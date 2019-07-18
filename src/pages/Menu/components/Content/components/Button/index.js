@@ -1,15 +1,16 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, Image, Text } from 'react-native';
+import { TouchableOpacity, Image, Text, Dimensions } from 'react-native';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 import styles from './styles';
-
+const { width, height } = Dimensions.get('window');
 class Button extends PureComponent {
     constructor(){
         super();
     }
 
     render(){
+        console.warn(width, height)
         switch(this.props.type){
             case 'get_started':
                 return(
@@ -30,7 +31,7 @@ class Button extends PureComponent {
                         <Image
                             resizeMode={'contain'} 
                             source={images.icon_facebook}
-                            style={styles.logo}
+                            style={styles.logo(this.props.type)}
                         />
                     </TouchableOpacity>
                 )
@@ -44,7 +45,7 @@ class Button extends PureComponent {
                         <Image
                             resizeMode={'contain'} 
                             source={images.icon_phone}
-                            style={styles.logo}
+                            style={styles.logo(this.props.type)}
                         />
                     </TouchableOpacity>
                 )
@@ -58,7 +59,7 @@ class Button extends PureComponent {
                         <Image
                             resizeMode={'contain'} 
                             source={images.icon_google}
-                            style={styles.logo}
+                            style={styles.logo(this.props.type)}
                         />
                     </TouchableOpacity>
                 )

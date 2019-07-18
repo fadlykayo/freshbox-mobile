@@ -102,7 +102,7 @@ actions.request_snap_token = (req,success,failure) => {
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
-	
+	console.log('request snap token payload', payload)
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
@@ -114,7 +114,7 @@ actions.request_snap_token = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Request Snap Token err ->', err);
+        	console.log('Request Snap Token err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

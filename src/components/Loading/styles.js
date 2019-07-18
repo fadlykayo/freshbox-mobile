@@ -4,6 +4,7 @@ import { colour } from '@styles';
 
 const { width } = Dimensions.get('window');
 
+
 const styles = {
 	container:{
 		flex: 1,
@@ -25,6 +26,9 @@ const styles = {
 			alignItems: 'center',
 			justifyContent: 'center',
 			backgroundColor: colour.whiteAO,
+			// position: 'absolute',
+			// bottom: 10,
+			// right: 20,
 		},
 		image: {
 			width: width * 0.3,
