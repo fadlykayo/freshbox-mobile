@@ -50,7 +50,7 @@ class Checkout extends Component {
 		this.getDeliveryPrice();
 		this.getAddress();
 		this.apiDeliveryDate();
-		this.setVoucherLabel();
+		// this.setVoucherLabel();
 	}
 
 	setVoucherLabel() {
