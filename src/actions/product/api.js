@@ -2,6 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
+import { analytics } from '@helpers';
 
 const actions = {};
 
@@ -132,11 +133,13 @@ actions.search_products = (req, success, failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Search Products res',res);
         	if(res.code){
         		if(res.code == 200){
-					success(res)
-					dispatch(actReducer.search_products(req.params, res.data));
+							if(res.data.data.length == 0) {
+								analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
+							}
+							success(res)
+							dispatch(actReducer.search_products(req.params, res.data));
         		}
         	}
         })

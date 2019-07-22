@@ -7,7 +7,7 @@ import NavigationBar from '@components/NavigationBar';
 import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
 import TotalPrice from './components/TotalPrice';
-import { language } from '@helpers';
+import { language, analytics } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
@@ -98,12 +98,14 @@ class Detail extends Component {
 					invoice: '',
 					redirect_url: '',
 				},() => {
+					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
 					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
 				})
 			},
 			(err) => {
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
+					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
 					this.props.set_error_status({
 						status: true,
@@ -319,7 +321,15 @@ class Detail extends Component {
 							redirect_url: res.redirect_url,
 							midtrans: res.midtrans_json
 						},() => {
+
+								if(this.state.radio[2].status == true) {
+									analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+								} else {
+									analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+								}
+
 								if(this.state.redirect_url.length !== 0) {
+									
 									actNav.navigate(navConstant.ChoosePayment,{
 										...this.props.navigation.state.params,
 										token: this.state.token,
@@ -330,7 +340,8 @@ class Detail extends Component {
 										validateTransactionStatus: this.validateTransactionStatus
 									});
 								} else {
-									this.validateTransactionStatus()
+									
+									this.validateTransactionStatus();
 								}
 						});
 
@@ -338,6 +349,7 @@ class Detail extends Component {
 						this.setState({
 							invoice: res.invoice,
 						}, () => {
+							analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
 							this.validateTransactionStatus();
 						})
 					}

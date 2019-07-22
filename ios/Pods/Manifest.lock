@@ -1,4 +1,11 @@
 PODS:
+  - AppCenter/Analytics (2.1.0):
+    - AppCenter/Core
+  - AppCenter/Core (2.1.0)
+  - AppCenter/Crashes (2.1.0):
+    - AppCenter/Core
+  - AppCenterReactNativeShared (2.1.0):
+    - AppCenter/Core (= 2.1.0)
   - GoogleSignIn (4.2.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -27,12 +34,17 @@ PODS:
     - MidtransCoreKit (~> 1.13.1)
 
 DEPENDENCIES:
+  - AppCenter/Analytics (~> 2.1.0)
+  - AppCenter/Crashes (~> 2.1.0)
+  - AppCenterReactNativeShared (~> 2.1.0)
   - GoogleSignIn
   - MidtransCoreKit
   - MidtransKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppCenter
+    - AppCenterReactNativeShared
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMOAuth2
@@ -41,13 +53,15 @@ SPEC REPOS:
     - MidtransKit
 
 SPEC CHECKSUMS:
+  AppCenter: 21decaa4488024e8355e650e44ccabb69ca60d47
+  AppCenterReactNativeShared: 6e856a993f022a2a7afaa1bc21834d4dded708b2
   GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   MidtransCoreKit: 2b9d26f05875dd6487f247a00eb93eaf303c37ae
   MidtransKit: 28808f1bb75f0deb34f03faeb06a6b2c20b4acbe
 
-PODFILE CHECKSUM: 34ef3cdde354baa9f336b6bacb3c15400e81983e
+PODFILE CHECKSUM: 5532ff037c740e132dff5297aee615033f66ae9b
 
 COCOAPODS: 1.5.3

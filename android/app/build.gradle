@@ -163,6 +163,15 @@ repositories {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-onesignal')
+    compile project(':react-native-linear-gradient')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-google-signin')
+    compile project(':react-native-fbsdk')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
+    compile project(':appcenter')
     implementation 'com.midtrans:uikit:1.22.0'
     implementation 'com.midtrans:corekit:1.22.0'
     implementation project(':react-native-linear-gradient')

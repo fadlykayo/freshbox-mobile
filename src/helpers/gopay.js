@@ -1,4 +1,5 @@
 import { Platform, NativeModules, NativeEventEmitter } from 'react-native';
+import Config from '@config';
 
 const Gopay = NativeModules.GoPay;
 const GoPayEventEmitter = new NativeEventEmitter(Gopay);
@@ -6,20 +7,23 @@ const GoPayEventEmitter = new NativeEventEmitter(Gopay);
 const gopay = {};
 
 gopay.payment = (snaptoken, midtrans, callback) => {
-    //required
-    //staging
-    // const config      = {
-    //   clientKey   : "SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg",
-    //   environment: 'sandbox',
-    //   urlMerchant : "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com", 
-    // };
 
-    // production
-    const config      = {
+  let config = {};
+
+  if(Config.env == 'production') {
+    config      = {
       clientKey   : 'Mid-server-d0vVkAso9h39yw3KYzxG7NJg',
-         environment: 'production',
+      environment: 'production',
       urlMerchant : 'https://api.freshbox.id/', 
     };
+  } else {
+    config      = {
+      clientKey   : "SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg",
+      environment: 'sandbox',
+      urlMerchant : "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com", 
+    };
+  }
+    
 
   if (Platform.OS == 'ios') {
     Gopay.payWithGoPay(config, midtrans.item_details, midtrans.customer_details, midtrans.transaction_details, snaptoken, (res) => callback(res));

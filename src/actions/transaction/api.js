@@ -2,7 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
-import { language } from '@helpers';
+import { language, analytics } from '@helpers';
 
 const actions = {};
 
@@ -102,14 +102,15 @@ actions.request_snap_token = (req,success,failure) => {
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
-	console.log('request snap token payload', payload)
+	// console.log('request snap token payload', payload)
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	// console.log('Request Snap Token res ->',res);
         	if(res.code){
         		if(res.code == 200){
-					success(res.data);
+							analytics.trackEvent('Purchase Orders', {status: 'Pending'});
+							success(res.data);
         		}
         	}
         })

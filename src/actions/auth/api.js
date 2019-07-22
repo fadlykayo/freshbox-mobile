@@ -2,7 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import { path } from '../config';
-import { language } from '@helpers';
+import { language, analytics } from '@helpers';
 
 const actions = {};
 
@@ -21,10 +21,13 @@ actions.sign_in = (req, success, failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-			// console.log('sign in success -> ',res);
+			// console.warn('sign in success -> ',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.sign_in(res.data));
+							dispatch(actReducer.sign_in(res.data));
+							// analytics.trackEvent('Login Record', {
+							// 	type: 
+							// })
         			success(res);
         		}
         	}
@@ -65,10 +68,10 @@ actions.sign_in_socmed = (req, success, failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-			// console.log('sign in socmed success -> ',res);
+			// console.warn('sign in socmed success -> ',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.sign_in(res.data));
+							dispatch(actReducer.sign_in(res.data));
         			success(res);
         		}
         	}

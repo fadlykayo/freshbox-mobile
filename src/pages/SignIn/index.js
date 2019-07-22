@@ -10,7 +10,7 @@ import Button from '@components/Button';
 import StaticText from '@components/StaticText';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
-import { socmed } from '@helpers';
+import { socmed, analytics } from '@helpers';
 import Sosmed from './components/Sosmed';
 import styles from './styles';
 import { connect } from 'react-redux';
@@ -111,6 +111,7 @@ class SignIn extends Component {
         this.props.sign_in(payload,
             (res) => {
                 if (this.props.navigation.state.params.action == "menuLogin") {
+                    analytics.trackEvent('Login Methods', {type: 'Phone Number'});
                     actNav.reset(navConstant.Product);
                 }
                 else if (this.props.navigation.state.params.action == "guestLogin") {
@@ -166,6 +167,7 @@ class SignIn extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
+                    analytics.trackEvent('Login Methods', {type: 'Facebook'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {
@@ -210,6 +212,7 @@ class SignIn extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
+                    analytics.trackEvent('Login Methods', {type: 'Gmail'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {

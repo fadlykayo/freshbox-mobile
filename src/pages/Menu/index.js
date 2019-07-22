@@ -3,7 +3,7 @@ import { View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import { actNav, navConstant } from '@navigations';
-import { socmed } from '@helpers';
+import { socmed, analytics } from '@helpers';
 import Logo from './components/Logo';
 import Content from './components/Content';
 import TermsConditions from './components/TermsConditions';
@@ -72,6 +72,7 @@ class Menu extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
+                    analytics.trackEvent('Login Methods', {type: 'Facebook'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {
@@ -116,6 +117,7 @@ class Menu extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
+                    analytics.trackEvent('Login Methods', {type: 'Google'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {
