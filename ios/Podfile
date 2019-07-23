@@ -30,6 +30,8 @@ target 'Freshbox' do
   # pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   platform :ios, '9.0'
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
 end
 
 post_install do |installer|

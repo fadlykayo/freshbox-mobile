@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
 import { PersistGate } from 'redux-persist/integration/react';
 import rootReducer from '@reducers';
+import codePush from "react-native-code-push";
 
 const persistConfig = {
 	key: 'root',
@@ -22,7 +23,7 @@ let persistor = persistStore(store);
 
 import Application from '@src';
 
-export default class App extends Component {
+class App extends Component {
 	render(){
 		return(
 			<Provider store={store}>
@@ -33,3 +34,6 @@ export default class App extends Component {
 		);
 	}
 }
+
+App = codePush(App);
+export default App

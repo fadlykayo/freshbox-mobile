@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -47,6 +48,7 @@
 		3F9F696C4FDD4CDDBF0905DA /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA7A762B2954920BE6BD4B4 /* libAppCenterReactNative.a */; };
 		4780331217F04B48924BFA1D /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA98A05060D489288610D11 /* libRCTOneSignal.a */; };
 		579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */; };
+		58EE290D22E6F18600B00FC6 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EE28E022E6F0FF00B00FC6 /* libCodePush.a */; };
 		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
 		5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */; };
 		60946C3320FE4A27BC14A866 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A26A33DF21EC432EA06A738E /* Zocial.ttf */; };
@@ -366,6 +368,20 @@
 			remoteGlobalIDString = 548694001D8384E600E6685A;
 			remoteInfo = AppCenterReactNativeAnalytics;
 		};
+		58EE28DF22E6F0FF00B00FC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = CodePush;
+		};
+		58EE28E122E6F0FF00B00FC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F886647B1F4ADB500036D01B;
+			remoteInfo = "CodePush-tvOS";
+		};
 		5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
@@ -472,6 +488,7 @@
 		3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4583F0FA6C944FBBB05B2998 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		4CADEC9B6A3441EC9B2828FB /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
 		58F8058122803A8A005B8C16 /* GoPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoPay.h; sourceTree = "<group>"; };
 		5B211DA9595D4394826E7F63 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -559,6 +576,7 @@
 				CC02460956724B55815AE04A /* libz.tbd in Frameworks */,
 				D28871DEF10E4CB0B1D3D39E /* SafariServices.framework in Frameworks */,
 				A124F7DF21A3EA6E006104AB /* FBSDKShareKit.framework in Frameworks */,
+				58EE290D22E6F18600B00FC6 /* libCodePush.a in Frameworks */,
 				A141B2AB214811810073CC77 /* GoogleNetworkingUtilities.framework in Frameworks */,
 				579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */,
 				8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */,
@@ -789,6 +807,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		58EE28D622E6F0FF00B00FC6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				58EE28E022E6F0FF00B00FC6 /* libCodePush.a */,
+				58EE28E222E6F0FF00B00FC6 /* libCodePush.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,6 +837,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */,
 				01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */,
 				01A7025A21B95FD100DE7730 /* RNImagePicker.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -1097,6 +1125,10 @@
 				{
 					ProductGroup = 01F287FF21C1EB76006F8EB9 /* Products */;
 					ProjectRef = 01F287FE21C1EB76006F8EB9 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 58EE28D622E6F0FF00B00FC6 /* Products */;
+					ProjectRef = 58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1442,6 +1474,20 @@
 			fileType = archive.ar;
 			path = libAppCenterReactNativeAnalytics.a;
 			remoteRef = 582B70FE22E57562008886CA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58EE28E022E6F0FF00B00FC6 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 58EE28DF22E6F0FF00B00FC6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		58EE28E222E6F0FF00B00FC6 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 58EE28E122E6F0FF00B00FC6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {

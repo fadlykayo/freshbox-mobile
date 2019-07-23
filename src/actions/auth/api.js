@@ -228,7 +228,7 @@ actions.reset_password = (req,success,failure) => {
         .then((res) => {
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.sign_in(res.data));
+							dispatch(actReducer.sign_in(res.data));
         			success(res);
         		}
         	}
