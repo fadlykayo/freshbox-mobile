@@ -36,6 +36,16 @@ class PhotoComponent extends PureComponent {
 					<View style={styles.text.place}>
 						<Text style={styles.user.name}>{this.props.user.user.name}</Text>
 						<Text style={styles.user.email}>{this.props.user.user.email}</Text>
+
+						{
+							this.props.updateMessage !== '' ? 
+							<>
+							<Text style={styles.user.email}>{this.props.updateMessage}</Text>
+							<Text style={styles.user.email}>{this.props.receivedBytes} of {this.props.totalBytes} received</Text>
+							</> :
+							null
+						}
+
 					</View>
 				</TouchableOpacity>
 				);	

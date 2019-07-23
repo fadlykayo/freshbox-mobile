@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import PhotoComponent from './components/PhotoComponent';
 import LogOutButton from './components/LogOutButton';
@@ -138,6 +138,9 @@ class DrawerPage extends Component {
 				<PhotoComponent
 					navigateToProfilePage={this.navigateToProfilePage}
 					user={this.props.user}
+					updateMessage = {this.props.updateMessage}
+					receivedBytes = {this.props.receivedBytes}
+					totalBytes = {this.props.totalBytes}
 				/>
 				<PagesComponent
 					user={this.props.user}
@@ -158,6 +161,9 @@ class DrawerPage extends Component {
 const mapStateToProps = (state) => ({
 	user: state.user.data,
 	product: state.product.products,
+	updateMessage: state.network.updateMessage,
+	receivedBytes: state.network.receivedBytes,
+	totalBytes: state.network.totalBytes,
 })
 
 const mapDispatchToProps = (dispatch) => ({
