@@ -17,10 +17,11 @@ const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: colour.white,
+		// marginTop: 100,
 	},
 	cartContainer: {
 		flex: 1,
-		paddingVertical: scaling.moderateScale(10),
+		// paddingVertical: scaling.moderateScale(60),
 	},
 	clear: {
 		button: {

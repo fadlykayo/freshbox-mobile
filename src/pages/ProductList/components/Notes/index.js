@@ -12,7 +12,7 @@ class Notes extends PureComponent {
 
 	render(){
 		return (
-      		<View style={styles.container}>
+				<View style = {styles.container}>
 						<View style = {{marginHorizontal: 10}}>
 							<Image
 								style={{width: 20, height: 20}}
@@ -29,7 +29,9 @@ class Notes extends PureComponent {
 						/>
 					}
 						
-      		</View>
+
+				</View>
+
 		);
 	}
 }

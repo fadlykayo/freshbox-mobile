@@ -6,10 +6,13 @@ const { width } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		margin: scaling.moderateScale(10),
+		// position: 'absolute',
+		marginHorizontal: 10,
+		marginTop: 10,
 		paddingHorizontal: width * 0.05,
-		paddingVertical: scaling.moderateScale(5),
+		paddingVertical: scaling.moderateScale(10),
 		backgroundColor: colour.softRedTransparent,
+		// backgroundColor: 'red',
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row',

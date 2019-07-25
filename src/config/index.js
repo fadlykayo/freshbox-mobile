@@ -18,6 +18,6 @@ const staging = {
     env: 'staging'
 }
 
-const config = staging;
+const config = production;
 
 export default config;

@@ -630,7 +630,7 @@ class ProductList extends Component {
 				});
 			},
 			(err) => {
-				// console.log(err);
+				console.log('navigate to detail', err);
 			}
 		)
 	}
@@ -673,11 +673,14 @@ class ProductList extends Component {
 						onCategory={this.props.on_category}
 						openAllCategories={this.openAllCategories}
 					/>
-					<Notes 
-						text={this.props.broadcast_message}
-					/>
+
+												<Notes 
+								text={this.props.broadcast_message}
+							/>
+					
 					<View style={styles.container}>
 						<View style={styles.cartContainer}>
+
 						{
 							this.props.product.length > 0 ? 
 							<FlatList
@@ -713,7 +716,7 @@ class ProductList extends Component {
 							/>
 							
 						}
-						
+
 										
 							<Checkout
 								introButton={introButton}

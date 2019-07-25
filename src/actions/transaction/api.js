@@ -102,7 +102,7 @@ actions.request_snap_token = (req,success,failure) => {
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
-	// console.log('request snap token payload', payload)
+	console.log('request snap token payload', payload)
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
@@ -307,10 +307,10 @@ actions.detail_transaction = (req,success,failure) => {
         		if(res.code == 200){
 							if(req.type){
 								if(res.data.status == 'pending_payment') {
-									if(res.data.payment_method == "cash_on_delivery") {
-										success(res)
-									} else {
+									if(res.data.payment_method == "gopay") {
 										failure(res)
+									} else {
+										success(res)
 									}
 								} else {
 									success(res);

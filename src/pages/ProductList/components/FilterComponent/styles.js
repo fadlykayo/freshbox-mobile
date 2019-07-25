@@ -11,16 +11,18 @@ const styles = {
 		borderBottomWidth: 1,
 		borderBottomColor: colour.white,
 		backgroundColor: colour.darkRed,
-    	flexDirection: 'row',
+		flexDirection: 'row',
 	},
 	subcontainer: {
-		part: {
+		part: (left) => ({
 			flex: 1,
 			flexDirection: 'row',
 			alignItems: 'center',
 			paddingHorizontal: width * 0.05,
-			justifyContent: 'center',
-		}
+			justifyContent: 'space-between',
+			borderLeftWidth: 1,
+			borderLeftColor: left ? colour.shadowRed : '',
+		})
 	},
 	icon: {
 		width: scaling.moderateScale(15),
@@ -32,7 +34,7 @@ const styles = {
 		title: {
 			fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(15),
-			color: colour.white
+			color: colour.white,
 		},
 	},
 }

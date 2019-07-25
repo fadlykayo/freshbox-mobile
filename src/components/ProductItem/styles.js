@@ -29,6 +29,7 @@ const styles = {
 			:	scaling.moderateScale(25)
 			)
 		),
+		// paddingTop: i == 1 ? 20 : 0
 	}),
 	subcontainer: {
 		verification:{

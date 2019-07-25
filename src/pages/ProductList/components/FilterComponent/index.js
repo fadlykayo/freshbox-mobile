@@ -19,7 +19,7 @@ class SearchComponent extends Component {
 	render(){
 		return (
     	<View style={styles.container}>
-        	<View style={styles.subcontainer.part}>
+        	<View style={styles.subcontainer.part(false)}>
         		<StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
@@ -31,7 +31,7 @@ class SearchComponent extends Component {
   	  			/> */}
         	</View>
 			<TouchableOpacity
-				style={styles.subcontainer.part}
+				style={styles.subcontainer.part(true)}
 				onPress = { this.openAllCategories }
 			>
 				{ this.props.onCategory == 'Default'
