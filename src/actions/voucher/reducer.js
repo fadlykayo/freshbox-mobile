@@ -7,8 +7,9 @@ action.set_discount_total = (payload) => ({
   payload: payload,
 })
 
-action.cancel_voucher = () => ({
+action.cancel_voucher = (payload) => ({
   type: ct.CANCEL_VOUCHER,
+  payload: payload
 })
 
 

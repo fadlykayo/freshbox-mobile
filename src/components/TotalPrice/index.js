@@ -16,7 +16,7 @@ class TotalPrice extends Component {
         let additional = numeral(this.props.additional).format('0,0');
         let discount = numeral(this.props.additional).format('0,0');
         let grandTotal = numeral(this.props.grandTotal).format('0,0');
-
+        console.warn(grandTotal, 'total price')
 
         if(this.props.discount) {
             

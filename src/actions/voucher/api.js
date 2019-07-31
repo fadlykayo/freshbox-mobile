@@ -24,11 +24,14 @@ actions.checkVoucherValidity = (req, success, failure) => {
       if(res.code){
         if(res.code == 200) {
           if(!res.data.length) {
-
+            dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
             dispatch(actNetwork.set_error_status({
               status: true,
               data: res.code_message
             }))
+            
+            //calculate new grandtotal
+            
             failure();
           } else {
 
@@ -44,96 +47,29 @@ actions.checkVoucherValidity = (req, success, failure) => {
         dispatch(actNetwork.set_network_error_status(true));
       } else {
         switch(err.code){
-          case 400: return failure(err);
-          case 403: return dispatch(actNetwork.set_error_status({
+          case 400: 
+          dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
+          failure(err); 
+          break
+          case 403: 
+          dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
+          dispatch(actNetwork.set_error_status({
             status: true,
             data: err.data.coupon_code[0]
           }));
           failure();
+          break;
           default:
+          dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
           dispatch(actNetwork.set_error_status({
             status: true,
             data: err.code_message
           }));
+          failure();
+          break;
         }
       }
     })
-    //testing
-    // let successResponse = {
-    //   "code": 200,
-    //   "code_message": "Success",
-    //   "code_type": "success",
-    //   "data": [
-    //     {
-    //       "coupon_code": "INSTALLAPPS",
-    //       "type": "Discount",
-    //       "category": "Percentage",
-    //       "amount": 50,
-    //       "min_purchase": 100000,
-    //       "description": "Kupon diskon untuk pengguna baru",
-    //       "product_id": 1,
-    //       "limit_usage": 0,
-    //       "start_date": "2019-12-01 00:00:00",
-    //       "expiry_date": "2019-12-30 00:00:00"
-    //     }
-    //   ]
-    // };
-
-    // let invalidCode = {
-    //   "code": 403,
-    //   "code_message": "Please check your input again.",
-    //   "code_type": "validationFail",
-    //   "data": {
-    //       "coupon_code": [
-    //           "The selected coupon code is invalid."
-    //       ]
-    //   }
-    // };
-
-    // let invalidAmount = {
-    //   "code": 200,
-    //   "code_message": "You havent reached the minimum order amount",
-    //   "code_type": "success",
-    //   "data": []
-    // };
-
-    // let res;
-
-    // if(req.body.coupon_code) {
-    //   if(req.body.coupon_code == 'INSTALLAPPS') {
-    //     if(req.body.subtotal >= 50000) {
-    //       res = successResponse
-    //     } else {
-    //       res = invalidAmount
-    //     }
-    //   } else {
-    //     res = invalidCode
-    //   }
-    // } else {
-    //   res = invalidCode
-    // }
-    
-    
-    // setTimeout(() => {
-    //   if(res.code == 403) {
-    //     dispatch(actNetwork.set_error_status({
-    //       status: true,
-    //       data: res.code_message
-    //     }));
-    //     failure();
-    //   } else {
-    //     if (!res.data.length) {
-    //       dispatch(actNetwork.set_error_status({
-    //       status: true,
-    //       data: res.code_message
-    //     }));
-    //     failure();
-    //     } else {
-    //       dispatch(actReducer.set_discount_total(res.data));
-    //       success(res.data);
-    //     }
-    //   }
-    // }, 500);
 
   }
 }
@@ -173,7 +109,7 @@ actions.cancel_voucher = (req, success, failure) => {
     //     }
     //   }
     // })
-    dispatch(actReducer.cancel_voucher());
+    dispatch(actReducer.cancel_voucher(req.body.subtotal));
     success()
   }
 }

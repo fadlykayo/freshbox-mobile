@@ -429,9 +429,10 @@ const setDiscountPrice = (state, payload) => {
     return newState;
 }
 
-const cancelVoucher = (state) => {
+const cancelVoucher = (state, payload) => {
+    console.warn(payload)
     let newState = JSON.parse(JSON.stringify(state));
-    let totalPrice = newState.total.price;
+    let totalPrice = payload;
     let discount = newState.discount;
     let coupon = newState.coupon_code;
 
@@ -439,6 +440,7 @@ const cancelVoucher = (state) => {
     coupon = '';
     newState.discount = discount;
     newState.coupon_code = coupon;
+
     return newState;
     
 }
@@ -460,7 +462,7 @@ const productReducer = (state = initialState, action) => {
         case ct.REORDER_TRANSACTION : return reorderTransaction(state,action.payload);
         case ct.RESET_PARAMS        : return resetParams(state,action.payload);
         case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
-        case ct.CANCEL_VOUCHER      : return cancelVoucher(state);
+        case ct.CANCEL_VOUCHER      : return cancelVoucher(state, action.payload);
         case ct.RESET_PRODUCTS      : return initialState
         default: return state;
     }

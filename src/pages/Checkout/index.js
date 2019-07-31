@@ -296,13 +296,15 @@ class Checkout extends Component {
 		this.props.check_voucher_api(payload,
 			res => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
 				state.voucherValidation = true;
 				this.setState(state);
 			},
 			rej => {
-				console.warn(rej)
-				// console.warn(rej)
+				let state = this.state;
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				state.voucherValidation = false;
+				this.setState(state);
 			}
 		);
 	}
@@ -334,6 +336,7 @@ class Checkout extends Component {
 	}
 
   	render() {
+
 		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
