@@ -7,11 +7,13 @@ const { width, height } = Dimensions.get('window');
 const styles = {
 	container: {
 		flex: -1,
-		// height: height * 0.33,
+		// height: height * 0.27,
 		backgroundColor: colour.white,
 		borderBottomColor: colour.mediumGrey,
-		borderBottomWidth: 1,
+		// borderBottomWidth: 1,
 		paddingVertical: width * 0.03,
+		paddingHorizontal: scaling.moderateScale(30),
+		marginVertical: 8,
 	},
 	subcontainer: {
 		static: {
@@ -22,7 +24,6 @@ const styles = {
 		},
 		bottom: {
 			flex: -1,
-			paddingVertical: width * 0.02,
 		}
 	},
 	text: {

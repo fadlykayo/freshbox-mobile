@@ -40,5 +40,6 @@ export const path = {
     signInSocmed: 'v1/user/login-with-sosmed',
     registerSocmed: 'v1/user/register-with-sosmed',
     broadcast_message: 'v1/headline-message',
-    delivery_date: 'v1/request-shipping-date'
+    delivery_date: 'v1/request-shipping-date',
+    checkVoucher: 'v1/voucher/check'
 }

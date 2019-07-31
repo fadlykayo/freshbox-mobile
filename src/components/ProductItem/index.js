@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Image, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
@@ -27,9 +27,15 @@ class ProductItem extends PureComponent {
 	}
 
 	render(){
-		// const productImage = this.props.data.images_sizes_url.original[0];
+		let productImage;
+		if(Platform.OS == 'ios') {
+
+		productImage = this.props.data.images_sizes_url.original[0];
+		} else {
+
+		productImage = this.props.data.images_sizes_url["100x100"][0]
+		}
 		// console.log(this.props.data.images_sizes_url["50x50"][0])
-		const productImage = this.props.data.images_sizes_url["100x100"][0]
 		return(
 			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock)}>
 				<View style={styles.subcontainer.card}>

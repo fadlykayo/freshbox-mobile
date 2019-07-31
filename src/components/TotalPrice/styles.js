@@ -24,6 +24,12 @@ const styles = {
     subcontainer:{
         content:{
             flex: -1,
+            backgroundColor: colour.white,
+        },
+        checkout: {
+            marginTop: 10,
+            flex: -1,
+            backgroundColor: colour.white,
         },
         price:{
             flexDirection: 'row',

@@ -21,7 +21,8 @@ const styles = {
 	},
 	cartContainer: {
 		flex: 1,
-		// paddingVertical: scaling.moderateScale(60),
+		paddingVertical: scaling.moderateScale(10),
+		// backgroundColor: 'blue'
 	},
 	clear: {
 		button: {

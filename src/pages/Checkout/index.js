@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import moment, { min } from 'moment';
 import id from 'moment/locale/id';
@@ -28,7 +28,7 @@ class Checkout extends Component {
 				showDeliveryDate: false,
 			},
 			delivery_date: [],
-			coupon_code: '',
+			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
 			voucherValidation: false
 		}
 		this.getAddress = this.getAddress.bind(this);
@@ -50,7 +50,7 @@ class Checkout extends Component {
 		this.getDeliveryPrice();
 		this.getAddress();
 		this.apiDeliveryDate();
-		// this.setVoucherLabel();
+		this.setVoucherLabel();
 	}
 
 	setVoucherLabel() {
@@ -260,8 +260,8 @@ class Checkout extends Component {
 			<View style={styles.subcontainer.voucher.container}>
 				<FormInput 
 					type={'voucher'}
-					autoFocus={true}
-					value={this.props.coupon_code}
+					autoFocus={false}
+					value={this.state.coupon_code}
 					onChangeText={this.onChangeTextVoucher}
 					label={'checkout.label.voucher'}
 					placeholder={'checkout.placeholder.voucher'}
@@ -269,6 +269,8 @@ class Checkout extends Component {
 					statusVerification={this.state.voucherValidation}
 					editable={this.state.voucherValidation ? false : true}
 					cancelVoucherAPI={this.cancelVoucherAPI}
+					// multiline={true}
+
 				/>
 			</View>
 		)
@@ -299,6 +301,7 @@ class Checkout extends Component {
 				this.setState(state);
 			},
 			rej => {
+				console.warn(rej)
 				// console.warn(rej)
 			}
 		);
@@ -339,7 +342,8 @@ class Checkout extends Component {
 				<NavigationBar
 					title={'checkout.navigationTitle'}
 				/>
-				<View style={styles.container}>
+				<ScrollView style={styles.container}>
+				{this._renderVoucherInput()}
 					<DeliveryPlace
 						type={'white'}
 						address={'checkout.content.otherAddress'}
@@ -348,7 +352,7 @@ class Checkout extends Component {
 						onPress={this.navigateToChooseAddress}
 					/>
 					<View style={styles.subcontainer.bottom}>
-						{this._renderLabel()}
+						{/* {this._renderLabel()} */}
 						<TouchableOpacity 
 							style={styles.subcontainer.buttonDate} 
 							onPress={this.openDeliveryDate}
@@ -359,7 +363,7 @@ class Checkout extends Component {
 										style={styles.text.date}
 										property={'checkout.content.chooseDate'}
 									/>
-								: 	<Text style={styles.text.date}>{this.state.date.display}</Text>
+								: 	<Text style={styles.text.dateChoosen}>{this.state.date.display}</Text>
 							}
 							
 							<View style={styles.subcontainer.icon}>
@@ -369,23 +373,33 @@ class Checkout extends Component {
 								/>
 							</View>
 						</TouchableOpacity>
-						<StaticText
+
+						<View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', position: 'absolute', left: 30, bottom: 15}}>
+							<Image
+								style={{width: 15, height: 15, marginRight: 10}}
+								source={images.info}
+							/>
+													<StaticText
 							property	= 'checkout.content.confirmDate'
 							style			= { styles.text.confirmDate }
 						/>
-						{/* {this._renderVoucherInput()} */}
+						</View>
+
+					
 					</View>
-				</View>
+					
+				</ScrollView>
 				<TotalPrice
-					type={'red'}
-					title={'checkout.content.checkout'}
-					subTotal={this.props.totalPrice}
-					grandTotal={this.state.grandTotalPrice}
-					delivery_price={this.props.delivery_price}
-					discount = {this.props.discount}
-					onPress={this.addressDateValidation}
-					// action={'checkout'}
-                />
+						type={'red'}
+						title={'checkout.content.checkout'}
+						subTotal={this.props.totalPrice}
+						grandTotal={this.state.grandTotalPrice}
+						delivery_price={this.props.delivery_price}
+						discount = {this.props.discount}
+						onPress={this.addressDateValidation}
+						action={'checkout'}
+						// checkout={true}
+					/>
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
 					modalVisible={this.state.modalVisible.showDeliveryDate}

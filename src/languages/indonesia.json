@@ -131,7 +131,8 @@
             "kelurahan": "Kelurahan",
             "address": "Alamat",
             "addressDetails": "Alamat Detil (Opsi)",
-            "voucher": "Kode Voucher"
+            "voucher": "Kode Promo",
+            "button": "Gunakan"
         },
         "content": {
             "price": "Rp. ",
@@ -155,7 +156,7 @@
             "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 angka"
         },
         "placeholder": {
-            "voucher":"Masukan kode voucher anda"
+            "voucher":"Kode Promo"
         }
     },
     "productList": {

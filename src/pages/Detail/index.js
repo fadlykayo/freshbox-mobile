@@ -309,6 +309,8 @@ class Detail extends Component {
 					address_code: address.code,
 					request_shipping_date: this.props.navigation.state.params.date.value,
 					cash_on_delivery: this.state.radio[0].status,
+					coupon_code: this.props.coupon_code,
+					discount_ammount: this.props.discount,
 				}
 			}
 			
@@ -534,6 +536,7 @@ const mapStateToProps = (state) => ({
 	delivery_price: state.product.delivery_price,
 	additional: state.product.additional.credit_card,
 	discount: state.product.discount,
+	coupon_code: state.product.coupon_code,
 });
 
 const mapDispatchToProps = (dispatch) => ({

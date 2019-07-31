@@ -129,7 +129,8 @@
             "kelurahan": "Kelurahan",
             "address": "Address",
             "addressDetails": "Address Details (Optional)",
-            "voucher": "Voucher Code"
+            "voucher": "Promo Code",
+            "button": "Apply"
         },
         "content": {
             "price": "IDR ",
@@ -153,7 +154,7 @@
             "phone": "Please enter your phone number at least between 10 to 13 digits number"
         },
         "placeholder": {
-            "voucher": "Enter your voucher code"
+            "voucher": "Promo Code"
         }
     },
     "productList": {

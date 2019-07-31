@@ -8,23 +8,24 @@ const styles = {
 	container:{
 		flex: 1,
 		marginVertical: width * 0.02,
-		backgroundColor: colour.white,
-		paddingHorizontal: scaling.moderateScale(30),
+		backgroundColor: colour.backgroundLightGrey,
+		// paddingHorizontal: scaling.moderateScale(30),
 	},
 	subcontainer:{
 		label:{
 			width: width * 0.9,
 		},
 		bottom:{
-			flex: 1,
+			height: 100,
 			backgroundColor: colour.white,
-			paddingTop: scaling.moderateScale(53),
+			paddingTop: scaling.moderateScale(5),
+			paddingHorizontal: scaling.moderateScale(30),
 		},
 		buttonDate:{
 			height: width * 0.1,
 			justifyContent: 'center',
-			borderBottomColor: colour.mediumGrey,
-			borderBottomWidth: 1,
+			// borderBottomColor: colour.mediumGrey,
+			// borderBottomWidth: 1,
 		},
 		icon:{
 			position: 'absolute',
@@ -32,8 +33,10 @@ const styles = {
 		},
 		voucher: {
 			container: {
-				paddingTop: scaling.moderateScale(20),
+				paddingTop: scaling.moderateScale(5),
 				// flexDirection: 'row',
+				paddingHorizontal: scaling.moderateScale(30),
+				backgroundColor: colour.white,
 			},
 			buttonRight: {
 				position: 'absolute',
@@ -49,14 +52,19 @@ const styles = {
 			marginBottom: scaling.moderateScale(5),
 		},
 		date:{
-			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(12),
+			fontFamily: 'Avenir-Book',
+			fontSize: scaling.moderateScale(13),
+			color: colour.lightGrey
+		},
+		dateChoosen:{
+			fontFamily: 'Avenir-Book',
+			fontSize: scaling.moderateScale(13),
 			color: colour.darkGrey
 		},
 		confirmDate: {
-			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(10),
-			color: colour.darkGrey
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(11),
+			color: '#E52546'
 		}
 	},
 	icon:{

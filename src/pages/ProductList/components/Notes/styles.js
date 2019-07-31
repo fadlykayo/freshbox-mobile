@@ -9,6 +9,7 @@ const styles = {
 		// position: 'absolute',
 		marginHorizontal: 10,
 		marginTop: 10,
+		// marginBottom: 10,
 		paddingHorizontal: width * 0.05,
 		paddingVertical: scaling.moderateScale(10),
 		backgroundColor: colour.softRedTransparent,

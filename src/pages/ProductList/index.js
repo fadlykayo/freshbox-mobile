@@ -674,10 +674,9 @@ class ProductList extends Component {
 						openAllCategories={this.openAllCategories}
 					/>
 
-												<Notes 
+			<Notes 
 								text={this.props.broadcast_message}
-							/>
-					
+					/>
 					<View style={styles.container}>
 						<View style={styles.cartContainer}>
 
@@ -694,6 +693,12 @@ class ProductList extends Component {
 								ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
 									<View key={index}>
+									{/* {
+										index == 0 ? 																					<Notes 
+								text={this.props.broadcast_message}
+							/> : null
+									} */}
+
 										<ProductItem
 											search={this.state.search}
 											data={item}

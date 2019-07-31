@@ -35,11 +35,11 @@ const styles = {
         paddingTop: scaling.moderateScale(10),
         paddingBottom: scaling.moderateScale(5)
     },
-    underline: {
+    underline: (type) => ({
         height: 1,
-        borderTopWidth: 1,
+        borderTopWidth: type == 'voucher' ? 0 : 1,
         borderColor: colour.mediumGrey,
-    },
+    }),
     showPasswordButton: {
         position: 'absolute',
         right: 0,
@@ -53,10 +53,10 @@ const styles = {
     showVoucherButton: {
         position: 'absolute',
         right: 0,
-        bottom: 10,
+        bottom: 0,
         backgroundColor: colour.red, 
         height: 35, 
-        width: 80,
+        width: 90,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: scaling.moderateScale(8),
@@ -79,7 +79,8 @@ const styles = {
         color: colour.grey,
     },
     textVoucher: {
-        fontSize: scaling.moderateScale(12),
+        fontFamily: 'Avenir-Heavy',
+        fontSize: scaling.moderateScale(14),
         color: colour.white,
     },
     successVoucher: {

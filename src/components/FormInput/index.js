@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
+import LinearGradient from 'react-native-linear-gradient';
 import Button from '@components/Button';
 import { language } from '@helpers';
 import images from '@assets';
@@ -132,13 +133,14 @@ class FormInput extends Component {
     _renderVoucherChecker () {
         if(!this.props.statusVerification) {
             return (
-                <View style={styles.showVoucherButton}>
+                <LinearGradient colors= {['#D9003E', '#F90040']} style={styles.showVoucherButton}>
                     <TouchableOpacity onPress={this.props.voucherAPI}>
-                        <Text style={styles.textVoucher}>
-                            Apply
-                        </Text>
+                        <StaticText
+                            style={styles.textVoucher}
+                            property={'checkout.label.button'}
+                        />
                     </TouchableOpacity>
-                </View>
+                </LinearGradient>
             )
 
         } else {
@@ -179,7 +181,7 @@ class FormInput extends Component {
                     underlineColorAndroid='transparent'
                     onSubmitEditing={this.onSubmitEditing}
                 />
-                {this.props.multiline ? null : <View style={styles.underline}/> }
+                {this.props.multiline ? null : <View style={styles.underline(this.props.type)}/> }
                 {this._renderShowPasswordButton(this.props)}
                 </>
             )
