@@ -25,7 +25,7 @@ let persistor = persistStore(store);
 
 import Application from '@src';
 
-export default class App extends Component {
+class App extends Component {
 	
 		codePushStatusDidChange(status) {
 
@@ -84,5 +84,5 @@ export default class App extends Component {
 	}
 }
 
-// App = codePush(App);
-// export default App
+App = codePush(App);
+export default App
