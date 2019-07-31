@@ -1,8 +1,8 @@
 <resources>
     <!-- production -->
-	<!-- <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string> -->
+	<string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
     <!-- staging -->
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string>
+    <!-- <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string> -->
     <string name="app_name">Freshbox</string>
     <string name="facebook_app_id">266227334002571</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
