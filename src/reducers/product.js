@@ -437,9 +437,9 @@ const cancelVoucher = (state, payload) => {
     let coupon = newState.coupon_code;
 
     discount = 0;
-    coupon = '';
+    // coupon = '';
     newState.discount = discount;
-    newState.coupon_code = coupon;
+    // newState.coupon_code = coupon;
 
     return newState;
     

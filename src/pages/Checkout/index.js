@@ -325,7 +325,7 @@ class Checkout extends Component {
 				let state = this.state;
 				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
 				state.voucherValidation = false;
-				state.coupon_code = '';
+				// state.coupon_code = '';
 				this.setState(state);
 			},
 			rej => {
@@ -343,6 +343,7 @@ class Checkout extends Component {
 				bgColorTop={'red'} 			
 			>
 				<NavigationBar
+					cancelVoucher={this.cancelVoucherAPI}
 					title={'checkout.navigationTitle'}
 				/>
 				<ScrollView style={styles.container}>
