@@ -310,28 +310,31 @@ class Checkout extends Component {
 	}
 
 	cancelVoucherAPI = () => {
-		let payload = {
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			body: {
-				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
-				// subtotal: this.props.totalPrice
+		if(this.props.coupon_code !== '' && this.state.voucherValidation == true) {
+			
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {
+					coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
+					// subtotal: this.props.totalPrice
+				}
 			}
-		}
-		
-		this.props.cancel_voucher(payload,
-			res => {
-				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
-				state.voucherValidation = false;
-				// state.coupon_code = '';
-				this.setState(state);
-			},
-			rej => {
-				console.log(rej)
-			}
-		);
+			
+			this.props.cancel_voucher(payload,
+				res => {
+					let state = this.state;
+					state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+					state.voucherValidation = false;
+					// state.coupon_code = '';
+					this.setState(state);
+				},
+				rej => {
+					console.log(rej)
+				}
+			);
+		} 
 
 	}
 

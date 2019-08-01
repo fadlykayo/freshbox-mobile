@@ -492,9 +492,9 @@ class Detail extends Component {
 								<View style={styles.radioContainer}>
 									<Text style={styles.text}>Transfer</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
 								</View>
-								{/* <View style={styles.radioContainer}>
+								<View style={styles.radioContainer}>
 									<Text style={styles.text}>CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('credit_card')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[3].status)}></View></View></TouchableOpacity>
-								</View> */}
+								</View>
 								<View style={styles.radioContainer}>
 									<Text style={styles.text}>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
 								</View>
