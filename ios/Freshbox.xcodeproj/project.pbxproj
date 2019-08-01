@@ -49,6 +49,7 @@
 		4780331217F04B48924BFA1D /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA98A05060D489288610D11 /* libRCTOneSignal.a */; };
 		579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */; };
 		580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */; };
+		580DD00F22F30BF9002C2C8E /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DD00E22F30BD8002C2C8E /* libRCTFBSDK.a */; };
 		58EE290D22E6F18600B00FC6 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EE28E022E6F0FF00B00FC6 /* libCodePush.a */; };
 		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
 		5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */; };
@@ -347,6 +348,13 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
+		580DD00D22F30BD8002C2C8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 580DD00922F30BD7002C2C8E /* RCTFBSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
+			remoteInfo = RCTFBSDK;
+		};
 		582B70F422E57562008886CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4583F0FA6C944FBBB05B2998 /* AppCenterReactNativeCrashes.xcodeproj */;
@@ -480,6 +488,7 @@
 		3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4583F0FA6C944FBBB05B2998 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		580DD00922F30BD7002C2C8E /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
 		58F8058122803A8A005B8C16 /* GoPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoPay.h; sourceTree = "<group>"; };
@@ -540,6 +549,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				580DD00F22F30BF9002C2C8E /* libRCTFBSDK.a in Frameworks */,
 				580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */,
 				01F2883121C1EBD9006F8EB9 /* libBVLinearGradient.a in Frameworks */,
 				01A7028921B9601D00DE7730 /* libRNImagePicker.a in Frameworks */,
@@ -776,6 +786,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		580DD00A22F30BD7002C2C8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				580DD00E22F30BD8002C2C8E /* libRCTFBSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		582B70F122E57562008886CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -837,6 +855,7 @@
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */,
+				580DD00922F30BD7002C2C8E /* RCTFBSDK.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
 				00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */,
 				78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */,
@@ -1124,6 +1143,10 @@
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 580DD00A22F30BD7002C2C8E /* Products */;
+					ProjectRef = 580DD00922F30BD7002C2C8E /* RCTFBSDK.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -1432,6 +1455,13 @@
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
 			remoteRef = 580DD00322F2F4B6002C2C8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		580DD00E22F30BD8002C2C8E /* libRCTFBSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTFBSDK.a;
+			remoteRef = 580DD00D22F30BD8002C2C8E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		582B70F522E57562008886CA /* libAppCenterReactNativeCrashes.a */ = {
