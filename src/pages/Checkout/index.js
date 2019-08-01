@@ -288,7 +288,7 @@ class Checkout extends Component {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {
-				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
+				coupon_code: this.state.coupon_code,
 				subtotal: this.props.totalPrice
 			}
 		}

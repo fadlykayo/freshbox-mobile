@@ -46,7 +46,7 @@ class Detail extends Component {
 					},
 					
 				],
-			payment_type: ''
+			payment_type: 'transfer'
 			},
 			
 		this._onRefresh = this._onRefresh.bind(this);
@@ -318,8 +318,11 @@ class Detail extends Component {
 					cash_on_delivery: this.state.radio[0].status,
 					coupon_code: this.props.coupon_code,
 					discount_ammount: this.props.discount,
+					payment_type: this.state.payment_type,
 				}
 			}
+
+			// console.log('coba', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
@@ -432,6 +435,7 @@ class Detail extends Component {
 			}
 			
 		}
+		console.warn(type)
 		this.setState({
 			radio: radio,
 			payment_type: type
