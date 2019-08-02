@@ -56,6 +56,7 @@ class Checkout extends Component {
 		this.getAddress();
 		this.apiDeliveryDate();
 		this.setVoucherLabel();
+		this.messageOrderSuccess();
 	}
 
 	setVoucherLabel() {
@@ -151,7 +152,7 @@ class Checkout extends Component {
 		actNav.navigate(navConstant.ChooseAddress);
 	}
 
-	addressDateValidation(){
+	addressDateValidation = (method) =>{
 		let address = this.props.addresses.filter(address => address.primary == 1);
 		if(address.length == 0){
 			language.transformText('message.emptyAddress')
@@ -181,7 +182,7 @@ class Checkout extends Component {
 				let tomorrowDate = today.getDate()+1;
 				let stateDate = new Date(this.state.date.origin).getDate();
 				if(todayHour <= 21 || (todayHour == 21 && todayMin < 55)){
-					this.navigateToChoosePayment(address[0]);
+					this.navigateToChoosePayment(method);
 				} else {
 					if(tomorrowDate == stateDate){
 						language.transformText('message.expiredDate','id',{
@@ -196,7 +197,7 @@ class Checkout extends Component {
 						});
 					}
 					else{
-						this.navigateToChoosePayment(address[0]);
+						this.navigateToChoosePayment(method);
 					}
 				}
 			}
@@ -343,7 +344,7 @@ class Checkout extends Component {
 
 	}
 
-	navigateToChoosePayment(method){
+	navigateToChoosePayment = (method) => {
 		
 		// if(this.state.token.length == 0){
 
@@ -363,7 +364,7 @@ class Checkout extends Component {
 				}
 			}
 
-			// console.log('coba', payload)
+			console.log('coba', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
@@ -390,7 +391,7 @@ class Checkout extends Component {
 										invoice: this.state.invoice,
 										redirect_url: this.state.redirect_url,
 										midtrans: this.state.midtrans,
-										gopay: this.state.payment_type == 'gopay' ? true : false,
+										gopay: method == 'gopay' ? true : false,
 										validateTransactionStatus: this.validateTransactionStatus
 									});
 								} else {
@@ -413,22 +414,9 @@ class Checkout extends Component {
 	
 				}
 			);
-			// actNav.navigate(navConstant.ChoosePayment)
-		// }
-		// else{
-		// 	actNav.navigate(navConstant.ChoosePayment,{
-		// 		...this.props.navigation.state.params,
-		// 		token: this.state.token,
-		// 		invoice: this.state.invoice,
-		// 		redirect_url: this.state.redirect_url,
-		// 		midtrans: this.state.midtrans,
-		// 		gopay: this.state.radio[2].status,
-		// 		validateTransactionStatus: this.validateTransactionStatus
-		// 	});
-		// }
 	}
 
-	validateTransactionStatus(paymentMethod, midtransObject){
+	validateTransactionStatus = (paymentMethod, midtransObject) => {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -476,9 +464,33 @@ class Checkout extends Component {
 		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())
 	}
 
+messageOrderSuccess = () => {
+		if(this.props.navigation.state.params.createOrderSuccess){
+			if(this.props.navigation.state.params.invoice == 'credit_card') {
+				language.transformText('message.paymentSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
+				});
+				this.props.navigation.state.params.createOrderSuccess = null;
+			}
+			else {
+				language.transformText('message.createOrderSuccess')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.createOrder'
+					});
+				});
+			}
+		}
+	}
 
   	render() {
-
 		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
@@ -557,7 +569,7 @@ class Checkout extends Component {
 						</View>
 						<View style={styles.outerContainer}>
 
-							<TouchableOpacity>
+							<TouchableOpacity onPress={() => this.addressDateValidation('transfer')}>
 								<View style={styles.radioContainer}>
 									<StaticText
 										style={styles.text.methods}
@@ -588,7 +600,7 @@ class Checkout extends Component {
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity>
+							<TouchableOpacity onPress = {() => this.addressDateValidation('credit_card')}>
 								<View style={styles.radioContainer}>
 				
 									<StaticText
@@ -615,7 +627,7 @@ class Checkout extends Component {
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={() => this.addressDateValidation('gopay')}>
 								<View style={styles.radioContainer}>
 									<StaticText
 										style={styles.text.methods}
@@ -636,7 +648,7 @@ class Checkout extends Component {
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity>
+							<TouchableOpacity onPress = {() => this.addressDateValidation('cod')}>
 								<View style={styles.radioContainer}>
 								<View>
 
@@ -695,6 +707,8 @@ const mapDispatchToProps = (dispatch) => ({
 	check_voucher_api: (req,res,err) => dispatch(actions.voucher.api.checkVoucherValidity(req,res,err)),
 	cancel_voucher: (req, res, err) => dispatch(actions.voucher.api.cancel_voucher(req, res, err)),
 	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
+	cancel_invoice: (req,res,err) => dispatch(actions.transaction.api.cancel_invoice(req,res,err)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
