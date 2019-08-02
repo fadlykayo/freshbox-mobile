@@ -63,5 +63,9 @@ images.empty_favorite = require('./ilu_empty_favourite.png');
 images.empty_search = require('./ilu_empty_search.png');
 images.gopay = require('./gopaylogo.jpg');
 images.info = require('./ic_info.png');
+images.master_card = require('./mastercard_vrt.png');
+images.logo_gopay = require('./logo_gopay.png');
+images.ic_info_grey = require('./ic_info_grey.png');
+images.bri_bank = require('./bri_bank.png');
 
 export default images;

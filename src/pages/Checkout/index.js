@@ -29,7 +29,12 @@ class Checkout extends Component {
 			},
 			delivery_date: [],
 			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
-			voucherValidation: false
+			voucherValidation: false,
+			payment_type: 'gopay',
+			redirect_url: '',
+			token: '',
+			invoice: '',
+			midtrans: '',
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
@@ -176,7 +181,7 @@ class Checkout extends Component {
 				let tomorrowDate = today.getDate()+1;
 				let stateDate = new Date(this.state.date.origin).getDate();
 				if(todayHour <= 21 || (todayHour == 21 && todayMin < 55)){
-					this.navigateToDetail(address[0]);
+					this.navigateToChoosePayment(address[0]);
 				} else {
 					if(tomorrowDate == stateDate){
 						language.transformText('message.expiredDate','id',{
@@ -191,7 +196,7 @@ class Checkout extends Component {
 						});
 					}
 					else{
-						this.navigateToDetail(address[0]);
+						this.navigateToChoosePayment(address[0]);
 					}
 				}
 			}
@@ -338,6 +343,140 @@ class Checkout extends Component {
 
 	}
 
+	navigateToChoosePayment(method){
+		
+		// if(this.state.token.length == 0){
+
+			let address = this.props.addresses.filter(address => address.primary == 1)[0];
+	
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {
+					address_code: address.code,
+					request_shipping_date: this.state.date.value,
+					cash_on_delivery: this.state.payment_type == 'cod' ? true : false,
+					coupon_code: this.props.coupon_code,
+					discount_ammount: this.props.discount,
+					payment_type: method,
+				}
+			}
+
+			// console.log('coba', payload)
+			
+			this.props.request_snap_token(payload,
+				res => {
+					if(res.redirect_url) {
+						console.log('GOPAY/TRANSFER', res)
+						this.setState({
+							token: res.token,
+							invoice: res.invoice,
+							redirect_url: res.redirect_url,
+							midtrans: res.midtrans_json
+						},() => {
+
+								// if(this.state.radio[2].status == true) {
+								// 	analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+								// } else {
+								// 	analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+								// }
+
+								if(this.state.redirect_url.length !== 0) {
+									
+									actNav.navigate(navConstant.ChoosePayment,{
+										...this.props.navigation.state.params,
+										token: this.state.token,
+										invoice: this.state.invoice,
+										redirect_url: this.state.redirect_url,
+										midtrans: this.state.midtrans,
+										gopay: this.state.payment_type == 'gopay' ? true : false,
+										validateTransactionStatus: this.validateTransactionStatus
+									});
+								} else {
+									// console.log('COD', res)
+									this.validateTransactionStatus();
+								}
+						});
+
+					} else {
+						
+						this.setState({
+							invoice: res.invoice,
+						}, () => {
+							// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+							this.validateTransactionStatus();
+						})
+					}
+				},
+				rej => {
+	
+				}
+			);
+			// actNav.navigate(navConstant.ChoosePayment)
+		// }
+		// else{
+		// 	actNav.navigate(navConstant.ChoosePayment,{
+		// 		...this.props.navigation.state.params,
+		// 		token: this.state.token,
+		// 		invoice: this.state.invoice,
+		// 		redirect_url: this.state.redirect_url,
+		// 		midtrans: this.state.midtrans,
+		// 		gopay: this.state.radio[2].status,
+		// 		validateTransactionStatus: this.validateTransactionStatus
+		// 	});
+		// }
+	}
+
+	validateTransactionStatus(paymentMethod, midtransObject){
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			type: 'validation',
+			invoice: this.state.invoice
+		}
+		this.props.detail_transaction(payload, 
+			(res) => {
+				this.setState({
+					token: '',
+					invoice: '',
+					redirect_url: '',
+				},() => {
+					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
+					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
+				})
+			},
+			(err) => {
+				if(paymentMethod == 'gopay') {
+					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
+					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
+				} else {
+					console.log('transaction status', err)
+					this.props.set_error_status({
+						status: true,
+						data: 'Pembayaran batal dilakukan.',
+						title: 'formError.title.paymentCanceled'
+					});
+				}
+			}
+		)
+	}
+
+	cancelGopayInvoice (invoice) {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				invoice: invoice
+			}
+		};
+
+		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())
+	}
+
+
   	render() {
 
 		return (
@@ -384,9 +523,9 @@ class Checkout extends Component {
 						<View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', position: 'absolute', left: 30, bottom: 15}}>
 							<Image
 								style={{width: 15, height: 15, marginRight: 10}}
-								source={images.info}
+								source={images.ic_info_grey}
 							/>
-													<StaticText
+							<StaticText
 							property	= 'checkout.content.confirmDate'
 							style			= { styles.text.confirmDate }
 						/>
@@ -394,19 +533,136 @@ class Checkout extends Component {
 
 					
 					</View>
-					
+					<View style = {styles.subcontainer.totalprice }>
+						<TotalPrice
+							type={'red'}
+							title={'checkout.content.checkout'}
+							subTotal={this.props.totalPrice}
+							grandTotal={this.state.grandTotalPrice}
+							delivery_price={this.props.delivery_price}
+							discount = {this.props.discount}
+							onPress={this.addressDateValidation}
+							action={'checkout'}
+							additional = {this.props.additional}
+							checkout={true}
+						/>
+					</View>
+
+					<View style={styles.subcontainer.paymentMethod}>
+						<View style={styles.subcontainer.paymentText}>
+							<StaticText
+									style={styles.paymentText}
+									property={'checkout.content.payment'}
+								/>
+						</View>
+						<View style={styles.outerContainer}>
+
+							<TouchableOpacity>
+								<View style={styles.radioContainer}>
+									<StaticText
+										style={styles.text.methods}
+										property={'checkout.methods.transfer'}
+									/>
+									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', height: 15}}>
+										<Image
+											resizeMode={'contain'}
+											source={images.icon_logo_bca}
+											style={styles.bank.bca}
+										/>
+										<Image
+											resizeMode={'contain'}
+											source={images.icon_logo_mandiri}
+											style={styles.bank.mandiri}
+										/>
+										<Image
+											resizeMode={'contain'}
+											source={images.bri_bank}
+											style={styles.bank.bri}
+										/>
+										
+									</View>
+												<Image
+													resizeMode={'contain'} 
+													source={images.icon_arrow_right_red}
+													style={styles.icon}
+												/>
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<View style={styles.radioContainer}>
+				
+									<StaticText
+										style={styles.text.methods}
+										property={'checkout.methods.creditCard'}
+									/>
+									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: -4, height: 15}}>
+										<Image
+											// resizeMode={'contain'}
+											source={images.icon_visa}
+											style={styles.bank.visa}
+										/>
+										<Image
+											resizeMode={'contain'}
+											source={images.master_card}
+											style={styles.bank.master}
+										/>
+										
+									</View>
+												<Image
+													resizeMode={'contain'} 
+													source={images.icon_arrow_right_red}
+													style={styles.icon}
+												/>
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<View style={styles.radioContainer}>
+									<StaticText
+										style={styles.text.methods}
+										property={'checkout.methods.gopay'}
+									/>
+									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: 10, height: 15}}>
+										<Image
+											resizeMode={'contain'}
+											source={images.logo_gopay}
+											style={styles.bank.gopay}
+										/>
+										
+									</View>
+												<Image
+													resizeMode={'contain'} 
+													source={images.icon_arrow_right_red}
+													style={styles.icon}
+												/>
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<View style={styles.radioContainer}>
+								<View>
+
+									<StaticText
+										style={styles.text.methods}
+										property={'checkout.methods.COD'}
+									/>
+									<StaticText
+										style={styles.text.codText}
+										property={'checkout.methods.codWarning'}
+									/>
+								</View>
+												<Image
+													resizeMode={'contain'} 
+													source={images.icon_arrow_right_red}
+													style={styles.icon}
+												/>
+								</View>
+							</TouchableOpacity>
+							
+						</View>
+
+					</View>
+
 				</ScrollView>
-				<TotalPrice
-						type={'red'}
-						title={'checkout.content.checkout'}
-						subTotal={this.props.totalPrice}
-						grandTotal={this.state.grandTotalPrice}
-						delivery_price={this.props.delivery_price}
-						discount = {this.props.discount}
-						onPress={this.addressDateValidation}
-						action={'checkout'}
-						// checkout={true}
-					/>
+
 				<DeliveryDate
 					getDeliveryDate={this.getDeliveryDate}
 					modalVisible={this.state.modalVisible.showDeliveryDate}
@@ -421,11 +677,13 @@ class Checkout extends Component {
 const mapStateToProps = (state) => ({
 	user: state.user.data,
 	addresses: state.user.address,
+	notif: state.notif.notification,
 	totalPrice: state.product.total.price,
 	discount: state.product.discount,
 	coupon_code: state.product.coupon_code,
 	delivery_price: state.product.delivery_price,
-	delivery_date: state.utility.delivery_date
+	delivery_date: state.utility.delivery_date,
+	additional: state.product.additional.credit_card,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -436,6 +694,7 @@ const mapDispatchToProps = (dispatch) => ({
 	get_delivery_date: (req, res, err) => dispatch(actions.utility.api.delivery_date(req,res,err)),
 	check_voucher_api: (req,res,err) => dispatch(actions.voucher.api.checkVoucherValidity(req,res,err)),
 	cancel_voucher: (req, res, err) => dispatch(actions.voucher.api.cancel_voucher(req, res, err)),
+	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

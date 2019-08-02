@@ -22,10 +22,12 @@ const styles = {
         paddingBottom: width * 0.03,
     },
     subcontainer:{
-        content:{
+        content: (checkout) => ({
             flex: -1,
             backgroundColor: colour.white,
-        },
+            paddingHorizontal: checkout ? scaling.moderateScale(30) : 0,
+            paddingVertical: checkout ? scaling.moderateScale(20): 0,
+        }),
         checkout: {
             marginTop: 10,
             flex: -1,
@@ -39,17 +41,18 @@ const styles = {
     },
     text:{
         title:{
-            fontFamily: 'Avenir-Roman',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
-            color: colour.darkGrey
+            color: colour.darkGrey,
+            
         },
         price:{
-            fontFamily: 'Avenir-Roman',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
-            color: colour.grey
+            color: '#9E9E9E'
         },
         total:{
-            fontFamily: 'Avenir-Roman',
+            fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.red
         }
