@@ -103,7 +103,7 @@ class TotalPrice extends Component {
         // const additional = numeral(this.props.additional).format('0,0');
         // const discount = numeral(this.props.additional).format('0,0');
         
-        let subTotal = numeral(this.props.subTotal).format('0,0');
+        let subTotal = numeral(this.props.subtotalHistory).format('0,0');
         let deliveryPrice = numeral(this.props.delivery_price).format('0,0');
         let additional = numeral(this.props.additional).format('0,0');
         let discount = numeral(this.props.additional).format('0,0');

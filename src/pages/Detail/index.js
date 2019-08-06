@@ -82,7 +82,7 @@ class Detail extends Component {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
-
+		// console.warn(this.props.detailTransaction.sub_total)
 	}
 
 	clearNotification() {
@@ -530,6 +530,7 @@ class Detail extends Component {
 					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.state.deliveryPrice}
 					action={this.props.navigation.state.params.action}
+					subtotalHistory={this.props.detailTransaction.sub_total}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 					discount={this.props.discount}
