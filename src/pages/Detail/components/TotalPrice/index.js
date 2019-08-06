@@ -44,12 +44,19 @@ class TotalPrice extends Component {
     }
 
     _renderButton() {
+        console.warn('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', this.props.status)
         if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 
                     if(this.props.paymentMethod == 'cash_on_delivery') {
-                        return null
-                    } else {
+                        return (
+                                <Button
+                                    type={this.props.type}
+                                    onPress={this.navigateToCart}
+                                    title={'historyDetail.content.reOrder'}
+                                />
+                            )
+                        } else {
                         return (
                             <>
                             <Button
@@ -75,6 +82,22 @@ class TotalPrice extends Component {
                         />
                     )
                 case 'failed': 
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
+                case 'expired':
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
+                case 'paid': 
                     return (
                         <Button
                             type={this.props.type}

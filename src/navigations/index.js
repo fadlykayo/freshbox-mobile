@@ -32,7 +32,12 @@ import OTP from '@pages/OTP'
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    ProductList: {screen: ProductList}
+    ProductList: {screen: ProductList},
+    HistoryPage: {screen: HistoryPage},
+    Favourites: {screen: Favourites},
+    TermsConditions: {screen: TermsConditions},
+    PrivacyPolicy: {screen: PrivacyPolicy},
+    ContactUs: {screen: ContactUs},
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,

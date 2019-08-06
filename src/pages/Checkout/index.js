@@ -357,7 +357,7 @@ class Checkout extends Component {
 				body: {
 					address_code: address.code,
 					request_shipping_date: this.state.date.value,
-					cash_on_delivery: this.state.payment_type == 'cod' ? true : false,
+					cash_on_delivery: method == 'cod' ? true : false,
 					coupon_code: this.props.coupon_code,
 					discount_ammount: this.props.discount,
 					payment_type: method,

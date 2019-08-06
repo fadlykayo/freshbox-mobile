@@ -92,9 +92,10 @@ class DrawerPage extends Component {
 	}
 	
 	actToNavigate(input) {
+		
 		if(input == 'drawerPage.pages.history') {
 			actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer, refreshProductList: this.refreshProductList});
-		} else {
+		} else {			
 			actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer});
 		}
 	}

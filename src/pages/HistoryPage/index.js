@@ -36,6 +36,9 @@ class HistoryPage extends Component {
 	}
 
 	componentDidMount() {
+		const parent = this.props.navigation.dangerouslyGetParent();
+		const isDrawerOpen = parent && parent.state && parent.state.isDrawerOpen;
+		console.log(this.props.navigation.closeDrawer)
 		if(this.props.transactions.length == 0) {
 			this.getHistoryData();
 		} else {

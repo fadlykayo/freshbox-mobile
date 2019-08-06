@@ -41,6 +41,7 @@ class ProductList extends Component {
 			listLoading: false,
 			wasSearching: false,
 			broadcast_message: '',
+			drawerVisible: false,
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -88,8 +89,6 @@ class ProductList extends Component {
 			permission.requestSaveExternal();
 		}
 	}
-
-
 
 	shouldComponentUpdate(nextProps,nextState){
 		if(nextProps.total_count == 0) this.outroAnimate();
