@@ -15,6 +15,7 @@
 #import <RNGoogleSignin.h>
 #import <React/RCTLinkingManager.h>
 #import <MidtransKit/MidtransKit.h>
+#import <Firebase.h>
 
 @implementation AppDelegate
 @synthesize oneSignal = _oneSignal;
@@ -26,6 +27,7 @@
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];  // Initialize AppCenter crashes
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];  // Initialize AppCenter analytics
   [AppCenterReactNative register];  // Initialize AppCenter
+  [FIRApp configure]; //Firebase Init
   NSURL *jsCodeLocation;
 
   
