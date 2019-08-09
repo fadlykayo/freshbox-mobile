@@ -336,9 +336,9 @@ class Detail extends Component {
 						},() => {
 
 								if(this.state.radio[2].status == true) {
-									analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+									// analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
 								} else {
-									analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+									// analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
 								}
 
 								if(this.state.redirect_url.length !== 0) {
@@ -363,7 +363,7 @@ class Detail extends Component {
 						this.setState({
 							invoice: res.invoice,
 						}, () => {
-							analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+							// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
 							this.validateTransactionStatus();
 						})
 					}
@@ -435,7 +435,7 @@ class Detail extends Component {
 			}
 			
 		}
-		console.warn(type)
+		// console.warn(type)
 		this.setState({
 			radio: radio,
 			payment_type: type

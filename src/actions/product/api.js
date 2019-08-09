@@ -136,7 +136,7 @@ actions.search_products = (req, success, failure) => {
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {
-								analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
+								// analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
 							}
 							success(res)
 							dispatch(actReducer.search_products(req.params, res.data));

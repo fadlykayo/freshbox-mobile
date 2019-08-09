@@ -111,7 +111,7 @@ class SignIn extends Component {
         this.props.sign_in(payload,
             (res) => {
                 if (this.props.navigation.state.params.action == "menuLogin") {
-                    analytics.trackEvent('Login Methods', {type: 'Phone Number'});
+                    // analytics.trackEvent('Login Methods', {type: 'Phone Number'});
                     actNav.reset(navConstant.Product);
                 }
                 else if (this.props.navigation.state.params.action == "guestLogin") {
@@ -167,7 +167,7 @@ class SignIn extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
-                    analytics.trackEvent('Login Methods', {type: 'Facebook'});
+                    // analytics.trackEvent('Login Methods', {type: 'Facebook'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {
@@ -212,7 +212,7 @@ class SignIn extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
-                    analytics.trackEvent('Login Methods', {type: 'Gmail'});
+                    // analytics.trackEvent('Login Methods', {type: 'Gmail'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {

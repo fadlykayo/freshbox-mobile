@@ -21,8 +21,8 @@ target 'Freshbox' do
   # Pods for Freshbox
   pod 'GoogleSignIn'
   # Required by RNFirebase
-  pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
+  pod 'Firebase/Core', '~> 6.3.0'
+  pod 'Firebase/Analytics', '~> 6.3.0'
   pod 'GoogleIDFASupport'
 
   shared_pods

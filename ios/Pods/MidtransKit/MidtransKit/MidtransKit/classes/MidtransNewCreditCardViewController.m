@@ -127,7 +127,7 @@ UIAlertViewDelegate
     else {
         self.maskedCards = [NSMutableArray new];
     }
-    NSLog(@"self.maskedCards-->%@",self.maskedCards);
+
     self.bniPointActive = NO;
     self.mandiriPointActive = NO;
     self.installmentCurrentIndex = 0;
@@ -168,7 +168,7 @@ UIAlertViewDelegate
     
     self.isSaveCard = [CC_CONFIG setDefaultCreditSaveCardEnabled];
     self.showUserForm = [CC_CONFIG showFormCredentialsUser];
-    self.view.userDetailViewWrapper.alpha = 0.0;
+    self.view.userDetailViewWrapper.hidden = YES;
     self.view.userDetailViewWrapperConstraints.constant = 0.0f;
     self.view.contactEmailTextField.text = self.responsePayment.customerDetails.email;
     self.view.contactPhoneNumberTextField.text = self.responsePayment.customerDetails.phone;
@@ -176,7 +176,6 @@ UIAlertViewDelegate
         self.view.contactEmailTextField.text = self.responsePayment.customerDetails.email;
         self.view.contactPhoneNumberTextField.text = self.responsePayment.customerDetails.phone;
         self.view.userDetailViewWrapper.hidden = NO;
-        self.view.userDetailViewWrapper.alpha = 1.0f;
         self.view.userDetailViewWrapperConstraints.constant = 150.0f;
     }
     if ([CC_CONFIG saveCardEnabled] && (self.maskedCreditCard == nil)) {
@@ -270,9 +269,9 @@ UIAlertViewDelegate
 - (void)totalAmountBorderedViewTapped:(id) sender {
     MidtransTransactionDetailViewController *transactionViewController = [[MidtransTransactionDetailViewController alloc] initWithNibName:@"MidtransTransactionDetailViewController" bundle:VTBundle];
     if (!self.selectedPromos) {
-        [transactionViewController presentAtPositionOfView:self.view.totalAmountBorderedView items:self.token.itemDetails];
+        [transactionViewController presentAtPositionOfView:self.view.totalAmountBorderedView items:self.token.itemDetails grossAmount:self.token.transactionDetails.grossAmount];
     } else {
-        [transactionViewController presentAtPositionOfView:self.view.totalAmountBorderedView items:self.token.itemDetails WithPromoSelected:self.selectedPromos];
+        [transactionViewController presentAtPositionOfView:self.view.totalAmountBorderedView items:self.token.itemDetails WithPromoSelected:self.selectedPromos grossAmount:self.token.transactionDetails.grossAmount];
     }
     
 }
@@ -743,15 +742,19 @@ UIAlertViewDelegate
                 }
             }
             
-            if (self.installmentAvailable) {
+            if (self.installmentAvailable) {                
+                if ([self.filteredBinObject.bank isEqualToString:@"other"]) {
+                    self.installmentBankName = @"offline";
+                }
+                else {
+                    self.installmentBankName = self.filteredBinObject.bank;
+                }
                 
                 if (!isDebitCard) {
-                    self.installmentBankName = self.filteredBinObject.bank;
                     [self.installmentValueObject setArray:@[@"0"]];
                     [self.installmentValueObject addObjectsFromArray:[self.installment.terms objectForKey:self.installmentBankName]];
                     [self showInstallmentView:YES];
                 }
-                
             }
         }
         else {
@@ -884,7 +887,8 @@ UIAlertViewDelegate
     
     if (self.bins.count) {
         NSError *error;
-        if (![MidtransClient isCreditCardNumber:cardNumber eligibleForBins:self.bins error:&error]) {
+        if (![MidtransClient isCreditCardNumber:cardNumber eligibleForBins:self.bins error:&error] &&
+            ![MidtransClient isCreditCardNumber:self.filteredBinObject.bank eligibleForBins:self.bins error:&error]) {
             [self.view isViewableError:error];
             return;
         }
@@ -979,10 +983,14 @@ UIAlertViewDelegate
 }
 
 - (void)payWithToken:(NSString *)token {
-    self.token.customerDetails.phone = self.view.contactPhoneNumberTextField.text;
-    self.token.customerDetails.email = self.view.contactEmailTextField.text;
+    if (self.view.contactPhoneNumberTextField.text.length > 0) {
+        self.token.customerDetails.phone = self.view.contactPhoneNumberTextField.text;
+    }
     
-    
+    if (self.view.contactEmailTextField.text.length > 0) {
+        self.token.customerDetails.email = self.view.contactEmailTextField.text;
+    }
+        
     MidtransPaymentCreditCard *paymentDetail = [MidtransPaymentCreditCard modelWithToken:token
                                                                                 customer:self.token.customerDetails
                                                                                 saveCard:self.isSaveCard

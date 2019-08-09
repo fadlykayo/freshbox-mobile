@@ -44,7 +44,7 @@ class TotalPrice extends Component {
     }
 
     _renderButton() {
-        console.warn('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', this.props.status)
+        // console.warn('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', this.props.status)
         if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 

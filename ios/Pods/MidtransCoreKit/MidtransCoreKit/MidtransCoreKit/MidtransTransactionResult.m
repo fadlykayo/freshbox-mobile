@@ -21,14 +21,15 @@
 @property (nonatomic, readwrite) NSDate *transactionTime;
 @property (nonatomic, readwrite) NSNumber *grossAmount;
 @property (nonatomic, readwrite) NSString *indomaretPaymentCode;
+@property (nonatomic, readwrite) NSString *alfamartExpireTime;
 @property (nonatomic, readwrite) NSString *kiosonExpireTime;
 @property (nonatomic, readwrite) NSString *mandiriBillpayCode;
-@property (nonatomic,readwrite) NSString *qrcodeUrl;
-@property (nonatomic,readwrite) NSString *deeplinkUrl;
+@property (nonatomic, readwrite) NSString *qrcodeUrl;
+@property (nonatomic, readwrite) NSString *deeplinkUrl;
 @property (nonatomic, readwrite) NSString *mandiriBillpayCompanyCode;
 @property (nonatomic, readwrite) NSString *virtualAccountNumber;
-
 @property (nonatomic, readwrite) NSURL *redirectURL;
+
 @end
 
 @implementation MidtransTransactionResult
@@ -44,7 +45,6 @@
         self.transactionStatus = [mResponse objectThenDeleteForKey:@"transaction_status"];
         self.orderId = [mResponse objectThenDeleteForKey:@"order_id"];
         self.paymentType = [mResponse objectThenDeleteForKey:@"payment_type"];
-        NSLog(@"daata-->%@",mResponse);
         id rawGrossAmount = [mResponse objectThenDeleteForKey:@"gross_amount"];
         if (rawGrossAmount) {
             self.grossAmount = @([rawGrossAmount doubleValue]);
@@ -66,6 +66,9 @@
         }
         if (response[@"kioson_expire_time"]) {
              self.kiosonExpireTime = response[@"kioson_expire_time"];
+        }
+        if (response[@"alfamart_expire_time"]) {
+            self.alfamartExpireTime = response[@"alfamart_expire_time"];
         }
         if (response[@"payment_code"]) {
             self.indomaretPaymentCode = response[@"payment_code"];

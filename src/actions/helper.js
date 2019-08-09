@@ -69,7 +69,7 @@ helper.post = (payload,dispatch) => new Promise((resolve,reject) => {
             }
         })
     .then(response => {
-        // console.log('http response',response);
+        // console.warn('http response',response);
         dispatch(actNetwork.set_loading_status(false));
         resolve(response.data);
     })

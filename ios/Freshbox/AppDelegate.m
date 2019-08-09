@@ -47,7 +47,7 @@
                                                    launchOptions:launchOptions];
   self.rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                         appId:@"1a6751a7-bcef-4a4c-8ae5-f95484cede94"
+                                                         appId:@"c1f39bb2-11d8-4ebf-b836-61a0131fb3fa"
                                                       settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
