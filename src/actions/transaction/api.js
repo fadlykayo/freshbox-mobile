@@ -106,7 +106,7 @@ actions.request_snap_token = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Request Snap Token res ->',res);
+        	console.log('Request Snap Token res ->',res);
         	if(res.code){
         		if(res.code == 200){
 							analytics.trackEvent('Purchase Orders', {status: 'Pending'});
