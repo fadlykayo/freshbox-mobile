@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import android.content.Intent;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
@@ -85,6 +86,10 @@ public class GoPayModule extends ReactContextBaseJavaModule {
       TransactionRequest transactionRequest = new TransactionRequest(transID.getString("order_id"), transID.getInt("gross_amount"));
       transactionRequest.setGopay(new Gopay("freshbox://payment"));
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
+//      Intent intentA = new Intent();
+//      intentA.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//      mContext.startActivity(intentA);
+
       MidtransSDK.getInstance().startPaymentUiFlow(mContext, PaymentMethod.GO_PAY, token);
 
 

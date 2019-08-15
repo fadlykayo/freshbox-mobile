@@ -648,7 +648,7 @@ messageOrderSuccess = () => {
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity onPress = {() => this.addressDateValidation('cod')}>
+							{/* <TouchableOpacity onPress = {() => this.addressDateValidation('cod')}>
 								<View style={styles.radioContainer}>
 								<View>
 
@@ -667,7 +667,7 @@ messageOrderSuccess = () => {
 													style={styles.icon}
 												/>
 								</View>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 							
 						</View>
 
