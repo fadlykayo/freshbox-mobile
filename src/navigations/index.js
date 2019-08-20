@@ -28,6 +28,7 @@ import VirtualAccount from '@pages/VirtualAccount';
 import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
 import OTP from '@pages/OTP'
+import Dashboard from '@pages/Dashboard';
 import { analytics } from '@helpers';
 
 let _navigator;
@@ -39,6 +40,7 @@ export const DrawerBar = createDrawerNavigator({
     TermsConditions: {screen: TermsConditions},
     PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
+    Dashboard: {screen: Dashboard},
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -71,6 +73,7 @@ export const AppNavigator = createStackNavigator({
     ContactUs: {screen: ContactUs},
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
+    Dashboard: {screen: Dashboard},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
