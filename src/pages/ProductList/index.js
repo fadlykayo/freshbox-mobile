@@ -321,7 +321,7 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
-			params: ...this.props.params
+			params: this.props.params
 		}
 		this.props.get_products(payload,
 			() => {
