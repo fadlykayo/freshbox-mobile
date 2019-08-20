@@ -4,6 +4,12 @@ import android.app.Application;
 
 //import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+// //
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+// // this is the import that fixed my issue
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -55,6 +61,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseAnalyticsPackage(),
+            // new RNFirebaseMessagingPackage(),
+            // new RNFirebaseNotificationsPackage(),
         new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
         new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
         new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),

@@ -10,7 +10,7 @@ class Button extends PureComponent {
     }
 
     render(){
-        console.warn(width, height)
+        // console.warn(width, height)
         switch(this.props.type){
             case 'get_started':
                 return(

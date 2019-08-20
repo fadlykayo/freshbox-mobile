@@ -16,15 +16,15 @@ class TotalPrice extends Component {
         let additional = numeral(this.props.additional).format('0,0');
         let discount = numeral(this.props.additional).format('0,0');
         let grandTotal = numeral(this.props.grandTotal).format('0,0');
-        console.warn(grandTotal, 'total price')
+        // console.warn(grandTotal, 'total price')
 
         if(this.props.discount) {
             
             let totalDiscount = parseInt(this.props.additional) + parseInt(this.props.discount);
             discount = numeral(totalDiscount).format('0,0');
 
-            console.warn(this.props.discount, 'props dicsount')
-            console.warn(this.props.additional, 'props additional')
+            // console.warn(this.props.discount, 'props dicsount')
+            // console.warn(this.props.additional, 'props additional')
         } else {
             discount = numeral(this.props.additional).format('0,0');
         };

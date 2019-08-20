@@ -6,26 +6,29 @@ import { analytics } from '@helpers';
 
 const actions = {};
 
-let payload = {
-	path: '',
-	header: {
-		apiToken: '',
-		oneSignalToken: '',
-	},
-	body: {},
-	params: {}
-};
+// let payload = {
+// 	path: '',
+// 	header: {
+// 		apiToken: '',
+// 		oneSignalToken: '',
+// 	},
+// 	body: {},
+// 	params: {}
+// };
+
+let payload2 = {};
+let payload = {};
 
 
 actions.get_products = (req,success,failure) => {
-	// console.log("payload get_products",req);
 	
-	payload.path = path.getProducts;
-	payload.header = req.header;
-	payload.params = req.params;
-	
+	payload2.path = path.getProducts;
+	payload2.header = req.header;
+	payload2.params = req.params;
+
+
 	return dispatch => {
-        requestHandler('get',payload,dispatch, true)
+        requestHandler('get',payload2,dispatch, true)
         .then((res) => {
         	// console.log('Get Products res ->',res);
         	if(res.code){
@@ -136,7 +139,7 @@ actions.search_products = (req, success, failure) => {
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {
-								analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
+								// analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
 							}
 							success(res)
 							dispatch(actReducer.search_products(req.params, res.data));

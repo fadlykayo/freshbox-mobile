@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { scaling } from '@helpers';
 import { colour } from '@styles'
 
@@ -13,12 +13,21 @@ const styles = {
     },
     content: (gopay) => {
         if(gopay) {
-            return (
-                {flex: 1,
-                // backgroundColor: colour.white,
-                alignItems: 'center',
-                justifyContent: 'center',}
-            )
+            if(Platform.OS == 'ios') {
+                return (
+                    {flex: 1,
+                    // backgroundColor: colour.white,
+                    alignItems: 'center',
+                    justifyContent: 'center',}
+                )
+            } else {
+                return (
+                    {
+                        flex: 1
+                    }
+                )
+            }
+
         } else {
             return ({
                 flex: 1,

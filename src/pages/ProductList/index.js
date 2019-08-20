@@ -558,7 +558,7 @@ class ProductList extends Component {
 				// stock: 'tersedia',
 				sort: 'nama-az',
 				name: this.state.searchItem,
-				category_code: category_code
+				category_code: category_code,
 			}
 		}
 
