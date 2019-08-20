@@ -194,6 +194,7 @@ actions.forgot_password = (req, success, failure) => {
         .then((res) => {
         	if(res.code){
         		if(res.code == 200){
+							console.log('forgot password res ====>', res)
         			success(res);
         		}
         	}
@@ -202,6 +203,7 @@ actions.forgot_password = (req, success, failure) => {
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
+						console.log('forgot password err ====>', err)
         		switch(err.code){
 							case 400: return failure(err);
 							case 403: return failure(err);
@@ -228,6 +230,7 @@ actions.reset_password = (req,success,failure) => {
         .then((res) => {
         	if(res.code){
         		if(res.code == 200){
+							console.log('reset password res ====>', res)
 							dispatch(actReducer.sign_in(res.data));
         			success(res);
         		}
@@ -237,6 +240,7 @@ actions.reset_password = (req,success,failure) => {
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
+						console.log('reset password err ====>', err)
         		switch(err.code){
         			case 400: return failure(err);
         			default:

@@ -34,7 +34,7 @@
   #else
     jsCodeLocation = [CodePush bundleURL];
   #endif
-
+//  jsCodeLocation = [CodePush bundleURL];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
