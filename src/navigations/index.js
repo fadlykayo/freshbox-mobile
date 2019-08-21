@@ -34,13 +34,14 @@ import { analytics } from '@helpers';
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
+    Dashboard: {screen: Dashboard},
     ProductList: {screen: ProductList},
     HistoryPage: {screen: HistoryPage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
     PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
-    Dashboard: {screen: Dashboard},
+    
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -73,9 +74,9 @@ export const AppNavigator = createStackNavigator({
     ContactUs: {screen: ContactUs},
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
-    Dashboard: {screen: Dashboard},
+    Dashboard: DrawerBar,
 },{
-    initialRouteName  : 'Dashboard',
+    initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
@@ -131,6 +132,7 @@ export const navConstant = {
     OnBoarding: 'OnBoarding',
     TransferInstruction: 'TransferInstruction',
     OTP: 'OTP',
+    Dashboard: 'Dashboard',
 }
 
 export const setNavigator = (navigatorRef) => {
