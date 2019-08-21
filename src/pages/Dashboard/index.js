@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Keyboard } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import Container from '@components/Container';
 import SearchComponent from '../ProductList/components/SearchComponent';
+import ProfileBlock from './components/ProfileBlock';
+import Carousel from './components/Carousel';
+import styles from './styles';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -75,6 +78,7 @@ class Dashboard extends Component {
         bgColorBottom = {'veryLightGrey'}
         bgColorTop={'red'}
       >
+
       <SearchComponent
         type={'searchItem'}
         title={'productList.searchPlaceHolder'}
@@ -84,7 +88,15 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
-        
+      <View
+        style={styles.content2}
+      >
+      
+      </View>
+
+      <ProfileBlock/>
+      <Carousel/>
+      
 
       </Container>
 
