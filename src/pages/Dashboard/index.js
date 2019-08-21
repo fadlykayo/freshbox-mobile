@@ -5,6 +5,8 @@ import Container from '@components/Container';
 import SearchComponent from '../ProductList/components/SearchComponent';
 import ProfileBlock from './components/ProfileBlock';
 import Carousel from './components/Carousel';
+import PromoList from './components/PromoList';
+import actions from '@actions';
 import styles from './styles';
 
 class Dashboard extends Component {
@@ -15,6 +17,27 @@ class Dashboard extends Component {
     }
 
   }
+  componentDidMount() {
+    this.getProductList()
+  }
+
+  getProductList = () => {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			params: this.props.params
+		}
+		this.props.get_products(payload,
+			() => {
+				console.warn('success')
+			},
+			(err) => {
+				// console.log(err);
+			}
+		);
+	}
+  
   onChangeText = (type, value) => {
     let state = JSON.parse(JSON.stringify(this.state));
 		state[type] = value;
@@ -72,6 +95,14 @@ class Dashboard extends Component {
 		// console.log(this.props.navigation.openDrawer)
 	}
 
+  renderSpacer = () => {
+    return (
+      <View
+        style={styles.spacer}
+      />
+    )
+  }
+
   render() {
     return (
       <Container
@@ -88,16 +119,22 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
-      <View
-        style={styles.content2}
-      >
       
-      </View>
 
       <ProfileBlock/>
-      <Carousel/>
+      <View style={styles.content2}>
+
+        {this.renderSpacer()}
+
+        <PromoList
+          product = {this.props.product}
+        />
+
+      </View>
+       <Carousel/>
       
 
+     
       </Container>
 
     )
@@ -108,10 +145,14 @@ const mapStateToProps = state => ({
   user: state.user.data,
   on_category: state.product.on_category,
 	categories: state.product.categories,
+  product: state.product.products,
+  params: state.product.params,
 })
 
 const mapDispatchToProps = dispatch => ({
   search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
+  get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

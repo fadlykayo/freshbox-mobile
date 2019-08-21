@@ -12,12 +12,15 @@ const style = {
   },
   content2: {
     backgroundColor: colour.white,
-    height: height * 0.7,
+    height: height * 0.73,
     width: width,
     position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+  },
+  spacer: {
+    height: height * 0.13
   }
 }
 

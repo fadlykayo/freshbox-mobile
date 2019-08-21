@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window');
 const style = {
   container: {
     position: 'absolute',
-    top: 150,
+    top: 120,
     left: 20
   },
   carousel: {
@@ -22,7 +22,7 @@ const style = {
       width: 100,
       backgroundColor: 'blue',
       position: 'absolute',
-      bottom: 5,
+      bottom: 10,
       alignSelf: 'center',
     }
   }
