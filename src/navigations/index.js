@@ -75,7 +75,7 @@ export const AppNavigator = createStackNavigator({
     OTP: {screen: OTP},
     Dashboard: {screen: Dashboard},
 },{
-    initialRouteName  : 'SplashScreen',
+    initialRouteName  : 'Dashboard',
     headerMode        : 'none',
     transitionConfig: () => ({
         transitionSpec: {
