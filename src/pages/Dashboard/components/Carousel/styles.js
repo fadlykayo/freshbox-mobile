@@ -7,12 +7,12 @@ const { height, width } = Dimensions.get('window');
 const style = {
   container: {
     position: 'absolute',
-    top: 120,
+    top: 70,
     left: 20
   },
   carousel: {
     container: {
-      height: height * 0.2,
+      height: height * 0.19,
       width: width * 0.9,
       backgroundColor: 'pink',
       borderRadius: 20,

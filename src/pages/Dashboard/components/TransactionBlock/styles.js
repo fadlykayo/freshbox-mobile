@@ -2,12 +2,10 @@ import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
 
-const { height, width } = Dimensions.get('window');
-
 const style = {
-
   container: {
     flex: 1,
+    // backgroundColor: 'pink'
   },
   top: {
     container: {
@@ -32,14 +30,6 @@ const style = {
       color: colour.red
     }
   },
-  promo: {
-    container: {
-      flex: 1,
-      paddingVertical: 10,
-      paddingLeft: 15,
-    }
-  },
-
 }
 
 export default style

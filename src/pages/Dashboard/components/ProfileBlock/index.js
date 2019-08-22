@@ -19,6 +19,7 @@ export default class ProfileBlock extends Component {
             style={styles.picture.image}
           />
         </View>
+        <View style={styles.bottom.whiteRound}/>
       </View>
     )
   }

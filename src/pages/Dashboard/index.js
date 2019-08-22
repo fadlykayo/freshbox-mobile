@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Keyboard } from 'react-native';
+import { View, Text, Keyboard, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Container from '@components/Container';
 import SearchComponent from '../ProductList/components/SearchComponent';
 import ProfileBlock from './components/ProfileBlock';
 import Carousel from './components/Carousel';
 import PromoList from './components/PromoList';
+import TransactionBlock from './components/TransactionBlock';
+import Categories from './components/Categories';
 import actions from '@actions';
 import styles from './styles';
 
@@ -18,7 +20,8 @@ class Dashboard extends Component {
 
   }
   componentDidMount() {
-    this.getProductList()
+    this.getProductList();
+    this.getCategories();
   }
 
   getProductList = () => {
@@ -32,6 +35,19 @@ class Dashboard extends Component {
 			() => {
 				console.warn('success')
 			},
+			(err) => {
+				// console.log(err);
+			}
+		);
+	}
+
+  getCategories = () => {
+		let payload = {
+			header: {},
+			params: {}
+		}
+		this.props.get_categories(payload,
+			() => {},
 			(err) => {
 				// console.log(err);
 			}
@@ -95,14 +111,6 @@ class Dashboard extends Component {
 		// console.log(this.props.navigation.openDrawer)
 	}
 
-  renderSpacer = () => {
-    return (
-      <View
-        style={styles.spacer}
-      />
-    )
-  }
-
   render() {
     return (
       <Container
@@ -119,21 +127,32 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
+      <ScrollView style={styles.scrollView}>
+        <ProfileBlock/>
+
+        <View style={styles.whiteBackground}>
+        
+          <View
+            style={styles.spacer}
+          />
+          <PromoList
+            product = {this.props.product}
+          />
+          <Categories
+            categories = {this.props.categories}
+          />
+          <TransactionBlock/>
+        </View>
+
+        
+
+        <Carousel/>
+      </ScrollView>
+        
+
+
       
-
-      <ProfileBlock/>
-      <View style={styles.content2}>
-
-        {this.renderSpacer()}
-
-        <PromoList
-          product = {this.props.product}
-        />
-
-      </View>
-       <Carousel/>
       
-
      
       </Container>
 
@@ -152,6 +171,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
   get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+  get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 
 })
 

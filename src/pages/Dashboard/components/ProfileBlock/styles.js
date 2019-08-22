@@ -1,11 +1,13 @@
 import { Dimensions, Platform } from 'react-native';
 import { colour } from '@styles';
 import { scaling } from '@helpers';
+const { height, width } = Dimensions.get('window');
 
 const style = {
   container: {
-    flex: 1,
-    jsutifyContent: 'flex-end'
+    height: height * 0.25,
+    width: width,
+    backgroundColor: colour.red,
   },
   user: {
     content: {
@@ -38,6 +40,14 @@ const style = {
       width: 40,
       height: 40,
       borderRadius: 20,
+    }
+  },
+  bottom: {
+    whiteRound: {
+      height: height * 0.1,
+      backgroundColor: colour.white,
+      borderTopLeftRadius: 25,
+      borderTopRightRadius: 25,
     }
   }
 }

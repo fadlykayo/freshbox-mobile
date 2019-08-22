@@ -22,7 +22,7 @@ const styles = {
         else {
             return {
                 flex: 1,
-                backgroundColor: colour.red
+                backgroundColor: colour.white
             }
         }
     },
