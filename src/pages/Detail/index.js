@@ -40,8 +40,15 @@ class Detail extends Component {
 						name:'gopay',
 						status:false,
 					},
-				]
-			}
+					{
+						name:'credit_card',
+						status:false,
+					},
+					
+				],
+			payment_type: 'transfer'
+			},
+			
 		this._onRefresh = this._onRefresh.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -75,7 +82,7 @@ class Detail extends Component {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
-
+		// console.warn(this.props.detailTransaction.sub_total)
 	}
 
 	clearNotification() {
@@ -311,8 +318,11 @@ class Detail extends Component {
 					cash_on_delivery: this.state.radio[0].status,
 					coupon_code: this.props.coupon_code,
 					discount_ammount: this.props.discount,
+					payment_type: this.state.payment_type,
 				}
 			}
+
+			// console.log('coba', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
@@ -326,9 +336,9 @@ class Detail extends Component {
 						},() => {
 
 								if(this.state.radio[2].status == true) {
-									analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+									// analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
 								} else {
-									analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+									// analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
 								}
 
 								if(this.state.redirect_url.length !== 0) {
@@ -353,7 +363,7 @@ class Detail extends Component {
 						this.setState({
 							invoice: res.invoice,
 						}, () => {
-							analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+							// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
 							this.validateTransactionStatus();
 						})
 					}
@@ -425,8 +435,10 @@ class Detail extends Component {
 			}
 			
 		}
+		// console.warn(type)
 		this.setState({
-			radio: radio
+			radio: radio,
+			payment_type: type
 		});
 
 	}
@@ -482,7 +494,10 @@ class Detail extends Component {
 						this.props.navigation.state.params.action !== 'history'
 						? <View style={styles.outerContainer}>
 								<View style={styles.radioContainer}>
-									<Text style={styles.text}>Transfer/CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+									<Text style={styles.text}>Transfer</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+								</View>
+								<View style={styles.radioContainer}>
+									<Text style={styles.text}>CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('credit_card')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[3].status)}></View></View></TouchableOpacity>
 								</View>
 								<View style={styles.radioContainer}>
 									<Text style={styles.text}>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
@@ -515,6 +530,7 @@ class Detail extends Component {
 					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.state.deliveryPrice}
 					action={this.props.navigation.state.params.action}
+					subtotalHistory={this.props.detailTransaction.sub_total}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 					discount={this.props.discount}

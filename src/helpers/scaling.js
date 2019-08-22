@@ -13,7 +13,7 @@ scaling.moderateScale = (size, factor = 0.5) => Math.round(size + ( scaling.scal
 scaling.moderateVScale = (size, factor = 0.5) => Math.round(size + ( scaling.verticalScale(size) - size ) * factor);
 scaling.isIphone5s = () => {
   if (width <= 320 && height <= 568) {
-    console.warn('masuk sini')
+    // console.warn('masuk sini')
     return true
   } else {
     return false

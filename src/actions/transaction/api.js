@@ -109,7 +109,7 @@ actions.request_snap_token = (req,success,failure) => {
         	console.log('Request Snap Token res ->',res);
         	if(res.code){
         		if(res.code == 200){
-							analytics.trackEvent('Purchase Orders', {status: 'Pending'});
+							// analytics.trackEvent('Purchase Orders', {status: 'Pending'});
 							success(res.data);
         		}
         	}
@@ -302,17 +302,20 @@ actions.detail_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Detail Transaction res',res);
+        	// console.warn('Get Detail Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 							if(req.type){
 								if(res.data.status == 'pending_payment') {
 									if(res.data.payment_method == "gopay") {
+										dispatch(actReducer.detail_transaction(res.data))
 										failure(res)
 									} else {
+										dispatch(actReducer.detail_transaction(res.data))
 										success(res)
 									}
 								} else {
+									dispatch(actReducer.detail_transaction(res.data))
 									success(res);
 								}
 								// success(res);

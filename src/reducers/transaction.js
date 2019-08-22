@@ -19,17 +19,17 @@ const getTransactions = (state, payload) => {
         newState.params.page = payload.data.current_page + 1;
     }
 
-    for(x in incomingProducts){
-        let sameValue = false;
-        for(y in existingProducts){
-            if(incomingProducts[x].invoice == existingProducts[y].invoice){
-                existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
-                sameValue = true;
-                break;
-            }
-        }
-        if(sameValue == false) existingProducts.push(incomingProducts[x]);
-    }
+    // for(x in incomingProducts){
+    //     let sameValue = false;
+    //     for(y in existingProducts){
+    //         if(incomingProducts[x].invoice == existingProducts[y].invoice){
+    //             existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+    //             sameValue = true;
+    //             break;
+    //         }
+    //     }
+    //     if(sameValue == false) existingProducts.push(incomingProducts[x]);
+    // }
 
     newState.transactions = incomingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
     return newState

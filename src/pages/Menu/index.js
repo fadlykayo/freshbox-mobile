@@ -72,7 +72,7 @@ class Menu extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
-                    analytics.trackEvent('Login Methods', {type: 'Facebook'});
+                    // analytics.trackEvent('Login Methods', {type: 'Facebook'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {
@@ -117,7 +117,7 @@ class Menu extends Component {
 
             this.props.sign_in_socmed(payload,
                 () => {
-                    analytics.trackEvent('Login Methods', {type: 'Google'});
+                    // analytics.trackEvent('Login Methods', {type: 'Google'});
                     actNav.reset(navConstant.Product)
                 },
                 (err) => {

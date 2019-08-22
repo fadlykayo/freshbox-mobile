@@ -10,17 +10,19 @@ import { PersistGate } from 'redux-persist/integration/react';
 import rootReducer from '@reducers';
 import codePush from "react-native-code-push";
 import ct from '@constants';
+import { analytics } from '@helpers';
+import { store, persistor } from './src/store';
 
-const persistConfig = {
-	key: 'root',
-	storage,
-	blacklist: ['product']
-};
+// const persistConfig = {
+// 	key: 'root',
+// 	storage,
+// 	blacklist: ['product']
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-// const store = createStore(persistedReducer,compose(applyMiddleware(thunk,logger)));
-const store = createStore(persistedReducer,compose(applyMiddleware(thunk)));
-let persistor = persistStore(store);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+// // const store = createStore(persistedReducer,compose(applyMiddleware(thunk,logger)));
+// const store = createStore(persistedReducer,compose(applyMiddleware(thunk)));
+// let persistor = persistStore(store);
 // persistor.purge()
 
 import Application from '@src';

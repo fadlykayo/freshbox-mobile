@@ -430,16 +430,16 @@ const setDiscountPrice = (state, payload) => {
 }
 
 const cancelVoucher = (state, payload) => {
-    console.warn(payload)
+    // console.warn(payload)
     let newState = JSON.parse(JSON.stringify(state));
     let totalPrice = payload;
     let discount = newState.discount;
     let coupon = newState.coupon_code;
 
     discount = 0;
-    coupon = '';
+    // coupon = '';
     newState.discount = discount;
-    newState.coupon_code = coupon;
+    // newState.coupon_code = coupon;
 
     return newState;
     

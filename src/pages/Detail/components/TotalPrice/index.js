@@ -44,12 +44,19 @@ class TotalPrice extends Component {
     }
 
     _renderButton() {
+        // console.warn('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', this.props.status)
         if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 
                     if(this.props.paymentMethod == 'cash_on_delivery') {
-                        return null
-                    } else {
+                        return (
+                                <Button
+                                    type={this.props.type}
+                                    onPress={this.navigateToCart}
+                                    title={'historyDetail.content.reOrder'}
+                                />
+                            )
+                        } else {
                         return (
                             <>
                             <Button
@@ -82,6 +89,22 @@ class TotalPrice extends Component {
                             title={'historyDetail.content.reOrder'}
                         />
                     )
+                case 'expired':
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
+                case 'paid': 
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
                 default: return null
             } 
         }
@@ -103,7 +126,7 @@ class TotalPrice extends Component {
         // const additional = numeral(this.props.additional).format('0,0');
         // const discount = numeral(this.props.additional).format('0,0');
         
-        let subTotal = numeral(this.props.subTotal).format('0,0');
+        let subTotal = numeral(this.props.subtotalHistory).format('0,0');
         let deliveryPrice = numeral(this.props.delivery_price).format('0,0');
         let additional = numeral(this.props.additional).format('0,0');
         let discount = numeral(this.props.additional).format('0,0');

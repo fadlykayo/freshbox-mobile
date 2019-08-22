@@ -51,7 +51,7 @@ class ChoosePayment extends Component {
     GoPay () {
         const params = this.props.navigation.state.params;
         if(Platform.OS !== 'ios') {
-            gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
+            // gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
         } else {
             gopay.responseListener(this.handleGoPayResponse);
             gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
@@ -71,19 +71,32 @@ class ChoosePayment extends Component {
     };
 
     renderGoPay () {
-        return (
-            <View style={styles.gopay.container}>
+        let params = this.props.navigation.state.params;
+        
+        if(Platform.OS == 'ios') {
+            return (
+                <View style={styles.gopay.container}>
 
-                <View style={styles.gopay.imageContainer}>
-                    <Image source={images.gopay} style={styles.gopay.image} resizeMode={'contain'}/>
+                    <View style={styles.gopay.imageContainer}>
+                        <Image source={images.gopay} style={styles.gopay.image} resizeMode={'contain'}/>
+                    </View>
+
+                    <View style={styles.gopay.textContainer}>
+                        <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the back button.</Text>
+                    </View>
+
                 </View>
+            )
+        } else {
+            return (
+                <WebView
+                    onNavigationStateChange={this.navigationStateChangeHandler}
+                    source={{uri: params.redirect_url}}
+                    style={{flex: 1}}
+                />
+            )
+        }
 
-                <View style={styles.gopay.textContainer}>
-                    <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the back button.</Text>
-                </View>
-
-            </View>
-        )
     }
 
     render() {

@@ -119,7 +119,7 @@
 
     },
     "checkout": {
-        "navigationTitle": "Alamat & Waktu Pengiriman",
+        "navigationTitle": "Checkout",
         "label": {
             "deliveryAddress": "Alamat Pengiriman",
             "name": "Nama",
@@ -140,13 +140,14 @@
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Pengiriman",
-            "adminCharge": "Biaya Admin",
+            "adminCharge": "Biaya Proses",
             "discount": "Diskon",
             "grandTotal": "Grand Total",
             "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim",
-            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai"
+            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai",
+            "payment": "Pilih Metode Pembayaran"
         },
         "button": {
             "checkout": "Bayar"
@@ -157,6 +158,13 @@
         },
         "placeholder": {
             "voucher":"Kode Promo"
+        },
+        "methods": {
+            "transfer": "Transfer Bank",
+            "creditCard": "Kartu Kredit",
+            "gopay": "GOPAY",
+            "COD": "Cash on Delivery",
+            "codWarning": "Metode pembayaran ini tidak dapat dibatalkan"
         }
     },
     "productList": {

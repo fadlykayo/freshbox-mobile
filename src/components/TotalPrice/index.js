@@ -16,12 +16,15 @@ class TotalPrice extends Component {
         let additional = numeral(this.props.additional).format('0,0');
         let discount = numeral(this.props.additional).format('0,0');
         let grandTotal = numeral(this.props.grandTotal).format('0,0');
-        console.warn(grandTotal, 'total price')
+        // console.warn(grandTotal, 'total price')
 
         if(this.props.discount) {
             
-            let totalDiscount = Number(additional) + Number(this.props.discount);
+            let totalDiscount = parseInt(this.props.additional) + parseInt(this.props.discount);
             discount = numeral(totalDiscount).format('0,0');
+
+            // console.warn(this.props.discount, 'props dicsount')
+            // console.warn(this.props.additional, 'props additional')
         } else {
             discount = numeral(this.props.additional).format('0,0');
         };
@@ -30,7 +33,7 @@ class TotalPrice extends Component {
 
             return (
                 <View style={styles.container}>
-                    <View style={styles.subcontainer.content}>
+                    <View style={styles.subcontainer.content(this.props.checkout)}>
                         <View style={styles.subcontainer.price}>
                             <StaticText
                                 style={styles.text.title}
@@ -111,7 +114,7 @@ class TotalPrice extends Component {
             );
         } else {
             return (
-                <View style={styles.subcontainer.content}>
+                <View style={styles.subcontainer.content(this.props.checkout)}>
                         <View style={styles.subcontainer.price}>
                             <StaticText
                                 style={styles.text.title}
@@ -182,11 +185,7 @@ class TotalPrice extends Component {
                                 {grandTotal}
                             </Text>
                         </View>
-                        <Button
-                        type={this.props.type}
-                        onPress={this.props.onPress}
-                        title={this.props.title}
-                    />
+                        
                     </View>
             )
         }

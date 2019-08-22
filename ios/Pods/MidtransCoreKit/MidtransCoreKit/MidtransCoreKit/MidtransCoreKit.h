@@ -52,6 +52,7 @@ FOUNDATION_EXPORT const unsigned char MidtransCoreKitVersionString[];
 #import "MidtransCreditCardHelper.h"
 #import "MidtransMandiriClickpayHelper.h"
 #import "MidtransPaymentEpayBRI.h"
+#import "MidtransPaymentAkulaku.h"
 #import "MidtransPaymentKiosOn.h"
 #import "MidtransPaymentListModel.h"
 #import "MidtransVirtualAccountModel.h"
@@ -76,3 +77,5 @@ FOUNDATION_EXPORT const unsigned char MidtransCoreKitVersionString[];
 #import "MidtransPaymentGOPAY.h"
 #import "MidtransPaymentDanamonOnline.h"
 #import "MidtransPromoDataModels.h"
+#import "MIDUrlHandler.h"
+#import "MidtransPaymentAlfa.h"

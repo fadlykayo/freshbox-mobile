@@ -117,7 +117,7 @@
 
     },
     "checkout": {
-        "navigationTitle": "Address & Delivery Date",
+        "navigationTitle": "Checkout",
         "label": {
             "deliveryAddress": "Shipping Address",
             "name": "Name",
@@ -138,13 +138,14 @@
             "pack": " pack",
             "subTotal": "Sub Total",
             "delivery": "Delivery",
-            "adminCharge": "Admin Charge",
+            "adminCharge": "Processing Fee",
             "discount": "Discount",
             "grandTotal": "Grand Total",
             "otherAddress": "CHOOSE ADDRESS",
             "addAddress": "Add Address",
             "chooseDate": "Choose Delivery Date",
-            "confirmDate": "Please Make Sure The Delivery Date is Correct"
+            "confirmDate": "Please Make Sure The Delivery Date is Correct",
+            "payment": "Select Payment Method"
         },
         "button": {
             "checkout": "Checkout"
@@ -155,6 +156,13 @@
         },
         "placeholder": {
             "voucher": "Promo Code"
+        },
+        "methods": {
+            "transfer": "Bank Transfer",
+            "creditCard": "Credit Card",
+            "gopay": "GOPAY",
+            "COD": "Cash on Delivery",
+            "codWarning": "This payment method cannot be cancelled"
         }
     },
     "productList": {

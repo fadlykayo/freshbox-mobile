@@ -1,4 +1,4 @@
-import { Animated, Easing, Dimensions } from 'react-native';
+import { Animated, Easing, Dimensions, Platform } from 'react-native';
 import { createStackNavigator, StackActions ,NavigationActions, createDrawerNavigator } from 'react-navigation';
 
 import SplashScreen from '@pages/SplashScreen';
@@ -28,11 +28,19 @@ import VirtualAccount from '@pages/VirtualAccount';
 import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
 import OTP from '@pages/OTP'
+import Dashboard from '@pages/Dashboard';
+import { analytics } from '@helpers';
 
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    ProductList: {screen: ProductList}
+    ProductList: {screen: ProductList},
+    HistoryPage: {screen: HistoryPage},
+    Favourites: {screen: Favourites},
+    TermsConditions: {screen: TermsConditions},
+    PrivacyPolicy: {screen: PrivacyPolicy},
+    ContactUs: {screen: ContactUs},
+    Dashboard: {screen: Dashboard},
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -65,6 +73,7 @@ export const AppNavigator = createStackNavigator({
     ContactUs: {screen: ContactUs},
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
+    Dashboard: {screen: Dashboard},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -145,6 +154,8 @@ export const actNav = {
             routeName: route,
             params: params
         }));
+        analytics.setCurrentScreen(route);
+        analytics.logEvent(route);
     },
     goBack: (key) => {
         if(key){
