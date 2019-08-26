@@ -5,6 +5,7 @@ const styles = {
     container: {
 		flex: 1,
 		marginHorizontal: 10,
+		// backgroundColor: 'blue'
 	},
 	text:{
 		title:{

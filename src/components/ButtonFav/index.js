@@ -21,7 +21,7 @@ class ButtonFav extends PureComponent {
                     style={styles.container}
                 >
                     <Image
-                        style={styles.icon}
+                        style={styles.icon(this.props.dashboard)}
                         resizeMode={'contain'} 
                         source={
                             this.props.data.wishlisted == 1

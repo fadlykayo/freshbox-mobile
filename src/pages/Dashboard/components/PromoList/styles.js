@@ -7,7 +7,9 @@ const { height, width } = Dimensions.get('window');
 const style = {
 
   container: {
-    flex: 1,
+    flex: -1,
+    // backgroundColor: 'pink',
+    // height: height,
   },
   top: {
     container: {
@@ -34,9 +36,9 @@ const style = {
   },
   promo: {
     container: {
-      flex: 1,
-      paddingVertical: 10,
+      height: height * 0.33,
       paddingLeft: 15,
+      paddingHorizontal: 10
     }
   },
 

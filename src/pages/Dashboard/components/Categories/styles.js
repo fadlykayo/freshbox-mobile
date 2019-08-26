@@ -28,6 +28,11 @@ export default {
       backgroundColor: 'pink',
       // marginTop: 25,
       marginHorizontal: 10,
+    },
+    text: {
+      fontFamily: 'Avenir-Roman',
+      fontSize: 12,
+      textAlign: 'center'
     }
   }
 }

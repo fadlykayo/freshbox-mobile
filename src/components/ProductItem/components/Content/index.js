@@ -15,16 +15,22 @@ class Content extends PureComponent {
 		const productPrice = numeral(this.props.data.price).format('0,0');
 		let productPromoPrice = numeral(this.props.data.promo_price).format('0,0');
 		productPromoPrice = productPromoPrice + ' '
-		// console.warn(width, height)
 		return(
 			<View style={styles.container}>
-				<Text style={styles.text.title}>{this.props.data.name}</Text>
+				{
+					this.props.dashboard ? 
+					<View style ={{width: 110,height: 45, marginTop: 20}}>
+						<Text style={styles.text.title}>{this.props.data.name}</Text>
+					</View> : 
+					<Text style={styles.text.title}>{this.props.data.name}</Text>
+				}
+				
 				{/* <Text style={styles.text.desc}>{this.props.data.product_category_name}</Text> */}
-				<Text style={styles.text.desc}>1 pack ({this.props.data.short_description})</Text>
+				{/* <Text style={styles.text.desc}>1 pack ({this.props.data.short_description})</Text> */}
 						<View>
 
 							{
-								this.props.data.on_promo == 1 ?
+								this.props.data.on_promo !== 1 ?
 								(
 									<View style={{height: 20, marginTop: 10}}>
 										<Text style={styles.text.price.promo}>

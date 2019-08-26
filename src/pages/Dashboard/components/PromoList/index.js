@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList } from 'react-native'
-import PromoCard from './PromoCard';
+import ProductItem from '@components/ProductItem';
 import styles from './styles'
 
 export default class PromoList extends Component {
@@ -29,7 +29,18 @@ export default class PromoList extends Component {
               keyExtractor = {(item) => item.code}
               renderItem = {({item, index}) => 
 
-                <PromoCard/>
+
+              <View style={{marginVertical: 10}} key={index}>
+                <ProductItem
+                  search = {''}
+                  data = {item}
+                  index= {index+1}
+                  type={'productList'}
+                  user={this.props.user}
+                  dashboard
+                />
+              </View>
+
                 
               }
             />

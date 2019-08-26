@@ -5,10 +5,13 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-    container: (i,length, search, stock) => ({
+    container: (i,length, search, stock, dashboard) => ({
+		// backgroundColor: 'pink',
 		alignSelf: 'center',
-		width: width * 0.95,
-		// height: width * 0.25,
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: dashboard ? null : width * 0.95,
+		height: dashboard ? null: width * 0.25,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
@@ -19,7 +22,7 @@ const styles = {
 		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
 		elevation: Platform.OS == 'android' ? 3 : 0,
 		opacity: stock > 0 ? 1 : 0.5,
-		marginBottom: (search == true 
+		marginBottom: dashboard ? null : (search == true 
 			? ((i < length)
 				? 	scaling.moderateScale(10)
 				:	scaling.moderateScale(5)
@@ -29,40 +32,46 @@ const styles = {
 			:	scaling.moderateScale(25)
 			)
 		),
-		// paddingTop: i == 1 ? 20 : 0
+		marginHorizontal: scaling.moderateScale(8),
+		paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
+		// borderWidth: 1,
 	}),
 	subcontainer: {
 		verification:{
 			alignItems: 'flex-end',
 			paddingRight: width * 0.05,
 		},
-		card: {
-			flexDirection: 'row',
+		card: (dashboard) => ({
+			flexDirection: dashboard ? 'column' : 'row',
 			alignItems: 'center',
-			justifyContent: 'space-between',
-			paddingLeft: scaling.moderateScale(10),
-			paddingRight: scaling.moderateScale(10),
-		},
-		product:{
-			flexDirection: 'row',
+			justifyContent: 'center',
+			paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+			paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+		}),
+		product: (dashboard) => ({
+			// backgroundColor: 'pink',
+			flexDirection: dashboard ? 'column' : 'row',
 			paddingTop: scaling.moderateScale(15),
 			paddingBottom: scaling.moderateScale(10),
-			paddingHorizontal: scaling.moderateScale(5),
-		},
-		image:{
+			// paddingHorizontal: scaling.moderateScale(5),
+		}),
+		image:(dashboard) => ({
 			flex: -1,
-			width: width * 0.2,
+			width: dashboard ? null : width * 0.2,
 			justifyContent: 'center',
-			marginRight: width * 0.03,
-		}
+			alignItems: 'center',
+			marginRight: dashboard ? null : width * 0.03,
+			// backgroundColor: 'grey'
+		})
 	},
 	icon:{
-		product:{
-			height: scaling.moderateScale(80),
-			width: scaling.moderateScale(80),
+		product: (dashboard) => ({
+			marginTop: 10,
+			height: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
+			width: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
 			justifyContent: 'center',
     	alignItems: 'center',
-		}
+		})
 	},
 }
 

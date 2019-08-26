@@ -36,18 +36,65 @@ class ProductItem extends PureComponent {
 		productImage = this.props.data.images_sizes_url["100x100"][0]
 		}
 		// console.log(this.props.data.images_sizes_url["50x50"][0])
-		return(
-			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock)}>
-				<View style={styles.subcontainer.card}>
+		if(this.props.dashboard) {
+
+			return(
+				<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock, this.props.dashboard)}>
+					<View style={styles.subcontainer.card(this.props.dashboard)}>
+					
+						<TouchableOpacity 
+							onPress={this.openDetailProduct}
+							style={styles.subcontainer.product(this.props.dashboard)}
+						>
+						
+							
+							
+							<View style={styles.subcontainer.image(this.props.dashboard)}>
+								<Image
+									resizeMode={'contain'} 
+									source={{uri: productImage}}
+									style={styles.icon.product(this.props.dashboard)}
+									resizeMethod={'resize'}
+								/>
+							</View>
+							
+							<View style = {{position: 'absolute', right: 5, top: 20}}>
+								<ButtonFav 
+									data={this.props.data}
+									user={this.props.user}
+									isFavorite={this.props.data.favorite}
+									toggleFavorite={this.props.toggleFavorite}
+									dashboard = {this.props.dashboard}
+								/>
+							</View> 
+							
+								<View style={{flex: 1}}>
+									<Content data={this.props.data} dashboard={this.props.dashboard}/>
+								</View> 
+
+						
+							
+						</TouchableOpacity>
+						
+					</View>
+					
+					
+				</View>
+			);
+
+		} else {
+					return(
+			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock, this.props.dashboard)}>
+				<View style={styles.subcontainer.card(this.props.dashboard)}>
 					<TouchableOpacity 
 						onPress={this.openDetailProduct}
-						style={styles.subcontainer.product}
+						style={styles.subcontainer.product(this.props.dashboard)}
 					>
-						<View style={styles.subcontainer.image}>
+						<View style={styles.subcontainer.image(this.props.dashboard)}>
 							<Image
 								resizeMode={'contain'} 
 								source={{uri: productImage}}
-								style={styles.icon.product}
+								style={styles.icon.product(this.props.dashboard)}
 								resizeMethod={'resize'}
 							/>
 						</View>
@@ -81,6 +128,8 @@ class ProductItem extends PureComponent {
 				
 			</View>
 		);
+
+		}
 	}
 }
 

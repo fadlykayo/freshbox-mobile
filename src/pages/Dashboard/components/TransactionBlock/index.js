@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import styles from './styles'
 
 export default class TransactionBlock extends Component {
+  renderTransactions () {
+    return (
+      <View style={styles.card.container}>
+
+      </View>
+    )
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -18,6 +25,16 @@ export default class TransactionBlock extends Component {
           </View>
 
         </View>
+
+        <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer}>
+          <View
+            style={{height: 15}}
+          />
+          {this.renderTransactions()}
+          {this.renderTransactions()}
+          {this.renderTransactions()}
+          {this.renderTransactions()}
+        </ScrollView>
 
 
       </View>

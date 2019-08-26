@@ -127,7 +127,7 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} bounces={false}>
         <ProfileBlock/>
 
         <View style={styles.whiteBackground}>
@@ -137,14 +137,16 @@ class Dashboard extends Component {
           />
           <PromoList
             product = {this.props.product}
+						user = {this.props.user}
           />
           <Categories
             categories = {this.props.categories}
           />
           <TransactionBlock/>
+					
         </View>
 
-        
+
 
         <Carousel/>
       </ScrollView>
