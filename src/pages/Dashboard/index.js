@@ -10,6 +10,7 @@ import Carousel from './components/Carousel';
 import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
+import ProductList from '../ProductList';
 import actions from '@actions';
 import styles from './styles';
 
@@ -26,13 +27,19 @@ class Dashboard extends Component {
 				openImageDetail: false,
 				checkout: false,
 			},
+			loadingTransaction: true
     }
 
   }
   componentDidMount() {
-    this.getProductList();
-    this.getCategories();
-		this.getHistoryData();
+		if(this.props.user) {
+			this.getProductList();
+			this.getCategories();
+			this.getHistoryData();
+		} else {
+			actNav.navigate(navConstant.ProductList);
+		}
+
   }
 
   getProductList = (fromDashboard) => {
@@ -156,6 +163,7 @@ class Dashboard extends Component {
 	}
 
 	getHistoryData(){
+		this.setState({loadingTransaction: true})
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -164,7 +172,7 @@ class Dashboard extends Component {
 		}
 
 		this.props.get_transaction(payload, 
-			() => {},
+			() => {this.setState({loadingTransaction: false})},
 			(err) => {
 				// console.log(err);
 			})
@@ -317,6 +325,8 @@ class Dashboard extends Component {
 	
 
   render() {
+		if(this.props.user) {
+
     return (
       <Container
         bgColorBottom = {'veryLightGrey'}
@@ -386,6 +396,10 @@ class Dashboard extends Component {
       </Container>
 
     )
+					
+		} else {
+			return null
+		}
   }
 }
 

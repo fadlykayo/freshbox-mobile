@@ -8,6 +8,9 @@ import styles from './styles'
 export default class TransactionBlock extends Component {
 
   renderTransactions (transactions) {
+    // if(transactions.length > 0) {
+    //   transactions = transactions.slice(0,3)
+    // }
     return transactions.map((transaction, i) => {
       if(transaction.status !== 'pending_payment') {
 
@@ -63,7 +66,7 @@ export default class TransactionBlock extends Component {
           <View
             style={{height: 15}}
           />
-          {this.renderTransactions(this.props.transactions.slice(0,4))}
+          {this.renderTransactions(this.props.transactions)}
         </ScrollView>
 
 

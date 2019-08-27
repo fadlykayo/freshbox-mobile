@@ -84,6 +84,7 @@ class DrawerPage extends Component {
 				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions)
 				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy)
 				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs)
+				// case 'drawerPage.pages.dashboard': return this.actToNavigate(navConstant.ContactUs)
 				default: return this.closeDrawerPage(payload);
 			}
 			
