@@ -29,7 +29,7 @@ const style = {
       fontFamily: 'Avenir-Heavy',
     },
     textMore: {
-      fontSize: 14,
+      fontSize: 15,
       fontFamily: 'Avenir-Heavy',
       color: colour.red
     }

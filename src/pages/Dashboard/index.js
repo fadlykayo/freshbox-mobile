@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Keyboard, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
@@ -34,7 +35,7 @@ class Dashboard extends Component {
 		this.getHistoryData();
   }
 
-  getProductList = () => {
+  getProductList = (fromDashboard) => {
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -43,12 +44,51 @@ class Dashboard extends Component {
 		}
 		this.props.get_products(payload,
 			() => {
-				console.warn('success')
+				if(this.props.navigation.state.params.action) {
+					if(!fromDashboard) {
+						this.navigateToCart();
+					}
+				} 
 			},
 			(err) => {
 				// console.log(err);
 			}
 		);
+	}
+
+	validateCart = () => {
+		console.warn('masuk sini')
+		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+		if(outStockCart.length > 0){
+			language.transformText('message.outOfStock')
+			.then(message => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.outOfStock',
+					data: message,
+				});
+			});
+		}
+		else{
+			this.navigateToCart();
+		}
+	}
+
+	navigateToCart = () => {
+		actNav.navigate(navConstant.Cart,{
+			createOrderHandler: this.createOrderHandler,
+		});
+	}
+
+	createOrderHandler = (invoice,type) => {
+		new Promise((res) => {
+			actNav.goBackToTop();
+			this.props.clear_products();
+			res();
+		})
+		.then(() => {
+			setTimeout(() => this.navigateToPaymentSuccess(invoice,type),1000);
+		});
 	}
 
   getCategories = () => {
@@ -224,6 +264,56 @@ class Dashboard extends Component {
 			}
 	}
 
+	navigateToDetail = (input) => {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input.invoice
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					refreshHandler: this.refreshHandler
+				});
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
+	}
+
+	navigateToPaymentSuccess = (input, type) => {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			invoice: input
+		}
+		this.props.detail_transaction(payload,
+			() => {
+				actNav.navigate(navConstant.Detail,{
+					action: 'history',
+					createOrderSuccess: true,
+					invoice: type,
+					refreshHandler: this.refreshHandler,
+					fromDashboard: true
+				});
+			},
+			(err) => {
+				console.log('navigate to detail', err);
+			}
+		)
+	}
+
+	refreshHandler = () => {
+		let fromDashboard = true;
+		this.props.reset_params();
+		this.getProductList(fromDashboard);
+		this.getHistoryData();
+	} 
+
 	
 
   render() {
@@ -263,6 +353,7 @@ class Dashboard extends Component {
           />
           <TransactionBlock
 						transactions = {this.props.transactions}
+						navigateToDetail = {this.navigateToDetail}
 					/>
 					
         </View>
@@ -317,7 +408,9 @@ const mapDispatchToProps = dispatch => ({
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
-
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	clear_products: () => dispatch(actions.product.reducer.clear_products()),
+	reset_params: () => dispatch(actions.product.reducer.reset_params()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

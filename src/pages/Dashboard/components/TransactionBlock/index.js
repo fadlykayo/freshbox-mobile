@@ -20,7 +20,15 @@ export default class TransactionBlock extends Component {
               <View style={{marginTop: 5, paddingBottom: 20}}><Text style={styles.card.grandTotal.text}>IDR {numeral(transaction.grand_total).format(`0,0`)}</Text></View>
             </View>
 
-            <View style={{height:35, width: 120}}><Button type={'red'} title={'historyPage.content.reOrder'} borderRadius={50} fontSize={13}/></View>
+            <View style={{height:35, width: 120}}>
+              <Button 
+                type={'red'} 
+                title={'historyPage.content.reOrder'} 
+                borderRadius={50} 
+                fontSize={13}
+                onPress={() => this.props.navigateToDetail(transaction)}
+              />
+            </View>
 
           </View>
         )
