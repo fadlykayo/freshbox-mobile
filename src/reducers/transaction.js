@@ -11,8 +11,8 @@ const initialState = {
 const getTransactions = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state))
     let incomingProducts = payload.data.data;
-    console.log('newState =>', newState)
-    console.log('incomingProducts =>', incomingProducts)
+    // console.log('newState =>', newState)
+    // console.log('incomingProducts =>', incomingProducts)
     let existingProducts = newState.transactions.slice();
 
     if (payload.data.current_page < payload.data.last_page) {

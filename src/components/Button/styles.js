@@ -6,13 +6,13 @@ const { width } = Dimensions.get('window');
 
 const styles = {
     container: {
-		base:{
+		base:(borderRadius) => ({
 			flex: -1,
 			justifyContent: 'center',
 			height: scaling.moderateScale(50),
 			// width: scaling.moderateScale(60),
-			borderRadius: scaling.moderateScale(8),
-		},
+			borderRadius: borderRadius ? scaling.moderateScale(borderRadius) : scaling.moderateScale(8),
+		}),
 		red: {
 			alignItems: 'center',
 			borderWidth: 1,
@@ -32,16 +32,16 @@ const styles = {
 		}
     },
     staticText: {
-		red: {
+		red: (fontSize) => ({
 			fontFamily: 'Avenir-Heavy',
-        	fontSize: scaling.moderateScale(14),
+        	fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
         	color: colour.red
-		},
-		white: {
+		}),
+		white: (fontSize) => ({
 			fontFamily: 'Avenir-Heavy',
-        	fontSize: scaling.moderateScale(14),
+        	fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
         	color: colour.white
-		}
+		})
 	},
 	touchable: {
 		height: scaling.moderateScale(50),

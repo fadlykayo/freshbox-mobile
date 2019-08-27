@@ -267,7 +267,7 @@ actions.get_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Transactions res',res);
+        	console.log('Get Transactions res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_transaction(res.data))

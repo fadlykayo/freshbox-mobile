@@ -22,6 +22,7 @@ class Dashboard extends Component {
   componentDidMount() {
     this.getProductList();
     this.getCategories();
+		this.getHistoryData();
   }
 
   getProductList = () => {
@@ -105,6 +106,21 @@ class Dashboard extends Component {
 	
 	}
 
+	getHistoryData(){
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization,
+			},
+			params: this.props.transactionParams
+		}
+
+		this.props.get_transaction(payload, 
+			() => {},
+			(err) => {
+				// console.log(err);
+			})
+	}
+
   openDrawerMenu = () => {
 		Keyboard.dismiss();
     this.props.navigation.openDrawer();
@@ -142,7 +158,9 @@ class Dashboard extends Component {
           <Categories
             categories = {this.props.categories}
           />
-          <TransactionBlock/>
+          <TransactionBlock
+						transactions = {this.props.transactions}
+					/>
 					
         </View>
 
@@ -168,13 +186,15 @@ const mapStateToProps = state => ({
 	categories: state.product.categories,
   product: state.product.products,
   params: state.product.params,
+	transactionParams: state.transaction.params,
+	transactions: state.transaction.transactions,
 })
 
 const mapDispatchToProps = dispatch => ({
   search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
   get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
   get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
-
+	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

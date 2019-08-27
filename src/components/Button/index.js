@@ -21,10 +21,10 @@ class Button extends PureComponent {
             return (
                     <TouchableOpacity 
                         onPress={this.onPress} 
-                        style={[styles.container.base,styles.container.red]}
+                        style={[styles.container.base(this.props.borderRadius),styles.container.red]}
                     >
                         <StaticText 
-                            style={styles.staticText.white}
+                            style={styles.staticText.white(this.props.fontSize)}
                             property={this.props.title}
                         />
                     </TouchableOpacity>
@@ -33,10 +33,10 @@ class Button extends PureComponent {
             return (
                 <TouchableOpacity 
                     onPress={this.onPress}
-                    style={[styles.container.base,styles.container.white]} 
+                    style={[styles.container.base(this.props.borderRadius),styles.container.white]} 
                 >
                     <StaticText 
-                        style={styles.staticText.red}
+                        style={styles.staticText.red(this.props.fontSize)}
                         property={this.props.title}
                     />
                 </TouchableOpacity>
