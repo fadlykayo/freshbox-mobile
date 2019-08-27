@@ -21,11 +21,15 @@ export default {
     }
   },
   icon: {
+    outerContainer: {
+      justifyContent: 'center', 
+      alignItems: 'center'
+    },
     container: {
       width: 50,
       height: 50,
       borderRadius: 25,
-      backgroundColor: 'pink',
+      // backgroundColor: 'pink',
       // marginTop: 25,
       marginHorizontal: 10,
     },
@@ -33,6 +37,10 @@ export default {
       fontFamily: 'Avenir-Roman',
       fontSize: 12,
       textAlign: 'center'
+    },
+    image: {
+      height: 50, 
+      width: 50
     }
   }
 }

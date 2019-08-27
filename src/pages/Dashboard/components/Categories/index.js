@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList, Image } from 'react-native'
+import images from '@assets'
 import styles from './styles'
 
 export default class Categories extends Component {
   
   render() {
-    console.log(this.props.categories)
     return (
       <View style={styles.container}>
         <View style={styles.flatlist.container}>
@@ -14,18 +14,21 @@ export default class Categories extends Component {
           data = {this.props.categories}
           keyExtractor={(item) => item.code}
           renderItem={({item, index}) => (
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.icon.outerContainer}>
             <View style={styles.icon.container}>
             {
               item.images_url ? 
               <Image
                 source={{uri: item.images_sizes_url.original[0]}}
-                style={{height: 50, width: 50}}
-              /> : null
+                style={styles.icon.image}
+              /> : <Image
+                source={images.icon_categories}
+                style={styles.icon.image}
+              />
             }
               
             </View>
-            <Text style={styles.icon.text}>{item.name}</Text>
+            <Text style={styles.icon.text}>{item.name == 'Default' ? 'All' : item.name}</Text>
             </View>
 
           )}

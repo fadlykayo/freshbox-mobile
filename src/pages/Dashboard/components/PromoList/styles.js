@@ -39,7 +39,10 @@ const style = {
       height: height * 0.33,
       paddingLeft: 15,
       paddingHorizontal: 10
-    }
+    },
+    card: {
+      marginVertical: 10
+    },
   },
 
 }

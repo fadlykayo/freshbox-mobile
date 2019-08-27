@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import numeral from 'numeral';
+import { actNav, navConstant } from '@navigations';
 import Button from '@components/Button';
 import styles from './styles'
 
@@ -27,8 +28,13 @@ export default class TransactionBlock extends Component {
     });
 
   }
+
+  navigateToHistory = () => {
+    actNav.navigate(navConstant.HistoryPage)
+  }
+  
+  // render 4 latest transactions
   render() {
-    console.log(this.props.transactions.slice(0,5))
     return (
       <View style={styles.container}>
         
@@ -38,10 +44,11 @@ export default class TransactionBlock extends Component {
             <Text style = {styles.top.textPromo}>Pesan Kembali</Text>
           </View>
 
-          <View style = {styles.top.right}>
-            <Text style = {styles.top.textMore}>Lihat Semua</Text>
-          </View>
-
+          <TouchableOpacity onPress={this.navigateToHistory}>
+            <View style = {styles.top.right}>
+              <Text style = {styles.top.textMore}>Lihat Semua</Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer}>

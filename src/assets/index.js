@@ -67,5 +67,5 @@ images.master_card = require('./mastercard_vrt.png');
 images.logo_gopay = require('./logo_gopay.png');
 images.ic_info_grey = require('./ic_info_grey.png');
 images.bri_bank = require('./bri_bank.png');
-
+images.icon_categories = require('./ic_all_categories.png');
 export default images;

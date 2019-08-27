@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Keyboard, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Container from '@components/Container';
+import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
 import ProfileBlock from './components/ProfileBlock';
 import Carousel from './components/Carousel';
@@ -16,6 +17,14 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       searchItem: '',
+			scrollX: 0,
+			bubble: 0,
+			modalVisible: {
+				openCategories: false,
+				openProduct: false,
+				openImageDetail: false,
+				checkout: false,
+			},
     }
 
   }
@@ -121,11 +130,101 @@ class Dashboard extends Component {
 			})
 	}
 
+	toggleFavorite = (payload) => {
+		if (payload.wishlisted == 1) {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {}
+				},
+				favorite: payload
+			}
+			this.props.delete_favorite(data,
+				() => {},
+				(err) => {
+					// console.log(err);
+				}
+			)
+		}
+		else {
+			let data = {
+				request: {
+					header: {
+						apiToken: this.props.user.authorization
+					},
+					body: {
+						product_code: payload.code
+					}
+				},
+				favorite: payload
+			}
+			this.props.add_favorite(data,
+				() => {},
+				(err) => {
+					// console.log(err);
+				}
+			)
+		}
+	}
+
+
   openDrawerMenu = () => {
 		Keyboard.dismiss();
     this.props.navigation.openDrawer();
 		// console.log(this.props.navigation.openDrawer)
 	}
+
+	setModalVisible(type,value){
+		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+		modalVisible[type] = value;
+		this.setState({modalVisible});
+	}
+
+	openDetailProduct = (payload) => {
+		this.props.detail_product(payload);
+		this.setModalVisible('openProduct',true);
+	}
+
+	closeDetailProduct = () => {
+		this.setModalVisible('openProduct',false);
+	}
+
+	openDetailProductPicture = (payload) => {
+		this.props.detail_product(payload);
+		this.setModalVisible('openProduct', true);
+	}
+
+	changeTotalItem = () => {
+		console.log('change total item')
+	}
+
+	openZoomImage = () => {
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	// handling zoom products' image
+	closeZoomImage = () => {
+		this.setModalVisible('openImageDetail',false);
+	}
+
+	// get position of scrollbar
+	getPositionIndex = (e) => {
+        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+            this.getPositionBubble();
+        })
+    }
+    
+	getPositionBubble = () => {
+			let position = Math.round(this.state.scrollX/(width* 0.18));
+
+			if (this.state.bubble != position) {
+					this.setState({ bubble: position })
+			}
+	}
+
+	
 
   render() {
     return (
@@ -144,7 +243,9 @@ class Dashboard extends Component {
         clearSearch={this.clearSearch}
       />
       <ScrollView style={styles.scrollView} bounces={false}>
-        <ProfileBlock/>
+        <ProfileBlock
+					user = {this.props.user}
+				/>
 
         <View style={styles.whiteBackground}>
         
@@ -154,6 +255,8 @@ class Dashboard extends Component {
           <PromoList
             product = {this.props.product}
 						user = {this.props.user}
+						toggleFavorite = {this.toggleFavorite}
+						openDetailProduct = {this.openDetailProduct}
           />
           <Categories
             categories = {this.props.categories}
@@ -164,7 +267,22 @@ class Dashboard extends Component {
 					
         </View>
 
-
+				<ProductDetail
+					type={'productList'}
+					user={this.props.user}
+					bubble={this.state.bubble}
+					scrollX={this.state.scrollX}
+					data={this.props.productDetail}
+					openZoomImage={this.openZoomImage}
+					closeZoomImage={this.closeZoomImage}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					getPositionIndex={this.getPositionIndex}
+					getPositionBubble={this.getPositionBubble}
+					closeDetailProduct={this.closeDetailProduct}
+					modalVisible={this.state.modalVisible.openProduct}
+					openImageDetail={this.state.modalVisible.openImageDetail}
+				/>
 
         <Carousel/>
       </ScrollView>
@@ -188,6 +306,7 @@ const mapStateToProps = state => ({
   params: state.product.params,
 	transactionParams: state.transaction.params,
 	transactions: state.transaction.transactions,
+	productDetail: state.product.detail,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -195,6 +314,10 @@ const mapDispatchToProps = dispatch => ({
   get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
   get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

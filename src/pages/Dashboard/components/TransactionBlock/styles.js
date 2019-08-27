@@ -36,10 +36,12 @@ const style = {
     container: {
       flex: 1,
       // backgroundColor: 'pink',
-      // alignItems: 'center'
+      // alignItems: 'center',
+      
     },
     contentContainer: {
       alignItems: 'center',
+      
     }
   },
   card: {
@@ -57,11 +59,19 @@ const style = {
       borderWidth: 1,
       borderRadius: 8,
       borderColor: colour.white,
-      shadowColor: Platform.OS == 'ios' ? '#C7CACF' : null,
-      shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
-      shadowRadius: Platform.OS == 'ios' ? 30 : 0,
-      shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-      elevation: Platform.OS == 'android' ? 3 : 0,
+      shadowColor: Platform.OS == 'ios' ? "#000" : null,
+      shadowOffset: Platform.OS == 'ios' ? {
+        width: 0,
+        height: 2,
+      } : {
+        width: 0,
+        height: 0,
+      },
+      shadowOpacity: Platform.OS == 'ios' ? 0.25 : 0,
+      shadowRadius: Platform.OS == 'ios' ? 3.84 : 0,
+
+      elevation: Platform.OS == 'android' ? 5 : 0,
+      
     },
     invoice: {
       text: {
