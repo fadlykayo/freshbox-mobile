@@ -19,7 +19,7 @@ class Content extends PureComponent {
 			<View style={styles.container}>
 				{
 					this.props.dashboard ? 
-					<View style ={{width: 110,height: 45, marginTop: 20}}>
+					<View style ={{width: 110,height: 45, marginTop: 5,}}>
 						<Text style={styles.text.title}>{this.props.data.name}</Text>
 					</View> : 
 					<Text style={styles.text.title}>{this.props.data.name}</Text>
@@ -32,7 +32,7 @@ class Content extends PureComponent {
 							{
 								this.props.data.on_promo !== 1 ?
 								(
-									<View style={{height: 20, marginTop: 10}}>
+									<View style={{height: 20, marginTop: 5}}>
 										<Text style={styles.text.price.promo}>
 											<StaticText
 												property={'productList.content.price'}

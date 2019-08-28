@@ -101,15 +101,14 @@ module.exports = {
     indicator: {
       container: (top = 140, right = 155) => {
         return {
-          flex: -1,
-          height: 30,
+          width: width * 0.9,
           padding: 5,
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
           position: 'absolute',
-          top: top,
-          right: right,
+          bottom: 0,
+          // right: 135,
           // borderWidth: 1,
           // borderColor: 'red',
         }

@@ -36,7 +36,8 @@ export default {
     text: {
       fontFamily: 'Avenir-Roman',
       fontSize: 12,
-      textAlign: 'center'
+      textAlign: 'center',
+      color: colour.darkGrey
     },
     image: {
       height: 50, 

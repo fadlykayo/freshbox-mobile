@@ -70,15 +70,15 @@ const style = {
       shadowOpacity: Platform.OS == 'ios' ? 0.25 : 0,
       shadowRadius: Platform.OS == 'ios' ? 3.84 : 0,
 
-      elevation: Platform.OS == 'android' ? 5 : 0,
+      elevation: Platform.OS == 'android' ? 1 : 0,
       
     },
     invoice: {
       text: {
         fontFamily: 'Avenir-Heavy',
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'left',
-        color: colour.black,
+        color: colour.darkGrey,
       }
     },
     items: {
@@ -94,7 +94,7 @@ const style = {
         fontFamily: 'Avenir-Heavy',
         fontSize: 16,
         textAlign: 'left',
-        color: colour.black,
+        color: colour.darkGrey,
       }
     }
   }

@@ -11,7 +11,7 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: dashboard ? null : width * 0.95,
-		height: dashboard ? null: width * 0.25,
+		height: dashboard ? 250 : width * 0.25,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
@@ -32,7 +32,7 @@ const styles = {
 			:	scaling.moderateScale(25)
 			)
 		),
-		marginHorizontal: scaling.moderateScale(8),
+		marginHorizontal: scaling.moderateScale(5),
 		paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
 		// borderWidth: 1,
 	}),
@@ -45,18 +45,18 @@ const styles = {
 			flexDirection: dashboard ? 'column' : 'row',
 			alignItems: 'center',
 			justifyContent: 'center',
-			paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
-			paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+			// paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+			// paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
 		}),
 		product: (dashboard) => ({
 			// backgroundColor: 'pink',
 			flexDirection: dashboard ? 'column' : 'row',
 			paddingTop: scaling.moderateScale(15),
-			paddingBottom: scaling.moderateScale(10),
+			// paddingBottom: scaling.moderateScale(10),
 			// paddingHorizontal: scaling.moderateScale(5),
 		}),
 		image:(dashboard) => ({
-			flex: -1,
+			// flex: -1,
 			width: dashboard ? null : width * 0.2,
 			justifyContent: 'center',
 			alignItems: 'center',
@@ -71,6 +71,7 @@ const styles = {
 			width: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
 			justifyContent: 'center',
     	alignItems: 'center',
+			// borderWidth: 1,
 		})
 	},
 }

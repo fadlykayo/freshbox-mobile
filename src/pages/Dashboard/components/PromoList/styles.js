@@ -27,6 +27,7 @@ const style = {
     textPromo: {
       fontSize: 17,
       fontFamily: 'Avenir-Heavy',
+      color: colour.darkGrey,
     },
     textMore: {
       fontSize: 15,
@@ -36,9 +37,10 @@ const style = {
   },
   promo: {
     container: {
-      height: height * 0.33,
+      height: 270,
       paddingLeft: 15,
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
+      // borderWidth: 1,
     },
     card: {
       marginVertical: 10

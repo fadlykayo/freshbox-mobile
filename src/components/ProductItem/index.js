@@ -68,7 +68,7 @@ class ProductItem extends PureComponent {
 								/>
 							</View> 
 							
-								<View style={{flex: 1}}>
+								<View style={{flex: -1}}>
 									<Content data={this.props.data} dashboard={this.props.dashboard}/>
 								</View> 
 
