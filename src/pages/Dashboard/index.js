@@ -6,7 +6,8 @@ import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
 import ProfileBlock from './components/ProfileBlock';
-import Carousel from './components/Carousel';
+// import Carousel from './components/Carousel';
+import Carousel from '@components/Carousel'
 import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
@@ -27,7 +28,18 @@ class Dashboard extends Component {
 				openImageDetail: false,
 				checkout: false,
 			},
-			loadingTransaction: true
+			loadingTransaction: true,
+			banner: [
+				{
+					title: '1'
+				},
+				{
+					title: '2'
+				},
+				{
+					title: '3'
+				},
+			]
     }
 
   }
@@ -37,7 +49,8 @@ class Dashboard extends Component {
 			this.getCategories();
 			this.getHistoryData();
 		} else {
-			actNav.navigate(navConstant.ProductList);
+			this.getProductList();
+			this.getCategories();
 		}
 
   }
@@ -325,7 +338,7 @@ class Dashboard extends Component {
 	
 
   render() {
-		if(this.props.user) {
+		
 
     return (
       <Container
@@ -343,6 +356,7 @@ class Dashboard extends Component {
         clearSearch={this.clearSearch}
       />
       <ScrollView style={styles.scrollView} bounces={false}>
+
         <ProfileBlock
 					user = {this.props.user}
 				/>
@@ -385,7 +399,9 @@ class Dashboard extends Component {
 					openImageDetail={this.state.modalVisible.openImageDetail}
 				/>
 
-        <Carousel/>
+        <Carousel
+					products = {this.state.banner}
+				/>
       </ScrollView>
         
 
@@ -397,9 +413,7 @@ class Dashboard extends Component {
 
     )
 					
-		} else {
-			return null
-		}
+		
   }
 }
 
