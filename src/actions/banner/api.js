@@ -12,7 +12,7 @@ let payload = {
 };
 
 actions.get_banner = (req, success, failure) => {
-	console.log('pair programing')
+	// console.log('pair programing')
 	payload.path = path.banners;
 	payload.header = req.header;
 	// payload.body = req.body;
@@ -20,9 +20,10 @@ actions.get_banner = (req, success, failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					console.log('====>', res)
+					// console.log('banner ====>', res)
         	if(res.code){
         		if(res.code == 200){
+							dispatch(actReducer.get_banners(res.data))
         			success(res);
         		}
         	}

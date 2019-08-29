@@ -6,11 +6,11 @@ import images from '@assets';
 export default class ProfileBlock extends Component {
   renderImage = () => {
     if(this.props.user) {
-      if(this.props.user.user.image) {
+      if(this.props.user.user.images_sizes_url) {
         return (
           <Image
-            resizeMode={'contain'}
-            source={this.props.user.user.image}
+            resizeMode={'cover'}
+            source={{uri : this.props.user.user.images_sizes_url.original}}
             style={styles.picture.image}
           />
         )

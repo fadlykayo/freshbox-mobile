@@ -2,7 +2,7 @@ import ct from '@constants';
 
 const action = {};
 
-action.GET_BANNER = (payload) => ({
+action.get_banners = (payload) => ({
     type: ct.GET_BANNER,
     payload
 });

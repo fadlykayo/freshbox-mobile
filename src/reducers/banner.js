@@ -6,7 +6,7 @@ const initialState = {
 
 const getBanners = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    newState.notification = payload.data;
+    newState.banners = payload.data;
     return newState;
 }
 

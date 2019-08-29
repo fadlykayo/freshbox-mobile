@@ -48,14 +48,15 @@ class Dashboard extends Component {
 			this.getProductList();
 			this.getCategories();
 			this.getHistoryData();
-			// this.getBanner();
+			this.getBanner();
 		} else {
 			this.getProductList();
 			this.getCategories();
-			// this.getBanner();
+			this.getBanner();
 		}
 
   }
+	
 
   getProductList = (fromDashboard) => {
 		let payload = {
@@ -85,10 +86,10 @@ class Dashboard extends Component {
 		}
 		this.props.get_banner(payload,
 			(res) => {
-				console.log(res, 'ini di page dashboard')
+				console.log(this.props.banners, 'ini di page dashboard')
 			},
 			(err) => {
-				console.log(err, 'kelar bos')
+				console.warn(err, 'kelar bos')
 			}
 		)
 	}
@@ -184,6 +185,7 @@ class Dashboard extends Component {
 		this.props.search_products(payload, 
 			(success) => {
 				this.onChangeText('search', true)
+				actNav.navigate(navConstant.ProductList)
 				// this.backToTop();
 			},
 			(err) => {
@@ -374,7 +376,7 @@ class Dashboard extends Component {
         clearSearch={this.clearSearch}
       />
 			
-      <ScrollView style={styles.scrollView} bounces={false} nestedScrollEnabled={true}>
+      <ScrollView style={styles.scrollView} bounces={false}>
 
         <ProfileBlock
 					user = {this.props.user}
@@ -451,6 +453,7 @@ const mapStateToProps = state => ({
 	transactionParams: state.transaction.params,
 	transactions: state.transaction.transactions,
 	productDetail: state.product.detail,
+	banners: state.banners.banners,
 })
 
 const mapDispatchToProps = dispatch => ({

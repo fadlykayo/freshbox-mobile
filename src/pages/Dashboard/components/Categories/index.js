@@ -6,10 +6,13 @@ import styles from './styles'
 export default class Categories extends Component {
   
   render() {
+    console.log('=================>', this.props.categories[1])
     return (
       <View style={styles.container}>
         <View style={styles.flatlist.container}>
         <FlatList
+          nestedScrollEnabled={true}
+          showsHorizontalScrollIndicator={false}
           horizontal
           data = {this.props.categories}
           keyExtractor={(item) => item.code}
@@ -17,7 +20,7 @@ export default class Categories extends Component {
             <View style={styles.icon.outerContainer}>
             <View style={styles.icon.container}>
             {
-              item.images_url ? 
+              item.images_url && item.images_url !== '' ? 
               <Image
                 source={{uri: item.images_sizes_url.original[0]}}
                 style={styles.icon.image}

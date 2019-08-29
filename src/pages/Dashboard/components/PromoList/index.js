@@ -34,6 +34,7 @@ export default class PromoList extends Component {
               this.props.product.length ?
               <FlatList
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 data = {this.props.product}
                 keyExtractor = {(item) => item.code}
                 renderItem = {({item, index}) => 

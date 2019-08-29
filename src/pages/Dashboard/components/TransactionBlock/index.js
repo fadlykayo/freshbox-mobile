@@ -8,39 +8,41 @@ import styles from './styles'
 export default class TransactionBlock extends Component {
 
   renderTransactions (transactions) {
+    if(transactions.length > 0) {
+      let transactionNonPending = transactions.map((transaction, i) => {
+        if(transaction.status !== 'pending_payment') {
+          return transaction
+        }
+      })
+      
+      return transactionNonPending.slice(0,2).map((transaction, i) => {
+        if(transaction.status !== 'pending_payment') {
 
-    let transactionNonPending = transactions.map((transaction, i) => {
-      if(transaction.status !== 'pending_payment') {
-        return transaction
-      }
-    })
+          return (
+            <View style={styles.card.container}>
+
+              <View>
+                <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
+                <View><Text style={styles.card.items.text}>{transaction.details.length} item(s)</Text></View>
+                <View style={styles.card.grandTotal.container}><Text style={styles.card.grandTotal.text}>IDR {numeral(transaction.grand_total).format(`0,0`)}</Text></View>
+              </View>
+
+              <View style={styles.card.button.container}>
+                <Button 
+                  type={'red'} 
+                  title={'historyPage.content.reOrder'} 
+                  borderRadius={50} 
+                  fontSize={13}
+                  onPress={() => this.props.navigateToDetail(transaction)}
+                />
+              </View>
+
+            </View>
+          )
+        }
+      });
+    }
     
-    return transactionNonPending.slice(0,2).map((transaction, i) => {
-      if(transaction.status !== 'pending_payment') {
-
-        return (
-          <View style={styles.card.container}>
-
-            <View>
-              <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
-              <View><Text style={styles.card.items.text}>{transaction.details.length} item(s)</Text></View>
-              <View style={styles.card.grandTotal.container}><Text style={styles.card.grandTotal.text}>IDR {numeral(transaction.grand_total).format(`0,0`)}</Text></View>
-            </View>
-
-            <View style={styles.card.button.container}>
-              <Button 
-                type={'red'} 
-                title={'historyPage.content.reOrder'} 
-                borderRadius={50} 
-                fontSize={13}
-                onPress={() => this.props.navigateToDetail(transaction)}
-              />
-            </View>
-
-          </View>
-        )
-      }
-    });
 
   }
 
@@ -66,7 +68,7 @@ export default class TransactionBlock extends Component {
         </View>
 
         <View style={styles.bottom.outerContainer}>
-          <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer} nestedScrollEnabled={true}>
+          <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer}>
 
             {this.renderTransactions(this.props.transactions)}
           </ScrollView>

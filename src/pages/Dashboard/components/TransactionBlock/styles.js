@@ -51,14 +51,9 @@ const style = {
   card: {
     container: {
       flex: -1,
-      // height: height * 0.1,
       width: width * 0.85,
-      // marginTop: 15,
-      // borderWidth: 1,
       marginVertical: 5,
       flexDirection: 'row',
-      // alignItems: 'flex-end',
-      // backgroundColor: 'blue',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 10,

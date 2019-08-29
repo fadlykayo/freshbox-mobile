@@ -28,18 +28,18 @@ const style = {
   },
   picture: {
     container: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      backgroundColor: 'pink',
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      // backgroundColor: 'pink',
       position: 'absolute',
-      right: 20,
+      right: 25,
       top: 10,
     },
     image: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
+      width: 50,
+      height: 50,
+      borderRadius: 25,
     }
   },
   bottom: {
