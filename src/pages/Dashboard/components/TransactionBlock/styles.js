@@ -25,6 +25,7 @@ const style = {
     textPromo: {
       fontSize: 17,
       fontFamily: 'Avenir-Heavy',
+      color:colour.darkGrey
     },
     textMore: {
       fontSize: 15,
@@ -42,17 +43,22 @@ const style = {
     contentContainer: {
       alignItems: 'center',
       
-    }
+    },
+    outerContainer: {
+      flex: 1
+    },
   },
   card: {
     container: {
-      
-      height: height * 0.09,
+      flex: -1,
+      // height: height * 0.1,
       width: width * 0.85,
+      // marginTop: 15,
       // borderWidth: 1,
-      marginVertical: 10,
+      marginVertical: 5,
       flexDirection: 'row',
       // alignItems: 'flex-end',
+      // backgroundColor: 'blue',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 10,
@@ -74,6 +80,9 @@ const style = {
       
     },
     invoice: {
+      container: {
+        paddingTop: 20,
+      },
       text: {
         fontFamily: 'Avenir-Heavy',
         fontSize: 12,
@@ -90,11 +99,23 @@ const style = {
       }
     },
     grandTotal: {
+      container: {
+        marginTop: 5,
+        // paddingBottom: 20,
+        // backgroundColor: 'pink'
+      },
       text: {
         fontFamily: 'Avenir-Heavy',
         fontSize: 16,
         textAlign: 'left',
         color: colour.darkGrey,
+      }
+    },
+    button: {
+      container: {
+        height: 30,
+        width: width * 0.4,
+        marginTop: 15
       }
     }
   }

@@ -8,22 +8,26 @@ import styles from './styles'
 export default class TransactionBlock extends Component {
 
   renderTransactions (transactions) {
-    // if(transactions.length > 0) {
-    //   transactions = transactions.slice(0,3)
-    // }
-    return transactions.map((transaction, i) => {
+
+    let transactionNonPending = transactions.map((transaction, i) => {
+      if(transaction.status !== 'pending_payment') {
+        return transaction
+      }
+    })
+    
+    return transactionNonPending.slice(0,2).map((transaction, i) => {
       if(transaction.status !== 'pending_payment') {
 
         return (
           <View style={styles.card.container}>
 
             <View>
-              <View style={{paddingTop: 20}}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
+              <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
               <View><Text style={styles.card.items.text}>{transaction.details.length} item(s)</Text></View>
-              <View style={{marginTop: 5, paddingBottom: 20}}><Text style={styles.card.grandTotal.text}>IDR {numeral(transaction.grand_total).format(`0,0`)}</Text></View>
+              <View style={styles.card.grandTotal.container}><Text style={styles.card.grandTotal.text}>IDR {numeral(transaction.grand_total).format(`0,0`)}</Text></View>
             </View>
 
-            <View style={{height:35, width: 120}}>
+            <View style={styles.card.button.container}>
               <Button 
                 type={'red'} 
                 title={'historyPage.content.reOrder'} 
@@ -44,7 +48,6 @@ export default class TransactionBlock extends Component {
     actNav.navigate(navConstant.HistoryPage)
   }
   
-  // render 4 latest transactions
   render() {
     return (
       <View style={styles.container}>
@@ -62,12 +65,13 @@ export default class TransactionBlock extends Component {
           </TouchableOpacity>
         </View>
 
-        <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer} nestedScrollEnabled>
-          <View
-            style={{height: 15}}
-          />
-          {this.renderTransactions(this.props.transactions)}
-        </ScrollView>
+        <View style={styles.bottom.outerContainer}>
+          <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer} nestedScrollEnabled={true}>
+
+            {this.renderTransactions(this.props.transactions)}
+          </ScrollView>
+        </View>
+        
 
 
       </View>

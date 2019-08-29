@@ -358,6 +358,7 @@ class Dashboard extends Component {
 		
 
     return (
+			
       <Container
         bgColorBottom = {'veryLightGrey'}
         bgColorTop={'red'}
@@ -372,7 +373,8 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
-      <ScrollView style={styles.scrollView} bounces={false} nestedScrollEnabled>
+			
+      <ScrollView style={styles.scrollView} bounces={false} nestedScrollEnabled={true}>
 
         <ProfileBlock
 					user = {this.props.user}
@@ -392,13 +394,19 @@ class Dashboard extends Component {
           <Categories
             categories = {this.props.categories}
           />
-          <TransactionBlock
+
+					<TransactionBlock
 						transactions = {this.props.transactions}
 						navigateToDetail = {this.navigateToDetail}
 					/>
-					
-        </View>
 
+					<View
+						style={{height : 20}}
+					>
+
+					</View>
+        </View>
+				
 				<ProductDetail
 					type={'productList'}
 					user={this.props.user}
@@ -420,7 +428,7 @@ class Dashboard extends Component {
 					products = {this.state.banner}
 				/>
       </ScrollView>
-        
+
 
 
       

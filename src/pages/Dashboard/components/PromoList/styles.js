@@ -8,6 +8,7 @@ const style = {
 
   container: {
     flex: -1,
+    marginTop: 10
     // backgroundColor: 'pink',
     // height: height,
   },

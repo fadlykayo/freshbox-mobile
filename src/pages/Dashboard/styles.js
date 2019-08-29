@@ -12,7 +12,7 @@ const style = {
   whiteBackground: {
     flex: 1,
     backgroundColor: colour.white,
-    height: height * 0.80,
+    // height: height * 0.85,
     // width: width,
     // position: 'absolute',
     // bottom: 0,
