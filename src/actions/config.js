@@ -43,4 +43,5 @@ export const path = {
     delivery_date: 'v1/request-shipping-date',
     checkVoucher: 'v1/voucher/check',
     cancelVoucher: 'v1/voucher/cancel',
+    banners: 'v1/banners/',
 }

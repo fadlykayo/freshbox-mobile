@@ -62,7 +62,7 @@ export default class TransactionBlock extends Component {
           </TouchableOpacity>
         </View>
 
-        <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer}>
+        <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer} nestedScrollEnabled>
           <View
             style={{height: 15}}
           />

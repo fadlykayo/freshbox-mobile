@@ -48,9 +48,11 @@ class Dashboard extends Component {
 			this.getProductList();
 			this.getCategories();
 			this.getHistoryData();
+			// this.getBanner();
 		} else {
 			this.getProductList();
 			this.getCategories();
+			// this.getBanner();
 		}
 
   }
@@ -74,6 +76,21 @@ class Dashboard extends Component {
 				// console.log(err);
 			}
 		);
+	}
+
+	getBanner = () => {
+		let payload = {
+			header: '',
+			params: '',
+		}
+		this.props.get_banner(payload,
+			(res) => {
+				console.log(res, 'ini di page dashboard')
+			},
+			(err) => {
+				console.log(err, 'kelar bos')
+			}
+		)
 	}
 
 	validateCart = () => {
@@ -355,7 +372,7 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
-      <ScrollView style={styles.scrollView} bounces={false}>
+      <ScrollView style={styles.scrollView} bounces={false} nestedScrollEnabled>
 
         <ProfileBlock
 					user = {this.props.user}
@@ -439,6 +456,7 @@ const mapDispatchToProps = dispatch => ({
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 	clear_products: () => dispatch(actions.product.reducer.clear_products()),
 	reset_params: () => dispatch(actions.product.reducer.reset_params()),
+	get_banner: (req,res,err) => dispatch(actions.banner.api.get_banner(req, res, err)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

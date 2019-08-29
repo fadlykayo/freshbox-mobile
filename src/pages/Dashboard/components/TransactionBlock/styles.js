@@ -70,7 +70,7 @@ const style = {
       shadowOpacity: Platform.OS == 'ios' ? 0.25 : 0,
       shadowRadius: Platform.OS == 'ios' ? 3.84 : 0,
 
-      elevation: Platform.OS == 'android' ? 1 : 0,
+      elevation: Platform.OS == 'android' ? 0 : 0,
       
     },
     invoice: {

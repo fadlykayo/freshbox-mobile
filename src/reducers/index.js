@@ -6,6 +6,7 @@ import transaction from './transaction';
 import region from './region';
 import utility from './utility';
 import notif from './notification';
+import banners from './banner'
 
 const rootReducer = combineReducers({
 	user,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	transaction,
 	region,
 	utility,
-	notif
+	notif,
+	banners,
 });
 
 export default rootReducer;

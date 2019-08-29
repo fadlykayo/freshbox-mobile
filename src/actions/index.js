@@ -9,6 +9,7 @@ import utility from './utility';
 import cs from './cs';
 import notif from './notification';
 import voucher from './voucher';
+import banner from './banner'
 
 const action = {
     registration: registration,
@@ -22,6 +23,7 @@ const action = {
     cs: cs,
     notif: notif,
     voucher: voucher,
+    banner: banner,
 }
 
 export default action;
