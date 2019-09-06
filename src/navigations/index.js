@@ -29,6 +29,7 @@ import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
 import OTP from '@pages/OTP'
 import Dashboard from '@pages/Dashboard';
+import BannerDetail from '@pages/BannerDetail';
 import { analytics } from '@helpers';
 
 let _navigator;
@@ -75,6 +76,7 @@ export const AppNavigator = createStackNavigator({
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
     Dashboard: DrawerBar,
+    BannerDetail: {screen: BannerDetail},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -133,6 +135,7 @@ export const navConstant = {
     TransferInstruction: 'TransferInstruction',
     OTP: 'OTP',
     Dashboard: 'Dashboard',
+    BannerDetail : 'BannerDetail',
 }
 
 export const setNavigator = (navigatorRef) => {

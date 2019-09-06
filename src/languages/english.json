@@ -37,6 +37,9 @@
             "finish": "FINISH"
         }
     },
+    "bannerDetail" : {
+        "navigationTitle" : "Banner Detail"
+    },
     "signIn":{
         "navigationTitle": "Sign In",
         "formLabel":{

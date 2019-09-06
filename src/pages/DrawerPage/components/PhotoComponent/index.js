@@ -16,7 +16,6 @@ class PhotoComponent extends PureComponent {
 
   	render () {
 		if (this.props.user && this.props.user.user) {
-			console.log(this.props.user)
 			return (
 				<TouchableOpacity onPress={ this.navigateToProfilePage } style={styles.container}>
 					<Image

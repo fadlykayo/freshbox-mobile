@@ -8,7 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
+import { actNav, navConstant } from '@navigations';
 const { height, width } = Dimensions.get('window');
 
 const bannerWidth = width * 0.9;
@@ -34,26 +34,25 @@ export default class Carousel extends PureComponent {
     if(this.props.products !== null) {
       this.interval = setInterval(() => {
         if (this.state.scrollX === this.state.count * bannerWidth) {
-          console.log('disini')
+          // console.log('disini')
           this.setState({
             count: Math.round((this.state.scrollX / bannerWidth) + 1),
           });
         } else {
           if (this.state.scrollX > this.state.count * bannerWidth) {
-            console.log('disana')
+            // console.log('disana')
             this.setState({
               count: Math.round((this.state.scrollX / bannerWidth) + 1),
             });
           } else {
-            console.log('disana2')
+            // console.log('disana2')
             this.setState({
               count: Math.round((this.state.scrollX / bannerWidth) + 1),
-            }, () => console.log(this.state.count));
+            });
           };
         };
 
         if (this.state.count >= this.props.products.length) {
-          console.log('disana3')
           this.setState({
             count: 0,
           });
@@ -107,16 +106,17 @@ export default class Carousel extends PureComponent {
     } else {
       if(products && products.length !== 0) {
         return products.map((product, index) => {
-          
+          console.warn(product)
           return (
-            <View key={ index } style={Styles.cover.outerContainer}>
+            <TouchableOpacity style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product.links)}>
+              <View key={ index } style={Styles.cover.outerContainer}>
 
-              <Image style={ Styles.cover.image(this.props.size) } source={ product.image }/>
+                  <Image style={ Styles.cover.image(this.props.size) } source={ product.images_dashboard_mobile }/>
 
-              {/* { this.renderOverlay(product) } */}
-              <Text Style={{fontSize: 21, color: 'white'}}>{product.title}</Text>
-
-            </View>
+                  {/* { this.renderOverlay(product) } */}
+                  <Text Style={{fontSize: 21, color: 'white'}}>{product.name_banner}</Text>
+              </View>
+            </TouchableOpacity>
           );
         });
       } else {
@@ -127,7 +127,7 @@ export default class Carousel extends PureComponent {
               source={ Images.noImage }
               resizeMode='contain'
             /> */}
-                    <Text Style={{fontSize: 21, color: 'white'}}>{product.title}</Text>
+                    {/* <Text Style={{fontSize: 21, color: 'white'}}>{product.name_banner}</Text> */}
 
             {/* <Text Style={Styles.cover.emptyText}>No Image Available</Text> */}
           </View>
@@ -136,6 +136,10 @@ export default class Carousel extends PureComponent {
     }
 
   };
+
+  navigateToBannerDetail = (link) => {
+    actNav.navigate(navConstant.BannerDetail, {link: link})
+  }
 
   renderIndicator(images, indexPage) {
     let counter = -1;

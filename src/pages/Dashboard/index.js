@@ -44,21 +44,20 @@ class Dashboard extends Component {
 
   }
   componentDidMount() {
+		
+		this.getProductList();
+		this.getCategories();
+		this.getBanner();
 		if(this.props.user) {
-			this.getProductList();
-			this.getCategories();
 			this.getHistoryData();
-			this.getBanner();
-		} else {
-			this.getProductList();
-			this.getCategories();
-			this.getBanner();
+
 		}
 
   }
 	
 
   getProductList = (fromDashboard) => {
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -86,7 +85,7 @@ class Dashboard extends Component {
 		}
 		this.props.get_banner(payload,
 			(res) => {
-				console.log(this.props.banners, 'ini di page dashboard')
+				// console.log()
 			},
 			(err) => {
 				console.warn(err, 'kelar bos')
@@ -95,7 +94,6 @@ class Dashboard extends Component {
 	}
 
 	validateCart = () => {
-		console.warn('masuk sini')
 		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
 		if(outStockCart.length > 0){
 			language.transformText('message.outOfStock')
@@ -185,7 +183,7 @@ class Dashboard extends Component {
 		this.props.search_products(payload, 
 			(success) => {
 				this.onChangeText('search', true)
-				actNav.navigate(navConstant.ProductList)
+				actNav.navigate(navConstant.ProductList, {fromDashboard: true})
 				// this.backToTop();
 			},
 			(err) => {
@@ -196,6 +194,7 @@ class Dashboard extends Component {
 
 	getHistoryData(){
 		this.setState({loadingTransaction: true})
+		console.log(this.props.transactionParams)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -277,7 +276,7 @@ class Dashboard extends Component {
 	}
 
 	changeTotalItem = () => {
-		console.log('change total item')
+		// console.log('change total item')
 	}
 
 	openZoomImage = () => {
@@ -352,6 +351,58 @@ class Dashboard extends Component {
 		this.props.reset_params();
 		this.getProductList(fromDashboard);
 		this.getHistoryData();
+	}
+
+	navigateToCategories = (category) => {
+		if (category.name == 'Default') {
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					sort: 'nama-az',
+					// stock: 'tersedia'
+				}
+			}
+
+			this.props.search_products(payload, 
+				() => {
+					// this.props.change_categories(input);
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+					// this.backToTop();
+				},
+				(err) => {
+					console.log(err);
+				});
+		}
+		else {
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					sort: 'nama-az',
+					// stock: 'tersedia',
+					category_code: category.code,
+				}
+			}
+
+			this.props.search_products(payload, 
+				() => {
+					// this.props.change_categories(input);
+					// this.checkCategory();
+					// this.closeDialogCategories();
+					// this.backToTop();
+					actNav.navigate(navConstant.ProductList)
+				},
+				(err) => {
+					console.log(err);
+				});
+		}		
 	} 
 
 	
@@ -395,6 +446,7 @@ class Dashboard extends Component {
           />
           <Categories
             categories = {this.props.categories}
+						navigateToCategories = {this.navigateToCategories}
           />
 
 					<TransactionBlock
@@ -427,7 +479,7 @@ class Dashboard extends Component {
 				/>
 
         <Carousel
-					products = {this.state.banner}
+					products = {this.props.banners}
 				/>
       </ScrollView>
 
@@ -468,6 +520,8 @@ const mapDispatchToProps = dispatch => ({
 	clear_products: () => dispatch(actions.product.reducer.clear_products()),
 	reset_params: () => dispatch(actions.product.reducer.reset_params()),
 	get_banner: (req,res,err) => dispatch(actions.banner.api.get_banner(req, res, err)),
+	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

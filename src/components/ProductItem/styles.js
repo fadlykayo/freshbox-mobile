@@ -6,7 +6,6 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
     container: (i,length, search, stock, dashboard) => ({
-		// backgroundColor: 'pink',
 		alignSelf: 'center',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -45,33 +44,30 @@ const styles = {
 			flexDirection: dashboard ? 'column' : 'row',
 			alignItems: 'center',
 			justifyContent: 'center',
-			// paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
-			// paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+			paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
+			paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
 		}),
 		product: (dashboard) => ({
-			// backgroundColor: 'pink',
 			flexDirection: dashboard ? 'column' : 'row',
 			paddingTop: scaling.moderateScale(15),
-			// paddingBottom: scaling.moderateScale(10),
-			// paddingHorizontal: scaling.moderateScale(5),
+			paddingBottom: dashboard ? null : scaling.moderateScale(10),
+			paddingHorizontal: dashboard ? null : scaling.moderateScale(5),
 		}),
 		image:(dashboard) => ({
-			// flex: -1,
 			width: dashboard ? null : width * 0.2,
 			justifyContent: 'center',
 			alignItems: 'center',
 			marginRight: dashboard ? null : width * 0.03,
-			// backgroundColor: 'grey'
+			marginLeft: dashboard ? null : 10,
 		})
 	},
 	icon:{
 		product: (dashboard) => ({
-			marginTop: 10,
+			marginTop: dashboard ? 10 : null,
 			height: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
 			width: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
 			justifyContent: 'center',
     	alignItems: 'center',
-			// borderWidth: 1,
 		})
 	},
 }

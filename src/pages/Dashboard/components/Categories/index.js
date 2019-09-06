@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, Image } from 'react-native'
+import { Text, View, FlatList, Image, TouchableWithoutFeedback } from 'react-native'
 import images from '@assets'
 import styles from './styles'
 
 export default class Categories extends Component {
+
+  navigateToCategories = (category) => {
+    this.props.navigateToCategories(category)
+  }
   
   render() {
-    console.log('=================>', this.props.categories[1])
+    // console.log('=================>', this.props.categories[1])
     return (
       <View style={styles.container}>
         <View style={styles.flatlist.container}>
@@ -17,6 +21,7 @@ export default class Categories extends Component {
           data = {this.props.categories}
           keyExtractor={(item) => item.code}
           renderItem={({item, index}) => (
+            <TouchableWithoutFeedback onPress = {() => this.navigateToCategories(item)}>
             <View style={styles.icon.outerContainer}>
             <View style={styles.icon.container}>
             {
@@ -33,7 +38,7 @@ export default class Categories extends Component {
             </View>
             <Text style={styles.icon.text}>{item.name == 'Default' ? 'All' : item.name}</Text>
             </View>
-
+            </TouchableWithoutFeedback>
           )}
         />
         </View>

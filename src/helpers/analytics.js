@@ -11,7 +11,6 @@ analysis.init = () => {
 }
 
 analysis.logEvent = (eventName) => {
-  console.log('ini store di analytics', store.getState());
 
   let payload = store.getState().product.cart;
 

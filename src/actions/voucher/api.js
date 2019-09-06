@@ -83,7 +83,7 @@ actions.cancel_voucher = (req, success, failure) => {
   return dispatch => {
     requestHandler('post', payload, dispatch)
     .then((res) => {
-      console.log('cancel voucher success', res)
+      // console.log('cancel voucher success', res)
       if(res.code){
         if(res.code == 200) {
           dispatch(actReducer.cancel_voucher(req.body.subtotal));
@@ -92,7 +92,7 @@ actions.cancel_voucher = (req, success, failure) => {
       }
     })
     .catch((err) => {
-      console.log('cancel voucher err', err)
+      // console.log('cancel voucher err', err)
       if(!err.code){
         dispatch(actNetwork.set_network_error_status(true));
       } else {

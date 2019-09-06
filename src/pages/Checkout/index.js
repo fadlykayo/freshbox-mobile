@@ -337,7 +337,7 @@ class Checkout extends Component {
 					this.setState(state);
 				},
 				rej => {
-					console.log(rej)
+					// console.log(rej)
 				}
 			);
 		} 
@@ -363,13 +363,10 @@ class Checkout extends Component {
 					payment_type: method,
 				}
 			}
-
-			console.log('coba', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
 					if(res.redirect_url) {
-						console.log('GOPAY/TRANSFER', res)
 						this.setState({
 							token: res.token,
 							invoice: res.invoice,
@@ -440,7 +437,6 @@ class Checkout extends Component {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
-					console.log('transaction status', err)
 					this.props.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan.',

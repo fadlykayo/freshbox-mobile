@@ -37,6 +37,9 @@
             "finish": "SELESAI"
         }
     },
+    "bannerDetail" : {
+        "navigationTitle" : "Detail Banner"
+    },
     "signIn":{
         "navigationTitle": "Masuk",
         "formLabel":{

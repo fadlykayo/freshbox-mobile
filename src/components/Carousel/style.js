@@ -2,7 +2,7 @@ import {
   RatioHelper,
 } from '@helpers';
 
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 const { height, width } = Dimensions.get('window');
 import { colour } from '@styles';
 
@@ -20,7 +20,7 @@ module.exports = {
     height: height * 0.19,
     width: width * 0.9,
     top: 70,
-    left: 20
+    left: 20,
   },
   cover: {
     outerContainer: {

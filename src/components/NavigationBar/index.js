@@ -17,7 +17,6 @@ class NavigationBar extends PureComponent {
         }
         else{
             if(this.props.cancelVoucher){
-                console.log('halo')
                 this.props.cancelVoucher();
                 actNav.goBack();
             } else {
