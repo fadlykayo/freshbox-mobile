@@ -2,8 +2,8 @@ export const url = '';
 
 const production = {
     version: {
-        android: '1.0.6',
-        ios: '1.0.6',
+        android: '1.0.8',
+        ios: '1.0.8',
     },
     url: 'https://api.freshbox.id/',
     env: 'production'

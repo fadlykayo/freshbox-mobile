@@ -263,7 +263,7 @@ actions.get_transaction = (req,success,failure) => {
 	payload.path = path.transactionHistory;
 	payload.header = req.header;
 	payload.params = req.params;
-	
+	console.log('params page', payload.params)
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {

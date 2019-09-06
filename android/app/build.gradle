@@ -95,6 +95,15 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal 
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.1, 0.99.99]'
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -108,8 +117,8 @@ android {
         applicationId "com.freshbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "1.0.7"
+        versionCode 16
+        versionName "1.0.8"
         multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
@@ -214,4 +223,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

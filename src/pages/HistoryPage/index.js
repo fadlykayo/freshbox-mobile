@@ -36,15 +36,11 @@ class HistoryPage extends Component {
 	}
 
 	componentDidMount() {
-		const parent = this.props.navigation.dangerouslyGetParent();
-		const isDrawerOpen = parent && parent.state && parent.state.isDrawerOpen;
-		console.log(this.props.navigation.closeDrawer)
 		if(this.props.transactions.length == 0) {
 			this.getHistoryData();
 		} else {
 			this.refreshHandler();
 		}
-
 	}
 
 	refreshHandler(){
@@ -58,7 +54,10 @@ class HistoryPage extends Component {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
-			params: this.props.params
+			params: {
+				page: this.props.params.page,
+				// per_page: this.props.transactions.length
+			}
 		}
 
 		this.props.get_transaction(payload, 
