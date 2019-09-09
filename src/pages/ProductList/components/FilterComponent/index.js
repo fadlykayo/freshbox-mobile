@@ -11,25 +11,30 @@ class SearchComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.openAllCategories = this.openAllCategories.bind(this);
+		this.openDeliveryInfo = this.openDeliveryInfo.bind(this);
 	}
 
 	openAllCategories() {
 		this.props.openAllCategories()
 	}
+
+	openDeliveryInfo() {
+		this.props.openDeliveryInfo()
+	}
 	render(){
 		return (
     	<View style={styles.container}>
-        	<View style={styles.subcontainer.part(false)}>
+        	<TouchableOpacity style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
         		<StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
         		/>
-        		{/* <Image
+        		<Image
   	  			  	resizeMode={'contain'} 
-  	  			  	source={images.icon_dropdown}
+  	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
-  	  			/> */}
-        	</View>
+  	  			/>
+        	</TouchableOpacity>
 			<TouchableOpacity
 				style={styles.subcontainer.part(true)}
 				onPress = { this.openAllCategories }

@@ -170,7 +170,7 @@
         "notes": "Order before 10 PM for tomorrow delivery",
         "filter": {
             "categories": "All Categories",
-            "area": "Jabodetabek"
+            "area": "Delivery Area"
         },
         "symbol": {
             "minus": "-",

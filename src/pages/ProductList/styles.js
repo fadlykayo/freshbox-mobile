@@ -49,6 +49,52 @@ const styles = {
 			height: scaling.moderateScale(20),
 			width: scaling.moderateScale(20)
 		}
+	},
+	modal: {
+		container: {
+			flex: 1, 
+			backgroundColor: 'black', 
+			opacity: 0.7, 
+			justifyContent: 'center', 
+			alignItems: 'center',
+		},
+		card: {
+			height: height * 0.2,
+			width: width * 0.9,
+			backgroundColor: 'white',
+			position: 'absolute',
+			top: 250,
+			left: 22,
+			justifyContent: 'center',
+			alignItems: 'center',
+			// borderRadius: 50,
+		},
+		content: {
+			flexDirection: 'row',
+			paddingHorizontal: 50,
+		},
+		image: {
+			height: 50,
+			width: 56,
+			marginRight: 10,
+			// marginLeft: 20,
+			marginTop: 13,
+		},
+		title: {
+			fontFamily: 'Avenir-Heavy',
+			fontSize: scaling.moderateScale(14),
+			color: colour.black,
+			// marginVertical: 20,
+			marginHorizontal: 8,
+			
+		},
+		text: {
+			fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(13),
+			color: colour.black,
+			// marginTop : 100,
+			marginHorizontal: 10,
+		}
 	}
 }
 

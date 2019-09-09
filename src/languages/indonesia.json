@@ -172,7 +172,7 @@
         "notes": "Pesan sebelum jam 22.00 WIB untuk pengiriman esok hari",
         "filter": {
             "categories": "Semua Kategori",
-            "area": "Jabodetabek"
+            "area": "Delivery Area"
         },
         "symbol": {
             "minus": "-",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Modal, Image, TouchableHighlight } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -37,6 +37,7 @@ class ProductList extends Component {
 				openProduct: false,
 				openImageDetail: false,
 				checkout: false,
+				delivery: false,
 			},
 			listLoading: false,
 			wasSearching: false,
@@ -75,6 +76,8 @@ class ProductList extends Component {
 		this.introAnimate = this.introAnimate.bind(this);
 		this.outroAnimate = this.outroAnimate.bind(this);
 		this.showCheckout = new Animated.Value(0);
+		this.openDeliveryInfo = this.openDeliveryInfo.bind(this);
+		this.closeDeliveryInfo = this.closeDeliveryInfo.bind(this);
 	}
 
 	componentDidMount(){
@@ -188,6 +191,15 @@ class ProductList extends Component {
 				// console.log(err);
 			}
 		)
+	}
+
+	//handle deliveries information modal
+	openDeliveryInfo(){
+		this.setModalVisible('delivery', true);
+	}
+
+	closeDeliveryInfo(){
+		this.setModalVisible('delivery', false);
 	}
 
 	// handling zoom products' image
@@ -671,6 +683,7 @@ class ProductList extends Component {
 					<FilterComponent 
 						onCategory={this.props.on_category}
 						openAllCategories={this.openAllCategories}
+						openDeliveryInfo = {this.openDeliveryInfo}
 					/>
 
 			<Notes 
@@ -754,6 +767,38 @@ class ProductList extends Component {
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
 		  		/>
+				<Modal
+					animationType = 'slide'
+					transparent = {true}
+					visible = {this.state.modalVisible.delivery}
+
+				>
+					<View style={{flex: 1}}>
+						<TouchableHighlight style={{flex: 1}} onPress = {this.closeDeliveryInfo}>
+						<>
+							<View style={styles.modal.container}>
+								
+							</View>
+							<View style={styles.modal.card}>
+								<View style={styles.modal.content}>
+									<Image
+										source = {images.icon_favorited}
+										style = {styles.modal.image}
+									/>
+									<View>
+										<Text style={styles.modal.title}>Cities We Currently Serve</Text>
+										<Text style={styles.modal.text}>We are currently serving Jakarta, Depok, and Tangerang area. We will serve other areas soon!</Text>
+									</View>
+								</View>
+
+								
+								
+							</View>
+						</>
+						</TouchableHighlight>
+					</View>
+				</Modal>
+				
 			</Container>
 		);
 	}
