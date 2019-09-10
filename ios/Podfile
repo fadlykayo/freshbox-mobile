@@ -38,6 +38,8 @@ target 'Freshbox' do
 
   # pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
+  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
+
 end
 
 post_install do |installer|

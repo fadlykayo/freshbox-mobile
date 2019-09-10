@@ -95,6 +95,15 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal 
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.1, 0.99.99]'
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -170,6 +179,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':react-native-sentry')
     implementation project(':react-native-firebase')
     // Firebase dependencies
     // implementation "com.google.android.gms:play-services-base:16.1.0"
@@ -213,4 +223,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

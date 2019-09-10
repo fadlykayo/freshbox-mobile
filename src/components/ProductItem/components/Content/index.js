@@ -30,7 +30,7 @@ class Content extends PureComponent {
 						<View>
 
 							{
-								this.props.data.on_promo !== 1 ?
+								this.props.data.on_promo == 1 ?
 								(
 									<View style={{height: 20, marginTop: 5}}>
 										<Text style={styles.text.price.promo}>

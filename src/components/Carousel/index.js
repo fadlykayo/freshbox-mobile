@@ -108,7 +108,7 @@ export default class Carousel extends PureComponent {
         return products.map((product, index) => {
           console.warn(product)
           return (
-            <TouchableOpacity style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product.links)}>
+            <TouchableOpacity style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product)}>
               <View key={ index } style={Styles.cover.outerContainer}>
 
                   <Image style={ Styles.cover.image(this.props.size) } source={ product.images_dashboard_mobile }/>
@@ -137,8 +137,10 @@ export default class Carousel extends PureComponent {
 
   };
 
-  navigateToBannerDetail = (link) => {
-    actNav.navigate(navConstant.BannerDetail, {link: link})
+  navigateToBannerDetail = (product) => {
+    // console.warn(product)
+    this.props.navigateToBannerDetail(product)
+    // actNav.navigate(navConstant.BannerDetail, {link: link})
   }
 
   renderIndicator(images, indexPage) {

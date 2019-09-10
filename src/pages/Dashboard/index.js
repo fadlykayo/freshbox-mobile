@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
 import ProfileBlock from './components/ProfileBlock';
-// import Carousel from './components/Carousel';
+import Checkout from '../ProductList/components/Checkout';
 import Carousel from '@components/Carousel'
 import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
@@ -14,6 +14,8 @@ import Categories from './components/Categories';
 import ProductList from '../ProductList';
 import actions from '@actions';
 import styles from './styles';
+
+const { width, height } = Dimensions.get('window');
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,19 +43,65 @@ class Dashboard extends Component {
 				},
 			]
     }
-
+		this.showCheckout = new Animated.Value(0);
   }
+	shouldComponentUpdate(nextProps, nextState) {
+		if(nextProps.total_count == 0) this.outroAnimate();
+		else if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
+		return true;
+	}
+	
   componentDidMount() {
 		
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
+		this.checkCart();
 		if(this.props.user) {
 			this.getHistoryData();
 
 		}
 
   }
+
+	// cart button slide up animation
+	introAnimate = () => {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start()
+	}
+
+	// cart button slide down animation
+	outroAnimate = () => {
+		this.showCheckout.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+	}
+
+	// validate if cart not empty
+	checkCart = () => {
+		if(this.props.total_count > 0) this.introAnimate();
+	}
 	
 
   getProductList = (fromDashboard) => {
@@ -275,8 +323,8 @@ class Dashboard extends Component {
 		this.setModalVisible('openProduct', true);
 	}
 
-	changeTotalItem = () => {
-		// console.log('change total item')
+	changeTotalItem = (payload,type) => {
+		this.props.change_total(payload,type);
 	}
 
 	openZoomImage = () => {
@@ -403,12 +451,45 @@ class Dashboard extends Component {
 					console.log(err);
 				});
 		}		
-	} 
+	}
 
-	
+	navigateToBannerDetail = (product) => {
+		let payload = {
+		header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {
+				bannerID: product.id,
+			}
+		};
+
+		this.props.get_detail_banner(payload,
+			(res) => {
+
+				if(product.links && product.link !== '') {
+					actNav.navigate(navConstant.BannerDetail, {links: product.links})
+				} else {
+					actNav.navigate(navConstant.BannerDetail)
+				}
+				
+			},
+			(err) => {
+				console.log('err', err)
+			}
+		) 
+
+	}
 
   render() {
-		
+		const introButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [-(width * 0.3), 0]
+		})
+		const outroButton = this.showCheckout.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, -(width * 0.3)]
+		})
 
     return (
 			
@@ -457,7 +538,7 @@ class Dashboard extends Component {
 					<View
 						style={{height : 20}}
 					>
-
+				
 					</View>
         </View>
 				
@@ -477,16 +558,25 @@ class Dashboard extends Component {
 					modalVisible={this.state.modalVisible.openProduct}
 					openImageDetail={this.state.modalVisible.openImageDetail}
 				/>
-
+				
+				
         <Carousel
 					products = {this.props.banners}
+					navigateToBannerDetail = {this.navigateToBannerDetail}
 				/>
       </ScrollView>
 
 
 
       
-      
+      <Checkout
+					introButton={introButton}
+					outroButton={outroButton}
+					validateCart={this.validateCart}
+					totalCount={this.props.total_count}
+					totalPrice={this.props.total_price}
+					modalVisible={this.state.modalVisible.checkout}
+				/>
      
       </Container>
 
@@ -506,6 +596,9 @@ const mapStateToProps = state => ({
 	transactions: state.transaction.transactions,
 	productDetail: state.product.detail,
 	banners: state.banners.banners,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	cart_product: state.product.cart.products,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -521,7 +614,9 @@ const mapDispatchToProps = dispatch => ({
 	reset_params: () => dispatch(actions.product.reducer.reset_params()),
 	get_banner: (req,res,err) => dispatch(actions.banner.api.get_banner(req, res, err)),
 	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
-
+	get_detail_banner: (req, res, err) => dispatch(actions.banner.api.get_detail_banner(req,res,err)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

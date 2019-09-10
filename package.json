@@ -22,6 +22,7 @@
     "react-native-image-picker": "0.26.10",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-onesignal": "3.1.4",
+    "react-native-sentry": "^0.43.2",
     "react-native-vector-icons": "5.0.0",
     "react-navigation": "2.13.0",
     "react-redux": "5.0.7",

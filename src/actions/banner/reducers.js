@@ -7,5 +7,10 @@ action.get_banners = (payload) => ({
     payload
 });
 
+action.get_detail_banner = (payload) => ({
+    type: ct.GET_DETAIL_BANNER,
+    payload
+})
+
 
 export default action;

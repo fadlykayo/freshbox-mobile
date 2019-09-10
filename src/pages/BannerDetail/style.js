@@ -12,11 +12,56 @@ const styles = {
         
     },
     content: {
-        flex: 1
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center'
         
     },
     webview:{
         
+    },
+    banner: {
+        container: {
+            height: height * 0.3,
+            width: width * 0.9,
+            backgroundColor: 'pink',
+            alignItems: 'center',
+            alignSelf: 'center',
+            // borderRadius: 50,
+        }
+    },
+    mid: {
+        container: {
+            flex: -1,
+            paddingHorizontal: 20,
+            paddingVertical: 40,
+
+        },
+        hori: {
+            width: 3,
+            height: 20,
+            backgroundColor: colour.red,
+            marginRight: 5,
+        },
+        titleContainer: {
+            paddingVertical: 20,
+            // paddingHorizontal: 5,
+            flexDirection: 'row',
+        },
+        titleText: {
+            fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(16),
+			color: colour.darkGrey,
+            // textAlign: 'center',
+        },
+        contentContainer: {
+
+        },
+        contentText: {
+            fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(13),
+			color: colour.black,
+        },
     },
     gopay:{
         container: {
