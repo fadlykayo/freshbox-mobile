@@ -602,7 +602,6 @@ class ProductList extends Component {
 	}
 
 	createOrderHandler(invoice,type){
-		console.log(invoice, 'INI CREATE ORDERHANDLER')
 		new Promise((res) => {
 			actNav.goBackToTop();
 			this.props.clear_products();

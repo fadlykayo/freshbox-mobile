@@ -134,8 +134,10 @@ actions.search_products = (req, success, failure) => {
 	payload.params = req.params;
 	
 	return dispatch => {
+		
         requestHandler('get',payload,dispatch)
         .then((res) => {
+					console.log('Search Products res', res);
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {
@@ -147,7 +149,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Search Products err', err);
+        	console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

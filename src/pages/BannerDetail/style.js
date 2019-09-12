@@ -22,19 +22,24 @@ const styles = {
     },
     banner: {
         container: {
-            height: height * 0.3,
-            width: width * 0.9,
-            backgroundColor: 'pink',
+            height: height * 0.25,
+            width: width,
+            // backgroundColor: 'pink',
             alignItems: 'center',
             alignSelf: 'center',
             // borderRadius: 50,
+        },
+        image: {
+           height: height * 0.25,
+           width: width, 
         }
     },
     mid: {
         container: {
             flex: -1,
             paddingHorizontal: 20,
-            paddingVertical: 40,
+            paddingVertical: 10,
+            // borderWidth: 1,
 
         },
         hori: {
@@ -91,6 +96,35 @@ const styles = {
 			color: colour.darkGrey,
             textAlign: 'center',
         }
+    },
+    promo: {
+        container: {
+            flex: -1,
+            paddingLeft: 15,
+            marginHorizontal: 5,
+            paddingVertical: 20,
+            // borderWidth: 1,
+        },
+        card: {
+            marginVertical: 10
+        },
+        hori: {
+            width: 3,
+            height: 20,
+            backgroundColor: colour.red,
+            marginRight: 5,
+        },
+        titleContainer: {
+            // paddingVertical: 20,
+            // paddingHorizontal: 5,
+            flexDirection: 'row',
+        },
+        titleText: {
+            fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(16),
+			color: colour.darkGrey,
+            // textAlign: 'center',
+        },
     },
 }
 

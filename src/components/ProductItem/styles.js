@@ -32,8 +32,7 @@ const styles = {
 			)
 		),
 		marginHorizontal: scaling.moderateScale(5),
-		paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
-		// borderWidth: 1,
+		// paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
 	}),
 	subcontainer: {
 		verification:{

@@ -27,19 +27,28 @@ class ProductItem extends PureComponent {
 	}
 
 	render(){
-		let productImage;
-		if(Platform.OS == 'ios') {
 
-		productImage = this.props.data.images_sizes_url.original[0];
+		let productImage;
+		let data;
+		if(this.props.bannerDetail) {
+			data = this.props.data.product;
+		} else {
+			data = this.props.data;
+		}
+
+		if(Platform.OS == 'ios') {
+			
+			productImage = data.images_sizes_url.original[0];
 		} else {
 
-		productImage = this.props.data.images_sizes_url["100x100"][0]
+			productImage = data.images_sizes_url["100x100"][0]
 		}
+		
 		// console.log(this.props.data.images_sizes_url["50x50"][0])
 		if(this.props.dashboard) {
 
 			return(
-				<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock, this.props.dashboard)}>
+				<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
 					<View style={styles.subcontainer.card(this.props.dashboard)}>
 					
 						<TouchableOpacity 
@@ -60,16 +69,16 @@ class ProductItem extends PureComponent {
 							
 							<View style = {{position: 'absolute', right: 5, top: 20}}>
 								<ButtonFav 
-									data={this.props.data}
+									data={data}
 									user={this.props.user}
-									isFavorite={this.props.data.favorite}
+									isFavorite={data.favorite}
 									toggleFavorite={this.props.toggleFavorite}
 									dashboard = {this.props.dashboard}
 								/>
 							</View> 
 							
 								<View style={{flex: -1}}>
-									<Content data={this.props.data} dashboard={this.props.dashboard}/>
+									<Content data={data} dashboard={this.props.dashboard}/>
 								</View> 
 
 						
@@ -84,7 +93,7 @@ class ProductItem extends PureComponent {
 
 		} else {
 					return(
-			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, this.props.data.stock, this.props.dashboard)}>
+			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
 				<View style={styles.subcontainer.card(this.props.dashboard)}>
 					<TouchableOpacity 
 						onPress={this.openDetailProduct}
@@ -98,21 +107,21 @@ class ProductItem extends PureComponent {
 								resizeMethod={'resize'}
 							/>
 						</View>
-						<Content data={this.props.data}/>
+						<Content data={data}/>
 						{
 							this.props.type == 'cart'
 							? 	null
 							:	<ButtonFav 
-									data={this.props.data}
+									data={data}
 									user={this.props.user}
-									isFavorite={this.props.data.favorite}
+									isFavorite={data.favorite}
 									toggleFavorite={this.props.toggleFavorite}
 								/>
 						}
 					</TouchableOpacity>
 					<ButtonCount
-						data={this.props.data}
-						count={this.props.data.count}
+						data={data}
+						count={data.count}
 						addTotalItem={this.addTotalItem}
 						decTotalItem={this.decTotalItem}
 					/>
@@ -120,9 +129,9 @@ class ProductItem extends PureComponent {
 				<View style={styles.subcontainer.verification}>
 					<ProductStockVerificationText 
 						type={this.props.type}
-						count={this.props.data.count}
-						stock={this.props.data.stock}
-						maxQty={this.props.data.maxQty}
+						count={data.count}
+						stock={data.stock}
+						maxQty={data.maxQty}
 					/>
 				</View>
 				

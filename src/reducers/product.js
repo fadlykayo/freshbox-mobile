@@ -363,10 +363,12 @@ const reorderTransaction = (state,payload) => {
     for (let i = 0; i < payload.data.length; i++) {
         let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code)
         if (cartIndex == -1) {
+            console.log(payload.data[i].product)
             payload.data[i].product.count = payload.data[i].qty;
             payload.data[i].product.maxQty = 1000;
             newCart.push(payload.data[i].product)
         } else {
+            console.log(newCart[cartIndex])
             newCart[cartIndex].count += payload.data[i].qty;
         }
     }

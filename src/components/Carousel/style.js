@@ -18,7 +18,7 @@ module.exports = {
   outerContainer: {
     position: 'absolute',
     height: height * 0.19,
-    width: width * 0.9,
+    width: width * 0.8,
     top: 70,
     left: 20,
   },
@@ -30,9 +30,9 @@ module.exports = {
     },
     container: (size) => {
       return {
-        backgroundColor: 'pink',
+        // backgroundColor: 'pink',
         borderRadius: 25,
-        position: 'absolute',
+        // position: 'absolute',
         height: height * 0.19,
         width: width * 0.9,
         
@@ -56,9 +56,9 @@ module.exports = {
     image: (size) => {
       return {
         flex: -1,
-        height: size ? size : 28,
-        width: width * 0.7,
-        resizeMode: 'cover',
+        height: height * 0.19,
+        width: width * 0.9,
+        borderRadius: 60,
       }
     },
 

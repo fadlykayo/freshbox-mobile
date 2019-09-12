@@ -106,24 +106,51 @@ class Dashboard extends Component {
 
   getProductList = (fromDashboard) => {
 		
+		// let payload = {
+		// 	header: {
+		// 		apiToken: this.props.user ? this.props.user.authorization : ''
+		// 	},
+		// 	params: this.props.params
+		// }
+		// this.props.get_products(payload,
+		// 	() => {
+		// 		if(this.props.navigation.state.params.action) {
+		// 			if(!fromDashboard) {
+		// 				this.navigateToCart();
+		// 			}
+		// 		} 
+		// 	},
+		// 	(err) => {
+		// 		// console.log(err);
+		// 	}
+		// );
+
 		let payload = {
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			params: this.props.params
-		}
-		this.props.get_products(payload,
-			() => {
-				if(this.props.navigation.state.params.action) {
-					if(!fromDashboard) {
-						this.navigateToCart();
-					}
-				} 
-			},
-			(err) => {
-				// console.log(err);
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					sort: 'nama-az',
+					// stock: 'tersedia',
+					category_code: 'CAT-367d6edddb',
+					on_promo: 1,
+				}
 			}
-		);
+
+			this.props.search_products(payload, 
+				() => {
+					// this.props.change_categories(input);
+					// this.checkCategory();
+					// this.closeDialogCategories();
+					// this.backToTop();
+					// actNav.navigate(navConstant.ProductList)
+					// console.log(res);
+				},
+				(err) => {
+					console.log(err);
+				});
 	}
 
 	getBanner = () => {
@@ -426,6 +453,7 @@ class Dashboard extends Component {
 				});
 		}
 		else {
+			console.log(category.code)
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
