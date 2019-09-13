@@ -78,7 +78,9 @@ class ProductList extends Component {
 	}
 
 	componentDidMount(){
-		this.getProductList();
+		if(!this.props.navigation.state.params.fromDashboard) {
+			this.getProductList();
+		} 
 		this.getCategories();
 		this.checkCategory();
 		this.getFavorites();
@@ -317,6 +319,7 @@ class ProductList extends Component {
 	}
 
 	getProductList(){
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''

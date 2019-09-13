@@ -30,7 +30,7 @@ module.exports = {
     },
     container: (size) => {
       return {
-        // backgroundColor: 'pink',
+        backgroundColor: 'pink',
         borderRadius: 25,
         // position: 'absolute',
         height: height * 0.19,
@@ -58,7 +58,7 @@ module.exports = {
         flex: -1,
         height: height * 0.19,
         width: width * 0.9,
-        borderRadius: 60,
+        // borderRadius: 60,
       }
     },
 

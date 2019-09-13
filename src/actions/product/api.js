@@ -21,7 +21,9 @@ let payload = {};
 
 
 actions.get_products = (req,success,failure) => {
-	
+	if(req.params.on_promo) {
+		delete req.params.on_promo;
+	}
 	payload2.path = path.getProducts;
 	payload2.header = req.header;
 	payload2.params = req.params;
@@ -128,10 +130,13 @@ actions.get_categories = (req, success, failure) => {
 };
 
 actions.search_products = (req, success, failure) => {
+	
 	payload.path = path.getProducts;
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
+
+	console.log(payload.params, 'search product')
 	
 	return dispatch => {
 		
@@ -165,6 +170,45 @@ actions.search_products = (req, success, failure) => {
         })
     }
 };
+
+actions.get_promo = (req, success, failure) => {
+	payload.path = path.getProducts;
+	payload.header = req.header;
+	payload.body = req.body;
+	payload.params = req.params;
+	
+	return dispatch => {
+		
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+					console.log('get Promo res', res);
+        	if(res.code){
+        		if(res.code == 200){
+							if(res.data.data.length == 0) {
+								// analytics.trackEvent('Unavailable Promo', {product_geted: req.params.name})
+							}
+							success(res)
+							dispatch(actReducer.get_promo(req.params, res.data));
+        		}
+        	}
+        })
+        .catch((err) => {
+        	console.log('Search Promo err', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+}
 
 actions.get_delivery_price = (req,success,failure) => {
 	

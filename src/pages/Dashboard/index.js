@@ -41,7 +41,12 @@ class Dashboard extends Component {
 				{
 					title: '3'
 				},
-			]
+			],
+			loading: {
+				promoList: false,
+				categories: false,
+				transaction: false,
+			}
     }
 		this.showCheckout = new Animated.Value(0);
   }
@@ -55,6 +60,7 @@ class Dashboard extends Component {
 		
 		this.getProductList();
 		this.getCategories();
+		this.getProductPromo();
 		this.getBanner();
 		this.checkCart();
 		if(this.props.user) {
@@ -102,55 +108,97 @@ class Dashboard extends Component {
 	checkCart = () => {
 		if(this.props.total_count > 0) this.introAnimate();
 	}
-	
 
-  getProductList = (fromDashboard) => {
-		
-		// let payload = {
-		// 	header: {
-		// 		apiToken: this.props.user ? this.props.user.authorization : ''
-		// 	},
-		// 	params: this.props.params
-		// }
-		// this.props.get_products(payload,
-		// 	() => {
-		// 		if(this.props.navigation.state.params.action) {
-		// 			if(!fromDashboard) {
-		// 				this.navigateToCart();
-		// 			}
-		// 		} 
-		// 	},
-		// 	(err) => {
-		// 		// console.log(err);
-		// 	}
-		// );
+	getProductPromo = (fromDashboard) => {
+
+		let categories_code;
+		this.setLoading('promoList', true);
+
+		this.props.categories.map((c, i) => {
+			if(c.code == 'Promo') {
+				categories_code = c.code;
+			}
+		})
 
 		let payload = {
-				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
-				},
-				body: {},
-				params: {
-					page: 1,
-					sort: 'nama-az',
-					// stock: 'tersedia',
-					category_code: 'CAT-367d6edddb',
-					on_promo: 1,
-				}
-			}
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {...this.props.paramsPromo, category_code: categories_code}
+		}
 
-			this.props.search_products(payload, 
+			this.props.get_promo(payload, 
 				() => {
-					// this.props.change_categories(input);
-					// this.checkCategory();
-					// this.closeDialogCategories();
-					// this.backToTop();
-					// actNav.navigate(navConstant.ProductList)
-					// console.log(res);
+
+					this.setLoading('promoList', false);
+
+					if(this.props.navigation.state.params.action) {
+						if(!fromDashboard) {
+							this.navigateToCart();
+						}
+					}
 				},
 				(err) => {
 					console.log(err);
 				});
+	}
+
+	handleLoadMore = () => {
+		let categories_code;
+		this.setLoading('promoList', true);
+
+		this.props.categories.map((c, i) => {
+			if(c.code == 'Promo') {
+				categories_code = c.code;
+			}
+		})
+
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {...this.props.paramsPromo, category_code: categories_code}
+		}
+
+			this.props.get_promo(payload, 
+				() => {
+
+					this.setLoading('promoList', false);
+
+					if(this.props.navigation.state.params.action) {
+						if(!fromDashboard) {
+							this.navigateToCart();
+						}
+					}
+				},
+				(err) => {
+					console.log(err);
+				});
+	}
+	
+
+  getProductList = (fromDashboard) => {
+		
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			params: this.props.params
+		}
+		this.props.get_products(payload,
+			() => {
+				if(this.props.navigation.state.params.action) {
+					if(!fromDashboard) {
+						this.navigateToCart();
+					}
+				} 
+			},
+			(err) => {
+				// console.log(err);
+			}
+		);
 	}
 
 	getBanner = () => {
@@ -163,7 +211,7 @@ class Dashboard extends Component {
 				// console.log()
 			},
 			(err) => {
-				console.warn(err, 'kelar bos')
+				// console.warn(err, 'kelar bos')
 			}
 		)
 	}
@@ -240,6 +288,7 @@ class Dashboard extends Component {
 		// });
 
 		// console.warn(category_code)
+		
 
 		let payload={
 			header: {
@@ -269,7 +318,6 @@ class Dashboard extends Component {
 
 	getHistoryData(){
 		this.setState({loadingTransaction: true})
-		console.log(this.props.transactionParams)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -334,6 +382,12 @@ class Dashboard extends Component {
 		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
 		modalVisible[type] = value;
 		this.setState({modalVisible});
+	}
+
+	setLoading = (type, value) => {
+		let loading = JSON.parse(JSON.stringify(this.state.loading));
+		loading[type] = value;
+		this.setState({loading});
 	}
 
 	openDetailProduct = (payload) => {
@@ -429,8 +483,9 @@ class Dashboard extends Component {
 	}
 
 	navigateToCategories = (category) => {
+		let payload = {}
 		if (category.name == 'Default') {
-			let payload = {
+			payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
 				},
@@ -444,36 +499,47 @@ class Dashboard extends Component {
 
 			this.props.search_products(payload, 
 				() => {
-					// this.props.change_categories(input);
 					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
-					// this.backToTop();
 				},
 				(err) => {
 					console.log(err);
 				});
 		}
 		else {
-			console.log(category.code)
-			let payload = {
-				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
-				},
-				body: {},
-				params: {
-					page: 1,
-					sort: 'nama-az',
-					// stock: 'tersedia',
-					category_code: category.code,
+			if(category.name === 'Promo') {
+				console.log('promo')
+				payload = {
+					header: {
+						apiToken: this.props.user ? this.props.user.authorization : ''
+					},
+					body: {},
+					params: {
+						page: 1,
+						sort: 'nama-az',
+						// stock: 'tersedia',
+						category_code: category.code,
+						on_promo: 1,
+					}
+				}
+			} else {
+				payload = {
+					header: {
+						apiToken: this.props.user ? this.props.user.authorization : ''
+					},
+					body: {},
+					params: {
+						page: 1,
+						sort: 'nama-az',
+						// stock: 'tersedia',
+						category_code: category.code,
+					}
 				}
 			}
+			
 
 			this.props.search_products(payload, 
 				() => {
-					// this.props.change_categories(input);
-					// this.checkCategory();
-					// this.closeDialogCategories();
-					// this.backToTop();
-					actNav.navigate(navConstant.ProductList)
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
 				},
 				(err) => {
 					console.log(err);
@@ -510,6 +576,7 @@ class Dashboard extends Component {
 	}
 
   render() {
+		
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
 			outputRange: [-(width * 0.3), 0]
@@ -548,10 +615,12 @@ class Dashboard extends Component {
             style={styles.spacer}
           />
           <PromoList
-            product = {this.props.product}
+            product = {this.props.promoProduct}
 						user = {this.props.user}
 						toggleFavorite = {this.toggleFavorite}
 						openDetailProduct = {this.openDetailProduct}
+						loadingPromo = {this.state.loading.promoList}
+						handleLoadMore = {this.handleLoadMore}
           />
           <Categories
             categories = {this.props.categories}
@@ -619,7 +688,9 @@ const mapStateToProps = state => ({
   on_category: state.product.on_category,
 	categories: state.product.categories,
   product: state.product.products,
+	promoProduct: state.product.promoProduct,
   params: state.product.params,
+	paramsPromo: state.product.paramsPromo,
 	transactionParams: state.transaction.params,
 	transactions: state.transaction.transactions,
 	productDetail: state.product.detail,
@@ -631,6 +702,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
+	get_promo: (req,res,err) => dispatch(actions.product.api.get_promo(req,res,err)),
   get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
   get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
 	get_transaction: (req,res,err) => dispatch(actions.transaction.api.get_transaction(req,res,err)),

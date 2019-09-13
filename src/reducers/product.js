@@ -8,6 +8,12 @@ const initialState = {
         sort: 'nama-az',
         // stock: 'tersedia'
     },
+    paramsPromo: {
+        page: 1,
+        sort: 'nama-az',
+        on_promo: 1,
+    },
+    promoProduct: [],
     products: [],
     categories: [],
     on_category: '',
@@ -174,7 +180,6 @@ const getDetail = (state, payload) => {
 
 const searchData = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-
     let params = payload.params;
     params.page = params.page + 1;
     newState.params = params;
@@ -195,6 +200,49 @@ const searchData = (state, payload) => {
     }
 
     newState.products = incomingProducts.map(e => {
+        let favoriteItem = favoriteList.filter(p => e.code == p.code);
+        if(favoriteItem.length > 0){
+            return favoriteItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
+
+    return newState
+}
+
+const getPromo = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+
+    let params = payload.params;
+
+    if(params.page < payload.data.last_page) {
+        params.page = params.page + 1;
+    }
+
+    newState.params = params;
+    newState.last_page= payload.data.last_page;
+    
+    
+    newState.promoProduct = [];
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.cart.products.slice();
+    let favoriteList = newState.wishlist.products.slice();
+
+    for(x in incomingProducts){
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                incomingProducts[x] = Object.assign({},incomingProducts[x],existingProducts[y]);
+                break;
+            }
+        }
+    }
+
+    newState.promoProduct = incomingProducts.map(e => {
         let favoriteItem = favoriteList.filter(p => e.code == p.code);
         if(favoriteItem.length > 0){
             return favoriteItem[0];
@@ -452,6 +500,7 @@ const productReducer = (state = initialState, action) => {
         case ct.GET_PRODUCTS        : return getProducts(state,action.payload);
         case ct.GET_CATEGORIES      : return getCategories(state,action.payload);
         case ct.GET_FAVORITES       : return getFavorites(state,action.payload);
+        case ct.GET_PROMO           : return getPromo(state,action.payload);
         case ct.GET_DELIVERY_PRICE  : return getDeliveryPrice(state,action.payload);
         case ct.SEARCH_PRODUCTS     : return searchData(state,action.payload);
         case ct.CHANGE_TOTAL        : return editTotal(state,action.payload);
