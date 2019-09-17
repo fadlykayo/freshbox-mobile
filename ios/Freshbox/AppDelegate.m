@@ -78,16 +78,6 @@
   
   return FBSDKHandler || GoogleHandler || RCT;
   
-//  return [[FBSDKApplicationDelegate sharedInstance] application:application
-//                                                        openURL:url
-//                                              sourceApplication:sourceApplication
-//                                                     annotation:annotation
-//          ]
-//  || [RNGoogleSignin application:application
-//                         openURL:url
-//               sourceApplication:sourceApplication
-//                      annotation:annotation
-  //      ];
 }
 
 - (void)goToNativeView:(MidtransUIPaymentViewController *)paymentVC  {

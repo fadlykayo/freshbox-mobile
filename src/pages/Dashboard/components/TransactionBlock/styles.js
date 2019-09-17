@@ -50,6 +50,7 @@ const style = {
   },
   card: {
     container: {
+      backgroundColor: colour.white,
       flex: -1,
       width: width * 0.85,
       marginVertical: 5,
@@ -60,16 +61,16 @@ const style = {
       borderWidth: 1,
       borderRadius: 8,
       borderColor: colour.white,
-      shadowColor: Platform.OS == 'ios' ? "#000" : null,
+      shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
       shadowOffset: Platform.OS == 'ios' ? {
         width: 0,
-        height: 2,
+        height: 10,
       } : {
         width: 0,
         height: 0,
       },
-      shadowOpacity: Platform.OS == 'ios' ? 0.25 : 0,
-      shadowRadius: Platform.OS == 'ios' ? 3.84 : 0,
+      shadowOpacity: Platform.OS == 'ios' ? 1.0 : 0,
+      shadowRadius: Platform.OS == 'ios' ? 30 : 0,
 
       elevation: Platform.OS == 'android' ? 0 : 0,
       
@@ -96,7 +97,7 @@ const style = {
     grandTotal: {
       container: {
         marginTop: 5,
-        // paddingBottom: 20,
+        paddingBottom: 18,
         // backgroundColor: 'pink'
       },
       text: {

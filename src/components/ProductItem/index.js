@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Image, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { View, Image, TouchableOpacity, ActivityIndicator, Platform, Share } from 'react-native';
 import ButtonCount from '@components/ButtonCount'; 
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
@@ -24,6 +24,29 @@ class ProductItem extends PureComponent {
 
 	openDetailProduct(){
 		this.props.openDetailProduct(this.props.data);
+	}
+
+	onShare = async (data) => {
+		const url = 'freshbox://ProductList/'
+		const product = data.name.split(" ").join("_");
+		try {
+			const result = await Share.share({
+				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}${product}`,
+			});
+
+			if (result.action == Share.sharedAction) {
+				if(result.activityType) {
+					// console.warn(result.activityType)
+				} else {
+					console.warn(result)
+				}
+			} else if (result.action === Share.dismissedAction) {
+				// console.warn('dismissed')
+			}
+		} catch (err) {
+			// console.warn(err.message)
+		}
+
 	}
 
 	render(){
@@ -73,6 +96,7 @@ class ProductItem extends PureComponent {
 									user={this.props.user}
 									isFavorite={data.favorite}
 									toggleFavorite={this.props.toggleFavorite}
+									onShare={this.onShare}
 									dashboard = {this.props.dashboard}
 								/>
 							</View> 
@@ -115,6 +139,7 @@ class ProductItem extends PureComponent {
 									data={data}
 									user={this.props.user}
 									isFavorite={data.favorite}
+									onShare={this.onShare}
 									toggleFavorite={this.props.toggleFavorite}
 								/>
 						}

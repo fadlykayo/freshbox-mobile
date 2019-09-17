@@ -35,7 +35,7 @@ import { analytics } from '@helpers';
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    Dashboard: {screen: Dashboard},
+    Dashboard: {screen: Dashboard, path: 'dashboard'},
     ProductList: {screen: ProductList},
     HistoryPage: {screen: HistoryPage},
     Favourites: {screen: Favourites},

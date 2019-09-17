@@ -200,6 +200,7 @@ class SignIn extends Component {
     googleHandler(){
         socmed.googleLogin()
         .then((result) => {
+            console.warn('masuk')
             let payload = {
                 header: {
                     onesignalToken: this.props.userId.userId
@@ -213,7 +214,7 @@ class SignIn extends Component {
             this.props.sign_in_socmed(payload,
                 () => {
                     // analytics.trackEvent('Login Methods', {type: 'Gmail'});
-                    actNav.reset(navConstant.Product)
+                    actNav.reset(navConstant.Dashboard)
                 },
                 (err) => {
                     let params = {
@@ -237,7 +238,7 @@ class SignIn extends Component {
                 })
         })
         .catch((err) => {
-            // console.log(err);
+            console.warn(err);
         })
     }
 

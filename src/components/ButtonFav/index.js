@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image, View } from 'react-native';
 import images from '@assets';
 import styles from './styles';
 
@@ -7,19 +7,38 @@ class ButtonFav extends PureComponent {
     constructor(){
         super();
 		this.toggleFavorite = this.toggleFavorite.bind(this);
+        this.onShare = this.onShare.bind(this);
     }
 
     toggleFavorite(){
 		this.props.toggleFavorite(this.props.data);
 	}
 
+    onShare(){
+        this.props.onShare(this.props.data);
+    }
+
     render(){
         if(this.props.user){
             return(
+                <View style = {{flexDirection: 'row'}}>
+                <TouchableOpacity
+                    onPress={this.onShare}
+                    style={styles.container(this.props.dashboard)}
+                >
+                <Image
+                    style={styles.icon(this.props.dashboard)}
+                    resizeMode={'contain'}
+                    source={
+                        images.ic_share
+                    }
+                />
+                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={this.toggleFavorite}
-                    style={styles.container}
+                    style={styles.container(this.props.dashboard)}
                 >
+                    
                     <Image
                         style={styles.icon(this.props.dashboard)}
                         resizeMode={'contain'} 
@@ -30,6 +49,7 @@ class ButtonFav extends PureComponent {
                         }
                     />
                 </TouchableOpacity>
+                </View>
             )
         }
         else{

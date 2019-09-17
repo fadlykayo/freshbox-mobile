@@ -39,12 +39,16 @@ helper.facebookLogin = () => {
 
 helper.googleLogin = () => {
 	return new Promise((resolve,reject) => {
+
 		GoogleSignin.revokeAccess()
 		.then(() => {
+			
 			GoogleSignin.signOut()
 			.then(() => {
+				
 				GoogleSignin.signIn()
 				.then((user) => {
+					
 					resolve(user);
 				})
 				.catch((err) => {
@@ -53,11 +57,11 @@ helper.googleLogin = () => {
 				.done();
 			})
 			.catch((err) => {
-			// console.log('error signout',err);
+			// console.warn('error signout',err);
 			});
 		})
 		.catch((err) => {
-			// console.log('error revoke',err);
+			
 			GoogleSignin.signIn()
 			.then((user) => {
 				resolve(user);

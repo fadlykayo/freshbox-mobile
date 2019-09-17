@@ -57,7 +57,7 @@ class ProductList extends Component {
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.openAllCategories = this.openAllCategories.bind(this);
-		this.openDetailProduct = this.openDetailProduct.bind(this);
+		// this.openDetailProduct = this.openDetailProduct.bind(this);
 		this.createOrderHandler = this.createOrderHandler.bind(this);
 		this.closeDetailProduct = this.closeDetailProduct.bind(this);
 		this.closeDialogCategories = this.closeDialogCategories.bind(this);
@@ -81,6 +81,9 @@ class ProductList extends Component {
 		if(!this.props.navigation.state.params.fromDashboard) {
 			this.getProductList();
 		} 
+		if(this.props.navigation.state.params.detailProduct) {
+			this.openDetailProduct(this.props.navigation.state.params.detailProduct[0]);
+		}
 		this.getCategories();
 		this.checkCategory();
 		this.getFavorites();
@@ -474,7 +477,8 @@ class ProductList extends Component {
 		this.setModalVisible('openCategories',true);
  	}
 
-	openDetailProduct(payload){
+	openDetailProduct = (payload) => {
+		console.warn(payload)
 		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}

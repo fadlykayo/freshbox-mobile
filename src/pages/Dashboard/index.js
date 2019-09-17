@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
@@ -63,12 +63,54 @@ class Dashboard extends Component {
 		this.getProductPromo();
 		this.getBanner();
 		this.checkCart();
+		this.handleDeepLink();
 		if(this.props.user) {
 			this.getHistoryData();
 
 		}
 
   }
+
+	componentWillUnmount = () => {
+		this.removeLinking();
+	};
+	
+
+	handleDeepLink = () => {
+		if (Platform.OS === 'android') {
+      Linking.getInitialURL().then(url => {
+        this.navigate(url);
+      });
+    } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    }
+	}
+
+	handleOpenURL = (event) => {
+		this.navigate(event.url)
+	}
+
+	navigate = (url) => {
+		const route = url.replace(/.*?:\/\//g, '');
+		const routeName = route.split('/');
+		const routeTarget = routeName[0];
+		const product = routeName[1].split("_").join(" ");
+		console.warn(routeName)
+		switch (routeTarget) {
+			case 'ProductList':
+				this.submitSearch(product);
+				break;
+		
+			default:
+				break;
+		}
+	}
+
+	removeLinking = () => {
+		Linking.removeEventListener('url', this.handleOpenURL);
+	}
+
+
 
 	// cart button slide up animation
 	introAnimate = () => {
@@ -273,7 +315,7 @@ class Dashboard extends Component {
 		this.onChangeText('searchItem', '');
 	}
 
-  submitSearch = () => {
+  submitSearch = (searchItem) => {
 
 		// let category_code = null;
 
@@ -299,7 +341,7 @@ class Dashboard extends Component {
 				page: 1,
 				// stock: 'tersedia',
 				sort: 'nama-az',
-				name: this.state.searchItem,
+				name: searchItem ? searchItem : this.state.searchItem,
 				// category_code: category_code,
 			}
 		}
@@ -307,7 +349,11 @@ class Dashboard extends Component {
 		this.props.search_products(payload, 
 			(success) => {
 				this.onChangeText('search', true)
-				actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+				if(searchItem) {
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, detailProduct: success.data.data})
+				} else {
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+				}
 				// this.backToTop();
 			},
 			(err) => {
