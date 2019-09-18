@@ -84,6 +84,8 @@ class Dashboard extends Component {
     } else {
       Linking.addEventListener('url', this.handleOpenURL);
     }
+		// Linking.addEventListener('url', this.handleOpenURL);
+
 	}
 
 	handleOpenURL = (event) => {

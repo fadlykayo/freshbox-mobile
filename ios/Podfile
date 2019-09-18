@@ -17,7 +17,6 @@ target 'Freshbox' do
   # pod 'appcenter-push', path: '../node_modules/appcenter-push/ios'
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
-
   # Pods for Freshbox
   pod 'GoogleSignIn'
   # Required by RNFirebase
