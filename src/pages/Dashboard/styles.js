@@ -10,9 +10,9 @@ const style = {
     borderRadius: 100
   },
   whiteBackground: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: colour.white,
-    height: height * 0.85,
+    // height: height,
     // width: width,
     // position: 'absolute',
     // bottom: 0,

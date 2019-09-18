@@ -12,6 +12,7 @@ import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
 import ProductList from '../ProductList';
+import Announcement from './components/Announcement';
 import actions from '@actions';
 import styles from './styles';
 
@@ -33,13 +34,16 @@ class Dashboard extends Component {
 			loadingTransaction: true,
 			banner: [
 				{
-					title: '1'
+					title: 'Terbaru dari Kami',
+					subtitle: 'Akan Hadir produck baru pada 10 September 2019'
 				},
 				{
-					title: '2'
+					title: 'Terbaru dari Kami',
+					subtitle: 'Akan Hadir produck baru pada 10 September 2019'
 				},
 				{
-					title: '3'
+					title: 'Terbaru dari Kami',
+					subtitle: 'Akan Hadir produck baru pada 10 September 2019'
 				},
 			],
 			loading: {
@@ -679,12 +683,10 @@ class Dashboard extends Component {
 						transactions = {this.props.transactions}
 						navigateToDetail = {this.navigateToDetail}
 					/>
-
-					<View
-						style={{height : 20}}
-					>
-				
-					</View>
+					<Announcement
+						data = {this.state.banner}
+					/>
+					
         </View>
 				
 				<ProductDetail
@@ -709,9 +711,14 @@ class Dashboard extends Component {
 					products = {this.props.banners}
 					navigateToBannerDetail = {this.navigateToBannerDetail}
 				/>
+				<View
+						style={{height : 200, backgroundColor: 'white'}}
+					>
+				
+					</View>
       </ScrollView>
 
-
+			
 
       
       <Checkout

@@ -8,7 +8,7 @@ const style = {
   container: {
     flex: 1,
     // backgroundColor: 'pink'
-    marginVertical: 10,
+    // borderWidth: 1,
   },
   top: {
     container: {
@@ -47,37 +47,33 @@ const style = {
       
     },
     outerContainer: {
-      flex: -1,
+      flex: 1,
       flexDirection: 'row',
       paddingLeft: 20,
+      marginTop: 10,
+      // borderWidth: 1,
     },
   },
   card: {
     container: {
       backgroundColor: colour.white,
       flex: -1,
-      width: width * 0.9,
+      width: width * 0.6,
+      height: 110,
       marginVertical: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       paddingHorizontal: 10,
       borderWidth: 1,
-      borderRadius: 8,
-      borderColor: colour.white,
-      shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
-      shadowOffset: Platform.OS == 'ios' ? {
-        width: 0,
-        height: 10,
-      } : {
-        width: 0,
-        height: 0,
-      },
-      shadowOpacity: Platform.OS == 'ios' ? 1.0 : 0,
-      shadowRadius: Platform.OS == 'ios' ? 30 : 0,
-
-      elevation: Platform.OS == 'android' ? 0 : 0,
-      marginRight: 10,
+      marginRight: 15,
+      
+    },
+    text: {
+      container: {
+        marginVertical: 10,
+        marginHorizontal: 5,
+      }
     },
     invoice: {
       container: {
@@ -113,10 +109,9 @@ const style = {
     },
     button: {
       container: {
-        height: 39,
+        height: 40,
         width: width * 0.35,
-        marginTop: 15,
-        marginRight: 10,
+        marginTop: 15
       }
     }
   }

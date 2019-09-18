@@ -105,7 +105,7 @@ export default class TransactionBlock extends Component {
         <View style={styles.bottom.outerContainer}>
         {
           this.props.transactions.length > 0 ? 
-          <ScrollView style = {styles.bottom.container} contentContainerStyle = {styles.bottom.contentContainer}>
+          <ScrollView style = {styles.bottom.container} horizontal contentContainerStyle = {styles.bottom.contentContainer} showsHorizontalScrollIndicator={false}>
 
             {this.renderTransactions(this.props.transactions)}
           </ScrollView> : <ActivityIndicator></ActivityIndicator>
