@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
@@ -12,6 +12,8 @@ import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
 import ProductList from '../ProductList';
+import ProductItem from '@components/ProductItem';
+import StaticText from '@components/StaticText';
 import Announcement from './components/Announcement';
 import actions from '@actions';
 import styles from './styles';
@@ -686,7 +688,46 @@ class Dashboard extends Component {
 					<Announcement
 						data = {this.state.banner}
 					/>
-					
+					<View style={styles.productList.outerContainer}>
+					<View style={styles.productList.container}>
+						<StaticText
+							style={styles.productList.textBold}
+							property={'dashboard.productList.title'}
+						/>
+						<StaticText
+							style={styles.productList.textBoldSmall}
+							property={'dashboard.productList.more'}
+						/>
+					</View>
+					<FlatList
+								// ref={(e) => { this.listRef = e}}
+								data={this.props.product}
+								// onEndReachedThreshold={0.5}
+								// onRefresh={this.refreshHandler}
+								// refreshing={this.state.refreshing}
+								keyExtractor={(item) => item.code}
+								// onEndReached={this.handleLoadMore}
+								// ListFooterComponent={this.renderFlatListFooter.bind(this)}
+								renderItem={({item,index}) => (
+									<View key={index}>
+
+										<ProductItem
+											search={this.state.search}
+											data={item}
+											index={index+1}
+											type={'productList'}
+											user={this.props.user}
+											toggleFavorite={this.toggleFavorite}
+											// changeTotalItem={this.changeTotalItem}
+											productLength={this.props.product.length}
+											openDetailProduct= {this.openDetailProduct}
+										/>
+										
+										{/* { this._renderButton(index, this.props.product.length - 1) } */}
+									</View>
+								)}
+							/>
+						</View>
         </View>
 				
 				<ProductDetail
@@ -711,11 +752,6 @@ class Dashboard extends Component {
 					products = {this.props.banners}
 					navigateToBannerDetail = {this.navigateToBannerDetail}
 				/>
-				<View
-						style={{height : 200, backgroundColor: 'white'}}
-					>
-				
-					</View>
       </ScrollView>
 
 			

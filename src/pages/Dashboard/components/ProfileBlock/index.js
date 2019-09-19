@@ -2,36 +2,17 @@ import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
 import styles from './styles';
 import images from '@assets';
+import StaticText from '@components/StaticText';
 
 export default class ProfileBlock extends Component {
-  renderImage = () => {
-    if(this.props.user) {
-      if(this.props.user.user.images_sizes_url) {
-        return (
-          <Image
-            resizeMode={'cover'}
-            source={{uri : this.props.user.user.images_sizes_url.original}}
-            style={styles.picture.image}
-          />
-        )
-      } else {
-        return (
-          <Image
-            resizeMode={'contain'}
-            source={images.icon_img_ava_grey}
-            style={styles.picture.image}
-          />
-        )
-      }
-    } else {
-      return (
-        <Image
-          resizeMode={'contain'}
-          source={images.icon_img_ava_grey}
-          style={styles.picture.image}
-        />
-      )
-    }
+  renderGoToDetails = () => {
+    <>
+    {/* <TouchableOpacity>
+      <View style = {styles.top.right}>
+        <Text style = {styles.top.textMore}>Lihat Semua</Text>
+      </View>
+    </TouchableOpacity> */}
+    </>
   }
   render() {
 
@@ -39,18 +20,20 @@ export default class ProfileBlock extends Component {
       <View style={styles.container}>
 
         <View style = {styles.user.content}>
-        {
-          this.props.user ? 
 
-          <Text style = {styles.user.text}> Hi, <Text style={styles.user.textBold}>{this.props.user.user.name}</Text></Text> :
-          <Text style = {styles.user.text}> Welcome to <Text style={styles.user.textBold}>Freshbox</Text></Text>
-
-        }
+          <StaticText
+            style={styles.user.textBold}
+            property={'dashboard.campaign.title'}
+          />
+          <StaticText
+            style={styles.user.textBoldSmall}
+            property={'dashboard.campaign.more'}
+          />
         </View>
 
         <View style={styles.picture.container}>
         
-        {this.renderImage()}
+        {this.renderGoToDetails()}
           
         </View>
         <View style={styles.bottom.whiteRound}/>

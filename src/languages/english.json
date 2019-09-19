@@ -37,6 +37,16 @@
             "finish": "FINISH"
         }
     },
+    "dashboard" : {
+        "campaign" : {
+            "title" : "Special Campaigns!",
+            "more" : "More"
+        },
+        "productList": {
+            "title": "Our Products",
+            "more":"More"
+        }
+    },
     "bannerDetail" : {
         "navigationTitle" : "Banner Detail"
     },

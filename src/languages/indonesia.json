@@ -37,6 +37,16 @@
             "finish": "SELESAI"
         }
     },
+    "dashboard" : {
+        "campaign" : {
+            "title" : "Special Campaigns!",
+            "more" : "Lihat Semua"
+        },
+        "productList": {
+            "title": "Product Kami",
+            "more":"Lihat Semua"
+        }
+    },
     "bannerDetail" : {
         "navigationTitle" : "Detail Banner"
     },

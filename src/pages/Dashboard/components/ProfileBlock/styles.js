@@ -14,6 +14,9 @@ const style = {
       flex: 1,
       paddingHorizontal: 15,
       paddingVertical: 20,
+      borderWidth: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     text: {
       fontFamily: 'Avenir-Roman',
@@ -22,7 +25,12 @@ const style = {
     },
     textBold: {
       fontFamily: 'Avenir-Heavy',
-      fontSize: 20,
+      fontSize: 18,
+      color: colour.white,
+    },
+    textBoldSmall: {
+      fontFamily: 'Avenir-Heavy',
+      fontSize: 16,
       color: colour.white,
     }
   },
