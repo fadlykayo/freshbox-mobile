@@ -30,6 +30,7 @@ import TransferInstruction from '@pages/TransferInstruction';
 import OTP from '@pages/OTP'
 import Dashboard from '@pages/Dashboard';
 import BannerDetail from '@pages/BannerDetail';
+import Campaigns from '@pages/Campaigns';
 import { analytics } from '@helpers';
 
 let _navigator;
@@ -77,6 +78,7 @@ export const AppNavigator = createStackNavigator({
     OTP: {screen: OTP},
     Dashboard: DrawerBar,
     BannerDetail: {screen: BannerDetail},
+    Campaigns: {screen: Campaigns},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -136,6 +138,7 @@ export const navConstant = {
     OTP: 'OTP',
     Dashboard: 'Dashboard',
     BannerDetail : 'BannerDetail',
+    Campaigns: 'Campaigns',
 }
 
 export const setNavigator = (navigatorRef) => {

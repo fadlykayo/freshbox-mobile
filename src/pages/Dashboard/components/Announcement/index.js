@@ -2,10 +2,31 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import numeral from 'numeral';
 import { actNav, navConstant } from '@navigations';
+import LinearGradient from 'react-native-linear-gradient';
 import Button from '@components/Button';
+import { colour } from '@styles';
 import styles from './styles'
 
 export default class Announcement extends Component {
+
+
+  renderOverlay(product) {
+    if (this.props.noOverlay) {
+      return null;
+    } else {
+      return (
+        <LinearGradient
+          style={ Styles.cover.overlayContainer(this.props.size) }
+          colors={ [Colors.black.transparent, Colors.black.opacityHalf, Colors.black.default] }
+        >
+          <View style={ Styles.cover.title.container }>
+            <Text style={ Styles.cover.title.text }>{ product.name }</Text>
+          </View>
+        </LinearGradient>
+      );
+    };
+  };
+
 
   _renderCards = () => {
     let cards = this.props.data.map((d,i) => {
@@ -14,10 +35,17 @@ export default class Announcement extends Component {
           {/* <Image
 
           /> */}
+           <LinearGradient
+            colors={[colour.blackNone, colour.blackTransparent, colour.blackTranslucent,  colour.black80opacity]}
+          >
           <View style={styles.card.text.container}>
-            <Text>{d.title}</Text>
-            <Text>{d.subtitle}</Text>
+         
+            <Text style={styles.card.text.date}>10 Sept 2019</Text>
+            <Text style={styles.card.text.title}>{d.title}</Text>
+            <Text numberOfLines = {1} ellipsizeMode={'tail'} style={styles.card.text.subtitle}>{d.subtitle}</Text>
+          
           </View>
+          </LinearGradient>
         </View>
       )
     })

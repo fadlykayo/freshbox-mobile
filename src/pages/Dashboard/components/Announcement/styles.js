@@ -62,9 +62,8 @@ const style = {
       height: height * 0.16,
       marginVertical: 5,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'flex-end',
-      paddingHorizontal: 10,
       borderWidth: 1,
       borderRadius: 10,
       marginRight: 15,
@@ -72,8 +71,26 @@ const style = {
     },
     text: {
       container: {
-        marginVertical: 10,
-        marginHorizontal: 5,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+      },
+      date: {
+        fontFamily: 'Avenir-Book',
+        fontSize: 12,
+        textAlign: 'left',
+        color: colour.white,
+      },
+      title: {
+        fontFamily: 'Avenir-Heavy',
+        fontSize: 14,
+        textAlign: 'left',
+        color: colour.white,
+      },
+      subtitle: {
+        fontFamily: 'Avenir-Roman',
+        fontSize: 12,
+        textAlign: 'left',
+        color: colour.white,
       }
     },
     invoice: {

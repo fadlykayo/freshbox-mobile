@@ -50,6 +50,9 @@
     "bannerDetail" : {
         "navigationTitle" : "Banner Detail"
     },
+    "bannerPage": {
+        "navigationTitle" : "Campaigns"
+    },
     "signIn":{
         "navigationTitle": "Sign In",
         "formLabel":{

@@ -12,6 +12,7 @@ const initialState = {
         page: 1,
         sort: 'nama-az',
         on_promo: 1,
+        last_page: 1,
     },
     promoProduct: [],
     products: [],
@@ -220,13 +221,17 @@ const getPromo = (state, payload) => {
 
     let params = payload.params;
 
-    if(params.page < payload.data.last_page) {
-        params.page = params.page + 1;
-    }
+    // if(params.page < payload.data.last_page) {
+    //     params.page = params.page + 1;
+    // }
 
-    newState.params = params;
-    newState.last_page= payload.data.last_page;
+    newState.paramsPromo.page = payload.data.current_page + 1;
+    newState.paramsPromo.last_page = payload.data.last_page;
+
+    // newState.paramsPromo = params;
+    // newState.paramsPromo.last_page = payload.data.last_page;
     
+    console.warn('..........', newState.paramsPromo)
     
     newState.promoProduct = [];
     let incomingProducts = payload.data.data;

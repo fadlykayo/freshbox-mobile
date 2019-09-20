@@ -50,6 +50,9 @@
     "bannerDetail" : {
         "navigationTitle" : "Detail Banner"
     },
+    "bannerPage": {
+        "navigationTitle" : "Campaigns"
+    },
     "signIn":{
         "navigationTitle": "Masuk",
         "formLabel":{

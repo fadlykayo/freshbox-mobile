@@ -70,6 +70,7 @@ class Dashboard extends Component {
 		this.getBanner();
 		this.checkCart();
 		this.handleDeepLink();
+		// console.warn(this.props.paramsPromo)
 		if(this.props.user) {
 			this.getHistoryData();
 
@@ -197,35 +198,37 @@ class Dashboard extends Component {
 	handleLoadMore = () => {
 		let categories_code;
 		this.setLoading('promoList', true);
-
+		
 		this.props.categories.map((c, i) => {
 			if(c.code == 'Promo') {
 				categories_code = c.code;
 			}
 		})
+		if(this.props.paramsPromo.page <= this.props.paramsPromo.last_page) {
+					let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {...this.props.paramsPromo, category_code: categories_code}
+			}
 
-		let payload = {
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			body: {},
-			params: {...this.props.paramsPromo, category_code: categories_code}
+				this.props.get_promo(payload, 
+					() => {
+
+						this.setLoading('promoList', false);
+
+						if(this.props.navigation.state.params.action) {
+							if(!fromDashboard) {
+								this.navigateToCart();
+							}
+						}
+					},
+					(err) => {
+						console.log(err);
+					});
 		}
 
-			this.props.get_promo(payload, 
-				() => {
-
-					this.setLoading('promoList', false);
-
-					if(this.props.navigation.state.params.action) {
-						if(!fromDashboard) {
-							this.navigateToCart();
-						}
-					}
-				},
-				(err) => {
-					console.log(err);
-				});
 	}
 	
 
@@ -629,6 +632,47 @@ class Dashboard extends Component {
 
 	}
 
+		handleLoadMoreProducts = () => {
+		// this.setState({listLoading: true})
+
+		console.warn('masuk')
+		let category_code = null;
+
+		this.props.categories.map(c => {
+			if(this.props.on_category !== "Default") {
+				
+				if(c.name == this.props.on_category) {
+					category_code = c.code
+				}
+
+			}
+		});
+
+		if(this.props.current_page <= this.props.last_page) {
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {...this.props.params, category_code: category_code}
+			}
+			this.props.get_products(payload,
+				() => {
+					console.warn('cuess')
+				},
+				(err) => {
+					console.warn(err);
+				});
+
+		} else {
+			this.setState({listLoading: false})
+		}
+	}
+
+	navigateToCampaign = () => {
+		actNav.navigate(navConstant.Campaigns);
+	}
+
   render() {
 		
 		const introButton = this.showCheckout.interpolate({
@@ -661,6 +705,7 @@ class Dashboard extends Component {
 
         <ProfileBlock
 					user = {this.props.user}
+					navigateToCampaign = {this.navigateToCampaign}
 				/>
 
         <View style={styles.whiteBackground}>
@@ -699,14 +744,15 @@ class Dashboard extends Component {
 							property={'dashboard.productList.more'}
 						/>
 					</View>
+					<View style={{height: 600}}>
 					<FlatList
 								// ref={(e) => { this.listRef = e}}
 								data={this.props.product}
-								// onEndReachedThreshold={0.5}
+								onEndReachedThreshold={0.5}
 								// onRefresh={this.refreshHandler}
 								// refreshing={this.state.refreshing}
 								keyExtractor={(item) => item.code}
-								// onEndReached={this.handleLoadMore}
+								onEndReached={this.handleLoadMoreProducts}
 								// ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
 									<View key={index}>
@@ -727,6 +773,7 @@ class Dashboard extends Component {
 									</View>
 								)}
 							/>
+							</View>
 						</View>
         </View>
 				
@@ -789,6 +836,8 @@ const mapStateToProps = state => ({
 	total_price: state.product.total.price,
 	total_count: state.product.total.count,
 	cart_product: state.product.cart.products,
+	current_page: state.product.params.page,
+	last_page: state.product.last_page,
 })
 
 const mapDispatchToProps = dispatch => ({
