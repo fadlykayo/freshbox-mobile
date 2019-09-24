@@ -69,4 +69,5 @@ images.ic_info_grey = require('./ic_info_grey.png');
 images.bri_bank = require('./bri_bank.png');
 images.icon_categories = require('./ic_all_categories.png');
 images.ic_share = require('./ic_share.png');
+images.ic_calendar_grey = require('./ic_calendar_grey.png');
 export default images;

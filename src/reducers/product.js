@@ -35,7 +35,8 @@ const initialState = {
     delivery_price: 0,
     wishlist: {
         products: [],
-    }
+    },
+    currentDetail: [],
 }
 
 const getProducts = (state, payload) => {
@@ -341,7 +342,26 @@ const clearProducts = (state) => {
 
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
+
+    //edit favorite banner product
+    if (newState.currentDetail.length !== 0) {
+        const indexPromo = newState.currentDetail[0].details.map((e, i) => {
+            if(e.product.code == payload.data.product.code) {
+                e.product.wishlisted = e.product.wishlisted == 1 ? 0 : 1;
+            }
+        })
+    }
+
+    //edit favorite promo products
+    if (newState.promoProduct.length !== 0) {
+        const productIndex = newState.promoProduct.findIndex(e => e.code === payload.data.product.code);
+        if(productIndex !== -1) {
+            let bannerProducts = newState.promoProduct[productIndex];
+            bannerProducts.wishlisted = bannerProducts.wishlisted == 1 ? 0 : 1;
+        }
+    }
     
+    //edit favorite product list and cart
     const index = newState.products.findIndex(e => e.code === payload.data.product.code);
     const cartIndex = newState.cart.products.findIndex(e => e.code == payload.data.product.code);
     if (cartIndex != -1) {
@@ -416,12 +436,12 @@ const reorderTransaction = (state,payload) => {
     for (let i = 0; i < payload.data.length; i++) {
         let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code)
         if (cartIndex == -1) {
-            console.log(payload.data[i].product)
+            // console.log(payload.data[i].product)
             payload.data[i].product.count = payload.data[i].qty;
             payload.data[i].product.maxQty = 1000;
             newCart.push(payload.data[i].product)
         } else {
-            console.log(newCart[cartIndex])
+            // console.log(newCart[cartIndex])
             newCart[cartIndex].count += payload.data[i].qty;
         }
     }
@@ -480,7 +500,6 @@ const setDiscountPrice = (state, payload) => {
     newState.discount = discount;
     newState.total.price = totalPrice;
     newState.coupon_code = coupon_code;
-    // console.warn(discount)
     return newState;
 }
 
@@ -498,6 +517,26 @@ const cancelVoucher = (state, payload) => {
 
     return newState;
     
+}
+
+getCurrentDetail = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));   
+    newState.currentDetail = payload.data
+    let existingProducts = newState.currentDetail[0].details.slice();
+    let cartList = newState.cart.products;
+
+    existingProducts = existingProducts.map(e => {
+        let cartItem = cartList.filter(p => e.code == p.code);
+        if(cartItem.length > 0) {
+            return cartItem[0];
+        } else {
+            if(!e.count) e.product.count = 0;
+            if(!e.maxQty) e.product.maxQty = 1000;
+            return e;
+        }
+    })
+
+    return newState
 }
 
 const productReducer = (state = initialState, action) => {
@@ -519,6 +558,7 @@ const productReducer = (state = initialState, action) => {
         case ct.RESET_PARAMS        : return resetParams(state,action.payload);
         case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
         case ct.CANCEL_VOUCHER      : return cancelVoucher(state, action.payload);
+        case ct.GET_DETAIL_BANNER   : return getCurrentDetail(state, action.payload);
         case ct.RESET_PRODUCTS      : return initialState
         default: return state;
     }

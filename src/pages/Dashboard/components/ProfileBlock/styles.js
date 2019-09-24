@@ -14,7 +14,7 @@ const style = {
       flex: 1,
       paddingHorizontal: 15,
       paddingVertical: 20,
-      borderWidth: 1,
+      // borderWidth: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },

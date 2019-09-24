@@ -21,8 +21,6 @@ const getBanners = (state,payload) => {
 
 const getCurrentDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));   
-    // let productsParsed = JSON.parse(payload.items)
-    // console.warn(payload)
     newState.currentDetail = payload.data
     return newState
 }
@@ -30,7 +28,7 @@ const getCurrentDetail = (state, payload) => {
 const bannerReducer = (state = initialState, action) => {
     switch(action.type){
         case ct.GET_BANNER: return getBanners(state,action.payload);
-        case ct.GET_DETAIL_BANNER: return getCurrentDetail(state, action.payload);
+        // case ct.GET_DETAIL_BANNER: return getCurrentDetail(state, action.payload);
         default: return state;
     };
 };

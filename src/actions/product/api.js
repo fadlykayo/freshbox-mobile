@@ -187,7 +187,7 @@ actions.get_promo = (req, success, failure) => {
 							if(res.data.data.length == 0) {
 								// analytics.trackEvent('Unavailable Promo', {product_geted: req.params.name})
 							}
-							console.warn(res.data)
+							// console.warn(res.data)
 							success(res)
 							dispatch(actReducer.get_promo(req.params, res.data));
         		}

@@ -35,11 +35,17 @@ const styles = {
         }
     },
     mid: {
-        container: {
+        outerContainer: {
             flex: -1,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
+            backgroundColor: colour.backgroundGrey,
+        },
+        container: {
+            height: height * 0.1,
             // borderWidth: 1,
+            justifyContent: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            backgroundColor: colour.white
 
         },
         hori: {
@@ -49,23 +55,44 @@ const styles = {
             marginRight: 5,
         },
         titleContainer: {
-            paddingVertical: 20,
-            // paddingHorizontal: 5,
+            paddingVertical: 10,
+        },
+        subtitleContainer: {
             flexDirection: 'row',
+            marginTop: 2,
+        },
+        calendar: {
+            height: 15,
+            width: 15,
+            marginRight: 8,
         },
         titleText: {
-            fontFamily: 'Avenir-Roman',
+            fontFamily: 'Avenir-Heavy',
 			fontSize: scaling.moderateScale(16),
 			color: colour.darkGrey,
+            // textAlign: 'center',
+        },
+        date: {
+            fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(13),
+			color: colour.grey,
             // textAlign: 'center',
         },
         contentContainer: {
 
         },
         contentText: {
-            fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(13),
-			color: colour.black,
+            fontFamily: 'Avenir-Book',
+			fontSize: scaling.moderateScale(14),
+			color: colour.darkGrey,
+        },
+        content: {
+            flex: -1,
+            marginTop: 10,
+            backgroundColor: colour.white,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+
         },
     },
     gopay:{
@@ -99,14 +126,19 @@ const styles = {
     },
     promo: {
         container: {
-            flex: -1,
+            flex: 1,
             paddingLeft: 15,
             marginHorizontal: 5,
             paddingVertical: 20,
             // borderWidth: 1,
         },
         card: {
-            marginVertical: 10
+            // marginVertical: 10
+        },
+        cart: {
+            flex: -1,
+            paddingTop: 10,
+            paddingRight: 20,
         },
         hori: {
             width: 3,
@@ -118,11 +150,22 @@ const styles = {
             // paddingVertical: 20,
             // paddingHorizontal: 5,
             flexDirection: 'row',
+            // borderWidth: 1,
+            justifyContent: 'space-between',
+            marginVertical: 10,
         },
         titleText: {
-            fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(16),
+            fontFamily: 'Avenir-Heavy',
+			fontSize: scaling.moderateScale(18),
 			color: colour.darkGrey,
+            // textAlign: 'center',
+        },
+        moreText: {
+            fontFamily: 'Avenir-Heavy',
+			fontSize: scaling.moderateScale(13),
+			color: colour.red,
+            marginTop: 5,
+            marginRight: 5,
             // textAlign: 'center',
         },
     },

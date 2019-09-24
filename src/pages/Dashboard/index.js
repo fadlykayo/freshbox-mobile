@@ -170,7 +170,6 @@ class Dashboard extends Component {
 				categories_code = c.code;
 			}
 		})
-
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -618,7 +617,7 @@ class Dashboard extends Component {
 		this.props.get_detail_banner(payload,
 			(res) => {
 
-				if(product.links && product.link !== '') {
+				if(product.links && product.links !== '') {
 					actNav.navigate(navConstant.BannerDetail, {links: product.links})
 				} else {
 					actNav.navigate(navConstant.BannerDetail)
@@ -713,6 +712,13 @@ class Dashboard extends Component {
           <View
             style={styles.spacer}
           />
+					<Categories
+            categories = {this.props.categories}
+						navigateToCategories = {this.navigateToCategories}
+          />
+					<Announcement
+						data = {this.state.banner}
+					/>
           <PromoList
             product = {this.props.promoProduct}
 						user = {this.props.user}
@@ -721,18 +727,13 @@ class Dashboard extends Component {
 						loadingPromo = {this.state.loading.promoList}
 						handleLoadMore = {this.handleLoadMore}
           />
-          <Categories
-            categories = {this.props.categories}
-						navigateToCategories = {this.navigateToCategories}
-          />
+          
 
 					<TransactionBlock
 						transactions = {this.props.transactions}
 						navigateToDetail = {this.navigateToDetail}
 					/>
-					<Announcement
-						data = {this.state.banner}
-					/>
+					
 					<View style={styles.productList.outerContainer}>
 					<View style={styles.productList.container}>
 						<StaticText

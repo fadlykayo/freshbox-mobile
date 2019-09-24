@@ -106,7 +106,6 @@ export default class Carousel extends PureComponent {
     } else {
       if(products && products.length !== 0) {
         return products.map((product, index) => {
-          console.log(product)
           return (
             <TouchableOpacity style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product)}>
               <View key={ index } style={Styles.cover.outerContainer}>

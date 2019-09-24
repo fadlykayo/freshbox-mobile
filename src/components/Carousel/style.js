@@ -30,7 +30,7 @@ module.exports = {
     },
     container: (size) => {
       return {
-        backgroundColor: 'pink',
+        // backgroundColor: 'pink',
         borderRadius: 25,
         // position: 'absolute',
         height: height * 0.19,
