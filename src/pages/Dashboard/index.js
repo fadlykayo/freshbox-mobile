@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
@@ -52,7 +52,8 @@ class Dashboard extends Component {
 				promoList: false,
 				categories: false,
 				transaction: false,
-			}
+			},
+			promoCode: '',
     }
 		this.showCheckout = new Animated.Value(0);
   }
@@ -668,8 +669,26 @@ class Dashboard extends Component {
 		}
 	}
 
+	navigateToPromoList = () => {
+
+		let categories = {};
+		this.props.categories.map((c, i) => {
+			if(c.name == 'Promo') {
+				categories.code = c.code;
+				categories.name = 'Promo';
+			}
+		})
+		
+		console.warn(categories)
+		this.navigateToCategories(categories)
+	}
+
 	navigateToCampaign = () => {
 		actNav.navigate(navConstant.Campaigns);
+	}
+
+	navigateToProductList = () => {
+		actNav.navigate(navConstant.ProductList);
 	}
 
   render() {
@@ -726,6 +745,7 @@ class Dashboard extends Component {
 						openDetailProduct = {this.openDetailProduct}
 						loadingPromo = {this.state.loading.promoList}
 						handleLoadMore = {this.handleLoadMore}
+						navigateToPromoList = {this.navigateToPromoList}
           />
           
 
@@ -740,10 +760,15 @@ class Dashboard extends Component {
 							style={styles.productList.textBold}
 							property={'dashboard.productList.title'}
 						/>
-						<StaticText
-							style={styles.productList.textBoldSmall}
-							property={'dashboard.productList.more'}
-						/>
+						<TouchableOpacity onPress = {this.navigateToProductList}>
+
+							<StaticText
+								style={styles.productList.textBoldSmall}
+								property={'dashboard.productList.more'}
+							/>
+						</TouchableOpacity>
+
+						
 					</View>
 					<View style={{height: 600}}>
 					<FlatList

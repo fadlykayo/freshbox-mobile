@@ -222,11 +222,11 @@ const getPromo = (state, payload) => {
 
     let params = payload.params;
 
-    // if(params.page < payload.data.last_page) {
-    //     params.page = params.page + 1;
-    // }
+    if(params.page < payload.data.last_page) {
+        params.page = params.page + 1;
+    }
 
-    newState.paramsPromo.page = payload.data.current_page + 1;
+    // newState.paramsPromo.page = payload.data.current_page + 1;
     newState.paramsPromo.last_page = payload.data.last_page;
 
     // newState.paramsPromo = params;

@@ -9,7 +9,7 @@ import styles from './styles'
 export default class PromoList extends Component {
 
   navigateToProduct = () => {
-    actNav.navigate(navConstant.ProductList);
+    actNav.navigate(navConstant.ProductList, {showPromo: true});
   }
 
   handleLoadMore = () => {

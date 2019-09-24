@@ -95,6 +95,11 @@ class ProductList extends Component {
 		}
 	}
 
+	// componentWillUnmount = () => {
+	// 	this.getProductList();
+	// };
+	
+
 	shouldComponentUpdate(nextProps,nextState){
 		if(nextProps.total_count == 0) this.outroAnimate();
 		else{
@@ -690,7 +695,7 @@ class ProductList extends Component {
 							this.props.product.length > 0 ? 
 							<FlatList
 								ref={(e) => { this.listRef = e}}
-								data={this.props.product}
+								data={this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product}
 								onEndReachedThreshold={0.5}
 								onRefresh={this.refreshHandler}
 								refreshing={this.state.refreshing}
@@ -739,6 +744,7 @@ class ProductList extends Component {
 							/>
 						</View>
 					</View>
+				
 				<ProductDetail
 					type={'productList'}
 					user={this.props.user}
@@ -781,6 +787,7 @@ const mapStateToProps = state => ({
 	total_count: state.product.total.count,
 	productDetail: state.product.detail,
 	broadcast_message: state.utility.broadcast_message,
+	promoProduct: state.product.promoProduct,
 	network: state.network
 })
 
