@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
+import { language, analytics } from '@helpers';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';

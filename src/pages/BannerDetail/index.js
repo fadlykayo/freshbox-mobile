@@ -1,20 +1,109 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, Platform, Image, FlatList, ScrollView } from 'react-native';
+import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator } from 'react-native';
 import { actNav, navConstant } from '@navigations';
+import { language, analytics } from '@helpers';
+import moment from 'moment';
+import { connect } from 'react-redux';
+import Checkout from '../ProductList/components/Checkout';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
-import { connect } from 'react-redux';
 import { gopay } from '@helpers';
-import moment from 'moment';
 import ProductItem from '@components/ProductItem';
+import ProductDetail from '@components/ProductDetail';
 import images from '@assets';
 import styles from './style';
 import actions from '@actions';
+
+const { width, height } = Dimensions.get('window');
 
 
 class BannerDetail extends Component {
     constructor() {
       super();
+      this.state = {
+        scrollX: 0,
+        bubble: 0,
+        modalVisible: {
+          openCategories: false,
+          openProduct: false,
+          openImageDetail: false,
+          checkout: false,
+			  },
+      }
+      this.showCheckout = new Animated.Value(0);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      if(nextProps.total_count == 0) this.outroAnimate();
+      else if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
+      return true;
+    }
+
+    introAnimate = () => {
+      this.showCheckout.setValue(0);
+      const createAnimation = (value, duration, easing, delay = 0) => {
+        return Animated.timing(
+          value,
+          {
+            toValue: 1,
+            duration,
+            easing,
+            delay,
+          }
+        )
+      }
+      Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start()
+    }
+
+    // cart button slide down animation
+    outroAnimate = () => {
+      this.showCheckout.setValue(0);
+      const createAnimation = (value, duration, easing, delay = 0) => {
+        return Animated.timing(
+          value,
+          {
+            toValue: 1,
+            duration,
+            easing,
+            delay,
+          }
+        )
+      }
+      Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+    }
+
+    validateCart = () => {
+      let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+      if(outStockCart.length > 0){
+        language.transformText('message.outOfStock')
+        .then(message => {
+          this.props.set_error_status({
+            status: true,
+            title: 'formError.title.outOfStock',
+            data: message,
+          });
+        });
+      }
+      else{
+        this.navigateToCart();
+      }
+    }
+
+    createOrderHandler = (invoice,type) => {
+      new Promise((res) => {
+        actNav.goBackToTop();
+        this.props.clear_products();
+        res();
+      })
+      .then(() => {
+        setTimeout(() => this.navigateToPaymentSuccess(invoice,type),1000);
+      });
+    }
+
+    navigateToCart = () => {
+      actNav.navigate(navConstant.Cart,{
+        createOrderHandler: this.createOrderHandler,
+      });
     }
 
     renderBanner = () => {
@@ -75,7 +164,6 @@ class BannerDetail extends Component {
     }
 
   toggleFavorite = (payload) => {
-    console.log('ini payload', payload)
     if (payload.wishlisted == 1) {
       let data = {
         request: {
@@ -114,7 +202,60 @@ class BannerDetail extends Component {
     }
   }
 
+  //product functions
+  openDetailProduct = (payload) => {
+		console.warn(payload)
+		this.props.detail_product(payload.product);
+		this.setModalVisible('openProduct',true);
+	}
+
+  openDetailProductPicture = (payload) => {
+    console.warn(payload)
+		this.props.detail_product(payload.product);
+		this.setModalVisible('openProduct', true);
+	}
+
+  changeTotalItem = (payload,type) => {
+		this.props.change_total(payload,type);
+	}
+
+  setModalVisible = (type,value) => {
+    let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+    modalVisible[type] = value;
+    this.setState({modalVisible});
+  }
+
+  getPositionIndex =(e) => {
+    this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+      this.getPositionBubble();
+    })
+  }
+
+  getPositionBubble = () => {
+    let position = Math.round(this.state.scrollX/(width* 0.18));
+
+    if (this.state.bubble != position) {
+      this.setState({ bubble: position })
+    }
+  }
+
+  	// handling zoom products' image
+	openZoomImage = () => {
+		this.setModalVisible('openImageDetail',true);
+	}
+
+	// handling zoom products' image
+	closeZoomImage = () => {
+		this.setModalVisible('openImageDetail',false);
+	}
+
+  closeDetailProduct = () => {
+		this.setModalVisible('openProduct',false);
+	} 
+  // end product functions
+
     renderPromoList = () => {
+      // console.log(this.props.currentDetail[0].details[1])
       return (
           <View style = {styles.promo.container}>
           
@@ -143,9 +284,9 @@ class BannerDetail extends Component {
                       type={'productList'}
                       user={this.props.user}
                       toggleFavorite={this.toggleFavorite}
-                      // changeTotalItem={this.changeTotalItem}
+                      changeTotalItem={this.changeTotalItem}
                       productLength={this.props.currentDetail[0].details.length}
-                      // openDetailProduct= {this.props.openDetailProduct}
+                      openDetailProduct= {this.openDetailProduct}
                     />
                   </View>
 
@@ -165,7 +306,15 @@ class BannerDetail extends Component {
     render() {
         
         let params = this.props.navigation.state.params;
-        console.warn(this.props.currentDetail[0])
+        const introButton = this.showCheckout.interpolate({
+          inputRange: [0, 1],
+          outputRange: [-(width * 0.3), 0]
+        })
+        const outroButton = this.showCheckout.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -(width * 0.3)]
+        })
+
         return (
             <Container style={styles.container}>
                 <NavigationBar
@@ -185,6 +334,33 @@ class BannerDetail extends Component {
             {this.renderPromoList()}
             </ScrollView>
           }
+
+          <ProductDetail
+            bannerDetail
+            type={'productList'}
+            user={this.props.user}
+            bubble={this.state.bubble}
+            scrollX={this.state.scrollX}
+            data={this.props.productDetail}
+            openZoomImage={this.openZoomImage}
+            closeZoomImage={this.closeZoomImage}
+            toggleFavorite={this.toggleFavorite}
+            changeTotalItem={this.changeTotalItem}
+            getPositionIndex={this.getPositionIndex}
+            getPositionBubble={this.getPositionBubble}
+            closeDetailProduct={this.closeDetailProduct}
+            modalVisible={this.state.modalVisible.openProduct}
+            openImageDetail={this.state.modalVisible.openImageDetail}
+          />
+
+          <Checkout
+            introButton={introButton}
+            outroButton={outroButton}
+            validateCart={this.validateCart}
+            totalCount={this.props.total_count}
+            totalPrice={this.props.total_price}
+            modalVisible={this.state.modalVisible.checkout}
+          />
                 
             </Container>
         );
@@ -193,12 +369,19 @@ class BannerDetail extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.user.data,
-    currentDetail: state.product.currentDetail
+    currentDetail: state.product.currentDetail,
+    productDetail: state.product.detail,
+    total_count: state.product.total.count,
+    total_price: state.product.total.price,
+    cart_product: state.product.cart.products,
 });
 
 const mapDispatchToProps = dispatch => ({
   add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
   delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+  change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
+  detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+  clear_products: () => dispatch(actions.product.reducer.clear_products()),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BannerDetail);

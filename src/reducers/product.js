@@ -36,7 +36,9 @@ const initialState = {
     wishlist: {
         products: [],
     },
-    currentDetail: [],
+    currentDetail: [{
+        details: []
+    }],
 }
 
 const getProducts = (state, payload) => {
@@ -271,6 +273,19 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
+
+    if(newState.currentDetail.length > 0) {
+        const productIndex = newState.currentDetail[0].details.findIndex(e => e.product.code === payload.data.code)
+        newState.currentDetail[0].details.map((e,i) => {
+            if(e.product.code === payload.data.code) {
+                if(payload.type == 'inc') {
+                    e.product.count += 1;
+                } else {
+                    e.product.count -= 1;
+                }
+            }
+        })
+    }
 
 	if (payload.type == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
@@ -522,8 +537,26 @@ const cancelVoucher = (state, payload) => {
 getCurrentDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));   
     newState.currentDetail = payload.data
+    let incomingProducts = payload.data[0].details
+   
     let existingProducts = newState.currentDetail[0].details.slice();
+
+    
     let cartList = newState.cart.products;
+
+    for (x in incomingProducts) {
+        let sameValue = false;
+        for(y in existingProducts) {
+            if(incomingProducts[x].product.code == existingProducts[y].product.code) {
+                existingProducts[y] = Object.assign({}, existingProducts[y], incomingProducts[x])
+                sameValue = true;
+                break;
+            }
+        }
+    }
+
+    
+    
 
     existingProducts = existingProducts.map(e => {
         let cartItem = cartList.filter(p => e.code == p.code);
@@ -535,6 +568,8 @@ getCurrentDetail = (state, payload) => {
             return e;
         }
     })
+
+    // newState.currentDetail[0].details = existingProducts;
 
     return newState
 }

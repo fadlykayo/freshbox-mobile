@@ -15,14 +15,36 @@ class ProductItem extends PureComponent {
 	}
 
 	addTotalItem(){
-		this.props.changeTotalItem(this.props.data,"inc");
+
+		let data;
+		if(this.props.bannerDetail) {
+			data = this.props.data.product;
+		} else {
+			data = this.props.data;
+		}
+
+		console.log(data)
+		
+		this.props.changeTotalItem(data,"inc");
 	}
 
 	decTotalItem(){
-		this.props.changeTotalItem(this.props.data,"desc");
+		let data;
+		if(this.props.bannerDetail) {
+			data = this.props.data.product;
+		} else {
+			data = this.props.data;
+		}
+		this.props.changeTotalItem(data,"desc");
 	}
 
 	openDetailProduct(){
+		let data;
+		if(this.props.bannerDetail) {
+			data = this.props.data.product;
+		} else {
+			data = this.props.data;
+		}
 		this.props.openDetailProduct(this.props.data);
 	}
 

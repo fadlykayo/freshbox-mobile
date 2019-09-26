@@ -68,7 +68,7 @@ const styles = {
         },
         titleText: {
             fontFamily: 'Avenir-Heavy',
-			fontSize: scaling.moderateScale(16),
+			fontSize: scaling.moderateScale(18),
 			color: colour.darkGrey,
             // textAlign: 'center',
         },
