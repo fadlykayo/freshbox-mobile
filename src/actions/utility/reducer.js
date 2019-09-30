@@ -16,5 +16,10 @@ action.delivery_date = (payload) => ({
     payload: payload,
 })
 
+action.announcement = (payload) => ({
+    type: ct.ANNOUNCEMENT,
+    payload: payload,
+})
+
 
 export default action;

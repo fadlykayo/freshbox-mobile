@@ -16,6 +16,7 @@ import ProductList from '../ProductList';
 import ProductItem from '@components/ProductItem';
 import StaticText from '@components/StaticText';
 import Announcement from './components/Announcement';
+import PopUp from './components/PopUp';
 import actions from '@actions';
 import styles from './styles';
 
@@ -692,6 +693,10 @@ class Dashboard extends Component {
 		actNav.navigate(navConstant.ProductList);
 	}
 
+	closePopUpInfo = () => {
+		this.props.announcement(false);
+	}
+
   render() {
 		
 		const introButton = this.showCheckout.interpolate({
@@ -826,6 +831,11 @@ class Dashboard extends Component {
 					products = {this.props.banners}
 					navigateToBannerDetail = {this.navigateToBannerDetail}
 				/>
+
+				<PopUp
+					visible = {this.props.announcement}
+					closePopUpInfo = {this.closePopUpInfo}
+				/>
       </ScrollView>
 
 			
@@ -865,6 +875,7 @@ const mapStateToProps = state => ({
 	cart_product: state.product.cart.products,
 	current_page: state.product.params.page,
 	last_page: state.product.last_page,
+	announcement: state.utility.announcement,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -884,6 +895,8 @@ const mapDispatchToProps = dispatch => ({
 	get_detail_banner: (req, res, err) => dispatch(actions.banner.api.get_detail_banner(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
+	announcement : (payload) => dispatch(actions.utility.reducer.announcement(payload)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

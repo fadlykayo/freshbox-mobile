@@ -39,7 +39,9 @@ class Campaigns extends Component {
 
   render() {
     return (
-      <Container>
+      <Container
+        style={styles.mainContainer}
+      >
         <NavigationBar
           title={'bannerPage.navigationTitle'}
         />
@@ -48,7 +50,7 @@ class Campaigns extends Component {
         <FlatList
           data={this.props.banners}
           renderItem={({item, index}) => (
-            <View>
+            <View style={styles.card.outerContainer} key={index}>
               <View style = {styles.card.container}>
               <TouchableOpacity onPress={() => this.navigateToBannerDetail(item)}>
                 <Image

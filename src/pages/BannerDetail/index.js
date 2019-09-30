@@ -32,7 +32,7 @@ class BannerDetail extends Component {
           checkout: false,
           alertDialog: false,
 			  },
-        voucher: true,
+        voucher: false,
       }
       this.showCheckout = new Animated.Value(0);
     }
@@ -368,7 +368,7 @@ class BannerDetail extends Component {
         <View style = {styles.voucher.button}>
           <Button
             type = {'red'}
-            onpress = {this.navigateToProducts}
+            onpress = {this.SetAndUseVoucher}
             title={'voucher.button.title'}
           />
         </View>

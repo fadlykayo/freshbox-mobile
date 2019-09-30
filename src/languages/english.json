@@ -797,5 +797,9 @@
         "history"   : "No Transaction history available",
         "search"    : "The product you are looking for is not available",
         "favorites" : "No favorite products"
+    },
+    "popup": {
+        "title" : "Fraud Alert!",
+        "button": "OK, I Understand"
     }
 }

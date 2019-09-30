@@ -800,5 +800,9 @@
         "search"    : "Produk yang anda cari tidak tersedia",
         "history"   : "Tidak ada riwayat transaksi",
         "favorites" : "Tidak ada produk favorit"
+    },
+    "popup": {
+        "title" : "Waspada Penipuan!",
+        "button": "OK, Dimengerti"
     }
 }
