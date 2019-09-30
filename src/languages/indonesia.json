@@ -13,6 +13,11 @@
             "privacyPolicy": "Kebijakan Privasi"
         }
     },
+    "voucher": {
+        "button": {
+            "title": "Gunakan Sekarang"
+        }
+    },
     "onBoarding": {
         "content": {
             "first": {
@@ -783,7 +788,8 @@
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",
-        "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?"
+        "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?",
+        "copyVoucher": "Copy voucher berhasil. Apakah anda ingin menggunakannya sekarang?"
     },
     "verification":{
         "maxQuantity": "Hanya tersedia {qty} pack",

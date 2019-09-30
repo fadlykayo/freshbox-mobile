@@ -489,6 +489,12 @@ const resetParams = (state, payload) => {
     return newState;
 }
 
+const setVoucher = (state, payload) => {
+    let newState = {...state};
+    newState.coupon_code = payload;
+    return newState;
+}
+
 const setDiscountPrice = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let totalPrice = newState.total.price;
@@ -594,8 +600,9 @@ const productReducer = (state = initialState, action) => {
         case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
         case ct.CANCEL_VOUCHER      : return cancelVoucher(state, action.payload);
         case ct.GET_DETAIL_BANNER   : return getCurrentDetail(state, action.payload);
+        case ct.SET_VOUCHER         : return setVoucher(state,action.payload);
         case ct.RESET_PRODUCTS      : return initialState
-        default: return state;
+        default                     : return state;
     }
 }
 

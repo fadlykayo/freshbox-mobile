@@ -169,6 +169,32 @@ const styles = {
             // textAlign: 'center',
         },
     },
+    voucher: {
+        container: {
+            paddingHorizontal: 20
+        },
+        textContainer: {
+            marginTop: 10,
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            paddingHorizontal: 20, 
+            // borderWidth: 1, 
+            borderRadius: 10, 
+            height: 70,
+            backgroundColor: colour.softPink,
+        },
+        text: {
+            fontFamily: 'Avenir-Heavy',
+            fontSize: scaling.moderateScale(18),
+            color: colour.red,
+            fontWeight: 'bold'
+        },
+        button: {
+            marginTop: 30,
+            paddingHorizontal: 20
+        },
+    }
 }
 
 export default styles;

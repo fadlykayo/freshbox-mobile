@@ -13,6 +13,11 @@
             "privacyPolicy": "Privacy Policy"
         }
     },
+    "voucher": {
+        "button": {
+            "title": "Use Now"
+        }
+    },
     "onBoarding": {
         "content": {
             "first": {
@@ -780,7 +785,8 @@
     },
     "dialog":{
         "clearProduct": "Are you sure you want to delete {item} from cart?",
-        "clearFavorite": "Are you sure you want to delete {item} from favourite?"
+        "clearFavorite": "Are you sure you want to delete {item} from favourite?",
+        "copyVoucher": "Coupon code copied. Do you want to use it now?"
     },
     "verification":{
         "maxQuantity": "Only {qty} pack",

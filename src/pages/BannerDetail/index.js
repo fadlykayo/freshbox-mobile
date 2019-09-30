@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics } from '@helpers';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Checkout from '../ProductList/components/Checkout';
 import Container from '@components/Container';
+import AlertDialog from '@components/AlertDialog';
 import NavigationBar from '@components/NavigationBar';
 import { gopay } from '@helpers';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
+import Button from '@components/Button';
 import images from '@assets';
 import styles from './style';
 import actions from '@actions';
@@ -28,7 +30,9 @@ class BannerDetail extends Component {
           openProduct: false,
           openImageDetail: false,
           checkout: false,
+          alertDialog: false,
 			  },
+        voucher: true,
       }
       this.showCheckout = new Animated.Value(0);
     }
@@ -303,6 +307,74 @@ class BannerDetail extends Component {
       )
     }
 
+    renderVoucher = () => {
+      return (
+        <View style = {styles.voucher.container}>
+
+          <View style = {styles.promo.titleContainer}>
+            <Text style = {styles.promo.titleText}>Promo Code</Text>
+            {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
+          </View>
+
+          <View style={styles.voucher.textContainer}>
+            <View>
+              <Text style={styles.voucher.text}>
+                FBPALUGADA
+              </Text>
+            </View>
+            <View>
+
+              <TouchableOpacity style = {{width: 20, height: 20}} onPress={this.openCopyDialog}>
+                <Image
+                  source={images.icon_copy}
+                  style={{width: 20, height: 20}}
+                />
+              </TouchableOpacity>
+              
+            </View>
+          </View>
+
+        </View>
+      )
+    }
+
+    openCopyDialog = () => {
+      this.setModalVisible('alertDialog', true);
+    }
+
+    SetAndUseVoucher = () => {
+      
+      let state = {...this.state};
+      state.modalVisible.alertDialog = false;
+
+      Clipboard.setString('TESTVOUCHER');
+      this.props.set_voucher_code('TESTVOUCHER');
+
+      this.setState({state}, () => {actNav.navigate(navConstant.Product)});
+      
+    }
+
+    cancelUseVoucher = () => {
+      Clipboard.setString('TESTVOUCHER');
+      this.setModalVisible('alertDialog', false);
+    }
+
+    navigateToProducts = () => {
+      actNav.navigate(navConstant.ProductList);
+    }
+
+    renderButton = () => {
+      return (
+        <View style = {styles.voucher.button}>
+          <Button
+            type = {'red'}
+            onpress = {this.navigateToProducts}
+            title={'voucher.button.title'}
+          />
+        </View>
+      )
+    }
+
     render() {
         
         let params = this.props.navigation.state.params;
@@ -331,7 +403,8 @@ class BannerDetail extends Component {
             <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
-            {this.renderPromoList()}
+            {this.state.voucher ? this.renderVoucher() : this.renderPromoList()}
+            {this.state.voucher ? this.renderButton() : null}
             </ScrollView>
           }
 
@@ -361,6 +434,16 @@ class BannerDetail extends Component {
             totalPrice={this.props.total_price}
             modalVisible={this.state.modalVisible.checkout}
           />
+
+          <AlertDialog
+            modalVisible={this.state.modalVisible.alertDialog} 
+            content={'dialog.copyVoucher'}
+            // params={{
+            // 	item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
+            // }}
+            requestHandler={this.SetAndUseVoucher}
+            requestCancel={this.cancelUseVoucher}
+          />
                 
             </Container>
         );
@@ -382,6 +465,7 @@ const mapDispatchToProps = dispatch => ({
   change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
   detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
   clear_products: () => dispatch(actions.product.reducer.clear_products()),
+  set_voucher_code: (payload) => dispatch(actions.voucher.reducer.set_voucher(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BannerDetail);

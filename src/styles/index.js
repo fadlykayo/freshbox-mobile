@@ -8,6 +8,7 @@ export const colour = {
     pink: 'rgb(255,215,255)',
     lightPink: 'rgb(255,241,243)',
     softRedTransparent: 'rgba(243,95,121,0.25)',
+    softPink: 'rgba(216,0,37, 0.1)',
     lightOrange: 'rgb(255, 238, 230)',
     orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',

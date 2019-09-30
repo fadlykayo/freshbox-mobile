@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import numeral from 'numeral';
 import { actNav, navConstant } from '@navigations';
+import images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '@components/Button';
 import { colour } from '@styles';
@@ -32,14 +33,17 @@ export default class Announcement extends Component {
     let cards = this.props.data.map((d,i) => {
       return (
         <View style={styles.card.container}>
-          {/* <Image
-
-          /> */}
+          
            <LinearGradient
             colors={[colour.blackNone, colour.blackTransparent, colour.blackTranslucent,  colour.black80opacity]}
+            style = {{alignItems: 'center', justifyContent: 'center', borderRadius: 10,}}
           >
+          <Image
+            source = {images.icon_logo}
+            style = {{width: 250, height:80}}
+          />
           <View style={styles.card.text.container}>
-         
+
             <Text style={styles.card.text.date}>10 Sept 2019</Text>
             <Text style={styles.card.text.title}>{d.title}</Text>
             <Text numberOfLines = {1} ellipsizeMode={'tail'} style={styles.card.text.subtitle}>{d.subtitle}</Text>
