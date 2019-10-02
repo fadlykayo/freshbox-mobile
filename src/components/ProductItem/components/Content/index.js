@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
+import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 import numeral from 'numeral';
 import StaticText from '@components/StaticText';
@@ -55,11 +56,17 @@ class Content extends PureComponent {
 									property={'productList.content.price'}
 								/>
 								{productPromoPrice}
-								<StaticText
-									style={styles.text.desc}
-									property={'productList.content.pack'}
-								/>
-								<Text style={styles.text.desc}>{this.props.data.unit}</Text>
+								{
+									scaling.isIphone5s() ? null :
+									<>
+									<StaticText
+										style={styles.text.desc}
+										property={'productList.content.pack'}
+									/>
+									<Text style={styles.text.desc}>{this.props.data.unit}</Text>
+									</>
+								}
+
 							</Text>
 
 						</View>

@@ -18,7 +18,7 @@ const style = {
     // bottom: 0,
   },
   spacer: {
-    height: height * 0.04
+    height: height * 0.02
   },
   scrollView: {
     flex: 1,

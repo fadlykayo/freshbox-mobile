@@ -50,6 +50,8 @@ const style = {
       flex: -1,
       flexDirection: 'row',
       paddingLeft: 20,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
   },
   card: {
@@ -78,6 +80,26 @@ const style = {
 
       elevation: Platform.OS == 'android' ? 0 : 0,
       marginRight: 10,
+    },
+    emptyContainer: {
+      flexDirection: 'row', 
+      justifyContent: 'space-between', 
+      alignItems:'center', 
+      flex: 1, 
+      paddingRight: 20, 
+      paddingLeft: 5, 
+      marginTop: 20,
+    },
+    buttonNav: {
+      flex: -1,
+      width: 130,
+      height: 40,
+    },
+    transactionText: {
+      fontFamily: 'Avenir-Book',
+        fontSize: 14,
+        textAlign: 'left',
+        color: colour.darkGrey,
     },
     invoice: {
       container: {

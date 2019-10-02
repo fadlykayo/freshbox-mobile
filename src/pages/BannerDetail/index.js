@@ -258,6 +258,52 @@ class BannerDetail extends Component {
 	} 
   // end product functions
 
+  //render product list
+
+  renderProductList = () => {
+    if(this.state.loadingProduct) {
+      return (
+        <ActivityIndicator/>
+      ) 
+      } else {
+        if(this.props.currentDetail[0].details.length !== 0) {
+          return (
+            <FlatList
+              // horizontal
+              showsHorizontalScrollIndicator={false}
+              data = {this.props.currentDetail[0].details}
+              keyExtractor = {(item) => item.code}
+              renderItem = {({item, index}) => 
+
+
+              <View style={styles.promo.card} key={index}>
+                <ProductItem
+                  bannerDetail
+                  search = {''}
+                  data = {item}
+                  index= {index+1}
+                  type={'productList'}
+                  user={this.props.user}
+                  toggleFavorite={this.toggleFavorite}
+                  changeTotalItem={this.changeTotalItem}
+                  productLength={this.props.currentDetail[0].details.length}
+                  openDetailProduct= {this.openDetailProduct}
+                />
+              </View>
+
+                
+              }
+            />
+          )
+        } else {
+          return (
+            <Text>Shop Now!</Text>
+          )
+        }
+      }
+    
+  }
+
     renderPromoList = () => {
       // console.log(this.props.currentDetail[0].details[1])
       return (

@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import {
   View,
   ScrollView,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   Text,
   Image,
   Dimensions
@@ -107,7 +107,7 @@ export default class Carousel extends PureComponent {
       if(products && products.length !== 0) {
         return products.map((product, index) => {
           return (
-            <TouchableOpacity style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product)}>
+            <TouchableWithoutFeedback style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product)}>
               <View key={ index } style={Styles.cover.outerContainer}>
 
                   <Image 
@@ -119,7 +119,7 @@ export default class Carousel extends PureComponent {
                   {/* { this.renderOverlay(product) } */}
                   {/* <Text Style={{fontSize: 21, color: 'white'}}>{product.name_banner}</Text> */}
               </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           );
         });
       } else {

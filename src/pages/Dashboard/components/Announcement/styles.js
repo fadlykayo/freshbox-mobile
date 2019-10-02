@@ -61,20 +61,21 @@ const style = {
       width: width * 0.6,
       height: height * 0.16,
       marginVertical: 5,
-      // flexDirection: 'column',
       justifyContent: 'center',
-      // alignItems: 'flex-end',
-      // borderWidth: 1,
       borderRadius: 10,
       marginRight: 15,
       
+    },
+    image: {
+      width: width * 0.6,
+      height: height * 0.16,
     },
     text: {
       container: {
         paddingHorizontal: 13,
         paddingVertical: 10,
-        // position: 'absolute',
-        // bottom: 10,
+        position: 'absolute',
+        bottom: 10,
       },
       date: {
         fontFamily: 'Avenir-Book',

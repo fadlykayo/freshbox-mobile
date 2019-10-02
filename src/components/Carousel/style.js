@@ -1,5 +1,6 @@
 import {
-  RatioHelper,
+  scaling
+  
 } from '@helpers';
 
 import { Dimensions, Platform } from 'react-native';
@@ -19,8 +20,8 @@ module.exports = {
     position: 'absolute',
     height: height * 0.19,
     width: width * 0.8,
-    top: 70,
-    left: 20,
+    top: scaling.isIphone5s() ? 55 : 70,
+    left: scaling.isIphone5s() ? 15 : 20,
   },
   cover: {
     outerContainer: {
@@ -33,7 +34,7 @@ module.exports = {
         // backgroundColor: 'pink',
         borderRadius: 25,
         // position: 'absolute',
-        height: height * 0.19,
+        height: height * 0.3,
         width: width * 0.9,
         
       }

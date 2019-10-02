@@ -66,7 +66,6 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
-		
 		this.getProductList();
 		this.getCategories();
 		this.getProductPromo();
@@ -74,10 +73,7 @@ class Dashboard extends Component {
 		this.checkCart();
 		this.handleDeepLink();
 		// console.warn(this.props.paramsPromo)
-		if(this.props.user) {
-			this.getHistoryData();
-
-		}
+		this.getHistoryData();
 
   }
 
@@ -377,18 +373,29 @@ class Dashboard extends Component {
 
 	getHistoryData(){
 		this.setState({loadingTransaction: true})
-		let payload = {
-			header: {
-				apiToken: this.props.user.authorization,
-			},
-			params: this.props.transactionParams
-		}
+		if(this.props.user) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				params: this.props.transactionParams
+			}
 
-		this.props.get_transaction(payload, 
-			() => {this.setState({loadingTransaction: false})},
+			this.props.get_transaction(payload, 
+			() => {
+				
+				this.setState({loadingTransaction: false})
+			},
 			(err) => {
 				// console.log(err);
+				
+				this.setState({loadingTransaction: false})
+				
 			})
+		} else {
+			this.setState({loadingTransaction: false})
+		}
+		
 	}
 
 	toggleFavorite = (payload) => {
@@ -757,6 +764,7 @@ class Dashboard extends Component {
 
 					<TransactionBlock
 						transactions = {this.props.transactions}
+						loadingTransaction = {this.state.loadingTransaction}
 						navigateToDetail = {this.navigateToDetail}
 					/>
 					

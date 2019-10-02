@@ -81,6 +81,40 @@ export default class TransactionBlock extends Component {
 
   }
 
+  _renderListTransaction = () => {
+    console.warn(this.props.loadingTransaction)
+    if(this.props.loadingTransaction) {
+      return (
+        <ActivityIndicator/>
+      )
+    } else {
+      if(this.props.transactions.length > 0) {
+        return (
+          <ScrollView style = {styles.bottom.container} horizontal contentContainerStyle = {styles.bottom.contentContainer} showsHorizontalScrollIndicator={false}>
+            {this.renderTransactions(this.props.transactions)}
+          </ScrollView> 
+        )
+      } else {
+        return (
+          <View style={styles.card.emptyContainer}>
+            <View style={styles.card.transactionText}>
+              <Text style={styles.card.transactionText}>No Transactions Yet</Text>
+            </View>
+            <View style={styles.card.buttonNav}>
+              <Button 
+                type={'red'} 
+                title={'transactionBlock.button'} 
+                borderRadius={50} 
+                fontSize={13}
+                onPress={() => actNav.navigate(navConstant.ProductList)}
+              />
+            </View>
+          </View>
+        )
+      }
+    }
+  }
+
   navigateToHistory = () => {
     actNav.navigate(navConstant.HistoryPage)
   }
@@ -103,14 +137,14 @@ export default class TransactionBlock extends Component {
         </View>
 
         <View style={styles.bottom.outerContainer}>
-        {
+        {/* {
           this.props.transactions.length > 0 ? 
           <ScrollView style = {styles.bottom.container} horizontal contentContainerStyle = {styles.bottom.contentContainer} showsHorizontalScrollIndicator={false}>
 
             {this.renderTransactions(this.props.transactions)}
           </ScrollView> : <ActivityIndicator></ActivityIndicator>
-        }
-          
+        } */}
+        {this._renderListTransaction()}
         </View>
         
 

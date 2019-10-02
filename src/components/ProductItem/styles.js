@@ -32,12 +32,14 @@ const styles = {
 			)
 		),
 		marginHorizontal: scaling.moderateScale(5),
-		// paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
+		paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
+		paddingBottom: 20,
 	}),
 	subcontainer: {
 		verification:{
 			alignItems: 'flex-end',
 			paddingRight: width * 0.05,
+			// backgroundColor: 'blue'
 		},
 		card: (dashboard) => ({
 			flexDirection: dashboard ? 'column' : 'row',

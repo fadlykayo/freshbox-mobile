@@ -18,6 +18,9 @@
             "title": "Gunakan Sekarang"
         }
     },
+    "transactionBlock": {
+        "button": "Belanja Sekarang"
+    },
     "onBoarding": {
         "content": {
             "first": {

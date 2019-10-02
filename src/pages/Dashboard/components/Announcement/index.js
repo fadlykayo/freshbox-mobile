@@ -39,8 +39,8 @@ export default class Announcement extends Component {
             style = {{alignItems: 'center', justifyContent: 'center', borderRadius: 10,}}
           >
           <Image
-            source = {images.icon_logo}
-            style = {{width: 250, height:80}}
+            source = {images.background_profile}
+            style = {styles.card.image}
           />
           <View style={styles.card.text.container}>
 

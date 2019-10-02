@@ -44,7 +44,7 @@ const styles = {
 	},
 	subcontainer:{
 		button:{
-			paddingHorizontal: scaling.moderateScale(12),
+			paddingHorizontal: scaling.moderateScale(15),
 			paddingVertical: scaling.moderateScale(5),
 		}
 	},

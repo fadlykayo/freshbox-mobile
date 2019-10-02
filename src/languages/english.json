@@ -18,6 +18,9 @@
             "title": "Use Now"
         }
     },
+    "transactionBlock": {
+        "button": "Shop Now"
+    },
     "onBoarding": {
         "content": {
             "first": {
