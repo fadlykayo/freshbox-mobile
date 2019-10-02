@@ -32,7 +32,7 @@ class BannerDetail extends Component {
           checkout: false,
           alertDialog: false,
 			  },
-        voucher: false,
+        voucher: true,
       }
       this.showCheckout = new Animated.Value(0);
     }
@@ -262,10 +262,12 @@ class BannerDetail extends Component {
 
   renderProductList = () => {
     if(this.state.loadingProduct) {
+      console.warn(this.props.currentDetail[0].details)
       return (
         <ActivityIndicator/>
       ) 
       } else {
+        
         if(this.props.currentDetail[0].details.length !== 0) {
           return (
             <FlatList
@@ -296,26 +298,35 @@ class BannerDetail extends Component {
             />
           )
         } else {
+          // return (
+          //   <Text>Shop Now!</Text>
+          // )
           return (
-            <Text>Shop Now!</Text>
+            null
           )
         }
       }
     
   }
 
+
     renderPromoList = () => {
-      // console.log(this.props.currentDetail[0].details[1])
+
       return (
+        
           <View style = {styles.promo.container}>
           
-            <View style = {styles.promo.titleContainer}>
-              <Text style = {styles.promo.titleText}>Produk Campaign</Text>
-              <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text>
-            </View>
+            {
+              this.props.currentDetail[0].details.length ? 
+              <View style = {styles.promo.titleContainer}>
+                <Text style = {styles.promo.titleText}>Produk Campaign</Text>
+                <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text>
+              </View> : null
+
+            }
 
             <View style = {styles.promo.cart}>
-              {
+              {/* {
                 this.props.currentDetail[0].details.length ?
                 <FlatList
                   // horizontal
@@ -343,7 +354,8 @@ class BannerDetail extends Component {
                     
                   }
                 /> : <ActivityIndicator/>
-              }
+              } */}
+              {this.renderProductList()}
             </View>
             
             
@@ -449,7 +461,8 @@ class BannerDetail extends Component {
             <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
-            {this.state.voucher ? this.renderVoucher() : this.renderPromoList()}
+            {this.state.voucher ? this.renderVoucher() : null}
+            {this.renderPromoList()}
             {this.state.voucher ? this.renderButton() : null}
             </ScrollView>
           }

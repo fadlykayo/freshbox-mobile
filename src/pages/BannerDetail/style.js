@@ -191,7 +191,7 @@ const styles = {
             fontWeight: 'bold'
         },
         button: {
-            marginTop: 30,
+            marginTop: 10,
             paddingHorizontal: 20
         },
     }

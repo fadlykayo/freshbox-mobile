@@ -72,7 +72,6 @@ class Dashboard extends Component {
 		this.getBanner();
 		this.checkCart();
 		this.handleDeepLink();
-		// console.warn(this.props.paramsPromo)
 		this.getHistoryData();
 
   }
