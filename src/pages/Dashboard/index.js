@@ -363,9 +363,9 @@ class Dashboard extends Component {
 			(success) => {
 				this.onChangeText('search', true)
 				if(searchItem) {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true, detailProduct: success.data.data})
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, detailProduct: success.data.data, showPromo: false})
 				} else {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
 				}
 				// this.backToTop();
 			},
@@ -558,7 +558,7 @@ class Dashboard extends Component {
 
 			this.props.search_products(payload, 
 				() => {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
 				},
 				(err) => {
 					console.log(err);
@@ -598,7 +598,7 @@ class Dashboard extends Component {
 
 			this.props.search_products(payload, 
 				() => {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true})
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
 				},
 				(err) => {
 					console.log(err);
@@ -690,7 +690,7 @@ class Dashboard extends Component {
 	}
 
 	navigateToProductList = () => {
-		actNav.navigate(navConstant.ProductList);
+		actNav.navigate(navConstant.ProductList, {showPromo: false});
 	}
 
 	closePopUpInfo = () => {
