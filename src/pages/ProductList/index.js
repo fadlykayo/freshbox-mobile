@@ -483,7 +483,7 @@ class ProductList extends Component {
  	}
 
 	openDetailProduct = (payload) => {
-		console.warn(payload)
+		// console.warn(payload)
 		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}

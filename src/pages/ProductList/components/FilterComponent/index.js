@@ -25,15 +25,15 @@ class SearchComponent extends Component {
 
 			if (result.action == Share.sharedAction) {
 				if(result.activityType) {
-					console.warn(result.activityType)
+					// console.warn(result.activityType)
 				} else {
-					console.warn(result)
+					// console.warn(result)
 				}
 			} else if (result.action === Share.dismissedAction) {
-				console.warn('dismissed')
+				// console.warn('dismissed')
 			}
 		} catch (err) {
-			console.warn(err.message)
+			// console.warn(err.message)
 		}
 	}
 	

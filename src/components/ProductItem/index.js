@@ -49,11 +49,11 @@ class ProductItem extends PureComponent {
 	}
 
 	onShare = async (data) => {
-		const url = 'freshbox://ProductList/'
+		const url = 'https://frshbox.app.link/downloadnow'
 		const product = data.name.split(" ").join("_");
 		try {
 			const result = await Share.share({
-				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}${product}`,
+				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
 			});
 
 			if (result.action == Share.sharedAction) {

@@ -208,13 +208,13 @@ class BannerDetail extends Component {
 
   //product functions
   openDetailProduct = (payload) => {
-		console.warn(payload)
+		// console.warn(payload)
 		this.props.detail_product(payload.product);
 		this.setModalVisible('openProduct',true);
 	}
 
   openDetailProductPicture = (payload) => {
-    console.warn(payload)
+    // console.warn(payload)
 		this.props.detail_product(payload.product);
 		this.setModalVisible('openProduct', true);
 	}
@@ -262,7 +262,7 @@ class BannerDetail extends Component {
 
   renderProductList = () => {
     if(this.state.loadingProduct) {
-      console.warn(this.props.currentDetail[0].details)
+      // console.warn(this.props.currentDetail[0].details)
       return (
         <ActivityIndicator/>
       ) 

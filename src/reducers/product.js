@@ -234,7 +234,7 @@ const getPromo = (state, payload) => {
     // newState.paramsPromo = params;
     // newState.paramsPromo.last_page = payload.data.last_page;
     
-    console.warn('..........', newState.paramsPromo)
+    // console.warn('..........', newState.paramsPromo)
     
     newState.promoProduct = [];
     let incomingProducts = payload.data.data;

@@ -28,7 +28,7 @@ const broadcastMessage = (state, payload) => {
 const announcement = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.announcement = payload;
-    console.warn(newState.announcement)
+    // console.warn(newState.announcement)
     return newState;
 }
 

@@ -107,6 +107,7 @@ class ProductDetail extends Component {
 											user={this.props.user}
 											isFavorite={this.props.data.favorite}
 											toggleFavorite={this.props.toggleFavorite}
+											onShare={this.props.onShare}
 										/>
 								}
 							</View>

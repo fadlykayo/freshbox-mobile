@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics } from '@helpers';
@@ -102,7 +102,7 @@ class Dashboard extends Component {
 		const routeName = route.split('/');
 		const routeTarget = routeName[0];
 		const product = routeName[1].split("_").join(" ");
-		console.warn(routeName)
+		// console.warn(routeName)
 		switch (routeTarget) {
 			case 'ProductList':
 				this.submitSearch(product);
@@ -643,7 +643,7 @@ class Dashboard extends Component {
 		handleLoadMoreProducts = () => {
 		// this.setState({listLoading: true})
 
-		console.warn('masuk')
+		// console.warn('masuk')
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -666,10 +666,10 @@ class Dashboard extends Component {
 			}
 			this.props.get_products(payload,
 				() => {
-					console.warn('cuess')
+					// console.warn('cuess')
 				},
 				(err) => {
-					console.warn(err);
+					// console.warn(err);
 				});
 
 		} else {
@@ -687,7 +687,7 @@ class Dashboard extends Component {
 			}
 		})
 		
-		console.warn(categories)
+		// console.warn(categories)
 		this.navigateToCategories(categories)
 	}
 
@@ -701,6 +701,29 @@ class Dashboard extends Component {
 
 	closePopUpInfo = () => {
 		this.props.announcement(false);
+	}
+
+	onShare = async (data) => {
+		const url = 'https://frshbox.app.link/downloadnow'
+		const product = data.name.split(" ").join("_");
+		try {
+			const result = await Share.share({
+				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
+			});
+
+			if (result.action == Share.sharedAction) {
+				if(result.activityType) {
+					// console.warn(result.activityType)
+				} else {
+					console.warn(result)
+				}
+			} else if (result.action === Share.dismissedAction) {
+				// console.warn('dismissed')
+			}
+		} catch (err) {
+			// console.warn(err.message)
+		}
+
 	}
 
   render() {
@@ -803,7 +826,7 @@ class Dashboard extends Component {
 											type={'productList'}
 											user={this.props.user}
 											toggleFavorite={this.toggleFavorite}
-											// changeTotalItem={this.changeTotalItem}
+											changeTotalItem={this.changeTotalItem}
 											productLength={this.props.product.length}
 											openDetailProduct= {this.openDetailProduct}
 										/>
@@ -831,6 +854,7 @@ class Dashboard extends Component {
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
 					openImageDetail={this.state.modalVisible.openImageDetail}
+					onShare={this.onShare}
 				/>
 				
 				

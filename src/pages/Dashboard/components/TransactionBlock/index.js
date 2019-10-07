@@ -82,7 +82,7 @@ export default class TransactionBlock extends Component {
   }
 
   _renderListTransaction = () => {
-    console.warn(this.props.loadingTransaction)
+    // console.warn(this.props.loadingTransaction)
     if(this.props.loadingTransaction) {
       return (
         <ActivityIndicator/>

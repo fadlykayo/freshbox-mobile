@@ -55,7 +55,7 @@ class OnBoarding extends Component {
 
     navigateToMenu() {
         this.props.on_boarding();
-        actNav.reset(navConstant.Menu);
+        actNav.reset(navConstant.Dashboard);
     }
 
     getPositionIndex(e) {
