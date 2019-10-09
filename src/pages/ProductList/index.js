@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Share } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -657,6 +657,29 @@ class ProductList extends Component {
 		
 	}
 
+	onShare = async (data) => {
+		const url = 'https://frshbox.app.link/downloadnow'
+		const product = data.name.split(" ").join("_");
+		try {
+			const result = await Share.share({
+				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
+			});
+
+			if (result.action == Share.sharedAction) {
+				if(result.activityType) {
+					// console.warn(result.activityType)
+				} else {
+					console.warn(result)
+				}
+			} else if (result.action === Share.dismissedAction) {
+				// console.warn('dismissed')
+			}
+		} catch (err) {
+			// console.warn(err.message)
+		}
+
+	}
+
 	render(){
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
@@ -760,6 +783,7 @@ class ProductList extends Component {
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
 					openImageDetail={this.state.modalVisible.openImageDetail}
+					onShare={this.onShare}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}

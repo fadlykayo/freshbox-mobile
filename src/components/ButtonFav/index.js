@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { TouchableOpacity, Image, View } from 'react-native';
+import { TouchableOpacity, Image, View, Share } from 'react-native';
 import images from '@assets';
 import styles from './styles';
 
@@ -16,6 +16,8 @@ class ButtonFav extends PureComponent {
 
     onShare(){
         this.props.onShare(this.props.data);
+        
+
     }
 
     render(){

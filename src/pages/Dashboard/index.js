@@ -89,7 +89,6 @@ class Dashboard extends Component {
     } else {
       Linking.addEventListener('url', this.handleOpenURL);
     }
-		// Linking.addEventListener('url', this.handleOpenURL);
 
 	}
 
@@ -673,7 +672,7 @@ class Dashboard extends Component {
 				});
 
 		} else {
-			this.setState({listLoading: false})
+			// this.setState({listLoading: false})
 		}
 	}
 
@@ -770,9 +769,9 @@ class Dashboard extends Component {
             categories = {this.props.categories}
 						navigateToCategories = {this.navigateToCategories}
           />
-					<Announcement
+					{/* <Announcement
 						data = {this.state.banner}
-					/>
+					/> */}
           <PromoList
             product = {this.props.promoProduct}
 						user = {this.props.user}
@@ -791,7 +790,9 @@ class Dashboard extends Component {
 					/>
 					
 					<View style={styles.productList.outerContainer}>
+
 					<View style={styles.productList.container}>
+
 						<StaticText
 							style={styles.productList.textBold}
 							property={'dashboard.productList.title'}

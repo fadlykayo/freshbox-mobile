@@ -32,7 +32,7 @@ const styles = {
 			)
 		),
 		marginHorizontal: scaling.moderateScale(5),
-		paddingTop: dashboard ? null : (i == 1 ? 20 : 0),
+		paddingTop: dashboard ? null : (i == 1 ? 20 : 20),
 		paddingBottom: 20,
 	}),
 	subcontainer: {
