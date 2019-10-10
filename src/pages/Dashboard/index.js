@@ -809,14 +809,10 @@ class Dashboard extends Component {
 					</View>
 					<View style={{height: 600}}>
 					<FlatList
-								// ref={(e) => { this.listRef = e}}
 								data={this.props.product}
 								onEndReachedThreshold={0.5}
-								// onRefresh={this.refreshHandler}
-								// refreshing={this.state.refreshing}
 								keyExtractor={(item) => item.code}
 								onEndReached={this.handleLoadMoreProducts}
-								// ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
 									<View key={index}>
 
@@ -831,8 +827,6 @@ class Dashboard extends Component {
 											productLength={this.props.product.length}
 											openDetailProduct= {this.openDetailProduct}
 										/>
-										
-										{/* { this._renderButton(index, this.props.product.length - 1) } */}
 									</View>
 								)}
 							/>

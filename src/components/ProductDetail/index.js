@@ -135,6 +135,7 @@ class ProductDetail extends Component {
 							modalVisible={this.props.openImageDetail}
 							closeZoomImage={this.closeZoomImage}
 							images={this.props.data.images_sizes_url.original}
+							bubble={this.props.bubble}
 						/>
 					</Modal>
 				</View>

@@ -29,8 +29,6 @@ export default class PromoList extends Component {
             horizontal
             showsHorizontalScrollIndicator={false}
             data = {this.props.product}
-            // onEndReached={this.handleLoadMore}
-            // onEndReachedThreshold={0.5}
             keyExtractor = {(item) => item.code}
             contentContainerStyle = {{flex: -1}}
             renderItem = {({item, index}) => 
@@ -85,42 +83,6 @@ export default class PromoList extends Component {
           </View>
 
           <View style = {styles.promo.container}>
-            {/* { this.props.loadingPromo ? <ActivityIndicator/> :
-              {
-                this.props.product.length ?
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data = {this.props.product}
-                  keyExtractor = {(item) => item.code}
-                  renderItem = {({item, index}) => 
-
-
-                  <View style={styles.promo.card} key={index}>
-                    <ProductItem
-                      search = {''}
-                      data = {item}
-                      index= {index+1}
-                      type={'productList'}
-                      user={this.props.user}
-                      dashboard
-                      toggleFavorite={this.props.toggleFavorite}
-                      // changeTotalItem={this.changeTotalItem}
-                      // productLength={this.props.product.length}
-                      openDetailProduct= {this.props.openDetailProduct}
-                    />
-                  </View>
-
-                    
-                  }
-                /> : 
-
-                <EmptyState
-                  property 	={'emptyState.search'}
-                  image 		= {images.empty_search}
-                />
-              }
-            } */}
             
             {this.renderContent()}
             

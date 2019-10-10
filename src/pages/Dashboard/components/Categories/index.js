@@ -10,7 +10,6 @@ export default class Categories extends Component {
   }
   
   render() {
-    // console.log('=================>', this.props.categories[1])
     return (
       <View style={styles.container}>
         <View style={styles.flatlist.container}>

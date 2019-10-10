@@ -32,7 +32,7 @@ class BannerDetail extends Component {
           checkout: false,
           alertDialog: false,
 			  },
-        voucher: true,
+        voucher: false,
       }
       this.showCheckout = new Animated.Value(0);
     }
@@ -261,8 +261,9 @@ class BannerDetail extends Component {
   //render product list
 
   renderProductList = () => {
+    
     if(this.state.loadingProduct) {
-      // console.warn(this.props.currentDetail[0].details)
+      // promo will have new price if theres voucher id
       return (
         <ActivityIndicator/>
       ) 
@@ -326,35 +327,6 @@ class BannerDetail extends Component {
             }
 
             <View style = {styles.promo.cart}>
-              {/* {
-                this.props.currentDetail[0].details.length ?
-                <FlatList
-                  // horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data = {this.props.currentDetail[0].details}
-                  keyExtractor = {(item) => item.code}
-                  renderItem = {({item, index}) => 
-
-
-                  <View style={styles.promo.card} key={index}>
-                    <ProductItem
-                      bannerDetail
-                      search = {''}
-                      data = {item}
-                      index= {index+1}
-                      type={'productList'}
-                      user={this.props.user}
-                      toggleFavorite={this.toggleFavorite}
-                      changeTotalItem={this.changeTotalItem}
-                      productLength={this.props.currentDetail[0].details.length}
-                      openDetailProduct= {this.openDetailProduct}
-                    />
-                  </View>
-
-                    
-                  }
-                /> : <ActivityIndicator/>
-              } */}
               {this.renderProductList()}
             </View>
             
@@ -434,7 +406,7 @@ class BannerDetail extends Component {
     }
 
     render() {
-        
+        console.warn(this.props.currentDetail[0])
         let params = this.props.navigation.state.params;
         const introButton = this.showCheckout.interpolate({
           inputRange: [0, 1],

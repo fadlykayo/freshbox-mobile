@@ -82,7 +82,6 @@ export default class TransactionBlock extends Component {
   }
 
   _renderListTransaction = () => {
-    // console.warn(this.props.loadingTransaction)
     if(this.props.loadingTransaction) {
       return (
         <ActivityIndicator/>
@@ -90,7 +89,12 @@ export default class TransactionBlock extends Component {
     } else {
       if(this.props.transactions.length > 0) {
         return (
-          <ScrollView style = {styles.bottom.container} horizontal contentContainerStyle = {styles.bottom.contentContainer} showsHorizontalScrollIndicator={false}>
+          <ScrollView 
+            style = {styles.bottom.container} 
+            horizontal 
+            contentContainerStyle = {styles.bottom.contentContainer} 
+            showsHorizontalScrollIndicator={false}
+          >
             {this.renderTransactions(this.props.transactions)}
           </ScrollView> 
         )
@@ -137,14 +141,7 @@ export default class TransactionBlock extends Component {
         </View>
 
         <View style={styles.bottom.outerContainer}>
-        {/* {
-          this.props.transactions.length > 0 ? 
-          <ScrollView style = {styles.bottom.container} horizontal contentContainerStyle = {styles.bottom.contentContainer} showsHorizontalScrollIndicator={false}>
-
-            {this.renderTransactions(this.props.transactions)}
-          </ScrollView> : <ActivityIndicator></ActivityIndicator>
-        } */}
-        {this._renderListTransaction()}
+          {this._renderListTransaction()}
         </View>
         
 

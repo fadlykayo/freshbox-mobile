@@ -74,7 +74,30 @@ const styles = {
 			height: scaling.moderateScale(25),
 			width: scaling.moderateScale(25)
 		}
-	}
+	},
+    page: {
+        place: {
+            position: 'absolute',
+            bottom: 0,
+            marginBottom: width * 0.01,
+            flexDirection: 'row',
+            alignItems: 'center'
+        },
+        unselected: {
+            width: scaling.moderateScale(8),
+            height: scaling.moderateScale(8),
+            backgroundColor: colour.lightGrey,
+            borderRadius: 100,
+            marginRight: width * 0.015,
+        },
+        selected : {
+            width: scaling.moderateScale(8),
+            height: scaling.moderateScale(8),
+            backgroundColor: colour.red,
+            borderRadius: 100,
+            marginRight: width * 0.015,
+        }
+    },
 }
 
 export default styles;
