@@ -73,7 +73,6 @@ class Dashboard extends Component {
 		this.checkCart();
 		this.handleDeepLink();
 		this.getHistoryData();
-
   }
 
 	componentWillUnmount = () => {

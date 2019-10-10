@@ -109,7 +109,7 @@ class DrawerPage extends Component {
 		this.props.log_out();
 		this.props.reset_products();
 		this.props.reset_transaction();
-		actNav.reset(navConstant.Menu);
+		actNav.reset(navConstant.Dashboard);
 	}
 
 	navigateSignIn() {
