@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics } from '@helpers';
@@ -36,6 +36,7 @@ class Dashboard extends Component {
 				checkout: false,
 			},
 			loadingTransaction: true,
+			refreshing: false,
 			banner: [
 				{
 					title: 'Terbaru dari Kami',
@@ -724,6 +725,18 @@ class Dashboard extends Component {
 
 	}
 
+	onRefresh = () => {
+		this.setState({refreshing: true}, () => {
+			this.getProductList();
+			this.getCategories();
+			this.getProductPromo();
+			this.getBanner();
+			this.checkCart();
+			this.getHistoryData();
+		})
+		this.setState({refreshing: false})
+	}
+
   render() {
 		
 		const introButton = this.showCheckout.interpolate({
@@ -734,7 +747,6 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
-
     return (
 			
       <Container
@@ -752,7 +764,12 @@ class Dashboard extends Component {
         clearSearch={this.clearSearch}
       />
 			
-      <ScrollView style={styles.scrollView} bounces={false}>
+      <ScrollView 
+				style={styles.scrollView} 
+				refreshControl={
+					<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>
+				}
+			>
 
         <ProfileBlock
 					user = {this.props.user}

@@ -23,7 +23,7 @@ class ProductItem extends PureComponent {
 			data = this.props.data;
 		}
 
-		console.log(data)
+		
 		
 		this.props.changeTotalItem(data,"inc");
 	}
@@ -75,12 +75,14 @@ class ProductItem extends PureComponent {
 
 		let productImage;
 		let data;
+		let bannerPrice;
+
 		if(this.props.bannerDetail) {
 			data = this.props.data.product;
 		} else {
 			data = this.props.data;
 		}
-
+		bannerPrice = this.props.data.banner_harga_jual;
 		if(Platform.OS == 'ios') {
 			
 			productImage = data.images_sizes_url.original[0];
@@ -88,7 +90,7 @@ class ProductItem extends PureComponent {
 
 			productImage = data.images_sizes_url["100x100"][0]
 		}
-		
+		console.log(this.props.data)
 		// console.log(this.props.data.images_sizes_url["50x50"][0])
 		if(this.props.dashboard) {
 
@@ -124,7 +126,7 @@ class ProductItem extends PureComponent {
 							</View> 
 							
 								<View style={{flex: -1}}>
-									<Content data={data} dashboard={this.props.dashboard}/>
+									<Content data={data} dashboard={this.props.dashboard} bannerPrice={bannerPrice}/>
 								</View> 
 
 						
@@ -154,7 +156,7 @@ class ProductItem extends PureComponent {
 								resizeMethod={'resize'}
 							/>
 						</View>
-						<Content data={data}/>
+						<Content data={data} bannerPrice={bannerPrice}/>
 						{
 							this.props.type == 'cart'
 							? 	null

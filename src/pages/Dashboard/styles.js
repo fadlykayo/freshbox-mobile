@@ -22,7 +22,7 @@ const style = {
   },
   scrollView: {
     flex: 1,
-    backgroundColor: colour.red
+    backgroundColor: colour.white
   },
   productList: {
     outerContainer: {
