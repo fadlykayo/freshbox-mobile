@@ -273,7 +273,6 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
-
     if(newState.currentDetail.length > 0) {
         const productIndex = newState.currentDetail[0].details.findIndex(e => e.product.code === payload.data.code)
         newState.currentDetail[0].details.map((e,i) => {
@@ -548,23 +547,40 @@ getCurrentDetail = (state, payload) => {
     let existingProducts = newState.currentDetail[0].details.slice();
 
     
-    let cartList = newState.cart.products;
+    let cartList = newState.products.slice();
+
+    
+
+    // for (x in incomingProducts) {
+    //     let sameValue = false;
+    //     for(y in existingProducts) {
+    //         if(incomingProducts[x].product.code == existingProducts[y].product.code) {
+    //             existingProducts[y] = Object.assign({}, existingProducts[y], incomingProducts[x])
+    //             sameValue = true;
+    //             break;
+    //         }
+    //     }
+    // }
 
     for (x in incomingProducts) {
         let sameValue = false;
-        for(y in existingProducts) {
-            if(incomingProducts[x].product.code == existingProducts[y].product.code) {
-                existingProducts[y] = Object.assign({}, existingProducts[y], incomingProducts[x])
+        for(y in cartList) {
+            if(incomingProducts[x].product.code == cartList[y].code) {
+                incomingProducts[x] = Object.assign({}, incomingProducts[x], cartList[y])
                 sameValue = true;
                 break;
             }
+            
         }
+        if(sameValue == false) cartList.push(incomingProducts[x].product);
+        
+        
     }
 
     
     
 
-    existingProducts = existingProducts.map(e => {
+    incomingProducts = incomingProducts.map(e => {
         let cartItem = cartList.filter(p => e.code == p.code);
         if(cartItem.length > 0) {
             return cartItem[0];
@@ -575,7 +591,10 @@ getCurrentDetail = (state, payload) => {
         }
     })
 
-    // newState.currentDetail[0].details = existingProducts;
+    newState.cart.products = cartList
+    newState.currentDetail[0].details = incomingProducts;
+
+    console.log('cartList', cartList)
 
     return newState
 }

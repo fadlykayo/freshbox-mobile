@@ -136,7 +136,7 @@ actions.search_products = (req, success, failure) => {
 	payload.body = req.body;
 	payload.params = req.params;
 
-	console.log(payload.params, 'search product')
+	// console.log(payload.params, 'search product')
 	
 	return dispatch => {
 		
