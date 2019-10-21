@@ -57,6 +57,7 @@ class Dashboard extends Component {
 				transaction: false,
 			},
 			promoCode: '',
+			scrollY: '',
     }
 		this.showCheckout = new Animated.Value(0);
   }
@@ -737,6 +738,37 @@ class Dashboard extends Component {
 		this.setState({refreshing: false})
 	}
 
+	renderProducts = (products) => {
+		return products.map((product, index) => {
+			return (
+				<View key={index}>
+
+					<ProductItem
+						search={this.state.search}
+						data={product}
+						index={index+1}
+						type={'productList'}
+						user={this.props.user}
+						toggleFavorite={this.toggleFavorite}
+						changeTotalItem={this.changeTotalItem}
+						productLength={products.length}
+						openDetailProduct= {this.openDetailProduct}
+					/>
+				</View>
+			)
+		})
+	}
+
+	onScrollEvent = (e) => {
+		
+		if(e.nativeEvent.contentOffset.y/width > 1) {
+			this.handleLoadMoreProducts()
+		} 
+		
+	}
+
+
+
   render() {
 		
 		const introButton = this.showCheckout.interpolate({
@@ -769,6 +801,8 @@ class Dashboard extends Component {
 				refreshControl={
 					<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>
 				}
+				onScroll={this.onScrollEvent}
+				scrollEventThrottle={ 0 }
 			>
 
         <ProfileBlock
@@ -823,8 +857,11 @@ class Dashboard extends Component {
 
 						
 					</View>
-					<View style={{height: 600}}>
-					<FlatList
+					{/* <View style={{height: 600}}> */}
+					{
+						this.renderProducts(this.props.product)
+					}
+					{/* <FlatList
 								data={this.props.product}
 								onEndReachedThreshold={0.5}
 								keyExtractor={(item) => item.code}
@@ -845,8 +882,8 @@ class Dashboard extends Component {
 										/>
 									</View>
 								)}
-							/>
-							</View>
+							/> */}
+							{/* </View> */}
 						</View>
         </View>
 				
