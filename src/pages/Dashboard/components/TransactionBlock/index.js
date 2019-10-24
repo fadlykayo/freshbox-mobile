@@ -100,33 +100,29 @@ export default class TransactionBlock extends Component {
         )
       } else {
         return (
-          <View style={styles.card.emptyContainer}>
-            <View style={styles.card.transactionText}>
-              <Text style={styles.card.transactionText}>No Transactions Yet</Text>
-            </View>
-            <View style={styles.card.buttonNav}>
-              <Button 
-                type={'red'} 
-                title={'transactionBlock.button'} 
-                borderRadius={50} 
-                fontSize={13}
-                onPress={() => actNav.navigate(navConstant.ProductList)}
-              />
-            </View>
-          </View>
+          // <View style={styles.card.emptyContainer}>
+          //   <View style={styles.card.transactionText}>
+          //     <Text style={styles.card.transactionText}>No Transactions Yet</Text>
+          //   </View>
+          //   <View style={styles.card.buttonNav}>
+          //     <Button 
+          //       type={'red'} 
+          //       title={'transactionBlock.button'} 
+          //       borderRadius={50} 
+          //       fontSize={13}
+          //       onPress={() => actNav.navigate(navConstant.ProductList)}
+          //     />
+          //   </View>
+          // </View>
+          null
         )
       }
     }
   }
 
-  navigateToHistory = () => {
-    actNav.navigate(navConstant.HistoryPage)
-  }
-  
-  render() {
-    return (
-      <View style={styles.container}>
-        
+  renderContent = () => {
+    if(this.props.transactions.length > 0) {
+      return (
         <View style = {styles.top.container}>
 
           <View style = {styles.top.left}>
@@ -139,6 +135,21 @@ export default class TransactionBlock extends Component {
             </View>
           </TouchableOpacity>
         </View>
+      )
+    } else {
+      return null
+    }
+  }
+
+  navigateToHistory = () => {
+    actNav.navigate(navConstant.HistoryPage)
+  }
+  
+  render() {
+    return (
+      <View style={styles.container}>
+        
+        {this.renderContent()}
 
         <View style={styles.bottom.outerContainer}>
           {this._renderListTransaction()}

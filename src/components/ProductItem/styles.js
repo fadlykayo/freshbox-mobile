@@ -10,7 +10,7 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: dashboard ? null : width * 0.95,
-		height: dashboard ? 250 : width * 0.25,
+		height: dashboard ? 210 : width * 0.25,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
@@ -51,22 +51,22 @@ const styles = {
 		product: (dashboard) => ({
 			flexDirection: dashboard ? 'column' : 'row',
 			paddingTop: scaling.moderateScale(15),
-			paddingBottom: dashboard ? null : scaling.moderateScale(10),
-			paddingHorizontal: dashboard ? null : scaling.moderateScale(5),
+			paddingBottom: dashboard ? scaling.moderateScale(10) : scaling.moderateScale(10),
+			paddingHorizontal: dashboard ? scaling.moderateScale(5): scaling.moderateScale(5),
 		}),
 		image:(dashboard) => ({
 			width: dashboard ? null : width * 0.2,
 			justifyContent: 'center',
 			alignItems: 'center',
 			marginRight: dashboard ? null : width * 0.03,
-			marginLeft: dashboard ? null : 10,
+			marginLeft: dashboard ? 10 : 10,
 		})
 	},
 	icon:{
 		product: (dashboard) => ({
-			marginTop: dashboard ? 10 : null,
-			height: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
-			width: dashboard ? scaling.moderateScale(100) : scaling.moderateScale(80),
+			marginTop: dashboard ? null : 20,
+			height: dashboard ? scaling.moderateScale(70) : scaling.moderateScale(80),
+			width: dashboard ? scaling.moderateScale(70) : scaling.moderateScale(80),
 			justifyContent: 'center',
     	alignItems: 'center',
 		})

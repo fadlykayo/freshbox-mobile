@@ -105,21 +105,22 @@ export default class Carousel extends PureComponent {
 
     } else {
       if(products && products.length !== 0) {
+        console.warn('height', height * 0.25)
+        console.warn('width', width)
         return products.map((product, index) => {
+          
           return (
-            <TouchableWithoutFeedback style={Styles.cover.outerContainer} onPress = {() => this.navigateToBannerDetail(product)}>
+            
               <View key={ index } style={Styles.cover.outerContainer}>
-
+                <TouchableWithoutFeedback onPress = {() => this.navigateToBannerDetail(product)}>
                   <Image 
                     style={ Styles.cover.image(this.props.size) } 
                     source={{uri:product.images_dashboard_mobile_url_original}}
                     resizeMode='cover'
                   />
-
-                  {/* { this.renderOverlay(product) } */}
-                  {/* <Text Style={{fontSize: 21, color: 'white'}}>{product.name_banner}</Text> */}
+                </TouchableWithoutFeedback>
               </View>
-            </TouchableWithoutFeedback>
+            
           );
         });
       } else {

@@ -111,12 +111,13 @@ class BannerDetail extends Component {
     }
 
     renderBanner = () => {
+      console.warn(1200 / width)
       return (
         <View style = {styles.banner.container}>
           <Image
             source = {{uri: this.props.currentDetail[0].images_page_mobile_url_original}}
             style = {styles.banner.image}
-            resizeMode = {'contain'}
+            // resizeMode = {'contain'}
           />
         </View>
       )

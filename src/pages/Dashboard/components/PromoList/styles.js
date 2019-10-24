@@ -8,7 +8,7 @@ const style = {
 
   container: {
     flex: -1,
-    marginTop: 10
+    // marginTop: 10
     // backgroundColor: 'pink',
     // height: height,
   },
@@ -38,7 +38,7 @@ const style = {
   },
   promo: {
     container: {
-      height: 270,
+      height: 230,
       flex: -1,
       paddingLeft: 15,
       paddingHorizontal: 10,

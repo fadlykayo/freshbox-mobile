@@ -18,7 +18,7 @@ const style = {
     // bottom: 0,
   },
   spacer: {
-    height: height * 0.02
+    height: 50
   },
   scrollView: {
     flex: 1,
@@ -26,14 +26,14 @@ const style = {
   },
   productList: {
     outerContainer: {
-      marginVertical: 10,
+      // marginVertical: 10,
       marginHorizontal: 5,
     },
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingHorizontal: 24,
-      marginVertical: 10,
+      marginBottom: 10,
     },
     textBold: {
       fontFamily: 'Avenir-Heavy',

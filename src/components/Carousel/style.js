@@ -18,24 +18,32 @@ import {
 module.exports = {
   outerContainer: {
     position: 'absolute',
-    height: height * 0.19,
-    width: width * 0.8,
-    top: scaling.isIphone5s() ? 55 : 70,
+    width: width * 0.9,
+    height: 600 / (1200/(width*0.9)),
+    top: scaling.isIphone5s() ? 55 : 60,
     left: scaling.isIphone5s() ? 15 : 20,
+    // borderRadius: 20,
+    // backgroundColor: 'pink'
+    
   },
   cover: {
     outerContainer: {
-      justifyContent: 'center',
+      // justifyContent: 'center',
       alignItems: 'center',
-      width: width * 0.9
+      width: width * 0.9,
+      height: 600 / (1200/(width*0.9)),
+      borderRadius: 20,
+      backgroundColor: 'pink'
+      
     },
     container: (size) => {
       return {
         // backgroundColor: 'pink',
-        borderRadius: 25,
+        borderRadius: 10,
         // position: 'absolute',
-        height: height * 0.3,
-        width: width * 0.9,
+        // height: height * 0.3,
+        // width: width * 0.9,
+        
         
       }
     },
@@ -56,10 +64,9 @@ module.exports = {
 
     image: (size) => {
       return {
-        flex: -1,
-        height: height * 0.19,
+        // flex: -1,
         width: width * 0.9,
-        // borderRadius: 60,
+        height: 600 / (1200/(width*0.9)),
       }
     },
 

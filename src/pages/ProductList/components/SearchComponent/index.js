@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { View, FlatList, TouchableOpacity, Image, Text, TextInput } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language, validation } from '@helpers';
+import { connect } from 'react-redux';
 import styles from './styles';
 import images from '@assets';
+import actions from '@actions';
 
 
 class SearchComponent extends Component {
@@ -20,7 +22,36 @@ class SearchComponent extends Component {
 	}
 
 	openDrawerMenu() {
-		this.props.openDrawerMenu()
+		if(this.props.dashboard) {
+			this.props.openDrawerMenu()
+		} else {
+			
+			this.handleBackButton();
+		}
+		
+	}
+
+	handleBackButton = () => {
+		
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			params: {
+				page: 1,
+				sort: "nama-az"
+			}
+		}
+
+		// console.warn(this.props.params)
+		this.props.get_products(payload,
+			() => {
+				actNav.reset(navConstant.Dashboard);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
 	}
 
   	onChangeText(value){
@@ -55,7 +86,7 @@ class SearchComponent extends Component {
 				>
   	  	  			<Image
   	  	  			  resizeMode={'contain'} 
-  	  	  			  source={images.icon_menu}
+  	  	  			  source={this.props.dashboard ? images.icon_menu : images.icon_back_white}
   	  	  			  style={styles.icon.menu}
   	  	  			/>
   	  			</TouchableOpacity>
@@ -93,4 +124,42 @@ class SearchComponent extends Component {
 	}
 }
 
-export default SearchComponent;
+const mapStateToProps = state => ({
+	notif: state.notif.notification,
+	user: state.user.data,
+	state: state.product,
+	cart_product: state.product.cart.products,
+	current_page: state.product.params.page,
+	params: state.product.params,
+	product: state.product.products,
+	on_category: state.product.on_category,
+	categories: state.product.categories,
+	last_page: state.product.last_page,
+	total_price: state.product.total.price,
+	total_count: state.product.total.count,
+	productDetail: state.product.detail,
+	broadcast_message: state.utility.broadcast_message,
+	promoProduct: state.product.promoProduct,
+	network: state.network
+})
+
+const mapDispatchToProps = dispatch => ({
+	reset_params: () => dispatch(actions.product.reducer.reset_params()),
+	clear_products: () => dispatch(actions.product.reducer.clear_products()),
+	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
+	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
+	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err)),
+	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	get_categories: (req,res,err) => dispatch(actions.product.api.get_categories(req,res,err)),
+	search_products: (req,res,err) => dispatch(actions.product.api.search_products(req,res,err)),
+	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
+	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
+	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	get_broadcast_message: (req,res,err) => dispatch(actions.utility.api.broadcast_message(req,res,err)),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(SearchComponent);

@@ -23,10 +23,12 @@ class ProductDetail extends Component {
 	}
 
 	addTotalItem(){
+		
 		this.props.changeTotalItem(this.props.data,"inc");
 	}
 
 	decTotalItem(){
+		
 		this.props.changeTotalItem(this.props.data,"desc");
 	}
 

@@ -32,7 +32,7 @@ actions.get_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload2,dispatch, true)
         .then((res) => {
-        	// console.log('Get Products res ->',res);
+        	console.log('Get Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_products(res.data));
@@ -41,7 +41,7 @@ actions.get_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Products err ->', err);
+        	console.log('Get Products err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -94,7 +94,7 @@ actions.get_favorites = (req,success,failure) => {
 };
 
 actions.get_categories = (req, success, failure) => {
-	
+	console.log('get categories')
 	payload.path = path.getCategories;
 	payload.header = req.header;
     payload.body = req.body;
@@ -104,7 +104,7 @@ actions.get_categories = (req, success, failure) => {
 
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Categories res',res);
+        	console.log('Get Categories res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_categories(res.data));
@@ -112,7 +112,7 @@ actions.get_categories = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Categories err', err);
+        	console.log('Get Categories err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

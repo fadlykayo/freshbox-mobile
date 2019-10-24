@@ -41,6 +41,60 @@ const initialState = {
     }],
 }
 
+const getProductDashboard = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.products.slice();
+
+    newState.params.page = payload.data.current_page + 1;
+    newState.last_page = payload.data.last_page;
+
+    if(payload.data.current_page == 1) {
+        existingProducts = incomingProducts;
+    } else {
+        for(x in incomingProducts){
+            let sameValue = false;
+            for(y in existingProducts){
+                if(incomingProducts[x].code == existingProducts[y].code){
+                    existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                    sameValue = true;
+                    break;
+                }
+            }
+            if(sameValue == false) existingProducts.push(incomingProducts[x]);
+        }
+    }
+
+
+
+    let cartList = newState.cart.products;
+
+    // newState.products = existingProducts.map(e => {
+    //     let favoriteItem = favoriteList.filter(p => e.code == p.code);
+    //     if(favoriteItem.length > 0){
+    //         return favoriteItem[0];
+    //     }
+    //     else{
+    //         if(!e.count) e.count = 0;
+    //         if(!e.maxQty) e.maxQty = 1000;
+    //         return e;
+    //     }
+    // }).filter(e => e.stock > 0);
+
+    newState.products = existingProducts.map(e => {
+        let cartItem = cartList.filter(p => e.code == p.code);
+        if(cartItem.length > 0) {
+            return cartItem[0];
+        } else {
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
+    return newState;
+}
+
 const getProducts = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let incomingProducts = payload.data.data;
@@ -321,13 +375,19 @@ const editTotal = (state,payload) => {
             currentCart.push(newCart[x])
         }
     }
-
+    console.log(currentCart)
     for(i in currentCart){
-        total = total + (currentCart[i].promo_price * currentCart[i].count);
+        // console.log('dshajdhjksa', currentCart[i])
+        if(currentCart[i].banner_harga_jual !== null) {
+            total = total + (currentCart[i].banner_harga_jual * currentCart[i].count)
+        } else {
+            total = total + (currentCart[i].promo_price * currentCart[i].count);
+        }
+        
         count = count + currentCart[i].count;
         currentCart[i].maxQty = payload.data.maxQty;
     }
-
+    console.log(total, 'total')
     newState.total.count = count;
     newState.total.price = total;
     newState.cart.products = currentCart.filter(e => e.count > 0);
@@ -549,7 +609,7 @@ getCurrentDetail = (state, payload) => {
     
     let cartList = newState.products.slice();
 
-    
+    // console.log(incomingProducts)
 
     // for (x in incomingProducts) {
     //     let sameValue = false;
@@ -566,13 +626,17 @@ getCurrentDetail = (state, payload) => {
         let sameValue = false;
         for(y in cartList) {
             if(incomingProducts[x].product.code == cartList[y].code) {
-                incomingProducts[x] = Object.assign({}, incomingProducts[x], cartList[y])
+                incomingProducts[x].product = Object.assign({}, incomingProducts[x].product, cartList[y])
                 sameValue = true;
                 break;
             }
             
         }
-        if(sameValue == false) cartList.push(incomingProducts[x].product);
+        if(sameValue == false) {
+            incomingProducts[x].product.banner_harga_jual = incomingProducts[x].banner_harga_jual
+            cartList.push(incomingProducts[x].product)
+            console.log(incomingProducts[x])
+        } 
         
         
     }
@@ -585,16 +649,16 @@ getCurrentDetail = (state, payload) => {
         if(cartItem.length > 0) {
             return cartItem[0];
         } else {
-            if(!e.count) e.product.count = 0;
-            if(!e.maxQty) e.product.maxQty = 1000;
+            if(!e.product.count) e.product.count = 0;
+            if(!e.product.maxQty) e.product.maxQty = 1000;
             return e;
         }
     })
 
-    newState.cart.products = cartList
+    newState.products = cartList
     newState.currentDetail[0].details = incomingProducts;
 
-    console.log('cartList', cartList)
+    // console.log('cartList', cartList)
 
     return newState
 }

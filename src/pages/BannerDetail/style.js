@@ -22,7 +22,7 @@ const styles = {
     },
     banner: {
         container: {
-            height: height * 0.25,
+            height: 600 / (1200/width),
             width: width,
             // backgroundColor: 'pink',
             alignItems: 'center',
@@ -30,8 +30,9 @@ const styles = {
             // borderRadius: 50,
         },
         image: {
-           height: height * 0.25,
-           width: width, 
+           height: 600 / (1200/width),
+           width: width,
+        //    backgroundColor: 'pink', 
         }
     },
     mid: {

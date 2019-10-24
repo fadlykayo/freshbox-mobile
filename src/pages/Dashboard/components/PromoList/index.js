@@ -18,7 +18,7 @@ export default class PromoList extends Component {
 
   renderContent = () => {
     if(this.props.loadingPromo) {
-      console.log('masuk sini')
+      // console.log('masuk sini')
       return (
         <ActivityIndicator/>
       )
@@ -31,8 +31,9 @@ export default class PromoList extends Component {
             data = {this.props.product}
             keyExtractor = {(item) => item.code}
             contentContainerStyle = {{flex: -1}}
+            pagingEnabled={false}
             renderItem = {({item, index}) => 
-
+            
 
             <View style={styles.promo.card} key={index}>
               <ProductItem

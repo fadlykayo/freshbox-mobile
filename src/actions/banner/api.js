@@ -18,7 +18,7 @@ actions.get_banner = (req, success, failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					// console.log('banner ====>', res)
+					console.log('banner ====>', res)
         	if(res.code){
         		if(res.code == 200){
 							dispatch(actReducer.get_banners(res.data))

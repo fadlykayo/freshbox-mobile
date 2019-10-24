@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Share } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Share, BackHandler } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -106,6 +106,20 @@ class ProductList extends Component {
 			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
 		}
 		return true;
+	}
+
+	backButtonAndroid = () => {
+		BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+	}
+
+	unMountBackButton = () => {
+		this.backButtonAndroid.remove()
+	}
+
+	handleBackPress = async () => {
+		await this.getProductList();
+		actNav.goBack();
+		return true
 	}
 
 	apiBroadcastMessage() {
@@ -702,6 +716,9 @@ class ProductList extends Component {
 						onSubmitEditing={this.submitSearch}
 						openDrawerMenu={this.openDrawerMenu}
 						clearSearch={this.clearSearch}
+						backHandler={this.getProductList}
+						user={this.props.user}
+						params={this.props.params}
 					/>
 					<FilterComponent 
 						onCategory={this.props.on_category}

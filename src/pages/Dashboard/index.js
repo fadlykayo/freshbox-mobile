@@ -764,7 +764,7 @@ class Dashboard extends Component {
 		if(e.nativeEvent.contentOffset.y/width > 1) {
 			this.handleLoadMoreProducts()
 		} 
-		
+
 	}
 
 
@@ -779,6 +779,7 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
+		console.warn(height * 0.05)
     return (
 			
       <Container
@@ -787,6 +788,7 @@ class Dashboard extends Component {
       >
 
       <SearchComponent
+				dashboard
         type={'searchItem'}
         title={'productList.searchPlaceHolder'}
         value={this.state.searchItem}

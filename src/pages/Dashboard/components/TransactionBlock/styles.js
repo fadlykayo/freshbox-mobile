@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window');
 const style = {
   container: {
     flex: 1,
-    // backgroundColor: 'pink'
+    // backgroundColor: 'pink',
     marginVertical: 10,
   },
   top: {
@@ -58,7 +58,7 @@ const style = {
     container: {
       backgroundColor: colour.white,
       flex: -1,
-      width: width * 0.9,
+      width: width * 0.8,
       marginVertical: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',

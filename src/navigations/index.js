@@ -37,7 +37,7 @@ let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
     Dashboard: {screen: Dashboard, path: 'dashboard'},
-    ProductList: {screen: ProductList},
+    
     HistoryPage: {screen: HistoryPage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
@@ -57,6 +57,7 @@ export const AppNavigator = createStackNavigator({
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
     Product: DrawerBar,
+    ProductList: {screen: ProductList},
     Detail: {screen: Detail},
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
