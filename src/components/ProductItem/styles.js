@@ -10,15 +10,15 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: dashboard ? null : width * 0.95,
-		height: dashboard ? 210 : width * 0.25,
+		height: dashboard ? 275 : width * 0.28,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
 		backgroundColor: colour.white,
 		shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
-		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 10}  : {width: 0,height: 0},
-		shadowRadius: Platform.OS == 'ios' ? 30 : 0,
-		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
+		shadowRadius: Platform.OS == 'ios' ? 5 : 0,
+		shadowOpacity: Platform.OS == 'ios' ?  1 : 0,
 		elevation: Platform.OS == 'android' ? 3 : 0,
 		opacity: stock > 0 ? 1 : 0.5,
 		marginBottom: dashboard ? null : (search == true 
@@ -50,11 +50,12 @@ const styles = {
 		}),
 		product: (dashboard) => ({
 			flexDirection: dashboard ? 'column' : 'row',
-			paddingTop: scaling.moderateScale(15),
+			// paddingTop: scaling.moderateScale(15),
 			paddingBottom: dashboard ? scaling.moderateScale(10) : scaling.moderateScale(10),
 			paddingHorizontal: dashboard ? scaling.moderateScale(5): scaling.moderateScale(5),
 		}),
 		image:(dashboard) => ({
+			marginTop: dashboard ? 30 : null,
 			width: dashboard ? null : width * 0.2,
 			justifyContent: 'center',
 			alignItems: 'center',
@@ -64,9 +65,9 @@ const styles = {
 	},
 	icon:{
 		product: (dashboard) => ({
-			marginTop: dashboard ? null : 20,
-			height: dashboard ? scaling.moderateScale(70) : scaling.moderateScale(80),
-			width: dashboard ? scaling.moderateScale(70) : scaling.moderateScale(80),
+			marginTop: dashboard ? 20 : 20,
+			height: dashboard ? scaling.moderateScale(90) : scaling.moderateScale(80),
+			width: dashboard ? scaling.moderateScale(90) : scaling.moderateScale(80),
 			justifyContent: 'center',
     	alignItems: 'center',
 		})

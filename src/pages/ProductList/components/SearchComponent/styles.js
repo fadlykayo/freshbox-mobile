@@ -5,16 +5,16 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-	container:{
+	container: (dashboard) => ({
 		flex: 1,
 		flexDirection: 'row',
 		height: scaling.moderateScale(50),
 		maxHeight: scaling.moderateScale(50),
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		backgroundColor: colour.red,
+		backgroundColor: dashboard ? colour.white : colour.red,
 		paddingRight: width * 0.05,
-	},
+	}),
 	button:{
 		position: 'absolute',
 		flex: 1,
@@ -55,15 +55,15 @@ const styles = {
 		color: colour.darkGrey,
 	},
 	subcontainer: {
-		search: {
-			backgroundColor: colour.white,
+		search: (dashboard) => ({
+			backgroundColor: dashboard ? colour.mediumLightGrey : colour.white,
 			width: width * 0.8,
 			height: scaling.moderateScale(35),
 			borderRadius: 100,
 			alignItems: 'center',
 			flexDirection: 'row',
 			paddingLeft: scaling.moderateScale(15),
-		},
+		}),
 	},
 	textinput: {
 		fontFamily: 'Avenir-Book',

@@ -56,7 +56,7 @@ const styles = {
             marginRight: 5,
         },
         titleContainer: {
-            paddingVertical: 10,
+            // paddingVertical: 10,
         },
         subtitleContainer: {
             flexDirection: 'row',
@@ -128,18 +128,20 @@ const styles = {
     promo: {
         container: {
             flex: 1,
-            paddingLeft: 15,
-            marginHorizontal: 5,
+            // width: width,
+            // marginHorizontal: 5,
             paddingVertical: 20,
+            // paddingHorizontal: 20,
             // borderWidth: 1,
         },
         card: {
             // marginVertical: 10
+            // paddingHorizontal: 20,
         },
         cart: {
-            flex: -1,
+            // flex: 1,
             paddingTop: 10,
-            paddingRight: 20,
+            // paddingRight: 20,
         },
         hori: {
             width: 3,
@@ -153,6 +155,7 @@ const styles = {
             flexDirection: 'row',
             // borderWidth: 1,
             justifyContent: 'space-between',
+            paddingHorizontal: 20,
             marginVertical: 10,
         },
         titleText: {
@@ -172,7 +175,7 @@ const styles = {
     },
     voucher: {
         container: {
-            paddingHorizontal: 20
+            // paddingHorizontal: 20
         },
         textContainer: {
             marginTop: 10,
@@ -183,6 +186,8 @@ const styles = {
             // borderWidth: 1, 
             borderRadius: 10, 
             height: 70,
+            width: width * 0.9,
+            marginHorizontal: 20,
             backgroundColor: colour.softPink,
         },
         text: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, TouchableOpacity, Image, Text, TextInput } from 'react-native';
+import { View, FlatList, TouchableOpacity, Image, Text, TextInput, ActivityIndicator } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language, validation } from '@helpers';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ class SearchComponent extends Component {
 		super(props);
 		this.state = {
 			placeholder: '',
+			isLoading: false,
     	}
     	this.onChangeText = this.onChangeText.bind(this);
 		this.onSubmitEditing = this.onSubmitEditing.bind(this);
@@ -32,26 +33,29 @@ class SearchComponent extends Component {
 	}
 
 	handleBackButton = () => {
-		
-		let payload = {
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			params: {
-				page: 1,
-				sort: "nama-az"
-			}
-		}
+		// this.setState({isLoading: true})
+		// let payload = {
+		// 	header: {
+		// 		apiToken: this.props.user ? this.props.user.authorization : ''
+		// 	},
+		// 	params: {
+		// 		page: 1,
+		// 		sort: "nama-az"
+		// 	}
+		// }
 
-		// console.warn(this.props.params)
-		this.props.get_products(payload,
-			() => {
-				actNav.reset(navConstant.Dashboard);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
+		// // console.warn(this.props.params)
+		// this.props.get_products(payload,
+		// 	() => {
+		// 		this.setState({isLoading: false}, actNav.goBack());
+				
+		// 	},
+		// 	(err) => {
+		// 		console.log(err);
+		// 	}
+		// );
+		// actNav.goBack(this.props.navigation.state.params.refreshProducts)
+		this.props.backHandler();
 	}
 
   	onChangeText(value){
@@ -79,18 +83,23 @@ class SearchComponent extends Component {
 
 	render(){
 		return (
-      		<View style={styles.container}>
+      		<View style={styles.container(this.props.dashboard)}>
 			  	<TouchableOpacity 
 					onPress={this.openDrawerMenu}
 					style={styles.button}
-				>
-  	  	  			<Image
-  	  	  			  resizeMode={'contain'} 
-  	  	  			  source={this.props.dashboard ? images.icon_menu : images.icon_back_white}
-  	  	  			  style={styles.icon.menu}
-  	  	  			/>
+				>				
+					{
+						this.state.isLoading ? 
+						<ActivityIndicator/> : 
+						<Image
+							resizeMode={'contain'} 
+							source={this.props.dashboard ? images.ic_menu : images.icon_back_white}
+							style={styles.icon.menu}
+						/>
+					}
+  	  	  			
   	  			</TouchableOpacity>
-  	  			<View style={styles.subcontainer.search}>
+  	  			<View style={styles.subcontainer.search(this.props.dashboard)}>
 					<View>
 	  	    			<Image
   	  	    				resizeMode={'contain'} 

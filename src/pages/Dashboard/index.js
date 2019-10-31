@@ -64,6 +64,7 @@ class Dashboard extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		if(nextProps.total_count == 0) this.outroAnimate();
 		else if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
+		// console.log('nextProps', nextProps)
 		return true;
 	}
 	
@@ -98,19 +99,19 @@ class Dashboard extends Component {
 	}
 
 	navigate = (url) => {
-		const route = url.replace(/.*?:\/\//g, '');
-		const routeName = route.split('/');
-		const routeTarget = routeName[0];
-		const product = routeName[1].split("_").join(" ");
-		// console.warn(routeName)
-		switch (routeTarget) {
-			case 'ProductList':
-				this.submitSearch(product);
-				break;
+		// const route = url.replace(/.*?:\/\//g, '');
+		// const routeName = route.split('/');
+		// const routeTarget = routeName[0];
+		// const product = routeName[1].split("_").join(" ");
+		// // console.warn(routeName)
+		// switch (routeTarget) {
+		// 	case 'ProductList':
+		// 		this.submitSearch(product);
+		// 		break;
 		
-			default:
-				break;
-		}
+		// 	default:
+		// 		break;
+		// }
 	}
 
 	removeLinking = () => {
@@ -201,6 +202,7 @@ class Dashboard extends Component {
 				categories_code = c.code;
 			}
 		})
+		console.log('>>>>>>>>>>>>>>>>')
 		if(this.props.paramsPromo.page <= this.props.paramsPromo.last_page) {
 					let payload = {
 				header: {
@@ -230,7 +232,7 @@ class Dashboard extends Component {
 	
 
   getProductList = (fromDashboard) => {
-		
+		console.log('dashboard')
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -612,6 +614,37 @@ class Dashboard extends Component {
 		}		
 	}
 
+	navigateToPromo = () => {
+		let category_code;
+		let payload;
+		this.props.categories.map((c, i) => {
+			if(c.name == 'Promo') {
+				category_code == c.code
+			}
+		})
+		payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {},
+			params: {
+				page: 1,
+				sort: 'nama-az',
+				// stock: 'tersedia',
+				category_code: category_code,
+				on_promo: 1,
+			}
+		}
+		this.props.search_products(payload, 
+				() => {
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+				},
+				(err) => {
+					console.log(err);
+				});
+		}	
+	
+
 	navigateToBannerDetail = (product) => {
 		let payload = {
 		header: {
@@ -641,6 +674,7 @@ class Dashboard extends Component {
 	}
 
 		handleLoadMoreProducts = () => {
+			console.log('dashboard load more')
 		// this.setState({listLoading: true})
 
 		// console.warn('masuk')
@@ -677,19 +711,19 @@ class Dashboard extends Component {
 		}
 	}
 
-	navigateToPromoList = () => {
+	// navigateToPromoList = () => {
 
-		let categories = {};
-		this.props.categories.map((c, i) => {
-			if(c.name == 'Promo') {
-				categories.code = c.code;
-				categories.name = 'Promo';
-			}
-		})
+	// 	let categories = {};
+	// 	this.props.categories.map((c, i) => {
+	// 		if(c.name == 'Promo') {
+	// 			categories.code = c.code;
+	// 			categories.name = 'Promo';
+	// 		}
+	// 	})
 		
-		// console.warn(categories)
-		this.navigateToCategories(categories)
-	}
+	// 	// console.warn(categories)
+	// 	this.navigateToCategories(categories)
+	// }
 
 	navigateToCampaign = () => {
 		actNav.navigate(navConstant.Campaigns);
@@ -715,7 +749,7 @@ class Dashboard extends Component {
 				if(result.activityType) {
 					// console.warn(result.activityType)
 				} else {
-					console.warn(result)
+					// console.warn(result)
 				}
 			} else if (result.action === Share.dismissedAction) {
 				// console.warn('dismissed')
@@ -761,7 +795,7 @@ class Dashboard extends Component {
 
 	onScrollEvent = (e) => {
 		
-		if(e.nativeEvent.contentOffset.y/width > 1) {
+		if(e.nativeEvent.contentOffset.y/width > 2) {
 			this.handleLoadMoreProducts()
 		} 
 
@@ -779,12 +813,14 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
-		console.warn(height * 0.05)
+		// console.warn(height * 0.05)
     return (
 			
       <Container
-        bgColorBottom = {'veryLightGrey'}
-        bgColorTop={'red'}
+				// backgroundColor ={'red'}
+        // bgColorBottom = {'veryLightGrey'}
+        // bgColorTop={'white'}
+				containerColor={'white'}
       >
 
       <SearchComponent
@@ -807,20 +843,23 @@ class Dashboard extends Component {
 				scrollEventThrottle={ 0 }
 			>
 
-        <ProfileBlock
+        {/* <ProfileBlock
 					user = {this.props.user}
 					navigateToCampaign = {this.navigateToCampaign}
-				/>
+				/> */}
 
         <View style={styles.whiteBackground}>
+
+				<Carousel
+					products = {this.props.banners}
+					navigateToBannerDetail = {this.navigateToBannerDetail}
+					navigateToCampaign = {this.navigateToCampaign}
+				/>
         
-          <View
+          {/* <View
             style={styles.spacer}
-          />
-					<Categories
-            categories = {this.props.categories}
-						navigateToCategories = {this.navigateToCategories}
-          />
+          /> */}
+					
 					{/* <Announcement
 						data = {this.state.banner}
 					/> */}
@@ -831,9 +870,14 @@ class Dashboard extends Component {
 						openDetailProduct = {this.openDetailProduct}
 						loadingPromo = {this.state.loading.promoList}
 						handleLoadMore = {this.handleLoadMore}
-						navigateToPromoList = {this.navigateToPromoList}
+						navigateToPromo = {this.navigateToPromo}
+						changeTotalItem = {this.changeTotalItem}
           />
           
+					<Categories
+            categories = {this.props.categories}
+						navigateToCategories = {this.navigateToCategories}
+          />
 
 					<TransactionBlock
 						transactions = {this.props.transactions}
@@ -908,10 +952,7 @@ class Dashboard extends Component {
 				/>
 				
 				
-        <Carousel
-					products = {this.props.banners}
-					navigateToBannerDetail = {this.navigateToBannerDetail}
-				/>
+        
 
 				<PopUp
 					visible = {this.props.announcement}

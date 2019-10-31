@@ -14,7 +14,7 @@ helper.onShare = async (data) => {
       if(result.activityType) {
         // console.warn(result.activityType)
       } else {
-        console.warn(result)
+        // console.warn(result)
       }
     } else if (result.action === Share.dismissedAction) {
       // console.warn('dismissed')

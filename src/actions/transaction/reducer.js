@@ -41,4 +41,11 @@ action.toggle_favorite = (data) => ({
     }  
 })
 
+action.cancel_transaction = (data) => ({
+    type: ct.CANCEL_TRANSACTION,
+    payload: {
+        data,
+    }
+})
+
 export default action;

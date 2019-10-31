@@ -170,7 +170,8 @@
             "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim",
-            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai",
+            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai.",
+            "confirmPerson": "Pastikan Penerima Paket Berada Di Tempat Pada Tanggal Pengiriman Yang Dipilih",
             "payment": "Pilih Metode Pembayaran"
         },
         "button": {

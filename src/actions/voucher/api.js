@@ -20,29 +20,32 @@ actions.checkVoucherValidity = (req, success, failure) => {
   return dispatch => {
     requestHandler('post', payload, dispatch)
     .then((res) => {
-
+      console.log('voucher res 200 ==>', res)
       if(res.code){
         if(res.code == 200) {
-          if(!res.data.length) {
-            dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
-            dispatch(actNetwork.set_error_status({
-              status: true,
-              data: res.code_message
-            }))
-            
-            //calculate new grandtotal
-            
-            failure();
+          if(res.data.grand_total_diskon <= 0 || res.data.grand_total_diskon == null) {
+            if(!res.data.length) {
+              console.log(res)
+              dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
+              dispatch(actNetwork.set_error_status({
+                status: true,
+                data: res.code_message
+              }))
+              
+              //calculate new grandtotal
+              
+              failure();
+            } 
           } else {
-
             dispatch(actReducer.set_discount_total(res.data))
             success();
           }
+          
         }
       }
     })
     .catch((err) => {
-
+      console.log(err)
       if(!err.code){
         dispatch(actNetwork.set_network_error_status(true));
       } else {
@@ -83,7 +86,7 @@ actions.cancel_voucher = (req, success, failure) => {
   return dispatch => {
     requestHandler('post', payload, dispatch)
     .then((res) => {
-      // console.log('cancel voucher success', res)
+      console.log('cancel voucher success', res)
       if(res.code){
         if(res.code == 200) {
           dispatch(actReducer.cancel_voucher(req.body.subtotal));
@@ -92,7 +95,7 @@ actions.cancel_voucher = (req, success, failure) => {
       }
     })
     .catch((err) => {
-      // console.log('cancel voucher err', err)
+      console.log('cancel voucher err', err)
       if(!err.code){
         dispatch(actNetwork.set_network_error_status(true));
       } else {

@@ -21,13 +21,17 @@ actions.cancel_invoice = (req, success, failure) => {
 	payload.path = path.cancelCheckout;
 	payload.header = req.header;
 	payload.body = req.body;
+	
+
 
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200) {
-					// console.warn('cancel invoice ==>', res)
+					console.log('cancel invoice ==>', res)
+					console.log('req', req)
+					dispatch(actReducer.cancel_transaction(req.body))
 					dispatch(actNetwork.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan',
@@ -163,7 +167,7 @@ actions.cancel_checkout = (req,success,failure) => {
         	// console.log('Cancel Checkout res ->',res);
         	if(res.code){
         		if(res.code == 200){
-					success(res.data);
+							success(res.data);
         		}
         	}
         })

@@ -38,6 +38,7 @@ export const colour = {
     blackTransparent: 'rgba(0,0,0,0.25)',
     blackTranslucent: 'rgba(0,0,0,0.5)',
     black80opacity: 'rgba(0,0,0,0.8)',
+    black10opacity: 'rgba(0,0,0,0.1)',
     blackNone: 'rgba(0,0,0,0)',
     green: 'rgb(60,208,184)',
     softGreenTransparent: 'rgba(60,208,184,0.1)',

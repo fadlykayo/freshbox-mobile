@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
 import { actNav, navConstant } from '@navigations';
 import ProductItem from '@components/ProductItem';
 import EmptyState from '@components/EmptyState';
@@ -9,11 +9,37 @@ import styles from './styles'
 export default class PromoList extends Component {
 
   navigateToProduct = () => {
-    actNav.navigate(navConstant.ProductList, {showPromo: true});
+    // actNav.navigate(navConstant.ProductList, {showPromo: true});
+    this.props.navigateToPromo();
   }
 
   handleLoadMore = () => {
     this.props.handleLoadMore();
+  }
+
+  changeTotalItem = (payload, type) => {
+    this.props.changeTotalItem(payload, type);
+  }
+
+  renderProduct = (items) => {
+    return items.map((item, index) => {
+      return (
+        <View style={styles.promo.card} key={index}>
+          <ProductItem
+            search = {''}
+            data = {item}
+            index= {index+1}
+            type={'productList'}
+            user={this.props.user}
+            dashboard
+            toggleFavorite={this.props.toggleFavorite}
+            changeTotalItem={this.changeTotalItem}
+            // productLength={this.props.product.length}
+            openDetailProduct= {this.props.openDetailProduct}
+          />
+        </View>
+      )
+    })
   }
 
   renderContent = () => {
@@ -25,34 +51,13 @@ export default class PromoList extends Component {
     } else {
       if(this.props.product.length !== 0) {
         return (
-          <FlatList
+          <ScrollView
+            style={{flex: 1}}
             horizontal
-            showsHorizontalScrollIndicator={false}
-            data = {this.props.product}
-            keyExtractor = {(item) => item.code}
-            contentContainerStyle = {{flex: -1}}
-            pagingEnabled={false}
-            renderItem = {({item, index}) => 
-            
+          >
+            {this.renderProduct(this.props.product)}
+          </ScrollView>
 
-            <View style={styles.promo.card} key={index}>
-              <ProductItem
-                search = {''}
-                data = {item}
-                index= {index+1}
-                type={'productList'}
-                user={this.props.user}
-                dashboard
-                toggleFavorite={this.props.toggleFavorite}
-                // changeTotalItem={this.changeTotalItem}
-                // productLength={this.props.product.length}
-                openDetailProduct= {this.props.openDetailProduct}
-              />
-            </View>
-
-              
-            }
-          />
         )
       } else {
         return (

@@ -4,6 +4,7 @@ import ButtonCount from '@components/ButtonCount';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
+import { scaling } from '@helpers';
 import styles from './styles';
 
 class ProductItem extends PureComponent {
@@ -60,7 +61,7 @@ class ProductItem extends PureComponent {
 				if(result.activityType) {
 					// console.warn(result.activityType)
 				} else {
-					console.warn(result)
+					// console.warn(result)
 				}
 			} else if (result.action === Share.dismissedAction) {
 				// console.warn('dismissed')
@@ -114,7 +115,7 @@ class ProductItem extends PureComponent {
 								/>
 							</View>
 							
-							<View style = {{position: 'absolute', right: 5, top: 20}}>
+							<View style = {{position: 'absolute', right: 5, top: 35}}>
 								<ButtonFav 
 									data={data}
 									user={this.props.user}
@@ -135,7 +136,13 @@ class ProductItem extends PureComponent {
 						
 					</View>
 					
-					
+					<ButtonCount
+						dashboard
+						data={data}
+						count={data.count}
+						addTotalItem={this.addTotalItem}
+						decTotalItem={this.decTotalItem}
+					/>
 				</View>
 			// 				<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
 			// 	<View style={styles.subcontainer.card(this.props.dashboard)}>
@@ -201,7 +208,7 @@ class ProductItem extends PureComponent {
 								resizeMethod={'resize'}
 							/>
 						</View>
-						<Content data={data} bannerPrice={bannerPrice}/>
+						<Content data={data} bannerPrice={bannerPrice} dashboard={this.props.dashboard}/>
 						{
 							this.props.type == 'cart'
 							? 	null
@@ -214,13 +221,15 @@ class ProductItem extends PureComponent {
 								/>
 						}
 					</TouchableOpacity>
-					<ButtonCount
-						data={data}
-						count={data.count}
-						addTotalItem={this.addTotalItem}
-						decTotalItem={this.decTotalItem}
-					/>
+						<ButtonCount
+							data={data}
+							count={data.count}
+							addTotalItem={this.addTotalItem}
+							decTotalItem={this.decTotalItem}
+						/>
+					
 				</View>
+				
 				<View style={styles.subcontainer.verification}>
 					<ProductStockVerificationText 
 						type={this.props.type}

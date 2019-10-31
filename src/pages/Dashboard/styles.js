@@ -16,9 +16,11 @@ const style = {
     // width: width,
     // position: 'absolute',
     // bottom: 0,
+    // borderTopRightRadius: 20,
+    // borderTopLeftRadius: 20,
   },
   spacer: {
-    height: 50
+    height: 0
   },
   scrollView: {
     flex: 1,

@@ -10,7 +10,14 @@ class Content extends PureComponent {
 	}
 
 	render() {
-		const productPrice = numeral(this.props.data.price).format('0,0');
+		
+		let productPrice = numeral(this.props.data.price).format('0,0');
+		if(this.props.data.on_promo == 1) {
+			productPrice = numeral(this.props.data.promo_price).format('0,0');
+		}
+		if(this.props.data.banner_harga_jual > 0) {
+			productPrice = numeral(this.props.data.banner_harga_jual).format('0,0');
+		}
 		return (
 			<View style={styles.container}>
 				<Text style={styles.text.title}>{this.props.data.name}</Text>

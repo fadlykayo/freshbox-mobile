@@ -111,7 +111,7 @@ class BannerDetail extends Component {
     }
 
     renderBanner = () => {
-      console.warn(1200 / width)
+      // console.warn(1200 / width)
       return (
         <View style = {styles.banner.container}>
           <Image
@@ -137,7 +137,8 @@ class BannerDetail extends Component {
 
     renderContent = () => {
      const details = this.props.currentDetail[0];
-     const expirationDate = moment(details.expiry_Date).format("MMM Do, YYYY");
+    //  console.warn(details)
+     const expirationDate = moment(details.expiry_date).format("MMM Do, YYYY");
         return (
           <View style={styles.mid.outerContainer}>
             <View style = {styles.mid.container}>
@@ -350,7 +351,7 @@ class BannerDetail extends Component {
           <View style={styles.voucher.textContainer}>
             <View>
               <Text style={styles.voucher.text}>
-                FBPALUGADA
+                {this.props.currentDetail[0].coupon_code}
               </Text>
             </View>
             <View>
@@ -378,15 +379,15 @@ class BannerDetail extends Component {
       let state = {...this.state};
       state.modalVisible.alertDialog = false;
 
-      Clipboard.setString('TESTVOUCHER');
-      this.props.set_voucher_code('TESTVOUCHER');
+      Clipboard.setString(this.props.currentDetail[0].coupon_code);
+      this.props.set_voucher_code(this.props.currentDetail[0].coupon_code);
 
       this.setState({state}, () => {actNav.navigate(navConstant.Product)});
       
     }
 
     cancelUseVoucher = () => {
-      Clipboard.setString('TESTVOUCHER');
+      Clipboard.setString(this.props.currentDetail[0].coupon_code);
       this.setModalVisible('alertDialog', false);
     }
 
@@ -407,7 +408,7 @@ class BannerDetail extends Component {
     }
 
     render() {
-        console.warn(this.props.currentDetail[0])
+        console.log(this.props.currentDetail[0])
         let params = this.props.navigation.state.params;
         const introButton = this.showCheckout.interpolate({
           inputRange: [0, 1],
@@ -434,9 +435,9 @@ class BannerDetail extends Component {
             <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
-            {this.state.voucher ? this.renderVoucher() : null}
+            {this.props.currentDetail[0].coupon_code !== null && this.props.currentDetail[0].coupon_code ? this.renderVoucher() : null}
             {this.renderPromoList()}
-            {this.state.voucher ? this.renderButton() : null}
+            {/* {this.props.currentDetail[0].coupon_code !== null && this.props.currentDetail[0].coupon_code ? this.renderButton() : null} */}
             </ScrollView>
           }
 

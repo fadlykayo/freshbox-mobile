@@ -17,29 +17,32 @@ import {
 
 module.exports = {
   outerContainer: {
-    position: 'absolute',
-    width: width * 0.9,
-    height: 600 / (1200/(width*0.9)),
-    top: scaling.isIphone5s() ? 55 : 60,
-    left: scaling.isIphone5s() ? 15 : 20,
+    // position: 'absolute',
+    width: width,
+    height: 600 / (1200/(width)),
+    // top: scaling.isIphone5s() ? 55 : 60,
+    // left: scaling.isIphone5s() ? 15 : 20,
     // borderRadius: 20,
-    // backgroundColor: 'pink'
+    // backgroundColor: 'pink',
+    // marginTop: -((600/(1200/(width * 0.9)))/2),
+    // marginLeft: 15,
+    marginBottom: 20,
     
   },
   cover: {
     outerContainer: {
       // justifyContent: 'center',
       alignItems: 'center',
-      width: width * 0.9,
-      height: 600 / (1200/(width*0.9)),
-      borderRadius: 20,
-      backgroundColor: 'pink'
+      width: width,
+      height: 600 / (1200/(width)),
+      // borderRadius: 20,
+      // backgroundColor: 'pink'
       
     },
     container: (size) => {
       return {
         // backgroundColor: 'pink',
-        borderRadius: 10,
+        // borderRadius: 10,
         // position: 'absolute',
         // height: height * 0.3,
         // width: width * 0.9,
@@ -65,8 +68,9 @@ module.exports = {
     image: (size) => {
       return {
         // flex: -1,
-        width: width * 0.9,
-        height: 600 / (1200/(width*0.9)),
+        width: width,
+        height: 600 / (1200/(width)),
+        // borderRadius: 20,
       }
     },
 
@@ -116,25 +120,45 @@ module.exports = {
           alignItems: 'center',
           position: 'absolute',
           bottom: 0,
-          // right: 135,
+          left: 20,
           // borderWidth: 1,
           // borderColor: 'red',
         }
       },
 
       bubble: {
-        width: 8,
-        height: 8,
+        width: 6,
+        height: 6,
         marginHorizontal: 4,
         borderRadius: 50,
         backgroundColor: colour.grey,
       },
 
       bubbleActive: {
-        width: 10,
-        height: 10,
+        width: 6,
+        height: 6,
         backgroundColor: colour.red,
       },
     },
+    
   },
+  button: {
+      container: {
+        position: 'absolute', 
+        bottom: 10, 
+        right: 10,
+        width: 110,
+        height: 34,
+        borderRadius: 50,
+        backgroundColor: colour.black10opacity,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      text: {
+        fontFamily: 'Avenir-Heavy',
+        fontWeight: 'bold',
+        fontSize: 14,
+        color: colour.white
+      }
+    }
 };

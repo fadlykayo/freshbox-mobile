@@ -11,7 +11,14 @@ class Content extends PureComponent {
 	}
 
   	render() {
-		const productPrice = numeral(this.props.data.grand_total).format('0,0')
+		const discountAmount = this.props.data.discount_ammount;
+		let productPrice;
+		if(discountAmount && discountAmount > 0) {
+			productPrice = numeral(this.props.data.grand_total - discountAmount).format('0,0')
+		} else {
+			productPrice = numeral(this.props.data.grand_total).format('0,0')
+		}
+		// const productPrice = numeral(this.props.data.grand_total).format('0,0')
 		const dateDisplay = moment(this.props.data.request_shipping_date).format('dddd, Do MMMM YYYY')
   	  	return (
 			<View>

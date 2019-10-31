@@ -38,8 +38,8 @@ const style = {
   },
   promo: {
     container: {
-      height: 230,
-      flex: -1,
+      height: 290,
+      flex: 1,
       paddingLeft: 15,
       paddingHorizontal: 10,
       // borderWidth: 1,

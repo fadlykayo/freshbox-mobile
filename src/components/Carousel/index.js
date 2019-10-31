@@ -3,16 +3,20 @@ import {
   View,
   ScrollView,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Text,
   Image,
   Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { actNav, navConstant } from '@navigations';
+import Button from '@components/Button'
+import Styles from './style';
+
 const { height, width } = Dimensions.get('window');
 
-const bannerWidth = width * 0.9;
-import Styles from './style';
+const bannerWidth = width;
+
 
 export default class Carousel extends PureComponent {
   constructor(props) {
@@ -88,6 +92,8 @@ export default class Carousel extends PureComponent {
     };
   };
 
+
+
   renderCover(products) {
     if(this.props.rewardDetail && products.length !== 0) {
       return products.map((product, index) => {
@@ -105,20 +111,20 @@ export default class Carousel extends PureComponent {
 
     } else {
       if(products && products.length !== 0) {
-        console.warn('height', height * 0.25)
-        console.warn('width', width)
+        
         return products.map((product, index) => {
           
           return (
             
               <View key={ index } style={Styles.cover.outerContainer}>
-                <TouchableWithoutFeedback onPress = {() => this.navigateToBannerDetail(product)}>
+                <TouchableWithoutFeedback onLongPress = {() => this.navigateToBannerDetail(product)}>
                   <Image 
                     style={ Styles.cover.image(this.props.size) } 
                     source={{uri:product.images_dashboard_mobile_url_original}}
                     resizeMode='cover'
                   />
                 </TouchableWithoutFeedback>
+                
               </View>
             
           );
@@ -147,6 +153,10 @@ export default class Carousel extends PureComponent {
     // actNav.navigate(navConstant.BannerDetail, {link: link})
   }
 
+  navigateToCampaign = () => {
+    this.props.navigateToCampaign();
+  }
+
   renderIndicator(images, indexPage) {
     let counter = -1;
 
@@ -160,6 +170,7 @@ export default class Carousel extends PureComponent {
         <View style={ Styles.cover.indicator.container(this.props.top, this.props.right) }>
           { imagesRender }
         </View>
+
       );
     }
 
@@ -184,6 +195,9 @@ export default class Carousel extends PureComponent {
         </ScrollView>
 
         { this.renderIndicator(this.props.products, position) }
+        <TouchableOpacity style={Styles.button.container} onPress={this.navigateToCampaign}>
+          <Text style={Styles.button.text}>Lihat Semua</Text>
+        </TouchableOpacity>
       </View>
     );
   };

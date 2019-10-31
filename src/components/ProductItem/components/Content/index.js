@@ -20,10 +20,10 @@ class Content extends PureComponent {
 			productPromoPrice = numeral(this.props.bannerPrice).format('0,0');
 		} 
 		return(
-			<View style={styles.container}>
+			<View style={styles.container(this.props.dashboard)}>
 				{
 					this.props.dashboard ? 
-					<View style ={{width: 110,height: 45, marginTop: 0,}}>
+					<View style ={{width: 110,height: 45, marginTop: 0, justifyContent: 'center'}}>
 						<Text style={styles.text.title}>{this.props.data.name}</Text>
 					</View> : 
 					<Text style={styles.text.title}>{this.props.data.name}</Text>
@@ -59,16 +59,14 @@ class Content extends PureComponent {
 									property={'productList.content.price'}
 								/>
 								{productPromoPrice}
-								{
-									scaling.isIphone5s() ? null :
-									<>
+								
 									<StaticText
 										style={styles.text.desc}
 										property={'productList.content.pack'}
 									/>
 									<Text style={styles.text.desc}>{this.props.data.unit}</Text>
-									</>
-								}
+
+	
 
 							</Text>
 

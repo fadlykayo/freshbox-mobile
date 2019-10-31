@@ -40,7 +40,7 @@ class SearchComponent extends Component {
 	render(){
 		return (
     	<View style={styles.container}>
-        	<TouchableOpacity style={styles.subcontainer.part(false)} onPress = {this.onShare}>
+        	<View style={styles.subcontainer.part(false)}>
         		<StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
@@ -50,7 +50,7 @@ class SearchComponent extends Component {
   	  			  	source={images.icon_dropdown}
   	  			  	style={styles.icon}
   	  			/> */}
-        	</TouchableOpacity>
+        	</View>
 			<TouchableOpacity
 				style={styles.subcontainer.part(true)}
 				onPress = { this.openAllCategories }

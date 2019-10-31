@@ -95,12 +95,13 @@ class ProductList extends Component {
 		}
 	}
 
-	// componentWillUnmount = () => {
-	// 	this.getProductList();
-	// };
+	componentWillUnmount = () => {
+		this.getProductList('unmount');
+	};
 	
 
 	shouldComponentUpdate(nextProps,nextState){
+		
 		if(nextProps.total_count == 0) this.outroAnimate();
 		else{
 			if(this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
@@ -108,19 +109,19 @@ class ProductList extends Component {
 		return true;
 	}
 
-	backButtonAndroid = () => {
-		BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-	}
+	// backButtonAndroid = () => {
+	// 	BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+	// }
 
-	unMountBackButton = () => {
-		this.backButtonAndroid.remove()
-	}
+	// unMountBackButton = () => {
+	// 	this.backButtonAndroid.remove()
+	// }
 
-	handleBackPress = async () => {
-		await this.getProductList();
-		actNav.goBack();
-		return true
-	}
+	// handleBackPress = async () => {
+	// 	await this.getProductList();
+	// 	actNav.goBack();
+	// 	return true
+	// }
 
 	apiBroadcastMessage() {
 		let payload = {
@@ -306,6 +307,8 @@ class ProductList extends Component {
 	}
 
 	refreshProductList() {
+
+		console.log('refresh product list')
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -324,7 +327,7 @@ class ProductList extends Component {
 			},
 			params: {
 				page: 1,
-				per_page: this.props.product.length,
+				// per_page: this.props.product.length,
 				// stock: 'tersedia',
 				sort: 'nama-az',
 				category_code: category_code
@@ -340,13 +343,25 @@ class ProductList extends Component {
 		);
 	}
 
-	getProductList(){
+	getProductList(unload){
 		
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			params: this.props.params
+		}
+
+		if(unload) {
+			payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				params: {
+					page: 1,
+					sort: 'nama-az'
+				}
+			}
 		}
 		this.props.get_products(payload,
 			() => {
@@ -389,6 +404,7 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
+		console.log('load more productList')
 		this.setState({listLoading: true})
 		let category_code = null;
 
@@ -401,8 +417,8 @@ class ProductList extends Component {
 
 			}
 		});
-
-		if(this.props.current_page <= this.props.last_page) {
+		
+		if(this.props.current_page <= this.props.last_page && this.props.product.length > 3) {
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -683,7 +699,7 @@ class ProductList extends Component {
 				if(result.activityType) {
 					// console.warn(result.activityType)
 				} else {
-					console.warn(result)
+					// console.warn(result)
 				}
 			} else if (result.action === Share.dismissedAction) {
 				// console.warn('dismissed')
@@ -692,6 +708,12 @@ class ProductList extends Component {
 			// console.warn(err.message)
 		}
 
+	}
+
+	backHandler = () => {
+		console.log('halooo')
+		this.props.navigation.state.params.refreshProduct = true
+		actNav.goBack()
 	}
 
 	render(){
@@ -716,7 +738,7 @@ class ProductList extends Component {
 						onSubmitEditing={this.submitSearch}
 						openDrawerMenu={this.openDrawerMenu}
 						clearSearch={this.clearSearch}
-						backHandler={this.getProductList}
+						backHandler={this.backHandler}
 						user={this.props.user}
 						params={this.props.params}
 					/>

@@ -327,6 +327,7 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
+    const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
     if(newState.currentDetail.length > 0) {
         const productIndex = newState.currentDetail[0].details.findIndex(e => e.product.code === payload.data.code)
         newState.currentDetail[0].details.map((e,i) => {
@@ -344,14 +345,16 @@ const editTotal = (state,payload) => {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count += 1;
+        if(indexPromo != -1) newState.promoProduct[indexPromo].count += 1;
 	}
 	else {
 		if(indexProducts != -1) newState.products[indexProducts].count -= 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count -= 1;
+        if(indexPromo != -1) newState.promoProduct[indexPromo].count -= 1;
     }
 
-    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
+    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
 
     let productCart = newState.products.filter(e => e.count > 0);
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
@@ -560,22 +563,32 @@ const setDiscountPrice = (state, payload) => {
     let discount = 0;
     let coupon_code = newState.coupon_code;
 
-    payload.forEach(object => {
+    // console.log(payload)
+
+    if(payload.grand_total_diskon > 0) {
+        discount = payload.grand_total_diskon;
+        coupon_code = payload.coupon_code;
+        
+    } else {
+        payload.forEach(object => {
 
         coupon_code = object.coupon_code;
 
-        if(object.category == 'Percentage') {
-            let discountedPrice;
-            discountedPrice = totalPrice * (object.amount/100);
-            // totalPrice = totalPrice - discountedPrice;
-            discount = discountedPrice;
-        } else {
-            let discountedPrice = object.amount;
-            // totalPrice = totalPrice - discountedPrice;
-            discount = object.amount;
-        }
+            if(object.category == 'Percentage') {
+                let discountedPrice;
+                discountedPrice = totalPrice * (object.amount/100);
+                // totalPrice = totalPrice - discountedPrice;
+                discount = discountedPrice;
+            } else {
+                let discountedPrice = object.amount;
+                // totalPrice = totalPrice - discountedPrice;
+                discount = object.amount;
+            }
 
-    });
+        });
+    }
+
+    
     
     newState.discount = discount;
     newState.total.price = totalPrice;

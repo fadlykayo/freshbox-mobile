@@ -15,10 +15,10 @@ export default class TransactionBlock extends Component {
         }
       })
       if(transactionNonPending.length > 1) {
-        return transactionNonPending.slice(0,3).map((transaction, i) => {
+        return transactionNonPending.map((transaction, i) => {
           if(transaction) {
             return (
-              <View style={styles.card.container}>
+              <View style={styles.card.container} key={i}>
 
                 <View>
                   <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
@@ -50,7 +50,7 @@ export default class TransactionBlock extends Component {
 
 
           return (
-            <View style={styles.card.container}>
+            <View style={styles.card.container} key={i}>
 
               <View>
                 <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>

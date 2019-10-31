@@ -6,29 +6,29 @@ const { width, height } = Dimensions.get('window');
 
 const styles = {
 	container:{
-		base:{
-			position: 'absolute',
-			right: 5,
-			bottom: 5,
+		base: (dashboard) => ({
+			position: dashboard ? null : 'absolute',
+			right: dashboard ? null : 5,
+			bottom: dashboard ? null : 5,
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
 			borderRadius: 100,
-			marginRight: scaling.moderateScale(10),
-			marginBottom: scaling.moderateScale(10),
-		},
-		add:{
+			// marginRight: dashboard ? null : scaling.moderateScale(10),
+			marginBottom: dashboard ? scaling.moderateScale(20) : (scaling.isIphone5s() ? scaling.moderateScale(5) : scaling.moderateScale(15)),
+		}),
+		add:(dashboard) => ({
 			borderColor: colour.red,
 			backgroundColor: colour.red,
 			borderWidth: 1,
-			paddingHorizontal: scaling.moderateScale(12),
+			paddingHorizontal: dashboard ? scaling.moderateScale(30) : scaling.moderateScale(12),
 			paddingVertical: scaling.moderateScale(5),
 			shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 3}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 3 : 0,
 			shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
 			elevation: Platform.OS == 'android' ? 2 : 0,
-		},
+		}),
 		counter:{
 			paddingHorizontal: scaling.moderateScale(4),
 			paddingVertical: scaling.moderateScale(3),

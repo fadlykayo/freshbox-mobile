@@ -30,10 +30,10 @@ export default class ProfileBlock extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.picture.container}>
+        {/* <View style={styles.picture.container}>
           
-        </View>
-        <View style={styles.bottom.whiteRound}/>
+        </View> */}
+        {/* <View style={styles.bottom.whiteRound}/> */}
       </View>
     )
   }

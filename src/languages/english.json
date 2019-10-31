@@ -169,6 +169,7 @@
             "addAddress": "Add Address",
             "chooseDate": "Choose Delivery Date",
             "confirmDate": "Please Make Sure The Delivery Date is Correct",
+            "confirmPerson": "Please Make Sure The Reciever of The Package Is Available On The Date Specified",
             "payment": "Select Payment Method"
         },
         "button": {

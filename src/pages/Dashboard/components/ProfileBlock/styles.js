@@ -5,7 +5,8 @@ const { height, width } = Dimensions.get('window');
 
 const style = {
   container: {
-    height: height * 0.25,
+    // height: height * 0.17,
+    marginBottom: ((600/(1200/(width * 0.9)))/2),
     width: width,
     backgroundColor: colour.red,
   },

@@ -169,7 +169,7 @@ class Detail extends Component {
 				status: this.props.detailTransaction.status,
 				totalPrice: this.props.detailTransaction.sub_total,
 				deliveryPrice: this.props.detailTransaction.shipping_cost,
-				grandTotalPrice: this.props.detailTransaction.grand_total,
+				grandTotalPrice: this.props.detailTransaction.grand_total - this.props.detailTransaction.discount_ammount,
 			});
 		}
 		else{
@@ -530,7 +530,7 @@ class Detail extends Component {
 					subtotalHistory={this.props.detailTransaction.sub_total}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
-					discount={this.props.discount}
+					discount={this.props.detailTransaction.discount_ammount > 0 ? this.props.detailTransaction.discount_ammount : this.props.discount}
 				/>
 				
 			</Container>

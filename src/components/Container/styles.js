@@ -4,11 +4,11 @@ import { colour } from '@styles';
 const { height } = Dimensions.get('window');
 
 const styles = {
-    container: {
+    container: (containerColor) => ({
         flex: 1,
-        backgroundColor: colour.red,
+        backgroundColor: containerColor ? colour[containerColor] : colour.red,
         // paddingTop: 0,
-    },
+    }),
     containerInner: {
         flex: 1,
         paddingTop: 40,

@@ -16,7 +16,7 @@ const styles = {
 			width: width * 0.9,
 		},
 		bottom:{
-			height: 100,
+			height: 120,
 			backgroundColor: colour.white,
 			paddingTop: scaling.moderateScale(5),
 			paddingHorizontal: scaling.moderateScale(30),
@@ -83,6 +83,12 @@ const styles = {
 			color: '#515151'
 		},
 		confirmDate: {
+			fontFamily: 'Avenir-Medium',
+			fontSize: scaling.moderateScale(11),
+			color: '#9A9A9A'
+		},
+		confirmPerson: {
+			marginTop: 5,
 			fontFamily: 'Avenir-Medium',
 			fontSize: scaling.moderateScale(11),
 			color: '#9A9A9A'

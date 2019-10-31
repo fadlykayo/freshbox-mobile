@@ -295,7 +295,7 @@ class Checkout extends Component {
 			},
 			body: {
 				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
-				subtotal: this.props.totalPrice
+				subtotal: this.props.totalPrice,
 			}
 		}
         
@@ -363,6 +363,8 @@ class Checkout extends Component {
 					payment_type: method,
 				}
 			}
+
+			console.log('payload =>>', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
@@ -487,6 +489,7 @@ messageOrderSuccess = () => {
 	}
 
   	render() {
+		// console.warn(this.props.cart)
 		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
@@ -528,15 +531,23 @@ messageOrderSuccess = () => {
 							</View>
 						</TouchableOpacity>
 
-						<View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', position: 'absolute', left: 30, bottom: 15}}>
+						<View style={{flex: 1, flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
 							<Image
 								style={{width: 15, height: 15, marginRight: 10}}
 								source={images.ic_info_grey}
 							/>
+							<View>
+								<StaticText
+									property	= 'checkout.content.confirmDate'
+									style			= { styles.text.confirmDate }
+								/>
 							<StaticText
-							property	= 'checkout.content.confirmDate'
-							style			= { styles.text.confirmDate }
-						/>
+									property	= 'checkout.content.confirmPerson'
+									style			= { styles.text.confirmPerson }
+								/>
+
+							</View>
+							
 						</View>
 
 					
@@ -692,6 +703,7 @@ const mapStateToProps = (state) => ({
 	delivery_price: state.product.delivery_price,
 	delivery_date: state.utility.delivery_date,
 	additional: state.product.additional.credit_card,
+	cart: state.product.cart.products
 });
 
 const mapDispatchToProps = (dispatch) => ({

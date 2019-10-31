@@ -56,9 +56,9 @@ class Container extends PureComponent {
     render(){
         if(Platform.OS === 'ios'){
             return (
-                <View style={styles.container}>
+                <View style={styles.container(this.props.containerColor)}>
                     {this._renderBackground()}
-                    <SafeAreaView style={styles.container} forceInset={{top: 40, bottom: -10}}>
+                    <SafeAreaView style={styles.container(this.props.containerColor)} forceInset={{top: 40, bottom: -10}}>
                         <KeyboardAvoidingView 
                             behavior='padding' 
                             style={styles.contentContainer(this.props.noBackground)}
@@ -93,9 +93,9 @@ class Container extends PureComponent {
             )
         } else {
             return(
-                <View style={styles.container}>
+                <View style={styles.container(this.props.containerColor)}>
                     {this._renderBackground()}
-                    <SafeAreaView style={styles.container}>
+                    <SafeAreaView style={styles.container(this.props.containerColor)}>
                         <View style={styles.contentContainer(this.props.noBackground)}>
                             {this.props.children}
                             <Loading
