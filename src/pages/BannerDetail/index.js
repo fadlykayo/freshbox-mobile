@@ -93,6 +93,29 @@ class BannerDetail extends Component {
       }
     }
 
+    navigateToPaymentSuccess = (input, type) => {
+      let payload = {
+        header: {
+          apiToken: this.props.user.authorization,
+        },
+        invoice: input
+      }
+      this.props.detail_transaction(payload,
+        () => {
+          actNav.navigate(navConstant.Detail,{
+            action: 'history',
+            createOrderSuccess: true,
+            invoice: type,
+            // refreshHandler: this.refreshHandler,
+            fromDashboard: true
+          });
+        },
+        (err) => {
+          console.log('navigate to detail', err);
+        }
+      )
+    }
+
     createOrderHandler = (invoice,type) => {
       new Promise((res) => {
         actNav.goBackToTop();
@@ -420,7 +443,10 @@ class BannerDetail extends Component {
         })
 
         return (
-            <Container style={styles.container}>
+            <Container 
+              style={styles.container}
+              bgColorTop={'white'}
+            >
                 <NavigationBar
 			    	title={'bannerDetail.navigationTitle'}
 			    />
@@ -474,6 +500,7 @@ class BannerDetail extends Component {
             // params={{
             // 	item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
             // }}
+            bannerDetail
             requestHandler={this.SetAndUseVoucher}
             requestCancel={this.cancelUseVoucher}
           />
@@ -494,6 +521,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+  detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
   delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
   change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
   detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),

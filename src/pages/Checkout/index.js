@@ -391,6 +391,7 @@ class Checkout extends Component {
 										redirect_url: this.state.redirect_url,
 										midtrans: this.state.midtrans,
 										gopay: method == 'gopay' ? true : false,
+										method: method,
 										validateTransactionStatus: this.validateTransactionStatus
 									});
 								} else {
@@ -416,6 +417,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
+		// console.log('====> payment method', paymentMethod)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -431,10 +433,11 @@ class Checkout extends Component {
 					redirect_url: '',
 				},() => {
 					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
-					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
+					this.props.navigation.state.params.createOrderHandler(res.data.invoice, paymentMethod);
 				})
 			},
 			(err) => {
+				console.log('err checkout', err)
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
@@ -464,6 +467,7 @@ class Checkout extends Component {
 
 messageOrderSuccess = () => {
 		if(this.props.navigation.state.params.createOrderSuccess){
+			console.log('======>', this.props.navigation.state.params.invoice)
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl } from 'react-native';
+import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics } from '@helpers';
+import { colour } from '@styles';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
@@ -526,6 +527,7 @@ class Dashboard extends Component {
 			},
 			invoice: input
 		}
+		console.log('=======> ini type', type)
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
@@ -817,12 +819,12 @@ class Dashboard extends Component {
     return (
 			
       <Container
-				// backgroundColor ={'red'}
+				backgroundColor ={'white'}
         // bgColorBottom = {'veryLightGrey'}
         // bgColorTop={'white'}
-				containerColor={'white'}
+				// containerColor={'white'}
       >
-
+			
       <SearchComponent
 				dashboard
         type={'searchItem'}

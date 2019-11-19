@@ -6,7 +6,7 @@ const { height } = Dimensions.get('window');
 const styles = {
     container: (containerColor) => ({
         flex: 1,
-        backgroundColor: containerColor ? colour[containerColor] : colour.red,
+        backgroundColor: containerColor ? colour.red : colour.white,
         // paddingTop: 0,
     }),
     containerInner: {

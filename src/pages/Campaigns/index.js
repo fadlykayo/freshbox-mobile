@@ -41,6 +41,7 @@ class Campaigns extends Component {
     return (
       <Container
         style={styles.mainContainer}
+        // containerColor={'white'}
       >
         <NavigationBar
           title={'bannerPage.navigationTitle'}

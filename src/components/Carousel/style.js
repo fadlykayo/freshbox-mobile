@@ -32,9 +32,9 @@ module.exports = {
   cover: {
     outerContainer: {
       // justifyContent: 'center',
-      alignItems: 'center',
-      width: width,
-      height: 600 / (1200/(width)),
+      // alignItems: 'center',
+      // width: width,
+      // height: 600 / (1200/(width)),
       // borderRadius: 20,
       // backgroundColor: 'pink'
       

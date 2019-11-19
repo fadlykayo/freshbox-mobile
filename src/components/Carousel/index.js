@@ -117,13 +117,13 @@ export default class Carousel extends PureComponent {
           return (
             
               <View key={ index } style={Styles.cover.outerContainer}>
-                <TouchableWithoutFeedback onLongPress = {() => this.navigateToBannerDetail(product)}>
+                <TouchableOpacity onPress = {() => this.navigateToBannerDetail(product)} activeOpacity={1}>
                   <Image 
                     style={ Styles.cover.image(this.props.size) } 
                     source={{uri:product.images_dashboard_mobile_url_original}}
                     resizeMode='cover'
                   />
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
                 
               </View>
             

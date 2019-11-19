@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { Platform, KeyboardAvoidingView, View } from 'react-native';
+import { Platform, KeyboardAvoidingView, View, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -63,6 +63,9 @@ class Container extends PureComponent {
                             behavior='padding' 
                             style={styles.contentContainer(this.props.noBackground)}
                         >
+                        {
+                            this.props.containerColor ? <StatusBar barStyle = "light-content" hidden = {false} translucent = {false}/> : <StatusBar barStyle = "dark-content" hidden = {false} translucent = {false}/>
+                        }
                             {this.props.children}
                             <Loading
                                 modalVisible = {this.props.network.isLoading}

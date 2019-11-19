@@ -17,9 +17,10 @@ const styles = {
 		price:{
 			promo: {
 				fontFamily: 'Avenir-Roman',
-				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(13),
+				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 				color: colour.darkerGrey,
 				textDecorationLine: 'line-through',
+				paddingRight: 10
 				// marginTop: 10,
 				// borderWidth: 1,
 				
@@ -31,6 +32,7 @@ const styles = {
 				// borderWidth: 1,
 				marginTop: on_promo == 1 ? 5 : 0,
 				paddingBottom: on_promo == 1 ? 10 : 0,
+				paddingRight: 10
 			})
 		},
 		desc:{

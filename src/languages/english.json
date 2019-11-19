@@ -790,7 +790,7 @@
     "dialog":{
         "clearProduct": "Are you sure you want to delete {item} from cart?",
         "clearFavorite": "Are you sure you want to delete {item} from favourite?",
-        "copyVoucher": "Coupon code copied. Do you want to use it now?"
+        "copyVoucher": "Coupon code copied"
     },
     "verification":{
         "maxQuantity": "Only {qty} pack",

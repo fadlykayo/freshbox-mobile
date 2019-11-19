@@ -3,7 +3,7 @@ import config from '@config';
 
 export const apiInstance = axios.create({
     baseURL: config.url,
-    timeout: 10000,
+    // timeout: 20000,
     validateStatus: (status) => {
         return status >= 200 && status < 300
     }

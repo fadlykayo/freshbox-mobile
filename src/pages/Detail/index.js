@@ -139,7 +139,8 @@ class Detail extends Component {
 
 	messageOrderSuccess() {
 		if(this.props.navigation.state.params.createOrderSuccess){
-			if(this.props.navigation.state.params.invoice == 'credit_card') {
+			console.log('====> ini message order', this.props.navigation.state.params.invoice)
+			if(this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
 					this.props.set_success_status({

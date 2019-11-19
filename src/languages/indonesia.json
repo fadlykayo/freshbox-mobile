@@ -793,7 +793,7 @@
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",
         "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?",
-        "copyVoucher": "Copy voucher berhasil. Apakah anda ingin menggunakannya sekarang?"
+        "copyVoucher": "Copy voucher berhasil"
     },
     "verification":{
         "maxQuantity": "Hanya tersedia {qty} pack",

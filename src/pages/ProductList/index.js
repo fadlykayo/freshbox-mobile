@@ -729,6 +729,7 @@ class ProductList extends Component {
 			<Container
                 bgColorBottom={'veryLightGrey'}
                 bgColorTop={'red'}
+								containerColor
             >
 					<SearchComponent
 						type={'searchItem'}

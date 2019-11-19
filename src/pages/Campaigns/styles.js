@@ -26,9 +26,9 @@ const style = {
     },
     container: {
       alignSelf: 'center',
-      height: height * 0.2,
+      height: 600 / (1200/(width * 0.9)),
       width: width * 0.9,
-      borderRadius: 20,
+      borderRadius: 10,
       resizeMode: 'cover',
     }
   }
