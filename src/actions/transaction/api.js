@@ -21,13 +21,17 @@ actions.cancel_invoice = (req, success, failure) => {
 	payload.path = path.cancelCheckout;
 	payload.header = req.header;
 	payload.body = req.body;
+	
+
 
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200) {
-					// console.warn('cancel invoice ==>', res)
+					console.log('cancel invoice ==>', res)
+					console.log('req', req)
+					dispatch(actReducer.cancel_transaction(req.body))
 					dispatch(actNetwork.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan',
@@ -102,7 +106,7 @@ actions.request_snap_token = (req,success,failure) => {
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
-	console.log('request snap token payload', payload)
+	// console.log('request snap token payload', payload)
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
@@ -115,7 +119,7 @@ actions.request_snap_token = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Request Snap Token err ->', err);
+        	// console.log('Request Snap Token err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -163,7 +167,7 @@ actions.cancel_checkout = (req,success,failure) => {
         	// console.log('Cancel Checkout res ->',res);
         	if(res.code){
         		if(res.code == 200){
-					success(res.data);
+							success(res.data);
         		}
         	}
         })
@@ -267,7 +271,7 @@ actions.get_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Transactions res',res);
+        	console.log('Get Transactions res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_transaction(res.data))
@@ -276,7 +280,7 @@ actions.get_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Transactions err', err);
+        	console.log('Get Transactions err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -328,7 +332,7 @@ actions.detail_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Detail Transaction err', err);
+        	// console.log('Get Detail Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -355,7 +359,7 @@ actions.reorder_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Reorder Transaction res',res);
+        	console.log('Get Reorder Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.reorder_transaction(res.data))
@@ -364,7 +368,7 @@ actions.reorder_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Reorder Transaction err', err);
+        	console.log('Get Reorder Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

@@ -90,6 +90,7 @@ public class GoPayModule extends ReactContextBaseJavaModule {
 //      intentA.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //      mContext.startActivity(intentA);
 
+
       MidtransSDK.getInstance().startPaymentUiFlow(mContext, PaymentMethod.GO_PAY, token);
 
 

@@ -12,7 +12,7 @@ const styles = {
         justifyContent: 'center',
         shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
 		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 2}  : {width: 0,height: 0},
-		shadowRadius: Platform.OS == 'ios' ? 15 : 0,
+		shadowRadius: Platform.OS == 'ios' ? 0 : 0,
 		shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
 		elevation: Platform.OS == 'android' ? 5 : 0,
         borderBottomWidth: 1,

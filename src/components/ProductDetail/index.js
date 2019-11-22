@@ -23,10 +23,12 @@ class ProductDetail extends Component {
 	}
 
 	addTotalItem(){
+		
 		this.props.changeTotalItem(this.props.data,"inc");
 	}
 
 	decTotalItem(){
+		
 		this.props.changeTotalItem(this.props.data,"desc");
 	}
 
@@ -107,6 +109,7 @@ class ProductDetail extends Component {
 											user={this.props.user}
 											isFavorite={this.props.data.favorite}
 											toggleFavorite={this.props.toggleFavorite}
+											onShare={this.props.onShare}
 										/>
 								}
 							</View>
@@ -134,6 +137,7 @@ class ProductDetail extends Component {
 							modalVisible={this.props.openImageDetail}
 							closeZoomImage={this.closeZoomImage}
 							images={this.props.data.images_sizes_url.original}
+							bubble={this.props.bubble}
 						/>
 					</Modal>
 				</View>

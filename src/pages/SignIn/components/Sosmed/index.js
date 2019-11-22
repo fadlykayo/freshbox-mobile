@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { GoogleSignin } from 'react-native-google-signin';
 import styles from './styles';
 import images from '@assets';
 
@@ -11,9 +12,30 @@ export default class Facebook extends Component {
     this.onPressButton = this.onPressButton.bind(this);
   }
 
+  componentDidMount() {
+    if(this.props.type !== 'facebook') {
+      this.setupGoogleClient();
+    }
+  }
+
+  async setupGoogleClient(){
+    try {
+        await GoogleSignin.hasPlayServices({ autoResolve: true });
+        await GoogleSignin.configure({
+            iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
+            offlineAccess: false
+        });
+    }
+    catch(err) {
+        // console.log("Google signin error", err.code, err.message);
+    }
+  }
+  
+
   onPressButton () {
     this.props.onPress();
   }
+  
 
   render() {
     return (

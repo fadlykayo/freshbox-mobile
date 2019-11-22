@@ -36,6 +36,7 @@ class HistoryPage extends Component {
 	}
 
 	componentDidMount() {
+		
 		if(this.props.transactions.length == 0) {
 			this.getHistoryData();
 		} else {
@@ -55,8 +56,7 @@ class HistoryPage extends Component {
 				apiToken: this.props.user.authorization,
 			},
 			params: {
-				page: this.props.params.page,
-				// per_page: this.props.transactions.length
+				page: this.props.params.page
 			}
 		}
 
@@ -74,7 +74,7 @@ class HistoryPage extends Component {
 			},
 			params: {
 				page: 1,
-				per_page: this.props.transactions.length
+				// per_page: this.props.transactions.length
 			}
 		}
 

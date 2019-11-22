@@ -49,6 +49,7 @@ class DrawerPage extends Component {
   	}
 
 	refreshProductList() {
+		console.log('drawerPage, refreshProduct')
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -84,6 +85,7 @@ class DrawerPage extends Component {
 				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions)
 				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy)
 				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs)
+				case 'drawerPage.pages.dashboard': return this.closeDrawerPage(payload);
 				default: return this.closeDrawerPage(payload);
 			}
 			
@@ -108,7 +110,7 @@ class DrawerPage extends Component {
 		this.props.log_out();
 		this.props.reset_products();
 		this.props.reset_transaction();
-		actNav.reset(navConstant.Menu);
+		actNav.reset(navConstant.Dashboard);
 	}
 
 	navigateSignIn() {

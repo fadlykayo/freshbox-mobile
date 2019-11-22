@@ -37,14 +37,14 @@ const styles = {
         }
     },
     button: {
-        red: {
-            width: width * 0.4,
+        red: (bannerDetail) => ({
+            width: bannerDetail ? width * 0.8 : width * 0.4,
             height: scaling.moderateScale(50),
             backgroundColor: colour.red,
             alignItems: 'center',
             justifyContent: 'center',
             borderBottomLeftRadius: 8,
-        },
+        }),
         white: {
             width: width * 0.4,
             height: scaling.moderateScale(50),

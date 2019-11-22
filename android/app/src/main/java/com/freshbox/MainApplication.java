@@ -4,6 +4,7 @@ import android.app.Application;
 
 //import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
+import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
 // //
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
@@ -61,6 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RNSentryPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAnalyticsPackage(),
             // new RNFirebaseMessagingPackage(),

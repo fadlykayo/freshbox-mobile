@@ -29,18 +29,21 @@ import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
 import OTP from '@pages/OTP'
 import Dashboard from '@pages/Dashboard';
+import BannerDetail from '@pages/BannerDetail';
+import Campaigns from '@pages/Campaigns';
 import { analytics } from '@helpers';
 
 let _navigator;
 
 export const DrawerBar = createDrawerNavigator({
-    ProductList: {screen: ProductList},
+    Dashboard: {screen: Dashboard, path: 'dashboard'},
+    
     HistoryPage: {screen: HistoryPage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
     PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
-    Dashboard: {screen: Dashboard},
+    
 }, {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
@@ -54,6 +57,7 @@ export const AppNavigator = createStackNavigator({
     ForgotPassword: {screen:ForgotPassword},
     Cart: {screen: Cart},
     Product: DrawerBar,
+    ProductList: {screen: ProductList},
     Detail: {screen: Detail},
     PhonePage: {screen: PhonePage},
     AddressPage: {screen: AddressPage},
@@ -73,7 +77,9 @@ export const AppNavigator = createStackNavigator({
     ContactUs: {screen: ContactUs},
     TransferInstruction: {screen: TransferInstruction},
     OTP: {screen: OTP},
-    Dashboard: {screen: Dashboard},
+    Dashboard: DrawerBar,
+    BannerDetail: {screen: BannerDetail},
+    Campaigns: {screen: Campaigns},
 },{
     initialRouteName  : 'SplashScreen',
     headerMode        : 'none',
@@ -131,6 +137,9 @@ export const navConstant = {
     OnBoarding: 'OnBoarding',
     TransferInstruction: 'TransferInstruction',
     OTP: 'OTP',
+    Dashboard: 'Dashboard',
+    BannerDetail : 'BannerDetail',
+    Campaigns: 'Campaigns',
 }
 
 export const setNavigator = (navigatorRef) => {

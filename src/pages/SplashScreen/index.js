@@ -16,12 +16,10 @@ class SplashScreen extends PureComponent {
         setTimeout(() => {
             if (this.props.on_boarding) {
                 if(this.props.user == null){
-                    actNav.reset(navConstant.Menu);
+                    actNav.reset(navConstant.Dashboard);
                 } 
                 else {
-                    // console.log(this.props.user)
-                    // actNav.reset(navConstant.Menu);
-                    actNav.reset(navConstant.Product);
+                    actNav.reset(navConstant.Dashboard);
                 }
             }
             else {

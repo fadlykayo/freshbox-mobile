@@ -3,7 +3,7 @@ import config from '@config';
 
 export const apiInstance = axios.create({
     baseURL: config.url,
-    timeout: 10000,
+    // timeout: 20000,
     validateStatus: (status) => {
         return status >= 200 && status < 300
     }
@@ -43,4 +43,5 @@ export const path = {
     delivery_date: 'v1/request-shipping-date',
     checkVoucher: 'v1/voucher/check',
     cancelVoucher: 'v1/voucher/cancel',
+    banners: 'v1/banners/',
 }

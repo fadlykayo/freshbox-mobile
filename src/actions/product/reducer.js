@@ -37,6 +37,14 @@ action.detail_product = (data) => ({
     }
 })
 
+action.get_promo = (params, data) => ({
+    type: ct.GET_PROMO,
+    payload: {
+        params,
+        data,
+    }
+})
+
 action.clear_products = () => ({
     type: ct.CLEAR_PRODUCTS,
 })
@@ -56,6 +64,8 @@ action.search_products = (params,data) => ({
         data,
     }
 });
+
+
 
 action.change_total = (data,type) => ({
     type: ct.CHANGE_TOTAL,

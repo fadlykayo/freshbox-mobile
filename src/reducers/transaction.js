@@ -54,6 +54,9 @@ const getTransactions = (state, payload) => {
         newState.transactions = existingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
         return newState
     }
+
+    newState.transactions = existingProducts.sort((a,b) => (a.checkout_date < b.checkout_date) ? 1 : ((b.checkout_date < a.checkout_date) ? -1 : 0));
+    return newState
 }
 
 const transactionDetail = (state, payload) => {
@@ -69,11 +72,24 @@ const editFavoriteHistory = (state,payload) => {
     return newState
 }
 
+const cancelTransaction = (state, payload) => {
+
+    
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.transactions.map((t, i) => {
+        if(t.invoice == payload.data.invoice) {
+            newState.transactions.splice(i, 1)
+        }
+    })
+    return newState;
+}
+
 const transactionReducer = (state=initialState,action) => {
     switch (action.type) {
         case ct.GET_TRANSACTION: return getTransactions(state,action.payload);
         case ct.DETAIL_TRANSACTION: return transactionDetail(state,action.payload);
         case ct.TOGGLE_FAVORITE_HISTORY: return editFavoriteHistory(state,action.payload);
+        case ct.CANCEL_TRANSACTION: return cancelTransaction(state, action.payload);
         case ct.RESET_TRANSACTION: return initialState;
         default: return state;
     }

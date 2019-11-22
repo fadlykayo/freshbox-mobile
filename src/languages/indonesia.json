@@ -13,6 +13,14 @@
             "privacyPolicy": "Kebijakan Privasi"
         }
     },
+    "voucher": {
+        "button": {
+            "title": "Gunakan Sekarang"
+        }
+    },
+    "transactionBlock": {
+        "button": "Belanja Sekarang"
+    },
     "onBoarding": {
         "content": {
             "first": {
@@ -36,6 +44,22 @@
             "skip": "LEWATI",
             "finish": "SELESAI"
         }
+    },
+    "dashboard" : {
+        "campaign" : {
+            "title" : "Special Campaigns!",
+            "more" : "Lihat Semua"
+        },
+        "productList": {
+            "title": "Product Kami",
+            "more":"Lihat Semua"
+        }
+    },
+    "bannerDetail" : {
+        "navigationTitle" : "Detail Banner"
+    },
+    "bannerPage": {
+        "navigationTitle" : "Campaigns"
     },
     "signIn":{
         "navigationTitle": "Masuk",
@@ -146,7 +170,8 @@
             "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim",
-            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai",
+            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai.",
+            "confirmPerson": "Pastikan Penerima Paket Berada Di Tempat Pada Tanggal Pengiriman Yang Dipilih",
             "payment": "Pilih Metode Pembayaran"
         },
         "button": {
@@ -767,7 +792,8 @@
     },
     "dialog":{
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",
-        "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?"
+        "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?",
+        "copyVoucher": "Copy voucher berhasil"
     },
     "verification":{
         "maxQuantity": "Hanya tersedia {qty} pack",
@@ -778,5 +804,9 @@
         "search"    : "Produk yang anda cari tidak tersedia",
         "history"   : "Tidak ada riwayat transaksi",
         "favorites" : "Tidak ada produk favorit"
+    },
+    "popup": {
+        "title" : "Waspada Penipuan!",
+        "button": "OK, Dimengerti"
     }
 }

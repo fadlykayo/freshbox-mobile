@@ -294,8 +294,8 @@ class Checkout extends Component {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {
-				coupon_code: this.state.coupon_code,
-				subtotal: this.props.totalPrice
+				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
+				subtotal: this.props.totalPrice,
 			}
 		}
         
@@ -337,7 +337,7 @@ class Checkout extends Component {
 					this.setState(state);
 				},
 				rej => {
-					console.log(rej)
+					// console.log(rej)
 				}
 			);
 		} 
@@ -364,12 +364,11 @@ class Checkout extends Component {
 				}
 			}
 
-			console.log('coba', payload)
+			console.log('payload =>>', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
 					if(res.redirect_url) {
-						console.log('GOPAY/TRANSFER', res)
 						this.setState({
 							token: res.token,
 							invoice: res.invoice,
@@ -392,6 +391,7 @@ class Checkout extends Component {
 										redirect_url: this.state.redirect_url,
 										midtrans: this.state.midtrans,
 										gopay: method == 'gopay' ? true : false,
+										method: method,
 										validateTransactionStatus: this.validateTransactionStatus
 									});
 								} else {
@@ -417,6 +417,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
+		// console.log('====> payment method', paymentMethod)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -432,15 +433,15 @@ class Checkout extends Component {
 					redirect_url: '',
 				},() => {
 					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
-					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
+					this.props.navigation.state.params.createOrderHandler(res.data.invoice, paymentMethod);
 				})
 			},
 			(err) => {
+				console.log('err checkout', err)
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
-					console.log('transaction status', err)
 					this.props.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan.',
@@ -466,6 +467,7 @@ class Checkout extends Component {
 
 messageOrderSuccess = () => {
 		if(this.props.navigation.state.params.createOrderSuccess){
+			console.log('======>', this.props.navigation.state.params.invoice)
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
@@ -491,6 +493,7 @@ messageOrderSuccess = () => {
 	}
 
   	render() {
+		// console.warn(this.props.cart)
 		return (
 			<Container 				
 				bgColorBottom={'veryLightGrey'} 				
@@ -532,15 +535,23 @@ messageOrderSuccess = () => {
 							</View>
 						</TouchableOpacity>
 
-						<View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', position: 'absolute', left: 30, bottom: 15}}>
+						<View style={{flex: 1, flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
 							<Image
 								style={{width: 15, height: 15, marginRight: 10}}
 								source={images.ic_info_grey}
 							/>
+							<View>
+								<StaticText
+									property	= 'checkout.content.confirmDate'
+									style			= { styles.text.confirmDate }
+								/>
 							<StaticText
-							property	= 'checkout.content.confirmDate'
-							style			= { styles.text.confirmDate }
-						/>
+									property	= 'checkout.content.confirmPerson'
+									style			= { styles.text.confirmPerson }
+								/>
+
+							</View>
+							
 						</View>
 
 					
@@ -696,6 +707,7 @@ const mapStateToProps = (state) => ({
 	delivery_price: state.product.delivery_price,
 	delivery_date: state.utility.delivery_date,
 	additional: state.product.additional.credit_card,
+	cart: state.product.cart.products
 });
 
 const mapDispatchToProps = (dispatch) => ({

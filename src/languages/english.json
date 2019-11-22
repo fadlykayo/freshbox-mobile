@@ -13,6 +13,14 @@
             "privacyPolicy": "Privacy Policy"
         }
     },
+    "voucher": {
+        "button": {
+            "title": "Use Now"
+        }
+    },
+    "transactionBlock": {
+        "button": "Shop Now"
+    },
     "onBoarding": {
         "content": {
             "first": {
@@ -36,6 +44,22 @@
             "skip": "SKIP",
             "finish": "FINISH"
         }
+    },
+    "dashboard" : {
+        "campaign" : {
+            "title" : "Special Campaigns!",
+            "more" : "More"
+        },
+        "productList": {
+            "title": "Our Products",
+            "more":"More"
+        }
+    },
+    "bannerDetail" : {
+        "navigationTitle" : "Banner Detail"
+    },
+    "bannerPage": {
+        "navigationTitle" : "Campaigns"
     },
     "signIn":{
         "navigationTitle": "Sign In",
@@ -145,6 +169,7 @@
             "addAddress": "Add Address",
             "chooseDate": "Choose Delivery Date",
             "confirmDate": "Please Make Sure The Delivery Date is Correct",
+            "confirmPerson": "Please Make Sure The Reciever of The Package Is Available On The Date Specified",
             "payment": "Select Payment Method"
         },
         "button": {
@@ -764,7 +789,8 @@
     },
     "dialog":{
         "clearProduct": "Are you sure you want to delete {item} from cart?",
-        "clearFavorite": "Are you sure you want to delete {item} from favourite?"
+        "clearFavorite": "Are you sure you want to delete {item} from favourite?",
+        "copyVoucher": "Coupon code copied"
     },
     "verification":{
         "maxQuantity": "Only {qty} pack",
@@ -775,5 +801,9 @@
         "history"   : "No Transaction history available",
         "search"    : "The product you are looking for is not available",
         "favorites" : "No favorite products"
+    },
+    "popup": {
+        "title" : "Fraud Alert!",
+        "button": "OK, I Understand"
     }
 }

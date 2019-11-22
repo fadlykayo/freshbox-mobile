@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { Platform, KeyboardAvoidingView, View } from 'react-native';
+import { Platform, KeyboardAvoidingView, View, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 import actions from '@actions';
@@ -56,13 +56,16 @@ class Container extends PureComponent {
     render(){
         if(Platform.OS === 'ios'){
             return (
-                <View style={styles.container}>
+                <View style={styles.container(this.props.containerColor)}>
                     {this._renderBackground()}
-                    <SafeAreaView style={styles.container} forceInset={{top: 40, bottom: -10}}>
+                    <SafeAreaView style={styles.container(this.props.containerColor)} forceInset={{top: 40, bottom: -10}}>
                         <KeyboardAvoidingView 
                             behavior='padding' 
                             style={styles.contentContainer(this.props.noBackground)}
                         >
+                        {
+                            this.props.containerColor ? <StatusBar barStyle = "light-content" hidden = {false} translucent = {false}/> : <StatusBar barStyle = "dark-content" hidden = {false} translucent = {false}/>
+                        }
                             {this.props.children}
                             <Loading
                                 modalVisible = {this.props.network.isLoading}
@@ -93,9 +96,9 @@ class Container extends PureComponent {
             )
         } else {
             return(
-                <View style={styles.container}>
+                <View style={styles.container(this.props.containerColor)}>
                     {this._renderBackground()}
-                    <SafeAreaView style={styles.container}>
+                    <SafeAreaView style={styles.container(this.props.containerColor)}>
                         <View style={styles.contentContainer(this.props.noBackground)}>
                             {this.props.children}
                             <Loading

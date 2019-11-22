@@ -8,6 +8,13 @@ const initialState = {
         sort: 'nama-az',
         // stock: 'tersedia'
     },
+    paramsPromo: {
+        page: 1,
+        sort: 'nama-az',
+        on_promo: 1,
+        last_page: 1,
+    },
+    promoProduct: [],
     products: [],
     categories: [],
     on_category: '',
@@ -28,7 +35,64 @@ const initialState = {
     delivery_price: 0,
     wishlist: {
         products: [],
+    },
+    currentDetail: [{
+        details: []
+    }],
+}
+
+const getProductDashboard = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.products.slice();
+
+    newState.params.page = payload.data.current_page + 1;
+    newState.last_page = payload.data.last_page;
+
+    if(payload.data.current_page == 1) {
+        existingProducts = incomingProducts;
+    } else {
+        for(x in incomingProducts){
+            let sameValue = false;
+            for(y in existingProducts){
+                if(incomingProducts[x].code == existingProducts[y].code){
+                    existingProducts[y] = Object.assign({},existingProducts[y],incomingProducts[x]);
+                    sameValue = true;
+                    break;
+                }
+            }
+            if(sameValue == false) existingProducts.push(incomingProducts[x]);
+        }
     }
+
+
+
+    let cartList = newState.cart.products;
+
+    // newState.products = existingProducts.map(e => {
+    //     let favoriteItem = favoriteList.filter(p => e.code == p.code);
+    //     if(favoriteItem.length > 0){
+    //         return favoriteItem[0];
+    //     }
+    //     else{
+    //         if(!e.count) e.count = 0;
+    //         if(!e.maxQty) e.maxQty = 1000;
+    //         return e;
+    //     }
+    // }).filter(e => e.stock > 0);
+
+    newState.products = existingProducts.map(e => {
+        let cartItem = cartList.filter(p => e.code == p.code);
+        if(cartItem.length > 0) {
+            return cartItem[0];
+        } else {
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
+    return newState;
 }
 
 const getProducts = (state, payload) => {
@@ -174,7 +238,6 @@ const getDetail = (state, payload) => {
 
 const searchData = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-
     let params = payload.params;
     params.page = params.page + 1;
     newState.params = params;
@@ -210,6 +273,53 @@ const searchData = (state, payload) => {
     return newState
 }
 
+const getPromo = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+
+    let params = payload.params;
+
+    if(params.page < payload.data.last_page) {
+        params.page = params.page + 1;
+    }
+
+    // newState.paramsPromo.page = payload.data.current_page + 1;
+    newState.paramsPromo.last_page = payload.data.last_page;
+
+    // newState.paramsPromo = params;
+    // newState.paramsPromo.last_page = payload.data.last_page;
+    
+    // console.warn('..........', newState.paramsPromo)
+    
+    newState.promoProduct = [];
+    let incomingProducts = payload.data.data;
+    let existingProducts = newState.cart.products.slice();
+    let favoriteList = newState.wishlist.products.slice();
+
+    for(x in incomingProducts){
+        for(y in existingProducts){
+            if(incomingProducts[x].code == existingProducts[y].code){
+                incomingProducts[x] = Object.assign({},incomingProducts[x],existingProducts[y]);
+                break;
+            }
+        }
+    }
+
+    newState.promoProduct = incomingProducts.map(e => {
+        let favoriteItem = favoriteList.filter(p => e.code == p.code);
+        if(favoriteItem.length > 0){
+            return favoriteItem[0];
+        }
+        else{
+            if(!e.count) e.count = 0;
+            if(!e.maxQty) e.maxQty = 1000;
+            return e;
+        }
+    })
+
+
+    return newState
+}
+
 const editTotal = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let total = 0;
@@ -217,19 +327,34 @@ const editTotal = (state,payload) => {
     const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
+    const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
+    if(newState.currentDetail.length > 0) {
+        const productIndex = newState.currentDetail[0].details.findIndex(e => e.product.code === payload.data.code)
+        newState.currentDetail[0].details.map((e,i) => {
+            if(e.product.code === payload.data.code) {
+                if(payload.type == 'inc') {
+                    e.product.count += 1;
+                } else {
+                    e.product.count -= 1;
+                }
+            }
+        })
+    }
 
 	if (payload.type == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count += 1;
+        if(indexPromo != -1) newState.promoProduct[indexPromo].count += 1;
 	}
 	else {
 		if(indexProducts != -1) newState.products[indexProducts].count -= 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count -= 1;
+        if(indexPromo != -1) newState.promoProduct[indexPromo].count -= 1;
     }
 
-    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : newState.wishlist.products[indexFavorite];
+    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
 
     let productCart = newState.products.filter(e => e.count > 0);
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
@@ -253,13 +378,19 @@ const editTotal = (state,payload) => {
             currentCart.push(newCart[x])
         }
     }
-
+    console.log(currentCart)
     for(i in currentCart){
-        total = total + (currentCart[i].promo_price * currentCart[i].count);
+        // console.log('dshajdhjksa', currentCart[i])
+        if(currentCart[i].banner_harga_jual !== null) {
+            total = total + (currentCart[i].banner_harga_jual * currentCart[i].count)
+        } else {
+            total = total + (currentCart[i].promo_price * currentCart[i].count);
+        }
+        
         count = count + currentCart[i].count;
         currentCart[i].maxQty = payload.data.maxQty;
     }
-
+    console.log(total, 'total')
     newState.total.count = count;
     newState.total.price = total;
     newState.cart.products = currentCart.filter(e => e.count > 0);
@@ -288,7 +419,26 @@ const clearProducts = (state) => {
 
 const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
+
+    //edit favorite banner product
+    if (newState.currentDetail.length !== 0) {
+        const indexPromo = newState.currentDetail[0].details.map((e, i) => {
+            if(e.product.code == payload.data.product.code) {
+                e.product.wishlisted = e.product.wishlisted == 1 ? 0 : 1;
+            }
+        })
+    }
+
+    //edit favorite promo products
+    if (newState.promoProduct.length !== 0) {
+        const productIndex = newState.promoProduct.findIndex(e => e.code === payload.data.product.code);
+        if(productIndex !== -1) {
+            let bannerProducts = newState.promoProduct[productIndex];
+            bannerProducts.wishlisted = bannerProducts.wishlisted == 1 ? 0 : 1;
+        }
+    }
     
+    //edit favorite product list and cart
     const index = newState.products.findIndex(e => e.code === payload.data.product.code);
     const cartIndex = newState.cart.products.findIndex(e => e.code == payload.data.product.code);
     if (cartIndex != -1) {
@@ -363,10 +513,12 @@ const reorderTransaction = (state,payload) => {
     for (let i = 0; i < payload.data.length; i++) {
         let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code)
         if (cartIndex == -1) {
+            // console.log(payload.data[i].product)
             payload.data[i].product.count = payload.data[i].qty;
             payload.data[i].product.maxQty = 1000;
             newCart.push(payload.data[i].product)
         } else {
+            // console.log(newCart[cartIndex])
             newCart[cartIndex].count += payload.data[i].qty;
         }
     }
@@ -399,33 +551,48 @@ const resetParams = (state, payload) => {
     return newState;
 }
 
+const setVoucher = (state, payload) => {
+    let newState = {...state};
+    newState.coupon_code = payload;
+    return newState;
+}
+
 const setDiscountPrice = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let totalPrice = newState.total.price;
     let discount = 0;
     let coupon_code = newState.coupon_code;
 
-    payload.forEach(object => {
+    // console.log(payload)
+
+    if(payload.grand_total_diskon > 0) {
+        discount = payload.grand_total_diskon;
+        coupon_code = payload.coupon_code;
+        
+    } else {
+        payload.forEach(object => {
 
         coupon_code = object.coupon_code;
 
-        if(object.category == 'Percentage') {
-            let discountedPrice;
-            discountedPrice = totalPrice * (object.amount/100);
-            // totalPrice = totalPrice - discountedPrice;
-            discount = discountedPrice;
-        } else {
-            let discountedPrice = object.amount;
-            // totalPrice = totalPrice - discountedPrice;
-            discount = object.amount;
-        }
+            if(object.category == 'Percentage') {
+                let discountedPrice;
+                discountedPrice = totalPrice * (object.amount/100);
+                // totalPrice = totalPrice - discountedPrice;
+                discount = discountedPrice;
+            } else {
+                let discountedPrice = object.amount;
+                // totalPrice = totalPrice - discountedPrice;
+                discount = object.amount;
+            }
 
-    });
+        });
+    }
+
+    
     
     newState.discount = discount;
     newState.total.price = totalPrice;
     newState.coupon_code = coupon_code;
-    // console.warn(discount)
     return newState;
 }
 
@@ -436,13 +603,78 @@ const cancelVoucher = (state, payload) => {
     let discount = newState.discount;
     let coupon = newState.coupon_code;
 
+
     discount = 0;
-    // coupon = '';
+    coupon = '';
     newState.discount = discount;
-    // newState.coupon_code = coupon;
+    newState.coupon_code = coupon;
 
     return newState;
     
+}
+
+getCurrentDetail = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));   
+    newState.currentDetail = payload.data
+    let incomingProducts = payload.data[0].details
+   
+    let existingProducts = newState.currentDetail[0].details.slice();
+
+    
+    let cartList = newState.products.slice();
+
+    // console.log(incomingProducts)
+
+    // for (x in incomingProducts) {
+    //     let sameValue = false;
+    //     for(y in existingProducts) {
+    //         if(incomingProducts[x].product.code == existingProducts[y].product.code) {
+    //             existingProducts[y] = Object.assign({}, existingProducts[y], incomingProducts[x])
+    //             sameValue = true;
+    //             break;
+    //         }
+    //     }
+    // }
+
+    for (x in incomingProducts) {
+        let sameValue = false;
+        for(y in cartList) {
+            if(incomingProducts[x].product.code == cartList[y].code) {
+                incomingProducts[x].product = Object.assign({}, incomingProducts[x].product, cartList[y])
+                sameValue = true;
+                break;
+            }
+            
+        }
+        if(sameValue == false) {
+            incomingProducts[x].product.banner_harga_jual = incomingProducts[x].banner_harga_jual
+            cartList.push(incomingProducts[x].product)
+            console.log(incomingProducts[x])
+        } 
+        
+        
+    }
+
+    
+    
+
+    incomingProducts = incomingProducts.map(e => {
+        let cartItem = cartList.filter(p => e.code == p.code);
+        if(cartItem.length > 0) {
+            return cartItem[0];
+        } else {
+            if(!e.product.count) e.product.count = 0;
+            if(!e.product.maxQty) e.product.maxQty = 1000;
+            return e;
+        }
+    })
+
+    newState.products = cartList
+    newState.currentDetail[0].details = incomingProducts;
+
+    // console.log('cartList', cartList)
+
+    return newState
 }
 
 const productReducer = (state = initialState, action) => {
@@ -450,6 +682,7 @@ const productReducer = (state = initialState, action) => {
         case ct.GET_PRODUCTS        : return getProducts(state,action.payload);
         case ct.GET_CATEGORIES      : return getCategories(state,action.payload);
         case ct.GET_FAVORITES       : return getFavorites(state,action.payload);
+        case ct.GET_PROMO           : return getPromo(state,action.payload);
         case ct.GET_DELIVERY_PRICE  : return getDeliveryPrice(state,action.payload);
         case ct.SEARCH_PRODUCTS     : return searchData(state,action.payload);
         case ct.CHANGE_TOTAL        : return editTotal(state,action.payload);
@@ -463,8 +696,10 @@ const productReducer = (state = initialState, action) => {
         case ct.RESET_PARAMS        : return resetParams(state,action.payload);
         case ct.SET_DISCOUNT_PRICE  : return setDiscountPrice(state,action.payload);
         case ct.CANCEL_VOUCHER      : return cancelVoucher(state, action.payload);
+        case ct.GET_DETAIL_BANNER   : return getCurrentDetail(state, action.payload);
+        case ct.SET_VOUCHER         : return setVoucher(state,action.payload);
         case ct.RESET_PRODUCTS      : return initialState
-        default: return state;
+        default                     : return state;
     }
 }
 

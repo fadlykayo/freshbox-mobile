@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Platform, StatusBar, View } from 'react-native';
+import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
 import { AppNavigator, setNavigator, actNav } from '@navigations';
 import actions from '@actions';
 // import helpers from '@helper';
+
 
 class App extends Component {
     constructor(props){

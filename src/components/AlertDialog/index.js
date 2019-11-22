@@ -32,23 +32,29 @@ class AlertDialog extends Component {
                         </View>
                         <View style={styles.subcontainer.button}>
                             <TouchableOpacity 
-                                style={styles.button.red} 
+                                style={styles.button.red(this.props.bannerDetail)} 
                                 onPress={this.requestCancel}
                             >
                                 <StaticText
-                                    property={'button.no'}
+                                    property={ this.props.bannerDetail ? 'button.close' : 'button.no'}
                                     style={styles.text.white}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity 
-                                style={styles.button.white} 
-                                onPress={this.requestHandler}
-                            >
-                                <StaticText
-                                    property={'button.yes'}
-                                    style={styles.text.white}
-                                />
-                            </TouchableOpacity>
+                            {
+                                this.props.bannerDetail ? 
+                                null : 
+                                <TouchableOpacity 
+                                    style={styles.button.white} 
+                                    onPress={this.requestHandler}
+                                >
+                                    <StaticText
+                                        property={'button.yes'}
+                                        style={styles.text.white}
+                                    />
+                                </TouchableOpacity>
+                                
+                            }
+                            
                         </View>
                     </View>
                 </View>

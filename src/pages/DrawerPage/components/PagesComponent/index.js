@@ -10,6 +10,7 @@ class PagesComponent extends Component {
     }
 
     navigateToOtherPage(pages) {
+        
         this.props.navigateToOtherPage(pages);
     }
 

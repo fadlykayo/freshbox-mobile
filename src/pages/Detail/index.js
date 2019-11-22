@@ -114,7 +114,6 @@ class Detail extends Component {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
-					console.log('transaction status', err)
 					this.props.set_error_status({
 						status: true,
 						data: 'Pembayaran batal dilakukan.',
@@ -140,7 +139,8 @@ class Detail extends Component {
 
 	messageOrderSuccess() {
 		if(this.props.navigation.state.params.createOrderSuccess){
-			if(this.props.navigation.state.params.invoice == 'credit_card') {
+			console.log('====> ini message order', this.props.navigation.state.params.invoice)
+			if(this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
 					this.props.set_success_status({
@@ -170,7 +170,7 @@ class Detail extends Component {
 				status: this.props.detailTransaction.status,
 				totalPrice: this.props.detailTransaction.sub_total,
 				deliveryPrice: this.props.detailTransaction.shipping_cost,
-				grandTotalPrice: this.props.detailTransaction.grand_total,
+				grandTotalPrice: this.props.detailTransaction.grand_total - this.props.detailTransaction.discount_ammount,
 			});
 		}
 		else{
@@ -327,7 +327,6 @@ class Detail extends Component {
 			this.props.request_snap_token(payload,
 				res => {
 					if(res.redirect_url) {
-						console.log('GOPAY/TRANSFER', res)
 						this.setState({
 							token: res.token,
 							invoice: res.invoice,
@@ -353,7 +352,6 @@ class Detail extends Component {
 										validateTransactionStatus: this.validateTransactionStatus
 									});
 								} else {
-									console.log('COD', res)
 									this.validateTransactionStatus();
 								}
 						});
@@ -533,7 +531,7 @@ class Detail extends Component {
 					subtotalHistory={this.props.detailTransaction.sub_total}
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
-					discount={this.props.discount}
+					discount={this.props.detailTransaction.discount_ammount > 0 ? this.props.detailTransaction.discount_ammount : this.props.discount}
 				/>
 				
 			</Container>

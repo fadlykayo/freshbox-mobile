@@ -191,7 +191,7 @@ class Register extends Component {
                         phone_number: this.state.user.phone
                     })
                 } else {
-                    console.log(res)
+                    // console.log(res)
                     // actNav.reset(navConstant.Product)
                 }
             },

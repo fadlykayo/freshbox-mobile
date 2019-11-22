@@ -27,6 +27,9 @@ class ChoosePayment extends Component {
             this.GoPay();
             // this.checkPaymentGopay();
         }
+        this.setState({
+            paymentType: this.props.navigation.state.params.method
+        })
     }
     
     componentWillUnmount(){
