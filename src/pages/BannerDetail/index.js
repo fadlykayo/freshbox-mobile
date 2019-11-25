@@ -138,7 +138,7 @@ class BannerDetail extends Component {
       return (
         <View style = {styles.banner.container}>
           <Image
-            source = {{uri: this.props.currentDetail[0].images_page_mobile_url_original}}
+            source = {{uri: this.props.currentDetail.images_page_mobile_url_original}}
             style = {styles.banner.image}
             // resizeMode = {'contain'}
           />
@@ -147,9 +147,9 @@ class BannerDetail extends Component {
     }
 
     _renderSyarat = () => {
-      if(this.props.currentDetail[0].syarat_ketentuan && this.props.currentDetail[0].syarat_ketentuan !== '') {
+      if(this.props.currentDetail.syarat_ketentuan && this.props.currentDetail.syarat_ketentuan !== '') {
         return (
-          <Text style = {styles.mid.contentText}>{this.props.currentDetail[0].syarat_ketentuan}</Text>
+          <Text style = {styles.mid.contentText}>{this.props.currentDetail.syarat_ketentuan}</Text>
         )
       } else {
         return (
@@ -159,7 +159,7 @@ class BannerDetail extends Component {
     }
 
     renderContent = () => {
-     const details = this.props.currentDetail[0];
+     const details = this.props.currentDetail;
     //  console.warn(details)
      const expirationDate = moment(details.expiry_date).format("MMM Do, YYYY");
         return (
@@ -294,12 +294,12 @@ class BannerDetail extends Component {
       ) 
       } else {
         
-        if(this.props.currentDetail[0].details.length !== 0) {
+        if(this.props.currentDetail.products.length !== 0) {
           return (
             <FlatList
               // horizontal
               showsHorizontalScrollIndicator={false}
-              data = {this.props.currentDetail[0].details}
+              data = {this.props.currentDetail.products}
               keyExtractor = {(item) => item.code}
               renderItem = {({item, index}) => 
 
@@ -314,7 +314,7 @@ class BannerDetail extends Component {
                   user={this.props.user}
                   toggleFavorite={this.toggleFavorite}
                   changeTotalItem={this.changeTotalItem}
-                  productLength={this.props.currentDetail[0].details.length}
+                  productLength={this.props.currentDetail.products.length}
                   openDetailProduct= {this.openDetailProduct}
                 />
               </View>
@@ -343,7 +343,7 @@ class BannerDetail extends Component {
           <View style = {styles.promo.container}>
           
             {
-              this.props.currentDetail[0].details.length ? 
+              this.props.currentDetail.products.length ? 
               <View style = {styles.promo.titleContainer}>
                 <Text style = {styles.promo.titleText}>Produk Campaign</Text>
                 <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text>
@@ -374,7 +374,7 @@ class BannerDetail extends Component {
           <View style={styles.voucher.textContainer}>
             <View>
               <Text style={styles.voucher.text}>
-                {this.props.currentDetail[0].coupon_code}
+                {this.props.currentDetail.coupon_code}
               </Text>
             </View>
             <View>
@@ -402,15 +402,15 @@ class BannerDetail extends Component {
       let state = {...this.state};
       state.modalVisible.alertDialog = false;
 
-      Clipboard.setString(this.props.currentDetail[0].coupon_code);
-      this.props.set_voucher_code(this.props.currentDetail[0].coupon_code);
+      Clipboard.setString(this.props.currentDetail.coupon_code);
+      this.props.set_voucher_code(this.props.currentDetail.coupon_code);
 
       this.setState({state}, () => {actNav.navigate(navConstant.Product)});
       
     }
 
     cancelUseVoucher = () => {
-      Clipboard.setString(this.props.currentDetail[0].coupon_code);
+      Clipboard.setString(this.props.currentDetail.coupon_code);
       this.setModalVisible('alertDialog', false);
     }
 
@@ -431,7 +431,7 @@ class BannerDetail extends Component {
     }
 
     render() {
-        console.log(this.props.currentDetail[0])
+        console.log('banner detil', this.props.currentDetail)
         let params = this.props.navigation.state.params;
         const introButton = this.showCheckout.interpolate({
           inputRange: [0, 1],
@@ -461,9 +461,9 @@ class BannerDetail extends Component {
             <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
-            {this.props.currentDetail[0].coupon_code !== null && this.props.currentDetail[0].coupon_code ? this.renderVoucher() : null}
+            {this.props.currentDetail.coupon_code !== null && this.props.currentDetail.coupon_code ? this.renderVoucher() : null}
             {this.renderPromoList()}
-            {/* {this.props.currentDetail[0].coupon_code !== null && this.props.currentDetail[0].coupon_code ? this.renderButton() : null} */}
+            {/* {this.props.currentDetail.coupon_code !== null && this.props.currentDetail.coupon_code ? this.renderButton() : null} */}
             </ScrollView>
           }
 

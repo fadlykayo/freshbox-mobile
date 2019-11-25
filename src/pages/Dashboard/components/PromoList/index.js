@@ -54,6 +54,7 @@ export default class PromoList extends Component {
           <ScrollView
             style={{flex: 1}}
             horizontal
+            showsHorizontalScrollIndicator={ false }
           >
             {this.renderProduct(this.props.product)}
           </ScrollView>

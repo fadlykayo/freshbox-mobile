@@ -211,7 +211,26 @@ const getCategories = (state, payload) => {
         }
     }
     
-    newState.categories = payload.data
+    newState.categories = payload.data;
+
+    let count = 1;
+    let page = 1;
+    let temp = [];
+    let categoryRow = [];
+
+    for (let index = 0; index < payload.data.length; index++) {
+      temp.push(payload.data[index])
+      
+      if(count % 8 == 0 || count == payload.data.length) {
+        
+        page++
+        categoryRow.push(temp)
+        temp = []
+      }
+      count++
+    }
+
+    newState.categories_pages = categoryRow
 
     return newState
 }
@@ -328,9 +347,9 @@ const editTotal = (state,payload) => {
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
-    if(newState.currentDetail.length > 0) {
-        const productIndex = newState.currentDetail[0].details.findIndex(e => e.product.code === payload.data.code)
-        newState.currentDetail[0].details.map((e,i) => {
+    if(newState.currentDetail.products.length > 0) {
+        // const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
+        newState.currentDetail.products.map((e,i) => {
             if(e.product.code === payload.data.code) {
                 if(payload.type == 'inc') {
                     e.product.count += 1;
@@ -421,8 +440,8 @@ const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
 
     //edit favorite banner product
-    if (newState.currentDetail.length !== 0) {
-        const indexPromo = newState.currentDetail[0].details.map((e, i) => {
+    if (newState.currentDetail.products.length !== 0) {
+        const indexPromo = newState.currentDetail.products.map((e, i) => {
             if(e.product.code == payload.data.product.code) {
                 e.product.wishlisted = e.product.wishlisted == 1 ? 0 : 1;
             }
@@ -614,27 +633,18 @@ const cancelVoucher = (state, payload) => {
 }
 
 getCurrentDetail = (state, payload) => {
-    let newState = JSON.parse(JSON.stringify(state));   
-    newState.currentDetail = payload.data
-    let incomingProducts = payload.data[0].details
-   
-    let existingProducts = newState.currentDetail[0].details.slice();
+    let newState = JSON.parse(JSON.stringify(state));  
 
+    console.log('get current detail', payload)
+
+    newState.currentDetail = payload
+
+    let incomingProducts = payload.products
+    
+    let existingProducts = newState.currentDetail.products.slice();
     
     let cartList = newState.products.slice();
 
-    // console.log(incomingProducts)
-
-    // for (x in incomingProducts) {
-    //     let sameValue = false;
-    //     for(y in existingProducts) {
-    //         if(incomingProducts[x].product.code == existingProducts[y].product.code) {
-    //             existingProducts[y] = Object.assign({}, existingProducts[y], incomingProducts[x])
-    //             sameValue = true;
-    //             break;
-    //         }
-    //     }
-    // }
 
     for (x in incomingProducts) {
         let sameValue = false;
@@ -670,7 +680,7 @@ getCurrentDetail = (state, payload) => {
     })
 
     newState.products = cartList
-    newState.currentDetail[0].details = incomingProducts;
+    newState.currentDetail.products = incomingProducts;
 
     // console.log('cartList', cartList)
 

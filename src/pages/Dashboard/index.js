@@ -877,6 +877,7 @@ class Dashboard extends Component {
           />
           
 					<Categories
+						categoriesPage={this.props.categories_pages}
             categories = {this.props.categories}
 						navigateToCategories = {this.navigateToCategories}
           />
@@ -986,6 +987,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
   on_category: state.product.on_category,
 	categories: state.product.categories,
+	categories_pages: state.product.categories_pages,
   product: state.product.products,
 	promoProduct: state.product.promoProduct,
   params: state.product.params,

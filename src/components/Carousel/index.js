@@ -188,7 +188,7 @@ export default class Carousel extends PureComponent {
           bounces={ false }
           ref='cover'
           onScroll={ this.onScrollEvent() }
-          scrollEventThrottle={ 0 }
+          scrollEventThrottle={ 1 }
           showsHorizontalScrollIndicator={ false }
         >
           { this.renderCover(this.props.products) }
