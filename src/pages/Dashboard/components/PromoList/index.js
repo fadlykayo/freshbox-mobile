@@ -79,7 +79,7 @@ export default class PromoList extends Component {
           <View style = {styles.top.container}>
 
             <View style = {styles.top.left}>
-              <Text style = {styles.top.textPromo}>Promo!</Text>
+              <Text style = {styles.top.textPromo}>Special Deals!</Text>
             </View>
 
             <TouchableOpacity onPress={this.navigateToProduct}>

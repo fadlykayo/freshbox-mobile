@@ -1,13 +1,44 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import { Text, View, FlatList, Image, TouchableWithoutFeedback, ScrollView, Dimensions } from 'react-native'
 import images from '@assets'
 import styles from './styles'
+const { height, width } = Dimensions.get('window');
+
 
 export default class Categories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollX: 0,
+      count: 0,
+    }
+  }
 
   navigateToCategories = (category) => {
     this.props.navigateToCategories(category)
   }
+
+  onScrollEvent = () => (e) => {
+    this.setState({ scrollX: e.nativeEvent.contentOffset.x });
+  };
+
+  renderIndicator(images, indexPage) {
+    let counter = -1;
+    if(images) {
+        const imagesRender = images.map((image, index) => {
+        counter++;
+        return <View key={ index } style={ [styles.cover.indicator.bubble, counter === indexPage ? styles.cover.indicator.bubbleActive : {}] } />
+      });
+
+      return (
+        <View style={ styles.cover.indicator.container(this.props.top, this.props.right) }>
+          { imagesRender }
+        </View>
+
+      );
+    }
+
+  };
 
   renderCategory = (page) => {
     return page.map((item, i) => {
@@ -55,6 +86,7 @@ export default class Categories extends Component {
 
 
   render () {
+    let position = Math.round(this.state.scrollX / width);
     return (
       <View style={styles.container}>
           <FlatList
@@ -62,6 +94,7 @@ export default class Categories extends Component {
             showsHorizontalScrollIndicator={false}
             horizontal
             pagingEnabled
+            onScroll={this.onScrollEvent()}
             data = {this.props.categoriesPage}
             keyExtractor={(item) => item[0].code}
             renderItem={({item, index}) => (
@@ -69,7 +102,7 @@ export default class Categories extends Component {
             
             )}
           />
-          
+        {this.renderIndicator(this.props.categoriesPage, position)} 
       </View>
     )
   }

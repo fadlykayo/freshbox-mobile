@@ -18,7 +18,7 @@ gopay.payment = (snaptoken, midtrans, callback) => {
     };
   } else {
     config      = {
-      clientKey   : "SB-Mid-server-VMgZBx6-OicLLIOpUyv02NHg",
+      clientKey   : "SB-Mid-server-PAMe7T7Z-wks4hLopAXk9KNw",
       environment: 'sandbox',
       urlMerchant : "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com", 
     };

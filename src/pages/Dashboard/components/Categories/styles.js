@@ -7,7 +7,9 @@ const { height, width } = Dimensions.get('window');
 export default {
   container: {
     width: width,
-    height: 200,
+    height: 240,
+    borderBottomColor: colour.veryLightGrey,
+    borderBottomWidth: 8,
   },
   flatlist: {
     container: {
@@ -48,5 +50,37 @@ export default {
       flexWrap: 'wrap',
       justifyContent: 'center',
     }
+  },
+  cover: {
+    indicator: {
+      container: (top = 150, right = 155) => {
+        return {
+          width: width * 0.9,
+          padding: 5,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          bottom: 5,
+          left: 21,
+          // borderWidth: 1,
+          // borderColor: 'red',
+        }
+      },
+
+      bubble: {
+        width: 6,
+        height: 6,
+        marginHorizontal: 4,
+        borderRadius: 50,
+        backgroundColor: colour.grey,
+      },
+
+      bubbleActive: {
+        width: 6,
+        height: 6,
+        backgroundColor: colour.red,
+      },
+    },
   }
 }

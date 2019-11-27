@@ -110,7 +110,7 @@ actions.request_snap_token = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Request Snap Token res ->',res);
+        	console.log('Request Snap Token res ->',res);
         	if(res.code){
         		if(res.code == 200){
 							// analytics.trackEvent('Purchase Orders', {status: 'Pending'});
@@ -119,7 +119,7 @@ actions.request_snap_token = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Request Snap Token err ->', err);
+        	console.log('Request Snap Token err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -267,6 +267,8 @@ actions.get_transaction = (req,success,failure) => {
 	payload.path = path.transactionHistory;
 	payload.header = req.header;
 	payload.params = req.params;
+
+	console.log('payload trans', payload)
 	
 	return dispatch => {
         requestHandler('get',payload,dispatch)
@@ -280,7 +282,7 @@ actions.get_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Transactions err', err);
+        	console.log('Get Transactions err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -342,7 +344,8 @@ actions.detail_transaction = (req,success,failure) => {
 						if(req.type) failure(err);
         				else dispatch(actNetwork.set_error_status({
         					status: true,
-        					data: JSON.stringify(err)
+        					data: 'Pembayaran batal dilakukan.',
+									title: 'formError.title.paymentCanceled'
 						}));
 						
         		}

@@ -36,7 +36,7 @@ class Dashboard extends Component {
 				openImageDetail: false,
 				checkout: false,
 			},
-			loadingTransaction: true,
+			loadingTransaction: false,
 			refreshing: false,
 			banner: [
 				{

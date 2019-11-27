@@ -17,10 +17,10 @@ const style = {
       alignItems: 'center',
     },
     left: {
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
     },
     right: {
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
     },
     textPromo: {
       fontSize: 17,
@@ -35,7 +35,7 @@ const style = {
   },
   promo: {
     container: {
-      height: 270,
+      height: 275,
       flex: 1,
       paddingLeft: 15,
       paddingHorizontal: 10,

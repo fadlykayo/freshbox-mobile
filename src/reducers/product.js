@@ -200,28 +200,46 @@ const getCategories = (state, payload) => {
         }
     }
 
-    for(let i = 0; i < payload.data.length; i++) {
-        payload.data[i].check = false;
-    }
-    payload.data.unshift(defaultData)
+    let compare = (a,b) => {
+        
+        const bandA = a.name.toUpperCase();
+        const bandB = b.name.toUpperCase();
 
-    for(let i = 0; i < payload.data.length; i++) {
-        if(payload.data[i].check == true) {
-            newState.on_category = payload.data[i].name
+        let comparison = 0;
+        if (bandA > bandB) {
+            comparison = 1;
+        } else if (bandA < bandB) {
+            comparison = -1;
+        }
+        return comparison;
+    }
+
+    let categoriesSorted = payload.data.sort(compare);
+
+    for(let i = 0; i < categoriesSorted.length; i++) {
+        categoriesSorted[i].check = false;
+    }
+    categoriesSorted.unshift(defaultData)
+
+    for(let i = 0; i < categoriesSorted.length; i++) {
+        if(categoriesSorted[i].check == true) {
+            newState.on_category = categoriesSorted[i].name
         }
     }
     
-    newState.categories = payload.data;
+    newState.categories = categoriesSorted;
 
     let count = 1;
     let page = 1;
     let temp = [];
     let categoryRow = [];
 
-    for (let index = 0; index < payload.data.length; index++) {
-      temp.push(payload.data[index])
+
+
+    for (let index = 0; index < categoriesSorted.length; index++) {
+      temp.push(categoriesSorted[index])
       
-      if(count % 8 == 0 || count == payload.data.length) {
+      if(count % 8 == 0 || count == categoriesSorted.length) {
         
         page++
         categoryRow.push(temp)
@@ -347,10 +365,10 @@ const editTotal = (state,payload) => {
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
-    if(newState.currentDetail.products.length > 0) {
+    if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
         // const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
         newState.currentDetail.products.map((e,i) => {
-            if(e.product.code === payload.data.code) {
+            if(e.product.code  === payload.data.code) {
                 if(payload.type == 'inc') {
                     e.product.count += 1;
                 } else {
@@ -635,7 +653,7 @@ const cancelVoucher = (state, payload) => {
 getCurrentDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));  
 
-    console.log('get current detail', payload)
+    
 
     newState.currentDetail = payload
 

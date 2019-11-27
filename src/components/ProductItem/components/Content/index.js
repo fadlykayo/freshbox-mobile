@@ -46,18 +46,18 @@ class Content extends PureComponent {
 											{
 										this.props.dashboard ? null : 
 										<>
-										<StaticText
+										{/* <StaticText
 										style={styles.text.desc}
 										property={'productList.content.pack'}
-									/>
-										<Text style={styles.text.desc}>{this.props.data.short_description}</Text>
+									/> */}
+										{/* <Text style={styles.text.desc}>{this.props.data.short_description}</Text> */}
 										</>
 									}
 										</Text>
 									</View>
 								) : 
 								(
-									<View style={{height: 20}}/>
+									<View style={{height: 10}}/>
 								)
 							}
 							<Text style={styles.text.price.normal(this.props.data.on_promo)}>
@@ -82,6 +82,13 @@ class Content extends PureComponent {
 	
 
 							</Text>
+								{/* <View style={{flexDirection: 'row'}}>
+										<StaticText
+											style={styles.text.desc}
+											property={'productList.content.pack'}
+										/>
+										<Text style={styles.text.desc}>{this.props.data.short_description}</Text>
+								</View> */}
 
 						</View>
 					{/* )
