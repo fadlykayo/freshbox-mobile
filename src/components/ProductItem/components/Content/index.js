@@ -21,104 +21,79 @@ class Content extends PureComponent {
 		} 
 		return(
 			<View style={styles.container(this.props.dashboard)}>
-				{
-					this.props.dashboard ? 
-					<View style ={{width: 110,height: 35, marginTop: 0, justifyContent: 'center'}}>
-						<Text style={styles.text.title}>{this.props.data.name}</Text>
-						<Text style={styles.text.desc}>{this.props.data.short_description}</Text>		
-					</View> : 
-					<Text style={styles.text.title}>{this.props.data.name}</Text>
-				}
-				
-				{/* <Text style={styles.text.desc}>{this.props.data.product_category_name}</Text> */}
-				{/* <Text style={styles.text.desc}>1 pack ({this.props.data.short_description})</Text> */}
-						<View>
+					{
+						this.props.dashboard ? 
+						<View style ={{width: 110,height: 35, marginTop: 0, justifyContent: 'center'}}>
+							<Text style={styles.text.title}>{this.props.data.name}</Text>
+							<Text style={styles.text.desc}>{this.props.data.short_description}</Text>		
+						</View> : 
+						<View style ={{width: 170,height: 35, marginTop: 0, justifyContent: 'center'}}>
+							<Text style={styles.text.title}>{this.props.data.name}</Text>
+							<Text style={styles.text.desc}>{this.props.data.short_description}</Text>		
+						</View>
+					}
 
+						<View>
+							{ this.props.dashboard ? 
+								<Text style={styles.text.price.promo(this.props.dashboard)}>
+									<StaticText
+										property={'productList.content.price'}
+									/>
+									{productPrice}
+							
+							</Text> : 
+							(this.props.data.on_promo == 1 ? 
+								<Text style={styles.text.price.promo(this.props.dashboard)}>
+										<StaticText
+											property={'productList.content.price'}
+										/>
+										{productPrice}
+								
+								</Text> : null
+							)
+								
+							}
+							
 							{
 								this.props.data.on_promo == 1 ?
 								(
-									<View style={{height: 20, marginTop: 5}}>
-										<Text style={styles.text.price.promo}>
+									<View style={{flex: -1, flexDirection: 'row', alignItems: 'center'}}>
+										<Text style={styles.text.price.normal(this.props.data.on_promo)}>
 											<StaticText
 												property={'productList.content.price'}
 											/>
-											{productPrice}
-											{
-										this.props.dashboard ? null : 
-										<>
-										{/* <StaticText
-										style={styles.text.desc}
-										property={'productList.content.pack'}
-									/> */}
-										{/* <Text style={styles.text.desc}>{this.props.data.short_description}</Text> */}
-										</>
-									}
+											{productPromoPrice}
+
 										</Text>
+										{/* {this.props.dashboard ? null : 
+											<Text style={styles.text.price.promo(this.props.dashboard)}>
+												<StaticText
+													property={'productList.content.price'}
+												/>
+												{productPrice}
+										
+										</Text>
+										} */}
+										
+										
 									</View>
 								) : 
-								(
-									<View style={{height: 10}}/>
+								(	<View style={{flex: -1, marginTop: 15}}>
+										<Text style={styles.text.price.normal(this.props.data.on_promo)}>
+											<StaticText
+												property={'productList.content.price'}
+											/>
+											{productPromoPrice}
+
+										</Text>
+
+									</View>
+										
 								)
 							}
-							<Text style={styles.text.price.normal(this.props.data.on_promo)}>
-								<StaticText
-									property={'productList.content.price'}
-								/>
-								{productPromoPrice}
 								
-									
-									{
-										this.props.dashboard ? null : 
-										<>
-										<StaticText
-										style={styles.text.desc}
-										property={'productList.content.pack'}
-									/>
-										<Text style={styles.text.desc}>{this.props.data.short_description}</Text>
-										</>
-									}
-									
-
-	
-
-							</Text>
-								{/* <View style={{flexDirection: 'row'}}>
-										<StaticText
-											style={styles.text.desc}
-											property={'productList.content.pack'}
-										/>
-										<Text style={styles.text.desc}>{this.props.data.short_description}</Text>
-								</View> */}
 
 						</View>
-					{/* )
-					: (
-						<Text style={styles.text.price.normal(this.props.data.on_promo)}>
-							<StaticText
-								property={'productList.content.price'}
-							/>
-							{productPromoPrice}
-							<StaticText
-								style={styles.text.desc}
-								property={'productList.content.pack'}
-							/>
-							<Text style={styles.text.desc}>{this.props.data.unit}</Text>
-						</Text>
-					)
-				} */}
-				{/* <Text style={styles.text.price}>
-					<StaticText
-						style={styles.text.price}
-						property={'productList.content.price'}
-					/>
-					{productPrice}
-					<StaticText
-						style={styles.text.desc}
-						property={'productList.content.pack'}
-					/>
-					<Text style={styles.text.desc}>{this.props.data.unit}</Text>
-				</Text> */}
-				{/* <Text style={styles.text.desc}>{this.props.data.short_description}</Text> */}
 			</View>
 		);
 	}

@@ -29,12 +29,12 @@ const style = {
   productList: {
     outerContainer: {
       // marginVertical: 10,
-      marginHorizontal: 5,
+      // marginHorizontal: 5,
     },
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingHorizontal: 24,
+      paddingHorizontal: 20,
       marginBottom: 10,
     },
     textBold: {

@@ -46,6 +46,7 @@ const styles = {
 			flexDirection: dashboard ? 'column' : 'row',
 			alignItems: 'center',
 			justifyContent: 'center',
+			// backgroundColor: 'blue',
 			paddingLeft: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
 			paddingRight: dashboard ? scaling.moderateScale(5): scaling.moderateScale(10),
 		}),

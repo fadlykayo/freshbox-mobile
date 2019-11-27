@@ -89,10 +89,8 @@ class ProductItem extends PureComponent {
 			productImage = data.images_sizes_url.original[0];
 		} else {
 
-			productImage = data.images_sizes_url["100x100"][0]
+			productImage = data.images_sizes_url.original[0]
 		}
-		// console.log(this.props.data)
-		// console.log(this.props.data.images_sizes_url["50x50"][0])
 		if(this.props.dashboard) {
 
 			return(
