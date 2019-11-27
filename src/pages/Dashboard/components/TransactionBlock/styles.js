@@ -37,6 +37,7 @@ const style = {
   bottom: {
     container: {
       flex: 1,
+      // height: 200,
       // backgroundColor: 'pink',
       // alignItems: 'center',
       flexDirection: 'row',
@@ -59,7 +60,6 @@ const style = {
       backgroundColor: colour.white,
       flex: -1,
       width: width * 0.8,
-      marginVertical: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -70,16 +70,17 @@ const style = {
       shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
       shadowOffset: Platform.OS == 'ios' ? {
         width: 0,
-        height: 10,
+        height: 5,
       } : {
         width: 0,
         height: 0,
       },
-      shadowOpacity: Platform.OS == 'ios' ? 1.0 : 0,
-      shadowRadius: Platform.OS == 'ios' ? 30 : 0,
+      shadowOpacity: Platform.OS == 'ios' ? 2 : 0,
+      shadowRadius: Platform.OS == 'ios' ? 4 : 0,
 
-      elevation: Platform.OS == 'android' ? 0 : 0,
+      elevation: Platform.OS == 'android' ? 3 : 0,
       marginRight: 10,
+      marginBottom: 10,
     },
     emptyContainer: {
       flexDirection: 'row', 

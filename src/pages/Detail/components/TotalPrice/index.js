@@ -132,6 +132,9 @@ class TotalPrice extends Component {
         let discount = numeral(this.props.additional).format('0,0');
         let grandTotal = numeral(this.props.grandTotal).format('0,0');
 
+        if (this.props.subtotalHistory >= 100000) {
+            deliveryPrice = numeral(10000).format('0,0');
+        }
 
         if(this.props.discount) {
             

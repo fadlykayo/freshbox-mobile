@@ -29,8 +29,8 @@ actions.cancel_invoice = (req, success, failure) => {
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200) {
-					console.log('cancel invoice ==>', res)
-					console.log('req', req)
+					// console.log('cancel invoice ==>', res)
+					// console.log('req', req)
 					dispatch(actReducer.cancel_transaction(req.body))
 					dispatch(actNetwork.set_error_status({
 						status: true,
@@ -119,7 +119,7 @@ actions.request_snap_token = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Request Snap Token err ->', err);
+        	console.log('Request Snap Token err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -267,11 +267,13 @@ actions.get_transaction = (req,success,failure) => {
 	payload.path = path.transactionHistory;
 	payload.header = req.header;
 	payload.params = req.params;
-	console.log('params page', payload.params)
+
+	console.log('payload trans', payload)
+	
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Transactions res',res);
+        	// console.log('Get Transactions res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_transaction(res.data))
@@ -342,7 +344,8 @@ actions.detail_transaction = (req,success,failure) => {
 						if(req.type) failure(err);
         				else dispatch(actNetwork.set_error_status({
         					status: true,
-        					data: JSON.stringify(err)
+        					data: 'Pembayaran batal dilakukan.',
+									title: 'formError.title.paymentCanceled'
 						}));
 						
         		}
@@ -359,7 +362,7 @@ actions.reorder_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Get Reorder Transaction res',res);
+        	// console.log('Get Reorder Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.reorder_transaction(res.data))
@@ -368,7 +371,7 @@ actions.reorder_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Reorder Transaction err', err);
+        	// console.log('Get Reorder Transaction err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

@@ -32,7 +32,7 @@ const styles = {
 				// borderWidth: 1,
 				marginTop: on_promo == 1 ? 5 : 0,
 				paddingBottom: on_promo == 1 ? 10 : 0,
-				paddingRight: 10
+				paddingRight: 20
 			})
 		},
 		desc:{

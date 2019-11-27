@@ -8,9 +8,6 @@ const style = {
 
   container: {
     flex: -1,
-    // marginTop: 10
-    // backgroundColor: 'pink',
-    // height: height,
   },
   top: {
     container: {
@@ -20,10 +17,10 @@ const style = {
       alignItems: 'center',
     },
     left: {
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
     },
     right: {
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
     },
     textPromo: {
       fontSize: 17,
@@ -38,11 +35,10 @@ const style = {
   },
   promo: {
     container: {
-      height: 265,
+      height: 275,
       flex: 1,
       paddingLeft: 15,
       paddingHorizontal: 10,
-      // borderWidth: 1,
       
     },
     card: {

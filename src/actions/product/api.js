@@ -41,9 +41,9 @@ actions.get_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Products err ->', err);
+        	// console.log('Get Products err ->', err);
         	if(!err.code){
-						console.log('error', err)
+						// console.log(err)
         		// dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
@@ -95,7 +95,6 @@ actions.get_favorites = (req,success,failure) => {
 };
 
 actions.get_categories = (req, success, failure) => {
-	// console.log('get categories')
 	payload.path = path.getCategories;
 	payload.header = req.header;
     payload.body = req.body;
@@ -105,7 +104,7 @@ actions.get_categories = (req, success, failure) => {
 
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Categories res',res);
+        	// console.log('Get Categories res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_categories(res.data));
@@ -113,7 +112,7 @@ actions.get_categories = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Get Categories err', err);
+        	// console.log('Get Categories err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -155,7 +154,7 @@ actions.search_products = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Search Products err', err);
+        	// console.log('Search Products err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -182,7 +181,7 @@ actions.get_promo = (req, success, failure) => {
 		
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					console.log('get Promo res', res);
+					// console.log('get Promo res', res);
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {
@@ -195,7 +194,7 @@ actions.get_promo = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Search Promo err', err);
+        	// console.log('Search Promo err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

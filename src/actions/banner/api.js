@@ -18,7 +18,7 @@ actions.get_banner = (req, success, failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					console.log('banner ====>', res)
+					// console.log('banner ====>', res)
         	if(res.code){
         		if(res.code == 200){
 							dispatch(actReducer.get_banners(res.data))
@@ -61,7 +61,7 @@ actions.get_detail_banner = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-					// console.log('====>', err)
+					// console.log('====> detail banner err', err)
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

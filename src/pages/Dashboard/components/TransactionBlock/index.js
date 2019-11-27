@@ -14,7 +14,7 @@ export default class TransactionBlock extends Component {
           return transaction
         }
       })
-      if(transactionNonPending.length > 1) {
+      if(transactionNonPending.length > 0) {
         return transactionNonPending.map((transaction, i) => {
           if(transaction) {
             return (

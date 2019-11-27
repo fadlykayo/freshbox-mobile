@@ -1,49 +1,110 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, Image, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, FlatList, Image, TouchableWithoutFeedback, ScrollView, Dimensions } from 'react-native'
 import images from '@assets'
 import styles from './styles'
+const { height, width } = Dimensions.get('window');
+
 
 export default class Categories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollX: 0,
+      count: 0,
+    }
+  }
 
   navigateToCategories = (category) => {
     this.props.navigateToCategories(category)
   }
-  
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.flatlist.container}>
-        <FlatList
-          nestedScrollEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data = {this.props.categories}
-          keyExtractor={(item) => item.code}
-          renderItem={({item, index}) => (
-            <TouchableWithoutFeedback onPress = {() => this.navigateToCategories(item)}>
-            <View style={styles.icon.outerContainer}>
-            <View style={styles.icon.container}>
-            {
-              item.images_url && item.images_url !== '' ? 
-              <Image
-                source={{uri: item.images_sizes_url.original[0]}}
-                style={styles.icon.image}
-              /> : <Image
-                source={images.icon_categories}
-                style={styles.icon.image}
-              />
-            }
-              
-            </View>
-            <Text style={styles.icon.text}>{item.name == 'Default' ? 'All' : item.name}</Text>
-            </View>
-            </TouchableWithoutFeedback>
-          )}
-        />
+
+  onScrollEvent = () => (e) => {
+    this.setState({ scrollX: e.nativeEvent.contentOffset.x });
+  };
+
+  renderIndicator(images, indexPage) {
+    let counter = -1;
+    if(images) {
+        const imagesRender = images.map((image, index) => {
+        counter++;
+        return <View key={ index } style={ [styles.cover.indicator.bubble, counter === indexPage ? styles.cover.indicator.bubbleActive : {}] } />
+      });
+
+      return (
+        <View style={ styles.cover.indicator.container(this.props.top, this.props.right) }>
+          { imagesRender }
         </View>
 
+      );
+    }
+
+  };
+
+  renderCategory = (page) => {
+    return page.map((item, i) => {
+
+        return (
+          <TouchableWithoutFeedback onPress = {() => this.navigateToCategories(item)}>
+            <View style={styles.icon.outerContainer}>
+              <View style={styles.icon.container}>
+              {
+                item.images_url && item.images_url !== '' ? 
+                <Image
+                  source={{uri: item.images_sizes_url.original[0]}}
+                  style={styles.icon.image}
+                /> : <Image
+                  source={images.icon_categories}
+                  style={styles.icon.image}
+                />
+              }
+                
+              </View>
+
+              <Text style={styles.icon.text}>{item.name == 'Default' ? 'All' : item.name}</Text>
+              
+              
+            </View>
+          </TouchableWithoutFeedback>
+        )
+
+    })
+  }
+
+  renderPageCategory = (page, index) => {
+    
+    return (
+      
+      <View style={styles.page.container}>
+
+        {
+          page ? this.renderCategory(page) : null
+        }
 
       </View>
     )
   }
+
+
+  render () {
+    let position = Math.round(this.state.scrollX / width);
+    return (
+      <View style={styles.container}>
+          <FlatList
+            nestedScrollEnabled={true}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            pagingEnabled
+            onScroll={this.onScrollEvent()}
+            data = {this.props.categoriesPage}
+            keyExtractor={(item) => item[0].code}
+            renderItem={({item, index}) => (
+            this.renderPageCategory(item, index)
+            
+            )}
+          />
+        {this.renderIndicator(this.props.categoriesPage, position)} 
+      </View>
+    )
+  }
+  
 }

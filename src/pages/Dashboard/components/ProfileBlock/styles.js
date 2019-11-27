@@ -54,7 +54,7 @@ const style = {
   bottom: {
     whiteRound: {
       height: height * 0.1,
-      backgroundColor: colour.white,
+      backgroundColor: colour.whiteBackground,
       borderTopLeftRadius: 25,
       borderTopRightRadius: 25,
     }

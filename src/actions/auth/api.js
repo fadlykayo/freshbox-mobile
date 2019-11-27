@@ -21,7 +21,7 @@ actions.sign_in = (req, success, failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-			// console.warn('sign in success -> ',res);
+					console.log('sign in success -> ',res);
         	if(res.code){
         		if(res.code == 200){
 							dispatch(actReducer.sign_in(res.data));
@@ -33,7 +33,7 @@ actions.sign_in = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-			// console.log('sign in error -> ',err);
+					console.log('sign in error -> ',err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

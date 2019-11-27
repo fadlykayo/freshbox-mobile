@@ -12,6 +12,7 @@ export const colour = {
     lightOrange: 'rgb(255, 238, 230)',
     orange: 'rgb(255, 136, 83)',
     white: 'rgb(255,255,255)',
+    whiteBackground: 'rgb(250,250,250)',
     whiteAO: 'rgba(255,255,255,0.8)',
     whiteTransparent: 'rgba(255,255,255,0.4)',
     backgroundGrey: 'rgba(250,250,250,0.8)',
