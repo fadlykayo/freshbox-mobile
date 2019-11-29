@@ -366,10 +366,12 @@ const editTotal = (state,payload) => {
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
     if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
-        // const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
+        const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
+        
         newState.currentDetail.products.map((e,i) => {
             if(e.product.code  === payload.data.code) {
                 if(payload.type == 'inc') {
+                    
                     e.product.count += 1;
                 } else {
                     e.product.count -= 1;
@@ -418,7 +420,7 @@ const editTotal = (state,payload) => {
     console.log(currentCart)
     for(i in currentCart){
         // console.log('dshajdhjksa', currentCart[i])
-        if(currentCart[i].banner_harga_jual !== null) {
+        if(currentCart[i].banner_harga_jual && currentCart[i].banner_harga_jual !== null) {
             total = total + (currentCart[i].banner_harga_jual * currentCart[i].count)
         } else {
             total = total + (currentCart[i].promo_price * currentCart[i].count);
@@ -427,7 +429,7 @@ const editTotal = (state,payload) => {
         count = count + currentCart[i].count;
         currentCart[i].maxQty = payload.data.maxQty;
     }
-    console.log(total, 'total')
+    // console.log(total, 'total')
     newState.total.count = count;
     newState.total.price = total;
     newState.cart.products = currentCart.filter(e => e.count > 0);

@@ -15,33 +15,34 @@ const styles = {
 			color: colour.darkGrey,
 		},
 		price:{
-			promo: {
+			promo: (dashboard) => ({
 				fontFamily: 'Avenir-Roman',
-				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
+				fontSize: scaling.isIphone5s() ? scaling.moderateScale(11) : scaling.moderateScale(12),
 				color: colour.darkerGrey,
 				textDecorationLine: 'line-through',
-				paddingRight: 10
-				// marginTop: 10,
+				// paddingTop: 10,
+				marginTop: dashboard ? 10 : 5,
 				// borderWidth: 1,
 				
-			},
+			}),
 			normal: (on_promo) => ({
 				fontFamily: 'Avenir-Heavy',
 				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 				color: colour.darkGrey,
 				// borderWidth: 1,
-				marginTop: on_promo == 1 ? 5 : 0,
-				paddingBottom: on_promo == 1 ? 10 : 0,
-				paddingRight: 20
+				// marginTop: on_promo == 1 ? 5 : 0,
+				// paddingBottom: on_promo == 1 ? 10 : 0,
+				paddingRight: 2,
 			})
 		},
 		desc:{
 			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.isIphone5s() ? scaling.moderateScale(12) : scaling.moderateScale(11),
+			fontSize: scaling.isIphone5s() ? scaling.moderateScale(11) : scaling.moderateScale(11),
 			color: colour.greyDesc,
+
 			// borderWidth: 1,
-			height: 20,
-			// marginHorizontal: 5,
+			// height: 20,
+			marginVertical: 5,
 		}
 	}
 }

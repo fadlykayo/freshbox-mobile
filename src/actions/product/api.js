@@ -267,7 +267,7 @@ actions.add_favorite = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Add Favourite err', err);
+        	console.log('Add Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

@@ -15,7 +15,7 @@ const styles = {
 			justifyContent: 'space-between',
 			borderRadius: 100,
 			// marginRight: dashboard ? null : scaling.moderateScale(10),
-			marginBottom: dashboard ? scaling.moderateScale(20) : (scaling.isIphone5s() ? scaling.moderateScale(5) : scaling.moderateScale(15)),
+			marginBottom: dashboard ? scaling.moderateScale(20) : (scaling.isIphone5s() ? scaling.moderateScale(5) : scaling.moderateScale(5)),
 		}),
 		add:(dashboard) => ({
 			borderColor: colour.red,
@@ -30,7 +30,7 @@ const styles = {
 			elevation: Platform.OS == 'android' ? 2 : 0,
 		}),
 		counter:{
-			paddingHorizontal: scaling.moderateScale(4),
+			// paddingHorizontal: scaling.moderateScale(4),
 			paddingVertical: scaling.moderateScale(3),
 			// borderWidth: 1,
 			backgroundColor: colour.white,

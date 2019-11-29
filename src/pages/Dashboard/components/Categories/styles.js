@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window');
 export default {
   container: {
     width: width,
-    height: 240,
+    height: 250,
     borderBottomColor: colour.veryLightGrey,
     borderBottomWidth: 8,
   },
@@ -61,7 +61,7 @@ export default {
           justifyContent: 'center',
           alignItems: 'center',
           position: 'absolute',
-          bottom: 5,
+          bottom: 10,
           left: 21,
           // borderWidth: 1,
           // borderColor: 'red',
