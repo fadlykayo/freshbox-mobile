@@ -10,7 +10,7 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: dashboard ? null : width * 0.95,
-		height: dashboard ? 260 : width * 0.28,
+		height: dashboard ? 270 : width * 0.28,
 		borderWidth: 1,
 		borderRadius: 8,
 		borderColor: colour.white,
@@ -32,6 +32,7 @@ const styles = {
 			)
 		),
 		marginHorizontal: scaling.moderateScale(5),
+		marginVertical: scaling.moderateScale(5),
 		marginRight: scaling.moderateScale(10),
 		paddingTop: dashboard ? null : (i == 1 ? 20 : 20),
 		paddingBottom: 20,

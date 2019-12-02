@@ -327,20 +327,6 @@ class Dashboard extends Component {
 	}
 
   submitSearch = (searchItem) => {
-
-		// let category_code = null;
-
-		// this.props.categories.map(c => {
-		// 	if(this.props.on_category !== "Default") {
-				
-		// 		if(c.name == this.props.on_category) {
-		// 			category_code = c.code
-		// 		}
-
-		// 	}
-		// });
-
-		// console.warn(category_code)
 		
 
 		let payload={
@@ -676,10 +662,7 @@ class Dashboard extends Component {
 	}
 
 		handleLoadMoreProducts = () => {
-			console.log('dashboard load more')
-		// this.setState({listLoading: true})
-
-		// console.warn('masuk')
+	
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -712,20 +695,6 @@ class Dashboard extends Component {
 			// this.setState({listLoading: false})
 		}
 	}
-
-	// navigateToPromoList = () => {
-
-	// 	let categories = {};
-	// 	this.props.categories.map((c, i) => {
-	// 		if(c.name == 'Promo') {
-	// 			categories.code = c.code;
-	// 			categories.name = 'Promo';
-	// 		}
-	// 	})
-		
-	// 	// console.warn(categories)
-	// 	this.navigateToCategories(categories)
-	// }
 
 	navigateToCampaign = () => {
 		actNav.navigate(navConstant.Campaigns);
@@ -780,6 +749,7 @@ class Dashboard extends Component {
 				<View key={index}>
 
 					<ProductItem
+						dashboard
 						search={this.state.search}
 						data={product}
 						index={index+1}
@@ -815,14 +785,10 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
-		// console.warn(height * 0.05)
     return (
 			
       <Container
 				backgroundColor ={'white'}
-        // bgColorBottom = {'veryLightGrey'}
-        // bgColorTop={'white'}
-				// containerColor={'white'}
       >
 			
       <SearchComponent
@@ -906,34 +872,13 @@ class Dashboard extends Component {
 
 						
 					</View>
-					{/* <View style={{height: 600}}> */}
-					{
-						this.renderProducts(this.props.product)
-					}
-					{/* <FlatList
-								data={this.props.product}
-								onEndReachedThreshold={0.5}
-								keyExtractor={(item) => item.code}
-								onEndReached={this.handleLoadMoreProducts}
-								renderItem={({item,index}) => (
-									<View key={index}>
-
-										<ProductItem
-											search={this.state.search}
-											data={item}
-											index={index+1}
-											type={'productList'}
-											user={this.props.user}
-											toggleFavorite={this.toggleFavorite}
-											changeTotalItem={this.changeTotalItem}
-											productLength={this.props.product.length}
-											openDetailProduct= {this.openDetailProduct}
-										/>
-									</View>
-								)}
-							/> */}
-							{/* </View> */}
-						</View>
+					<View style={styles.productList.rowContainer}>
+						{
+							this.renderProducts(this.props.product)
+						}
+					</View>
+					
+					</View>
         </View>
 				
 				<ProductDetail

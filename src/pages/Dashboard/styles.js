@@ -37,6 +37,12 @@ const style = {
       paddingHorizontal: 20,
       marginBottom: 10,
     },
+    rowContainer: {
+      flex: -1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
     textBold: {
       fontFamily: 'Avenir-Heavy',
       fontSize: 17,

@@ -532,6 +532,7 @@ class Detail extends Component {
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 					discount={this.props.detailTransaction.discount_ammount > 0 ? this.props.detailTransaction.discount_ammount : this.props.discount}
+					freeShipping={this.props.minimumTrxFreeShippingCost}
 				/>
 				
 			</Container>
@@ -548,6 +549,7 @@ const mapStateToProps = (state) => ({
 	detailTransaction: state.transaction.detail,
 	transactions: state.transaction.transactions,
 	delivery_price: state.product.delivery_price,
+	minimumTrxFreeShippingCost : state.product.minimumTrxFreeShippingCost,
 	additional: state.product.additional.credit_card,
 	discount: state.product.discount,
 	coupon_code: state.product.coupon_code,

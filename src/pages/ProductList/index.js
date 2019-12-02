@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Share, BackHandler } from 'react-native';
+import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Animated, Easing, Text, ActivityIndicator, Share, BackHandler, ScrollView, RefreshControl } from 'react-native';
 import { language, permission } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
@@ -710,6 +710,47 @@ class ProductList extends Component {
 
 	}
 
+	onScrollEvent = (e) => {
+		
+		if(e.nativeEvent.contentOffset.y/width > 2) {
+			this.handleLoadMore();
+		} 
+
+	}
+
+	renderProducts = (products) => {
+		let productCards = products.map((product, index) => {
+			return (
+				<ProductItem
+					dashboard
+					search={this.state.search}
+					data={product}
+					index={index+1}
+					type={'productList'}
+					user={this.props.user}
+					toggleFavorite={this.toggleFavorite}
+					changeTotalItem={this.changeTotalItem}
+					productLength={this.props.product.length}
+					openDetailProduct= {this.openDetailProduct}
+				/>
+			)
+		})
+		return (
+			<ScrollView
+				style={styles.scrollView} 
+				refreshControl={
+					<RefreshControl refreshing={this.state.refreshing} onRefresh={this.refreshHandler}/>
+				}
+				onScroll={this.onScrollEvent}
+				scrollEventThrottle={ 0 }
+			>
+				<View style= {styles.main.products.container}>
+					{productCards}
+				</View>
+			</ScrollView>
+		)
+	}
+
 	backHandler = () => {
 		console.log('halooo')
 		this.props.navigation.state.params.refreshProduct = true
@@ -752,9 +793,17 @@ class ProductList extends Component {
 								text={this.props.broadcast_message}
 					/>
 					<View style={styles.container}>
-						<View style={styles.cartContainer}>
-
+						{/* <View> */}
 						{
+							this.props.product.length > 0 ? 
+							this.renderProducts(this.props.product) : 
+							<EmptyState
+								property 	={'emptyState.search'}
+								image 		= {images.empty_search}
+							/>
+						}
+
+						{/* {
 							this.props.product.length > 0 ? 
 							<FlatList
 								ref={(e) => { this.listRef = e}}
@@ -767,13 +816,10 @@ class ProductList extends Component {
 								ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
 									<View key={index}>
-									{/* {
-										index == 0 ? 																					<Notes 
-								text={this.props.broadcast_message}
-							/> : null
-									} */}
+									
 
 										<ProductItem
+											dashboard
 											search={this.state.search}
 											data={item}
 											index={index+1}
@@ -785,7 +831,6 @@ class ProductList extends Component {
 											openDetailProduct= {this.openDetailProduct}
 										/>
 										
-										{ this._renderButton(index, this.props.product.length - 1) }
 									</View>
 								)}
 							/> :
@@ -794,7 +839,7 @@ class ProductList extends Component {
 								image 		= {images.empty_search}
 							/>
 							
-						}
+						} */}
 
 										
 							<Checkout
@@ -806,7 +851,7 @@ class ProductList extends Component {
 								modalVisible={this.state.modalVisible.checkout}
 							/>
 						</View>
-					</View>
+					{/* </View> */}
 				
 				<ProductDetail
 					type={'productList'}

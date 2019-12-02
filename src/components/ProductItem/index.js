@@ -142,50 +142,6 @@ class ProductItem extends PureComponent {
 						decTotalItem={this.decTotalItem}
 					/>
 				</View>
-			// 				<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
-			// 	<View style={styles.subcontainer.card(this.props.dashboard)}>
-			// 		<TouchableOpacity 
-			// 			onPress={this.openDetailProduct}
-			// 			style={styles.subcontainer.product(this.props.dashboard)}
-			// 		>
-			// 			<View style={styles.subcontainer.image(this.props.dashboard)}>
-			// 				<Image
-			// 					resizeMode={'contain'} 
-			// 					source={{uri: productImage}}
-			// 					style={styles.icon.product(this.props.dashboard)}
-			// 					resizeMethod={'resize'}
-			// 				/>
-			// 			</View>
-			// 			<Content data={data} bannerPrice={bannerPrice}/>
-			// 			{
-			// 				this.props.type == 'cart'
-			// 				? 	null
-			// 				:	<ButtonFav 
-			// 						data={data}
-			// 						user={this.props.user}
-			// 						isFavorite={data.favorite}
-			// 						onShare={this.onShare}
-			// 						toggleFavorite={this.props.toggleFavorite}
-			// 					/>
-			// 			}
-			// 		</TouchableOpacity>
-			// 		<ButtonCount
-			// 			data={data}
-			// 			count={data.count}
-			// 			addTotalItem={this.addTotalItem}
-			// 			decTotalItem={this.decTotalItem}
-			// 		/>
-			// 	</View>
-			// 	<View style={styles.subcontainer.verification}>
-			// 		<ProductStockVerificationText 
-			// 			type={this.props.type}
-			// 			count={data.count}
-			// 			stock={data.stock}
-			// 			maxQty={data.maxQty}
-			// 		/>
-			// 	</View>
-				
-			// </View>
 
 			);
 
