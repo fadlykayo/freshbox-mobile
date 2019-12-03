@@ -220,7 +220,7 @@ actions.get_delivery_price = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Shipping Cost res',res);
+        	console.log('Get Shipping Cost res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_delivery_price(res.data));

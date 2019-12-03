@@ -18,6 +18,7 @@ const initialState = {
     products: [],
     categories: [],
     on_category: '',
+    minimumTrxFreeShippingCost: 0,
     detail: {},
     total : {
         price: 0,
@@ -520,8 +521,10 @@ const editFavorite = (state,payload) => {
 }
 
 const getDeliveryPrice = (state, payload) => {
+    console.warn(payload)
     let newState = JSON.parse(JSON.stringify(state));
-    newState.delivery_price = payload.data;
+    newState.delivery_price = payload.data.shippingcost;
+    newState.minimumTrxFreeShippingCost = payload.data.minTrxFreeShippingCost;
 
     return newState;
 }

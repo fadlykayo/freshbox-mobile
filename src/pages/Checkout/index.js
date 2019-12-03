@@ -104,6 +104,11 @@ class Checkout extends Component {
 		this.props.get_delivery_price(payload, 
 			() => {
 				let state = this.state;
+
+				console.log('min trans', this.props.minimumTrxFreeShippingCost)
+
+				
+
 				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
 
 				this.setState(state)
@@ -568,6 +573,7 @@ messageOrderSuccess = () => {
 							action={'checkout'}
 							additional = {this.props.additional}
 							checkout={true}
+							freeShipping={this.props.minimumTrxFreeShippingCost}
 						/>
 					</View>
 
@@ -705,6 +711,7 @@ const mapStateToProps = (state) => ({
 	discount: state.product.discount,
 	coupon_code: state.product.coupon_code,
 	delivery_price: state.product.delivery_price,
+	minimumTrxFreeShippingCost: state.product.minimumTrxFreeShippingCost,
 	delivery_date: state.utility.delivery_date,
 	additional: state.product.additional.credit_card,
 	cart: state.product.cart.products

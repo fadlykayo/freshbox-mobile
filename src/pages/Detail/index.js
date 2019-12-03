@@ -370,19 +370,6 @@ class Detail extends Component {
 	
 				}
 			);
-			// actNav.navigate(navConstant.ChoosePayment)
-		// }
-		// else{
-		// 	actNav.navigate(navConstant.ChoosePayment,{
-		// 		...this.props.navigation.state.params,
-		// 		token: this.state.token,
-		// 		invoice: this.state.invoice,
-		// 		redirect_url: this.state.redirect_url,
-		// 		midtrans: this.state.midtrans,
-		// 		gopay: this.state.radio[2].status,
-		// 		validateTransactionStatus: this.validateTransactionStatus
-		// 	});
-		// }
 	}
 
 	navigateToTransferInstruction(){
@@ -414,6 +401,7 @@ class Detail extends Component {
 
 		this.props.detail_transaction(payload,
 			() => {
+				
 				if(this.state.refreshing) this.setState({refreshing: false});
 			},
 			(err) => {
@@ -433,7 +421,6 @@ class Detail extends Component {
 			}
 			
 		}
-		// console.warn(type)
 		this.setState({
 			radio: radio,
 			payment_type: type
@@ -532,6 +519,7 @@ class Detail extends Component {
 					navigateToChoosePayment={this.navigateToChoosePayment}
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 					discount={this.props.detailTransaction.discount_ammount > 0 ? this.props.detailTransaction.discount_ammount : this.props.discount}
+					freeShipping={this.props.minimumTrxFreeShippingCost}
 				/>
 				
 			</Container>
@@ -548,6 +536,7 @@ const mapStateToProps = (state) => ({
 	detailTransaction: state.transaction.detail,
 	transactions: state.transaction.transactions,
 	delivery_price: state.product.delivery_price,
+	minimumTrxFreeShippingCost : state.product.minimumTrxFreeShippingCost,
 	additional: state.product.additional.credit_card,
 	discount: state.product.discount,
 	coupon_code: state.product.coupon_code,

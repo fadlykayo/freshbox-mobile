@@ -327,20 +327,6 @@ class Dashboard extends Component {
 	}
 
   submitSearch = (searchItem) => {
-
-		// let category_code = null;
-
-		// this.props.categories.map(c => {
-		// 	if(this.props.on_category !== "Default") {
-				
-		// 		if(c.name == this.props.on_category) {
-		// 			category_code = c.code
-		// 		}
-
-		// 	}
-		// });
-
-		// console.warn(category_code)
 		
 
 		let payload={
@@ -527,7 +513,7 @@ class Dashboard extends Component {
 			},
 			invoice: input
 		}
-		console.log('=======> ini type', type)
+		
 		this.props.detail_transaction(payload,
 			() => {
 				actNav.navigate(navConstant.Detail,{
@@ -763,6 +749,7 @@ class Dashboard extends Component {
 				<View key={index}>
 
 					<ProductItem
+						dashboard
 						search={this.state.search}
 						data={product}
 						index={index+1}
@@ -885,9 +872,12 @@ class Dashboard extends Component {
 
 						
 					</View>
-					{
-						this.renderProducts(this.props.product)
-					}
+					<View style={styles.productList.rowContainer}>
+						{
+							this.renderProducts(this.props.product)
+						}
+					</View>
+					
 					</View>
         </View>
 				

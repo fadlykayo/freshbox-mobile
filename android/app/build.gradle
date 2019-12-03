@@ -180,6 +180,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':react-native-onesignal')
     implementation project(':react-native-sentry')
     implementation project(':react-native-firebase')
     // Firebase dependencies
@@ -196,7 +197,6 @@ dependencies {
     implementation project(':appcenter-analytics')
     implementation project(':appcenter')
     implementation project(':react-native-linear-gradient')
-    implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])

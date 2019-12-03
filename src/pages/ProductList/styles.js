@@ -5,6 +5,10 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
+	scrollView: {
+		flex: 1,
+		backgroundColor: colour.white
+	},
 	main: {
 		normal: {
 			flex: 1,
@@ -13,6 +17,14 @@ const styles = {
 			flex: 1,
 			backgroundColor: colour.blackTranslucent
 		},
+		products: {
+			container: {
+				flex: -1,
+				flexDirection: 'row',
+				flexWrap: 'wrap',
+				justifyContent: 'center',
+			}
+		}
 	},
 	container: {
 		flex: 1,

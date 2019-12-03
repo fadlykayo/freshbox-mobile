@@ -14,6 +14,7 @@ class App extends Component {
         this.onReceived = this.onReceived.bind(this);
         this.onOpened = this.onOpened.bind(this);
         this.onIds = this.onIds.bind(this);
+        OneSignal.init("c1f39bb2-11d8-4ebf-b836-61a0131fb3fa")
     }
 
     componentWillMount(){

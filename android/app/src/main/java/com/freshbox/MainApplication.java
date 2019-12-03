@@ -4,6 +4,7 @@ import android.app.Application;
 
 //import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
 // //
@@ -14,7 +15,6 @@ import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -62,6 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new ReactNativeOneSignalPackage(),
             new RNSentryPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAnalyticsPackage(),
@@ -73,7 +74,6 @@ public class MainApplication extends Application implements ReactApplication {
         new AppCenterReactNativePackage(MainApplication.this),
         new LinearGradientPackage(),
         new ImagePickerPackage(),
-        new ReactNativeOneSignalPackage(),
         new RNGoogleSigninPackage(),
         new FBSDKPackage(mCallbackManager),
         new VectorIconsPackage(),

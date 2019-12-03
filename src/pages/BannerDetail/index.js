@@ -458,7 +458,7 @@ class BannerDetail extends Component {
                   style={{flex: 1}}
               />
             </View> : 
-            <ScrollView style={styles.content}> */}
+            <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
             {this.props.currentDetail.coupon_code !== null && this.props.currentDetail.coupon_code ? this.renderVoucher() : null}

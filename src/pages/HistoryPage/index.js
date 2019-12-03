@@ -145,7 +145,7 @@ class HistoryPage extends Component {
 							onRefresh={this.getRefreshData}
 							refreshing={this.state.refreshing}
 							onEndReached={this.getHistoryData}
-							onEndReachedThreshold={0.05}
+							onEndReachedThreshold={0.5}
 							keyExtractor={(item) => String(item.invoice)}
 							renderItem={({item,index}) => (
 

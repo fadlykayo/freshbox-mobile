@@ -14,26 +14,23 @@ let payload = {
 
 actions.sign_in = (req, success, failure) => {
 	
-	payload.path = path.signInUser;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.signInUser;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-					console.log('sign in success -> ',res);
+					// console.log('sign in success -> ',res);
         	if(res.code){
         		if(res.code == 200){
 							dispatch(actReducer.sign_in(res.data));
-							// analytics.trackEvent('Login Record', {
-							// 	type: 
-							// })
         			success(res);
         		}
         	}
         })
         .catch((err) => {
-					console.log('sign in error -> ',err);
+					// console.log('sign in error -> ',err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -61,9 +58,9 @@ actions.sign_in = (req, success, failure) => {
 
 actions.sign_in_socmed = (req, success, failure) => {
 	
-	payload.path = path.signInSocmed;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.signInSocmed;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)
@@ -97,9 +94,9 @@ actions.sign_in_socmed = (req, success, failure) => {
 
 actions.otp_verification = (req,success,failure) => {
 	
-	payload.path = path.otpVerification;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.otpVerification;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)
@@ -141,9 +138,9 @@ actions.otp_verification = (req,success,failure) => {
 
 actions.otp_resend = (req,success,failure) => {
 	
-	payload.path = path.otpResend;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.otpResend;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)
@@ -184,9 +181,9 @@ actions.otp_resend = (req,success,failure) => {
 
 actions.forgot_password = (req, success, failure) => {
 	
-	payload.path = path.resetPasswordOTP;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.resetPasswordOTP;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
 		// console.log(payload)
@@ -221,9 +218,9 @@ actions.forgot_password = (req, success, failure) => {
 
 actions.reset_password = (req,success,failure) => {
 	
-	payload.path = path.resetPassword;
-	payload.header = req.header;
-	payload.body = req.body;
+	payload.path 		= path.resetPassword;
+	payload.header 	= req.header;
+	payload.body 		= req.body;
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)

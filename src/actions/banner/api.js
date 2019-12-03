@@ -12,8 +12,8 @@ let payload = {
 };
 
 actions.get_banner = (req, success, failure) => {
-	payload.path = path.banners;
-	payload.header = req.header;
+	payload.path 		= path.banners;
+	payload.header 	= req.header;
 	
 	return dispatch => {
         requestHandler('get',payload,dispatch)
@@ -46,8 +46,8 @@ actions.get_banner = (req, success, failure) => {
 };
 
 actions.get_detail_banner = (req, success, failure) => {
-	payload.path = `${path.banners}${req.params.bannerID}`;
-	payload.header = req.header;
+	payload.path 		= `${path.banners}${req.params.bannerID}`;
+	payload.header 	= req.header;
 	// console.log(payload.path)
 	return dispatch => {
         requestHandler('get',payload,dispatch)

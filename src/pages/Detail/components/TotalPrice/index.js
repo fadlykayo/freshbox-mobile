@@ -126,24 +126,38 @@ class TotalPrice extends Component {
         // const additional = numeral(this.props.additional).format('0,0');
         // const discount = numeral(this.props.additional).format('0,0');
         
-        let subTotal = numeral(this.props.subtotalHistory).format('0,0');
-        let deliveryPrice = numeral(this.props.delivery_price).format('0,0');
-        let additional = numeral(this.props.additional).format('0,0');
-        let discount = numeral(this.props.additional).format('0,0');
-        let grandTotal = numeral(this.props.grandTotal).format('0,0');
+        let subTotal        = numeral(this.props.subtotalHistory).format('0,0');
+        let deliveryPrice   = numeral(this.props.delivery_price).format('0,0');
+        let additional      = numeral(this.props.additional).format('0,0');
+        let discount        = numeral(this.props.additional).format('0,0');
+        let grandTotal      = numeral(this.props.grandTotal).format('0,0');
 
-        if (this.props.subtotalHistory >= 100000) {
-            deliveryPrice = numeral(10000).format('0,0');
-        }
+        
 
         if(this.props.discount) {
             
-            let totalDiscount = Number(this.props.additional) + Number(this.props.discount);
-            discount = numeral(totalDiscount).format('0,0');
+            let totalDiscount   = Number(this.props.additional) + Number(this.props.discount);
+            discount            = numeral(totalDiscount).format('0,0');
 
         } else {
             discount = numeral(this.props.additional).format('0,0');
         };
+
+        if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
+            
+            if(this.props.grandTotal - this.props.delivery_price > this.props.freeShipping) {
+                let discountFormated    = numeral(discount).format('0');
+                let grandTotalFormated  = numeral(grandTotal).format('0');
+                let discountAdd         = parseInt(discountFormated) + this.props.delivery_price;
+                let adjustedGrandTotal  = parseInt(grandTotalFormated) - this.props.delivery_price;
+
+                discount        = numeral(discountAdd).format('0,0');
+                deliveryPrice   = numeral(0).format('0,0');
+                grandTotal      = numeral(adjustedGrandTotal).format('0,0');
+            }
+            // console.warn(discount, deliveryPrice, grandTotal)
+        }
+
   	  	return (
             <View style={styles.container}>
                 <View style={styles.subcontainer.content}>

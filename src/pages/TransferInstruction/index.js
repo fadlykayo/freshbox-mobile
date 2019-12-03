@@ -333,7 +333,9 @@ class TransferInstruction extends Component {
                     onPress={this.navigateBack}
 					subTotal={this.props.detailTransaction.sub_total}
 					grandTotal={this.props.detailTransaction.grand_total}
+                    discount={(this.props.detailTransaction.discount_ammount !== null && this.props.detailTransaction.discount_ammount > 0) ? this.props.detailTransaction.discount_ammount : this.props.discount}
 					delivery_price={this.props.detailTransaction.shipping_cost}
+
                 />
             </Container>
         );
@@ -341,7 +343,8 @@ class TransferInstruction extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    detailTransaction: state.transaction.detail
+    detailTransaction: state.transaction.detail,
+    discount: state.product.discount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
