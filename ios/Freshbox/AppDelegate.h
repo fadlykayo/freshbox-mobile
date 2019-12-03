@@ -6,7 +6,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <RCTOneSignal.h>
 #import <React/RCTBridgeModule.h>
 #import <MidtransKit/MidtransKit.h>
 #import <React/RCTRootView.h>
@@ -14,7 +13,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeModule>
 
 @property (nonatomic, strong) UIWindow *window;
-@property (strong, nonatomic) RCTOneSignal* oneSignal;
 @property (strong, nonatomic) RCTRootView *rootView;
 
 - (void)goToNativeView:(MidtransUIPaymentViewController *)paymentVC;

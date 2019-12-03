@@ -23,7 +23,7 @@ const styles = {
 				textDecorationLine: 'line-through',
 				// alignSelf: 'center',
 				// paddingTop: 10,
-				marginTop: dashboard ? 15 : 5,
+				marginTop: dashboard ? 20 : 5,
 				// borderWidth: 1,
 				
 			}),

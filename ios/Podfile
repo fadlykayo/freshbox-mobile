@@ -39,6 +39,8 @@ target 'Freshbox' do
 
   # pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
 
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
 end
 
 post_install do |installer|

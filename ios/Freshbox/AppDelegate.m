@@ -18,7 +18,6 @@
 #import <Firebase.h>
 
 @implementation AppDelegate
-@synthesize oneSignal = _oneSignal;
 @synthesize rootView = _rootView;
 
 
@@ -29,7 +28,9 @@
   [AppCenterReactNative register];  // Initialize AppCenter
   [FIRApp configure]; //Firebase Init
   NSURL *jsCodeLocation;
-
+  
+  
+  
   
   #ifdef DEBUG
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
@@ -46,9 +47,9 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   self.rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                         appId:@"c1f39bb2-11d8-4ebf-b836-61a0131fb3fa"
-                                                      settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
+//  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
+//                                                         appId:@"c1f39bb2-11d8-4ebf-b836-61a0131fb3fa"
+//                                                      settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = self.rootView;
