@@ -41,7 +41,7 @@ const styles = {
             backgroundColor: colour.backgroundGrey,
         },
         container: {
-            height: height * 0.1,
+            flex: -1,
             // borderWidth: 1,
             justifyContent: 'center',
             paddingVertical: 10,

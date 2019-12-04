@@ -521,7 +521,7 @@ const editFavorite = (state,payload) => {
 }
 
 const getDeliveryPrice = (state, payload) => {
-    console.warn(payload)
+    
     let newState = JSON.parse(JSON.stringify(state));
     newState.delivery_price = payload.data.shippingcost;
     newState.minimumTrxFreeShippingCost = payload.data.minTrxFreeShippingCost;

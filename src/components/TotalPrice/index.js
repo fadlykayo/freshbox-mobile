@@ -36,7 +36,7 @@ class TotalPrice extends Component {
 
         if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
             
-            if(this.props.grandTotal - this.props.delivery_price > this.props.freeShipping) {
+            if(this.props.grandTotal - this.props.delivery_price >= this.props.freeShipping) {
                 let discountFormated    = numeral(discount).format('0');
                 let grandTotalFormated  = numeral(grandTotal).format('0');
                 let discountAdd         = parseInt(discountFormated) + this.props.delivery_price;

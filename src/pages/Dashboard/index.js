@@ -203,7 +203,7 @@ class Dashboard extends Component {
 				categories_code = c.code;
 			}
 		})
-		console.log('>>>>>>>>>>>>>>>>')
+		
 		if(this.props.paramsPromo.page <= this.props.paramsPromo.last_page) {
 					let payload = {
 				header: {
@@ -562,7 +562,7 @@ class Dashboard extends Component {
 		}
 		else {
 			if(category.name === 'Promo') {
-				console.log('promo')
+
 				payload = {
 					header: {
 						apiToken: this.props.user ? this.props.user.authorization : ''

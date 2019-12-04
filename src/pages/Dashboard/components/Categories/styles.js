@@ -31,9 +31,12 @@ export default {
       alignItems: 'center',
     },
     container: {
-      width: 50,
+      width: 60,
       height: 60,
-      borderRadius: 25,
+      borderRadius: 50,
+      // backgroundColor: colour.red,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     text: {
       fontFamily: 'Avenir-Roman',

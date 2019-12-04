@@ -53,7 +53,7 @@ export default class Categories extends Component {
                   source={{uri: item.images_sizes_url.original[0]}}
                   style={styles.icon.image}
                 /> : <Image
-                  source={images.icon_categories}
+                  source={images.icon_all_categories}
                   style={styles.icon.image}
                 />
               }
