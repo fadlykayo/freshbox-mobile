@@ -334,6 +334,7 @@ class TransferInstruction extends Component {
 					subTotal={this.props.detailTransaction.sub_total}
 					grandTotal={this.props.detailTransaction.grand_total}
 					delivery_price={this.props.detailTransaction.shipping_cost}
+                    discount={this.props.detailTransaction.discount_ammount}
                 />
             </Container>
         );

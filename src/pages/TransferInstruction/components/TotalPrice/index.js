@@ -12,7 +12,12 @@ class TotalPrice extends Component {
   	render() {
         const subTotal = numeral(this.props.subTotal).format('0,0');
         const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
-        const grandTotal = numeral(this.props.grandTotal).format('0,0');
+        let grandTotal = numeral(this.props.grandTotal).format('0,0');
+        console.warn(this.props.discount)
+        if(this.props.discount && this.props.discount !== null && this.props.discount > 0) {
+            let grandTotalAdjusted = this.props.grandTotal - this.props.discount;
+            grandTotal             = numeral(grandTotalAdjusted).format('0,0');
+        } 
   	  	return (
             <View style={styles.container}>
                 <View style={styles.subcontainer.content}>

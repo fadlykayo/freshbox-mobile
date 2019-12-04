@@ -74,7 +74,6 @@ public class MainApplication extends Application implements ReactApplication {
         new AppCenterReactNativePackage(MainApplication.this),
         new LinearGradientPackage(),
         new ImagePickerPackage(),
-        new ReactNativeOneSignalPackage(),
         new RNGoogleSigninPackage(),
         new FBSDKPackage(mCallbackManager),
         new VectorIconsPackage(),
