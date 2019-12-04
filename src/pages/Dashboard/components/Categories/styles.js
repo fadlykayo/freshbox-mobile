@@ -7,9 +7,13 @@ const { height, width } = Dimensions.get('window');
 export default {
   container: {
     width: width,
-    height: 250,
+    height: 310,
     borderBottomColor: colour.veryLightGrey,
     borderBottomWidth: 8,
+    borderTopWidth: 8,
+    borderTopColor: colour.veryLightGrey,
+    paddingTop: 10,
+    marginTop: 5,
   },
   flatlist: {
     container: {
@@ -22,7 +26,7 @@ export default {
   icon: {
     outerContainer: {
       width: 90,
-      height: 100,
+      height: 120,
       paddingTop: 10,
       alignItems: 'center',
     },
@@ -40,6 +44,17 @@ export default {
     image: {
       height: 50, 
       width: 50
+    }
+  },
+  text: {
+    container:{
+      paddingHorizontal: 25,
+      marginBottom: 8,
+    },
+    font: {
+      fontSize: 17,
+      fontFamily: 'Avenir-Heavy',
+      color: colour.darkGrey,
     }
   },
   page: {

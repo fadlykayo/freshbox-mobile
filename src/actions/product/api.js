@@ -256,7 +256,7 @@ actions.add_favorite = (req,success,failure) => {
 		
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Add Favourite res',res);
+        	console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -267,7 +267,7 @@ actions.add_favorite = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Add Favourite err', err);
+        	console.log('Add Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
