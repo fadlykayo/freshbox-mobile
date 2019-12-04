@@ -493,6 +493,7 @@ class ProductList extends Component {
 				});
 		}
 		else {
+			
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -503,6 +504,22 @@ class ProductList extends Component {
 					sort: 'nama-az',
 					// stock: 'tersedia',
 					category_code: input.code,
+				}
+			}
+
+			if(input.name.toUpperCase() == 'SPECIAL DEALS') {
+				payload = {
+					header: {
+						apiToken: this.props.user ? this.props.user.authorization : ''
+					},
+					body: {},
+					params: {
+						page: 1,
+						sort: 'nama-az',
+						// stock: 'tersedia',
+						on_promo: 1,
+						category_code: input.code,
+					}
 				}
 			}
 
@@ -764,7 +781,7 @@ class ProductList extends Component {
 	}
 
 	backHandler = () => {
-		console.log('halooo')
+		// console.log('halooo')
 		this.props.navigation.state.params.refreshProduct = true
 		actNav.goBack()
 	}

@@ -166,7 +166,7 @@ class Dashboard extends Component {
 		this.setLoading('promoList', true);
 
 		this.props.categories.map((c, i) => {
-			if(c.code == 'Promo') {
+			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
 				categories_code = c.code;
 			}
 		})
@@ -199,7 +199,7 @@ class Dashboard extends Component {
 		this.setLoading('promoList', true);
 		
 		this.props.categories.map((c, i) => {
-			if(c.code == 'Promo') {
+			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
 				categories_code = c.code;
 			}
 		})
@@ -561,7 +561,7 @@ class Dashboard extends Component {
 				});
 		}
 		else {
-			if(category.name === 'Promo') {
+			if(category.name.toUpperCase() === 'SPECIAL DEALS') {
 
 				payload = {
 					header: {
@@ -606,7 +606,7 @@ class Dashboard extends Component {
 		let category_code;
 		let payload;
 		this.props.categories.map((c, i) => {
-			if(c.name == 'Promo') {
+			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
 				category_code == c.code
 			}
 		})
