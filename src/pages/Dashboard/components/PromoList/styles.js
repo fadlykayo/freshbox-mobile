@@ -35,7 +35,7 @@ const style = {
   },
   promo: {
     container: {
-      height: 290,
+      height: 300,
       flex: 1,
       paddingLeft: 15,
       paddingHorizontal: 10,

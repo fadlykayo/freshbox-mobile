@@ -38,7 +38,7 @@ const initialState = {
         products: [],
     },
     currentDetail: [{
-        details: []
+        product: []
     }],
 }
 
@@ -461,7 +461,7 @@ const editFavorite = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
 
     //edit favorite banner product
-    if (newState.currentDetail.products.length !== 0) {
+    if (newState.currentDetail.products && newState.currentDetail.products.length !== 0) {
         const indexPromo = newState.currentDetail.products.map((e, i) => {
             if(e.product.code == payload.data.product.code) {
                 e.product.wishlisted = e.product.wishlisted == 1 ? 0 : 1;

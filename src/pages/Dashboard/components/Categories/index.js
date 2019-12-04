@@ -44,7 +44,7 @@ export default class Categories extends Component {
     return page.map((item, i) => {
 
         return (
-          <TouchableWithoutFeedback onPress = {() => this.navigateToCategories(item)}>
+          <TouchableWithoutFeedback onPress = {() => this.navigateToCategories(item)} key={i}>
             <View style={styles.icon.outerContainer}>
               <View style={styles.icon.container}>
               {
@@ -89,6 +89,9 @@ export default class Categories extends Component {
     let position = Math.round(this.state.scrollX / width);
     return (
       <View style={styles.container}>
+        <View style={styles.text.container}>
+          <Text style={styles.text.font}>Categories</Text>
+        </View>
           <FlatList
             nestedScrollEnabled={true}
             showsHorizontalScrollIndicator={false}

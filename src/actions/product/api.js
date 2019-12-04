@@ -256,7 +256,7 @@ actions.add_favorite = (req,success,failure) => {
 		
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Add Favourite res',res);
+        	console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({

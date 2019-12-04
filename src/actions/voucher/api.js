@@ -24,7 +24,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
       if(res.code){
         if(res.code == 200) {
           if(res.data.grand_total_diskon <= 0 || res.data.grand_total_diskon == null) {
-            console.warn(res.data)
+            
             if(!res.data.length) {
               // console.log(res)
               dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
@@ -38,6 +38,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
               failure();
             } 
           } else {
+            console.warn(res.data)
             dispatch(actReducer.set_discount_total(res.data))
             success();
           }

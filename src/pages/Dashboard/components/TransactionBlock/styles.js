@@ -16,12 +16,13 @@ const style = {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      paddingHorizontal: 20
     },
     left: {
-      paddingHorizontal: 25,
+      // paddingHorizontal: 20,
     },
     right: {
-      paddingHorizontal: 25,
+      // paddingHorizontal: 20,
     },
     textPromo: {
       fontSize: 17,
