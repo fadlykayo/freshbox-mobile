@@ -91,5 +91,5 @@ class App extends Component {
 	}
 }
 
-// App = codePush(App);
+App = codePush(App);
 export default App

@@ -24,6 +24,11 @@ class TotalPrice extends Component {
             
             let totalDiscount   = parseInt(this.props.additional) + parseInt(this.props.discount);
             discount            = numeral(totalDiscount).format('0,0');
+            if(!this.props.action) {
+                let adjustedGrandTotal      = numeral(grandTotal).format('0');
+                let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.discount;
+                grandTotal                  = numeral(grandTotalMinDiscount).format('0,0')
+            }
             
         } else {
             discount = numeral(this.props.additional).format('0,0');

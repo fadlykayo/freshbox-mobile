@@ -20,10 +20,11 @@ actions.checkVoucherValidity = (req, success, failure) => {
   return dispatch => {
     requestHandler('post', payload, dispatch)
     .then((res) => {
-      // console.log('voucher res 200 ==>', res)
+      console.log('voucher res 200 ==>', res)
       if(res.code){
         if(res.code == 200) {
           if(res.data.grand_total_diskon <= 0 || res.data.grand_total_diskon == null) {
+            console.warn(res.data)
             if(!res.data.length) {
               // console.log(res)
               dispatch(actReducer.cancel_voucher(req.body.subtotal)); 

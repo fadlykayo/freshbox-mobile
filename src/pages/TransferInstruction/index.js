@@ -335,7 +335,7 @@ class TransferInstruction extends Component {
 					grandTotal={this.props.detailTransaction.grand_total}
                     discount={(this.props.detailTransaction.discount_ammount !== null && this.props.detailTransaction.discount_ammount > 0) ? this.props.detailTransaction.discount_ammount : this.props.discount}
 					delivery_price={this.props.detailTransaction.shipping_cost}
-
+                    discount={this.props.detailTransaction.discount_ammount}
                 />
             </Container>
         );
