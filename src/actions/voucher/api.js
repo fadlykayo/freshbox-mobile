@@ -85,35 +85,35 @@ actions.cancel_voucher = (req, success, failure) => {
   payload.header = req.header;
   payload.body = req.body;
 
-  return dispatch => {
-    requestHandler('post', payload, dispatch)
-    .then((res) => {
-      // console.log('cancel voucher success', res)
-      if(res.code){
-        if(res.code == 200) {
-          dispatch(actReducer.cancel_voucher(req.body.subtotal));
-          success();
-        }
-      }
-    })
-    .catch((err) => {
-      // console.log('cancel voucher err', err)
-      if(!err.code){
-        dispatch(actNetwork.set_network_error_status(true));
-      } else {
-        switch(err.code){
-          case 400: return failure(err);
-          default:
-          dispatch(actNetwork.set_error_status({
-            status: true,
-            data: err.code_message
-          }));
-          failure(err);
-        }
-      }
-    })
-    // dispatch(actReducer.cancel_voucher(req.body.subtotal));
-    // success()
+  // return dispatch => {
+  //   requestHandler('post', payload, dispatch)
+  //   .then((res) => {
+  //     // console.log('cancel voucher success', res)
+  //     if(res.code){
+  //       if(res.code == 200) {
+  //         dispatch(actReducer.cancel_voucher(req.body.subtotal));
+  //         success();
+  //       }
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     // console.log('cancel voucher err', err)
+  //     if(!err.code){
+  //       dispatch(actNetwork.set_network_error_status(true));
+  //     } else {
+  //       switch(err.code){
+  //         case 400: return failure(err);
+  //         default:
+  //         dispatch(actNetwork.set_error_status({
+  //           status: true,
+  //           data: err.code_message
+  //         }));
+  //         failure(err);
+  //       }
+  //     }
+  //   })
+    dispatch(actReducer.cancel_voucher(req.body.subtotal));
+    success()
   }
 }
 
