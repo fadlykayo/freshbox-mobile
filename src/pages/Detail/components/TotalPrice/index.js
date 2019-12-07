@@ -152,7 +152,7 @@ class TotalPrice extends Component {
                 let adjustedGrandTotal  = parseInt(grandTotalFormated) - this.props.delivery_price;
 
                 discount        = numeral(discountAdd).format('0,0');
-                deliveryPrice   = numeral(0).format('0,0');
+                // deliveryPrice   = numeral(0).format('0,0');
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
             // console.warn(discount, deliveryPrice, grandTotal)

@@ -160,6 +160,7 @@
         },
         "content": {
             "price": "Rp. ",
+            "addAmount": "+ Rp. ",
             "checkout": "Rincian Pesanan",
             "pack": " pack",
             "subTotal": "Sub Total",

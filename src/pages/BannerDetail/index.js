@@ -3,6 +3,7 @@ import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, Fla
 import { actNav, navConstant } from '@navigations';
 import { language, analytics } from '@helpers';
 import moment from 'moment';
+import numeral from 'numeral';
 import { connect } from 'react-redux';
 import Checkout from '../ProductList/components/Checkout';
 import Container from '@components/Container';
@@ -149,7 +150,29 @@ class BannerDetail extends Component {
     _renderSyarat = () => {
       if(this.props.currentDetail.syarat_ketentuan && this.props.currentDetail.syarat_ketentuan !== '') {
         return (
+          <>
           <Text style = {styles.mid.contentText}>{this.props.currentDetail.syarat_ketentuan}</Text>
+          {
+            (this.props.currentDetail.coupon_min_purchase && this.props.currentDetail.coupon_min_purchase !== null) ?
+            <View style={{marginTop: 30}}>
+            <Image
+                    style={{...styles.mid.calendar, marginBottom: 5}}
+                    source={images.info}
+                  />
+            <View style = {styles.mid.subtitleContainer}>
+              <Text style = {styles.mid.date}>Minimum Purchase Rp. {numeral(this.props.currentDetail.coupon_min_purchase).format('0,0')}.</Text>
+              {/* {
+                (this.props.currentDetail.coupon_product && this.props.currentDetail.coupon_product.toUpperCase() === 'PER PRODUCT') ?
+                <Text style = {styles.mid.date}>/ Product</Text> : null
+              } */}
+            </View></View> : null
+
+          }
+          {
+              (this.props.currentDetail.coupon_product && this.props.currentDetail.coupon_product.toUpperCase() === 'ALL') ?
+              <Text style = {styles.mid.date}>Must Include Items on This List.</Text> : null
+          }
+          </>
         )
       } else {
         return (
@@ -160,8 +183,9 @@ class BannerDetail extends Component {
 
     renderContent = () => {
      const details = this.props.currentDetail;
-    //  console.warn(details)
+     console.warn(details)
      const expirationDate = moment(details.expiry_date).format("MMM Do, YYYY");
+     
         return (
           <View style={styles.mid.outerContainer}>
             <View style = {styles.mid.container}>
@@ -175,6 +199,19 @@ class BannerDetail extends Component {
                   />
                   <Text style = {styles.mid.date}>Valid until {expirationDate}</Text>
                 </View>
+                {/* {
+                  (details.coupon_min_purchase && details.coupon_min_purchase !== null) ?
+                  <View style = {styles.mid.subtitleContainer}>
+                    <Text style = {styles.mid.date}>Minimum Purchase Rp. {numeral(details.coupon_min_purchase).format('0,0')}</Text>
+                  </View> : null
+
+                }
+                {
+                   (details.coupon_product && details.coupon_product.toUpperCase() === 'ALL') ?
+                   <Text style = {styles.mid.date}>Must Include Items on This List</Text> : null
+                } */}
+                
+                
               </View>
 
               

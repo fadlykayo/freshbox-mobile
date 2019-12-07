@@ -84,7 +84,11 @@ actions.cancel_voucher = (req, success, failure) => {
   payload.path = path.cancelVoucher;
   payload.header = req.header;
   payload.body = req.body;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> b68defc2bc4be7e1a78b57f69fb339cec6dda636
   // return dispatch => {
   //   requestHandler('post', payload, dispatch)
   //   .then((res) => {
@@ -112,8 +116,15 @@ actions.cancel_voucher = (req, success, failure) => {
   //       }
   //     }
   //   })
+<<<<<<< HEAD
     dispatch(actReducer.cancel_voucher(req.body.subtotal));
     success()
+=======
+  // }
+  return dispatch => {
+      dispatch(actReducer.cancel_voucher(req.body.subtotal));
+      success();
+>>>>>>> b68defc2bc4be7e1a78b57f69fb339cec6dda636
   }
 }
 

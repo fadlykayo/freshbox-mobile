@@ -43,7 +43,7 @@ class TotalPrice extends Component {
                 let adjustedGrandTotal  = parseInt(grandTotalFormated) - this.props.delivery_price;
 
                 discount        = numeral(discountAdd).format('0,0');
-                deliveryPrice   = numeral(0).format('0,0');
+                // deliveryPrice   = numeral(0).format('0,0');
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
             
@@ -75,7 +75,7 @@ class TotalPrice extends Component {
                             <Text style={styles.text.price}>
                                 <StaticText
                                     style={styles.text.price}
-                                    property={'checkout.content.price'}
+                                    property={'checkout.content.addAmount'}
                                 />
                                 {deliveryPrice}
                             </Text>
@@ -90,7 +90,7 @@ class TotalPrice extends Component {
                                         <Text style={styles.text.price}>
                                             <StaticText
                                                 style={styles.text.price}
-                                                property={'checkout.content.price'}
+                                                property={'checkout.content.addAmount'}
                                             />
                                             {additional}
                                         </Text>
@@ -156,7 +156,7 @@ class TotalPrice extends Component {
                             <Text style={styles.text.price}>
                                 <StaticText
                                     style={styles.text.price}
-                                    property={'checkout.content.price'}
+                                    property={'checkout.content.addAmount'}
                                 />
                                 {deliveryPrice}
                             </Text>
@@ -171,7 +171,7 @@ class TotalPrice extends Component {
                                         <Text style={styles.text.price}>
                                             <StaticText
                                                 style={styles.text.price}
-                                                property={'checkout.content.price'}
+                                                property={'checkout.content.addAmount'}
                                             />
                                             {additional}
                                         </Text>
