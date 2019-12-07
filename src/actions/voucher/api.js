@@ -112,8 +112,10 @@ actions.cancel_voucher = (req, success, failure) => {
   //       }
   //     }
   //   })
-    dispatch(actReducer.cancel_voucher(req.body.subtotal));
-    success()
+  // }
+  return dispatch => {
+      dispatch(actReducer.cancel_voucher(req.body.subtotal));
+      success();
   }
 }
 

@@ -57,6 +57,7 @@ const styles = {
         },
         titleContainer: {
             // paddingVertical: 10,
+            justifyContent: 'space-between'
         },
         subtitleContainer: {
             flexDirection: 'row',
