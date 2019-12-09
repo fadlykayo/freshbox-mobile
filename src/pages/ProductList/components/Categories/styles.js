@@ -28,6 +28,7 @@ const styles = {
         backgroundColor: colour.white,
         paddingLeft: scaling.moderateScale(30),
         paddingBottom: width * 0.1,
+        height: height,
     },
     subcontainer:{
         title:{
