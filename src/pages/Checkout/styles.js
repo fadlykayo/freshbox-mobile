@@ -11,6 +11,18 @@ const styles = {
 		backgroundColor: colour.backgroundLightGrey,
 		// paddingHorizontal: scaling.moderateScale(30),
 	},
+	modal: {
+		container: {
+			flex: 1,
+			position: 'absolute',
+			left: 0,
+			top: 0,
+			right: 0,
+			bottom: 0,
+			backgroundColor: colour.blackTranslucent,
+			// paddingBottom: 20,
+		}
+	},
 	subcontainer:{
 		label:{
 			width: width * 0.9,

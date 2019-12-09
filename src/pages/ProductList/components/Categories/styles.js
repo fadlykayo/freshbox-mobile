@@ -28,12 +28,13 @@ const styles = {
         backgroundColor: colour.white,
         paddingLeft: scaling.moderateScale(30),
         paddingBottom: width * 0.1,
+        height: width
     },
     subcontainer:{
         title:{
             flex: -1,
-            marginHorizontal: width* 0.02,
-            paddingBottom: scaling.moderateScale(5),
+            marginHorizontal: 5,
+            paddingBottom: scaling.moderateScale(10),
         },
         button:{
             alignItems: 'center',

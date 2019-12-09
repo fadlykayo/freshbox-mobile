@@ -38,7 +38,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
               failure();
             } 
           } else {
-            console.warn(res.data)
+            // console.warn(res.data)
             dispatch(actReducer.set_discount_total(res.data))
             success();
           }
@@ -47,7 +47,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
       }
     })
     .catch((err) => {
-      console.log(err, 'halo')
+      // console.log(err, 'halo')
       if(!err.code){
         dispatch(actNetwork.set_network_error_status(true));
       } else {

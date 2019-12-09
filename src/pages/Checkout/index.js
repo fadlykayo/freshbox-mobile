@@ -26,6 +26,7 @@ class Checkout extends Component {
 			date: null,
 			modalVisible:{
 				showDeliveryDate: false,
+				showPriceDetail: true,
 			},
 			delivery_date: [],
 			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
@@ -35,6 +36,7 @@ class Checkout extends Component {
 			token: '',
 			invoice: '',
 			midtrans: '',
+			
 		}
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
@@ -368,8 +370,6 @@ class Checkout extends Component {
 					payment_type: method,
 				}
 			}
-
-			console.log('payload =>>', payload)
 			
 			this.props.request_snap_token(payload,
 				res => {
@@ -497,7 +497,23 @@ messageOrderSuccess = () => {
 		}
 	}
 
-  	render() {
+	// renderPriceDetail = () => {
+	// 	return (
+	// 		<DeliveryDate
+	// 			type={'price'}
+	// 			getDeliveryDate={this.getDeliveryDate}
+	// 			modalVisible={this.state.modalVisible.showDeliveryDate}
+	// 			closeDeliveryDate={this.closePriceDetail}
+	// 			dates={this.state.delivery_date}
+	// 		/>
+	// 	)
+	// }
+
+	// closePriceDetail = () => {
+	// 	this.setModalVisible('showPriceDetail', false);
+	// }
+
+	render() {
 		// console.warn(this.props.cart)
 		return (
 			<Container 				
@@ -698,6 +714,7 @@ messageOrderSuccess = () => {
 					closeDeliveryDate={this.closeDeliveryDate}
 					dates={this.state.delivery_date}
 				/>
+				{/* {this.renderPriceDetail()} */}
 			</Container>
 		);
   	}
