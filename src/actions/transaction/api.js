@@ -334,7 +334,7 @@ actions.detail_transaction = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Detail Transaction err', err);
+        	
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

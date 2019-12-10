@@ -19,35 +19,49 @@ class TotalPrice extends Component {
         let grandTotal      = numeral(this.props.grandTotal).format('0,0');
         
 
-        
-        if(this.props.discount) {
-            
-            let totalDiscount   = parseInt(this.props.additional) + parseInt(this.props.discount);
-            discount            = numeral(totalDiscount).format('0,0');
-            if(!this.props.action) {
-                let adjustedGrandTotal      = numeral(grandTotal).format('0');
-                let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.discount;
-                grandTotal                  = numeral(grandTotalMinDiscount).format('0,0')
-            }
-            
-        } else {
-            discount = numeral(this.props.additional).format('0,0');
-        };
-
         if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
             
-            if(this.props.grandTotal - this.props.delivery_price >= this.props.freeShipping) {
+            if(this.props.subTotal >= this.props.freeShipping) {
                 let discountFormated    = numeral(discount).format('0');
                 let grandTotalFormated  = numeral(grandTotal).format('0');
                 let discountAdd         = parseInt(discountFormated) + this.props.delivery_price;
                 let adjustedGrandTotal  = parseInt(grandTotalFormated) - this.props.delivery_price;
 
                 discount        = numeral(discountAdd).format('0,0');
-                // deliveryPrice   = numeral(0).format('0,0');
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
             
-        }
+        } 
+
+        if(this.props.discount) {
+            
+            let totalDiscount   = parseInt(discount) + parseInt(this.props.additional) + parseInt(this.props.discount);
+            if(this.props.subTotal >= this.props.freeShipping) {
+                totalDiscount = totalDiscount + this.props.delivery_price
+                discount            = numeral(totalDiscount).format('0,0')
+                
+            } else {
+                discount    = numeral(totalDiscount).format('0,0')
+                grandTotalFormated  = numeral(grandTotal).format('0')
+                grandTotalAdjusted  = parseInt(grandTotalFormated) + this.props.delivery_price
+                grandTotal = numeral(grandTotalAdjusted).format('0,0')
+            }
+            
+            
+
+            
+            
+            if(!this.props.action) {
+                console.warn('halo')
+                let adjustedGrandTotal      = numeral(grandTotal).format('0');
+                let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.discount;
+                grandTotal                  = numeral(grandTotalMinDiscount).format('0,0')
+                
+            }
+            
+        } 
+
+        
 
         if (!this.props.checkout) {
 

@@ -309,13 +309,13 @@ class Checkout extends Component {
 		this.props.check_voucher_api(payload,
 			res => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				state.grandTotalPrice = this.props.totalPrice - this.props.discount
 				state.voucherValidation = true;
 				this.setState(state);
 			},
 			rej => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				state.grandTotalPrice = this.props.totalPrice - this.props.discount
 				state.voucherValidation = false;
 				this.setState(state);
 			}
@@ -442,7 +442,7 @@ class Checkout extends Component {
 				})
 			},
 			(err) => {
-				console.log('err checkout', err)
+				console.warn('err checkout', err)
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
