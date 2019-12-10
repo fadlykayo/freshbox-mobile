@@ -422,7 +422,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-		// console.log('====> payment method', paymentMethod)
+		console.log('====> payment method', paymentMethod)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -442,7 +442,7 @@ class Checkout extends Component {
 				})
 			},
 			(err) => {
-				console.log('err checkout', err)
+				console.warn('err checkout', err)
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
@@ -464,7 +464,8 @@ class Checkout extends Component {
 			},
 			body: {
 				invoice: invoice
-			}
+			},
+			info: 'gopay'
 		};
 
 		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())

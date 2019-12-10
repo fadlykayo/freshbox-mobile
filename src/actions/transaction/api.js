@@ -46,10 +46,19 @@ actions.cancel_invoice = (req, success, failure) => {
 				dispatch(actNetwork.set_network_error_status(true));
 				failure(err);
 			} else {
-				dispatch(actNetwork.set_error_status({
-					status: true,
-					data: JSON.stringify(err)
-				}));
+				if(req.info == 'gopay') {
+					dispatch(actNetwork.set_error_status({
+						status: true,
+						data: 'Pembayaran batal dilakukan',
+						title: 'formError.title.paymentCanceled'
+					}));
+				} else {
+						dispatch(actNetwork.set_error_status({
+						status: true,
+						data: JSON.stringify(err)
+					}));
+				}
+				
 				failure(err);
 			}
 		})

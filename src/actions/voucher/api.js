@@ -47,7 +47,7 @@ actions.checkVoucherValidity = (req, success, failure) => {
       }
     })
     .catch((err) => {
-      // console.log(err)
+      console.warn(err)
       if(!err.code){
         dispatch(actNetwork.set_network_error_status(true));
       } else {
