@@ -321,7 +321,8 @@ class Checkout extends Component {
 			},
 			rej => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.totalPrice
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				
 				state.voucherValidation = false;
 				this.setState(state);
 			}
