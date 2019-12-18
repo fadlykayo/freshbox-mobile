@@ -215,7 +215,8 @@ const getCategories = (state, payload) => {
         return comparison;
     }
 
-    let categoriesSorted = payload.data.sort(compare);
+    // let categoriesSorted = payload.data.sort(compare);
+    let categoriesSorted = payload.data;
 
     for(let i = 0; i < categoriesSorted.length; i++) {
         categoriesSorted[i].check = false;
