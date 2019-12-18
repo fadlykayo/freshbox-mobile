@@ -87,7 +87,6 @@ class ProductList extends Component {
 		if(this.props.navigation.state.params.detailProduct) {
 			this.openDetailProduct(this.props.navigation.state.params.detailProduct[0]);
 		}
-		this.getCategories();
 		this.checkCategory();
 		this.getFavorites();
 		this.checkNotification();
@@ -416,7 +415,7 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
-		console.log('load more productList')
+		
 		this.setState({listLoading: true})
 		let category_code = null;
 

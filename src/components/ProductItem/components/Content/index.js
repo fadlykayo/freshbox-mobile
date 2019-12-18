@@ -24,7 +24,7 @@ class Content extends PureComponent {
 					{
 						this.props.dashboard ? 
 						<View style ={{width: 115,height: 45, marginTop: 0}}>
-							<Text style={styles.text.title}>{this.props.data.name}</Text>
+							<Text style={styles.text.title} numberOfLines = {2}>{this.props.data.name}</Text>
 							<Text style={styles.text.desc}>{this.props.data.short_description}</Text>		
 						</View> : 
 						<View style ={{width: 170,height: 35, marginTop: 0, justifyContent: 'center'}}>

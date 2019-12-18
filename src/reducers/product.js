@@ -215,7 +215,8 @@ const getCategories = (state, payload) => {
         return comparison;
     }
 
-    let categoriesSorted = payload.data.sort(compare);
+    // let categoriesSorted = payload.data.sort(compare);
+    let categoriesSorted = payload.data;
 
     for(let i = 0; i < categoriesSorted.length; i++) {
         categoriesSorted[i].check = false;
@@ -257,6 +258,7 @@ const getCategories = (state, payload) => {
 const changeCategory = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.categories.map(item => {
+        
         if(item.name == payload.data.name) {
             item.check = true
             newState.on_category = item.name

@@ -91,6 +91,7 @@ class Detail extends Component {
 
 	//status itu payment method
 	validateTransactionStatus(paymentMethod, midtransObject){
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -125,16 +126,23 @@ class Detail extends Component {
 	}
 
 	cancelGopayInvoice (invoice) {
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
 			},
 			body: {
 				invoice: invoice
-			}
+			},
+			info: 'gopay'
 		};
 
-		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())
+		this.props.cancel_invoice(payload, 
+			() => actNav.navigate(navConstant.Product), 
+			(err) => {
+				console.log()
+			}
+		)
 	}
 
 	messageOrderSuccess() {

@@ -309,13 +309,19 @@ class Checkout extends Component {
 		this.props.check_voucher_api(payload,
 			res => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.totalPrice - this.props.discount
+				let shipping;
+				if(this.props.totalPrice >= this.props.minimumTrxFreeShippingCost) {
+					shipping = 0
+				} else {
+					shipping = this.props.delivery_price
+				}
+				state.grandTotalPrice = this.props.totalPrice
 				state.voucherValidation = true;
 				this.setState(state);
 			},
 			rej => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.totalPrice - this.props.discount
+				state.grandTotalPrice = this.props.totalPrice
 				state.voucherValidation = false;
 				this.setState(state);
 			}
@@ -422,7 +428,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-		// console.log('====> payment method', paymentMethod)
+		console.log('====> payment method', paymentMethod)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -464,7 +470,8 @@ class Checkout extends Component {
 			},
 			body: {
 				invoice: invoice
-			}
+			},
+			info: 'gopay'
 		};
 
 		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())

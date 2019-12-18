@@ -18,7 +18,6 @@ class TotalPrice extends Component {
         let discount        = numeral(this.props.additional).format('0,0');
         let grandTotal      = numeral(this.props.grandTotal).format('0,0');
         
-
         if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
             
             if(this.props.subTotal >= this.props.freeShipping) {
@@ -31,36 +30,27 @@ class TotalPrice extends Component {
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
             
-        } 
-
+        };
+        
         if(this.props.discount) {
-            
-            let totalDiscount   = parseInt(discount) + parseInt(this.props.additional) + parseInt(this.props.discount);
-            if(this.props.subTotal >= this.props.freeShipping) {
-                totalDiscount = totalDiscount + this.props.delivery_price
-                discount            = numeral(totalDiscount).format('0,0')
-                
-            } else {
-                discount    = numeral(totalDiscount).format('0,0')
-                grandTotalFormated  = numeral(grandTotal).format('0')
-                grandTotalAdjusted  = parseInt(grandTotalFormated) + this.props.delivery_price
-                grandTotal = numeral(grandTotalAdjusted).format('0,0')
-            }
-            
-            
 
-            
-            
+            let totalDiscount   = parseInt(numeral(discount).format('0')) + parseInt(this.props.discount);
+            discount    = numeral(totalDiscount).format('0,0')
+            grandTotalFormated  = numeral(grandTotal).format('0')
+            grandTotalAdjusted  = parseInt(grandTotalFormated) + this.props.delivery_price - this.props.discount
+            grandTotal = numeral(grandTotalAdjusted).format('0,0')
+
             if(!this.props.action) {
-                console.warn('halo')
                 let adjustedGrandTotal      = numeral(grandTotal).format('0');
                 let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.discount;
                 grandTotal                  = numeral(grandTotalMinDiscount).format('0,0')
-                
             }
             
-        } 
+        };
 
+
+
+        
         
 
         if (!this.props.checkout) {

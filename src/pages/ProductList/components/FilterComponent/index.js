@@ -43,6 +43,7 @@ class SearchComponent extends Component {
 	}
 	
 	render(){
+		console.warn(this.props.onCategory, 'inside')
 		return (
     	<View style={styles.container}>
         	<TouchableOpacity style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
@@ -68,7 +69,7 @@ class SearchComponent extends Component {
 						/>
 					)
 					: (
-						<Text style={styles.text.title}>{this.props.onCategory}</Text>
+						<Text style={styles.text.title} numberOfLines={1}>{this.props.onCategory}</Text>
 					)
 				}
 				<Image

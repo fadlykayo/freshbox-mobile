@@ -538,30 +538,10 @@ class Dashboard extends Component {
 	}
 
 	navigateToCategories = (category) => {
-		let payload = {}
-		if (category.name == 'Default') {
-			payload = {
-				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
-				},
-				body: {},
-				params: {
-					page: 1,
-					sort: 'nama-az',
-					// stock: 'tersedia'
-				}
-			}
+		let payload = {};
 
-			this.props.search_products(payload, 
-				() => {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
-				},
-				(err) => {
-					console.log(err);
-				});
-		}
-		else {
-			if(category.name.toUpperCase() === 'SPECIAL DEALS') {
+		switch (category.name.toUpperCase()) {
+			case 'DEFAULT': 
 
 				payload = {
 					header: {
@@ -571,12 +551,30 @@ class Dashboard extends Component {
 					params: {
 						page: 1,
 						sort: 'nama-az',
-						// stock: 'tersedia',
+					}
+				}
+				
+				break;
+
+			case 'SPECIAL DEALS': 
+			
+				payload = {
+					header: {
+						apiToken: this.props.user ? this.props.user.authorization : ''
+					},
+					body: {},
+					params: {
+						page: 1,
+						sort: 'nama-az',
 						category_code: category.code,
 						on_promo: 1,
 					}
 				}
-			} else {
+				
+				break;
+		
+			default:
+
 				payload = {
 					header: {
 						apiToken: this.props.user ? this.props.user.authorization : ''
@@ -585,29 +583,96 @@ class Dashboard extends Component {
 					params: {
 						page: 1,
 						sort: 'nama-az',
-						// stock: 'tersedia',
+						// stock: 'tersedia'
 						category_code: category.code,
 					}
 				}
+
+				break;
+		}
+
+		this.props.change_categories(category);
+		this.props.search_products(payload,
+			() => {
+				actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+			},
+			(err) => {
+				console.log('change category', err)
 			}
+		)
+		
+		// if (category.name == 'Default') {
+		// 	payload = {
+		// 		header: {
+		// 			apiToken: this.props.user ? this.props.user.authorization : ''
+		// 		},
+		// 		body: {},
+		// 		params: {
+		// 			page: 1,
+		// 			sort: 'nama-az',
+		// 			// stock: 'tersedia'
+		// 		}
+		// 	}
+
+		// 	this.props.search_products(payload, 
+		// 		() => {
+		// 			actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+		// 		},
+		// 		(err) => {
+		// 			console.log(err);
+		// 		});
+		// }
+		// else {
+		// 	if(category.name.toUpperCase() === 'SPECIAL DEALS') {
+
+		// 		payload = {
+		// 			header: {
+		// 				apiToken: this.props.user ? this.props.user.authorization : ''
+		// 			},
+		// 			body: {},
+		// 			params: {
+		// 				page: 1,
+		// 				sort: 'nama-az',
+		// 				// stock: 'tersedia',
+		// 				category_code: category.code,
+		// 				on_promo: 1,
+		// 			}
+		// 		}
+		// 	} else {
+		// 		payload = {
+		// 			header: {
+		// 				apiToken: this.props.user ? this.props.user.authorization : ''
+		// 			},
+		// 			body: {},
+		// 			params: {
+		// 				page: 1,
+		// 				sort: 'nama-az',
+		// 				// stock: 'tersedia',
+		// 				category_code: category.code,
+		// 			}
+		// 		}
+		// 	}
 			
 
-			this.props.search_products(payload, 
-				() => {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
-				},
-				(err) => {
-					console.log(err);
-				});
-		}		
+		// 	this.props.search_products(payload, 
+		// 		() => {
+		// 			actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+		// 		},
+		// 		(err) => {
+		// 			console.log(err);
+		// 		});
+		// }		
 	}
 
 	navigateToPromo = () => {
 		let category_code;
+		let category;
 		let payload;
+
 		this.props.categories.map((c, i) => {
 			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
-				category_code == c.code
+				category_code = c.code
+				category = c
 			}
 		})
 		payload = {
@@ -623,6 +688,7 @@ class Dashboard extends Component {
 				on_promo: 1,
 			}
 		}
+		// this.props.change_categories(category)
 		this.props.search_products(payload, 
 				() => {
 					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
@@ -701,6 +767,7 @@ class Dashboard extends Component {
 	}
 
 	navigateToProductList = () => {
+		this.getCategories();
 		actNav.navigate(navConstant.ProductList, {showPromo: false});
 	}
 
@@ -789,6 +856,7 @@ class Dashboard extends Component {
 			
       <Container
 				backgroundColor ={'white'}
+				// containerColor
       >
 			
       <SearchComponent
