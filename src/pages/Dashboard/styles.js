@@ -41,7 +41,8 @@ const style = {
       flex: -1,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'center',
+      justifyContent: 'space-around',
+      marginHorizontal: 10,
     },
     textBold: {
       fontFamily: 'Avenir-Heavy',

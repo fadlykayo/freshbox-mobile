@@ -4,7 +4,7 @@ import { scaling } from '@helpers';
 const styles = {
     container: (dashboard) => ({
 		flex: 1,
-		marginHorizontal: 10,
+		// marginHorizontal: 10,
 		// marginTop: 20,
 		paddingTop: dashboard ? null : 15,
 		// backgroundColor: 'blue'

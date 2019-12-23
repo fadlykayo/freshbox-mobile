@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Image, Keyboard, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { actNav } from '@navigations';
 import StaticText from '../StaticText';
 import styles from './styles';
@@ -34,6 +34,44 @@ class NavigationBar extends PureComponent {
         
         
     }
+
+    openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.openDrawer();
+	}
+
+    renderIconBack = () => {
+        if(this.props.menubar) {
+            if(this.state.isLoading) {
+                return (
+                    <ActivityIndicator/>
+                )  
+            } else {
+                return (
+                    <Image
+                        resizeMode={'contain'} 
+                        source={images.ic_menu}
+                        style={styles.icon}
+                    />
+                )
+            }
+        } else {
+            if(this.state.isLoading) {
+                return (
+                    <ActivityIndicator/>
+                )  
+            } else {
+                return (
+                    <Image
+                        resizeMode={'contain'} 
+                        source={images.icon_back}
+                        style={styles.icon}
+                    />
+                )
+            }
+        }
+    }
     
     render(){
         return(
@@ -44,17 +82,11 @@ class NavigationBar extends PureComponent {
                 />
                 <TouchableOpacity 
                     style={styles.button} 
-                    onPress={this.onPress}
+                    onPress={this.props.menubar ? this.openDrawerMenu : this.onPress}
                 >
 
                 {
-                    this.state.isLoading ? 
-                    <ActivityIndicator/> :
-                    <Image
-                        resizeMode={'contain'} 
-                        source={images.icon_back}
-                        style={styles.icon}
-                    />
+                    this.renderIconBack()
                 }
                     
                 </TouchableOpacity>

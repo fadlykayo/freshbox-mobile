@@ -18,7 +18,7 @@ export default class TransactionBlock extends Component {
         return transactionNonPending.map((transaction, i) => {
           if(transaction) {
             return (
-              <View style={styles.card.container} key={i}>
+              <View style={styles.card.container(transactionNonPending.length == 1)} key={i}>
 
                 <View>
                   <View style={styles.card.invoice.container}><Text style={styles.card.invoice.text}>{transaction.invoice}</Text></View>
@@ -82,46 +82,22 @@ export default class TransactionBlock extends Component {
   }
 
   _renderListTransaction = () => {
-    if(this.props.loadingTransaction) {
+    if(this.props.transactions.length > 0) {
       return (
-        <ActivityIndicator/>
+        <ScrollView 
+          style = {styles.bottom.container} 
+          horizontal 
+          contentContainerStyle = {styles.bottom.contentContainer} 
+          showsHorizontalScrollIndicator={false}
+        >
+          {this.renderTransactions(this.props.transactions)}
+        </ScrollView> 
       )
-    } else {
-      if(this.props.transactions.length > 0) {
-        return (
-          <ScrollView 
-            style = {styles.bottom.container} 
-            horizontal 
-            contentContainerStyle = {styles.bottom.contentContainer} 
-            showsHorizontalScrollIndicator={false}
-          >
-            {this.renderTransactions(this.props.transactions)}
-          </ScrollView> 
-        )
-      } else {
-        return (
-          // <View style={styles.card.emptyContainer}>
-          //   <View style={styles.card.transactionText}>
-          //     <Text style={styles.card.transactionText}>No Transactions Yet</Text>
-          //   </View>
-          //   <View style={styles.card.buttonNav}>
-          //     <Button 
-          //       type={'red'} 
-          //       title={'transactionBlock.button'} 
-          //       borderRadius={50} 
-          //       fontSize={13}
-          //       onPress={() => actNav.navigate(navConstant.ProductList)}
-          //     />
-          //   </View>
-          // </View>
-          null
-        )
-      }
     }
   }
 
   renderContent = () => {
-    if(this.props.transactions.length > 0) {
+    if(this.props.transactions.length > 0 && !this.props.loadingTransaction) {
       return (
         <View style = {styles.top.container}>
 

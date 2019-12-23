@@ -282,8 +282,6 @@ class Checkout extends Component {
 					statusVerification={this.state.voucherValidation}
 					editable={this.state.voucherValidation ? false : true}
 					cancelVoucherAPI={this.cancelVoucherAPI}
-					// multiline={true}
-
 				/>
 			</View>
 		)
@@ -308,13 +306,6 @@ class Checkout extends Component {
         
 		this.props.check_voucher_api(payload,
 			res => {
-				let state = this.state;
-				let shipping;
-				if(this.props.totalPrice >= this.props.minimumTrxFreeShippingCost) {
-					shipping = 0
-				} else {
-					shipping = this.props.delivery_price
-				}
 				state.grandTotalPrice = this.props.totalPrice
 				state.voucherValidation = true;
 				this.setState(state);
@@ -322,7 +313,6 @@ class Checkout extends Component {
 			rej => {
 				let state = this.state;
 				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
-				
 				state.voucherValidation = false;
 				this.setState(state);
 			}
@@ -345,9 +335,8 @@ class Checkout extends Component {
 			this.props.cancel_voucher(payload,
 				res => {
 					let state = this.state;
-					state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice;
+					state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
 					state.voucherValidation = false;
-					// state.coupon_code = '';
 					this.setState(state);
 				},
 				rej => {

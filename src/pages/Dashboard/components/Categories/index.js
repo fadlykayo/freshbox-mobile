@@ -60,7 +60,7 @@ export default class Categories extends Component {
                 
               </View>
 
-              <Text style={styles.icon.text}>{item.name == 'Default' ? 'All' : item.name}</Text>
+              <Text style={styles.icon.text} numberOfLines={2}>{item.name == 'Default' ? 'All' : item.name}</Text>
               
               
             </View>

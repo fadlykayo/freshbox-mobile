@@ -23,7 +23,7 @@ class Content extends PureComponent {
 			<View style={styles.container(this.props.dashboard)}>
 					{
 						this.props.dashboard ? 
-						<View style ={{width: 115,height: 45, marginTop: 0}}>
+						<View style ={{width: width * 0.4,height: 45, marginTop: 0, paddingHorizontal: 15}}>
 							<Text style={styles.text.title} numberOfLines = {2}>{this.props.data.name}</Text>
 							<Text style={styles.text.desc}>{this.props.data.short_description}</Text>		
 						</View> : 
@@ -33,7 +33,7 @@ class Content extends PureComponent {
 						</View>
 					}
 
-						<View>
+						<View style={{flex: 1, paddingHorizontal: 15}}>
 							{ this.props.dashboard ? 
 								<Text style={styles.text.price.promo(this.props.dashboard)}>
 									<StaticText

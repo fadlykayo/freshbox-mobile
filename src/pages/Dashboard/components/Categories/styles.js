@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window');
 export default {
   container: {
     width: width,
-    height: 333,
+    height: 310,
     borderBottomColor: colour.veryLightGrey,
     borderBottomWidth: 8,
     borderTopWidth: 8,

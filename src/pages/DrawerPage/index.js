@@ -49,7 +49,7 @@ class DrawerPage extends Component {
   	}
 
 	refreshProductList() {
-		console.log('drawerPage, refreshProduct')
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -70,6 +70,7 @@ class DrawerPage extends Component {
 	}
 
   	navigateToOtherPage(payload){
+			console.warn(payload)
 		let newPages = this.state.pages;
 
 		newPages.map((newPage) => {
@@ -80,12 +81,12 @@ class DrawerPage extends Component {
 
 		this.setState({pages: newPages}, () => {
 			switch (payload.name) {
-				case 'drawerPage.pages.favorite': return this.actToNavigate(navConstant.Favourites);
-				case 'drawerPage.pages.history': return this.actToNavigate(navConstant.HistoryPage)
-				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions)
-				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy)
-				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs)
-				case 'drawerPage.pages.dashboard': return this.closeDrawerPage(payload);
+				case 'drawerPage.pages.favorite': return this.actToNavigate(navConstant.Favourites, payload);
+				case 'drawerPage.pages.history': return this.actToNavigate(navConstant.HistoryPage, payload)
+				case 'drawerPage.pages.termsConditions': return this.actToNavigate(navConstant.TermsConditions, payload)
+				case 'drawerPage.pages.privacyPolicy': return this.actToNavigate(navConstant.PrivacyPolicy, payload)
+				case 'drawerPage.pages.contactUs': return this.actToNavigate(navConstant.ContactUs, payload)
+				case 'drawerPage.pages.dashboard': return this.actToNavigate(navConstant.Dashboard, payload);
 				default: return this.closeDrawerPage(payload);
 			}
 			
@@ -93,8 +94,10 @@ class DrawerPage extends Component {
 
 	}
 	
-	actToNavigate(input) {
-		
+	actToNavigate(input, payload) {
+		if(payload.selected == true) {
+			this.closeDrawerPage(input)
+		}
 		if(input == 'drawerPage.pages.history') {
 			actNav.navigate(input, {closeDrawer: this.props.navigation.closeDrawer, refreshProductList: this.refreshProductList});
 		} else {			

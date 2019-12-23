@@ -67,9 +67,9 @@ class Container extends PureComponent {
                             this.props.containerColor ? <StatusBar barStyle = "light-content" hidden = {false} translucent = {false}/> : <StatusBar barStyle = "dark-content" hidden = {false} translucent = {false}/>
                         }
                             {this.props.children}
-                            <Loading
+                            {/* <Loading
                                 modalVisible = {this.props.network.isLoading}
-                            />
+                            /> */}
                             <ServerError
                                 modalVisible = {this.props.network.isServerError}
                                 closeModal = {this.closeModalServerError}

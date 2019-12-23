@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Clipboard, Platform, ToastAndroid } from 'react-native';
+import { ScrollView, View, Clipboard, Platform, Keyboard, ToastAndroid } from 'react-native';
 import { actNav } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
@@ -70,6 +70,12 @@ class TermsConditions extends Component {
 		}
 	}
 
+	openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.navigation.openDrawer();
+	}
+
 	navigateBack() {
 		actNav.goBack();
 	}
@@ -108,6 +114,8 @@ class TermsConditions extends Component {
 				<NavigationBar
 					title={'termsConditions.navigationTitle'}
 					onPress={this.navigateBack}
+					menubar
+					openDrawer={this.openDrawerMenu}
 				/>
 				<ScrollView 
 					style={styles.container}

@@ -891,10 +891,7 @@ class Dashboard extends Component {
 					navigateToBannerDetail = {this.navigateToBannerDetail}
 					navigateToCampaign = {this.navigateToCampaign}
 				/>
-        
-          {/* <View
-            style={styles.spacer}
-          /> */}
+      
 					
 					{/* <Announcement
 						data = {this.state.banner}

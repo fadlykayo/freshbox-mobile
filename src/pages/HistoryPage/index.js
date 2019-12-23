@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Keyboard } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -42,6 +42,12 @@ class HistoryPage extends Component {
 		} else {
 			this.refreshHandler();
 		}
+	}
+
+	openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.navigation.openDrawer();
 	}
 
 	refreshHandler(){
@@ -129,6 +135,8 @@ class HistoryPage extends Component {
 				<NavigationBar
 					title={'historyPage.navigationTitle'}
 					onPress={this.navigateBack}
+					openDrawer={this.openDrawerMenu}
+					menubar
 				/>
 
 				<View style={styles.container}>

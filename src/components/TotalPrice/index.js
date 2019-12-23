@@ -18,7 +18,7 @@ class TotalPrice extends Component {
         let discount        = numeral(this.props.additional).format('0,0');
         let grandTotal      = numeral(this.props.grandTotal).format('0,0');
 
-        console.warn(grandTotal, '1')
+
         
         if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
             
@@ -31,8 +31,6 @@ class TotalPrice extends Component {
                 discount        = numeral(discountAdd).format('0,0');
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
-
-            console.warn(grandTotal, 'if')
             
         }
         
@@ -40,10 +38,10 @@ class TotalPrice extends Component {
             
             let totalDiscount   = parseInt(numeral(discount).format('0')) + parseInt(this.props.discount);
             
-            discount    = numeral(totalDiscount).format('0,0')
+            discount            = numeral(totalDiscount).format('0,0')
             grandTotalFormated  = numeral(grandTotal).format('0')
             grandTotalAdjusted  = parseInt(grandTotalFormated) + this.props.delivery_price - this.props.discount
-            grandTotal = numeral(grandTotalAdjusted).format('0,0')
+            grandTotal          = numeral(grandTotalAdjusted).format('0,0')
 
             if(!this.props.action) {
                 let adjustedGrandTotal      = numeral(grandTotal).format('0');
@@ -52,11 +50,6 @@ class TotalPrice extends Component {
             }
             
         };
-
-        console.warn(grandTotal, 'halo')
-
-
-
         
         
 

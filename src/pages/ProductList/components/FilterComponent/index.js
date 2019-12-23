@@ -46,17 +46,17 @@ class SearchComponent extends Component {
 		console.warn(this.props.onCategory, 'inside')
 		return (
     	<View style={styles.container}>
-        	<TouchableOpacity style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
+        	<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
         		<StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
         		/>
-        		<Image
+        		{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
-  	  			/>
-        	</TouchableOpacity>
+  	  			/> */}
+        	</View>
 			<TouchableOpacity
 				style={styles.subcontainer.part(true)}
 				onPress = { this.openAllCategories }

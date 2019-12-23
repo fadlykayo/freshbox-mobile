@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList, TouchableOpacity, Image, Text, TextInput, ActivityIndicator } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import { language, validation } from '@helpers';
+import { colour } from '@styles';
 import { connect } from 'react-redux';
 import styles from './styles';
 import images from '@assets';
@@ -12,7 +13,7 @@ class SearchComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			placeholder: '',
+			placeholder: 'Cari produk atau kategori...',
 			isLoading: false,
     	}
     	this.onChangeText = this.onChangeText.bind(this);
@@ -111,6 +112,7 @@ class SearchComponent extends Component {
 						autoCorrect={false}
 						autoCapitalize={'none'}
 						returnKeyType={'done'}
+						placeholderTextColor = {colour.grey}
 						value={this.props.value} 
 								onChangeText={this.onChangeText}
 								placeholder={this.state.placeholder}

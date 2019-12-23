@@ -57,10 +57,10 @@ const style = {
     },
   },
   card: {
-    container: {
+    container: (singleTransaction) => ({
       backgroundColor: colour.white,
       flex: -1,
-      width: width * 0.8,
+      width: singleTransaction ? width * 0.9 : width * 0.8,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -82,7 +82,7 @@ const style = {
       elevation: Platform.OS == 'android' ? 3 : 0,
       marginRight: 10,
       marginBottom: 10,
-    },
+    }),
     emptyContainer: {
       flexDirection: 'row', 
       justifyContent: 'space-between', 

@@ -22,7 +22,10 @@ const styles = {
 				flex: -1,
 				flexDirection: 'row',
 				flexWrap: 'wrap',
-				justifyContent: 'center',
+				justifyContent: 'space-around',
+				// paddingHorizontal: scaling.moderateScale(10),
+				// marginVertical: 10,
+				marginHorizontal: 10,
 			}
 		}
 	},

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, Dimensions } from 'react-native';
+import { View, FlatList, Keyboard, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import AlertDialog from '@components/AlertDialog'; 
@@ -60,6 +60,12 @@ class Favourites extends Component {
 		if(this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
+	}
+
+	openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.navigation.openDrawer();
 	}
 
 	openZoomImage(){
@@ -251,6 +257,8 @@ class Favourites extends Component {
 			>
 				<NavigationBar 
 					title={'favourites.navigationTitle'}
+					menubar
+					openDrawer={this.openDrawerMenu}
 				/>
 				<View style={styles.container}>
 					<View style={styles.subcontainer.cart}>

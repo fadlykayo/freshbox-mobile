@@ -150,8 +150,8 @@ module.exports = {
         width: 110,
         height: 34,
         borderRadius: 50,
-        borderWidth: 1,
-        borderColor: 'white',
+        // borderWidth: 1,
+        // borderColor: 'white',
         backgroundColor: colour.black10opacity,
         alignItems: 'center',
         justifyContent: 'center'

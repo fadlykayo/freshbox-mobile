@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
+import { ScrollView, View, Keyboard, Text, TouchableOpacity, Image } from 'react-native';
 import { actNav } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -73,6 +73,12 @@ class TermsConditions extends Component {
 		}
 	}
 
+	openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.navigation.openDrawer();
+	}
+
 	navigateBack() {
 		actNav.goBack();
 	}
@@ -92,6 +98,8 @@ class TermsConditions extends Component {
 				<NavigationBar
 					title={'privacyPolicy.navigationTitle'}
 					onPress={this.navigateBack}
+					menubar
+					openDrawer={this.openDrawerMenu}
 				/>
 				<ScrollView 
 					style={styles.container}

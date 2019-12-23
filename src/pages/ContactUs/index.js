@@ -62,6 +62,12 @@ class ContactUs extends Component {
 		}
 	}
 
+	openDrawerMenu = () => {
+        
+		Keyboard.dismiss();
+		this.props.navigation.openDrawer();
+	}
+
 	scrollToMessage() {
 		this.listRef.scrollTo({y: 115, animated: true})
 	}
@@ -149,6 +155,8 @@ class ContactUs extends Component {
 				<NavigationBar
 					title={'contactUs.navigationTitle'}
 					onPress={actNav.goBack}
+					menubar
+					openDrawer={this.openDrawerMenu}
 				/>
 				<ScrollView
 					ref={(e) => { this.listRef = e}}
