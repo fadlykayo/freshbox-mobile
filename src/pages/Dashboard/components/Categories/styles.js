@@ -51,7 +51,7 @@ export default {
   },
   text: {
     container:{
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
       marginBottom: 8,
     },
     font: {
@@ -66,7 +66,7 @@ export default {
       flex: 1,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'center',
+      paddingHorizontal: 20,
     }
   },
   cover: {

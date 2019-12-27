@@ -155,7 +155,7 @@ class TotalPrice extends Component {
                 // deliveryPrice   = numeral(0).format('0,0');
                 grandTotal      = numeral(adjustedGrandTotal).format('0,0');
             }
-            // console.warn(discount, deliveryPrice, grandTotal)
+            console.warn(discount, deliveryPrice, grandTotal)
         }
 
   	  	return (

@@ -33,25 +33,15 @@ class Content extends PureComponent {
 						</View>
 					}
 
-						<View style={{flex: 1, paddingHorizontal: 15}}>
-							{ this.props.dashboard ? 
-								<Text style={styles.text.price.promo(this.props.dashboard)}>
-									<StaticText
-										property={'productList.content.price'}
-									/>
-									{productPrice}
-							
-							</Text> : 
-							(this.props.data.on_promo == 1 ? 
+						<View style={{paddingHorizontal: 15}}>
+							{ this.props.data.on_promo == 1 && this.props.dashboard ? 
 								<Text style={styles.text.price.promo(this.props.dashboard)}>
 										<StaticText
 											property={'productList.content.price'}
 										/>
 										{productPrice}
 								
-								</Text> : null
-							)
-								
+								</Text> : <View style={styles.text.noPromo}></View>
 							}
 							
 							{
@@ -65,6 +55,7 @@ class Content extends PureComponent {
 											{productPromoPrice}
 
 										</Text>
+										
 										
 										
 									</View>

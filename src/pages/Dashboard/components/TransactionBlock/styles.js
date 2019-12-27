@@ -71,13 +71,13 @@ const style = {
       shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
       shadowOffset: Platform.OS == 'ios' ? {
         width: 0,
-        height: 10,
+        height: 5,
       } : {
         width: 0,
         height: 0,
       },
       shadowOpacity: Platform.OS == 'ios' ? 2 : 0,
-      shadowRadius: Platform.OS == 'ios' ? 4 : 0,
+      shadowRadius: Platform.OS == 'ios' ? 5 : 0,
 
       elevation: Platform.OS == 'android' ? 3 : 0,
       marginRight: 10,

@@ -18,7 +18,7 @@ const styles = {
 		backgroundColor: colour.white,
 		shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
 		shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 5}  : {width: 0,height: 0},
-		shadowRadius: Platform.OS == 'ios' ? 10 : 0,
+		shadowRadius: Platform.OS == 'ios' ? 5 : 0,
 		shadowOpacity: Platform.OS == 'ios' ?  2 : 0,
 		elevation: Platform.OS == 'android' ? 3 : 0,
 		opacity: stock > 0 ? 1 : 0.5,

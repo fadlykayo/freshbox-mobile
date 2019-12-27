@@ -20,6 +20,8 @@ class TotalPrice extends Component {
 
 
         
+       
+
         if(this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
             
             if(this.props.subTotal >= this.props.freeShipping) {
@@ -45,7 +47,7 @@ class TotalPrice extends Component {
 
             if(!this.props.action) {
                 let adjustedGrandTotal      = numeral(grandTotal).format('0');
-                let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.discount;
+                let grandTotalMinDiscount   = parseInt(adjustedGrandTotal) - this.props.delivery_price;
                 grandTotal                  = numeral(grandTotalMinDiscount).format('0,0')
             }
             

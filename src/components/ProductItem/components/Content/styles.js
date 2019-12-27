@@ -15,26 +15,24 @@ const styles = {
 			fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
+		noPromo: {
+			marginTop: 36
+		},
 		price:{
 			promo: (dashboard) => ({
 				fontFamily: 'Avenir-Roman',
 				fontSize: scaling.isIphone5s() ? scaling.moderateScale(11) : scaling.moderateScale(12),
 				color: colour.darkerGrey,
 				textDecorationLine: 'line-through',
-				// alignSelf: 'center',
-				// paddingTop: 10,
+
 				marginTop: dashboard ? 20 : 5,
-				// borderWidth: 1,
 				
 			}),
 			normal: (on_promo) => ({
 				fontFamily: 'Avenir-Heavy',
 				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 				color: colour.darkGrey,
-				// alignSelf: 'center',
-				// borderWidth: 1,
-				// marginTop: on_promo == 1 ? 5 : 0,
-				// paddingBottom: on_promo == 1 ? 10 : 0,
+
 				paddingRight: 2,
 			})
 		},

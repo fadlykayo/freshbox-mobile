@@ -14,6 +14,7 @@ const styles = {
 			alignItems: 'center',
 			justifyContent: 'space-between',
 			borderRadius: 100,
+			borderWidth: 1,
 			// marginRight: dashboard ? null : scaling.moderateScale(10),
 			marginBottom: dashboard ? scaling.moderateScale(20) : (scaling.isIphone5s() ? scaling.moderateScale(5) : scaling.moderateScale(5)),
 		}),
@@ -30,9 +31,6 @@ const styles = {
 			// elevation: Platform.OS == 'android' ? 2 : 0,
 		}),
 		counter:(dashboard) => ({
-			paddingHorizontal: dashboard ? scaling.moderateScale(35) : scaling.moderateScale(12),
-			paddingVertical: scaling.moderateScale(5),
-			// borderWidth: 1,
 			backgroundColor: colour.white,
 			borderColor: colour.white,
 			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,

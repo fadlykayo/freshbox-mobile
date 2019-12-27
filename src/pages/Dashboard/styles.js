@@ -34,7 +34,7 @@ const style = {
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingHorizontal: 20,
+      paddingHorizontal: 25,
       marginBottom: 10,
     },
     rowContainer: {
