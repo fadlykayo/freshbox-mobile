@@ -34,24 +34,14 @@ class Content extends PureComponent {
 					}
 
 						<View>
-							{ this.props.dashboard ? 
-								<Text style={styles.text.price.promo(this.props.dashboard)}>
-									<StaticText
-										property={'productList.content.price'}
-									/>
-									{productPrice}
-							
-							</Text> : 
-							(this.props.data.on_promo == 1 ? 
+							{ this.props.data.on_promo && this.props.dashboard == 1 ? 
 								<Text style={styles.text.price.promo(this.props.dashboard)}>
 										<StaticText
 											property={'productList.content.price'}
 										/>
 										{productPrice}
 								
-								</Text> : null
-							)
-								
+								</Text> : <View style={styles.text.noPromo}></View>
 							}
 							
 							{
@@ -65,15 +55,7 @@ class Content extends PureComponent {
 											{productPromoPrice}
 
 										</Text>
-										{/* {this.props.dashboard ? null : 
-											<Text style={styles.text.price.promo(this.props.dashboard)}>
-												<StaticText
-													property={'productList.content.price'}
-												/>
-												{productPrice}
 										
-										</Text>
-										} */}
 										
 										
 									</View>

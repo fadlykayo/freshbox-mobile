@@ -417,7 +417,7 @@ const editTotal = (state,payload) => {
             currentCart.push(newCart[x])
         }
     }
-    console.log(currentCart)
+    console.warn(currentCart)
     for(i in currentCart){
         // console.log('dshajdhjksa', currentCart[i])
         if(currentCart[i].banner_harga_jual !== null) {
