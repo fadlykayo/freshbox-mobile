@@ -71,7 +71,7 @@ const style = {
       shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
       shadowOffset: Platform.OS == 'ios' ? {
         width: 0,
-        height: 5,
+        height: 10,
       } : {
         width: 0,
         height: 0,
