@@ -60,7 +60,7 @@ export default class Categories extends Component {
                 
               </View>
 
-              <Text style={styles.icon.text} numberOfLine = { 2 } >{item.name == 'Default' ? 'All' : item.name}</Text>
+              <Text style={styles.icon.text} numberOfLines = { 2 } >{item.name == 'Default' ? 'All' : item.name}</Text>
               
               
             </View>
@@ -76,9 +76,12 @@ export default class Categories extends Component {
       
       <View style={styles.page.container}>
 
+
         {
           page ? this.renderCategory(page) : null
         }
+
+
 
       </View>
     )

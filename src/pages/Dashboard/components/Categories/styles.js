@@ -62,12 +62,12 @@ export default {
   },
   page: {
     container: {
-      width: width,
       flex: 1,
+      width: width,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      paddingHorizontal: 20,
-    }
+      marginLeft: 5,
+    },
   },
   cover: {
     indicator: {
