@@ -15,9 +15,9 @@ const styles = {
 			fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
-		noPromo: {
-			marginTop: 36
-		},
+		noPromo: (dashboard) => ({
+			marginTop: dashboard ? 36 : 15
+		}),
 		price:{
 			promo: (dashboard) => ({
 				fontFamily: 'Avenir-Roman',

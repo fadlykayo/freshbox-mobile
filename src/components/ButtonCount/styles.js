@@ -33,6 +33,7 @@ const styles = {
 		counter:(dashboard) => ({
 			backgroundColor: colour.white,
 			borderColor: colour.white,
+			paddingVertical: scaling.moderateScale(3),
 			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 3}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 3 : 0,
