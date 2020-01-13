@@ -151,7 +151,7 @@ class Register extends Component {
             }
         }
 
-        console.log(payload)
+        // console.log(payload)
 
         this.props.register_user(payload,
             (res) => {

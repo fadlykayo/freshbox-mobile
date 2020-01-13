@@ -41,7 +41,7 @@ actions.get_products = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Products err ->', err);
+        	console.warn('Get Products err ->', err);
         	if(!err.code){
 						// console.log(err)
         		// dispatch(actNetwork.set_network_error_status(true));
@@ -112,9 +112,9 @@ actions.get_categories = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Get Categories err', err);
+        	console.warn('Get Categories err', err);
         	if(!err.code){
-        		dispatch(actNetwork.set_network_error_status(true));
+        		// dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
         			case 400: return failure(err);
@@ -187,16 +187,15 @@ actions.get_promo = (req, success, failure) => {
 							if(res.data.data.length == 0) {
 								// analytics.trackEvent('Unavailable Promo', {product_geted: req.params.name})
 							}
-							// console.warn(res.data)
 							success(res)
 							dispatch(actReducer.get_promo(req.params, res.data));
         		}
         	}
         })
         .catch((err) => {
-        	// console.log('Search Promo err', err);
+        	console.warn('Search Promo err', err);
         	if(!err.code){
-        		dispatch(actNetwork.set_network_error_status(true));
+        		// dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
         			case 400: return failure(err);
@@ -220,7 +219,7 @@ actions.get_delivery_price = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	console.log('Get Shipping Cost res',res);
+        	// console.log('Get Shipping Cost res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_delivery_price(res.data));
@@ -256,7 +255,7 @@ actions.add_favorite = (req,success,failure) => {
 		
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	console.log('Add Favourite res',res);
+        	// console.log('Add Favourite res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.toggle_favorite({
@@ -267,7 +266,7 @@ actions.add_favorite = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	console.log('Add Favourite err', err);
+        	// console.log('Add Favourite err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

@@ -20,15 +20,16 @@ class TotalPrice extends Component {
     
 
     cancelInvoice() {
-       let payload = {
-			header: {
-				apiToken: this.props.user.authorization
-			},
-			body: {
-				invoice: this.props.detailTransaction.invoice
-			}
-		};
-        this.props.cancel_invoice(payload, () => actNav.goBack(), () => console.log())
+    //    let payload = {
+	// 		header: {
+	// 			apiToken: this.props.user.authorization
+	// 		},
+	// 		body: {
+	// 			invoice: this.props.detailTransaction.invoice
+	// 		}
+	// 	};
+    //     this.props.cancel_invoice(payload, () => actNav.goBack(), () => console.log())
+        this.props.modalVisible('alertDialog', true)
     }
     
     navigateToCart(){

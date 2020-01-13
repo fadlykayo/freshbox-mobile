@@ -25,6 +25,7 @@ class ProductList extends Component {
 		super(props);
 		this.state = {
 			refreshing: false,
+			currentHeight: height,
 			searchItem: '',
 			search: false,
 			onCategory: '',
@@ -319,7 +320,6 @@ class ProductList extends Component {
 
 	refreshProductList() {
 
-		console.log('refresh product list')
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -415,7 +415,7 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
-		
+
 		this.setState({listLoading: true})
 		let category_code = null;
 
@@ -438,9 +438,14 @@ class ProductList extends Component {
 				params: {...this.props.params, category_code: category_code}
 			}
 			this.props.get_products(payload,
-				() => {this.setState({listLoading: false})},
+				() => {
+					let state = JSON.parse(JSON.stringify(this.state));
+					state.currentHeight = state.currentHeight * 1.3;
+					state.listLoading = false;
+					this.setState(state)
+				},
 				(err) => {
-					console.log(err);
+					console.warn(err);
 				});
 
 		} else {
@@ -740,7 +745,7 @@ class ProductList extends Component {
 
 	onScrollEvent = (e) => {
 		
-		if(e.nativeEvent.contentOffset.y/width > 2) {
+		if(e.nativeEvent.contentOffset.y/this.state.currentHeight > 1.3) {
 			this.handleLoadMore();
 		} 
 
@@ -780,7 +785,6 @@ class ProductList extends Component {
 	}
 
 	backHandler = () => {
-		// console.log('halooo')
 		this.props.navigation.state.params.refreshProduct = true
 		actNav.goBack()
 	}

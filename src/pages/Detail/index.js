@@ -7,6 +7,7 @@ import NavigationBar from '@components/NavigationBar';
 import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
 import TotalPrice from './components/TotalPrice';
+import AlertDialog from '@components/AlertDialog';
 import { language, analytics } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
@@ -27,6 +28,9 @@ class Detail extends Component {
 			midtrans: '',
 			refreshing: false,
 			isNavigateBack: false,
+			modalVisible: {
+				alertDialog: false,
+			},
 			radio: [
 					{
 						name	: 'cod',
@@ -147,7 +151,7 @@ class Detail extends Component {
 
 	messageOrderSuccess() {
 		if(this.props.navigation.state.params.createOrderSuccess){
-			console.log('====> ini message order', this.props.navigation.state.params.invoice)
+			// console.log('====> ini message order', this.props.navigation.state.params.invoice)
 			if(this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
@@ -436,6 +440,39 @@ class Detail extends Component {
 
 	}
 
+	cancelInvoice = () => {
+		let payload = {
+			header: {
+				apiToken: this.props.user.authorization
+			},
+			body: {
+				invoice: this.props.detailTransaction.invoice
+			}
+		};
+		this.props.cancel_invoice(
+			payload,
+			() => {
+				this.setModalVisible('alertDialog', false)
+				actNav.goBack()
+			},
+			() => {
+				this.setModalVisible('alertDialog', false)
+			}
+		)
+	}
+
+	cancelAlert = () => {
+		this.setModalVisible('alertDialog', false)
+	}
+
+	setModalVisible = (type,value) => {
+    let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+    modalVisible[type] = value;
+    this.setState({modalVisible});
+  }
+
+
+
   	render(){
   	  	return(
             <Container 				
@@ -528,8 +565,14 @@ class Detail extends Component {
 					navigateToTransferInstruction={this.navigateToTransferInstruction}
 					discount={this.props.detailTransaction.discount_ammount > 0 ? this.props.detailTransaction.discount_ammount : this.props.discount}
 					freeShipping={this.props.minimumTrxFreeShippingCost}
+					modalVisible={this.setModalVisible}
 				/>
-				
+				<AlertDialog
+					modalVisible={this.state.modalVisible.alertDialog}
+					content={'dialog.cancelInvoice'}
+					requestHandler={this.cancelInvoice}
+					requestCancel={this.cancelAlert}
+				/>
 			</Container>
   	  	);
   	}

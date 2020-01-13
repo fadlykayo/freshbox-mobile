@@ -18,11 +18,11 @@ const styles = {
 			// marginRight: dashboard ? null : scaling.moderateScale(10),
 			marginBottom: dashboard ? scaling.moderateScale(20) : (scaling.isIphone5s() ? scaling.moderateScale(5) : scaling.moderateScale(5)),
 		}),
-		add:(dashboard) => ({
+		add:(dashboard, stock) => ({
 			borderColor: colour.red,
 			backgroundColor: colour.red,
 			borderWidth: 1,
-			paddingHorizontal: dashboard ? scaling.moderateScale(35) : scaling.moderateScale(12),
+			paddingHorizontal: dashboard ? (stock == 0 ? scaling.moderateScale(15) : scaling.moderateScale(30)) : scaling.moderateScale(12),
 			paddingVertical: scaling.moderateScale(5),
 			// shadowColor: Platform.OS == 'ios' ? colour.redTransparent : null,
 			// shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 3}  : {width: 0,height: 0},
@@ -33,7 +33,9 @@ const styles = {
 		counter:(dashboard) => ({
 			backgroundColor: colour.white,
 			borderColor: colour.white,
-			paddingVertical: scaling.moderateScale(3),
+			// borderWidth: 1,
+			paddingVertical: scaling.moderateScale(4),
+			paddingHorizontal: scaling.moderateScale(18),
 			shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
 			shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 3}  : {width: 0,height: 0},
 			shadowRadius: Platform.OS == 'ios' ? 3 : 0,
@@ -43,6 +45,8 @@ const styles = {
 	},
 	subcontainer:{
 		button:{
+			// borderWidth: 1,
+			// marginHorizontal: 10,
 			paddingHorizontal: scaling.moderateScale(15),
 			paddingVertical: scaling.moderateScale(5),
 		}
@@ -50,17 +54,17 @@ const styles = {
 	text:{
 		add:{
 			fontFamily: 'Avenir-Heavy',
-			fontSize: scaling.moderateScale(13),
+			fontSize: scaling.moderateScale(14),
 			color: colour.white,
 		},
 		counter:{
 			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(13),
+			fontSize: scaling.moderateScale(14),
 			color: colour.darkGrey,
 		},
 		button:{
 			fontFamily: 'Avenir-Roman',
-			fontSize: scaling.moderateScale(13),
+			fontSize: scaling.moderateScale(14),
 			color: colour.red,
 		}
 	},

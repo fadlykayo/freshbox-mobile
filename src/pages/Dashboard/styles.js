@@ -34,24 +34,26 @@ const style = {
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
       marginBottom: 10,
     },
     rowContainer: {
       flex: -1,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      marginHorizontal: 10,
+      marginHorizontal: 15,
+      // borderWidth: 1,
+      justifyContent: 'space-between'
+      // paddingHorizontal: scaling.moderateScale(5)
     },
     textBold: {
       fontFamily: 'Avenir-Heavy',
-      fontSize: 17,
+      fontSize: scaling.moderateScale(16),
       color: colour.darkGrey,
     },
     textBoldSmall: {
       fontFamily: 'Avenir-Heavy',
-      fontSize: 15,
+      fontSize: scaling.moderateScale(14),
       color: colour.red,
     }
   }

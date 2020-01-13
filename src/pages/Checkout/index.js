@@ -107,7 +107,7 @@ class Checkout extends Component {
 			() => {
 				let state = this.state;
 
-				console.log('min trans', this.props.minimumTrxFreeShippingCost)
+				// console.log('min trans', this.props.minimumTrxFreeShippingCost)
 
 				
 
@@ -419,7 +419,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-		console.log('====> payment method', paymentMethod)
+		// console.log('====> payment method', paymentMethod)
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -470,7 +470,7 @@ class Checkout extends Component {
 
 messageOrderSuccess = () => {
 		if(this.props.navigation.state.params.createOrderSuccess){
-			console.log('======>', this.props.navigation.state.params.invoice)
+			// console.log('======>', this.props.navigation.state.params.invoice)
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
@@ -554,9 +554,9 @@ messageOrderSuccess = () => {
 							</View>
 						</TouchableOpacity>
 
-						<View style={{flex: 1, flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
+						<View style={styles.subcontainer.info.container}>
 							<Image
-								style={{width: 15, height: 15, marginRight: 10}}
+								style={styles.subcontainer.info.icon}
 								source={images.ic_info_grey}
 							/>
 							<View>
@@ -606,7 +606,7 @@ messageOrderSuccess = () => {
 										style={styles.text.methods}
 										property={'checkout.methods.transfer'}
 									/>
-									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', height: 15}}>
+									<View style={styles.payment.imageContainer('transfer')}>
 										<Image
 											resizeMode={'contain'}
 											source={images.icon_logo_bca}
@@ -638,7 +638,7 @@ messageOrderSuccess = () => {
 										style={styles.text.methods}
 										property={'checkout.methods.creditCard'}
 									/>
-									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: -4, height: 15}}>
+									<View style={styles.payment.imageContainer('credit_card')}>
 										<Image
 											// resizeMode={'contain'}
 											source={images.icon_visa}
@@ -664,7 +664,7 @@ messageOrderSuccess = () => {
 										style={styles.text.methods}
 										property={'checkout.methods.gopay'}
 									/>
-									<View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: 10, height: 15}}>
+									<View style={styles.payment.imageContainer('gopay')}>
 										<Image
 											resizeMode={'contain'}
 											source={images.logo_gopay}

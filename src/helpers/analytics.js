@@ -32,6 +32,10 @@ analysis.logEvent = (eventName) => {
   
 }
 
+analysis.log = (type,payload) => {
+  Analytics.logEvent(type, payload);
+}
+
 analysis.setCurrentScreen = (screenName) => {
   Analytics.setCurrentScreen(screenName, screenName);
 }

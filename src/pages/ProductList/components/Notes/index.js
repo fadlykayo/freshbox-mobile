@@ -23,7 +23,7 @@ class Notes extends PureComponent {
 				<TouchableWithoutFeedback onPress={this.dismissNotes}>
 
 					<View style = {styles.container}>
-							<View style = {{marginHorizontal: 10}}>
+							<View style = {{marginHorizontal: 0}}>
 								<Image
 									style={{width: 20, height: 20}}
 									source={images.info}

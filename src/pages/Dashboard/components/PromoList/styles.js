@@ -23,12 +23,12 @@ const style = {
       paddingHorizontal: 20,
     },
     textPromo: {
-      fontSize: 17,
+      fontSize: scaling.moderateScale(16),
       fontFamily: 'Avenir-Heavy',
       color: colour.darkGrey,
     },
     textMore: {
-      fontSize: 15,
+      fontSize: scaling.moderateScale(14),
       fontFamily: 'Avenir-Heavy',
       color: colour.red
     }

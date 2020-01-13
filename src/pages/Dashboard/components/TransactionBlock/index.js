@@ -31,7 +31,7 @@ export default class TransactionBlock extends Component {
                     type={'red'} 
                     title={'historyPage.content.reOrder'} 
                     borderRadius={50} 
-                    fontSize={13}
+                    fontSize={14}
                     onPress={() => this.props.navigateToDetail(transaction)}
                   />
                 </View>

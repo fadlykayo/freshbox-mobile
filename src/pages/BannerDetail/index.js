@@ -111,7 +111,7 @@ class BannerDetail extends Component {
           });
         },
         (err) => {
-          console.log('navigate to detail', err);
+          // console.log('navigate to detail', err);
         }
       )
     }
@@ -160,7 +160,6 @@ class BannerDetail extends Component {
 
     renderContent = () => {
      const details = this.props.currentDetail;
-    //  console.warn(details)
      const expirationDate = moment(details.expiry_date).format("MMM Do, YYYY");
         return (
           <View style={styles.mid.outerContainer}>
@@ -297,7 +296,6 @@ class BannerDetail extends Component {
         if(this.props.currentDetail.products.length !== 0) {
           return (
             <FlatList
-              // horizontal
               showsHorizontalScrollIndicator={false}
               data = {this.props.currentDetail.products}
               keyExtractor = {(item) => item.code}
@@ -431,7 +429,7 @@ class BannerDetail extends Component {
     }
 
     render() {
-        console.log('banner detil', this.props.currentDetail)
+        // console.log('banner detil', this.props.currentDetail)
         let params = this.props.navigation.state.params;
         const introButton = this.showCheckout.interpolate({
           inputRange: [0, 1],
@@ -447,8 +445,9 @@ class BannerDetail extends Component {
               style={styles.container}
               bgColorTop={'white'}
             >
-                <NavigationBar
-			    	title={'bannerDetail.navigationTitle'}
+          <NavigationBar
+            navBarTitle
+			    	title={this.props.currentDetail.name_banner}
 			    />
           {
             params.links && params.links !== '' ?
@@ -497,9 +496,6 @@ class BannerDetail extends Component {
           <AlertDialog
             modalVisible={this.state.modalVisible.alertDialog} 
             content={'dialog.copyVoucher'}
-            // params={{
-            // 	item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
-            // }}
             bannerDetail
             requestHandler={this.SetAndUseVoucher}
             requestCancel={this.cancelUseVoucher}

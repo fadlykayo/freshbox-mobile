@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
+import { analytics } from '@helpers';
 
 class ButtonCount extends PureComponent {
 	constructor(){
@@ -13,6 +14,8 @@ class ButtonCount extends PureComponent {
 	}
 
 	addTotalItem(){
+		// let productName = this.props.data.name.split(" ").join("_");
+		// analytics.log(`Button_Tambah_Pressed_${productName}`)
 		this.props.addTotalItem();
 	}
 
@@ -24,7 +27,7 @@ class ButtonCount extends PureComponent {
 		if (this.props.data.stock > 0) {
 			if(this.props.count == 0){
 				return(
-					<TouchableOpacity onPress={this.addTotalItem} style={[styles.container.base(this.props.dashboard),styles.container.add(this.props.dashboard)]}>
+					<TouchableOpacity onPress={this.addTotalItem} style={[styles.container.base(this.props.dashboard),styles.container.add(this.props.dashboard,this.props.data.stock)]}>
 						<StaticText
 							style={styles.text.add}
 							property={'productList.content.addItem'}
@@ -64,7 +67,7 @@ class ButtonCount extends PureComponent {
 			}
 		} else {
 			return(
-				<View style={[styles.container.base(this.props.dashboard),styles.container.add(this.props.dashboard)]}>
+				<View style={[styles.container.base(this.props.dashboard),styles.container.add(this.props.dashboard,this.props.data.stock)]}>
 					<StaticText
 						style={styles.text.add}
 						property={'productList.content.unavailable'}

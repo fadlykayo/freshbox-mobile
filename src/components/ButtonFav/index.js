@@ -2,6 +2,7 @@ import React,{ PureComponent } from 'react';
 import { TouchableOpacity, Image, View, Share } from 'react-native';
 import images from '@assets';
 import styles from './styles';
+import { analytics } from '@helpers';
 
 class ButtonFav extends PureComponent {
     constructor(){
@@ -11,10 +12,13 @@ class ButtonFav extends PureComponent {
     }
 
     toggleFavorite(){
+        
+        // analytics.log(`Button_Pressed_Favorite_${this.props.data.name.split(" ").join("_")}`)
 		this.props.toggleFavorite(this.props.data);
 	}
 
     onShare(){
+        // analytics.log(`Button_Pressed_Share_${this.props.data.name.split(" ").join("_")}`)
         this.props.onShare(this.props.data);
         
 

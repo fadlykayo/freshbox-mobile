@@ -51,7 +51,7 @@ class NavigationBar extends PureComponent {
                 return (
                     <Image
                         resizeMode={'contain'} 
-                        source={images.ic_menu}
+                        source={images.ic_menu_grey}
                         style={styles.icon}
                     />
                 )
@@ -79,6 +79,7 @@ class NavigationBar extends PureComponent {
                 <StaticText 
                     style={styles.title}
                     property={this.props.title}
+                    navBarTitle={this.props.navBarTitle}
                 />
                 <TouchableOpacity 
                     style={styles.button} 

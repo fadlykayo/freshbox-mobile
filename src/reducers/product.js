@@ -420,9 +420,8 @@ const editTotal = (state,payload) => {
             currentCart.push(newCart[x])
         }
     }
-    console.warn(currentCart)
+
     for(i in currentCart){
-        // console.log('dshajdhjksa', currentCart[i])
         if(currentCart[i].banner_harga_jual && currentCart[i].banner_harga_jual !== null) {
             total = total + (currentCart[i].banner_harga_jual * currentCart[i].count)
         } else {
@@ -684,7 +683,7 @@ getCurrentDetail = (state, payload) => {
         if(sameValue == false) {
             incomingProducts[x].product.banner_harga_jual = incomingProducts[x].banner_harga_jual
             cartList.push(incomingProducts[x].product)
-            console.log(incomingProducts[x])
+            // console.log(incomingProducts[x])
         } 
         
         

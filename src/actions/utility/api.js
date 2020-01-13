@@ -22,7 +22,6 @@ actions.broadcast_message = (req, success, failure) => {
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200){
-					// console.warn(res)
 					dispatch(actReducer.broadcast_message(res.data));
 					success(res);
 				}
@@ -47,12 +46,9 @@ actions.broadcast_message = (req, success, failure) => {
 }
 
 actions.delivery_date = (req, success, failure) => {
-	// console.warn(req, path.delivery_date)
 	payload.path = path.delivery_date
 	payload.header = req.header;
 	payload.body = req.body;
-
-	// console.warn(payload)
 
 	return dispatch => {
 

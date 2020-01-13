@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList, Image, TouchableWithoutFeedback, ScrollView, Dimensions } from 'react-native'
 import images from '@assets'
+import { analytics } from '@helpers';
 import styles from './styles'
 const { height, width } = Dimensions.get('window');
 
@@ -15,10 +16,12 @@ export default class Categories extends Component {
   }
 
   navigateToCategories = (category) => {
+    // analytics.log(`Category_${category.name.split(" ").join("_")}_Pressed`)
     this.props.navigateToCategories(category)
   }
 
   onScrollEvent = () => (e) => {
+    analytics.log(`Category_Scrolled`)
     this.setState({ scrollX: e.nativeEvent.contentOffset.x });
   };
 
@@ -75,11 +78,13 @@ export default class Categories extends Component {
     return (
       
       <View style={styles.page.container}>
-
-
+        <View style={styles.page.innerContainer}>
         {
           page ? this.renderCategory(page) : null
         }
+        </View>
+
+        
 
 
 

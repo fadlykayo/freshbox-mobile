@@ -72,4 +72,5 @@ images.ic_share = require('./ic_share.png');
 images.ic_calendar_grey = require('./ic_calendar_grey.png');
 images.ilu_announcement = require('./ilu_announcement.png');
 images.ic_menu = require('./ic_menu.png');
+images.ic_menu_grey = require('./ic_menu_grey.png');
 export default images;

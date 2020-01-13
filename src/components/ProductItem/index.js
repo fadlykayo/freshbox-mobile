@@ -4,7 +4,7 @@ import ButtonCount from '@components/ButtonCount';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
-import { scaling } from '@helpers';
+import { scaling, analytics } from '@helpers';
 import styles from './styles';
 
 class ProductItem extends PureComponent {
@@ -40,12 +40,7 @@ class ProductItem extends PureComponent {
 	}
 
 	openDetailProduct(){
-		let data;
-		if(this.props.bannerDetail) {
-			data = this.props.data.product;
-		} else {
-			data = this.props.data;
-		}
+		analytics.log('Product_Card_Clicked', {name: this.props.data.name})
 		this.props.openDetailProduct(this.props.data);
 	}
 

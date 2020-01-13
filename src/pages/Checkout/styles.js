@@ -23,7 +23,30 @@ const styles = {
 			// paddingBottom: 20,
 		}
 	},
+	payment: {
+		imageContainer: (type) => ({
+			flex: 1,
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'flex-end',
+			marginRight: type == 'credit_card' ? -8 : 0,
+			height: 15,
+		})
+	},
 	subcontainer:{
+		info: {
+			container: {
+				flex: 1,
+				flexDirection: 'row',
+				justifyContent: 'center',
+				alignItems: 'center',
+			},
+			icon: {
+				width: 15,
+				height: 15,
+				marginRight: scaling.moderateScale(10)
+			}
+		},
 		label:{
 			width: width * 0.9,
 		},

@@ -20,25 +20,21 @@ actions.checkVoucherValidity = (req, success, failure) => {
   return dispatch => {
     requestHandler('post', payload, dispatch)
     .then((res) => {
-      console.log('voucher res 200 ==>', res)
       if(res.code){
         if(res.code == 200) {
           if(res.data.grand_total_diskon <= 0 || res.data.grand_total_diskon == null) {
             
             if(!res.data.length) {
-              // console.log(res)
               dispatch(actReducer.cancel_voucher(req.body.subtotal)); 
               dispatch(actNetwork.set_error_status({
                 status: true,
                 data: res.code_message
               }))
               
-              //calculate new grandtotal
               
               failure();
             } 
           } else {
-            // console.warn(res.data)
             dispatch(actReducer.set_discount_total(res.data))
             success();
           }

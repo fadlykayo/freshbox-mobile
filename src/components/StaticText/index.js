@@ -41,10 +41,16 @@ class StaticText extends Component {
     }
 
     renderText(property = 'no_props',lang = 'id',params = {}){
-        language.transformText(property,lang,params)
-        .then((res) => {
-            this.setState({outputText: res});
-        });
+        if(this.props.navBarTitle) {
+            this.setState({outputText: this.props.property})
+        } else {
+            language.transformText(property,lang,params)
+                .then((res) => {
+                    this.setState({outputText: res});
+                }
+            );
+        }
+        
     }
 
     render(){

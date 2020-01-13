@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { actNav, navConstant } from '@navigations';
 import Button from '@components/Button'
+import { analytics } from '@helpers';
 import Styles from './style';
 
 const { height, width } = Dimensions.get('window');

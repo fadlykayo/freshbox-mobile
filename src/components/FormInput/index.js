@@ -4,6 +4,7 @@ import StaticText from '@components/StaticText';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '@components/Button';
 import { language } from '@helpers';
+import { colour } from '@styles';
 import images from '@assets';
 import styles from './styles';
 
@@ -170,6 +171,7 @@ class FormInput extends Component {
                     value={this.props.value}
                     numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
                     placeholder={this.state.placeholder}
+                    placeholderTextColor = {colour.grey}
                     maxLength={this.state.maxLength}
                     editable={this.props.editable}
                     keyboardType={this.state.keyboardType}

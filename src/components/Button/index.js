@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 import { colour } from '@styles';
+import { language, analytics } from '@helpers';
 
 class Button extends PureComponent {
     constructor() {
@@ -11,7 +12,8 @@ class Button extends PureComponent {
         this.onPress = this.onPress.bind(this);
     }
 
-    onPress() {
+    onPress () {
+        analytics.log(`Button_${this.props.title.split(".").join("_")}_Pressed`)
         this.props.onPress();
     }
 

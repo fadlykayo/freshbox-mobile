@@ -10,8 +10,8 @@ export default {
     height: 310,
     borderBottomColor: colour.veryLightGrey,
     borderBottomWidth: 8,
-    borderTopWidth: 8,
-    borderTopColor: colour.veryLightGrey,
+    // borderTopWidth: 8,
+    // borderTopColor: colour.veryLightGrey,
     paddingTop: 10,
     marginTop: 5,
   },
@@ -40,7 +40,7 @@ export default {
     },
     text: {
       fontFamily: 'Avenir-Roman',
-      fontSize: 12,
+      fontSize: scaling.moderateScale(10),
       textAlign: 'center',
       color: colour.darkGrey,
     },
@@ -55,7 +55,7 @@ export default {
       marginBottom: 8,
     },
     font: {
-      fontSize: 17,
+      fontSize: scaling.moderateScale(16),
       fontFamily: 'Avenir-Heavy',
       color: colour.darkGrey,
     }
@@ -64,10 +64,16 @@ export default {
     container: {
       flex: 1,
       width: width,
+      alignItems: 'center'
+    },
+    innerContainer: {
+      flex: 1,
+      width: width <= 375 ?  width : width * 0.9,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      marginLeft: 5,
-    },
+      marginLeft: 10,
+      
+    }
   },
   cover: {
     indicator: {
@@ -80,7 +86,7 @@ export default {
           alignItems: 'center',
           position: 'absolute',
           bottom: 10,
-          left: 21,
+          left: 15,
           // borderWidth: 1,
           // borderColor: 'red',
         }

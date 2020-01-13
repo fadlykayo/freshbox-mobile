@@ -24,7 +24,7 @@ class SearchComponent extends Component {
 	}
 
 	openDrawerMenu() {
-		if(this.props.dashboard) {
+		if(this.props.dashboard || this.props.menubar) {
 			this.props.openDrawerMenu()
 		} else {
 			
@@ -94,7 +94,7 @@ class SearchComponent extends Component {
 						<ActivityIndicator/> : 
 						<Image
 							resizeMode={'contain'} 
-							source={this.props.dashboard ? images.ic_menu : images.icon_back_white}
+							source={this.props.menubar ? images.ic_menu : images.icon_back_white}
 							style={styles.icon.menu}
 						/>
 					}

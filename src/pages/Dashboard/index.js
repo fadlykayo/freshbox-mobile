@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
-import { language, analytics } from '@helpers';
+import { language, analytics, scaling } from '@helpers';
 import { colour } from '@styles';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
@@ -13,10 +13,12 @@ import Carousel from '@components/Carousel'
 import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
+import CategoriesPopUp from './components/CategoriesPopUp';
 import ProductList from '../ProductList';
 import ProductItem from '@components/ProductItem';
 import StaticText from '@components/StaticText';
 import Announcement from './components/Announcement';
+import FilterComponent from './components/FilterComponent';
 import PopUp from './components/PopUp';
 import actions from '@actions';
 import styles from './styles';
@@ -28,6 +30,8 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       searchItem: '',
+			currentHeight: height,
+			productListHeight: height,
 			scrollX: 0,
 			bubble: 0,
 			modalVisible: {
@@ -35,6 +39,7 @@ class Dashboard extends Component {
 				openProduct: false,
 				openImageDetail: false,
 				checkout: false,
+				filterComponent: false,
 			},
 			loadingTransaction: false,
 			refreshing: false,
@@ -60,7 +65,9 @@ class Dashboard extends Component {
 			promoCode: '',
 			scrollY: '',
     }
+		this.offSet = 0;
 		this.showCheckout = new Animated.Value(0);
+		this.showFilterValue = new Animated.Value(0);
   }
 	shouldComponentUpdate(nextProps, nextState) {
 		if(nextProps.total_count == 0) this.outroAnimate();
@@ -77,6 +84,7 @@ class Dashboard extends Component {
 		this.checkCart();
 		this.handleDeepLink();
 		this.getHistoryData();
+		this.hideFilterAnimation();
   }
 
 	componentWillUnmount = () => {
@@ -153,6 +161,44 @@ class Dashboard extends Component {
 			)
 		}
 		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+	}
+
+	showFilterAnimation = () => {
+		this.showFilterValue.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showFilterValue, 200, Easing.ease, 0)]).start()
+		let state = JSON.parse(JSON.stringify(this.state));
+		state.modalVisible.filterComponent = true;
+    this.setState(state);
+	}
+
+	hideFilterAnimation = () => {
+		this.showFilterValue.setValue(0);
+		const createAnimation = (value, duration, easing, delay = 0) => {
+			return Animated.timing(
+			 	value,
+			 	{
+					toValue: 1,
+					duration,
+					easing,
+					delay,
+			 	}
+			)
+		}
+		Animated.parallel([createAnimation(this.showFilterValue, 200, Easing.ease, 0)]).start()
+		let state = JSON.parse(JSON.stringify(this.state));
+		state.modalVisible.filterComponent = false;
+    this.setState(state);
 	}
 
 	// validate if cart not empty
@@ -233,7 +279,7 @@ class Dashboard extends Component {
 	
 
   getProductList = (fromDashboard) => {
-		console.log('dashboard')
+		// console.log('dashboard')
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -342,6 +388,8 @@ class Dashboard extends Component {
 				// category_code: category_code,
 			}
 		}
+
+		analytics.log('Search_Product', {name: searchItem ? searchItem : this.state.searchItem})
 
 		this.props.search_products(payload, 
 			(success) => {
@@ -594,9 +642,21 @@ class Dashboard extends Component {
 		this.props.change_categories(category);
 		this.props.search_products(payload,
 			() => {
-				actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+				if(this.state.modalVisible.openCategories) {
+					this.closeDialogCategories();
+				}
+				const reset = () => {
+					this.offSet = 0;
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+				}
+				this.setState({
+					currentHeight: height,
+				},reset())
 			},
 			(err) => {
+				if(this.state.modalVisible.openCategories) {
+					this.closeDialogCategories();
+				}
 				console.log('change category', err)
 			}
 		)
@@ -728,7 +788,7 @@ class Dashboard extends Component {
 	}
 
 		handleLoadMoreProducts = () => {
-	
+		// console.warn('halo')
 		let category_code = null;
 
 		this.props.categories.map(c => {
@@ -741,17 +801,26 @@ class Dashboard extends Component {
 			}
 		});
 
+		
+
 		if(this.props.current_page <= this.props.last_page) {
+			let params = {...this.props.params}
+			if(params.category_code) {
+				params.category_code = undefined
+			}
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
 				},
 				body: {},
-				params: {...this.props.params, category_code: category_code}
+				params: params
 			}
 			this.props.get_products(payload,
 				() => {
-					// console.warn('cuess')
+					let state = JSON.parse(JSON.stringify(this.state));
+					state.currentHeight = state.currentHeight * 1.3;
+					this.setState(state)
+					console.warn('cuess')
 				},
 				(err) => {
 					// console.warn(err);
@@ -834,10 +903,38 @@ class Dashboard extends Component {
 
 	onScrollEvent = (e) => {
 		
-		if(e.nativeEvent.contentOffset.y/width > 2) {
-			this.handleLoadMoreProducts()
-		} 
+		
 
+		const currentOffset = e.nativeEvent.contentOffset.y;
+		const currentHeight = this.state.currentHeight;
+		const productListHeight = this.state.productListHeight;
+    const dif = currentOffset - (this.offSet || 0);
+
+    if (Math.abs(dif) < 3) {
+      console.log('unclear');
+    } else if (dif < 0) {
+			if(this.state.modalVisible.filterComponent) {
+				this.hideFilterAnimation();
+			}
+    } else {
+			if(currentOffset / currentHeight > 1.3) {
+				this.handleLoadMoreProducts()
+			}
+			if(currentOffset / height > 1 && !this.state.modalVisible.filterComponent) {
+				this.showFilterAnimation();
+			}
+    }
+
+    this.offSet = currentOffset;
+
+	}
+
+	openAllCategories = () => {
+		this.setModalVisible('openCategories', true)
+	}
+
+	closeDialogCategories = () => {
+		this.setModalVisible('openCategories', false)
 	}
 
 
@@ -852,15 +949,24 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		})
+		const filterVisible = this.showFilterValue.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, scaling.moderateScale(50)]
+		})
+		const filterHide = this.showFilterValue.interpolate({
+			inputRange: [0, 1],
+			outputRange: [scaling.moderateScale(50), 0],
+		})
     return (
 			
       <Container
 				backgroundColor ={'white'}
-				// containerColor
+				containerColor
       >
 			
       <SearchComponent
-				dashboard
+				// dashboard
+				menubar
         type={'searchItem'}
         title={'productList.searchPlaceHolder'}
         value={this.state.searchItem}
@@ -869,6 +975,14 @@ class Dashboard extends Component {
         openDrawerMenu={this.openDrawerMenu}
         clearSearch={this.clearSearch}
       />
+			<FilterComponent 
+				onCategory={this.props.on_category}
+				modalVisible={this.state.modalVisible.filterComponent}
+				showFilter={filterVisible}
+				dismissFilter={filterHide}
+				openAllCategories={this.openAllCategories}
+				// openDeliveryInfo = {this.openDeliveryInfo}
+			/>
 			
       <ScrollView 
 				style={styles.scrollView} 
@@ -974,7 +1088,12 @@ class Dashboard extends Component {
       </ScrollView>
 
 			
-
+			<CategoriesPopUp
+				changeCategory = {this.navigateToCategories}
+				categories = {this.props.categories}
+				modalVisible={this.state.modalVisible.openCategories}
+				closeDialogCategories={this.closeDialogCategories}
+			/>
       
       <Checkout
 					introButton={introButton}
@@ -1012,6 +1131,7 @@ const mapStateToProps = state => ({
 	current_page: state.product.params.page,
 	last_page: state.product.last_page,
 	announcement: state.utility.announcement,
+	on_category: state.product.on_category,
 })
 
 const mapDispatchToProps = dispatch => ({

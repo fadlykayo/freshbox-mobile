@@ -9,6 +9,8 @@ const style = {
     flex: 1,
     // backgroundColor: 'pink',
     marginVertical: 10,
+    paddingVertical: scaling.moderateScale(10),
+    
   },
   top: {
     container: {
@@ -16,7 +18,8 @@ const style = {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingHorizontal: 20
+      paddingHorizontal: 20,
+      
     },
     left: {
       // paddingHorizontal: 20,
@@ -25,12 +28,12 @@ const style = {
       // paddingHorizontal: 20,
     },
     textPromo: {
-      fontSize: 17,
+      fontSize: scaling.moderateScale(16),
       fontFamily: 'Avenir-Heavy',
       color:colour.darkGrey
     },
     textMore: {
-      fontSize: 15,
+      fontSize: scaling.moderateScale(14),
       fontFamily: 'Avenir-Heavy',
       color: colour.red
     }
@@ -49,11 +52,13 @@ const style = {
       
     },
     outerContainer: {
-      flex: -1,
+      flex: 1,
       flexDirection: 'row',
+      // paddingVertical: scaling.moderateScale(15),
       paddingLeft: 20,
-      alignItems: 'center',
-      justifyContent: 'center'
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      // backgroundColor: 'blue'
     },
   },
   card: {
@@ -64,14 +69,14 @@ const style = {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingHorizontal: 10,
-      borderWidth: 1,
+      paddingHorizontal: 15,
+      // borderWidth: 1,
       borderRadius: 8,
-      borderColor: colour.white,
+      // borderColor: colour.white,
       shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
       shadowOffset: Platform.OS == 'ios' ? {
         width: 0,
-        height: 5,
+        height: 2,
       } : {
         width: 0,
         height: 0,
@@ -81,7 +86,9 @@ const style = {
 
       elevation: Platform.OS == 'android' ? 3 : 0,
       marginRight: 10,
-      marginBottom: 10,
+      marginLeft: 3,
+      // backgroundColor: 'blue'
+      marginVertical: 10,
     }),
     emptyContainer: {
       flexDirection: 'row', 
@@ -99,7 +106,7 @@ const style = {
     },
     transactionText: {
       fontFamily: 'Avenir-Book',
-        fontSize: 14,
+        fontSize: scaling.moderateScale(14),
         textAlign: 'left',
         color: colour.darkGrey,
     },
@@ -109,15 +116,16 @@ const style = {
       },
       text: {
         fontFamily: 'Avenir-Heavy',
-        fontSize: 12,
+        fontSize: scaling.moderateScale(12),
         textAlign: 'left',
+        marginBottom: 5,
         color: colour.darkGrey,
       }
     },
     items: {
       text: {
         fontFamily: 'Avenir-Roman',
-        fontSize: 12,
+        fontSize: scaling.moderateScale(12),
         textAlign: 'left',
         color: colour.grey,
       }
@@ -130,7 +138,7 @@ const style = {
       },
       text: {
         fontFamily: 'Avenir-Heavy',
-        fontSize: 16,
+        fontSize: scaling.moderateScale(14),
         textAlign: 'left',
         color: colour.darkGrey,
       }
@@ -139,8 +147,8 @@ const style = {
       container: {
         height: 39,
         width: width * 0.35,
-        marginTop: 15,
-        marginRight: 10,
+        // marginTop: 15,
+        // marginRight: 10,
       }
     }
   }
