@@ -344,7 +344,7 @@ class BannerDetail extends Component {
               this.props.currentDetail.products.length ? 
               <View style = {styles.promo.titleContainer}>
                 <Text style = {styles.promo.titleText}>Produk Campaign</Text>
-                <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text>
+                {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
               </View> : null
 
             }

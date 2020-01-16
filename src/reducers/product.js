@@ -450,6 +450,9 @@ const clearProducts = (state) => {
 
     newState.params = initialState.params
     newState.products = [];
+    newState.promoProduct.map(e => {
+        e.count = 0
+    })
     newState.wishlist.products = [];
     newState.cart.products = [];
     newState.total.count = 0;

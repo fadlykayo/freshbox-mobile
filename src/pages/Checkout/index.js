@@ -84,7 +84,7 @@ class Checkout extends Component {
 			() => {
 				let state = this.state;
 				state.delivery_date = this.props.delivery_date
-				// console.warn(state.delivery_date)
+				console.warn(state.delivery_date)
 				this.setState(state)
 				// console.warn('success')
 			},
