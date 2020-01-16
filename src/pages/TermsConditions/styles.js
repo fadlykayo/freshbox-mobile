@@ -20,12 +20,12 @@ const styles = {
     text: {
         title: {
             fontFamily: 'Avenir-Heavy',
-            fontSize: scaling.moderateScale(14),
+            fontSize: scaling.moderateScale(18),
             color: colour.darkGrey,
         },
         content: {
             fontFamily: 'Avenir-Book',
-            fontSize: scaling.moderateScale(13),
+            fontSize: scaling.moderateScale(14),
             color: colour.darkGrey,
         }
     },

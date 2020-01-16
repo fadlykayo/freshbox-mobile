@@ -1,6 +1,8 @@
 import React,{ Component } from 'react';
 import { TouchableOpacity, View, Image, ScrollView, Text, Modal } from 'react-native';
 import ButtonFav from '@components/ButtonFav';
+import Button from '@components/Button';
+import images from '@assets';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonCount from '@components/ButtonCount';
 import ZoomImage from '@components/ZoomImage';
@@ -117,6 +119,23 @@ class ProductDetail extends Component {
 								<ScrollView style={styles.bottomContainer}>
 									<Text style={styles.text.description}>{this.props.data.description}</Text>
 								</ScrollView>
+								{/* <View style={{position: 'absolute', right: 120, bottom: 5, backgroundColor: 'pink'}}>
+									<View style={{flex: 1, flexDirection: 'row'}}>
+										<Image
+											style={styles.icon.share}
+											resizeMode={'contain'}
+											source={images.ic_share}
+										/>
+										<Button
+											borderRadius={'8'}
+											type="white"
+											title={'halo'}
+										/>
+									</View>
+
+								</View> */}
+								
+								
 								<ButtonCount
 									data={this.props.data}
 									count={this.props.data.count}

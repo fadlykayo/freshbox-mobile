@@ -60,7 +60,7 @@ const styles = {
             flex: -1,
             flexDirection: 'row',
             paddingHorizontal: width * 0.05,
-            paddingVertical: width * 0.02,
+            paddingVertical: width * 0.05,
             minHeight: height * 0.1,
             flexDirection: 'row',
         },

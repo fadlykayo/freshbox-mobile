@@ -56,11 +56,11 @@ const styles = {
             borderColor: colour.white,
             borderWidth: 1,
             borderRadius: 8,
-            // shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
-		    // shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 12}  : {width: 0,height: 0},
-		    // shadowRadius: Platform.OS == 'ios' ? 8 : 0,
-		    // shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
-		    // elevation: Platform.OS == 'android' ? 6 : 0,
+            shadowColor: Platform.OS == 'ios' ? colour.veryLightGreyTransparent : null,
+		    shadowOffset: Platform.OS == 'ios' ? {width: 0,height: 12}  : {width: 0,height: 0},
+		    shadowRadius: Platform.OS == 'ios' ? 8 : 0,
+		    shadowOpacity: Platform.OS == 'ios' ?  1.0 : 0,
+		    elevation: Platform.OS == 'android' ? 6 : 0,
             marginRight: scaling.moderateScale(5),
             justifyContent: 'center',
             alignItems: 'center',
@@ -93,11 +93,16 @@ const styles = {
         product:{
             height: width * 0.23,
             width: width * 0.23,
+        },
+        share: {
+            height: scaling.moderateScale(16),
+            width: scaling.moderateScale(18)
         }
     },
     text:{
         description:{
-            fontFamily: 'Avenir-Book',
+            fontFamily: 'Avenir-Roman',
+            fontSize: scaling.moderateScale(14),
             marginBottom: scaling.moderateScale(12),
             color: colour.grey,
             lineHeight: scaling.moderateScale(24),

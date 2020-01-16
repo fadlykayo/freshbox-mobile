@@ -820,7 +820,6 @@ class Dashboard extends Component {
 					let state = JSON.parse(JSON.stringify(this.state));
 					state.currentHeight = state.currentHeight * 1.3;
 					this.setState(state)
-					console.warn('cuess')
 				},
 				(err) => {
 					// console.warn(err);
