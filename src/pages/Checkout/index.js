@@ -10,6 +10,7 @@ import StaticText from '@components/StaticText';
 import TotalPrice from '@components/TotalPrice';
 import DeliveryDate from './components/DeliveryDate';
 import DeliveryPlace from './components/DeliveryPlace';
+import DiscountDetail from './components/DiscountDetail';
 import images from '@assets';
 import styles from './styles';
 import { language } from '@helpers';
@@ -27,6 +28,7 @@ class Checkout extends Component {
 			modalVisible:{
 				showDeliveryDate: false,
 				showPriceDetail: true,
+				showDiscountDetail: false,
 			},
 			delivery_date: [],
 			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
@@ -144,7 +146,6 @@ class Checkout extends Component {
         modalVisible[type] = value;
         this.setState({modalVisible});
     }
-
 	getDeliveryDate(payload){
 		this.setState({
 			date:{
@@ -255,7 +256,12 @@ class Checkout extends Component {
 	closeDeliveryDate(){
 		this.setModalVisible('showDeliveryDate',false);
     }
-	
+	openDiscountDetail = () => {
+		this.setModalVisible('showDiscountDetail', true);
+	}
+	closeDiscountDetail = () => {
+		this.setModalVisible('showDiscountDetail', false);
+	}
 	_renderLabel() {
 		if (this.state.date == null) return null;
 		else return (
@@ -419,7 +425,7 @@ class Checkout extends Component {
 	}
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-		// console.log('====> payment method', paymentMethod)
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -470,7 +476,6 @@ class Checkout extends Component {
 
 messageOrderSuccess = () => {
 		if(this.props.navigation.state.params.createOrderSuccess){
-			// console.log('======>', this.props.navigation.state.params.invoice)
 			if(this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
 				.then(message => {
@@ -588,6 +593,7 @@ messageOrderSuccess = () => {
 							additional = {this.props.additional}
 							checkout={true}
 							freeShipping={this.props.minimumTrxFreeShippingCost}
+							openDiscountDetail={this.openDiscountDetail}
 						/>
 					</View>
 
@@ -711,6 +717,18 @@ messageOrderSuccess = () => {
 					modalVisible={this.state.modalVisible.showDeliveryDate}
 					closeDeliveryDate={this.closeDeliveryDate}
 					dates={this.state.delivery_date}
+				/>
+				<DiscountDetail
+					getDeliveryDate		=	{this.getDeliveryDate}
+					modalVisible			=	{this.state.modalVisible.showDiscountDetail}
+					closeDeliveryDate	=	{this.closeDiscountDetail}
+					dates							=	{this.state.delivery_date}
+					freeShipping			=	{this.props.minimumTrxFreeShippingCost}
+					additional 				= {this.props.additional}
+					delivery_price		=	{this.props.delivery_price}
+					discount 					= {this.props.discount}
+					subTotal					=	{this.props.totalPrice}
+					grandTotal				=	{this.state.grandTotalPrice}
 				/>
 				{/* {this.renderPriceDetail()} */}
 			</Container>

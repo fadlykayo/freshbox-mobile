@@ -37,6 +37,10 @@ const styles = {
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginBottom: scaling.moderateScale(5),
+        },
+        left: {
+            flexDirection: 'row',
+            alignItems: 'center',
         }
     },
     text:{
@@ -55,6 +59,11 @@ const styles = {
             fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(14),
             color: colour.red
+        },
+        icon: {
+            marginLeft: scaling.moderateScale(10),
+            height: scaling.moderateScale(12),
+		    width: scaling.moderateScale(12),
         }
     }
 }

@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import numeral from 'numeral';
 import styles from './styles';
+import images from '@assets';
 
 class TotalPrice extends Component {
   	constructor() {
         super();
+    }
+
+    openDiscountDetail = () => {
+        this.props.openDiscountDetail();
     }
 
   	render() {
@@ -102,10 +107,12 @@ class TotalPrice extends Component {
                                         </Text>
                                     </View>
                                     <View style={styles.subcontainer.price}>
+                                
                                         <StaticText
                                             style={styles.text.title}
                                             property={'checkout.content.discount'}
                                         />
+                                        
                                         <Text style={styles.text.price}>
                                             - <StaticText
                                                 style={styles.text.price}
@@ -182,19 +189,29 @@ class TotalPrice extends Component {
                                             {additional}
                                         </Text>
                                     </View>
-                                    <View style={styles.subcontainer.price}>
-                                        <StaticText
-                                            style={styles.text.title}
-                                            property={'checkout.content.discount'}
-                                        />
-                                        <Text style={styles.text.price}>
-                                            - <StaticText
-                                                style={styles.text.price}
-                                                property={'checkout.content.price'}
+                                    <TouchableOpacity onPress={this.openDiscountDetail}>
+                                        <View style={styles.subcontainer.price}>
+                                            <View style={styles.subcontainer.left}>
+                                            <StaticText
+                                                style={styles.text.title}
+                                                property={'checkout.content.discount'}
                                             />
-                                            {discount}
-                                        </Text>
-                                    </View>
+                                            <Image
+                                                style={styles.text.icon}
+                                                source={images.ic_info_grey}
+                                            />
+
+                                            </View>
+                                            
+                                            <Text style={styles.text.price}>
+                                                - <StaticText
+                                                    style={styles.text.price}
+                                                    property={'checkout.content.price'}
+                                                />
+                                                {discount}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             : null
                         }

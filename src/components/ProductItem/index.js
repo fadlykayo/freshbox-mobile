@@ -40,7 +40,7 @@ class ProductItem extends PureComponent {
 	}
 
 	openDetailProduct(){
-		analytics.log('Product_Card_Clicked', {name: this.props.data.name})
+		analytics.log(`Product_Card_${this.props.data.name.replace(/[\W_]+/g,"")}_Clicked`, {name: this.props.data.name.replace(/[\W_]+/g,"")})
 		this.props.openDetailProduct(this.props.data);
 	}
 

@@ -41,12 +41,12 @@ class SearchComponent extends Component {
 			// console.warn(err.message)
 		}
 	}
-	
-	render(){
-		
-		return (
-    	<Animated.View style={styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter)}>
-        	<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
+
+	renderContent = () => {
+		if(this.props.modalVisible) {
+			return (
+				<>
+				<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
         		<StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
@@ -57,23 +57,37 @@ class SearchComponent extends Component {
   	  			  	style={styles.icon}
   	  			/> */}
         	</View>
-			<TouchableOpacity
-				style={styles.subcontainer.part(true)}
-				onPress = { this.openAllCategories }
-			>
+				<TouchableOpacity
+					style={styles.subcontainer.part(true)}
+					onPress = { this.openAllCategories }
+				>
 
-						<StaticText
-							style={styles.text.title}
-							property={'productList.content.default'}
-						/>
+							<StaticText
+								style={styles.text.title}
+								property={'productList.content.default'}
+							/>
 
-				<Image
-					resizeMode={'contain'} 
-					source={images.icon_view_categories}
-					style={styles.icon}
-				/>
-			</TouchableOpacity>
-      	</Animated.View>
+					<Image
+						resizeMode={'contain'} 
+						source={images.icon_view_categories}
+						style={styles.icon}
+					/>
+				</TouchableOpacity>
+				</>
+			)
+		} else {
+			return null
+		}
+	}
+	
+	render(){
+		
+		return (
+    	<Animated.View style={styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter)}>
+
+				{this.renderContent()}
+        	
+			</Animated.View>
 		);
 	}
 }

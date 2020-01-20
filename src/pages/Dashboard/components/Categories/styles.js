@@ -68,7 +68,7 @@ export default {
     },
     innerContainer: {
       flex: 1,
-      width: width <= 375 ?  width : width * 0.9,
+      width: width <= 393 ?  width : width * 0.9,
       flexDirection: 'row',
       flexWrap: 'wrap',
       marginLeft: 10,
@@ -86,7 +86,7 @@ export default {
           alignItems: 'center',
           position: 'absolute',
           bottom: 10,
-          left: 15,
+          left: 20,
           // borderWidth: 1,
           // borderColor: 'red',
         }
