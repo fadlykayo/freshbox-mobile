@@ -29,6 +29,7 @@ class Checkout extends Component {
 				showDeliveryDate: false,
 				showPriceDetail: true,
 				showDiscountDetail: false,
+				showDeliveryTime: false,
 			},
 			delivery_date: [],
 			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
@@ -154,6 +155,19 @@ class Checkout extends Component {
 				value: moment(payload).format('YYYY-MM-DD HH:mm:ss'),
 			}
 		},this.closeDeliveryDate)
+		//for later
+		// this.setState({
+		// 	date:{
+		// 		origin: payload,
+		// 		display: moment(payload).format('dddd, Do MMMM YYYY'),
+		// 		value: moment(payload).format('YYYY-MM-DD HH:mm:ss'),
+		// 	}
+		// },this.showDeliveryTime)
+	}
+	getDeliveryTime = (payload) => {
+		this.setState({
+			delivery_time: payload
+		},this.closeDeliveryDate)
 	}
 
 	navigateToChooseAddress(){
@@ -255,13 +269,18 @@ class Checkout extends Component {
 	
 	closeDeliveryDate(){
 		this.setModalVisible('showDeliveryDate',false);
-    }
+		this.setModalVisible('showDeliveryTime',false);
+	}
 	openDiscountDetail = () => {
 		this.setModalVisible('showDiscountDetail', true);
 	}
 	closeDiscountDetail = () => {
 		this.setModalVisible('showDiscountDetail', false);
 	}
+	showDeliveryTime = () => {
+		this.setModalVisible('showDeliveryTime', true);
+	}
+
 	_renderLabel() {
 		if (this.state.date == null) return null;
 		else return (
@@ -606,82 +625,88 @@ messageOrderSuccess = () => {
 						</View>
 						<View style={styles.outerContainer}>
 
-							<TouchableOpacity onPress={() => this.addressDateValidation('transfer')}>
-								<View style={styles.radioContainer}>
+							<TouchableOpacity onPress	=	{() => this.addressDateValidation('transfer')}>
+								<View style	=	{styles.radioContainer}>
 									<StaticText
-										style={styles.text.methods}
-										property={'checkout.methods.transfer'}
+										style			=	{styles.text.methods}
+										property	=	{'checkout.methods.transfer'}
 									/>
-									<View style={styles.payment.imageContainer('transfer')}>
+									<View 
+										style	=	{styles.payment.imageContainer('transfer')}>
 										<Image
-											resizeMode={'contain'}
-											source={images.icon_logo_bca}
-											style={styles.bank.bca}
+											resizeMode	=	{'contain'}
+											source			=	{images.icon_logo_bca}
+											style				=	{styles.bank.bca}
 										/>
 										<Image
-											resizeMode={'contain'}
-											source={images.icon_logo_mandiri}
-											style={styles.bank.mandiri}
+											resizeMode	=	{'contain'}
+											source			=	{images.icon_logo_mandiri}
+											style				=	{styles.bank.mandiri}
 										/>
 										<Image
-											resizeMode={'contain'}
-											source={images.bri_bank}
-											style={styles.bank.bri}
+											resizeMode	=	{'contain'}
+											source			=	{images.bri_bank}
+											style				=	{styles.bank.bri}
 										/>
 										
 									</View>
 												<Image
-													resizeMode={'contain'} 
-													source={images.icon_arrow_right_red}
-													style={styles.icon}
+													resizeMode	=	{'contain'} 
+													source			=	{images.icon_arrow_right_red}
+													style				=	{styles.icon}
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity onPress = {() => this.addressDateValidation('credit_card')}>
-								<View style={styles.radioContainer}>
+							<TouchableOpacity 
+								onPress = {() => this.addressDateValidation('credit_card')}>
+								<View 
+									style	=	{styles.radioContainer}>
 				
 									<StaticText
-										style={styles.text.methods}
-										property={'checkout.methods.creditCard'}
+										style			=	{styles.text.methods}
+										property	=	{'checkout.methods.creditCard'}
 									/>
-									<View style={styles.payment.imageContainer('credit_card')}>
+									<View 
+										style	=	{styles.payment.imageContainer('credit_card')}>
 										<Image
 											// resizeMode={'contain'}
-											source={images.icon_visa}
-											style={styles.bank.visa}
+											source	=	{images.icon_visa}
+											style		=	{styles.bank.visa}
 										/>
 										<Image
-											resizeMode={'contain'}
-											source={images.master_card}
-											style={styles.bank.master}
+											resizeMode	=	{'contain'}
+											source			=	{images.master_card}
+											style				=	{styles.bank.master}
 										/>
 										
 									</View>
 												<Image
-													resizeMode={'contain'} 
-													source={images.icon_arrow_right_red}
-													style={styles.icon}
+													resizeMode	=	{'contain'} 
+													source			=	{images.icon_arrow_right_red}
+													style				=	{styles.icon}
 												/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity onPress={() => this.addressDateValidation('gopay')}>
-								<View style={styles.radioContainer}>
+							<TouchableOpacity 
+								onPress	=	{() => this.addressDateValidation('gopay')}>
+								<View 
+									style	=	{styles.radioContainer}>
 									<StaticText
-										style={styles.text.methods}
-										property={'checkout.methods.gopay'}
+										style			=	{styles.text.methods}
+										property	=	{'checkout.methods.gopay'}
 									/>
 									<View style={styles.payment.imageContainer('gopay')}>
 										<Image
-											resizeMode={'contain'}
-											source={images.logo_gopay}
-											style={styles.bank.gopay}
+											resizeMode	=	{'contain'}
+											source			=	{images.logo_gopay}
+											style				=	{styles.bank.gopay}
 										/>
 										
 									</View>
 												<Image
-													resizeMode={'contain'} 
-													source={images.icon_arrow_right_red}
-													style={styles.icon}
+													resizeMode	=	{'contain'} 
+													source			=	{images.icon_arrow_right_red}
+													style				=	{styles.icon}
 												/>
 								</View>
 							</TouchableOpacity>
@@ -713,10 +738,11 @@ messageOrderSuccess = () => {
 				</ScrollView>
 
 				<DeliveryDate
-					getDeliveryDate={this.getDeliveryDate}
-					modalVisible={this.state.modalVisible.showDeliveryDate}
-					closeDeliveryDate={this.closeDeliveryDate}
-					dates={this.state.delivery_date}
+					getDeliveryDate		=	{this.getDeliveryDate}
+					modalVisible			=	{this.state.modalVisible.showDeliveryDate}
+					closeDeliveryDate	=	{this.closeDeliveryDate}
+					dates							=	{this.state.delivery_date}
+					// dateChosen				=	{this.state.date.origin}
 				/>
 				<DiscountDetail
 					getDeliveryDate		=	{this.getDeliveryDate}

@@ -119,7 +119,7 @@ class SearchComponent extends Component {
 		    		  	onSubmitEditing={this.onSubmitEditing}
 		    		  	style={styles.textinput}
 		    		/>
-					{this.props.value.length > 0
+					{this.props.value && this.props.value.length > 0
 						? (<TouchableOpacity style={styles.clear.place} onPress={this.clearSearch}>
 								<Image
   	  	    						resizeMode={'contain'} 
