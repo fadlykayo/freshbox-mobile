@@ -110,10 +110,6 @@ class Checkout extends Component {
 			() => {
 				let state = this.state;
 
-				// console.log('min trans', this.props.minimumTrxFreeShippingCost)
-
-				
-
 				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
 
 				this.setState(state)
