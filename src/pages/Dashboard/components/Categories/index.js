@@ -94,8 +94,6 @@ export default class Categories extends Component {
 
 
   render () {
-
-    console.warn(width)
     let position = Math.round(this.state.scrollX / width);
     return (
       <View style={styles.container}>

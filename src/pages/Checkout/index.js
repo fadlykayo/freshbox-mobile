@@ -87,7 +87,7 @@ class Checkout extends Component {
 			() => {
 				let state = this.state;
 				state.delivery_date = this.props.delivery_date
-				console.warn(state.delivery_date)
+				// console.warn(state.delivery_date)
 				this.setState(state)
 				// console.warn('success')
 			},
@@ -464,7 +464,7 @@ class Checkout extends Component {
 				})
 			},
 			(err) => {
-				console.warn('err checkout', err)
+				console.warn('err checkout', err.data.status)
 				if(paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})

@@ -43,7 +43,6 @@ class SearchComponent extends Component {
 	}
 	
 	render(){
-		console.warn(this.props.onCategory, 'inside')
 		return (
     	<View style={styles.container}>
         	<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>

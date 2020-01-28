@@ -27,7 +27,7 @@ actions.get_banner = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-					console.warn('banner get err ====>', err)
+					// console.warn('banner get err ====>', err)
         	if(!err.code){
         		// dispatch(actNetwork.set_network_error_status(true));
         	} else {

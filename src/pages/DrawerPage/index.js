@@ -70,7 +70,7 @@ class DrawerPage extends Component {
 	}
 
   	navigateToOtherPage(payload){
-			console.warn(payload)
+			// console.warn(payload)
 		let newPages = this.state.pages;
 
 		newPages.map((newPage) => {

@@ -3,9 +3,11 @@ import { View, Text, WebView, Platform, Image } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
+import AlertDialog from '@components/AlertDialog';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { gopay } from '@helpers';
+import actions from '@actions';
 import images from '@assets';
 
 
@@ -17,6 +19,7 @@ class ChoosePayment extends Component {
             token: '',
             invoice: '',
             paymentType: '',
+            warningModal: false
         }
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
         
@@ -43,12 +46,36 @@ class ChoosePayment extends Component {
 
     navigationStateChangeHandler(event){
         if(event.loading == false && event.url.search(`transaction_status`) != -1){
-            actNav.goBack();
+            if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
+                this.checkPaymentGopay();
+            } else {
+                actNav.goBack();
+            }
         }
     }
 
-    checkPaymentGopay () {
-        gopay.checkPaymentGopayStatus();
+    checkPaymentGopay = () => {
+        if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
+            let payload = {
+                header: {
+                    apiToken: this.props.user.authorization,
+                },
+                type: 'validation',
+                invoice: this.props.navigation.state.params.midtrans.transaction_details.order_id
+            }
+            this.props.detail_transaction(
+                payload,
+                (res) => {
+                    actNav.goBack();
+                },
+                (err) => {
+                    this.showModalWarning();
+                }
+            )
+
+        } else {
+            actNav.goBack();
+        }
     }
 
     GoPay () {
@@ -58,6 +85,27 @@ class ChoosePayment extends Component {
         } else {
             gopay.responseListener(this.handleGoPayResponse);
             gopay.payment(params.token, params.midtrans, this.handleGoPayResponse);
+        }
+    }
+
+    setModalVisible = (value) => {
+        let modalWarning = this.state.modalWarning;
+        modalWarning = value;
+        this.setState({modalWarning});
+    }
+
+    showModalWarning = () => {
+        this.setModalVisible(true);
+    }
+
+
+    hideModalWarning = () => {
+        this.setModalVisible(false);
+    }
+
+    validateGopayStatus = () => {
+        if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
+            this.props.navigation.state.params.validateTransactionStatus(this.state.paymentType, this.props.navigation.state.params.midtrans)
         }
     }
 
@@ -72,6 +120,12 @@ class ChoosePayment extends Component {
         }
 
     };
+
+    
+
+    backHandler = () => {
+        actNav.goBack();
+    }
 
     renderGoPay () {
         let params = this.props.navigation.state.params;
@@ -109,6 +163,7 @@ class ChoosePayment extends Component {
             <Container style={styles.container}>
                 <NavigationBar
 			    	title={'choosePayment.navigationTitle'}
+                    onPress={this.checkPaymentGopay}
 			    />
                 <View style={styles.content(params.gopay)}>
                     {
@@ -121,6 +176,12 @@ class ChoosePayment extends Component {
                             />
                     }
                 </View>
+                <AlertDialog
+					modalVisible={this.state.modalWarning} 
+					content={'dialog.cancelInvoice'}
+					requestHandler={this.backHandler}
+					requestCancel={this.hideModalWarning}
+				/>
             </Container>
         );
     }
@@ -136,4 +197,8 @@ const mapStateToProps = (state) => ({
     detailTransaction: state.transaction.detail,
 });
 
-export default connect(mapStateToProps,null)(ChoosePayment);
+const mapDispatchToProps = (dispatch) => ({
+    detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ChoosePayment);
