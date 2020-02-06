@@ -235,6 +235,7 @@
             "on_shipping": "Dalam Pengiriman",
             "success": "Berhasil",
             "failed": "Gagal",
+            "cancel": "Dibatalkan",
             "expired": "Expired",
             "review": "Ulasan Produk"
         }
@@ -795,7 +796,8 @@
         "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",
         "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?",
         "copyVoucher": "Copy voucher berhasil",
-        "cancelInvoice": "Apakah anda yakin ingin membatalkan pesanan anda?"
+        "cancelInvoice": "Apakah anda yakin ingin membatalkan pesanan anda?",
+        "reorder": "Terima kasih! Untuk melanjutkan, kami akan mengganti shopping cart anda dengan produk-produk ini"
     },
     "verification":{
         "maxQuantity": "Hanya tersedia {qty} pack",

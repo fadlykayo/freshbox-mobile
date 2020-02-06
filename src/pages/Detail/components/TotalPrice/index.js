@@ -49,7 +49,7 @@ class TotalPrice extends Component {
         if(this.props.action == 'history'){
             switch(this.props.status) {
                 case 'pending_payment': 
-                    if(this.props.paymentMethod == 'cash_on_delivery') {
+                    if(this.props.paymentMethod !== 'bank_transfer') {
                         return (
                                 <Button
                                     type={this.props.type}

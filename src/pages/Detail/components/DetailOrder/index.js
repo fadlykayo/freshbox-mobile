@@ -19,6 +19,7 @@ class DetailOrder extends Component {
 			case 'on_shipping': return 'historyPage.static.on_shipping'
             case 'failed': return 'historyPage.static.failed'
 			case 'expired': return 'historyPage.static.expired'
+            case 'cancel': return 'historyPage.static.cancel'
 		}
 	}
 

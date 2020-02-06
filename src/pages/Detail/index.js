@@ -30,6 +30,7 @@ class Detail extends Component {
 			isNavigateBack: false,
 			modalVisible: {
 				alertDialog: false,
+				reorder: false,
 			},
 			radio: [
 					{
@@ -440,7 +441,19 @@ class Detail extends Component {
 
 	}
 
+	clearCartAndReorder = () => {
+		return new Promise((resolve) => {
+			this.props.clear_products();
+			resolve()
+		})
+		.then(() => {
+			this.navigateToCart();
+		})
+		
+	}
+
 	cancelInvoice = () => {
+		
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -463,6 +476,18 @@ class Detail extends Component {
 
 	cancelAlert = () => {
 		this.setModalVisible('alertDialog', false)
+	}
+
+	alertReorder = () => {
+		if(this.props.cart_product.length > 0) {
+			this.setModalVisible('reorder', true);
+		} else {
+			this.navigateToCart();
+		}
+		
+	}
+	cancelReorder = () => {
+		this.setModalVisible('reorder', false)
 	}
 
 	setModalVisible = (type,value) => {
@@ -556,7 +581,7 @@ class Detail extends Component {
 					paymentMethod={this.props.detailTransaction.payment_method}
 					additional={this.props.additional}
 					subTotal={this.props.totalPrice}
-					navigateToCart={this.navigateToCart}
+					navigateToCart={this.alertReorder}
 					grandTotal={this.state.grandTotalPrice}
 					delivery_price={this.state.deliveryPrice}
 					action={this.props.navigation.state.params.action}
@@ -572,6 +597,12 @@ class Detail extends Component {
 					content={'dialog.cancelInvoice'}
 					requestHandler={this.cancelInvoice}
 					requestCancel={this.cancelAlert}
+				/>
+				<AlertDialog
+					modalVisible={this.state.modalVisible.reorder}
+					content={'dialog.reorder'}
+					requestHandler={this.clearCartAndReorder}
+					requestCancel={this.cancelReorder}
 				/>
 			</Container>
   	  	);
@@ -602,6 +633,7 @@ const mapDispatchToProps = (dispatch) => ({
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
 	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
+	clear_products: () => dispatch(actions.product.reducer.clear_products()),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
 	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),

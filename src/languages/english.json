@@ -234,6 +234,7 @@
             "success": "Success",
             "failed": "Failed",
             "expired": "Expired",
+            "cancel": "Canceled",
             "review": "Review Product"
         }
     },
@@ -792,7 +793,8 @@
         "clearProduct": "Are you sure you want to delete {item} from cart?",
         "clearFavorite": "Are you sure you want to delete {item} from favourite?",
         "copyVoucher": "Coupon code copied",
-        "cancelInvoice": "Are you sure you want to cancel this order?"
+        "cancelInvoice": "Are you sure you want to cancel this order?",
+        "reorder": "Thank you for your order! We need to empty your current cart to continue"
     },
     "verification":{
         "maxQuantity": "Only {qty} pack",

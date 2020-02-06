@@ -21,6 +21,7 @@ class TransactionComponent extends Component {
 			case 'on_process': return 'historyPage.static.on_process'
 			case 'on_shipping': return 'historyPage.static.on_shipping'
 			case 'expired': return 'historyPage.static.expired'
+			case 'cancel': return 'historyPage.static.cancel'
 		}
 	}
 

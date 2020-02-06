@@ -76,7 +76,8 @@ const cancelTransaction = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.transactions.map((t, i) => {
         if(t.invoice == payload.data.invoice) {
-            newState.transactions.splice(i, 1)
+            // newState.transactions.splice(i, 1)
+            t.status = 'cancel'
         }
     })
     return newState;
