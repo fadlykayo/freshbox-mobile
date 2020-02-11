@@ -2,8 +2,8 @@ export const url = '';
 
 const production = {
     version: {
-        android: '1.2.3',
-        ios: '1.2.3',
+        android: '1.2.4',
+        ios: '1.2.4',
     },
     url: 'https://api.freshbox.id/',
     env: 'production'
@@ -11,8 +11,8 @@ const production = {
 
 const staging = {
     version: {
-        android: '1.2.3-staging',
-        ios: '1.2.3-staging',
+        android: '1.2.6-staging',
+        ios: '1.2.6-staging',
     },
     url: 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/',
     env: 'staging'
