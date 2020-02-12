@@ -9,7 +9,7 @@ const styles = {
 		flex: -1,
 		height: y == true ? a : b,
 		borderBottomWidth: 1,
-		borderBottomColor: colour.white,
+		borderBottomColor: colour.darkRed,
 		backgroundColor: colour.darkRed,
 		flexDirection: 'row',
 	}),

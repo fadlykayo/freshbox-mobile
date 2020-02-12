@@ -79,7 +79,6 @@ class Dashboard extends Component {
   componentDidMount() {
 		this.getProductList();
 		this.getCategories();
-		this.getProductPromo();
 		this.getBanner();
 		this.checkCart();
 		this.handleDeepLink();
@@ -212,7 +211,7 @@ class Dashboard extends Component {
 		this.setLoading('promoList', true);
 
 		this.props.categories.map((c, i) => {
-			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
+			if(c.name.toUpperCase() == 'SPECIAL DEALS') {
 				categories_code = c.code;
 			}
 		})
@@ -223,7 +222,7 @@ class Dashboard extends Component {
 			body: {},
 			params: {...this.props.paramsPromo, category_code: categories_code}
 		}
-
+		console.warn(payload)
 			this.props.get_promo(payload, 
 				() => {
 
@@ -245,7 +244,7 @@ class Dashboard extends Component {
 		this.setLoading('promoList', true);
 		
 		this.props.categories.map((c, i) => {
-			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
+			if(c.name.toUpperCase() == 'SPECIAL DEALS') {
 				categories_code = c.code;
 			}
 		})
@@ -355,7 +354,9 @@ class Dashboard extends Component {
 			params: {}
 		}
 		this.props.get_categories(payload,
-			() => {},
+			() => {
+				this.getProductPromo();
+			},
 			(err) => {
 				// console.log(err);
 			}
@@ -730,7 +731,7 @@ class Dashboard extends Component {
 		let payload;
 
 		this.props.categories.map((c, i) => {
-			if(c.code.toUpperCase() == 'SPECIAL DEALS') {
+			if(c.name.toUpperCase() == 'SPECIAL DEALS') {
 				category_code = c.code
 				category = c
 			}
@@ -908,9 +909,17 @@ class Dashboard extends Component {
 		const currentHeight = this.state.currentHeight;
 		const productListHeight = this.state.productListHeight;
     const dif = currentOffset - (this.offSet || 0);
+		const transactionsShown = (currentOffset, height) => {
+			let transactions = this.props.transactions;
+			if(transactions !== undefined && transactions.length > 0) {
+				return currentOffset / height > 1
+			} else {
+				return currentOffset / height > 0.95
+			}
+		}
 
     if (Math.abs(dif) < 3) {
-      console.log('unclear');
+      // console.log('unclear');
     } else if (dif < 0) {
 			if(this.state.modalVisible.filterComponent) {
 				this.hideFilterAnimation();
@@ -919,7 +928,7 @@ class Dashboard extends Component {
 			if(currentOffset / currentHeight > 1.3) {
 				this.handleLoadMoreProducts()
 			}
-			if(currentOffset / height > 1 && !this.state.modalVisible.filterComponent) {
+			if(transactionsShown(currentOffset, height) && !this.state.modalVisible.filterComponent) {
 				this.showFilterAnimation();
 			}
     }
@@ -989,7 +998,7 @@ class Dashboard extends Component {
 					<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>
 				}
 				onScroll={this.onScrollEvent}
-				scrollEventThrottle={ 0 }
+				scrollEventThrottle={ 200 }
 			>
 
         {/* <ProfileBlock

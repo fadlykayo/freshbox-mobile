@@ -13,7 +13,6 @@ const styles = {
 		paddingHorizontal: scaling.moderateScale(15),
 		backgroundColor: colour.softRedTransparent,
 		alignItems: 'center',
-		justifyContent: 'center',
 		flexDirection: 'row',
 		borderRadius: 5,
 	},

@@ -107,7 +107,8 @@ actions.get_categories = (req, success, failure) => {
         	// console.log('Get Categories res',res);
         	if(res.code){
         		if(res.code == 200){
-					dispatch(actReducer.get_categories(res.data));
+							dispatch(actReducer.get_categories(res.data));
+							success();
         		}
         	}
         })
@@ -181,7 +182,7 @@ actions.get_promo = (req, success, failure) => {
 		
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					// console.log('get Promo res', res);
+					console.warn('get Promo res', res);
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {
