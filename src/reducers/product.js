@@ -370,7 +370,6 @@ const editTotal = (state,payload) => {
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
     if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
         const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
-        
         newState.currentDetail.products.map((e,i) => {
             if(e.product.code  === payload.data.code) {
                 if(payload.type == 'inc') {
@@ -382,7 +381,7 @@ const editTotal = (state,payload) => {
             }
         })
     }
-
+    
 	if (payload.type == "inc") {
 		if(indexProducts != -1) newState.products[indexProducts].count += 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
@@ -399,9 +398,10 @@ const editTotal = (state,payload) => {
     newState.detail = indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
 
     let productCart = newState.products.filter(e => e.count > 0);
+    let promoCart = newState.promoProduct.filter(e => e.count > 0);
     let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
     let currentCart = newState.cart.products.slice();
-    let newCart = productCart.length > 0 ? productCart : favoriteCart;
+    let newCart = productCart.length > 0 ? productCart : (favoriteCart.length > 0 ? favoriteCart : promoCart)
 
     if(productCart.length > 0){
         if(favoriteCart.length > 0){

@@ -371,7 +371,7 @@ actions.reorder_transaction = (req,success,failure) => {
 	return dispatch => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
-        	// console.log('Get Reorder Transaction res',res);
+        	console.log('Get Reorder Transaction res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.reorder_transaction(res.data))
