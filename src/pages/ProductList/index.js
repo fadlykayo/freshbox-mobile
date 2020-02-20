@@ -833,18 +833,20 @@ class ProductList extends Component {
 					/>
 					<View style={styles.container}>
 						{/* <View> */}
-						{
+						{/* {
 							this.props.product.length > 0 ? 
 							this.renderProducts(this.props.product) : 
 							<EmptyState
 								property 	={'emptyState.search'}
 								image 		= {images.empty_search}
 							/>
-						}
+						} */}
 
-						{/* {
+						{
 							this.props.product.length > 0 ? 
 							<FlatList
+								contentContainerStyle={{marginLeft: 18}}
+								numColumns={2}
 								ref={(e) => { this.listRef = e}}
 								data={this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product}
 								onEndReachedThreshold={0.5}
@@ -854,7 +856,7 @@ class ProductList extends Component {
 								onEndReached={this.handleLoadMore}
 								ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item,index}) => (
-									<View key={index}>
+									<View style={styles.main.products.container} key={index}>
 									
 
 										<ProductItem
@@ -878,7 +880,7 @@ class ProductList extends Component {
 								image 		= {images.empty_search}
 							/>
 							
-						} */}
+						}
 
 										
 							<Checkout

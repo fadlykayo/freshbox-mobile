@@ -786,7 +786,7 @@
         "emptyAddress": "Please fill in your shipping address before you continue the order process.",
         "emptyDate": "Please select a delivery date before you proceed with the order process.",
         "expiredDate": "You cannot place an order for {date} because it has passed 22:00 WIB, please change your order date.",
-        "serverError": "A server error has occurred, please try again later.",
+        "serverError": "A server error has occurred, this might be caused by unstable connection. Please try again later.",
         "copyData": "Successfully copied data"
     },
     "dialog":{

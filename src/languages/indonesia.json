@@ -741,7 +741,7 @@
             "createOrder": "Pemesanan Gagal",
             "outOfStock": "Jumlah Barang Berlebih",
             "expiredDate": "Waktu Pemesanan Telah Habis",
-            "serverError": "Server Gangguan",
+            "serverError": "Gangguan Koneksi",
             "paymentCanceled": "Pembayaran Batal"
         }
     },
@@ -789,7 +789,7 @@
         "emptyAddress": "Silahkan isi alamat pengiriman anda sebelum anda melanjutkan proses pemesanan.",
         "emptyDate": "Silahkan pilih tanggal pengiriman sebelum anda melanjutkan proses pemesanan.",
         "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda.",
-        "serverError": "Terjadi gangguan pada server, silahkan coba beberapa saat lagi.",
+        "serverError": "Terjadi gangguan pada server atau jaringan tidak stabil, silahkan coba beberapa saat lagi.",
         "copyData": "Data berhasil disalin"
     },
     "dialog":{

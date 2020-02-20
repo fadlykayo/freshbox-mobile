@@ -20,10 +20,8 @@ const styles = {
 		products: {
 			container: {
 				flex: -1,
-				flexDirection: 'row',
-				flexWrap: 'wrap',
-				marginHorizontal: 20,
-				justifyContent: 'space-between'
+				justifyContent: 'space-between',
+				marginRight: 10
 				// paddingHorizontal: scaling.moderateScale(5)
 			}
 		}

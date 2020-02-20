@@ -58,6 +58,9 @@ class TotalPrice extends Component {
             
         };
         
+        if(this.props.action == undefined || this.props.action == 'history') {
+            grandTotal = numeral(this.props.grandTotal).format('0,0');
+        }
         
 
         if (!this.props.checkout) {
