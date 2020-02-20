@@ -744,10 +744,16 @@ class ProductList extends Component {
 	}
 
 	onScrollEvent = (e) => {
+
+		const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+			const paddingToBottom = 20;
+			return layoutMeasurement.height + contentOffset.y >=
+				contentSize.height - paddingToBottom;
+		};
 		
-		if(e.nativeEvent.contentOffset.y/this.state.currentHeight > 1.3) {
+		if(isCloseToBottom(e.nativeEvent)) {
 			this.handleLoadMore();
-		} 
+		}
 
 	}
 

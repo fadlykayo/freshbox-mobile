@@ -14,7 +14,7 @@ class Content extends PureComponent {
 		const discountAmount = this.props.data.discount_ammount;
 		let productPrice;
 		if(discountAmount && discountAmount > 0) {
-			productPrice = numeral(this.props.data.grand_total - discountAmount).format('0,0')
+			productPrice = numeral(this.props.data.grand_total).format('0,0')
 		} else {
 			productPrice = numeral(this.props.data.grand_total).format('0,0')
 		}

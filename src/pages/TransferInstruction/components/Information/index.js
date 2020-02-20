@@ -18,7 +18,7 @@ class Information extends Component {
     render(){
         let productPrice = numeral(this.props.detailTransaction.grand_total).format('0,0');
         if(this.props.detailTransaction.discount_ammount && this.props.detailTransaction.discount_ammount > 0) {
-            productPrice = numeral(this.props.detailTransaction.grand_total - this.props.detailTransaction.discount_ammount).format('0,0');
+            productPrice = numeral(this.props.detailTransaction.grand_total).format('0,0');
         }
         return (
             <View style={styles.middle.place}>
