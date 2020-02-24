@@ -106,6 +106,14 @@ class TotalPrice extends Component {
                             title={'historyDetail.content.reOrder'}
                         />
                     )
+                case 'cancel': 
+                    return (
+                        <Button
+                            type={this.props.type}
+                            onPress={this.navigateToCart}
+                            title={'historyDetail.content.reOrder'}
+                        />
+                    )
                 default: return null
             } 
         }

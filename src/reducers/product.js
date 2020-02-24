@@ -576,9 +576,16 @@ const reorderTransaction = (state,payload) => {
         }
     }
 
+    
+
     for(x in newCart) {
-        total = total + (newCart[x].promo_price * newCart[x].count);
-        count = count + newCart[x].count;
+        if(newCart[x].banner_harga_jual && newCart[x].banner_harga_jual !== null) {
+            total = total + (newCart[x].banner_harga_jual * newCart[x].count);
+            count = count + newCart[x].count;
+        } else {
+            total = total + (newCart[x].promo_price * newCart[x].count);
+            count = count + newCart[x].count;
+        }
     }
 
     newState.products = productList;

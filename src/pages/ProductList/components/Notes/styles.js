@@ -10,7 +10,7 @@ const styles = {
 		marginHorizontal: 20,
 		marginTop: 10,
 		paddingVertical: scaling.moderateScale(10),
-		paddingHorizontal: scaling.moderateScale(15),
+		paddingHorizontal: scaling.moderateScale(20),
 		backgroundColor: colour.softRedTransparent,
 		alignItems: 'center',
 		flexDirection: 'row',
