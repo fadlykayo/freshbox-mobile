@@ -222,7 +222,6 @@ class Dashboard extends Component {
 			body: {},
 			params: {...this.props.paramsPromo, category_code: categories_code}
 		}
-		console.warn(payload)
 			this.props.get_promo(payload, 
 				() => {
 
@@ -749,7 +748,7 @@ class Dashboard extends Component {
 				on_promo: 1,
 			}
 		}
-		// this.props.change_categories(category)
+		this.props.change_categories(category)
 		this.props.search_products(payload, 
 				() => {
 					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
