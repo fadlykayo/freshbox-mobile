@@ -411,6 +411,13 @@ const editTotal = (state,payload) => {
                     newCart.push(favoriteCart[x])
                 }
             }
+        } else if (promoCart.length > 0) {
+            for(x in promoCart){
+                let indexFav = productCart.findIndex(e => e.code == promoCart[x].code)
+                if (indexFav == -1) {
+                    newCart.push(promoCart[x])
+                }
+            }
         }
     }
 
