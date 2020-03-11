@@ -521,7 +521,7 @@ class ProductList extends Component {
 						page: 1,
 						sort: 'nama-az',
 						// stock: 'tersedia',
-						on_promo: 1,
+						// on_promo: 1,
 						category_code: input.code,
 					}
 				}

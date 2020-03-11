@@ -47,13 +47,18 @@ class DeliveryPlace extends PureComponent {
 						)
 					}
 				</View>
-				{/* <View style={styles.subcontainer.bottom}>
-					<Button
-						type={this.props.type}
-						onPress={this.onPress}
-						title={this.props.addresses.length == 0 ? this.props.addAddress : this.props.address}
-					/>
-				</View> */}
+				{
+					this.props.addresses.length == 0 ?
+					<View style={styles.subcontainer.bottom}>
+						<Button
+							type={this.props.type}
+							onPress={this.onPress}
+							title={this.props.addresses.length == 0 ? this.props.addAddress : this.props.address}
+						/>
+					</View> : null
+
+				}
+				
 		    </View>
 		)
 		// return null;

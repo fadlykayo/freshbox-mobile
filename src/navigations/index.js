@@ -65,7 +65,12 @@ export const AppNavigator = createStackNavigator({
     Checkout: {screen: Checkout},
     HistoryPage: {screen: HistoryPage},
     ChooseAddress: {screen: ChooseAddress},
-    ChoosePayment: {screen: ChoosePayment},
+    ChoosePayment: {
+        screen: ChoosePayment, 
+        navigationOptions: {
+            gesturesEnabled: false,
+        },
+    },
     CreditCard: {screen: CreditCard},    
     TransferBank: {screen: TransferBank},
     VirtualAccount: {screen: VirtualAccount},

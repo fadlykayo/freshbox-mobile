@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, WebView, Platform, Image } from 'react-native';
+import React, { Component, useEffect } from 'react';
+import { View, Text, WebView, Platform, Image, BackHandler } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -25,7 +25,14 @@ class ChoosePayment extends Component {
         
     }
 
+    
+
     componentDidMount() {
+
+        if(Platform.OS !== 'ios') {
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonAndroid);
+        }
+        
         if(this.props.navigation.state.params.gopay && this.props.navigation.state.params.midtrans) {
             this.GoPay();
             // this.checkPaymentGopay();
@@ -33,15 +40,20 @@ class ChoosePayment extends Component {
         this.setState({
             paymentType: this.props.navigation.state.params.method
         })
+        
     }
     
     componentWillUnmount(){
         if(this.props.navigation.state.params.validateTransactionStatus) this.props.navigation.state.params.validateTransactionStatus(this.state.paymentType, this.props.navigation.state.params.midtrans);
-        if(Platform.OS == 'ios'){
-            // this.checkPaymentGopay(); 
+        if(Platform.OS == 'ios'){ 
             gopay.removeResponseListener();
-        } 
+            
+        } else {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonAndroid);
+        }
+        // this.checkPaymentGopay();
 
+        
     }
 
     navigationStateChangeHandler(event){
@@ -52,6 +64,10 @@ class ChoosePayment extends Component {
                 actNav.goBack();
             }
         }
+    }
+
+    handleBackButtonAndroid = () => {
+        return true
     }
 
     checkPaymentGopay = () => {
@@ -67,9 +83,11 @@ class ChoosePayment extends Component {
                 payload,
                 (res) => {
                     actNav.goBack();
+                    // return false
                 },
                 (err) => {
                     this.showModalWarning();
+                    // return true
                 }
             )
 
@@ -123,7 +141,7 @@ class ChoosePayment extends Component {
 
     
 
-    backHandler = () => {
+    goBack = () => {
         actNav.goBack();
     }
 
@@ -157,8 +175,8 @@ class ChoosePayment extends Component {
     }
 
     render() {
-        
         let params = this.props.navigation.state.params;
+        
         return (
             <Container style={styles.container}>
                 <NavigationBar
@@ -179,7 +197,7 @@ class ChoosePayment extends Component {
                 <AlertDialog
 					modalVisible={this.state.modalWarning} 
 					content={'dialog.cancelInvoice'}
-					requestHandler={this.backHandler}
+					requestHandler={this.goBack}
 					requestCancel={this.hideModalWarning}
 				/>
             </Container>

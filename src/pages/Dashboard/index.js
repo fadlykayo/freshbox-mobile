@@ -615,7 +615,7 @@ class Dashboard extends Component {
 						page: 1,
 						sort: 'nama-az',
 						category_code: category.code,
-						on_promo: 1,
+						// on_promo: 1,
 					}
 				}
 				
@@ -745,7 +745,7 @@ class Dashboard extends Component {
 				sort: 'nama-az',
 				// stock: 'tersedia',
 				category_code: category_code,
-				on_promo: 1,
+				// on_promo: 1,
 			}
 		}
 		this.props.change_categories(category)

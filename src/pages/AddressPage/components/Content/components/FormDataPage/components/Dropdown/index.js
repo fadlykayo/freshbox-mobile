@@ -16,7 +16,7 @@ class Dropdown extends PureComponent {
         this._renderLabel = this._renderLabel.bind(this);
     }
 
-    componentDidUpdate() {
+    componentWillUpdate() {
         if(this.props.isOpen) {
             this.startAnimation();
         };
@@ -84,7 +84,7 @@ class Dropdown extends PureComponent {
                 { this.props.isOpen
                     ? (<FlatList
                             nestedScrollEnabled={true}
-                            style={styles.dropdown.place(this.state.height)}
+                            style={styles.dropdown.place(200)}
                             data={this.props.data}
                             keyExtractor={(item, index) => index.toString()}
 				            renderItem={({item,index}) => (
