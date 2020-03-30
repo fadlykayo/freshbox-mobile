@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import { language } from '@helpers';
 import images from '@assets';
+import { colour } from '@styles';
 import styles from './styles';
 
 class FormInput extends Component {
@@ -106,6 +107,7 @@ class FormInput extends Component {
                 <TextInput
                     ref={c => {this.TextInput = c}}
 					style={this.props.value.length == 0 ? styles.text.placeholder : [styles.text.placeholder,styles.text.content]}
+                    placeholderTextColor = {colour.greyDesc}
                     autoCapitalize={'none'}
                     autoFocus={this.state.autoFocus}
 					multiline={this.state.multiline}

@@ -24,6 +24,7 @@ class DeliveryDate extends PureComponent {
 		let next2days = new Date(today).setDate(today.getDate()+2);
 		let next3days = new Date(today).setDate(today.getDate()+3);
 		let next4days = new Date(today).setDate(today.getDate()+4);
+		let next5Days = new Date(today).setDate(today.getDate()+5);
 
 		let date = this.state.date.slice();
 		// date=[tomorrow,next2days,next3days,next4days];
@@ -45,7 +46,8 @@ class DeliveryDate extends PureComponent {
 			let today = new Date();
 			let hours = today.getHours();
 			let minutes = today.getMinutes();
-			let renderDate = (hours <= 21 || (hours <= 21 && minutes < 55)) ? this.props.dates.slice(0,3) : this.props.dates.slice(1,4);
+			let day = today.getDay();
+			let renderDate = (hours <= 19 || (hours <= 19 && minutes < 55)) ? this.props.dates.slice(0,3) : (day == 6 ? this.props.dates.slice(0,3) : this.props.dates.slice(1,4));
 			return(
 				<View style={styles.background}>
 					<Modal
@@ -68,7 +70,7 @@ class DeliveryDate extends PureComponent {
 									/>
 								</TouchableOpacity>
 							</View>
-							{ this.props.dates.map((data,index) => (
+							{ renderDate.map((data,index) => (
 								<DateItem 
 									key={index}
 									data={data}

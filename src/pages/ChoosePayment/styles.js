@@ -44,24 +44,38 @@ const styles = {
     gopay:{
         container: {
             flex: 1,
-            width: width * 0.8,
-            height: height * 0.5,
+            // width: width * 0.8,
+            // height: height * 0.5,
             // borderWidth: 1,
             alignItems: 'center',
             justifyContent: 'center',
         },
         imageContainer: {
             flex: -1,
-            // borderWidth: 1
-
+            paddingLeft: 11,
         },
         image: {
-            height: height * 0.1,
-            width: width * 0.5,
+            height: 100,
+            width: 180,
+        },
+        buttonContainer: {
+            flex: -1,
+            paddingVertical: scaling.moderateScale(10),
+            marginBottom: scaling.moderateScale(10),
+        },
+        pendingContainer: {
+            height: 124,
+            justifyContent: 'center'
         },
         textContainer: {
             flex: -1,
             // borderWidth: 1
+            paddingHorizontal: scaling.moderateScale(30),
+        },
+        textStatusContainer: {
+            flex: -1,
+            // borderWidth: 1
+            marginBottom: scaling.moderateScale(10)
         },
         text: {
             fontFamily: 'Avenir-Roman',

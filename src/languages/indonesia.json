@@ -495,7 +495,8 @@
             "delivery": "Pengiriman",
             "grandTotal": "Grand Total",
             "price": "Rp. "
-        }
+        },
+        "button": "Check Status"
     },
     "creditCard": {
         "navigationTitle": "Kartu Kredit",

@@ -18,7 +18,7 @@ const styles = {
         placeholder: {
             fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(14),
-            color: colour.lightGrey,
+            color: colour.greyDesc,
             paddingHorizontal: 0,
             paddingTop: scaling.moderateScale(10),
             paddingBottom: scaling.moderateScale(5)

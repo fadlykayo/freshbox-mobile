@@ -711,12 +711,20 @@ class ProductList extends Component {
 
 	renderFlatListFooter() {
 		// console.warn('masuk')
-		if(!this.state.listLoading) return null;
-		return (
-			<ActivityIndicator
-				size={'small'}
-			/>
-		)
+		if(!this.state.listLoading) {
+			return (
+				<View style={{flex: 1, height: 100, alignItems: 'center', marginRight: 18}}>
+					<Text style={styles.footer.text}>End of Category</Text>
+				</View>
+			)
+		} else {
+			return (
+				<ActivityIndicator
+					size={'small'}
+				/>
+			)
+		}
+
 		
 	}
 

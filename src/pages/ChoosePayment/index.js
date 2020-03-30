@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from 'react';
-import { View, Text, WebView, Platform, Image, BackHandler } from 'react-native';
+import { View, Text, WebView, Platform, Image, BackHandler, ActivityIndicator } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
+import Button from '@components/Button';
 import NavigationBar from '@components/NavigationBar';
 import AlertDialog from '@components/AlertDialog';
 import styles from './styles';
@@ -19,7 +20,8 @@ class ChoosePayment extends Component {
             token: '',
             invoice: '',
             paymentType: '',
-            warningModal: false
+            warningModal: false,
+            refreshStatus: false,
         }
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
         
@@ -139,6 +141,29 @@ class ChoosePayment extends Component {
 
     };
 
+    handleOnPressCheck = () => {
+        this.setState({refreshStatus: true}, () => {
+            let payload = {
+                header: {
+                    apiToken: this.props.user.authorization,
+                },
+                type: 'validation',
+                invoice: this.props.navigation.state.params.midtrans.transaction_details.order_id
+            }
+            this.props.detail_transaction(
+                payload,
+                (res) => {
+                    this.setState({refreshStatus: false}, () => actNav.goBack())
+                    // return false
+                },
+                (err) => {
+                    this.setState({refreshStatus: false}, () => console.log())
+                    // return true
+                }
+            )
+        })
+    }
+
     
 
     goBack = () => {
@@ -156,8 +181,28 @@ class ChoosePayment extends Component {
                         <Image source={images.gopay} style={styles.gopay.image} resizeMode={'contain'}/>
                     </View>
 
+                    
+                    {
+                        this.state.refreshStatus ? 
+                        <View style={styles.gopay.pendingContainer}>
+                            <ActivityIndicator/>
+                        </View>
+                        :
+                        <View style={styles.gopay.buttonContainer}>
+                            <View style={styles.gopay.textStatusContainer}>
+                                <Text style={styles.gopay.text}>Status: Pending</Text>
+                            </View>
+                            <Button
+                                type={'white'}
+                                onPress={this.handleOnPressCheck}
+                                title={'choosePayment.button'}
+                            />
+                        </View>
+
+                    }
+                    
                     <View style={styles.gopay.textContainer}>
-                        <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the back button.</Text>
+                        <Text style={styles.gopay.text}>You will be redirected to GOJEK app. When you're done, please press the check button to check your transaction status</Text>
                     </View>
 
                 </View>

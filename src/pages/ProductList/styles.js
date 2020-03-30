@@ -61,6 +61,15 @@ const styles = {
 			width: scaling.moderateScale(20)
 		}
 	},
+	footer:{
+		text: {
+			fontFamily: 'Avenir-Roman',
+			fontSize: scaling.moderateScale(13),
+			color: colour.grey,
+			// marginTop : 100,
+			marginHorizontal: 14,
+		}
+	},
 	modal: {
 		container: {
 			flex: 1, 

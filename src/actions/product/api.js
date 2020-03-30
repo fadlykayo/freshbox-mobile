@@ -32,7 +32,7 @@ actions.get_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload2,dispatch, true)
         .then((res) => {
-        	// console.log('Get Products res ->',res);
+        	console.log('Get Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_products(res.data));
@@ -43,7 +43,7 @@ actions.get_products = (req,success,failure) => {
         .catch((err) => {
         	console.warn('Get Products err ->', err);
         	if(!err.code){
-						// console.log(err)
+						console.log(err)
         		// dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){

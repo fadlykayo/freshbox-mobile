@@ -493,7 +493,8 @@
             "delivery": "Delivery",
             "grandTotal": "Grand Total",
             "price": "IDR "
-        }
+        },
+        "button": "Check Status"
     },
     "creditCard": {
         "navigationTitle": "Credit Card",
