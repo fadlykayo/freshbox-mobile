@@ -498,6 +498,13 @@
         },
         "button": "Check Status"
     },
+    "requireUpdate": {
+        "title"         : "Tersedia Update Baru",
+        "contentMajor"  : "Untuk meingkatkan mutu layanan, kami menyediakan update baru untuk app anda. \n\n Mohon untuk download applikasi Freshbox versi terbaru dengan menekan tombol OK",
+        "contentMinor"  : "Untuk menikmati fitur-fitur terbaru dari Freshbox, kami menyediakan update baru untuk app anda. \n\n Mohon untuk restart applikasi dengan menekan tombol OK",
+        "later"         : "Nanti Saja",
+        "ok"            : "OK"
+    },
     "creditCard": {
         "navigationTitle": "Kartu Kredit",
         "content": {

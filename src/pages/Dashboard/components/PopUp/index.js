@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, TouchableHighlight, Image } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, Image, Platform, Linking } from 'react-native';
+import CodePush from "react-native-code-push";
 import StaticText from '@components/StaticText';
 import Button from '@components/Button';
 import images from '@assets';
@@ -12,6 +13,14 @@ export default class PopUp extends Component {
     };
   }
 
+  onPressOk = () => {
+    if(this.props.announcementMessage == 'major') {
+      Linking.openURL('https://frshbox.app.link/downloadnow')
+    } else {
+      CodePush.restartApp();
+    }
+  } 
+
   render() {
     return (
       <Modal
@@ -21,7 +30,6 @@ export default class PopUp extends Component {
 
       >
         <View style={{flex: 1}}>
-          <TouchableHighlight style={{flex: 1}} onPress = {this.closePopUpInfo}>
           <>
             <View style={styles.modal.container}>
               
@@ -36,25 +44,39 @@ export default class PopUp extends Component {
                 <View style={styles.modal.textContainer}>
                   <StaticText
                     style={styles.modal.title}
-                    property={'popup.title'}
+                    property={'requireUpdate.title'}
                   />
-                  <Text style={styles.modal.text}>Kami dari pihak Freshbox menghimbau kepada seluruh user untuk tidak mudah percaya kepada orang lain yang menawarkan produk Freshbox dengan harga lebih murah. </Text>
-                  <Text style={styles.modal.textBottom}>Kami <Text style={styles.modal.textBold}>tidak akan bertanggung jawab</Text> dengan kualitas produk yang dibeli dari sumber yang mengatasnamakan Freshbox. </Text>
+                  <StaticText
+                    style={styles.modal.text}
+                    property={this.props.announcementMessage == "major" ? 'requireUpdate.contentMajor' : 'requireUpdate.contentMinor'}
+                  />
                 </View>
                 
               </View>
 
               <View style={styles.modal.button.container}>
-                  <Button
-                    type={'red'}
-                    title={'popup.button'}
-                    onPress={this.props.closePopUpInfo}
-                  />
-                </View>
+                <Button
+                  type={'red'}
+                  title={'requireUpdate.ok'}
+                  onPress={this.onPressOk}
+                />
+                {
+                  this.props.updateType == 'minor' ? 
+                  <TouchableOpacity style={{flex: 1}} onPress={this.props.closePopUpInfo}>
+
+                    <StaticText
+                      style={styles.modal.textBold}
+                      property={'requireUpdate.later'}
+                    />
+
+                  </TouchableOpacity> : null
+                }
+                
+                
+              </View>
               
             </View>
           </> 
-          </TouchableHighlight>
         </View>
       </Modal>
 

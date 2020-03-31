@@ -22,6 +22,7 @@ import FilterComponent from './components/FilterComponent';
 import PopUp from './components/PopUp';
 import actions from '@actions';
 import styles from './styles';
+import config from '../../config';
 
 const { width, height } = Dimensions.get('window');
 
@@ -32,6 +33,9 @@ class Dashboard extends Component {
       searchItem: '',
 			currentHeight: height,
 			productListHeight: height,
+			announcement: false,
+			updateType: 'mandatory',
+			announcementMessage: 'minor',
 			scrollX: 0,
 			bubble: 0,
 			modalVisible: {
@@ -77,6 +81,7 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
+		this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -89,6 +94,45 @@ class Dashboard extends Component {
 	componentWillUnmount = () => {
 		this.removeLinking();
 	};
+
+	versionChecker = () => {
+		
+
+		if(Platform.OS == 'ios') {
+				version = config.version.ios.split('-')
+		} else {
+				version = config.version.android.split('-')
+		}
+
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+				version: version[0],
+				key: 'versioning'
+			}
+		}
+
+		
+		this.props.version_checker(
+			payload,
+			() => {
+				console.warn('version check ok')
+				// this.setState({
+				// 	announcement: false
+				// })
+			},
+			(err) => {
+				
+				let state = JSON.parse(JSON.stringify(this.state));
+				state.announcement = true;
+				// state.updateType = err.type;
+				// state.announcementMessage = err.code == '666' ? 'minor' : 'major'
+				this.setState(state);
+			}
+		)
+	}
 	
 
 	handleDeepLink = () => {
@@ -1090,8 +1134,10 @@ class Dashboard extends Component {
         
 
 				<PopUp
-					visible = {this.props.announcement}
+					visible = {this.state.announcement}
 					closePopUpInfo = {this.closePopUpInfo}
+					updateType = {this.state.updateType}
+					announcementMessage = {this.state.announcementMessage}
 				/>
       </ScrollView>
 
@@ -1160,6 +1206,7 @@ const mapDispatchToProps = dispatch => ({
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	announcement : (payload) => dispatch(actions.utility.reducer.announcement(payload)),
+	version_checker : (req, res, err) => dispatch(actions.utility.api.version_checker(req, res, err))
 
 })
 

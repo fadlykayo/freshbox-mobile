@@ -44,4 +44,5 @@ export const path = {
     checkVoucher: 'v1/voucher/check',
     cancelVoucher: 'v1/voucher/cancel',
     banners: 'v1/banners/',
+    version_checker: 'v1/general/versioning',
 }

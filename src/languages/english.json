@@ -496,6 +496,13 @@
         },
         "button": "Check Status"
     },
+    "requireUpdate": {
+        "title"         : "New Update Available",
+        "contentMajor"  : "To ensure and improve the quality of our service, we have prepared an update for your app. \n\n Please update the application by pressing OK",
+        "contentMinor"  : "To enjoy our latest features and services, we have prepared an update for your app. \n\n Please restart the app by pressing OK",
+        "later"         : "Later",
+        "ok"            : "OK"
+    },
     "creditCard": {
         "navigationTitle": "Credit Card",
         "content": {

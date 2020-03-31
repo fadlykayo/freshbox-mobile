@@ -13,15 +13,12 @@ const style = {
 			alignItems: 'center',
 		},
 		card: {
-			height: height * 0.65,
-			width: width * 0.9,
 			backgroundColor: 'white',
 			position: 'absolute',
 			top: 150,
-			left: 20,
-			// justifyContent: 'center',
 			alignItems: 'center',
 			borderRadius: 10,
+			marginHorizontal: 20,
 		},
 		content: {
 			justifyContent: 'center',
@@ -32,12 +29,12 @@ const style = {
 			height: 93,
 			width: 115,
 			marginRight: 10,
-			// marginLeft: 20,
 			marginTop: 40,
 			paddingVertical: 20,
 		},
 		textContainer: {
 			marginTop: 50,
+			paddingBottom: 100,
 		},
 		title: {
 			fontFamily: 'Avenir-Heavy',
@@ -74,14 +71,14 @@ const style = {
 			color: colour.darkGrey,
 			fontWeight: '400',
 			// marginTop : 100,
-			marginHorizontal: 10,
+			margin: 10,
 			textAlign: 'center'
 		},
 		button: {
 			container: {
 				width: width * 0.8,
 				position: 'absolute',
-				bottom: 30,
+				bottom: 15,
 			}
 		}
 	}

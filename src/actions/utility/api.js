@@ -11,6 +11,29 @@ let payload = {
 	body: {}
 };
 
+actions.version_checker = (req, success, failure) => {
+	payload.path = path.version_checker
+	payload.header = req.header;
+	payload.body = req.body;
+
+	return dispatch => {
+		requestHandler('post', payload, dispatch)
+		.then((res) => {
+			if(res.code){
+				if(res.code == 200) {
+					
+					// dispatch(actReducer.needs_update({code: res.code, status: false}))
+					success(res)
+				}
+			}
+		})
+		.catch((err) => {
+			// dispatch(actReducer.needs_update({code: err.code, status: true}))
+			failure(err);
+		})
+	}
+}
+
 actions.broadcast_message = (req, success, failure) => {
 	payload.path = path.broadcast_message
 	payload.header = req.header;
