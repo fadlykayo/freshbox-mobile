@@ -70,7 +70,7 @@ class DeliveryDate extends PureComponent {
 									/>
 								</TouchableOpacity>
 							</View>
-							{ renderDate.map((data,index) => (
+							{ this.props.dates.map((data,index) => (
 								<DateItem 
 									key={index}
 									data={data}
