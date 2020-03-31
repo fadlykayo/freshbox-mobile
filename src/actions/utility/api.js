@@ -21,15 +21,16 @@ actions.version_checker = (req, success, failure) => {
 		.then((res) => {
 			if(res.code){
 				if(res.code == 200) {
-					
-					// dispatch(actReducer.needs_update({code: res.code, status: false}))
 					success(res)
 				}
 			}
 		})
 		.catch((err) => {
-			// dispatch(actReducer.needs_update({code: err.code, status: true}))
-			failure(err);
+			if(err.code) {
+				if(err.code == 400) {
+					console.warn(err)
+				}
+			}
 		})
 	}
 }
