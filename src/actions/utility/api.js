@@ -26,9 +26,16 @@ actions.version_checker = (req, success, failure) => {
 			}
 		})
 		.catch((err) => {
-			if(err.code) {
-				if(err.code == 400) {
-					console.warn(err)
+			if(!err.code) {
+				dispatch(actNetwork.set_network_error_status(true));
+			} else {
+				switch (err.code) {
+					case 400: return failure(err)
+					default:
+						dispatch(actNetwork.set_error_status({
+							status: true,
+							data: JSON.stringify(err)
+						}));
 				}
 			}
 		})

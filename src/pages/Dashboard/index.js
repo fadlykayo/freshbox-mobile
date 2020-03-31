@@ -81,7 +81,7 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
-		this.versionChecker();
+		// this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -125,11 +125,15 @@ class Dashboard extends Component {
 			},
 			(err) => {
 				
-				let state = JSON.parse(JSON.stringify(this.state));
-				state.announcement = true;
-				// state.updateType = err.type;
-				// state.announcementMessage = err.code == '666' ? 'minor' : 'major'
-				this.setState(state);
+				if(err.data.current_version.active > 0) {
+					if (err.data.error_status !== 'notrelease') {
+						let state = JSON.parse(JSON.stringify(this.state));
+						state.announcement = true;
+						state.updateType = err.data.current_version.type;
+						state.announcementMessage = err.data.error_status == 'codepush' ? 'minor' : 'major'
+						this.setState(state);
+					}
+				}
 			}
 		)
 	}
