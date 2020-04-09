@@ -171,7 +171,7 @@
             "otherAddress": "Pilih Alamat Lain",
             "addAddress": "Tambah Alamat",
             "chooseDate": "Pilih Tanggal Kirim",
-            "confirmDate": "Pastikan Tanggal Pengiriman Sesuai.",
+            "confirmDate": "Pastikan tanggal pengiriman sesuai dan pastikan penerima paket berada di tempat pada tanggal pengiriman yang dipilih",
             "confirmPerson": "Pastikan Penerima Paket Berada Di Tempat Pada Tanggal Pengiriman Yang Dipilih",
             "payment": "Pilih Metode Pembayaran"
         },
@@ -414,7 +414,7 @@
                     "title" : "Kebijakan Refund",
                     "preInfo": {
                         "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
-                        "2": "mails@freshbox.id",
+                        "2": "cs@freshbox.id",
                         "3": " dengan alasan salah satu di antara:"
                     },
                     "data": {

@@ -29,6 +29,7 @@ actions.version_checker = (req, success, failure) => {
 			if(!err.code) {
 				dispatch(actNetwork.set_network_error_status(true));
 			} else {
+				console.warn(err, 'err')
 				switch (err.code) {
 					case 400: return failure(err)
 					default:

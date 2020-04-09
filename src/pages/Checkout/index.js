@@ -584,10 +584,10 @@ messageOrderSuccess = () => {
 									property	= 'checkout.content.confirmDate'
 									style			= { styles.text.confirmDate }
 								/>
-							<StaticText
+							{/* <StaticText
 									property	= 'checkout.content.confirmPerson'
 									style			= { styles.text.confirmPerson }
-								/>
+								/> */}
 
 							</View>
 							

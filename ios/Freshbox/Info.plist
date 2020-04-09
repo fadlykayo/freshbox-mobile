@@ -51,7 +51,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>4lxj8ZUIC_UKNtq-Yhor_op8VeJ_MT0Pe8KH2</string>
 	<key>FacebookAppID</key>

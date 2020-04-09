@@ -15,7 +15,12 @@ export default class PopUp extends Component {
 
   onPressOk = () => {
     if(this.props.announcementMessage == 'major') {
-      Linking.openURL('https://frshbox.app.link/downloadnow')
+      if(Platform.OS == 'ios') {
+        Linking.openURL('https://apps.apple.com/id/app/freshbox-id/id1448126091')
+      } else {
+        Linking.openURL('https://play.google.com/store/apps/details?id=com.freshbox')
+      }
+      // Linking.openURL('https://frshbox.app.link/downloadnow')
     } else {
       CodePush.restartApp();
     }
@@ -37,10 +42,10 @@ export default class PopUp extends Component {
             <View style={styles.modal.card}>
             
               <View style={styles.modal.content}>
-                <Image
+                {/* <Image
                   source = {images.ilu_announcement}
                   style = {styles.modal.image}
-                />
+                /> */}
                 <View style={styles.modal.textContainer}>
                   <StaticText
                     style={styles.modal.title}
@@ -61,7 +66,7 @@ export default class PopUp extends Component {
                   onPress={this.onPressOk}
                 />
                 {
-                  this.props.updateType == 'minor' ? 
+                  this.props.updateType == 'optional' ? 
                   <TouchableOpacity style={{flex: 1}} onPress={this.props.closePopUpInfo}>
 
                     <StaticText

@@ -34,7 +34,7 @@ const style = {
 		},
 		textContainer: {
 			marginTop: 50,
-			paddingBottom: 100,
+			paddingBottom: 120,
 		},
 		title: {
 			fontFamily: 'Avenir-Heavy',

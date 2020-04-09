@@ -81,7 +81,7 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
-		// this.versionChecker();
+		this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -110,10 +110,9 @@ class Dashboard extends Component {
 			},
 			body: {
 				version: version[0],
-				key: 'versioning'
 			}
 		}
-
+		console.warn(payload, 'payload')
 		
 		this.props.version_checker(
 			payload,
@@ -888,7 +887,9 @@ class Dashboard extends Component {
 	}
 
 	closePopUpInfo = () => {
-		this.props.announcement(false);
+		this.setState({
+			announcement: false
+		})
 	}
 
 	onShare = async (data) => {
@@ -916,6 +917,7 @@ class Dashboard extends Component {
 
 	onRefresh = () => {
 		this.setState({refreshing: true}, () => {
+			this.versionChecker();
 			this.getProductList();
 			this.getCategories();
 			this.getProductPromo();

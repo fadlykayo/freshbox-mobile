@@ -169,7 +169,7 @@
             "otherAddress": "CHOOSE ADDRESS",
             "addAddress": "Add Address",
             "chooseDate": "Choose Delivery Date",
-            "confirmDate": "Please Make Sure The Delivery Date is Correct",
+            "confirmDate": "Please make sure the delivery date is correct and please make sure the reciever of the package is available on the date specified",
             "confirmPerson": "Please Make Sure The Reciever of The Package Is Available On The Date Specified",
             "payment": "Select Payment Method"
         },
@@ -413,7 +413,7 @@
                     "title" : "Privacy Refund",
                     "preInfo": {
                         "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu 24 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
-                        "2": "mails@freshbox.id",
+                        "2": "cs@freshbox.id",
                         "3": " dengan alasan salah satu di antara:"
                     },
                     "data": {

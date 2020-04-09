@@ -92,4 +92,4 @@ class App extends Component {
 }
 
 App = codePush(App);
-export default App
+export default App 

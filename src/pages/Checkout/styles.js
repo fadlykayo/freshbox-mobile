@@ -120,7 +120,8 @@ const styles = {
 		confirmDate: {
 			fontFamily: 'Avenir-Medium',
 			fontSize: scaling.moderateScale(11),
-			color: '#9A9A9A'
+			color: colour.orange,
+			paddingRight: scaling.moderateScale(20),
 		},
 		confirmPerson: {
 			marginTop: 5,
