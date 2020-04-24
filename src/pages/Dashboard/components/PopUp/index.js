@@ -24,6 +24,7 @@ export default class PopUp extends Component {
     } else {
       CodePush.restartApp();
     }
+    this.props.closePopUpInfo();
   } 
 
   render() {

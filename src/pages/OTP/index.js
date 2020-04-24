@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback } from 'react-native';
-import { validation } from '@helpers';
+import { validation, language } from '@helpers';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
