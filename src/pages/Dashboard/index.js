@@ -886,10 +886,10 @@ class Dashboard extends Component {
 		actNav.navigate(navConstant.ProductList, {showPromo: false});
 	}
 
-	closePopUpInfo = () => {
+	closePopUpInfo = (success) => {
 		this.setState({
 			announcement: false
-		})
+		}, () => success())
 	}
 
 	onShare = async (data) => {

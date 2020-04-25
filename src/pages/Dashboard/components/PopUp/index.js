@@ -22,9 +22,12 @@ export default class PopUp extends Component {
       }
       // Linking.openURL('https://frshbox.app.link/downloadnow')
     } else {
-      CodePush.restartApp();
+
+      this.props.closePopUpInfo(CodePush.restartApp);
+      
+      
     }
-    this.props.closePopUpInfo();
+    
   } 
 
   render() {
