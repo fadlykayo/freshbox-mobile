@@ -791,7 +791,7 @@
         "paymentSuccess": "Terima kasih telah melakukan pembayaran. Pesanan akan segera diproses.",
         "createOrderSuccess": "Pemesanan sukses, apabila anda memilih pembayaran dengan metode transfer, silahkan lakukan pembayaran agar pesanan dapat diproses.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
-        "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
+        "outOfStockCart": "Jumlah produk yang anda pesan melebihi stock yang tersedia, mohon koreski kembali pesanan anda.",
         "noPaymentMethodSelected": "Mohon pilih salah satu metode pembayaran sebelum anda melakukan pemesanan.",
         "emptyCart": "Silahkan isi keranjang anda dengan minimal 1 jenis produk sebelum anda melanjutkan proses pemesanan.",
         "emptyAddress": "Silahkan isi alamat pengiriman anda sebelum anda melanjutkan proses pemesanan.",

@@ -788,7 +788,7 @@
         "paymentSuccess": "Thank you for making a payment. Orders will be processed immediately.",
         "createOrderSuccess": "Order successfully created, if you choose bank transfer as your payment method, please make a payment so the order can be processed.",
         "outOfStock": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda.",
-        "outOfStockCart": "Beberapa jumlah produk yang akan anda pesan telah melebihi jumlah yang tersedia, mohon koreksi kembali pesanan anda sebelum melakukan pembayaran.",
+        "outOfStockCart": "Unfortunately, the following item(s) that you ordered are now out-of-stock. Please accept our apologies for this inconvenience.",
         "noPaymentMethodSelected": "Please choose one of the payment methods before you place your order.",
         "emptyCart": "Please fill in your cart with at least 1 type of product before you continue the order process.",
         "emptyAddress": "Please fill in your shipping address before you continue the order process.",

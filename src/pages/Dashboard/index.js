@@ -362,13 +362,22 @@ class Dashboard extends Component {
 
 	validateCart = () => {
 		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+
+		let outOfStockNames = []
+		outStockCart.forEach((item, index) => {
+			if(item.name) {
+				outOfStockNames.push(" " + item.name.trim() + " ")
+			}
+		})
+
+
 		if(outStockCart.length > 0){
 			language.transformText('message.outOfStock')
 			.then(message => {
 				this.props.set_error_status({
 					status: true,
 					title: 'formError.title.outOfStock',
-					data: message,
+					data: `${message}\n\nOut of stock: ${outOfStockNames}`,
 				});
 			});
 		}

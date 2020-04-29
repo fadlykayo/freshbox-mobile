@@ -65,6 +65,16 @@ actions.cancel_invoice = (req, success, failure) => {
 	}
 }
 
+const addMissingProduct = (data) => {
+	let outOfStockNames = []
+	data.forEach((item, index) => {
+		if(item.product_name) {
+			outOfStockNames.push((" " + item.product_name.trim() + " "))
+		}
+	});
+	return outOfStockNames;
+}
+
 
 actions.bulk_add_products = (req,success,failure) => {
 	
@@ -89,15 +99,18 @@ actions.bulk_add_products = (req,success,failure) => {
         	} else {
         		switch(err.code){
 					case 400: 
-						dispatch(actReducer.validate_cart(err.data));
+
 						language.transformText('message.outOfStockCart')
 						.then(message => {
+							let products = addMissingProduct(err.data)
 							dispatch(actNetwork.set_error_status({
 								status: true,
-								data: message
+								data: `${message}\n\n Out of Stock: ${products}`
 							}));
+							dispatch(actReducer.validate_cart(err.data));
 						});
 						break;
+						
         			default:
         				dispatch(actNetwork.set_error_status({
         					status: true,
