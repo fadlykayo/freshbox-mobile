@@ -58,13 +58,13 @@ class App extends Component {
 			case codePush.SyncStatus.UP_TO_DATE:
 				store.dispatch({
 					type: ct.UPDATE_APP,
-					payload: ''
+					payload: 'Up To Date'
 				})
 				break;
 			case codePush.SyncStatus.UPDATE_INSTALLED:
 				store.dispatch({
 					type: ct.UPDATE_APP,
-					payload: ''
+					payload: 'Update installed. Restarting app..'
 				})
 				break;
 		}

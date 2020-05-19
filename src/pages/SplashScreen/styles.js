@@ -25,8 +25,9 @@ const styles = {
     update: {
         container: {
             flex: -1,
-            borderWidth: 1,
-            borderColor: 'white',
+            // borderWidth: 1,
+            // borderColor: 'white',
+            padding: 20,
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -34,11 +35,13 @@ const styles = {
             fontFamily: 'Avenir-Roman',
             fontSize: scaling.moderateScale(12),
             color: colour.white,
-            paddingHorizontal: 20,
             marginBottom: 10,
         },
-        progressBar: {
-            
+        skip: {
+            fontFamily: 'Avenir-Roman',
+            fontSize: scaling.moderateScale(12),
+            color: colour.white,
+            marginTop: 20,
         }
     }
 }

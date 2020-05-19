@@ -1,3 +1,29 @@
+
+## POST NPM I
+
+change node_modules/react-native-firebase/ios/RNFirebase/analytics/RNFirebaseAnalytics.m
+
+RCT_EXPORT_METHOD(setAnalyticsCollectionEnabled:(BOOL) enabled) {
+  [FIRAnalytics setAnalyticsCollectionEnabled:enabled];
+}
+
+change framework search path FBSDK to ${HOME}/documents/facebookSDK (IOS Only)
+
+/node_modules/react-native/React/Base/RCTModuleMethod.mm
+
+before:
+RCTReadString(input, "__attribute__((unused))");
+
+add in new line:
+RCTReadString(input, "__attribute__((_unused_))");
+
+({NOW GO AND DO STUFF})
+
+
+
+
+
+
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
 When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.

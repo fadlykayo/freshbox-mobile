@@ -126,11 +126,16 @@ class Dashboard extends Component {
 				
 				if(err.data.current_version.active > 0) {
 					if (err.data.error_status !== 'notrelease') {
-						let state = JSON.parse(JSON.stringify(this.state));
-						state.announcement = true;
-						state.updateType = err.data.current_version.type;
-						state.announcementMessage = err.data.error_status == 'codepush' ? 'minor' : 'major'
-						this.setState(state);
+						if(err.data.error_status) {
+
+							let state = JSON.parse(JSON.stringify(this.state));
+							state.announcement = true;
+							state.updateType = err.data.current_version.type;
+							state.announcementMessage = err.data.error_status == 'codepush' ? 'minor' : 'major'
+							this.setState(state);
+
+						}
+					
 					}
 				}
 			}

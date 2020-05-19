@@ -1,21 +1,21 @@
 {
   "name": "react-native-onesignal",
-  "version": "3.4.2",
+  "version": "3.5.0",
   "summary": "React Native OneSignal SDK",
-  "homepage": "https://github.com/geektimecoil/react-native-onesignal",
+  "homepage": "https://github.com/OneSignal/react-native-onesignal",
   "license": "MIT",
   "authors": {
-    "{\"name\"=>\"OneSignal, Geektime\", \"email\"=>\"http://www.geektime.co.il\"}": {
-      "name": "OneSignal, Geektime",
-      "email": "http://www.geektime.co.il"
+    "{\"name\"=>\"OneSignal\", \"email\"=>\"https://www.onesignal.com\"}": {
+      "name": "OneSignal",
+      "email": "https://www.onesignal.com"
     }
   },
   "platforms": {
     "ios": "7.0"
   },
   "source": {
-    "git": "git+https://github.com/geektimecoil/react-native-onesignal.git.git",
-    "tag": "3.4.2"
+    "git": "git+https://github.com/OneSignal/react-native-onesignal.git.git",
+    "tag": "3.5.0"
   },
   "source_files": "ios/RCTOneSignal/*.{h,m}",
   "static_framework": true,

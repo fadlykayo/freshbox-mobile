@@ -50,6 +50,7 @@
 		579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */; };
 		580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */; };
 		580DD00F22F30BF9002C2C8E /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DD00E22F30BD8002C2C8E /* libRCTFBSDK.a */; };
+		581F75C024695A62007B0F90 /* CodePush.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 581F758D24695A62007B0F90 /* CodePush.h */; };
 		587D53562395404600BA865E /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 587D533823953D3800BA865E /* libRCTOneSignal.a */; };
 		58EE290D22E6F18600B00FC6 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EE28E022E6F0FF00B00FC6 /* libCodePush.a */; };
 		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
@@ -497,6 +498,7 @@
 		4583F0FA6C944FBBB05B2998 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		580DD00922F30BD7002C2C8E /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		581F758D24695A62007B0F90 /* CodePush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CodePush.h; path = "../node_modules/react-native-code-push/ios/CodePush/CodePush.h"; sourceTree = "<group>"; };
 		587D531F23953D3700BA865E /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		58EE28D522E6F0FF00B00FC6 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
@@ -558,8 +560,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581F75C024695A62007B0F90 /* CodePush.h in Frameworks */,
 				587D53562395404600BA865E /* libRCTOneSignal.a in Frameworks */,
-				580DD00F22F30BF9002C2C8E /* libRCTFBSDK.a in Frameworks */,
 				580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */,
 				01F2883121C1EBD9006F8EB9 /* libBVLinearGradient.a in Frameworks */,
 				01A7028921B9601D00DE7730 /* libRNImagePicker.a in Frameworks */,
@@ -576,6 +578,7 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				580DD00F22F30BF9002C2C8E /* libRCTFBSDK.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				3D4D1A4039E6473695827341 /* libRNVectorIcons.a in Frameworks */,
 				A141B2AF214811810073CC77 /* GoogleUtilities.framework in Frameworks */,
@@ -775,6 +778,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				581F758D24695A62007B0F90 /* CodePush.h */,
 				580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */,
 				A124F7DA21A3EA6E006104AB /* Bolts.framework */,
 				A124F7DC21A3EA6E006104AB /* FBSDKCoreKit.framework */,
@@ -1858,7 +1862,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1875,10 +1879,11 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios",
 				);
 				INFOPLIST_FILE = Freshbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1900,7 +1905,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1916,10 +1921,11 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios",
 				);
 				INFOPLIST_FILE = Freshbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
