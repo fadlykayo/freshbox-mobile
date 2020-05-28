@@ -16,7 +16,7 @@ class SearchComponent extends Component {
 			placeholder: 'Cari produk atau kategori...',
 			isLoading: false,
     	}
-    	this.onChangeText = this.onChangeText.bind(this);
+    this.onChangeText = this.onChangeText.bind(this);
 		this.onSubmitEditing = this.onSubmitEditing.bind(this);
 		this.renderPlaceholder = this.renderPlaceholder.bind(this);
 		this.openDrawerMenu = this.openDrawerMenu.bind(this);

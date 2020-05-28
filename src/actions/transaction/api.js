@@ -146,7 +146,19 @@ actions.request_snap_token = (req,success,failure) => {
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
         		switch(err.code){
-					case 400: return failure(err);
+					case 400: 
+						if(err.data) {
+							failure(err)
+							return (
+
+								dispatch(actNetwork.set_error_status({
+									status: true,
+									data: err.code_message,
+									title: 'voucher.title'
+								}))
+								
+							)
+						}
 					case 403:
 						if(err.data.payment_method){
 							return (

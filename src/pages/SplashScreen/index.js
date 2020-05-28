@@ -35,6 +35,7 @@ class SplashScreen extends Component {
 
     componentDidMount() {
         this.versionChecker();
+        // this.checkOnBoarding();
     }
     
     
