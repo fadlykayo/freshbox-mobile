@@ -50,7 +50,7 @@ class Cart extends Component {
 
 	shouldComponentUpdate(nextProps) {
 		if(nextProps.cart_product.length == 0){
-			this.navigateBack();
+			actNav.goBack();
 		}
 		return true;
 	}
