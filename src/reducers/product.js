@@ -540,18 +540,101 @@ const getDeliveryPrice = (state, payload) => {
     return newState;
 }
 
+const removeEmptyItems = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    let newCart = newState.cart.products.slice();
+
+    newCart.map((c,i) => {
+        if(c.stock == 0) {
+            newCart.splice(i, 1)
+        }
+    })
+
+    newState.cart.products = newCart;
+
+    return newState;
+}
+
+
 const validateCart = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let newCart = newState.cart.products.slice();
+    let newProduct = newState.products.slice();
+    let newPromo = newState.promoProduct.slice();
+    let count = 0;
+    let total = 0;
 
     for(x in newCart){
         let result = payload.data.find(item => item.product_code == newCart[x].code);
         if(result){
-            newCart[x].maxQty = result.max_qty;
+
+            if(result.max_qty == 0) {
+                
+                newPromo.map((p,i) => {
+                    if(p.code == newCart[x].code) {
+
+                        console.warn('masuk promo')
+                                                p.count = result.max_qty
+                        p.maxQty = result.max_qty
+                        p.stock = result.max_qty
+                    }
+                })
+                
+                newProduct.map((p,i) => {
+                    
+                    if (p.code == newCart[x].code) {
+
+                        console.warn('masuk product')
+
+                        p.count = result.max_qty
+                        p.maxQty = result.max_qty
+                        p.stock = result.max_qty
+                    }
+                })
+                if(newCart.length == 1) {
+                    newCart.splice(x,1);
+                }
+                
+                newCart[x].maxQty = result.max_qty;
+                newCart[x].count = result.max_qty;
+                newCart[x].stock = result.max_qty;
+            } else {
+                newCart[x].maxQty = result.max_qty;
+                newCart[x].count = result.max_qty;
+                newCart[x].stock = result.max_qty;
+                
+
+                if (newCart[x].banner_harga_jual && newCart[x].banner_harga_jual !== null) {
+
+                    total = total + (newCart[x].banner_harga_jual * newCart[x].count);
+                    count = count + newCart[x].count;
+
+                } else {
+                    total = total + (newCart[x].promo_price * newCart[x].count);
+                    count = count + newCart[x].count;
+                }
+            }
+
+            
+        } else {
+            
+            if (newCart[x].banner_harga_jual && newCart[x].banner_harga_jual !== null) {
+
+                total = total + (newCart[x].banner_harga_jual * newCart[x].count);
+                count = count + newCart[x].count;
+            } else {
+
+                total = total + (newCart[x].promo_price * newCart[x].count);
+                count = count + newCart[x].count;
+            }
         }
     }
 
+    newState.total.count = count;
+    newState.total.price = total;
     newState.cart.products = newCart;
+    newState.products = newProduct;
+    newState.promoProduct = newPromo;
 
     return newState;
 }
@@ -749,6 +832,7 @@ const productReducer = (state = initialState, action) => {
         case ct.CANCEL_VOUCHER      : return cancelVoucher(state, action.payload);
         case ct.GET_DETAIL_BANNER   : return getCurrentDetail(state, action.payload);
         case ct.SET_VOUCHER         : return setVoucher(state,action.payload);
+        case ct.REMOVE_EMPTY        : return removeEmptyItems(state,action.payload);
         case ct.RESET_PRODUCTS      : return initialState
         default                     : return state;
     }

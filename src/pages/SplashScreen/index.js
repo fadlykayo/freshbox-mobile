@@ -122,9 +122,10 @@ class SplashScreen extends Component {
                         <>
                         <Text style={styles.update.text}>{Math.round((this.props.receivedBytes/this.props.totalBytes)*100)}%</Text>
                         <ProgressBar
-                            progress    = {this.props.receivedBytes/this.props.totalBytes}
-                            color       =   'white'
-                            borderColor =   'white'
+                            progress        = {this.props.recievedBytes == 0 ? 1 / this.props.totalBytes : this.props.receivedBytes/this.props.totalBytes}
+                            color           = 'white'
+                            borderColor     = 'white'
+                            useNativeDriver = {true}
                         />
 
                         {

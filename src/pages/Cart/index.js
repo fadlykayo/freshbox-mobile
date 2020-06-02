@@ -84,10 +84,12 @@ class Cart extends Component {
     }
 
 	navigateToProduct() {
+		this.props.remove_empty_items();
 		actNav.reset(navConstant.Product)
 	}
 
 	navigateBack() {
+		this.props.remove_empty_items();
 		actNav.goBack()
 	}
 
@@ -139,6 +141,7 @@ class Cart extends Component {
 			});
 		}
 		else {
+			this.props.remove_empty_items();
 			let buyProducts = [];
 			this.props.cart_product.map((cart) => {
 				buyProducts.push({
@@ -263,6 +266,7 @@ const mapDispatchToProps = dispatch => ({
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
+	remove_empty_items: () => dispatch(actions.product.reducer.remove_empty_items()),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);

@@ -81,6 +81,13 @@ actions.bulk_add_products = (req,success,failure) => {
 	payload.path = path.bulkAddProducts;
 	payload.header = req.header;
 	payload.body = req.body;
+
+	payload.body.map((p,i) => {
+		if(p.qty == 0) {
+			payload.body.splice(i,1)
+		}
+	});
+
 	
 	return dispatch => {
         requestHandler('post',payload,dispatch)

@@ -101,4 +101,8 @@ action.reset_params = () => ({
     type: ct.RESET_PARAMS
 })
 
+action.remove_empty_items = () => ({
+    type: ct.REMOVE_EMPTY
+})
+
 export default action;
