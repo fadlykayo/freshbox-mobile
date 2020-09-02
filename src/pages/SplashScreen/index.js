@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Platform, Text } from 'react-native';
+import { View, Image, Platform, Text, TouchableOpacity } from 'react-native';
 import ProgressBar from '@components/ProgressBar';
 import { actNav, navConstant } from '@navigations';
 import images from '@assets';
