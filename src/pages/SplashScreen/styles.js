@@ -43,6 +43,17 @@ const styles = {
             color: colour.white,
             marginTop: 20,
         }
+    },
+    skip: {
+        container: {
+            borderColor: 'white',
+            paddingLeft: 40,
+            paddingRight: 40,
+            paddingTop: 10,
+            borderWidth: (1),
+            borderRadius: 200,
+            marginTop: 10
+        }
     }
 }
 

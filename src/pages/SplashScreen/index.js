@@ -134,7 +134,11 @@ class SplashScreen extends Component {
                         </> : null
                     }
                     
-                    
+                    {
+                     this.props.codePushErr === true ? <TouchableOpacity onPress={this.checkOnBoarding} style={styles.skip.container}>
+                     <Text style={styles.update.text}>Skip</Text>
+                     </TouchableOpacity> : null
+                    }
                 </View>
 
                 
@@ -149,7 +153,8 @@ const mapStateToProps = state => ({
     on_boarding: state.utility.on_boarding,
     updateMessage: state.network.updateMessage,
 	receivedBytes: state.network.receivedBytes,
-	totalBytes: state.network.totalBytes,
+    totalBytes: state.network.totalBytes,
+    codePushErr: state.network.codePushErr
 });
 
 const mapDispatchToProps = dispatch => ({

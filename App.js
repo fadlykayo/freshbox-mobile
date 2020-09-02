@@ -67,6 +67,30 @@ class App extends Component {
 					payload: 'Update installed. Restarting app..'
 				})
 				break;
+			case codePush.SyncStatus.UPDATE_IGNORED:
+				store.dispatch({
+					type: ct.UPDATE_APP,
+					payload: 'Update ignored'
+				})
+				break;
+			case codePush.SyncStatus.UNKNOWN_ERROR:
+				store.dispatch({
+					type: ct.CODEPUSH_ERR,
+					payload: true
+				})
+				break;
+			case codePush.SyncStatus.SYNC_IN_PROGRESS:
+				store.dispatch({
+					type: ct.UPDATE_APP,
+					payload: 'Sync in progress'
+				})
+				break;
+			case codePush.SyncStatus.AWAITING_USER_ACTION:
+				store.dispatch({
+					type: ct.UPDATE_APP,
+					payload: 'Awaiting user action'
+				})
+				break;
 		}
 	}
 

@@ -13,6 +13,7 @@ const initialState = {
     updateMessage: '',
     receivedBytes: '',
     totalBytes: '',
+    codePushErr: false
 };
 
 const setLoadingStatus = (state,status) => {
@@ -56,7 +57,8 @@ const setServerErrorStatusHandler = (state,payload) => {
 
 const setUpdateStatus = (state, payload) => {
     return Object.assign({},state,{
-        updateMessage: payload
+        updateMessage: payload,
+        codePushErr: false
     });
 }
 
@@ -67,7 +69,11 @@ const setUpdateBytes = (state, payload) => {
     });
 }
 
-
+const setErrorCodePush = (state, payload) => {
+    return Object.assign({},state,{
+        codePushErr: payload
+    });
+}
 
 const networkReducer = (state = initialState, action) => {
     switch(action.type){
@@ -76,6 +82,7 @@ const networkReducer = (state = initialState, action) => {
         case ct.SET_SUCCESS_STATUS: return setResponseSuccessHandler(state,action.payload);
         case ct.SET_NETWORK_ERROR_STATUS: return setNetworkStatusHandler(state,action.payload);
         case ct.SET_SERVER_ERROR_STATUS: return setServerErrorStatusHandler(state,action.payload);
+        case ct.CODEPUSH_ERR: return setErrorCodePush(state, action.payload);
         case ct.UPDATE_APP: return setUpdateStatus(state, action.payload);
         case ct.UPDATE_BYTES: return setUpdateBytes(state, action.payload);
         default: return state;
