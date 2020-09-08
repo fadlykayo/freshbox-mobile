@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 import actions from '@actions';
 
 class TermsConditions extends Component {
-  	constructor(props) {
-  		super(props)
+	constructor(props) {
+		super(props)
 		this.state = {
 			contents: [
 				{
@@ -43,8 +43,9 @@ class TermsConditions extends Component {
 				{
 					title: 'termsConditions.content.info.refund.title',
 					isOpen: false,
-					preInfo: ['termsConditions.content.info.refund.preInfo.1','termsConditions.content.info.refund.preInfo.2','termsConditions.content.info.refund.preInfo.3'],
-					data: ['termsConditions.content.info.refund.data.1', 'termsConditions.content.info.refund.data.2','termsConditions.content.info.refund.data.3', 'termsConditions.content.info.refund.data.4']
+					preInfo: ['termsConditions.content.info.refund.preInfo.1', 'termsConditions.content.info.refund.preInfo.2', 'termsConditions.content.info.refund.preInfo.3', 'termsConditions.content.info.refund.preInfo.4', 'termsConditions.content.info.refund.preInfo.5'],
+					term: ["termsConditions.content.info.refund.term.1", "termsConditions.content.info.refund.term.2", "termsConditions.content.info.refund.term.3", "termsConditions.content.info.refund.term.4"],
+					data: ['termsConditions.content.info.refund.data.1', 'termsConditions.content.info.refund.data.2', 'termsConditions.content.info.refund.data.3', 'termsConditions.content.info.refund.data.4']
 				},
 				{
 					title: 'termsConditions.content.info.others.title',
@@ -65,13 +66,13 @@ class TermsConditions extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.closeDrawer) {
+		if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
 	}
 
 	openDrawerMenu = () => {
-        
+
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	}
@@ -87,29 +88,29 @@ class TermsConditions extends Component {
 	}
 
 	async getClipboardData(input) {
-        await Clipboard.setString(String(input));
-        if(Platform.OS == 'android') {
-            language.transformText('formSuccess.title.copyData')
-            .then(message => {
-                ToastAndroid.show(message, ToastAndroid.SHORT)
-            })
-        } else {
-            language.transformText('formSuccess.title.copyData')
-			.then(message => {
-				this.props.set_success_status({
-					status: true,
-					data: message,
-					title: 'formSuccess.title.default'
+		await Clipboard.setString(String(input));
+		if (Platform.OS == 'android') {
+			language.transformText('formSuccess.title.copyData')
+				.then(message => {
+					ToastAndroid.show(message, ToastAndroid.SHORT)
+				})
+		} else {
+			language.transformText('formSuccess.title.copyData')
+				.then(message => {
+					this.props.set_success_status({
+						status: true,
+						data: message,
+						title: 'formSuccess.title.default'
+					});
 				});
-			});
-        }
-    }
+		}
+	}
 
-  	render() {
-  	  	return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
+	render() {
+		return (
+			<Container
+				bgColorBottom={'veryLightGrey'}
+				bgColorTop={'red'}
 			>
 				<NavigationBar
 					title={'termsConditions.navigationTitle'}
@@ -117,17 +118,17 @@ class TermsConditions extends Component {
 					menubar
 					openDrawer={this.openDrawerMenu}
 				/>
-				<ScrollView 
+				<ScrollView
 					style={styles.container}
 					contentContainerStyle={styles.content}
 				>
 					<View style={styles.intro.place}>
-						<StaticText 
+						<StaticText
 							property={'termsConditions.content.introduction'}
-							style={styles.text.content} 
+							style={styles.text.content}
 						/>
 					</View>
-					{ this.state.contents.map((content, index) => {
+					{this.state.contents.map((content, index) => {
 						return (
 							<Content
 								key={index}
@@ -137,16 +138,16 @@ class TermsConditions extends Component {
 								getClipboardData={this.getClipboardData}
 							/>
 						)
-					}) }
-  	  	  		</ScrollView>
+					})}
+				</ScrollView>
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 })
-	
 
-export default connect(null,mapDispatchToProps)(TermsConditions);
+
+export default connect(null, mapDispatchToProps)(TermsConditions);

@@ -413,9 +413,17 @@
         "refund": {
           "title": "Kebijakan Refund",
           "preInfo": {
-            "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila Pengguna mendapatkan Barang yang tidak sesuai dengan deskripsi, mohon informasikan kepada kami dalam jangka waktu maksimal 3 jam setelah Barang diterima dengan mengirimkan nomor invoice, foto Barang dan foto invoice transaksi ke e-mail kami: ",
-            "2": "cs@freshbox.id",
-            "3": " dengan alasan salah satu di antara:"
+            "1": "FreshBox memberikan jaminan kepuasan pada tiap pembeli. Apabila pengguna memiliki keluhan yang berkaitan dengan produk yang telah diterima, dapat menghubungi Customer Service melalui email : ",
+            "2": "cs@freshbox.id ",
+            "3": "dalam jangka waktu ",
+            "4": "maksimal 3 jam ",
+            "5": "setelah produk diterima dengan melampirkan : "
+          },
+          "term": {
+            "1": "- Nomor Invoice;",
+            "2": "- Foto produk; dan",
+            "3": "- Foto invoice transaksi yang memenuhi salah satu ",
+            "4": "  alasan diantaranya :"
           },
           "data": {
             "1": "Barang kurang.",

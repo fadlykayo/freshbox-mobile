@@ -31,6 +31,9 @@ const styles = {
         link: {
             color: colour.red,
             textDecorationLine: 'underline'
+        },
+        bold: {
+            fontWeight: "bold"
         }
     },
     info: {
@@ -70,7 +73,12 @@ const styles = {
             alignItems: 'center',
         },
         preInfo: {
-            paddingVertical: width * 0.02,
+            paddingTop: width * 0.02,
+            paddingBottom: width * 0.01,
+            paddingHorizontal: width * 0.05
+        },
+        term: {
+            paddingBottom: width * 0.01,
             paddingHorizontal: width * 0.05
         },
         circle: {
