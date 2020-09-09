@@ -113,8 +113,6 @@ class SplashScreen extends Component {
                 )}
                 %
               </Text>
-              <Text style={styles.update.skip}>Downloading</Text>
-
               {/* <ProgressBar
                 progress={
                   this.props.recievedBytes == 0
