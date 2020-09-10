@@ -415,7 +415,7 @@ class ProductList extends Component {
 	}
 
 	handleLoadMore(){
-
+		
 		this.setState({listLoading: true})
 		let category_code = null;
 
@@ -546,8 +546,15 @@ class ProductList extends Component {
  	}
 
 	openDetailProduct = (payload) => {
-		// console.warn(payload)
 		this.props.detail_product(payload);
+		if (payload.product_category_name !== this.props.on_category) {
+			let categoryPayload = {
+				name: "Default"
+			};
+			
+			this.props.change_categories(categoryPayload);
+			this.checkCategory();
+		}
 		this.setModalVisible('openProduct',true);
 	}
 
@@ -609,19 +616,17 @@ class ProductList extends Component {
 	
 	submitSearch() {
 		this.setState({listLoading : false})
-		let category_code = null;
+		// let category_code = null;
 
-		this.props.categories.map(c => {
-			if(this.props.on_category !== "Default") {
+		// this.props.categories.map(c => {
+		// 	if(this.props.on_category !== "Default") {
 				
-				if(c.name == this.props.on_category) {
-					category_code = c.code
-				}
+		// 		if(c.name == this.props.on_category) {
+		// 			category_code = c.code
+		// 		}
 
-			}
-		});
-
-		// console.warn(category_code)
+		// 	}
+		// });
 
 		let payload={
 			header: {
@@ -633,7 +638,7 @@ class ProductList extends Component {
 				// stock: 'tersedia',
 				sort: 'nama-az',
 				name: this.state.searchItem,
-				category_code: category_code,
+				// category_code: category_code,
 			}
 		}
 
@@ -752,7 +757,7 @@ class ProductList extends Component {
 	}
 
 	onScrollEvent = (e) => {
-
+		
 		const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
 			const paddingToBottom = 20;
 			return layoutMeasurement.height + contentOffset.y >=
@@ -852,7 +857,7 @@ class ProductList extends Component {
 
 						{
 							this.props.product.length > 0 ? 
-							<FlatList
+							<FlatList 
 								contentContainerStyle={{marginLeft: 18}}
 								numColumns={2}
 								ref={(e) => { this.listRef = e}}

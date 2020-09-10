@@ -46,7 +46,7 @@ const styles = {
     dropdown: {
         place: (height) => {
             return {
-                maxHeight: scaling.moderateScale(height),
+                maxHeight: scaling.moderateScale(200),                
                 backgroundColor: colour.white,
                 borderColor: colour.mediumGrey,
                 borderWidth: 1,
