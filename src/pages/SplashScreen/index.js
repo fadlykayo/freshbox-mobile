@@ -10,154 +10,158 @@ import actions from "@actions";
 import codePush from "react-native-code-push";
 
 class SplashScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      updateType: "",
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.updateMessage == "Update installed. Restarting app..") {
-      setTimeout(() => {
-        codePush.restartApp();
-      }, 1000);
-
-      return true;
-    } else {
-      if (nextProps.updateMessage == "Up To Date") {
-        this.checkOnBoarding();
-        return true;
-      }
-    }
-    return true;
-  }
-
-  componentDidMount() {
-    this.versionChecker();
-    // this.checkOnBoarding();
-  }
-
-  versionChecker = () => {
-    if (Platform.OS == "ios") {
-      version = config.version.ios.split("-");
-    } else {
-      version = config.version.android.split("-");
+    constructor(props) {
+        super(props);
+        this.state = {
+            updateType: "",
+        };
     }
 
-    let payload = {
-      header: {
-        apiToken: this.props.user ? this.props.user.authorization : "",
-      },
-      body: {
-        version: version[0],
-        key: "versioning",
-      },
-    };
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.updateMessage == "Update installed. Restarting app..") {
+            setTimeout(() => {
+                codePush.restartApp();
+            }, 1000);
 
-    this.props.version_checker(
-      payload,
-      () => {},
-      (err) => {
-        if (err.data.current_version.active > 0) {
-          if (err.data.error_status !== "notrelease") {
-            let state = JSON.parse(JSON.stringify(this.state));
-
-            state.updateType = err.data.current_version.type;
-
-            this.setState(state);
-          }
-        }
-      }
-    );
-  };
-
-  checkOnBoarding = () => {
-    setTimeout(() => {
-      if (this.props.on_boarding) {
-        if (this.props.user == null) {
-          actNav.reset(navConstant.Dashboard);
+            return true;
         } else {
-          actNav.reset(navConstant.Dashboard);
+            if (nextProps.updateMessage == "Up To Date") {
+                this.checkOnBoarding();
+                return true;
+            }
         }
-      } else {
-        actNav.navigate(navConstant.OnBoarding);
-      }
-    }, 2000);
-  };
-
-  _renderVersion() {
-    if (Platform.OS == "ios") {
-      return config.version.ios;
-    } else {
-      return config.version.android;
+        return true;
     }
-  }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image
-          resizeMode={"contain"}
-          source={images.icon_logo}
-          style={styles.logo}
-        />
+    componentDidMount() {
+        this.versionChecker();
+        // this.checkOnBoarding();
+    }
 
-        <View style={styles.update.container}>
-          <Text style={styles.update.text}>{this.props.updateMessage}</Text>
-          {this.props.updateMessage == "Downloading Updates..." ? (
-            <>
-              <Text style={styles.update.text}>
-                {Math.round(
-                  (this.props.receivedBytes / this.props.totalBytes) * 100
-                )}
-                %
-              </Text>
-              {/* <ProgressBar
-                progress={
-                  this.props.recievedBytes == 0
-                    ? 1 / this.props.totalBytes
-                    : this.props.receivedBytes / this.props.totalBytes
+    versionChecker = () => {
+        if (Platform.OS == "ios") {
+            version = config.version.ios.split("-");
+        } else {
+            version = config.version.android.split("-");
+        }
+
+        let payload = {
+            header: {
+                apiToken: this.props.user ? this.props.user.authorization : "",
+            },
+            body: {
+                version: version[0],
+                key: "versioning",
+            },
+        };
+
+        this.props.version_checker(
+            payload,
+            () => { },
+            (err) => {
+                if (err.data.current_version.active > 0) {
+                    if (err.data.error_status !== "notrelease") {
+                        let state = JSON.parse(JSON.stringify(this.state));
+
+                        state.updateType = err.data.current_version.type;
+
+                        this.setState(state);
+                    }
                 }
-                color="white"
-                borderColor="white"
-                useNativeDriver={true}
-              /> */}
+            }
+        );
+    };
 
-              {this.state.updateType == "optional" ? (
-                <Text style={styles.update.skip}>Skip >>></Text>
-              ) : null}
-            </>
-          ) : null}
+    checkOnBoarding = () => {
+        setTimeout(() => {
+            if (this.props.on_boarding) {
+                if (this.props.user == null) {
+                    actNav.reset(navConstant.Dashboard);
+                } else {
+                    actNav.reset(navConstant.Dashboard);
+                }
+            } else {
+                actNav.navigate(navConstant.OnBoarding);
+            }
+        }, 2000);
+    };
 
-          {this.props.codePushErr === true ? (
-            <TouchableOpacity
-              onPress={this.checkOnBoarding}
-              style={styles.skip.container}
-            >
-              <Text style={styles.update.text}>Skip</Text>
-            </TouchableOpacity>
-          ) : null}
-        </View>
+    _renderVersion() {
+        if (Platform.OS == "ios") {
+            return config.version.ios;
+        } else {
+            return config.version.android;
+        }
+    }
 
-        <Text style={styles.version}>V{this._renderVersion()}</Text>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <Image
+                    resizeMode={"contain"}
+                    source={images.icon_logo}
+                    style={styles.logo}
+                />
+
+                <View style={styles.update.container}>
+                    <Text style={styles.update.text}>{this.props.updateMessage}</Text>
+                    {this.props.updateMessage == "Downloading Updates..." ? (
+                        <>
+                            <Text style={styles.update.text}>
+                                {Number.isNaN(Math.round(
+                                    (this.props.receivedBytes / this.props.totalBytes) * 100
+                                ) ? 0 : Math.round(
+                                    (this.props.receivedBytes / this.props.totalBytes) * 100
+                                ))}
+                            </Text>
+                            <ProgressBar
+                                progress={
+                                    Number.isNaN(this.props.recievedBytes == 0
+                                        ? 1 / this.props.totalBytes
+                                        : this.props.receivedBytes / this.props.totalBytes) ? 0 :
+                                        this.props.recievedBytes == 0
+                                            ? 1 / this.props.totalBytes
+                                            : this.props.receivedBytes / this.props.totalBytes
+                                }
+                                color="white"
+                                borderColor="white"
+                                useNativeDriver={true}
+                            />
+
+                            {this.state.updateType == "optional" ? (
+                                <Text style={styles.update.skip}>Skip</Text>
+                            ) : null}
+                        </>
+                    ) : null}
+
+                    {this.props.codePushErr === true ? (
+                        <TouchableOpacity
+                            onPress={this.checkOnBoarding}
+                            style={styles.skip.container}
+                        >
+                            <Text style={styles.update.text}>Skip</Text>
+                        </TouchableOpacity>
+                    ) : null}
+                </View>
+
+                <Text style={styles.version}>V{this._renderVersion()}</Text>
+            </View>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.data,
-  on_boarding: state.utility.on_boarding,
-  updateMessage: state.network.updateMessage,
-  receivedBytes: state.network.receivedBytes,
-  totalBytes: state.network.totalBytes,
-  codePushErr: state.network.codePushErr,
+    user: state.user.data,
+    on_boarding: state.utility.on_boarding,
+    updateMessage: state.network.updateMessage,
+    receivedBytes: state.network.receivedBytes,
+    totalBytes: state.network.totalBytes,
+    codePushErr: state.network.codePushErr,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  version_checker: (req, res, err) =>
-    dispatch(actions.utility.api.version_checker(req, res, err)),
+    version_checker: (req, res, err) =>
+        dispatch(actions.utility.api.version_checker(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
