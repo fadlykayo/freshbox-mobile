@@ -209,7 +209,7 @@ dependencies {
     implementation(project(':react-native-fbsdk')){
       exclude(group: 'com.facebook.android', module: 'facebook-android-sdk')
     }
-    implementation "com.facebook.android:facebook-android-sdk:4.22.1"
+    implementation "com.facebook.android:facebook-android-sdk:[5,6)"
     implementation (project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important
     }

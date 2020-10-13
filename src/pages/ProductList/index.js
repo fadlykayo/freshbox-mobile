@@ -44,6 +44,7 @@ class ProductList extends Component {
 			wasSearching: false,
 			broadcast_message: '',
 			drawerVisible: false,
+			defaultCategory: ''
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -435,7 +436,7 @@ class ProductList extends Component {
 					apiToken: this.props.user ? this.props.user.authorization : ''
 				},
 				body: {},
-				params: {...this.props.params, category_code: category_code}
+				params: {...this.props.params}
 			}
 			this.props.get_products(payload,
 				() => {
@@ -462,6 +463,7 @@ class ProductList extends Component {
 			}
 		}
 		this.onChangeText('onCategory',category);
+		this.onChangeText('defaultCategory',category);
 	} 
 
 	backToTop() {
@@ -616,17 +618,24 @@ class ProductList extends Component {
 	
 	submitSearch() {
 		this.setState({listLoading : false})
-		// let category_code = null;
+		let category_code = null;
 
-		// this.props.categories.map(c => {
-		// 	if(this.props.on_category !== "Default") {
+		this.props.categories.map(c => {
+			if(this.props.on_category !== "Default") {
 				
-		// 		if(c.name == this.props.on_category) {
-		// 			category_code = c.code
-		// 		}
+				if(c.name == this.state.defaultCategory) {
+					category_code = c.code
+				}
 
-		// 	}
-		// });
+			}
+		});
+
+		if(this.state.searchItem === "") {
+			this.props.change_categories({
+				name: this.state.defaultCategory
+			})
+			this.checkCategory()
+		}
 
 		let payload={
 			header: {
@@ -640,6 +649,10 @@ class ProductList extends Component {
 				name: this.state.searchItem,
 				// category_code: category_code,
 			}
+		}
+
+		if (this.state.searchItem === '') {
+			payload.params.category_code = category_code
 		}
 
 		this.props.search_products(payload, 

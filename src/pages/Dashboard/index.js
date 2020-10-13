@@ -272,7 +272,7 @@ class Dashboard extends Component {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {},
-			params: {...this.props.paramsPromo, category_code: categories_code}
+			params: {...this.props.paramsPromo}
 		}
 			this.props.get_promo(payload, 
 				() => {
@@ -675,8 +675,8 @@ class Dashboard extends Component {
 					params: {
 						page: 1,
 						sort: 'nama-az',
-						category_code: category.code,
-						// on_promo: 1,
+						// category_code: category.code,
+						on_promo: 1,
 					}
 				}
 				
