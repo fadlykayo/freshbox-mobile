@@ -21,9 +21,9 @@ let payload = {};
 
 
 actions.get_products = (req,success,failure) => {
-	if(req.params.on_promo) {
-		delete req.params.on_promo;
-	}
+	// if(req.params.on_promo) {
+	// 	delete req.params.on_promo;
+	// }
 	payload2.path = path.getProducts;
 	payload2.header = req.header;
 	payload2.params = req.params;
