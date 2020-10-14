@@ -805,8 +805,8 @@ class Dashboard extends Component {
 				page: 1,
 				sort: 'nama-az',
 				// stock: 'tersedia',
-				category_code: category_code,
-				// on_promo: 1,
+				// category_code: category_code,
+				on_promo: 1,
 			}
 		}
 		this.props.change_categories(category)
