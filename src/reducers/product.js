@@ -11,7 +11,7 @@ const initialState = {
     paramsPromo: {
         page: 1,
         sort: 'nama-az',
-        // on_promo: 1,
+        on_promo: 1,
         last_page: 1,
     },
     promoProduct: [],
