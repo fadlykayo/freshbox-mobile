@@ -320,6 +320,7 @@ class ProductList extends Component {
 	}
 
 	refreshProductList() {
+		let payload;
 
 		let category_code = null;
 
@@ -333,16 +334,31 @@ class ProductList extends Component {
 			}
 		});
 
-		let payload = {
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			params: {
-				page: 1,
-				// per_page: this.props.product.length,
-				// stock: 'tersedia',
-				sort: 'nama-az',
-				category_code: category_code
+		if(this.props.navigation.state.params.fromPromo) {
+			payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				params: {
+					page: 1,
+					// per_page: this.props.product.length,
+					// stock: 'tersedia',
+					sort: 'nama-az',
+					on_promo: 1
+				}
+			}
+		} else {
+			payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				params: {
+					page: 1,
+					// per_page: this.props.product.length,
+					// stock: 'tersedia',
+					sort: 'nama-az',
+					category_code: category_code
+				}
 			}
 		}
 		this.props.get_products(payload,

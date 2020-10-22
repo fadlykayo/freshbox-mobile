@@ -812,7 +812,7 @@ class Dashboard extends Component {
 		this.props.change_categories(category)
 		this.props.search_products(payload, 
 				() => {
-					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
+					actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false, fromPromo: true})
 				},
 				(err) => {
 					console.log(err);
