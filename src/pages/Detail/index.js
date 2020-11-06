@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity, Platform } from 'react-native';
+import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity, Platform, BackHandler } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -68,12 +68,17 @@ class Detail extends Component {
 		this.validateTransactionStatus = this.validateTransactionStatus.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
 		this.onPressRadio = this.onPressRadio.bind(this);
+		this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	}
 	
 	componentWillUnmount() {
 		if(this.state.isNavigateBack == true){
 			if (this.props.navigation.state.params.refreshHandler){
-				this.props.navigation.state.params.refreshHandler();
+				if(this.props.navigation.state.params.fromThanksPage) {
+					return null;
+				} else {
+					this.props.navigation.state.params.refreshHandler();
+				}
 			}
 			else{
 				if(this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0){
@@ -89,6 +94,19 @@ class Detail extends Component {
 		this.clearNotification();
 		// console.warn(this.props.detailTransaction.sub_total)
 	}
+
+	handleBackButtonClick() {
+		if(this.props.navigation.state.params.fromThanksPage) {
+			this.props.set_success_status({
+				status: false,
+				data: '',
+			});
+		} else {
+			this.props.navigation.state.params.refreshHandler();
+			console.warn('back .....')
+		}
+	}
+
 
 	clearNotification() {
 		if(this.props.notif) this.props.reset_notification();
@@ -174,6 +192,12 @@ class Detail extends Component {
 					});
 				});
 			}
+		} else {
+			this.props.set_error_status({
+				status: true,
+				data: 'Pembayaran batal dilakukan.',
+				title: 'formError.title.paymentCanceled'
+			});
 		}
 	}
 

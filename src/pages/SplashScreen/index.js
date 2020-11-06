@@ -14,23 +14,43 @@ class SplashScreen extends Component {
         super(props);
         this.state = {
             updateType: "",
+            isError: false,
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.updateMessage == "Update installed. Restarting app..") {
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (nextProps.updateMessage == "Update installed. Restarting app..") {
+    //         setTimeout(() => {
+    //             codePush.restartApp();
+    //         }, 1000);
+
+    //         return true;
+    //     } else {
+    //         if (nextProps.updateMessage == "Up To Date") {
+    //             this.checkOnBoarding();
+    //             return true;
+    //         }
+    //     }
+    //     return true;
+    // }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.updateMessage !== this.props.updateMessage && this.props.updateMessage == "Update installed. Restarting app..") {
             setTimeout(() => {
                 codePush.restartApp();
             }, 1000);
 
-            return true;
         } else {
-            if (nextProps.updateMessage == "Up To Date") {
+            if (this.props.updateMessage == "Up To Date") {
                 this.checkOnBoarding();
-                return true;
             }
         }
-        return true;
+
+        if (prevProps.codePushErr !== this.props.codePushErr && this.props.codePushErr) {
+            this.setState({
+                isError: true
+            })
+        }
     }
 
     componentDidMount() {
@@ -75,11 +95,7 @@ class SplashScreen extends Component {
     checkOnBoarding = () => {
         setTimeout(() => {
             if (this.props.on_boarding) {
-                if (this.props.user == null) {
-                    actNav.reset(navConstant.Dashboard);
-                } else {
-                    actNav.reset(navConstant.Dashboard);
-                }
+                actNav.reset(navConstant.Dashboard);
             } else {
                 actNav.navigate(navConstant.OnBoarding);
             }
@@ -91,6 +107,14 @@ class SplashScreen extends Component {
             return config.version.ios;
         } else {
             return config.version.android;
+        }
+    }
+
+    _onPressCheckOnBoarding = () => {
+        if (this.props.on_boarding) {
+            actNav.reset(navConstant.Dashboard);
+        } else {
+            actNav.navigate(navConstant.OnBoarding);
         }
     }
 
@@ -134,9 +158,9 @@ class SplashScreen extends Component {
                         </>
                     ) : null}
 
-                    {this.props.codePushErr === true ? (
+                    {this.state.isError === true ? (
                         <TouchableOpacity
-                            onPress={this.checkOnBoarding}
+                            onPress={this._onPressCheckOnBoarding}
                             style={styles.skip.container}
                         >
                             <Text style={styles.update.text}>Skip</Text>

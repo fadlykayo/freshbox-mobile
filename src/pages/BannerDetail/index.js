@@ -94,6 +94,7 @@ class BannerDetail extends Component {
     }
 
     navigateToPaymentSuccess = (input, type) => {
+      const { status } = this.props.transactionDetail
       let payload = {
         header: {
           apiToken: this.props.user.authorization,
@@ -102,13 +103,30 @@ class BannerDetail extends Component {
       }
       this.props.detail_transaction(payload,
         () => {
-          actNav.navigate(navConstant.Detail,{
-            action: 'history',
-            createOrderSuccess: true,
-            invoice: type,
-            // refreshHandler: this.refreshHandler,
-            fromDashboard: true
-          });
+          if (type === "gopay" || type === "credit_card") {
+            if (status === "paid") {
+              actNav.navigate(navConstant.Thanks, {
+                // refreshHandler: this.refreshHandler,
+                invoice: type,
+              });
+            } else {
+              actNav.navigate(navConstant.Detail, {
+                action: 'history',
+                createOrderSuccess: false,
+                invoice: type,
+                // refreshHandler: this.refreshHandler,
+                fromDashboard: true
+              });
+            }
+          } else {
+            actNav.navigate(navConstant.Detail, {
+              action: 'history',
+              createOrderSuccess: true,
+              invoice: type,
+              // refreshHandler: this.refreshHandler,
+              fromDashboard: true
+            });
+          }
         },
         (err) => {
           // console.log('navigate to detail', err);
@@ -513,6 +531,7 @@ const mapStateToProps = (state) => ({
     total_count: state.product.total.count,
     total_price: state.product.total.price,
     cart_product: state.product.cart.products,
+    transactionDetail: state.transaction.detail,
 });
 
 const mapDispatchToProps = dispatch => ({

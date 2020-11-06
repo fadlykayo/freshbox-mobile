@@ -73,4 +73,7 @@ images.ic_calendar_grey = require('./ic_calendar_grey.png');
 images.ilu_announcement = require('./ilu_announcement.png');
 images.ic_menu = require('./ic_menu.png');
 images.ic_menu_grey = require('./ic_menu_grey.png');
+images.ic_time = require('./ic_time.png');
+images.ic_checklist_combine = require('./ic_checklist_combine.png')
+
 export default images;
