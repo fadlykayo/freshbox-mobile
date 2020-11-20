@@ -347,6 +347,19 @@ class ProductList extends Component {
 					on_promo: 1
 				}
 			}
+		} else if(this.props.navigation.state.params.fromBanner) {
+			let category = this.props.navigation.state.params.category
+			payload = {
+				header: {
+				  apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+				  category_code: this.props.currentDetail.new_products[category].info.category_code,
+				  product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+				}
+			  };
 		} else {
 			payload = {
 				header: {
@@ -1012,7 +1025,8 @@ const mapStateToProps = state => ({
 	productDetail: state.product.detail,
 	broadcast_message: state.utility.broadcast_message,
 	promoProduct: state.product.promoProduct,
-	network: state.network
+	network: state.network,
+	currentDetail: state.product.currentDetail,
 })
 
 const mapDispatchToProps = dispatch => ({

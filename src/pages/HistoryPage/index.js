@@ -104,7 +104,8 @@ class HistoryPage extends Component {
 			() => {
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
-					refreshHandler: this.refreshHandler
+					refreshHandler: this.refreshHandler,
+					createOrderSuccess: input.status === "paid" ? true: false,
 				});
 			},
 			(err) => {

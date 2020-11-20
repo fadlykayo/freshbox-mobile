@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { language, analytics } from '@helpers';
+import { language, analytics, hasObjectValue } from '@helpers';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Checkout from '../ProductList/components/Checkout';
 import Container from '@components/Container';
+import PromoList from './PromoList'
 import AlertDialog from '@components/AlertDialog';
 import NavigationBar from '@components/NavigationBar';
 import { gopay } from '@helpers';
@@ -31,16 +32,27 @@ class BannerDetail extends Component {
           openImageDetail: false,
           checkout: false,
           alertDialog: false,
-			  },
+        },
+        loading: {
+          promoList: false,
+        },
         voucher: false,
       }
       this.showCheckout = new Animated.Value(0);
+    }
+
+    componentDidMount() {
+      this.checkCart();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
       if(nextProps.total_count == 0) this.outroAnimate();
       else if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
       return true;
+    }
+
+    checkCart(){
+      if(this.props.total_count > 0) this.introAnimate();
     }
 
     introAnimate = () => {
@@ -251,13 +263,13 @@ class BannerDetail extends Component {
   //product functions
   openDetailProduct = (payload) => {
 		// console.warn(payload)
-		this.props.detail_product(payload.product);
+    this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
 		this.setModalVisible('openProduct',true);
 	}
 
   openDetailProductPicture = (payload) => {
     // console.warn(payload)
-		this.props.detail_product(payload.product);
+    this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
 		this.setModalVisible('openProduct', true);
 	}
 
@@ -311,7 +323,7 @@ class BannerDetail extends Component {
       ) 
       } else {
         
-        if(this.props.currentDetail.products.length !== 0) {
+        if(this.props.currentDetail.products) {
           return (
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -351,32 +363,53 @@ class BannerDetail extends Component {
     
   }
 
-
-    renderPromoList = () => {
-
+  renderPromoCategories = () => {
+    if(this.props.currentDetail.new_products) {
       return (
-        
-          <View style = {styles.promo.container}>
-          
-            {
-              this.props.currentDetail.products.length ? 
-              <View style = {styles.promo.titleContainer}>
-                <Text style = {styles.promo.titleText}>Produk Campaign</Text>
-                {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
-              </View> : null
-
-            }
-
-            <View style = {styles.promo.cart}>
-              {this.renderProductList()}
-            </View>
-            
-            
-            
-          </View>
-
+        <PromoList
+              categoriesProduct={this.props.currentDetail.new_products}
+              product={this.props.promoProduct}
+              user={this.props.user}
+              toggleFavorite={this.toggleFavorite}
+              openDetailProduct={this.openDetailProduct}
+              loadingPromo={this.state.loading.promoList}
+              // handleLoadMore={this.handleLoadMore}
+              navigateToCategories={this.navigateToCategories}
+              changeTotalItem={this.changeTotalItem}
+              fromSplashScreen={hasObjectValue(this.props.navigation.state, 'params') && this.props.navigation.state.params.fromSplashScreen}
+            />
       )
     }
+    return null
+  }
+
+
+  renderPromoList = () => {
+    // console.log('has valueeeeeeeee?', hasObjectValue(this.props.currentDetail, 'new_products') )
+    return (
+      
+        <View style = {styles.promo.container}>
+        
+          {
+            this.props.currentDetail.products && this.props.currentDetail.products.length ? 
+            <View style = {styles.promo.titleContainer}>
+              <Text style = {styles.promo.titleText}>Produk Campaign</Text>
+              {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
+            </View> : null
+
+          }
+
+          <View style = {styles.promo.cart}>
+            {/* {this.renderProductList()} */}
+            {hasObjectValue(this.props.currentDetail, 'new_products') ? this.renderPromoCategories() : this.renderProductList()}
+          </View>
+          
+          
+          
+        </View>
+
+    )
+  }
 
     renderVoucher = () => {
       return (
@@ -432,6 +465,38 @@ class BannerDetail extends Component {
 
     navigateToProducts = () => {
       actNav.navigate(navConstant.ProductList);
+    }
+
+    navigateToCategories = (category) => {
+      let payload = {
+        header: {
+          apiToken: this.props.user ? this.props.user.authorization : ''
+        },
+        body: {},
+        params: {
+          category_code: this.props.currentDetail.new_products[category].info.category_code,
+          product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+        }
+      };
+      let category_code = this.props.categories.filter((item) => {
+        return item.name === category
+      })
+      
+      this.props.change_categories(category_code[0]);
+      this.props.search_products(payload,
+        () => {
+
+          actNav.navigate(navConstant.ProductList, {
+            fromDashboard: true,
+            showPromo: false,
+            fromBanner: true,
+            category: category
+          })
+        },
+        (err) => {
+          console.log('change category', err)
+        }
+      )	
     }
 
     renderButton = () => {
@@ -526,12 +591,14 @@ class BannerDetail extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.user.data,
+    promoProduct: state.product.promoProduct,
     currentDetail: state.product.currentDetail,
     productDetail: state.product.detail,
     total_count: state.product.total.count,
     total_price: state.product.total.price,
     cart_product: state.product.cart.products,
     transactionDetail: state.transaction.detail,
+    categories: state.product.categories,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -542,6 +609,8 @@ const mapDispatchToProps = dispatch => ({
   detail_product : (payload) => dispatch(actions.product.reducer.detail_product(payload)),
   clear_products: () => dispatch(actions.product.reducer.clear_products()),
   set_voucher_code: (payload) => dispatch(actions.voucher.reducer.set_voucher(payload)),
+  search_products: (req, res, err) => dispatch(actions.product.api.search_products(req, res, err)),
+  change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BannerDetail);

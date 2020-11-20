@@ -40,10 +40,11 @@ class SplashScreen extends Component {
                 codePush.restartApp();
             }, 1000);
 
-        } else {
-            if (this.props.updateMessage == "Up To Date") {
+        } 
+        if (this.props.updateMessage === "Up To Date") {
+            setTimeout(() => {
                 this.checkOnBoarding();
-            }
+            }, 2500);
         }
 
         if (prevProps.codePushErr !== this.props.codePushErr && this.props.codePushErr) {
@@ -93,13 +94,11 @@ class SplashScreen extends Component {
     };
 
     checkOnBoarding = () => {
-        setTimeout(() => {
-            if (this.props.on_boarding) {
-                actNav.reset(navConstant.Dashboard);
-            } else {
-                actNav.navigate(navConstant.OnBoarding);
-            }
-        }, 2000);
+        if (this.props.on_boarding) {
+            actNav.reset(navConstant.Dashboard);
+        } else {
+            actNav.navigate(navConstant.OnBoarding);
+        }
     };
 
     _renderVersion() {

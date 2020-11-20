@@ -5,6 +5,7 @@
     <!-- <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string> -->
     <string name="app_name">Freshbox</string>
     <string name="facebook_app_id">266227334002571</string>
+    <string name="fb_login_protocol_scheme">fb[266227334002571]</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>

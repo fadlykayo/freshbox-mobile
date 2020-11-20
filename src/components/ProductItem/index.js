@@ -84,7 +84,12 @@ class ProductItem extends PureComponent {
 		} else {
 			data = this.props.data;
 		}
-		bannerPrice = this.props.data.banner_harga_jual;
+		if(this.props.bannerPrice) {
+			bannerPrice = this.props.bannerPrice;
+		} else {
+			bannerPrice = this.props.data.banner_harga_jual;
+		}
+
 		if(Platform.OS == 'ios') {
 			
 			productImage = data.images_sizes_url.original[0];
