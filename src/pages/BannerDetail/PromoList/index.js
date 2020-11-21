@@ -29,7 +29,7 @@ export default class PromoList extends Component {
     let elemnt = []
     for(const obj in items) {
       if(obj !== 'info') {
-        elemnt.push(<View style={styles.promo.card} >
+        elemnt.push(<View style={styles.promo.card} key={items[obj].product.code} >
           <ProductItem
             search={''}
             data={items[obj].product}
@@ -109,7 +109,7 @@ export default class PromoList extends Component {
         data={categories}
         renderItem={({ item, index }) => {
           return (
-            <View style={styles.container}>
+            <View style={styles.container} key={index}>
               <View style={styles.top.container}>
 
                 <View style={styles.top.left}>

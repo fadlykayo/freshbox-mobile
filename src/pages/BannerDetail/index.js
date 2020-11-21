@@ -36,6 +36,7 @@ class BannerDetail extends Component {
         loading: {
           promoList: false,
         },
+        bannerPriceProductDetail: null,
         voucher: false,
       }
       this.showCheckout = new Animated.Value(0);
@@ -261,10 +262,14 @@ class BannerDetail extends Component {
   }
 
   //product functions
-  openDetailProduct = (payload) => {
+  openDetailProduct = (payload, bannerPrice) => {
 		// console.warn(payload)
-    this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
-		this.setModalVisible('openProduct',true);
+    this.setState({
+      bannerPriceProductDetail: bannerPrice
+    }, () => {
+      this.setModalVisible('openProduct',true);
+    })
+  this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
 	}
 
   openDetailProductPicture = (payload) => {
@@ -474,6 +479,8 @@ class BannerDetail extends Component {
         },
         body: {},
         params: {
+          page:1,
+          banner_id:this.props.currentDetail.new_products[category].info.banner_id ,
           category_code: this.props.currentDetail.new_products[category].info.category_code,
           product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
         }
@@ -565,6 +572,7 @@ class BannerDetail extends Component {
             closeDetailProduct={this.closeDetailProduct}
             modalVisible={this.state.modalVisible.openProduct}
             openImageDetail={this.state.modalVisible.openImageDetail}
+            bannerPrice={this.state.bannerPriceProductDetail}
           />
 
           <Checkout

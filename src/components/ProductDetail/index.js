@@ -102,7 +102,7 @@ class ProductDetail extends Component {
 										bubble={this.props.bubble}
 									/>
 								</View>
-								<Content data={this.props.data}/>
+								<Content data={this.props.data} bannerPrice={this.props.bannerPrice}/>
 								{
 									this.props.type == 'cart'
 									? 	null

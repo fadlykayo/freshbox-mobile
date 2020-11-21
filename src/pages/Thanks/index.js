@@ -21,11 +21,7 @@ class Thanks extends Component {
         }
         this.navigateBack = this.navigateBack.bind(this);
         this.navigateToOrderHistory = this.navigateToOrderHistory.bind(this);
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-    }
-
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+        // this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
 
     componentWillUnmount() {
@@ -36,13 +32,13 @@ class Thanks extends Component {
         }
     }
 
-    handleBackButtonClick() {
-        this.setState({
-            isNavigateBack: true
-        }, () => {
-            this.props.navigation.state.params.refreshHandler();
-        })
-    }
+    // handleBackButtonClick() {
+    //     this.setState({
+    //         isNavigateBack: true
+    //     }, () => {
+    //         this.props.navigation.state.params.refreshHandler();
+    //     })
+    // }
 
     navigateBack(key) {
         console.log(key)

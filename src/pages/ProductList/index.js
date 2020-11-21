@@ -356,8 +356,9 @@ class ProductList extends Component {
 				body: {},
 				params: {
 					page: 1,
-				  category_code: this.props.currentDetail.new_products[category].info.category_code,
-				  product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
+					category_code: this.props.currentDetail.new_products[category].info.category_code,
+					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
 				}
 			  };
 		} else {
@@ -503,7 +504,31 @@ class ProductList extends Component {
 
 	changeCategory(input){
 		// this.onChangeText('searchItem', '')
-		if (input.name == 'Default') {
+		if(this.props.navigation.state.params.fromBanner) {
+			let category = this.props.navigation.state.params.category
+			let payload = {
+				header: {
+				  apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
+				  category_code: input.code,
+				  product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+				}
+			  };
+			  this.props.search_products(payload, 
+				() => {
+					this.props.change_categories(input);
+					this.checkCategory();
+					this.closeDialogCategories();
+					// this.backToTop();
+				},
+				(err) => {
+					console.log(err);
+				});
+			} else if (input.name == 'Default') {
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -646,6 +671,7 @@ class ProductList extends Component {
 	}
 	
 	submitSearch() {
+		let payload;
 		this.setState({listLoading : false})
 		let category_code = null;
 
@@ -665,20 +691,38 @@ class ProductList extends Component {
 			})
 			this.checkCategory()
 		}
-
-		let payload={
-			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
-			},
-			body: {},
-			params: {
-				page: 1,
-				// stock: 'tersedia',
-				sort: 'nama-az',
-				name: this.state.searchItem,
-				// category_code: category_code,
+		if(this.props.navigation.state.params.fromBanner) {
+			let category = this.props.navigation.state.params.category
+			payload = {
+				header: {
+				  apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
+					category_code: this.props.currentDetail.new_products[category].info.category_code,
+					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
+					sort: 'nama-az',
+					name: this.state.searchItem,
+				}
+			  };
+		} else {
+			payload={
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					// stock: 'tersedia',
+					sort: 'nama-az',
+					name: this.state.searchItem,
+					// category_code: category_code,
+				}
 			}
 		}
+
 
 		if (this.state.searchItem === '') {
 			payload.params.category_code = category_code

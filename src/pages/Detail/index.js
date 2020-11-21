@@ -68,7 +68,7 @@ class Detail extends Component {
 		this.validateTransactionStatus = this.validateTransactionStatus.bind(this);
 		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
 		this.onPressRadio = this.onPressRadio.bind(this);
-		this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+		// this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	}
 	
 	componentWillUnmount() {
@@ -86,27 +86,28 @@ class Detail extends Component {
 				}
 			}
 		}
+		// BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 	}
     
     componentDidMount() {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
+		// BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
 		// console.warn(this.props.detailTransaction.sub_total)
 	}
 
-	handleBackButtonClick() {
-		if(this.props.navigation.state.params.fromThanksPage) {
-			this.props.set_success_status({
-				status: false,
-				data: '',
-			});
-		} else {
-			this.props.navigation.state.params.refreshHandler();
-			console.warn('back .....')
-		}
-	}
-
+	// handleBackButtonClick = () => {
+	// 	if(this.props.navigation.state.params.fromThanksPage) {
+	// 		this.props.set_success_status({
+	// 			status: false,
+	// 			data: '',
+	// 		});
+	// 	} else {
+	// 		this.props.navigation.state.params.refreshHandler();
+	// 		console.warn('back .....')
+	// 	}
+	// }
 
 	clearNotification() {
 		if(this.props.notif) this.props.reset_notification();
@@ -203,6 +204,7 @@ class Detail extends Component {
 
 	setDetailTransaction(){
 		if(this.props.navigation.state.params.action == 'history'){
+			console.warn(this.props.detailTransaction)
 			this.setState({
 				status: this.props.detailTransaction.status,
 				totalPrice: this.props.detailTransaction.sub_total,

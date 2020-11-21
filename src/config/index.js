@@ -5,8 +5,8 @@ const production = {
     android: "1.8.0",
     ios: "1.8.0",
   },
-  url: "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/",
-  // url: "https://api.freshbox.id/",
+  // url: "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/",
+  url: "https://api.freshbox.id/",
   env: "production",
 };
 

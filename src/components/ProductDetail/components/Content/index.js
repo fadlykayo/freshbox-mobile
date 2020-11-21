@@ -28,7 +28,7 @@ class Content extends PureComponent {
 						style={styles.text.price}
 						property={'cart.content.price'}
 					/>
-					{productPrice}
+					{this.props.bannerPrice ? numeral(this.props.bannerPrice).format('0,0'): productPrice}
 					<StaticText 
 						style={styles.text.pack}
 						property={'cart.content.pack'}

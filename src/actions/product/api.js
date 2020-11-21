@@ -150,7 +150,21 @@ actions.search_products = (req, success, failure) => {
 								// analytics.trackEvent('Unavailable Products', {product_searched: req.params.name})
 							}
 							success(res)
-							dispatch(actReducer.search_products(req.params, res.data));
+							let result = []
+							let datatemp = res
+							const isArray = Array.isArray(res.data.data)
+							if(res.data.data.length === undefined && !isArray) {
+								for (const key in res.data.data) {
+									if (res.data.data.hasOwnProperty(key)) {
+										
+										result.push(res.data.data[key]);
+									}
+								}
+								datatemp.data.data = result
+							dispatch(actReducer.search_products(req.params, datatemp.data));
+							} else {
+								dispatch(actReducer.search_products(req.params,  res.data ));
+							}
         		}
         	}
         })

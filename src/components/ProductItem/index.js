@@ -40,14 +40,21 @@ class ProductItem extends PureComponent {
 	}
 
 	openDetailProduct(){
+		let data;
+		let bannerPrice;
 		if(this.props.bannerDetail) {
 			data = this.props.data.product;
 		} else {
 			data = this.props.data;
 		}
+		if(this.props.bannerPrice) {
+			bannerPrice = this.props.bannerPrice;
+			this.props.openDetailProduct(this.props.data, bannerPrice);
+		} else {
+			this.props.openDetailProduct(this.props.data);
+		}
 		analytics.log(`Product_Card_${data.name.replace(/[\W_]+/g,"")}_Clicked`, {name: data.name.replace(/[\W_]+/g,"")})
 
-		this.props.openDetailProduct(this.props.data);
 	}
 
 	onShare = async (data) => {
