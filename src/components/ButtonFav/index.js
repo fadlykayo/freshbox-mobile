@@ -25,7 +25,6 @@ class ButtonFav extends PureComponent {
     }
 
     render(){
-        if(this.props.user){
             return(
                 <View style = {{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -40,7 +39,7 @@ class ButtonFav extends PureComponent {
                     }
                 />
                 </TouchableOpacity>
-                <TouchableOpacity
+                {this.props.user && <TouchableOpacity
                     onPress={this.toggleFavorite}
                     style={styles.container(this.props.dashboard)}
                 >
@@ -54,13 +53,9 @@ class ButtonFav extends PureComponent {
                             : 	images.icon_favorite
                         }
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 </View>
             )
-        }
-        else{
-            return null;
-        }
     }
 }
 

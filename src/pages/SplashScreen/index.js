@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Image, Platform, Text, TouchableOpacity } from "react-native";
+import { View, Image, Platform, Text, TouchableOpacity, Linking } from "react-native";
 import ProgressBar from "@components/ProgressBar";
 import { actNav, navConstant } from "@navigations";
 import images from "@assets";
@@ -15,7 +15,11 @@ class SplashScreen extends Component {
         this.state = {
             updateType: "",
             isError: false,
+            linking: ''
         };
+        this.InMemoryData = {
+            appLoaded: false
+        }
     }
 
     // shouldComponentUpdate(nextProps, nextState) {
@@ -57,6 +61,30 @@ class SplashScreen extends Component {
     componentDidMount() {
         this.versionChecker();
         // this.checkOnBoarding();
+        if (Platform.OS === 'android') {
+            if(!this.InMemoryData.appLoaded) {
+                Linking.getInitialURL().then(url => {
+                    this.handleDeepLink(url);
+                    this.InMemoryData.appLoaded = true;
+                });
+            }
+            } else {
+              Linking.addEventListener('url', this.handleDeepLink);
+            }
+    }
+    handleDeepLink = (e) => {
+        if(e) {
+            this.setState({
+                linking: e
+            })
+        }
+        // const route = e.url.replace(/.*?:\/\//g, '')
+        // use route to navigate
+        // ...
+    }
+
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleDeepLink)
     }
 
     versionChecker = () => {
@@ -92,14 +120,84 @@ class SplashScreen extends Component {
             }
         );
     };
+    setDetailProduct = (product_code) => {
+        let payload = {
+                header: {
+                    apiToken: this.props.user ? this.props.user.authorization : ''
+                },
+                body: {},
+                params: {
+                    product_code: product_code
+                }
+            };
+        
+            this.props.get_product_detail(payload,
+                (res) => {
+					if(res.code === 200) {
+						this.props.set_modal_visible(true)
+					}
+                    // if(res) {
+                    //     actNav.navigate(navConstant.BannerDetail, {
+                    //         onbackground: true
+                    //     })
+                    // }
+                },
+                (err) => {
+                    actNav.reset(navConstant.Dashboard);
+                }
+            )
+    }
 
     checkOnBoarding = () => {
-        if (this.props.on_boarding) {
-            actNav.reset(navConstant.Dashboard);
+        if(this.state.linking !== '') {
+            this.navigateWithDeepLink()
         } else {
-            actNav.navigate(navConstant.OnBoarding);
-        }
+            if (this.props.on_boarding) {
+                actNav.reset(navConstant.Dashboard);
+            } else {
+                actNav.navigate(navConstant.OnBoarding);
+            }
+        } 
     };
+
+    navigateWithDeepLink = () => {
+        const url = this.state.linking.replace(/.*?:\/\//g, '');
+        const id = url.match(/\/([^\/]+)\/?$/)[1]
+        const routname = url.split('/')[0]
+        if(routname === '1' && id) {
+            let payload = {
+                header: {
+                    apiToken: this.props.user ? this.props.user.authorization : ''
+                },
+                body: {},
+                params: {
+                    bannerID: id
+                }
+                };
+            
+                this.props.get_detail_banner(payload,
+                (res) => {
+                    if(res) {
+                        actNav.reset(navConstant.BannerDetail, {
+                            fromSplashScreen: true
+                        })
+                    }
+                },
+                (err) => {
+                    actNav.reset(navConstant.Dashboard);
+                }
+                )
+            Linking.removeEventListener('url', this.handleDeepLink)
+        } else  if(routname === '2' && id){
+            actNav.reset(navConstant.Dashboard,{
+                id: id
+            });
+            this.setDetailProduct(id)
+        }
+        else {
+            actNav.reset(navConstant.Dashboard);
+        }
+    }
 
     _renderVersion() {
         if (Platform.OS == "ios") {
@@ -180,11 +278,16 @@ const mapStateToProps = (state) => ({
     receivedBytes: state.network.receivedBytes,
     totalBytes: state.network.totalBytes,
     codePushErr: state.network.codePushErr,
+    setModalVisible: state.product.setModalVisible
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
     version_checker: (req, res, err) =>
         dispatch(actions.utility.api.version_checker(req, res, err)),
+        get_detail_banner: (req, res, err) => dispatch(actions.banner.api.get_detail_banner(req, res, err)),
+        set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+        get_product_detail: (req, res, err) => dispatch(actions.product.api.get_product_detail(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);

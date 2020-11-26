@@ -105,4 +105,17 @@ action.remove_empty_items = () => ({
     type: ct.REMOVE_EMPTY
 })
 
+action.set_modal_visible = (data) => ({
+    type: ct.SET_MODAL_VISIBLE,
+    payload: {
+        data
+    }
+})
+action.get_product_detail = (data) => ({
+    type: ct.GET_PRODUCT_DETAIL,
+    payload: {
+        data,
+    }
+});
+
 export default action;

@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  Dimensions
+  Dimensions,
+  Share
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { actNav, navConstant } from '@navigations';
 import Button from '@components/Button'
-import { analytics } from '@helpers';
+import { analytics, encode64 } from '@helpers';
 import Styles from './style';
+import ButtonFav from '@components/ButtonFav';
+import images from '@assets';
 
 const { height, width } = Dimensions.get('window');
 
@@ -125,6 +128,19 @@ export default class Carousel extends PureComponent {
                     resizeMode='cover'
                   />
                 </TouchableOpacity>
+                <View style = {{position: 'absolute', right: 5, top: -10, zIndex:9}}>
+                  <TouchableOpacity onPress={() => {
+                    this.onShare(product)
+                  }}>
+                  <Image
+                      style={Styles.icon}
+                      resizeMode={'contain'}
+                      source={
+                          images.ic_share
+                      }
+                  />
+                  </TouchableOpacity>
+                </View>
                 
               </View>
             
@@ -176,6 +192,30 @@ export default class Carousel extends PureComponent {
     }
 
   };
+
+  onShare = async (data) => {
+    let encryptCode = encode64.btoa(data.id)
+		const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`
+		// const product = data.name.split(" ").join("_");
+		try {
+			const result = await Share.share({
+				message: `Promo ${data.name_banner} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
+			});
+
+			if (result.action == Share.sharedAction) {
+				if (result.activityType) {
+					// console.warn(result.activityType)
+				} else {
+					// console.warn(result)
+				}
+			} else if (result.action === Share.dismissedAction) {
+				// console.warn('dismissed')
+			}
+		} catch (err) {
+			// console.warn(err.message)
+		}
+
+	}
 
   render() {
     let position = Math.round(this.state.scrollX / bannerWidth);

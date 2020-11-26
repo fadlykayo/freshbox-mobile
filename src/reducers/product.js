@@ -40,6 +40,7 @@ const initialState = {
     currentDetail: [{
         product: []
     }],
+    setModalVisible: false
 }
 
 const getProductDashboard = (state, payload) => {
@@ -811,6 +812,18 @@ getCurrentDetail = (state, payload) => {
     return newState
 }
 
+const setModalVisible = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));  
+    newState.setModalVisible = payload.data
+
+    return newState
+}
+const getProductDetail = (state, payload) => {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.detail = payload.data.data[0];
+    return newState;
+}
+
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case ct.GET_PRODUCTS        : return getProducts(state,action.payload);
@@ -833,6 +846,8 @@ const productReducer = (state = initialState, action) => {
         case ct.GET_DETAIL_BANNER   : return getCurrentDetail(state, action.payload);
         case ct.SET_VOUCHER         : return setVoucher(state,action.payload);
         case ct.REMOVE_EMPTY        : return removeEmptyItems(state,action.payload);
+        case ct.SET_MODAL_VISIBLE   : return setModalVisible(state,action.payload);
+        case ct.GET_PRODUCT_DETAIL  : return getProductDetail(state,action.payload);
         case ct.RESET_PRODUCTS      : return initialState
         default                     : return state;
     }

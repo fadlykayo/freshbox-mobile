@@ -81,7 +81,7 @@ class ProductDetail extends Component {
 										contentContainerStyle={styles.image.content}
 										style={styles.image.style}
 									>
-										{ this.props.data.images_sizes_url.original.map((image,index) => {
+										{this.props.data.images_sizes_url && this.props.data.images_sizes_url.original.map((image,index) => {
 											return (
 												<TouchableOpacity key={index} onPress={this.openZoomImage}>
 													<Image
@@ -94,11 +94,11 @@ class ProductDetail extends Component {
 										)}
 									</ScrollView>
 									<BubbleComponent
-										images={this.props.data.images_sizes_url.original}
+										images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
 										bubble={this.props.bubble}
 									/>
 									<CountImage
-										images={this.props.data.images_sizes_url.original}
+										images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
 										bubble={this.props.bubble}
 									/>
 								</View>
@@ -155,7 +155,7 @@ class ProductDetail extends Component {
 						<ZoomImage
 							modalVisible={this.props.openImageDetail}
 							closeZoomImage={this.closeZoomImage}
-							images={this.props.data.images_sizes_url.original}
+							images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
 							bubble={this.props.bubble}
 						/>
 					</Modal>

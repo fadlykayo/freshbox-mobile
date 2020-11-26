@@ -201,7 +201,15 @@ const styles = {
             marginTop: 10,
             paddingHorizontal: 20
         },
-    }
+    },
+    iconOnShare: { 
+        height: scaling.moderateScale(16),
+        width:  scaling.moderateScale(18),
+        paddingTop: 50,
+        marginTop: scaling.moderateScale(5),
+        marginRight: scaling.moderateScale(4)
+      }
+
 }
 
 export default styles;

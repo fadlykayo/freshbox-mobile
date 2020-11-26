@@ -1,9 +1,9 @@
 import { Share } from 'react-native'
+import encode64 from './encode'
 
-const helper = {}
-
-helper.onShare = async (data) => {
-  const url = 'https://frshbox.app.link/downloadnow';
+const onShare = async (data) => {
+  let encryptCode = encode64.btoa(data.code)
+  const url = `https://freshbox.id/link?code_link=2&code_data=${encryptCode}`;
   const product = data.name.split(" ").join("_");
   try {
     const result = await Share.share({
@@ -23,3 +23,5 @@ helper.onShare = async (data) => {
     // console.warn(err.message)
   }
 }
+
+export default onShare

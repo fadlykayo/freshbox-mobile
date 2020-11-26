@@ -335,5 +335,43 @@ actions.delete_favorite = (req,success,failure) => {
     }
 };
 
+actions.get_product_detail = (req,success,failure) => {
+
+	payload.path = path.getProducts;
+	payload.header = req.header;
+	payload.params = req.params;
+	
+	return dispatch => {
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	// console.log('Get Favorites res ->',res);
+        	if(res.code){
+        		if(res.code == 200){
+					if(res.data.data.length > 0) {
+						dispatch(actReducer.get_product_detail(res.data));
+						success(res);
+					} else {
+						dispatch(actNetwork.set_network_error_status(true));
+					}
+        		}
+        	}
+        })
+        .catch((err) => {
+        	// console.log('Get Favorites err ->', err);
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+};
 
 export default actions;

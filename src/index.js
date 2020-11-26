@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Platform, StatusBar, View } from 'react-native';
+import { Platform, StatusBar, View, AppState, Linking } from 'react-native';
 import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
-import { AppNavigator, setNavigator, actNav } from '@navigations';
+import { AppNavigator, setNavigator, actNav, navConstant } from '@navigations';
 import actions from '@actions';
 // import helpers from '@helper';
 
@@ -15,7 +15,101 @@ class App extends Component {
         this.onOpened = this.onOpened.bind(this);
         this.onIds = this.onIds.bind(this);
         OneSignal.init("c1f39bb2-11d8-4ebf-b836-61a0131fb3fa")
+        this.state = {
+            appState: AppState.currentState,
+            onRestart: false
+        }
+
     }
+
+    componentDidMount() {
+        AppState.addEventListener('change', this.handleAppStateChange);
+        Linking.addEventListener('url', this.handleDeepLink)
+    }
+    handleDeepLink = (e) => {
+        if(e) {
+            this.navigateWithDeepLink(e)
+        }
+    }
+    navigateWithDeepLink = (e) => {
+        console.log(e);
+        const url = e.url.replace(/.*?:\/\//g, '');
+        const id = url.match(/\/([^\/]+)\/?$/)[1]
+        const routname = url.split('/')[0]
+        if(routname === '1' && id) {
+            let payload = {
+                header: {
+                    apiToken: this.props.user ? this.props.user.authorization : ''
+                },
+                body: {},
+                params: {
+                    bannerID: id
+                }
+                };
+            
+                this.props.get_detail_banner(payload,
+                (res) => {
+                    if(res) {
+                        actNav.navigate(navConstant.BannerDetail, {
+                            onbackground: true
+                        })
+                    }
+                },
+                (err) => {
+                    actNav.reset(navConstant.Dashboard);
+                    console.log('err', err)
+                }
+                )
+            Linking.removeEventListener('url', this.handleDeepLink)
+        } else  if(routname === '2' && id){
+            this.setDetailProduct(id)
+        }
+        else {
+            console.warn('nonono');
+            console.log(e);
+        }
+    }
+
+    setDetailProduct = (code) => {
+        let payload = {
+                header: {
+                    apiToken: this.props.user ? this.props.user.authorization : ''
+                },
+                body: {},
+                params: {
+                    product_code: code
+                }
+            };
+        
+            this.props.get_product_detail(payload,
+                (res) => {
+                    if(res.code === 200) {
+                        this.props.set_modal_visible(true)
+                    }
+                    // if(res) {
+                    //     actNav.navigate(navConstant.BannerDetail, {
+                    //         onbackground: true
+                    //     })
+                    // }
+                },
+                (err) => {
+                    actNav.reset(navConstant.Dashboard);
+                    console.log('err', err)
+                }
+            )
+    }
+    handleAppStateChange = nextAppState => {
+        // if(nextAppState !== "active") {
+        //     this.props.set_modal_visible(!true)
+        // }
+        if (
+          this.state.appState.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+            Linking.addEventListener('url', this.handleDeepLink)
+        }
+        this.setState({ appState: nextAppState });
+      };
 
     componentWillMount(){
         OneSignal.addEventListener('received',this.onReceived);
@@ -28,6 +122,7 @@ class App extends Component {
         OneSignal.removeEventListener('received',this.onReceived);
         OneSignal.removeEventListener('opened',this.onOpened);
         OneSignal.removeEventListener('ids',this.onIds);
+        AppState.removeEventListener('change', this.handleAppStateChange);
     }
 
     onReceived(notification){
@@ -60,6 +155,7 @@ class App extends Component {
                 />
                 <AppNavigator
                     ref={navigatorRef => { setNavigator(navigatorRef) }}
+                    uriPrefix={'freshboxapp://'}
                 />
             </View>
         );
@@ -73,15 +169,21 @@ const styles = {
     },
 };
 
-// const mapStateToProps = (state) => ({
-//     user: state.user,
-// })
+const mapStateToProps = (state) => ({
+    user: state.user,
+    product: state.product.products,
+	promoProduct: state.product.promoProduct,
+})
 
 const mapDispatchToProps = (dispatch) => ({
     get_user_id: (payload) => dispatch(actions.user.reducer.get_user_id(payload)),
     get_notification: (payload) => dispatch(actions.notif.reducer.get_notification(payload)),
     // set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
     // add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
+    get_detail_banner: (req, res, err) => dispatch(actions.banner.api.get_detail_banner(req, res, err)),
+    set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+    detail_product: (payload) => dispatch(actions.product.reducer.detail_product(payload)),
+    get_product_detail: (req, res, err) => dispatch(actions.product.api.get_product_detail(req, res, err)),
 });
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

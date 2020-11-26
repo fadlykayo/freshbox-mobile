@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Image, Animated, Easing, Text, Modal, TouchableHighlight, ActivityIndicator, Share, BackHandler, ScrollView, RefreshControl } from 'react-native';
-import { language, permission } from '@helpers'
+import { language, permission, encode64, onShare } from '@helpers'
 import { actNav, navConstant } from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
@@ -619,6 +619,10 @@ class ProductList extends Component {
 	}
 
 	closeDetailProduct(){
+		if(this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible)
+		  }
+
 		this.setModalVisible('openProduct',false);
 	}
 
@@ -820,7 +824,8 @@ class ProductList extends Component {
 	}
 
 	onShare = async (data) => {
-		const url = 'https://frshbox.app.link/downloadnow'
+		let encryptCode = encode64.btoa(data.id)
+		const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`
 		const product = data.name.split(" ").join("_");
 		try {
 			const result = await Share.share({
@@ -1007,8 +1012,8 @@ class ProductList extends Component {
 					getPositionBubble={this.getPositionBubble}
 					closeDetailProduct={this.closeDetailProduct}
 					modalVisible={this.state.modalVisible.openProduct}
-					openImageDetail={this.state.modalVisible.openImageDetail}
-					onShare={this.onShare}
+					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
+					onShare={onShare}
 				/>
 				<Categories
 					changeCategory = {this.changeCategory}
@@ -1071,6 +1076,7 @@ const mapStateToProps = state => ({
 	promoProduct: state.product.promoProduct,
 	network: state.network,
 	currentDetail: state.product.currentDetail,
+	setModalVisible: state.product.setModalVisible
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -1090,6 +1096,7 @@ const mapDispatchToProps = dispatch => ({
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 	get_broadcast_message: (req,res,err) => dispatch(actions.utility.api.broadcast_message(req,res,err)),
+	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

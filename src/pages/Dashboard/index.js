@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
-import { language, analytics, scaling } from '@helpers';
+import { language, analytics, scaling,onShare } from '@helpers';
 import { colour } from '@styles';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
@@ -559,6 +559,10 @@ class Dashboard extends Component {
 	}
 
 	closeDetailProduct = () => {
+		if(this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible)
+		}
+
 		this.setModalVisible('openProduct',false);
 	}
 
@@ -924,29 +928,6 @@ class Dashboard extends Component {
 		}, () => success())
 	}
 
-	onShare = async (data) => {
-		const url = 'https://frshbox.app.link/downloadnow'
-		const product = data.name.split(" ").join("_");
-		try {
-			const result = await Share.share({
-				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
-			});
-
-			if (result.action == Share.sharedAction) {
-				if(result.activityType) {
-					// console.warn(result.activityType)
-				} else {
-					// console.warn(result)
-				}
-			} else if (result.action === Share.dismissedAction) {
-				// console.warn('dismissed')
-			}
-		} catch (err) {
-			// console.warn(err.message)
-		}
-
-	}
-
 	onRefresh = () => {
 		this.setState({refreshing: true}, () => {
 			this.versionChecker();
@@ -1094,6 +1075,8 @@ class Dashboard extends Component {
 					products = {this.props.banners}
 					navigateToBannerDetail = {this.navigateToBannerDetail}
 					navigateToCampaign = {this.navigateToCampaign}
+					user={this.props.user}
+					onShare={onShare}
 				/>
       
 					
@@ -1163,9 +1146,9 @@ class Dashboard extends Component {
 					getPositionIndex={this.getPositionIndex}
 					getPositionBubble={this.getPositionBubble}
 					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct}
+					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
 					openImageDetail={this.state.modalVisible.openImageDetail}
-					onShare={this.onShare}
+					onShare={onShare}
 				/>
 				
 				
@@ -1225,6 +1208,7 @@ const mapStateToProps = state => ({
 	last_page: state.product.last_page,
 	announcement: state.utility.announcement,
 	on_category: state.product.on_category,
+	setModalVisible: state.product.setModalVisible
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -1245,7 +1229,9 @@ const mapDispatchToProps = dispatch => ({
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	announcement : (payload) => dispatch(actions.utility.reducer.announcement(payload)),
-	version_checker : (req, res, err) => dispatch(actions.utility.api.version_checker(req, res, err))
+	version_checker : (req, res, err) => dispatch(actions.utility.api.version_checker(req, res, err)),
+	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	get_product_detail: (req, res, err) => dispatch(actions.product.api.get_product_detail(req, res, err)),
 
 })
 

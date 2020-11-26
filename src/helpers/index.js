@@ -6,6 +6,8 @@ import helperPermission from './permission';
 import helperGopay from './gopay';
 import helperAnalytics from './analytics';
 import helperHasObjectValue from './hasObjectValue'
+import helperShare from './share'
+import helperEncode from './encode'
 
 export const scaling = helperScaling;
 export const language = helperLanguage;
@@ -15,3 +17,5 @@ export const permission = helperPermission;
 export const gopay = helperGopay;
 export const analytics = helperAnalytics;
 export const hasObjectValue = helperHasObjectValue
+export const onShare = helperShare
+export const encode64 = helperEncode

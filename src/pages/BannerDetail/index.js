@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity } from 'react-native';
+import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity, Share } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import { language, analytics, hasObjectValue } from '@helpers';
+import { language, analytics, hasObjectValue, encode64, onShare } from '@helpers';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Checkout from '../ProductList/components/Checkout';
@@ -173,8 +173,45 @@ class BannerDetail extends Component {
             style = {styles.banner.image}
             // resizeMode = {'contain'}
           />
+                   <View style = {{position: 'absolute', right: 5, top: -10, zIndex:9}}>
+                  <TouchableOpacity onPress={() => {
+                    this.onShare(this.props.currentDetail)
+                  }}>
+                  <Image
+                      style={styles.iconOnShare}
+                      resizeMode={'contain'}
+                      source={
+                          images.ic_share
+                      }
+                  />
+                  </TouchableOpacity>
+          </View>
         </View>
       )
+    }
+
+    onShare = async (data) => {
+      let encryptCode = encode64.btoa(data.id)
+      const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`
+      // const product = data.name.split(" ").join("_");
+      try {
+        const result = await Share.share({
+          message: `Promo ${data.name_banner} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
+        });
+  
+        if (result.action == Share.sharedAction) {
+          if (result.activityType) {
+            // console.warn(result.activityType)
+          } else {
+            // console.warn(result)
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // console.warn('dismissed')
+        }
+      } catch (err) {
+        // console.warn(err.message)
+      }
+  
     }
 
     _renderSyarat = () => {
@@ -309,6 +346,9 @@ class BannerDetail extends Component {
 
 	// handling zoom products' image
 	closeZoomImage = () => {
+    if(this.props.setModalVisible) {
+      this.props.set_modal_visible(!this.props.setModalVisible)
+    }
 		this.setModalVisible('openImageDetail',false);
 	}
 
@@ -517,6 +557,13 @@ class BannerDetail extends Component {
         </View>
       )
     }
+    onPressFromSplashScreen = () => {
+      if(hasObjectValue(this.props.navigation.state, 'params') && this.props.navigation.state.params.fromSplashScreen) {
+        actNav.navigate(navConstant.Dashboard);
+      } else {
+        actNav.goBack();
+      }
+    }
 
     render() {
         // console.log('banner detil', this.props.currentDetail)
@@ -538,6 +585,7 @@ class BannerDetail extends Component {
           <NavigationBar
             navBarTitle
 			    	title={this.props.currentDetail.name_banner}
+            onPress={this.onPressFromSplashScreen}
 			    />
           {
             params.links && params.links !== '' ?
@@ -546,7 +594,7 @@ class BannerDetail extends Component {
                   source={{uri: params.links}}
                   style={{flex: 1}}
               />
-            </View> : 
+            </View> : hasObjectValue(this.props.currentDetail, 'id') &&
             <ScrollView style={styles.content}>
             {this.renderBanner()}
             {this.renderContent()}
@@ -570,9 +618,10 @@ class BannerDetail extends Component {
             getPositionIndex={this.getPositionIndex}
             getPositionBubble={this.getPositionBubble}
             closeDetailProduct={this.closeDetailProduct}
-            modalVisible={this.state.modalVisible.openProduct}
+            modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
             openImageDetail={this.state.modalVisible.openImageDetail}
             bannerPrice={this.state.bannerPriceProductDetail}
+            onShare={onShare}
           />
 
           <Checkout
@@ -607,6 +656,7 @@ const mapStateToProps = (state) => ({
     cart_product: state.product.cart.products,
     transactionDetail: state.transaction.detail,
     categories: state.product.categories,
+    setModalVisible: state.product.setModalVisible
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -619,6 +669,7 @@ const mapDispatchToProps = dispatch => ({
   set_voucher_code: (payload) => dispatch(actions.voucher.reducer.set_voucher(payload)),
   search_products: (req, res, err) => dispatch(actions.product.api.search_products(req, res, err)),
   change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
+  set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BannerDetail);

@@ -5,7 +5,7 @@ import styles from './styles';
 
 class CountImage extends Component {
     render() {
-        if (this.props.images.length > 0) {
+        if (this.props.images && this.props.images.length > 0) {
             return (
                 <View style={styles.container}>
                     <StaticText

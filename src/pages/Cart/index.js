@@ -9,7 +9,7 @@ import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
-import { language } from '@helpers';
+import { language, onShare } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
@@ -105,6 +105,9 @@ class Cart extends Component {
 	}
 	
 	closeDetailProduct(){
+		if(this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible)
+		  }
 		this.setModalVisible('openProduct',false);
 	}
 
@@ -222,7 +225,7 @@ class Cart extends Component {
 					data={this.props.productDetail}
 					changeTotalItem={this.changeTotalItem}
 					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct}
+					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
 					getPositionBubble={this.getPositionBubble}
 					getPositionIndex={this.getPositionIndex}
 					openZoomImage={this.openZoomImage}
@@ -230,6 +233,7 @@ class Cart extends Component {
 					bubble={this.state.bubble}
 					scrollX={this.state.scrollX}
 					openImageDetail={this.state.modalVisible.openImageDetail}
+					onShare={onShare}
 				/>
 				<ModalLoginConfirmation
 					onPress={this.navigateToSignIn} 
@@ -257,6 +261,7 @@ const mapStateToProps = state => ({
 	total_count: state.product.total.count,
 	index_product: state.product.cart.index,
 	cart_product: state.product.cart.products,
+	setModalVisible: state.product.setModalVisible
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -267,6 +272,7 @@ const mapDispatchToProps = dispatch => ({
 	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
 	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
 	remove_empty_items: () => dispatch(actions.product.reducer.remove_empty_items()),
+	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart);

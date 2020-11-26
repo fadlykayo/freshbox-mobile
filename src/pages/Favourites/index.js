@@ -10,7 +10,7 @@ import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
 import EmptyState from '@components/EmptyState'
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
-import { language } from '@helpers';
+import { language, onShare } from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 import images from '@assets';
@@ -167,6 +167,9 @@ class Favourites extends Component {
 	}
 	
 	closeDetailProduct(){
+		if(this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible)
+		  }
 		this.setModalVisible('openProduct',false);
 	}
 
@@ -308,7 +311,7 @@ class Favourites extends Component {
 					changeTotalItem={this.changeTotalItem}
 					toggleFavorite={this.toggleFavorite}
 					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct}
+					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
 					getPositionBubble={this.getPositionBubble}
 					getPositionIndex={this.getPositionIndex}
 					openZoomImage={this.openZoomImage}
@@ -316,6 +319,7 @@ class Favourites extends Component {
 					bubble={this.state.bubble}
 					scrollX={this.state.scrollX}
 					openImageDetail={this.state.modalVisible.openImageDetail}
+					onShare={onShare}
 				/>
 				<ModalLoginConfirmation
 					onPress={this.navigateToSignIn} 
@@ -344,6 +348,7 @@ const mapStateToProps = state => ({
 	index_product: state.product.cart.index,
 	cart_product: state.product.cart.products,
 	wishlist: state.product.wishlist.products,
+	setModalVisible: state.product.setModalVisible
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -357,6 +362,7 @@ const mapDispatchToProps = dispatch => ({
 	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

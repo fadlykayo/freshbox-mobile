@@ -8,7 +8,7 @@ class BubbleComponent extends Component {
     }
 
     render() {
-        if (this.props.images.length > 0) {
+        if (this.props.images && this.props.images.length > 0) {
             return (
                 <View style={styles.page.place}>
                     { this.props.images.map((data, index) => {
