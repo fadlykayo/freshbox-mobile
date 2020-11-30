@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RnDiffApp.app"
-               BlueprintName = "RnDiffApp"
-               ReferencedContainer = "container:RnDiffApp.xcodeproj">
+               BuildableName = "Freshbox.app"
+               BlueprintName = "Freshbox"
+               ReferencedContainer = "container:Freshbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "RnDiffAppTests.xctest"
-               BlueprintName = "RnDiffAppTests"
-               ReferencedContainer = "container:RnDiffApp.xcodeproj">
+               BuildableName = "FreshboxTests.xctest"
+               BlueprintName = "FreshboxTests"
+               ReferencedContainer = "container:Freshbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnDiffApp.app"
-            BlueprintName = "RnDiffApp"
-            ReferencedContainer = "container:RnDiffApp.xcodeproj">
+            BuildableName = "Freshbox.app"
+            BlueprintName = "Freshbox"
+            ReferencedContainer = "container:Freshbox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnDiffApp.app"
-            BlueprintName = "RnDiffApp"
-            ReferencedContainer = "container:RnDiffApp.xcodeproj">
+            BuildableName = "Freshbox.app"
+            BlueprintName = "Freshbox"
+            ReferencedContainer = "container:Freshbox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
