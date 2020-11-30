@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 
 import com.android.build.OutputFile
 
@@ -81,8 +83,8 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing  
 ]
 
-// apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../react.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
+// apply from: "../react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
@@ -218,9 +220,9 @@ repositories {
 }
 
 dependencies {
-    implementation project(':react-native-onesignal')
-    implementation project(':react-native-sentry')
-    implementation project(':react-native-firebase')
+    implementation project(":react-native-onesignal")
+    implementation project(":react-native-sentry")
+    implementation project(":react-native-firebase")
     // Firebase dependencies
     // implementation "com.google.android.gms:play-services-base:16.1.0"
     // implementation "com.google.firebase:firebase-core:16.0.9"
@@ -228,40 +230,43 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.9"
     // implementation "com.google.firebase:firebase-messaging:17.5.0"
     //
-    implementation 'com.midtrans:uikit:1.22.0-SANDBOX'
-    implementation 'com.midtrans:corekit:1.22.0-SANDBOX'
-    implementation project(':react-native-code-push')
-    implementation project(':appcenter-crashes')
-    implementation project(':appcenter-analytics')
-    implementation project(':appcenter')
-    implementation project(':react-native-linear-gradient')
-    implementation project(':react-native-image-picker')
-    implementation project(':react-native-vector-icons')
+    implementation "com.midtrans:uikit:1.22.0-SANDBOX"
+    implementation "com.midtrans:corekit:1.22.0-SANDBOX"
+    implementation project(":react-native-code-push")
+    implementation project(":appcenter-crashes")
+    implementation project(":appcenter-analytics")
+    implementation project(":appcenter")
+    implementation project(":react-native-linear-gradient")
+    implementation project(":react-native-image-picker")
+    implementation project(":react-native-vector-icons")
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:23.0.1"
+    implementation "com.facebook.react:react-native:+"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.facebook.fresco:animated-gif:1.9.0'
-    implementation 'com.facebook.fresco:animated-webp:1.9.0'
-    implementation 'com.facebook.fresco:webpsupport:1.9.0'
-    implementation 'com.facebook.fresco:webpsupport:1.9.0'
-    implementation(project(':react-native-fbsdk')){
-      exclude(group: 'com.facebook.android', module: 'facebook-android-sdk')
+    implementation "com.facebook.fresco:animated-gif:1.9.0"
+    implementation "com.facebook.fresco:animated-webp:1.9.0"
+    implementation "com.facebook.fresco:webpsupport:1.9.0"
+    implementation "com.facebook.fresco:webpsupport:1.9.0"
+    implementation(project(":react-native-fbsdk")){
+      exclude(group: "com.facebook.android", module: "facebook-android-sdk")
     }
     implementation "com.facebook.android:facebook-android-sdk:[5,6)"
     implementation (project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important
     }
-    implementation 'com.google.android.gms:play-services-auth:14.0.1'
+    implementation "com.google.android.gms:play-services-auth:14.0.1"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:'com.facebook.fbjni'
+      exclude group:"com.facebook.fbjni"
     }
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group:"com.facebook.flipper"
     }
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group:"com.facebook.flipper"
     }
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -279,8 +284,7 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-// com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.google.gms.google-services'
+// com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
