@@ -164,7 +164,9 @@ class SplashScreen extends Component {
         const url = this.state.linking.replace(/.*?:\/\//g, '');
         const id = url.match(/\/([^\/]+)\/?$/)[1]
         const routname = url.split('/')[0]
-        if(routname === '1' && id) {
+        if(routname === "0" ) {
+            actNav.reset(navConstant.Dashboard);
+        } else if(routname === '1' && id) {
             let payload = {
                 header: {
                     apiToken: this.props.user ? this.props.user.authorization : ''
