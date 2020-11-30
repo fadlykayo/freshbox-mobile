@@ -369,6 +369,7 @@ const editTotal = (state,payload) => {
     const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
+    const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && newState.detail.code === payload.data.code;
     if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
         const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
         newState.currentDetail.products.map((e,i) => {
@@ -388,15 +389,17 @@ const editTotal = (state,payload) => {
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count += 1;
         if(indexPromo != -1) newState.promoProduct[indexPromo].count += 1;
+        if(indexDetail) newState.detail.count += 1;
 	}
 	else {
 		if(indexProducts != -1) newState.products[indexProducts].count -= 1;
 		if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
 		if(indexCart != -1) newState.cart.products[indexCart].count -= 1;
         if(indexPromo != -1) newState.promoProduct[indexPromo].count -= 1;
+        if(indexDetail) newState.detail.count -= 1;
     }
 
-    newState.detail = indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
+    newState.detail = indexDetail ? newState.detail :indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
 
     let productCart = newState.products.filter(e => e.count > 0);
     let promoCart = newState.promoProduct.filter(e => e.count > 0);
@@ -420,6 +423,10 @@ const editTotal = (state,payload) => {
                 }
             }
         }
+    }
+
+    if(indexDetail) {
+        newCart.push(newState.detail)
     }
 
     for (x in newCart) {
@@ -820,7 +827,22 @@ const setModalVisible = (state, payload) => {
 }
 const getProductDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    newState.detail = payload.data.data[0];
+        if(payload.data.data.length > 0) {
+            payload.data.data.map((e) => {
+                const findProduct = newState.cart.products.findIndex(el => el.code === e.code);
+                const filtering = newState.cart.products.filter(res => res.code === e.code)
+                if(findProduct === -1) {
+                    if(!e.count) e.count = 0;
+                    if(!e.maxQty) e.maxQty = 1000;
+                    newState.detail = e
+
+                    // newState.products.push(newState.detail)
+                } else {
+                    newState.detail = filtering[0]
+                }
+            })
+        }
+        // newState.detail = payload.data.data[0];
     return newState;
 }
 

@@ -346,13 +346,13 @@ class BannerDetail extends Component {
 
 	// handling zoom products' image
 	closeZoomImage = () => {
-    if(this.props.setModalVisible) {
-      this.props.set_modal_visible(!this.props.setModalVisible)
-    }
 		this.setModalVisible('openImageDetail',false);
 	}
 
   closeDetailProduct = () => {
+    if(this.props.setModalVisible) {
+      this.props.set_modal_visible(!this.props.setModalVisible)
+    }
 		this.setModalVisible('openProduct',false);
 	} 
   // end product functions
