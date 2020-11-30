@@ -1,9 +1,12 @@
 package com.freshbox;
 
 import android.app.Application;
+import android.content.Context;
+import com.facebook.react.PackageList;
 
 //import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
@@ -29,14 +32,13 @@ import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.freshbox.GoPayPackage;
 
-import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -59,33 +61,36 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-        new MainReactPackage(),
-            new ReactNativeOneSignalPackage(),
-            new RNSentryPackage(),
-            new RNFirebasePackage(),
-            new RNFirebaseAnalyticsPackage(),
-            // new RNFirebaseMessagingPackage(),
-            // new RNFirebaseNotificationsPackage(),
-        new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
-        new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
-        new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
-        new AppCenterReactNativePackage(MainApplication.this),
-        new LinearGradientPackage(),
-        new ImagePickerPackage(),
-        new RNGoogleSigninPackage(),
-        new FBSDKPackage(mCallbackManager),
-        new VectorIconsPackage(),
-        new GoPayPackage()
-      );
-    }
+        protected List<ReactPackage> getPackages() {
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
+          // Packages that cannot be autolinked yet can be added manually here, for example:
+          // packages.add(new MyReactNativePackage());
+          packages.add(new MainReactPackage());
+          packages.add(new ReactNativeOneSignalPackage());
+          packages.add(new RNSentryPackage());
+          packages.add(new RNFirebasePackage());
+          packages.add(new RNFirebaseAnalyticsPackage());
+          // packages.add(new RNFirebaseMessagingPackage());
+          // packages.add(new RNFirebaseNotificationsPackage());
+          packages.add(new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG));
+          packages.add(new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)));
+          packages.add(new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)));
+          packages.add(new AppCenterReactNativePackage(MainApplication.this));
+          packages.add(new LinearGradientPackage());
+          packages.add(new ImagePickerPackage());
+          packages.add(new RNGoogleSigninPackage());
+          packages.add(new FBSDKPackage(mCallbackManager));
+          packages.add(new VectorIconsPackage());
+          packages.add(new GoPayPackage());
+          return packages;
+        }
 
     @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
+        protected String getJSMainModuleName() {
+          return "index";
+        }
+    };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -96,5 +101,37 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+  }
+  
+  /**
+   * Loads Flipper in React Native templates. Call this in the onCreate method with something like
+   * initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+   *
+   * @param context
+   * @param reactInstanceManager
+   */
+  private static void initializeFlipper(
+      Context context, ReactInstanceManager reactInstanceManager) {
+    if (BuildConfig.DEBUG) {
+      try {
+        /*
+         We use reflection here to pick up the class that initializes Flipper,
+        since Flipper library is not available in release mode
+        */
+        Class<?> aClass = Class.forName("com.rndiffapp.ReactNativeFlipper");
+        aClass
+            .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+            .invoke(null, context, reactInstanceManager);
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
