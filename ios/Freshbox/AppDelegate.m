@@ -1,84 +1,93 @@
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 #import "AppDelegate.h"
-#import <CodePush/CodePush.h>
-#import <AppCenterReactNativeCrashes/AppCenterReactNativeCrashes.h>
-#import <AppCenterReactNativeAnalytics/AppCenterReactNativeAnalytics.h>
-#import <AppCenterReactNative/AppCenterReactNative.h>
+
+#import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <RNGoogleSignin.h>
+#import <React/RCTRootView.h>
+
+#ifdef FB_SONARKIT_ENABLED
+#import <FlipperKit/FlipperClient.h>
+#import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
+#import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
+#import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
+#import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
+#import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+
+static void InitializeFlipper(UIApplication *application) {
+  FlipperClient *client = [FlipperClient sharedClient];
+  SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
+  [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
+  [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
+  [client addPlugin:[FlipperKitReactPlugin new]];
+  [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
+  [client start];
+}
+#endif
+
 #import <React/RCTLinkingManager.h>
+#import <CodePush/CodePush.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
 #import <MidtransKit/MidtransKit.h>
 #import <Firebase.h>
 
 @implementation AppDelegate
-@synthesize rootView = _rootView;
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];  // Initialize AppCenter crashes
-  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];  // Initialize AppCenter analytics
-  [AppCenterReactNative register];  // Initialize AppCenter
-  [FIRApp configure]; //Firebase Init
-  NSURL *jsCodeLocation;
-  
-  
-  
-  
-  #ifdef DEBUG
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-  #else
-    jsCodeLocation = [CodePush bundleURL];
+  #ifdef FB_SONARKIT_ENABLED
+    InitializeFlipper(application);
   #endif
-//  jsCodeLocation = [CodePush bundleURL];
-  
-  [[FBSDKApplicationDelegate sharedInstance] application:application
+
+  // [CONFIG setClientKey:@"VT-CLIENT-sandbox-client-key"
+  //        environment:MidtransServerEnvironmentSandbox
+  //  merchantServerURL:@"https://merchant-url-sandbox.com"];
+
+  [AppCenterReactNative register]; // Initialize AppCenter
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true]; // Initialize AppCenter analytics
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing]; // Initialize AppCenter crashes
+
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure]; //Firebase Init
+  }
+
+  [[FBSDKApplicationDelegate sharedInstance] application:application // FBSDK init
                            didFinishLaunchingWithOptions:launchOptions];
 
-  self.rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"Freshbox"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  self.rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-//  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-//                                                         appId:@"c1f39bb2-11d8-4ebf-b836-61a0131fb3fa"
-//                                                      settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNotification), kOSSettingsKeyAutoPrompt : @YES}];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"Freshbox"
+                                            initialProperties:nil];
+
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = self.rootView;
+  rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+  if ([[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options]) {
+    return YES;
+  }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  
-  BOOL FBSDKHandler = [[FBSDKApplicationDelegate sharedInstance]
-                        application:application
-                        openURL:url
-                        sourceApplication:sourceApplication
-                        annotation:annotation
- ];
-  
-  BOOL GoogleHandler = [RNGoogleSignin application:application
-                                           openURL:url
-                                 sourceApplication:sourceApplication
-                                        annotation:annotation
-                        ];
-  BOOL RCT = [RCTLinkingManager application:application openURL:url
-              sourceApplication:sourceApplication annotation:annotation];
-  
-  return FBSDKHandler || GoogleHandler || RCT;
-  
+  if ([RCTLinkingManager application:application openURL:url options:options]) {
+    return YES;
+  }
+
+  if ([RNGoogleSignin application:application openURL:url options:options]) {
+    return YES;
+  }
+
+  return NO;
 }
 
 - (void)goToNativeView:(MidtransUIPaymentViewController *)paymentVC  {
@@ -88,9 +97,18 @@
 - (void)goToReactNative {
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = self.rootView;
+  rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [CodePush bundleURL];
+#endif
 }
 
 @end

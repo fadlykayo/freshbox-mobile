@@ -1,5 +1,7 @@
-# Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '10.0'
 
 def shared_pods
   pod 'MidtransCoreKit'
@@ -8,50 +10,33 @@ def shared_pods
 end
 
 target 'Freshbox' do
-  pod 'AppCenter/Crashes', '~> 2.1.0'
-  pod 'AppCenter/Analytics', '~> 2.1.0'
-  pod 'AppCenterReactNativeShared', '~> 2.1.0'
-  # pod 'appcenter', path: '../node_modules/appcenter/ios'
-  # pod 'appcenter-analytics', path: '../node_modules/appcenter-analytics/ios'
-  # pod 'appcenter-crashes', path: '../node_modules/appcenter-crashes/ios'
-  # pod 'appcenter-push', path: '../node_modules/appcenter-push/ios'
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-  # Pods for Freshbox
-  pod 'GoogleSignIn'
-  # Required by RNFirebase
-  pod 'Firebase/Core', '~> 6.3.0'
-  pod 'Firebase/Analytics', '~> 6.3.0'
-  pod 'GoogleIDFASupport'
+  config = use_native_modules!
+  use_react_native!(:path => config["reactNativePath"])
 
   shared_pods
 
-
-  # pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-
-  # pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-
-  platform :ios, '9.0'
-  # pod 'CodePush', :path => '../node_modules/react-native-code-push'
-
-
-  # pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
-
-  # pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
-
-  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
-
-end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-      if target.name == 'react-native-google-maps'
-          target.build_configurations.each do |config|
-              config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
-          end
-      end
-      if target.name == "React"
-          target.remove_from_project
-      end
+  target 'FreshboxTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  use_flipper!
+  post_install do |installer|
+    flipper_post_install(installer)
   end
 end
+
+target 'Freshbox-tvOS' do
+  # Pods for Freshbox-tvOS
+  target 'Freshbox-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+end
+
+# target 'OneSignalNotificationServiceExtension' do
+#   pod 'OneSignal', '>= 2.9.3', '< 3.0'
+# end
