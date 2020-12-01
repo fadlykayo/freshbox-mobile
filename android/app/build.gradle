@@ -83,9 +83,6 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -136,7 +133,6 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.1, 0.99.99]'
-        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
@@ -239,7 +235,7 @@ dependencies {
     implementation project(":react-native-onesignal")
     implementation project(":react-native-sentry")
     implementation project(":react-native-firebase")
-    
+
     implementation project(":react-native-code-push")
     implementation project(":appcenter-crashes")
     implementation project(":appcenter-analytics")
@@ -248,15 +244,10 @@ dependencies {
     implementation project(":react-native-image-picker")
     implementation project(":react-native-vector-icons")
     // Firebase dependencies
-    // implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.android.gms:play-services-base:17.5.0"
     implementation "com.google.android.gms:play-services-auth:19.0.0"
-    // implementation "com.google.firebase:firebase-core:16.0.9"
-    // The Firebase Android library firebase-core is no longer needed. This SDK included the Firebase SDK for Google Analytics.
-    // Now, to use Analytics or a product that recommends adding Analytics (see table below), you need to explicitly declare the Analytics dependency: com.google.firebase:firebase-analytics or com.google.firebase:firebase-analytics-ktx.
     implementation "com.google.firebase:firebase-analytics:17.0.0"
     // implementation "com.google.firebase:firebase-messaging:17.5.0"
-    //
     implementation "com.android.support:appcompat-v7:28.0.0"
     implementation "com.midtrans:uikit:1.24.1-SANDBOX"
     implementation "com.midtrans:corekit:1.24.1-SANDBOX"
@@ -282,7 +273,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 // codepush config for RN >= 0.60
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
-// 
-
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 // com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

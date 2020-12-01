@@ -87,6 +87,7 @@
 		D28871DEF10E4CB0B1D3D39E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */; };
 		D47E2431A02C4B278F725221 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D257D298EC6342D5825B100F /* FontAwesome5_Brands.ttf */; };
 		D48968F3CAA947FBAFE82C61 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D937854A1BB437E91D76F3F /* FontAwesome.ttf */; };
+		D785CBF22576217C003176F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D785CBE12576217C003176F0 /* GoogleService-Info.plist */; };
 		FD20E0D4FECA401FB49F21D6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFE9E70748F541A5847ED985 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -455,6 +456,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		D785CBF02576217C003176F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 638A812F010B40CCBAB3A1A6 /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
+			remoteInfo = "RNVectorIcons-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -539,6 +547,7 @@
 		CE5872A863B943B497CE6EC9 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		CFE9E70748F541A5847ED985 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D257D298EC6342D5825B100F /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		D785CBE12576217C003176F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7F8B5144AE14DD5AD88E2D6 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		DE19B473BD6449778768E897 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		F49DA956310E43119BB9B96A /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
@@ -917,6 +926,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D785CBE12576217C003176F0 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Freshbox */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FreshboxTests */,
@@ -960,6 +970,7 @@
 			isa = PBXGroup;
 			children = (
 				A1271216214658CA00BEC6E6 /* libRNVectorIcons.a */,
+				D785CBF12576217C003176F0 /* libRNVectorIcons-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1590,6 +1601,13 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D785CBF12576217C003176F0 /* libRNVectorIcons-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNVectorIcons-tvOS.a";
+			remoteRef = D785CBF02576217C003176F0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1606,6 +1624,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D785CBF22576217C003176F0 /* GoogleService-Info.plist in Resources */,
 				30B80A095FDF4B05AF107282 /* Entypo.ttf in Resources */,
 				30927B94C35F46268E7176C4 /* EvilIcons.ttf in Resources */,
 				0C21A04E003F4770AB396568 /* Feather.ttf in Resources */,
