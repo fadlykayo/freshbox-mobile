@@ -220,18 +220,23 @@ repositories {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
     implementation project(":react-native-onesignal")
     implementation project(":react-native-sentry")
     implementation project(":react-native-firebase")
     // Firebase dependencies
     // implementation "com.google.android.gms:play-services-base:16.1.0"
+    implementation "com.google.android.gms:play-services-base:17.5.0"
     // implementation "com.google.firebase:firebase-core:16.0.9"
-    implementation "com.google.android.gms:play-services-base:16.1.0"
-    implementation "com.google.firebase:firebase-core:16.0.9"
+    // The Firebase Android library firebase-core is no longer needed. This SDK included the Firebase SDK for Google Analytics.
+    implementation "com.google.firebase:firebase-analytics:18.0.0"
+
+    
     // implementation "com.google.firebase:firebase-messaging:17.5.0"
     //
-    implementation "com.midtrans:uikit:1.22.0-SANDBOX"
-    implementation "com.midtrans:corekit:1.22.0-SANDBOX"
+    implementation "com.midtrans:uikit:1.24.1-SANDBOX"
+    implementation "com.midtrans:corekit:1.24.1-SANDBOX"
     implementation project(":react-native-code-push")
     implementation project(":appcenter-crashes")
     implementation project(":appcenter-analytics")
@@ -239,7 +244,6 @@ dependencies {
     implementation project(":react-native-linear-gradient")
     implementation project(":react-native-image-picker")
     implementation project(":react-native-vector-icons")
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -284,6 +288,10 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+// codepush config for RN >= 0.60
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+// 
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'
