@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -80,11 +80,10 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing  
+    enableHermes: false,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
-// apply from: "../react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
@@ -114,6 +113,7 @@ def enableProguardInReleaseBuilds = false
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
+
 /**
  * Whether to enable the Hermes VM.
  *
@@ -125,8 +125,14 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal 
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
         mavenCentral()
+        jcenter()
+        // Add the midtrans repository into the list of repositories
+        maven { url "http://dl.bintray.com/pt-midtrans/maven" }
+        maven { url "https://jitpack.io" }
+        // Add Google Play Services to Your Project
+        maven { url "https://maven.google.com" }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.1, 0.99.99]'
@@ -141,7 +147,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     defaultConfig {
         applicationId "com.freshbox"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -164,6 +169,12 @@ android {
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }
         }
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
     }
     splits {
         abi {
@@ -173,29 +184,18 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
-    }
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
-
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
         }
     }
-
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -209,34 +209,36 @@ android {
             }
         }
     }
-    lintOptions {
-        abortOnError false
-    }
-}
-
-repositories {
-    maven { url "http://dl.bintray.com/pt-midtrans/maven" }
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    //noinspection GradleDynamicVersion
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
+      exclude group:'com.facebook.fbjni'
+    }
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+        exclude group:'com.facebook.flipper'
+    }
+    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
+        exclude group:'com.facebook.flipper'
+    }
+
+    if (enableHermes) {
+        def hermesPath = "../../node_modules/hermes-engine/android/";
+        debugImplementation files(hermesPath + "hermes-debug.aar")
+        releaseImplementation files(hermesPath + "hermes-release.aar")
+    } else {
+        implementation jscFlavor
+    }
 
     implementation project(":react-native-onesignal")
     implementation project(":react-native-sentry")
     implementation project(":react-native-firebase")
-    // Firebase dependencies
-    // implementation "com.google.android.gms:play-services-base:16.1.0"
-    implementation "com.google.android.gms:play-services-base:17.5.0"
-    // implementation "com.google.firebase:firebase-core:16.0.9"
-    // The Firebase Android library firebase-core is no longer needed. This SDK included the Firebase SDK for Google Analytics.
-    implementation "com.google.firebase:firebase-analytics:18.0.0"
-
     
-    // implementation "com.google.firebase:firebase-messaging:17.5.0"
-    //
-    implementation "com.midtrans:uikit:1.24.1-SANDBOX"
-    implementation "com.midtrans:corekit:1.24.1-SANDBOX"
     implementation project(":react-native-code-push")
     implementation project(":appcenter-crashes")
     implementation project(":appcenter-analytics")
@@ -244,40 +246,28 @@ dependencies {
     implementation project(":react-native-linear-gradient")
     implementation project(":react-native-image-picker")
     implementation project(":react-native-vector-icons")
-    implementation "com.android.support:appcompat-v7:23.0.1"
-    implementation "com.facebook.react:react-native:+"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation "com.facebook.fresco:animated-gif:1.9.0"
-    implementation "com.facebook.fresco:animated-webp:1.9.0"
-    implementation "com.facebook.fresco:webpsupport:1.9.0"
-    implementation "com.facebook.fresco:webpsupport:1.9.0"
+    // Firebase dependencies
+    // implementation "com.google.android.gms:play-services-base:16.1.0"
+    implementation "com.google.android.gms:play-services-base:17.5.0"
+    implementation "com.google.android.gms:play-services-auth:19.0.0"
+    // implementation "com.google.firebase:firebase-core:16.0.9"
+    // The Firebase Android library firebase-core is no longer needed. This SDK included the Firebase SDK for Google Analytics.
+    // Now, to use Analytics or a product that recommends adding Analytics (see table below), you need to explicitly declare the Analytics dependency: com.google.firebase:firebase-analytics or com.google.firebase:firebase-analytics-ktx.
+    implementation "com.google.firebase:firebase-analytics:17.0.0"
+    // implementation "com.google.firebase:firebase-messaging:17.5.0"
+    //
+    implementation "com.android.support:appcompat-v7:28.0.0"
+    implementation "com.midtrans:uikit:1.24.1-SANDBOX"
+    implementation "com.midtrans:corekit:1.24.1-SANDBOX"
+    implementation "com.facebook.fresco:animated-gif:2.3.0"
+    implementation "com.facebook.fresco:animated-webp:2.3.0"
+    implementation "com.facebook.fresco:webpsupport:2.3.0"
     implementation(project(":react-native-fbsdk")){
       exclude(group: "com.facebook.android", module: "facebook-android-sdk")
     }
     implementation "com.facebook.android:facebook-android-sdk:[5,6)"
     implementation (project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important
-    }
-    implementation "com.google.android.gms:play-services-auth:14.0.1"
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:"com.facebook.fbjni"
-    }
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:"com.facebook.flipper"
-    }
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:"com.facebook.flipper"
-    }
-    if (enableHermes) {
-        def hermesPath = "../../node_modules/hermes-engine/android/";
-        debugImplementation files(hermesPath + "hermes-debug.aar")
-        releaseImplementation files(hermesPath + "hermes-release.aar")
-    } else {
-        implementation jscFlavor
     }
 }
 
@@ -294,5 +284,4 @@ apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 // 
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply plugin: 'com.google.gms.google-services'
 // com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

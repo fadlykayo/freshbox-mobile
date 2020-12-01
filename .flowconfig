@@ -16,18 +16,17 @@ node_modules/warning/.*
 .*/Libraries/Utilities/LoadingView.js
 
 [untyped]
-.*/node_modules/metro/.*
+.*/node_modules/@react-native-community/cli/.*/.*
 
 [include]
 
 [libs]
-
 node_modules/react-native/interface.js
 node_modules/react-native/flow/
-node_modules/react-native/flow-github/
 
 [options]
 emoji=true
+
 esproposal.optional_chaining=enable
 esproposal.nullish_coalescing=enable
 
