@@ -25,8 +25,7 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
-        android:screenOrientation="portrait"
-        android:launchMode="singleTop">
+        android:screenOrientation="portrait">
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -58,7 +57,7 @@
           <data android:scheme="freshbox" android:host="ProductList" />
           <data android:scheme="http" android:host="ProductList" />
         </intent-filter>
-        
+
         <intent-filter android:label="filter_react_native">
           <action android:name="android.intent.action.VIEW" />
           <category android:name="android.intent.category.DEFAULT" />
