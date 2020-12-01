@@ -270,8 +270,8 @@ task copyDownloadableDepsToLibs(type: Copy) {
 // codepush config for RN >= 0.60
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+apply plugin: 'com.google.gms.google-services'
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 // com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-apply plugin: 'com.google.gms.google-services'
