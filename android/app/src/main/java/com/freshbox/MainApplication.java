@@ -3,16 +3,18 @@ package com.freshbox;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
-
-//import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactNativeHost;
+import com.facebook.react.ReactPackage;
+import com.facebook.soloader.SoLoader;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
-// //
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-// // this is the import that fixed my issue
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -30,67 +32,49 @@ import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.imagepicker.ImagePickerPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.facebook.react.ReactNativeHost;
-import com.facebook.react.ReactPackage;
-import com.facebook.soloader.SoLoader;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.freshbox.GoPayPackage;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
 public class MainApplication extends Application implements ReactApplication {
-  
-  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-  protected static CallbackManager getCallbackManager() {
-    return mCallbackManager;
-  }
+  private final ReactNativeHost mReactNativeHost =
+      new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    protected String getJSBundleFile(){
-      return CodePush.getJSBundleFile();
-    }
-
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
-
-    @Override
+        @Override
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          packages.add(new MainReactPackage());
-          packages.add(new ReactNativeOneSignalPackage());
-          packages.add(new RNSentryPackage());
-          packages.add(new RNFirebasePackage());
-          packages.add(new RNFirebaseAnalyticsPackage());
-          // packages.add(new RNFirebaseMessagingPackage());
-          // packages.add(new RNFirebaseNotificationsPackage());
-          packages.add(new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG));
-          packages.add(new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)));
-          packages.add(new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)));
-          packages.add(new AppCenterReactNativePackage(MainApplication.this));
-          packages.add(new LinearGradientPackage());
-          packages.add(new ImagePickerPackage());
-          packages.add(new RNGoogleSigninPackage());
-          packages.add(new FBSDKPackage(mCallbackManager));
-          packages.add(new VectorIconsPackage());
-          packages.add(new GoPayPackage());
+          // packages.add(new MainReactPackage());
+          // packages.add(new ReactNativeOneSignalPackage());
+          // packages.add(new RNSentryPackage());
+          // packages.add(new RNFirebasePackage());
+          // packages.add(new RNFirebaseAnalyticsPackage());
+          // //// packages.add(new RNFirebaseMessagingPackage());
+          // //// packages.add(new RNFirebaseNotificationsPackage());
+          // packages.add(new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG));
+          // packages.add(new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)));
+          // packages.add(new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)));
+          // packages.add(new AppCenterReactNativePackage(MainApplication.this));
+          // packages.add(new LinearGradientPackage());
+          // packages.add(new RNGoogleSigninPackage());
+          // packages.add(new FBSDKPackage(mCallbackManager));
+          // packages.add(new GoPayPackage());
           return packages;
         }
 
-    @Override
+        @Override
         protected String getJSMainModuleName() {
           return "index";
         }
-    };
+      };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -103,7 +87,7 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
-  
+
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
    * initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
@@ -133,5 +117,11 @@ public class MainApplication extends Application implements ReactApplication {
         e.printStackTrace();
       }
     }
+  }
+
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
   }
 }
