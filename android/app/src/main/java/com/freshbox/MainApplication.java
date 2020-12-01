@@ -11,14 +11,8 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.microsoft.codepush.react.CodePush;
-
-import com.imagepicker.ImagePickerPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
+// import com.facebook.CallbackManager;
 import com.freshbox.GoPayPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -40,10 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // Crosscheck if packages need to be manually linked
-
-          // packages.add(new FBSDKPackage(mCallbackManager));
-          // packages.add(new GoPayPackage());
+          packages.add(new GoPayPackage());
           return packages;
         }
 
@@ -96,9 +87,9 @@ public class MainApplication extends Application implements ReactApplication {
     }
   }
 
-  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+  // private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-  protected static CallbackManager getCallbackManager() {
-    return mCallbackManager;
-  }
+  // protected static CallbackManager getCallbackManager() {
+  //   return mCallbackManager;
+  // }
 }
