@@ -208,8 +208,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:+"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
@@ -230,17 +229,17 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation project(":react-native-onesignal")
-    implementation project(":react-native-sentry")
-// KED    implementation project(":react-native-firebase")
-    implementation(project(":react-native-google-signin"))
-    implementation project(":react-native-code-push")
-    implementation project(":appcenter-crashes")
-    implementation project(":appcenter-analytics")
-    implementation project(":appcenter")
-    implementation project(":react-native-linear-gradient")
-    implementation project(":react-native-image-picker")
-    implementation project(":react-native-vector-icons")
+    // implementation project(":react-native-onesignal")
+    // implementation project(":react-native-sentry")
+    // implementation project(":react-native-firebase")
+    // implementation project(":react-native-google-signin")
+    // implementation project(":react-native-code-push")
+    // implementation project(":appcenter-crashes")
+    // implementation project(":appcenter-analytics")
+    // implementation project(":appcenter")
+    // implementation project(":react-native-linear-gradient")
+    // implementation project(":react-native-image-picker")
+    // implementation project(":react-native-vector-icons")
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:17.5.0"
     implementation "com.google.android.gms:play-services-auth:19.0.0"
