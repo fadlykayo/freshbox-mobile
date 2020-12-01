@@ -45,7 +45,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera in order to update your profile picture</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -54,7 +54,6 @@
 	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery in order to save your profile picture</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like access to your photo gallery in order to change your profile picture</string>
-
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -95,7 +94,6 @@
 			</array>
 		</dict>
 	</array>
-
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -114,7 +112,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
 	<key>CodePushDeploymentKey</key>
 	<string>4lxj8ZUIC_UKNtq-Yhor_op8VeJ_MT0Pe8KH2</string>
 	<key>FacebookAppID</key>
@@ -129,7 +126,6 @@
 		<string>fbshareextension</string>
 		<string>gojek</string>
 	</array>
-
 	<key>UIAppFonts</key>
 	<array>
 		<string>Avenir-Book.ttf</string>
@@ -138,20 +134,6 @@
 		<string>Avenir-Medium.ttf</string>
 		<string>Avenir-Black.ttf</string>
 		<string>Avenir-Light.ttf</string>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
 	</array>
 </dict>
 </plist>
