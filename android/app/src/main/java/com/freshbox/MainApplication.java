@@ -14,6 +14,7 @@ import java.util.List;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.CallbackManager;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+// import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.freshbox.GoPayPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -35,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           packages.add(new GoPayPackage());
+          // packages.add(new RNGoogleSigninPackage());
           return packages;
         }
 

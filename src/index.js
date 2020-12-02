@@ -45,19 +45,19 @@ class App extends Component {
     Linking.addEventListener('url', this.handleDeepLink);
   }
 
-  componentWillMount() {
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('ids', this.onIds);
-    OneSignal.inFocusDisplaying(2);
-  }
+  // componentWillMount() {
+  //   OneSignal.addEventListener('received', this.onReceived);
+  //   OneSignal.addEventListener('opened', this.onOpened);
+  //   OneSignal.addEventListener('ids', this.onIds);
+  //   OneSignal.inFocusDisplaying(2);
+  // }
 
-  componentWillUnmount() {
-    OneSignal.removeEventListener('received', this.onReceived);
-    OneSignal.removeEventListener('opened', this.onOpened);
-    OneSignal.removeEventListener('ids', this.onIds);
-    AppState.removeEventListener('change', this.handleAppStateChange);
-  }
+  // componentWillUnmount() {
+  //   OneSignal.removeEventListener('received', this.onReceived);
+  //   OneSignal.removeEventListener('opened', this.onOpened);
+  //   OneSignal.removeEventListener('ids', this.onIds);
+  //   AppState.removeEventListener('change', this.handleAppStateChange);
+  // }
 
   handleDeepLink = (e) => {
     if (e) {
