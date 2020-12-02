@@ -5,7 +5,7 @@
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 		<!-- production -->
-		<string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
+		<string moduleConfig="true" name="CodePushDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
     <!-- staging -->
-    <!-- <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string> -->
+    <!-- <string moduleConfig="true" name="CodePushDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string> -->
 </resources>
