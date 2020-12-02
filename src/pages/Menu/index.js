@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import { GoogleSignin } from 'react-native-google-signin';
+import { GoogleSignin } from '@react-native-community/google-signin';
 import { actNav, navConstant } from '@navigations';
 import { socmed, analytics } from '@helpers';
 import Logo from './components/Logo';
