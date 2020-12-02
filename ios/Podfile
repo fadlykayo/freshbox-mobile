@@ -14,7 +14,7 @@ target 'Freshbox' do
   use_react_native!(:path => config["reactNativePath"])
 
   shared_pods
-
+  pod 'GoogleSignIn', '~> 5.0.2'
   target 'FreshboxTests' do
     inherit! :complete
     # Pods for testing
@@ -36,3 +36,4 @@ target 'Freshbox-tvOS' do
     # Pods for testing
   end
 end
+

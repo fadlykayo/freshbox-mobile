@@ -48,7 +48,6 @@
 		8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA552F3662694F3F8566CA22 /* AddressBook.framework */; };
 		941930E899124CCB20E3A2B1 /* libPods-Freshbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF06F186BC148FF010769A49 /* libPods-Freshbox-tvOS.a */; };
 		95E8D17443ABC123A3011B07 /* libPods-Freshbox-FreshboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47279D684F71CA3624D39997 /* libPods-Freshbox-FreshboxTests.a */; };
-		A124F7D021A3E8A3006104AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A124F7CF21A3E8A3006104AB /* GoogleService-Info.plist */; };
 		A124F7DD21A3EA6E006104AB /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7D921A3EA6E006104AB /* FBSDKLoginKit.framework */; };
 		A124F7DE21A3EA6E006104AB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7DA21A3EA6E006104AB /* Bolts.framework */; };
 		A124F7DF21A3EA6E006104AB /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7DB21A3EA6E006104AB /* FBSDKShareKit.framework */; };

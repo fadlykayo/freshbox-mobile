@@ -97,7 +97,7 @@ static void InitializeFlipper(UIApplication *application) {
 - (void)goToReactNative {
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
+  rootViewController.view = _rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 }
