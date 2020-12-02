@@ -1,7 +1,7 @@
-import { Animated, Easing, Dimensions, Platform } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { createStackNavigator, StackActions } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import {Animated, Easing, Dimensions} from 'react-native';
+import {NavigationActions, createAppContainer} from 'react-navigation';
+import {createStackNavigator, StackActions} from 'react-navigation-stack';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';
@@ -29,35 +29,38 @@ import TransferBank from '@pages/TransferBank';
 import VirtualAccount from '@pages/VirtualAccount';
 import OnBoarding from '@pages/OnBoarding';
 import TransferInstruction from '@pages/TransferInstruction';
-import OTP from '@pages/OTP'
+import OTP from '@pages/OTP';
 import Dashboard from '@pages/Dashboard';
 import BannerDetail from '@pages/BannerDetail';
 import Campaigns from '@pages/Campaigns';
-import Thanks from '@pages/Thanks'
-import { analytics } from '@helpers';
+import Thanks from '@pages/Thanks';
+import {analytics} from '@helpers';
 
 let _navigator;
 
-export const DrawerBar = createDrawerNavigator({
+export const DrawerBar = createDrawerNavigator(
+  {
     Dashboard: {screen: Dashboard, path: 'dashboard'},
-    
+
     HistoryPage: {screen: HistoryPage},
     Favourites: {screen: Favourites},
     TermsConditions: {screen: TermsConditions},
     PrivacyPolicy: {screen: PrivacyPolicy},
     ContactUs: {screen: ContactUs},
-    
-}, {
+  },
+  {
     contentComponent: DrawerPage,
     drawerWidth: Dimensions.get('window').width - 80,
-})
+  },
+);
 
-export const AppNavigator = createStackNavigator({
+export const AppNavigator = createStackNavigator(
+  {
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
     SignIn: {screen: SignIn},
     Register: {screen: Register},
-    ForgotPassword: {screen:ForgotPassword},
+    ForgotPassword: {screen: ForgotPassword},
     Cart: {screen: Cart},
     Product: DrawerBar,
     ProductList: {screen: ProductList},
@@ -69,12 +72,12 @@ export const AppNavigator = createStackNavigator({
     HistoryPage: {screen: HistoryPage},
     ChooseAddress: {screen: ChooseAddress},
     ChoosePayment: {
-        screen: ChoosePayment, 
-        navigationOptions: {
-            gesturesEnabled: false,
-        },
+      screen: ChoosePayment,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
     },
-    CreditCard: {screen: CreditCard},    
+    CreditCard: {screen: CreditCard},
     TransferBank: {screen: TransferBank},
     VirtualAccount: {screen: VirtualAccount},
     OnBoarding: {screen: OnBoarding},
@@ -89,105 +92,113 @@ export const AppNavigator = createStackNavigator({
     BannerDetail: {screen: BannerDetail},
     Campaigns: {screen: Campaigns},
     Thanks: {screen: Thanks},
-},{
-    initialRouteName  : 'SplashScreen',
-    headerMode        : 'none',
+  },
+  {
+    initialRouteName: 'SplashScreen',
+    headerMode: 'none',
     transitionConfig: () => ({
-        transitionSpec: {
-            duration: 300,
-            easing: Easing.out(Easing.poly(4)),
-            timing: Animated.timing,
-        },
-        screenInterpolator: sceneProps => {
-            const { layout, position, scene } = sceneProps;
-            const { index } = scene;
+      transitionSpec: {
+        duration: 300,
+        easing: Easing.out(Easing.poly(4)),
+        timing: Animated.timing,
+      },
+      screenInterpolator: (sceneProps) => {
+        const {layout, position, scene} = sceneProps;
+        const {index} = scene;
 
-            const width = layout.initWidth;
-            const translateX = position.interpolate({
-                inputRange: [index - 1, index, index + 1],
-                outputRange: [width, 0, 0],
-            });
+        const width = layout.initWidth;
+        const translateX = position.interpolate({
+          inputRange: [index - 1, index, index + 1],
+          outputRange: [width, 0, 0],
+        });
 
-            const opacity = position.interpolate({
-                inputRange: [index - 1, index - 0.99, index],
-                outputRange: [0, 1, 1],
-            });
-            
-            return { opacity, transform: [{ translateX }] };
-        },
+        const opacity = position.interpolate({
+          inputRange: [index - 1, index - 0.99, index],
+          outputRange: [0, 1, 1],
+        });
+
+        return {opacity, transform: [{translateX}]};
+      },
     }),
-});
+  },
+);
+
+export const AppContainer = createAppContainer(AppNavigator);
 
 export const navConstant = {
-    SplashScreen: 'SplashScreen',
-    Menu: 'Menu',
-    SignIn: 'SignIn',
-    Register: 'Register',
-    ForgotPassword: 'ForgotPassword',
-    Cart: 'Cart',
-    Product: 'Product',
-    ProductList: 'ProductList',
-    HistoryPage: 'HistoryPage',
-    Detail: 'Detail',
-    ProfilePage: 'ProfilePage',
-    PhonePage: 'PhonePage',
-    AddressPage: 'AddressPage',
-    ResetPasswordPage: 'ResetPasswordPage',
-    Favourites: 'Favourites',
-    TermsConditions: 'TermsConditions',
-    PrivacyPolicy: 'PrivacyPolicy',
-    ContactUs: 'ContactUs',
-    Checkout: 'Checkout',
-    ChooseAddress: 'ChooseAddress',
-    ChoosePayment: 'ChoosePayment',
-    CreditCard: 'CreditCard',
-    TransferBank: 'TransferBank',
-    VirtualAccount: 'VirtualAccount',
-    OnBoarding: 'OnBoarding',
-    TransferInstruction: 'TransferInstruction',
-    OTP: 'OTP',
-    Dashboard: 'Dashboard',
-    BannerDetail : 'BannerDetail',
-    Campaigns: 'Campaigns',
-    Thanks: 'Thanks',
-}
+  SplashScreen: 'SplashScreen',
+  Menu: 'Menu',
+  SignIn: 'SignIn',
+  Register: 'Register',
+  ForgotPassword: 'ForgotPassword',
+  Cart: 'Cart',
+  Product: 'Product',
+  ProductList: 'ProductList',
+  HistoryPage: 'HistoryPage',
+  Detail: 'Detail',
+  ProfilePage: 'ProfilePage',
+  PhonePage: 'PhonePage',
+  AddressPage: 'AddressPage',
+  ResetPasswordPage: 'ResetPasswordPage',
+  Favourites: 'Favourites',
+  TermsConditions: 'TermsConditions',
+  PrivacyPolicy: 'PrivacyPolicy',
+  ContactUs: 'ContactUs',
+  Checkout: 'Checkout',
+  ChooseAddress: 'ChooseAddress',
+  ChoosePayment: 'ChoosePayment',
+  CreditCard: 'CreditCard',
+  TransferBank: 'TransferBank',
+  VirtualAccount: 'VirtualAccount',
+  OnBoarding: 'OnBoarding',
+  TransferInstruction: 'TransferInstruction',
+  OTP: 'OTP',
+  Dashboard: 'Dashboard',
+  BannerDetail: 'BannerDetail',
+  Campaigns: 'Campaigns',
+  Thanks: 'Thanks',
+};
 
 export const setNavigator = (navigatorRef) => {
-    _navigator = navigatorRef;
-}
+  _navigator = navigatorRef;
+};
 
 export const actNav = {
-    reset: (route, params = {}) => {
-        _navigator.dispatch(StackActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({ 
-                    routeName: route,
-                    params: params
-                })
-            ]
-        }));
-    },
-    navigate: (route,params = {}) => {
-        _navigator.dispatch(NavigationActions.navigate({
+  reset: (route, params = {}) => {
+    _navigator.dispatch(
+      StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
             routeName: route,
-            params: params
-        }));
-        analytics.setCurrentScreen(route);
-        analytics.logEvent(route);
-    },
-    goBack: (key) => {
-        if(key){
-            _navigator.dispatch(NavigationActions.back({
-                key: key,
-            }));
-        } 
-        else {
-            _navigator.dispatch(NavigationActions.back());
-        }
-        
-    },
-    goBackToTop: () => {
-        _navigator.dispatch(StackActions.popToTop());
+            params: params,
+          }),
+        ],
+      }),
+    );
+  },
+  navigate: (route, params = {}) => {
+    _navigator.dispatch(
+      NavigationActions.navigate({
+        routeName: route,
+        params: params,
+      }),
+    );
+    analytics.setCurrentScreen(route);
+    analytics.logEvent(route);
+  },
+  goBack: (key) => {
+    if (key) {
+      _navigator.dispatch(
+        NavigationActions.back({
+          key: key,
+        }),
+      );
+    } else {
+      _navigator.dispatch(NavigationActions.back());
     }
+  },
+  goBackToTop: () => {
+    _navigator.dispatch(StackActions.popToTop());
+  },
 };

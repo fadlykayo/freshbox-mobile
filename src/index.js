@@ -1,10 +1,31 @@
 import React, {Component} from 'react';
-import {Platform, StatusBar, View, AppState, Linking} from 'react-native';
+import {StatusBar, View, AppState, Linking} from 'react-native';
 import {connect} from 'react-redux';
 import OneSignal from 'react-native-onesignal';
-import {AppNavigator, setNavigator, actNav, navConstant} from '@navigations';
+import {AppContainer, setNavigator, actNav, navConstant} from '@navigations';
 import actions from '@actions';
-// import helpers from '@helper';
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  product: state.product.products,
+  promoProduct: state.product.promoProduct,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  get_user_id: (payload) => dispatch(actions.user.reducer.get_user_id(payload)),
+  get_notification: (payload) =>
+    dispatch(actions.notif.reducer.get_notification(payload)),
+  // set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
+  // add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
+  get_detail_banner: (req, res, err) =>
+    dispatch(actions.banner.api.get_detail_banner(req, res, err)),
+  set_modal_visible: (payload) =>
+    dispatch(actions.product.reducer.set_modal_visible(payload)),
+  detail_product: (payload) =>
+    dispatch(actions.product.reducer.detail_product(payload)),
+  get_product_detail: (req, res, err) =>
+    dispatch(actions.product.api.get_product_detail(req, res, err)),
+});
 
 class App extends Component {
   constructor(props) {
@@ -23,11 +44,27 @@ class App extends Component {
     AppState.addEventListener('change', this.handleAppStateChange);
     Linking.addEventListener('url', this.handleDeepLink);
   }
+
+  componentWillMount() {
+    OneSignal.addEventListener('received', this.onReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
+    OneSignal.addEventListener('ids', this.onIds);
+    OneSignal.inFocusDisplaying(2);
+  }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
+    OneSignal.removeEventListener('ids', this.onIds);
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
   handleDeepLink = (e) => {
     if (e) {
       this.navigateWithDeepLink(e);
     }
   };
+
   navigateWithDeepLink = (e) => {
     console.log(e);
     const url = e.url.replace(/.*?:\/\//g, '');
@@ -98,6 +135,7 @@ class App extends Component {
       },
     );
   };
+
   handleAppStateChange = (nextAppState) => {
     // if(nextAppState !== "active") {
     //     this.props.set_modal_visible(!true)
@@ -110,20 +148,6 @@ class App extends Component {
     }
     this.setState({appState: nextAppState});
   };
-
-  componentWillMount() {
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('ids', this.onIds);
-    OneSignal.inFocusDisplaying(2);
-  }
-
-  componentWillUnmount() {
-    OneSignal.removeEventListener('received', this.onReceived);
-    OneSignal.removeEventListener('opened', this.onOpened);
-    OneSignal.removeEventListener('ids', this.onIds);
-    AppState.removeEventListener('change', this.handleAppStateChange);
-  }
 
   onReceived(notification) {
     if (notification.payload.title == 'Pembayaran Berhasil') {
@@ -150,7 +174,7 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="black" barStyle={'light-content'} />
-        <AppNavigator
+        <AppContainer
           ref={(navigatorRef) => {
             setNavigator(navigatorRef);
           }}
@@ -167,27 +191,5 @@ const styles = {
     backgroundColor: '#FFFFFF',
   },
 };
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-  product: state.product.products,
-  promoProduct: state.product.promoProduct,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  get_user_id: (payload) => dispatch(actions.user.reducer.get_user_id(payload)),
-  get_notification: (payload) =>
-    dispatch(actions.notif.reducer.get_notification(payload)),
-  // set_notification: (payload) => dispatch(actions.utility.reducer.set_notification(payload)),
-  // add_notification: (payload) => dispatch(actions.utility.reducer.add_notification(payload)),
-  get_detail_banner: (req, res, err) =>
-    dispatch(actions.banner.api.get_detail_banner(req, res, err)),
-  set_modal_visible: (payload) =>
-    dispatch(actions.product.reducer.set_modal_visible(payload)),
-  detail_product: (payload) =>
-    dispatch(actions.product.reducer.detail_product(payload)),
-  get_product_detail: (req, res, err) =>
-    dispatch(actions.product.api.get_product_detail(req, res, err)),
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

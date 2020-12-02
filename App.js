@@ -8,10 +8,10 @@ import {store, persistor} from './src/store';
 
 import Application from '@src';
 
-
 Sentry.init({
   dsn: 'https://1d867be8f53c4413b0d4dc715e55975d@sentry.io/1722769',
 });
+
 class App extends Component {
   codePushStatusDidChange(status) {
     switch (status) {
