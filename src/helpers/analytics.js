@@ -1,8 +1,8 @@
 // import Analytics from 'appcenter-analytics';
-import analytics from '@react-native-firebase/analytics';
+import { firebase } from '@react-native-firebase/analytics';
 import {store} from '../store';
 
-const Analytics = analytics;
+const Analytics = firebase.analytics();
 const analysis = {};
 
 analysis.init = () => {

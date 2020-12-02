@@ -1,6 +1,6 @@
 import {Animated, Easing, Dimensions} from 'react-native';
-import {NavigationActions, createAppContainer} from 'react-navigation';
-import {createStackNavigator, StackActions} from 'react-navigation-stack';
+import {NavigationActions, createAppContainer, StackActions} from 'react-navigation';
+import {createStackNavigator } from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import SplashScreen from '@pages/SplashScreen';
