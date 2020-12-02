@@ -57,3 +57,5 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+/android/gradle/wrapper/gradle-wrapper.jar
