@@ -82,6 +82,9 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -150,9 +153,6 @@ android {
         versionCode 28
         versionName "1.9.2"
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
-        }
         manifestPlaceholders = [onesignal_app_id: "c1f39bb2-11d8-4ebf-b836-61a0131fb3fa",
                                 onesignal_google_project_number: "REMOTE"]
     }
@@ -209,7 +209,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"
+    //noinspection GradleDynamicVersion
+    implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
@@ -249,9 +250,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:28.0.0"
     implementation "com.midtrans:uikit:1.24.1-SANDBOX"
     implementation "com.midtrans:corekit:1.24.1-SANDBOX"
-    implementation "com.facebook.fresco:animated-gif:2.3.0"
-    implementation "com.facebook.fresco:animated-webp:2.3.0"
-    implementation "com.facebook.fresco:webpsupport:2.3.0"
+    implementation "com.facebook.fresco:animated-gif:1.9.0"
+    implementation "com.facebook.fresco:animated-webp:1.9.0"
+    implementation "com.facebook.fresco:webpsupport:1.9.0"
     implementation "com.facebook.android:facebook-android-sdk:[5,6)"
     // implementation(project(":react-native-fbsdk")){
     //   exclude(group: "com.facebook.android", module: "facebook-android-sdk")
@@ -269,8 +270,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 // codepush config for RN >= 0.60
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 // com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 apply plugin: 'com.google.gms.google-services'

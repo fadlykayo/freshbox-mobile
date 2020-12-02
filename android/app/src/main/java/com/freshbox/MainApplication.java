@@ -12,7 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.microsoft.codepush.react.CodePush;
-// import com.facebook.CallbackManager;
+// import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.CallbackManager;
 import com.freshbox.GoPayPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -35,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           packages.add(new GoPayPackage());
+          // packages.add(new RNGoogleSigninPackage());
           return packages;
         }
 
@@ -87,9 +90,9 @@ public class MainApplication extends Application implements ReactApplication {
     }
   }
 
-  // private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-  // protected static CallbackManager getCallbackManager() {
-  //   return mCallbackManager;
-  // }
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
+  }
 }
