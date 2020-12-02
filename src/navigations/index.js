@@ -1,5 +1,5 @@
 import { Animated, Easing, Dimensions, Platform } from 'react-native';
-import { createStackNavigator, StackActions ,NavigationActions, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, StackActions ,NavigationActions, createDrawerNavigator } from '@react-navigation/native';
 
 import SplashScreen from '@pages/SplashScreen';
 import Menu from '@pages/Menu';

@@ -1,6 +1,6 @@
 // import modules
 import FBSDK from 'react-native-fbsdk';
-import { GoogleSignin } from 'react-native-google-signin';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 const { LoginManager, GraphRequest, GraphRequestManager } = FBSDK;
 
