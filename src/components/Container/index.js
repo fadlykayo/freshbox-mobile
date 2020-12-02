@@ -1,6 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { Platform, KeyboardAvoidingView, View, StatusBar } from 'react-native';
-import { SafeAreaView } from '@react-navigation/native';
+import { Platform, KeyboardAvoidingView, View, StatusBar, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '@actions';
 import Loading from '../Loading';

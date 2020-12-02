@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Platform, StatusBar, View, AppState, Linking} from 'react-native';
-import {createAppContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import OneSignal from 'react-native-onesignal';
 import {AppNavigator, setNavigator, actNav, navConstant} from '@navigations';

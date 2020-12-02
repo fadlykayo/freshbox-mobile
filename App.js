@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import codePush from 'react-native-code-push';
-import {Sentry} from '@sentry/react-native';
+import * as Sentry from '@sentry/react-native';
 import ct from '@constants';
 import {store, persistor} from './src/store';
 
 import Application from '@src';
 
-Sentry.config(
-  'https://1d867be8f53c4413b0d4dc715e55975d@sentry.io/1722769',
-).install();
 
+Sentry.init({
+  dsn: 'https://1d867be8f53c4413b0d4dc715e55975d@sentry.io/1722769',
+});
 class App extends Component {
   codePushStatusDidChange(status) {
     switch (status) {
