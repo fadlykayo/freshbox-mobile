@@ -55,6 +55,9 @@ static NSString * const MIDTRANS_PAYMENT_BNI_VA = @"bni_va";
 static NSString * const MIDTRANS_PAYMENT_ALL_VA = @"all_va";
 static NSString * const MIDTRANS_PAYMENT_OTHER_VA= @"other_va";
 static NSString * const MIDTRANS_PAYMENT_VA = @"va";
+static NSString * const MIDTRANS_PAYMENT_QRIS = @"qris";
+static NSString * const MIDTRANS_PAYMENT_SHOPEEPAY = @"shopeepay";
+static NSString * const MIDTRANS_PAYMENT_QRIS_SHOPEEPAY = @"qrisshopeepay";
 
 static NSString * const MIDTRANS_PAYMENT_BRI_EPAY = @"bri_epay";
 static NSString * const MIDTRANS_PAYMENT_TELKOMSEL_CASH = @"telkomsel_cash";
@@ -67,6 +70,7 @@ static NSString * const MIDTRANS_PAYMENT_KIOS_ON = @"kioson";
 static NSString *const TRANSACTION_SUCCESS = @"vtTRANSACTION_SUCCESS";
 static NSString *const TRANSACTION_PENDING = @"vtTRANSACTION_PENDING";
 static NSString *const TRANSACTION_FAILED = @"vtTRANSACTION_FAILED";
+static NSString *const TRANSACTION_DENY = @"vtTRANSACTION_DENY";
 static NSString *const TRANSACTION_CANCELED = @"vtTRANSACTION_CANCELED";
 
 static NSString *const SAVE_CARD_FAILED = @"vtSAVE_CARD_FAILED";
@@ -114,6 +118,13 @@ static NSString *const MIDTRANS_PRODUCTION_API_URL = @"https://api.veritrans.co.
 static NSString *const MIDTRANS_PRODUCTION_SNAP = @"https://app.midtrans.com/snap/v1";
 static NSString *const MIDTRANS_PRODUCTION_MIXPANEL = @"0269722c477a0e085fde32e0248c6003";
 static NSString *const MIDTRANS_PRODUCTION_BIN_URL = @"https://app.midtrans.com/snap/v1/bank_bins";
+
+/*uat*/
+
+static NSString *const MIDTRANS_UAT_API_URL = @"https://api.stg.midtrans.com/v2";
+static NSString *const MIDTRANS_UAT_MIXPANEL = @"cc005b296ca4ce612fe3939177c668bb";
+static NSString *const MIDTRANS_UAT_SNAP = @"https://app.stg.midtrans.com/snap/v1";
+static NSString *const MIDTRANS_UAT_BIN_URL = @"https://app.stg.midtrans.com/snap/v1/bank_bins";
 
 /*staging*/
 
@@ -194,7 +205,9 @@ static NSInteger const MIDTRANS_ERROR_CODE_INVALID_CUSTOMER_DETAILS = -40;
 
 static NSInteger const MIDTRANS_ERROR_CODE_INVALID_VALUE = -50;
 
-static NSString *const MIDTRANS_GOPAY_PREFIX = @"gojek://";
+static NSString *const MIDTRANS_GOPAY_PREFIX_OLD = @"gojek://";
+static NSString *const MIDTRANS_GOPAY_PREFIX_NEW = @"https://gojek.link/";
+
 /**
  *  if needed we maybe need it as is to detect ios version and also device version
  *

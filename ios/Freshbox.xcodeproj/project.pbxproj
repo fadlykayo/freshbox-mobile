@@ -7,24 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
-		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
-		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
-		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
-		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* FreshboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FreshboxTests.m */; };
 		019C521F21BFF1E600EAE3C1 /* Avenir-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C51F221BFF1E500EAE3C1 /* Avenir-Heavy.ttf */; };
 		019C522021BFF1E600EAE3C1 /* Avenir-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C521D21BFF1E500EAE3C1 /* Avenir-Roman.ttf */; };
 		019C522321BFF41A00EAE3C1 /* Avenir-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C522221BFF41A00EAE3C1 /* Avenir-Book.ttf */; };
-		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
-		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
-		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		226BEA848556ADB04C4D86E0 /* libPods-Freshbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3FC542D104A7EC1CBA67B28 /* libPods-Freshbox-tvOS.a */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -37,36 +28,35 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* FreshboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FreshboxTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		386E0D715D69424C8590C6BB /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F49DA956310E43119BB9B96A /* libRNFirebase.a */; };
+		3F1E136D7447308ADF3DC335 /* libPods-Freshbox-FreshboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E99EAE0619AF55CC427A78BD /* libPods-Freshbox-FreshboxTests.a */; };
 		579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */; };
 		580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */; };
 		581F75C024695A62007B0F90 /* CodePush.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 581F758D24695A62007B0F90 /* CodePush.h */; };
 		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
-		5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */; };
-		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8C8E96CDADFE414C9562CD7D /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F428D0EC6C64B9992E89656 /* AppCenter-Config.plist */; };
 		8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA552F3662694F3F8566CA22 /* AddressBook.framework */; };
-		941930E899124CCB20E3A2B1 /* libPods-Freshbox-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF06F186BC148FF010769A49 /* libPods-Freshbox-tvOS.a */; };
-		95E8D17443ABC123A3011B07 /* libPods-Freshbox-FreshboxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47279D684F71CA3624D39997 /* libPods-Freshbox-FreshboxTests.a */; };
-		A124F7DD21A3EA6E006104AB /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7D921A3EA6E006104AB /* FBSDKLoginKit.framework */; };
-		A124F7DE21A3EA6E006104AB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7DA21A3EA6E006104AB /* Bolts.framework */; };
-		A124F7DF21A3EA6E006104AB /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7DB21A3EA6E006104AB /* FBSDKShareKit.framework */; };
-		A124F7E021A3EA6E006104AB /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A124F7DC21A3EA6E006104AB /* FBSDKCoreKit.framework */; };
+		930311492578BEEF00474928 /* libReact-RCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311482578BEEF00474928 /* libReact-RCTBlob.a */; };
+		9303114F2578BF1600474928 /* libReact-RCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9303114E2578BF1600474928 /* libReact-RCTAnimation.a */; };
+		930311552578BF5A00474928 /* libReact-Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311542578BF5A00474928 /* libReact-Core.a */; };
+		9303115B2578BF9000474928 /* libReact-RCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9303115A2578BF9000474928 /* libReact-RCTImage.a */; };
+		9303115D2578BF9700474928 /* libReact-RCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9303115C2578BF9700474928 /* libReact-RCTLinking.a */; };
+		9303115F2578BFAC00474928 /* libReact-RCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9303115E2578BFAC00474928 /* libReact-RCTNetwork.a */; };
+		930311612578BFB600474928 /* libReact-RCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311602578BFB600474928 /* libReact-RCTSettings.a */; };
+		930311632578BFBF00474928 /* libReact-RCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311622578BFBF00474928 /* libReact-RCTText.a */; };
+		930311652578BFC800474928 /* libReact-RCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311642578BFC800474928 /* libReact-RCTVibration.a */; };
+		930311982578C10D00474928 /* libFirebaseCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311972578C10D00474928 /* libFirebaseCore.a */; };
+		9336F66F2578D27A00AB70E5 /* libFBSDKCoreKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9336F66E2578D27900AB70E5 /* libFBSDKCoreKit.a */; };
+		9336F6712578D28300AB70E5 /* libFBSDKLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9336F6702578D28300AB70E5 /* libFBSDKLoginKit.a */; };
+		9336F6732578D28A00AB70E5 /* libFBSDKShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9336F6722578D28A00AB70E5 /* libFBSDKShareKit.a */; };
+		9336F7742578D93C00AB70E5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336F7732578D93C00AB70E5 /* File.swift */; };
 		A127121A2146595800BEC6E6 /* Avenir-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712172146595800BEC6E6 /* Avenir-Medium.ttf */; };
 		A127121B2146595800BEC6E6 /* Avenir-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712182146595800BEC6E6 /* Avenir-Black.ttf */; };
 		A127121C2146595800BEC6E6 /* Avenir-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712192146595800BEC6E6 /* Avenir-Light.ttf */; };
-		A141B2AB214811810073CC77 /* GoogleNetworkingUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A141B2A6214811810073CC77 /* GoogleNetworkingUtilities.framework */; };
-		A141B2AC214811810073CC77 /* GoogleAuthUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A141B2A7214811810073CC77 /* GoogleAuthUtilities.framework */; };
-		A141B2AD214811810073CC77 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A141B2A8214811810073CC77 /* GoogleAppUtilities.framework */; };
-		A141B2AE214811810073CC77 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A141B2A9214811810073CC77 /* GoogleSymbolUtilities.framework */; };
-		A141B2AF214811810073CC77 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A141B2AA214811810073CC77 /* GoogleUtilities.framework */; };
-		A1F6EAFE21681716005814E6 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		AA318B0CDE646F6A740ACEE5 /* libPods-Freshbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C28D6AAAD8ACBF99B7BF27D5 /* libPods-Freshbox-tvOSTests.a */; };
-		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		C0C4FD7C9E46BB50C7B96844 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B672C25601B8FA67439D0E85 /* libPods-Freshbox.a */; };
 		CC02460956724B55815AE04A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7A7B9983514E1C87E86EC6 /* libz.tbd */; };
 		D28871DEF10E4CB0B1D3D39E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */; };
 		D785CBF22576217C003176F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D785CBE12576217C003176F0 /* GoogleService-Info.plist */; };
+		D831208E1310014BE51F0F82 /* libPods-Freshbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D368022696AC06A680950D /* libPods-Freshbox.a */; };
+		D89700195408C0689813CA25 /* libPods-Freshbox-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CDA55FC7CBFF544C59BFF3 /* libPods-Freshbox-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,37 +356,53 @@
 		019C521D21BFF1E500EAE3C1 /* Avenir-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir-Roman.ttf"; sourceTree = "<group>"; };
 		019C522221BFF41A00EAE3C1 /* Avenir-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir-Book.ttf"; sourceTree = "<group>"; };
 		01F6B83721A692120012E65A /* Freshbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Freshbox.entitlements; path = Freshbox/Freshbox.entitlements; sourceTree = "<group>"; };
-		0AF32DFA5334A366D1A415DD /* Pods-Freshbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-tvOSTests/Pods-Freshbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		0BA78EA0A596CDDD2BE82198 /* Pods-Freshbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Freshbox-tvOSTests/Pods-Freshbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Freshbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freshbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Freshbox/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Freshbox/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Freshbox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Freshbox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Freshbox/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		22CDA55FC7CBFF544C59BFF3 /* libPods-Freshbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* Freshbox-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freshbox-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Freshbox-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Freshbox-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = libReact.a; path = "../Debug-iphonesimulator/libReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F428D0EC6C64B9992E89656 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "Freshbox/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		2FEA0DDED6EC4EDE9B913A16 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-		3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		42405CA6E6C2160280B7542F /* Pods-Freshbox-FreshboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-FreshboxTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-FreshboxTests/Pods-Freshbox-FreshboxTests.debug.xcconfig"; sourceTree = "<group>"; };
-		47279D684F71CA3624D39997 /* libPods-Freshbox-FreshboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-FreshboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		55401686E2F5A9D06256369C /* Pods-Freshbox-FreshboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-FreshboxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-FreshboxTests/Pods-Freshbox-FreshboxTests.release.xcconfig"; sourceTree = "<group>"; };
+		454764C7B15BCE761BBBBE7D /* Pods-Freshbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.debug.xcconfig"; path = "Target Support Files/Pods-Freshbox/Pods-Freshbox.debug.xcconfig"; sourceTree = "<group>"; };
+		477BB8B7102668AA79EB982F /* Pods-Freshbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Freshbox-tvOS/Pods-Freshbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		581F758D24695A62007B0F90 /* CodePush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CodePush.h; path = "../node_modules/react-native-code-push/ios/CodePush/CodePush.h"; sourceTree = "<group>"; };
 		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
 		58F8058122803A8A005B8C16 /* GoPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoPay.h; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		70F709DC6E082C2D2DD5D347 /* Pods-Freshbox-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-tvOS/Pods-Freshbox-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		7173FB79037709C8117B14F1 /* Pods-Freshbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox/Pods-Freshbox.debug.xcconfig"; sourceTree = "<group>"; };
+		5F3E5973AD9930C2CEE06AF3 /* Pods-Freshbox-FreshboxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-FreshboxTests.debug.xcconfig"; path = "Target Support Files/Pods-Freshbox-FreshboxTests/Pods-Freshbox-FreshboxTests.debug.xcconfig"; sourceTree = "<group>"; };
+		692B95FCB1F5D9DF877AED00 /* Pods-Freshbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Freshbox-tvOS/Pods-Freshbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		7C02AA1B10174E089A67ED68 /* Pods-Freshbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox/Pods-Freshbox.release.xcconfig"; sourceTree = "<group>"; };
+		80B495AA5EFF3E072DB5CDD6 /* Pods-Freshbox-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Freshbox-tvOSTests/Pods-Freshbox-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		87D368022696AC06A680950D /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7A7B9983514E1C87E86EC6 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		930311482578BEEF00474928 /* libReact-RCTBlob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTBlob.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9303114E2578BF1600474928 /* libReact-RCTAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311542578BF5A00474928 /* libReact-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9303115A2578BF9000474928 /* libReact-RCTImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTImage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9303115C2578BF9700474928 /* libReact-RCTLinking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTLinking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9303115E2578BFAC00474928 /* libReact-RCTNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTNetwork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311602578BFB600474928 /* libReact-RCTSettings.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTSettings.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311622578BFBF00474928 /* libReact-RCTText.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTText.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311642578BFC800474928 /* libReact-RCTVibration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTVibration.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311972578C10D00474928 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		930311B72578C8FD00474928 /* libreact-native-fbsdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-fbsdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9336F66E2578D27900AB70E5 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKCoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9336F6702578D28300AB70E5 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKLoginKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9336F6722578D28A00AB70E5 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9336F7732578D93C00AB70E5 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = Freshbox/File.swift; sourceTree = "<group>"; };
+		9336F7792578DA3E00AB70E5 /* Freshbox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Freshbox-Bridging-Header.h"; sourceTree = "<group>"; };
+		9639F146F486B6E2351A77F4 /* Pods-Freshbox-FreshboxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-FreshboxTests.release.xcconfig"; path = "Target Support Files/Pods-Freshbox-FreshboxTests/Pods-Freshbox-FreshboxTests.release.xcconfig"; sourceTree = "<group>"; };
 		A124F7CF21A3E8A3006104AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A124F7D921A3EA6E006104AB /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A124F7DA21A3EA6E006104AB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -410,14 +416,12 @@
 		A141B2A8214811810073CC77 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleAppUtilities.framework"; sourceTree = "<group>"; };
 		A141B2A9214811810073CC77 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleSymbolUtilities.framework"; sourceTree = "<group>"; };
 		A141B2AA214811810073CC77 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleUtilities.framework"; sourceTree = "<group>"; };
-		A4AADF3BBAC7A9A21B61A2D2 /* Pods-Freshbox-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-tvOS/Pods-Freshbox-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		AA87CF8D84A76E0E4FE9A711 /* Pods-Freshbox-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Freshbox-tvOSTests/Pods-Freshbox-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		AF06F186BC148FF010769A49 /* libPods-Freshbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		B672C25601B8FA67439D0E85 /* libPods-Freshbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Freshbox.a"; path = "../Debug-iphonesimulator/libPods-Freshbox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C28D6AAAD8ACBF99B7BF27D5 /* libPods-Freshbox-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D785CBE12576217C003176F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.release.xcconfig"; path = "Target Support Files/Pods-Freshbox/Pods-Freshbox.release.xcconfig"; sourceTree = "<group>"; };
+		D785CBE12576217C003176F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E99EAE0619AF55CC427A78BD /* libPods-Freshbox-FreshboxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-FreshboxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FC542D104A7EC1CBA67B28 /* libPods-Freshbox-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Freshbox-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F49DA956310E43119BB9B96A /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA552F3662694F3F8566CA22 /* AddressBook.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -429,7 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				95E8D17443ABC123A3011B07 /* libPods-Freshbox-FreshboxTests.a in Frameworks */,
+				3F1E136D7447308ADF3DC335 /* libPods-Freshbox-FreshboxTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,36 +441,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9336F6732578D28A00AB70E5 /* libFBSDKShareKit.a in Frameworks */,
+				9336F6712578D28300AB70E5 /* libFBSDKLoginKit.a in Frameworks */,
+				9336F66F2578D27A00AB70E5 /* libFBSDKCoreKit.a in Frameworks */,
+				930311982578C10D00474928 /* libFirebaseCore.a in Frameworks */,
+				930311652578BFC800474928 /* libReact-RCTVibration.a in Frameworks */,
+				930311632578BFBF00474928 /* libReact-RCTText.a in Frameworks */,
+				930311612578BFB600474928 /* libReact-RCTSettings.a in Frameworks */,
+				9303115F2578BFAC00474928 /* libReact-RCTNetwork.a in Frameworks */,
+				9303115D2578BF9700474928 /* libReact-RCTLinking.a in Frameworks */,
+				9303115B2578BF9000474928 /* libReact-RCTImage.a in Frameworks */,
+				930311552578BF5A00474928 /* libReact-Core.a in Frameworks */,
+				9303114F2578BF1600474928 /* libReact-RCTAnimation.a in Frameworks */,
+				930311492578BEEF00474928 /* libReact-RCTBlob.a in Frameworks */,
 				581F75C024695A62007B0F90 /* CodePush.h in Frameworks */,
 				580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */,
-				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
-				A1F6EAFE21681716005814E6 /* libRCTAnimation.a in Frameworks */,
-				A124F7E021A3EA6E006104AB /* FBSDKCoreKit.framework in Frameworks */,
-				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
-				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
-				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
-				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
-				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
-				A141B2AC214811810073CC77 /* GoogleAuthUtilities.framework in Frameworks */,
-				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
-				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
-				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				A141B2AF214811810073CC77 /* GoogleUtilities.framework in Frameworks */,
-				A124F7DE21A3EA6E006104AB /* Bolts.framework in Frameworks */,
-				A141B2AD214811810073CC77 /* GoogleAppUtilities.framework in Frameworks */,
-				C0C4FD7C9E46BB50C7B96844 /* libPods-Freshbox.a in Frameworks */,
-				A141B2AE214811810073CC77 /* GoogleSymbolUtilities.framework in Frameworks */,
-				A124F7DD21A3EA6E006104AB /* FBSDKLoginKit.framework in Frameworks */,
 				CC02460956724B55815AE04A /* libz.tbd in Frameworks */,
 				D28871DEF10E4CB0B1D3D39E /* SafariServices.framework in Frameworks */,
-				A124F7DF21A3EA6E006104AB /* FBSDKShareKit.framework in Frameworks */,
-				A141B2AB214811810073CC77 /* GoogleNetworkingUtilities.framework in Frameworks */,
 				579456921902415A8629492E /* SystemConfiguration.framework in Frameworks */,
 				8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */,
-				5D39D0E0849AC420502CCE65 /* libPods-Freshbox.a in Frameworks */,
-				386E0D715D69424C8590C6BB /* libRNFirebase.a in Frameworks */,
+				D831208E1310014BE51F0F82 /* libPods-Freshbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +476,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
-				941930E899124CCB20E3A2B1 /* libPods-Freshbox-tvOS.a in Frameworks */,
+				226BEA848556ADB04C4D86E0 /* libPods-Freshbox-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,28 +485,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				AA318B0CDE646F6A740ACEE5 /* libPods-Freshbox-tvOSTests.a in Frameworks */,
+				D89700195408C0689813CA25 /* libPods-Freshbox-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00752E45F22B1E0F3FE8C780 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7173FB79037709C8117B14F1 /* Pods-Freshbox.debug.xcconfig */,
-				7C02AA1B10174E089A67ED68 /* Pods-Freshbox.release.xcconfig */,
-				42405CA6E6C2160280B7542F /* Pods-Freshbox-FreshboxTests.debug.xcconfig */,
-				55401686E2F5A9D06256369C /* Pods-Freshbox-FreshboxTests.release.xcconfig */,
-				A4AADF3BBAC7A9A21B61A2D2 /* Pods-Freshbox-tvOS.debug.xcconfig */,
-				70F709DC6E082C2D2DD5D347 /* Pods-Freshbox-tvOS.release.xcconfig */,
-				AA87CF8D84A76E0E4FE9A711 /* Pods-Freshbox-tvOSTests.debug.xcconfig */,
-				0AF32DFA5334A366D1A415DD /* Pods-Freshbox-tvOSTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		00C302A81ABCB8CE00DB3ED1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,7 +583,6 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Freshbox;
@@ -636,6 +614,20 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9336F6722578D28A00AB70E5 /* libFBSDKShareKit.a */,
+				9336F6702578D28300AB70E5 /* libFBSDKLoginKit.a */,
+				9336F66E2578D27900AB70E5 /* libFBSDKCoreKit.a */,
+				930311B72578C8FD00474928 /* libreact-native-fbsdk.a */,
+				930311972578C10D00474928 /* libFirebaseCore.a */,
+				930311642578BFC800474928 /* libReact-RCTVibration.a */,
+				930311622578BFBF00474928 /* libReact-RCTText.a */,
+				930311602578BFB600474928 /* libReact-RCTSettings.a */,
+				9303115E2578BFAC00474928 /* libReact-RCTNetwork.a */,
+				9303115C2578BF9700474928 /* libReact-RCTLinking.a */,
+				9303115A2578BF9000474928 /* libReact-RCTImage.a */,
+				930311542578BF5A00474928 /* libReact-Core.a */,
+				9303114E2578BF1600474928 /* libReact-RCTAnimation.a */,
+				930311482578BEEF00474928 /* libReact-RCTBlob.a */,
 				581F758D24695A62007B0F90 /* CodePush.h */,
 				580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */,
 				A124F7DA21A3EA6E006104AB /* Bolts.framework */,
@@ -648,15 +640,14 @@
 				A141B2A9214811810073CC77 /* GoogleSymbolUtilities.framework */,
 				A141B2AA214811810073CC77 /* GoogleUtilities.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				B672C25601B8FA67439D0E85 /* libPods-Freshbox.a */,
 				8B7A7B9983514E1C87E86EC6 /* libz.tbd */,
 				B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */,
 				F8D74121C9C94984A4478E62 /* SystemConfiguration.framework */,
 				FA552F3662694F3F8566CA22 /* AddressBook.framework */,
-				3AB000549AC0B5DBB5603F77 /* libPods-Freshbox.a */,
-				47279D684F71CA3624D39997 /* libPods-Freshbox-FreshboxTests.a */,
-				AF06F186BC148FF010769A49 /* libPods-Freshbox-tvOS.a */,
-				C28D6AAAD8ACBF99B7BF27D5 /* libPods-Freshbox-tvOSTests.a */,
+				87D368022696AC06A680950D /* libPods-Freshbox.a */,
+				E99EAE0619AF55CC427A78BD /* libPods-Freshbox-FreshboxTests.a */,
+				F3FC542D104A7EC1CBA67B28 /* libPods-Freshbox-tvOS.a */,
+				22CDA55FC7CBFF544C59BFF3 /* libPods-Freshbox-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -719,6 +710,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9336F7792578DA3E00AB70E5 /* Freshbox-Bridging-Header.h */,
+				9336F7732578D93C00AB70E5 /* File.swift */,
 				D785CBE12576217C003176F0 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Freshbox */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -726,9 +719,9 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				B1E33F959A5648DC8782ACFF /* Resources */,
-				00752E45F22B1E0F3FE8C780 /* Pods */,
 				A12711EC214658CA00BEC6E6 /* Recovered References */,
 				2F428D0EC6C64B9992E89656 /* AppCenter-Config.plist */,
+				FD6F5C93798EBA5177C5402A /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -776,6 +769,21 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		FD6F5C93798EBA5177C5402A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				454764C7B15BCE761BBBBE7D /* Pods-Freshbox.debug.xcconfig */,
+				CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */,
+				5F3E5973AD9930C2CEE06AF3 /* Pods-Freshbox-FreshboxTests.debug.xcconfig */,
+				9639F146F486B6E2351A77F4 /* Pods-Freshbox-FreshboxTests.release.xcconfig */,
+				692B95FCB1F5D9DF877AED00 /* Pods-Freshbox-tvOS.debug.xcconfig */,
+				477BB8B7102668AA79EB982F /* Pods-Freshbox-tvOS.release.xcconfig */,
+				0BA78EA0A596CDDD2BE82198 /* Pods-Freshbox-tvOSTests.debug.xcconfig */,
+				80B495AA5EFF3E072DB5CDD6 /* Pods-Freshbox-tvOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -783,11 +791,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FreshboxTests" */;
 			buildPhases = (
-				22A9FC50E6C42794A71D8891 /* [CP] Check Pods Manifest.lock */,
+				A660E3EC699EF232241556E8 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				B8E4D3499477585A85235CAB /* [CP] Copy Pods Resources */,
+				FC15FC4343467E208B2CC304 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -803,14 +811,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Freshbox" */;
 			buildPhases = (
-				AFEE0CBB3C8C8FFA6DCEF485 /* [CP] Check Pods Manifest.lock */,
+				6E60CF9B18D24A2CC115BFDD /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				406A0FC0C961ED9E9FFF249D /* [CP] Copy Pods Resources */,
 				6B3DE33958B842D887F92682 /* Upload Debug Symbols to Sentry */,
-				8E7785DB517811332E481960 /* [CP-User] [RNFB] Core Configuration */,
+				468972BE3FBA4AEE101ADC6A /* [CP] Copy Pods Resources */,
+				F548D898C7D4F20B9DF47499 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -825,7 +833,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Freshbox-tvOS" */;
 			buildPhases = (
-				41EF4389C118FA2F84DD1357 /* [CP] Check Pods Manifest.lock */,
+				A5259363C56F73382895228D /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -844,7 +852,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Freshbox-tvOSTests" */;
 			buildPhases = (
-				A4EE5CDB38159FCCD2BCA909 /* [CP] Check Pods Manifest.lock */,
+				C04800BB3C7881ADBFFB5A64 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -1254,14 +1262,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				D785CBF22576217C003176F0 /* GoogleService-Info.plist in Resources */,
 				A127121B2146595800BEC6E6 /* Avenir-Black.ttf in Resources */,
 				A127121C2146595800BEC6E6 /* Avenir-Light.ttf in Resources */,
 				019C522321BFF41A00EAE3C1 /* Avenir-Book.ttf in Resources */,
 				019C522021BFF1E600EAE3C1 /* Avenir-Roman.ttf in Resources */,
 				019C521F21BFF1E600EAE3C1 /* Avenir-Heavy.ttf in Resources */,
-				A124F7D021A3E8A3006104AB /* GoogleService-Info.plist in Resources */,
 				A127121A2146595800BEC6E6 /* Avenir-Medium.ttf in Resources */,
 				8C8E96CDADFE414C9562CD7D /* AppCenter-Config.plist in Resources */,
 			);
@@ -1299,28 +1305,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		22A9FC50E6C42794A71D8891 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Freshbox-FreshboxTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1335,7 +1319,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		406A0FC0C961ED9E9FFF249D /* [CP] Copy Pods Resources */ = {
+		468972BE3FBA4AEE101ADC6A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1391,7 +1375,43 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Freshbox/Pods-Freshbox-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		41EF4389C118FA2F84DD1357 /* [CP] Check Pods Manifest.lock */ = {
+		6B3DE33958B842D887F92682 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+		};
+		6E60CF9B18D24A2CC115BFDD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Freshbox-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5259363C56F73382895228D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1413,31 +1433,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B3DE33958B842D887F92682 /* Upload Debug Symbols to Sentry */ = {
+		A660E3EC699EF232241556E8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Upload Debug Symbols to Sentry";
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Freshbox-FreshboxTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		8E7785DB517811332E481960 /* [CP-User] [RNFB] Core Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] [RNFB] Core Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    _JSON_OUTPUT_BASE64=$(python -c 'import json,sys,base64;print(base64.b64encode(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"').read())['${_JSON_ROOT}'])))' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\n\n  # config.admob_delay_app_measurement_init\n  _ADMOB_DELAY_APP_MEASUREMENT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"admob_delay_app_measurement_init\")\n  if [[ $_ADMOB_DELAY_APP_MEASUREMENT == \"true\" ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GADDelayAppMeasurementInit\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"YES\")\n  fi\n\n  # config.admob_ios_app_id\n  _ADMOB_IOS_APP_ID=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"admob_ios_app_id\")\n  if [[ $_ADMOB_IOS_APP_ID ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GADApplicationIdentifier\")\n    _PLIST_ENTRY_TYPES+=(\"string\")\n    _PLIST_ENTRY_VALUES+=(\"$_ADMOB_IOS_APP_ID\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
-		};
-		A4EE5CDB38159FCCD2BCA909 /* [CP] Check Pods Manifest.lock */ = {
+		C04800BB3C7881ADBFFB5A64 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1459,25 +1477,17 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AFEE0CBB3C8C8FFA6DCEF485 /* [CP] Check Pods Manifest.lock */ = {
+		F548D898C7D4F20B9DF47499 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Freshbox-checkManifestLockResult.txt",
-			);
+			name = "[CP-User] [RNFB] Core Configuration";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    _JSON_OUTPUT_BASE64=$(python -c 'import json,sys,base64;print(base64.b64encode(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"').read())['${_JSON_ROOT}'])))' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\n\n  # config.admob_delay_app_measurement_init\n  _ADMOB_DELAY_APP_MEASUREMENT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"admob_delay_app_measurement_init\")\n  if [[ $_ADMOB_DELAY_APP_MEASUREMENT == \"true\" ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GADDelayAppMeasurementInit\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"YES\")\n  fi\n\n  # config.admob_ios_app_id\n  _ADMOB_IOS_APP_ID=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"admob_ios_app_id\")\n  if [[ $_ADMOB_IOS_APP_ID ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GADApplicationIdentifier\")\n    _PLIST_ENTRY_TYPES+=(\"string\")\n    _PLIST_ENTRY_VALUES+=(\"$_ADMOB_IOS_APP_ID\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
-		B8E4D3499477585A85235CAB /* [CP] Copy Pods Resources */ = {
+		FC15FC4343467E208B2CC304 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1549,6 +1559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58F8058022803A6F005B8C16 /* GoPay.m in Sources */,
+				9336F7742578D93C00AB70E5 /* File.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -1585,22 +1596,10 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = Freshbox;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42405CA6E6C2160280B7542F /* Pods-Freshbox-FreshboxTests.debug.xcconfig */;
+			baseConfigurationReference = 5F3E5973AD9930C2CEE06AF3 /* Pods-Freshbox-FreshboxTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1630,7 +1629,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55401686E2F5A9D06256369C /* Pods-Freshbox-FreshboxTests.release.xcconfig */;
+			baseConfigurationReference = 9639F146F486B6E2351A77F4 /* Pods-Freshbox-FreshboxTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1657,7 +1656,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7173FB79037709C8117B14F1 /* Pods-Freshbox.debug.xcconfig */;
+			baseConfigurationReference = 454764C7B15BCE761BBBBE7D /* Pods-Freshbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1666,10 +1665,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(HOME)/Documents/FacebookSDK",
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/../node_modules/react-native-google-signin/ios/GoogleSdk",
-					"$(HOME)/Documents/FacebookSDK/**",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1696,7 +1695,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C02AA1B10174E089A67ED68 /* Pods-Freshbox.release.xcconfig */;
+			baseConfigurationReference = CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1704,10 +1703,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RCWT9F32HU;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(HOME)/Documents/FacebookSDK",
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/../node_modules/react-native-google-signin/ios/GoogleSdk",
-					"$(HOME)/Documents/FacebookSDK/**",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1733,7 +1732,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A4AADF3BBAC7A9A21B61A2D2 /* Pods-Freshbox-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 692B95FCB1F5D9DF877AED00 /* Pods-Freshbox-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1766,7 +1765,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70F709DC6E082C2D2DD5D347 /* Pods-Freshbox-tvOS.release.xcconfig */;
+			baseConfigurationReference = 477BB8B7102668AA79EB982F /* Pods-Freshbox-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1799,7 +1798,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA87CF8D84A76E0E4FE9A711 /* Pods-Freshbox-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 0BA78EA0A596CDDD2BE82198 /* Pods-Freshbox-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1831,7 +1830,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF32DFA5334A366D1A415DD /* Pods-Freshbox-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 80B495AA5EFF3E072DB5CDD6 /* Pods-Freshbox-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

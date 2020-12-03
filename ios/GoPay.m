@@ -10,6 +10,7 @@
 #import <React/RCTViewManager.h>
 #import "GoPay.h"
 #import "AppDelegate.h"
+//#import "MidtransMerchantClient.h"
 
 @implementation GoPay
 
@@ -31,17 +32,17 @@ RCT_EXPORT_MODULE();
   return @[@"onPaymentResult"];
 }
 
-RCT_EXPORT_METHOD(checkPaymentGopayStatus) {
-  [[MidtransMerchantClient shared] performCheckStatusTransactionWcompletion:^(MidtransTransactionResult * _Nullable result, NSError * _Nullable error) {
-    if (!error) {
-      if (result.statusCode == 200) {
-//        [self sendEventWithName:@"onPaymentResult" body:@{@"result": result}];
-      }
-    } else {
-      //handle error
-    }
-  }];
-}
+//RCT_EXPORT_METHOD(checkPaymentGopayStatus) {
+//  [[MidtransMerchantClient shared] performCheckStatusTransactionWcompletion:^(MidtransTransactionResult * _Nullable result, NSError * _Nullable error) {
+//    if (!error) {
+//      if (result.statusCode == 200) {
+////        [self sendEventWithName:@"onPaymentResult" body:@{@"result": result}];
+//      }
+//    } else {
+//      //handle error
+//    }
+//  }];
+//}
 
 RCT_EXPORT_METHOD(payWithGoPay:(NSDictionary *)config andItemDetails: (NSArray *) item_details andCustomerDetails: (NSDictionary *)customer_details
                   andTransactionDetail: (NSDictionary *) transaction_detail andToken: (NSString *) tokenID  callback:(RCTResponseSenderBlock)callback) {

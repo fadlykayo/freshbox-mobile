@@ -41,9 +41,9 @@ static void InitializeFlipper(UIApplication *application) {
     InitializeFlipper(application);
   #endif
 
-  // [CONFIG setClientKey:@"VT-CLIENT-sandbox-client-key"
-  //        environment:MidtransServerEnvironmentSandbox
-  //  merchantServerURL:@"https://merchant-url-sandbox.com"];
+   [CONFIG setClientKey:@"VT-CLIENT-sandbox-client-key"
+          environment:MidtransServerEnvironmentSandbox
+    merchantServerURL:@"https://merchant-url-sandbox.com"];
 
   [AppCenterReactNative register]; // Initialize AppCenter
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true]; // Initialize AppCenter analytics
