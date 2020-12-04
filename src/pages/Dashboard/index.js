@@ -191,6 +191,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
+					useNativeDriver: true,
 			 	}
 			)
 		}
@@ -208,6 +209,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
+					useNativeDriver: true,
 			 	}
 			)
 		}
@@ -224,6 +226,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
+					useNativeDriver: true,
 			 	}
 			)
 		}
@@ -243,6 +246,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
+					useNativeDriver: false,
 			 	}
 			)
 		}
@@ -988,7 +992,6 @@ class Dashboard extends Component {
 			}
     } else {
 			if(currentOffset / currentHeight > 1.3) {
-				console.warn('halossssss')
 				// this.handleLoadMoreProducts()
 			}
 			if(transactionsShown(currentOffset, height) && !this.state.modalVisible.filterComponent) {

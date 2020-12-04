@@ -66,6 +66,7 @@ class BannerDetail extends Component {
             duration,
             easing,
             delay,
+            useNativeDriver: true,
           }
         )
       }
@@ -83,6 +84,7 @@ class BannerDetail extends Component {
             duration,
             easing,
             delay,
+            useNativeDriver: true,
           }
         )
       }

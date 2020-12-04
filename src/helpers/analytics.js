@@ -1,4 +1,3 @@
-// import Analytics from 'appcenter-analytics';
 import { firebase } from '@react-native-firebase/analytics';
 import {store} from '../store';
 
@@ -29,8 +28,8 @@ analysis.log = (type, payload) => {
   Analytics.logEvent(type, payload);
 };
 
-analysis.setCurrentScreen = (screenName) => {
-  Analytics.setCurrentScreen(screenName, screenName);
-};
+// analysis.setCurrentScreen = (screenName) => {
+//   Analytics.logScreenView(screenName, screenName);
+// };
 
 export default analysis;
