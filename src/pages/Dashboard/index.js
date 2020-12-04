@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl, StatusBar } from 'react-native';
+import { View, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, TouchableOpacity, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics, scaling,onShare } from '@helpers';
-import { colour } from '@styles';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
-import ProfileBlock from './components/ProfileBlock';
 import Checkout from '../ProductList/components/Checkout';
 import Carousel from '@components/Carousel'
 import PromoList from './components/PromoList';
 import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
 import CategoriesPopUp from './components/CategoriesPopUp';
-import ProductList from '../ProductList';
 import ProductItem from '@components/ProductItem';
 import StaticText from '@components/StaticText';
-import Announcement from './components/Announcement';
 import FilterComponent from './components/FilterComponent';
 import PopUp from './components/PopUp';
 import actions from '@actions';
@@ -76,12 +72,11 @@ class Dashboard extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		if(nextProps.total_count == 0) this.outroAnimate();
 		else if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
-		// console.log('nextProps', nextProps)
 		return true;
 	}
 	
   componentDidMount() {
-		//this.versionChecker();
+		this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -96,8 +91,6 @@ class Dashboard extends Component {
 	};
 
 	versionChecker = () => {
-		
-
 		if(Platform.OS == 'ios') {
 				version = config.version.ios.split('-')
 		} else {
@@ -112,18 +105,11 @@ class Dashboard extends Component {
 				version: version[0],
 			}
 		}
-		console.warn(payload, 'payload')
-		
 		this.props.version_checker(
 			payload,
 			() => {
-				console.warn('version check ok')
-				// this.setState({
-				// 	announcement: false
-				// })
 			},
 			(err) => {
-				
 				if(err.data.current_version.active > 0) {
 					if (err.data.error_status !== 'notrelease') {
 						if(err.data.error_status) {
@@ -133,15 +119,12 @@ class Dashboard extends Component {
 							state.updateType = err.data.current_version.type;
 							state.announcementMessage = err.data.error_status == 'codepush' ? 'minor' : 'major'
 							this.setState(state);
-
 						}
-					
 					}
 				}
 			}
 		)
 	}
-	
 
 	handleDeepLink = () => {
 		if (Platform.OS === 'android') {
@@ -151,7 +134,6 @@ class Dashboard extends Component {
     } else {
       Linking.addEventListener('url', this.handleOpenURL);
     }
-
 	}
 
 	handleOpenURL = (event) => {
@@ -177,8 +159,6 @@ class Dashboard extends Component {
 	removeLinking = () => {
 		Linking.removeEventListener('url', this.handleOpenURL);
 	}
-
-
 
 	// cart button slide up animation
 	introAnimate = () => {
@@ -262,7 +242,6 @@ class Dashboard extends Component {
 	}
 
 	getProductPromo = (fromDashboard) => {
-
 		let categories_code;
 		this.setLoading('promoList', true);
 
@@ -330,10 +309,8 @@ class Dashboard extends Component {
 		}
 
 	}
-	
 
   getProductList = (fromDashboard) => {
-		// console.log('dashboard')
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -361,10 +338,8 @@ class Dashboard extends Component {
 		}
 		this.props.get_banner(payload,
 			(res) => {
-				// console.log()
 			},
 			(err) => {
-				// console.warn(err, 'kelar bos')
 			}
 		)
 	}
@@ -378,7 +353,6 @@ class Dashboard extends Component {
 				outOfStockNames.push(" " + item.name.trim() + " ")
 			}
 		})
-
 
 		if(outStockCart.length > 0){
 			language.transformText('message.outOfStock')
@@ -438,8 +412,6 @@ class Dashboard extends Component {
 	}
 
   submitSearch = (searchItem) => {
-		
-
 		let payload={
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
@@ -488,10 +460,7 @@ class Dashboard extends Component {
 				this.setState({loadingTransaction: false})
 			},
 			(err) => {
-				// console.log(err);
-				
 				this.setState({loadingTransaction: false})
-				
 			})
 		} else {
 			this.setState({loadingTransaction: false})
@@ -538,11 +507,9 @@ class Dashboard extends Component {
 		}
 	}
 
-
   openDrawerMenu = () => {
 		Keyboard.dismiss();
     this.props.navigation.openDrawer();
-		// console.log(this.props.navigation.openDrawer)
 	}
 
 	setModalVisible(type,value){
@@ -566,7 +533,6 @@ class Dashboard extends Component {
 		if(this.props.setModalVisible) {
 			this.props.set_modal_visible(!this.props.setModalVisible)
 		}
-
 		this.setModalVisible('openProduct',false);
 	}
 
@@ -590,17 +556,17 @@ class Dashboard extends Component {
 
 	// get position of scrollbar
 	getPositionIndex = (e) => {
-        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
-            this.getPositionBubble();
-        })
-    }
+		this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+				this.getPositionBubble();
+		})
+	}
     
 	getPositionBubble = () => {
-			let position = Math.round(this.state.scrollX/(width* 0.18));
+		let position = Math.round(this.state.scrollX/(width* 0.18));
 
-			if (this.state.bubble != position) {
-					this.setState({ bubble: position })
-			}
+		if (this.state.bubble != position) {
+				this.setState({ bubble: position })
+		}
 	}
 
 	navigateToDetail = (input) => {
@@ -674,10 +640,8 @@ class Dashboard extends Component {
 
 	navigateToCategories = (category) => {
 		let payload = {};
-
 		switch (category.name.toUpperCase()) {
 			case 'DEFAULT': 
-
 				payload = {
 					header: {
 						apiToken: this.props.user ? this.props.user.authorization : ''
@@ -688,11 +652,8 @@ class Dashboard extends Component {
 						sort: 'nama-az',
 					}
 				}
-				
 				break;
-
 			case 'SPECIAL DEALS': 
-			
 				payload = {
 					header: {
 						apiToken: this.props.user ? this.props.user.authorization : ''
@@ -744,71 +705,8 @@ class Dashboard extends Component {
 				if(this.state.modalVisible.openCategories) {
 					this.closeDialogCategories();
 				}
-				console.log('change category', err)
 			}
 		)
-		
-		// if (category.name == 'Default') {
-		// 	payload = {
-		// 		header: {
-		// 			apiToken: this.props.user ? this.props.user.authorization : ''
-		// 		},
-		// 		body: {},
-		// 		params: {
-		// 			page: 1,
-		// 			sort: 'nama-az',
-		// 			// stock: 'tersedia'
-		// 		}
-		// 	}
-
-		// 	this.props.search_products(payload, 
-		// 		() => {
-		// 			actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
-		// 		},
-		// 		(err) => {
-		// 			console.log(err);
-		// 		});
-		// }
-		// else {
-		// 	if(category.name.toUpperCase() === 'SPECIAL DEALS') {
-
-		// 		payload = {
-		// 			header: {
-		// 				apiToken: this.props.user ? this.props.user.authorization : ''
-		// 			},
-		// 			body: {},
-		// 			params: {
-		// 				page: 1,
-		// 				sort: 'nama-az',
-		// 				// stock: 'tersedia',
-		// 				category_code: category.code,
-		// 				on_promo: 1,
-		// 			}
-		// 		}
-		// 	} else {
-		// 		payload = {
-		// 			header: {
-		// 				apiToken: this.props.user ? this.props.user.authorization : ''
-		// 			},
-		// 			body: {},
-		// 			params: {
-		// 				page: 1,
-		// 				sort: 'nama-az',
-		// 				// stock: 'tersedia',
-		// 				category_code: category.code,
-		// 			}
-		// 		}
-		// 	}
-			
-
-		// 	this.props.search_products(payload, 
-		// 		() => {
-		// 			actNav.navigate(navConstant.ProductList, {fromDashboard: true, showPromo: false})
-		// 		},
-		// 		(err) => {
-		// 			console.log(err);
-		// 		});
-		// }		
 	}
 
 	navigateToPromo = () => {
@@ -843,12 +741,11 @@ class Dashboard extends Component {
 				(err) => {
 					console.log(err);
 				});
-		}	
+	}	
 	
-
 	navigateToBannerDetail = (product) => {
 		let payload = {
-		header: {
+			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {},
@@ -859,36 +756,29 @@ class Dashboard extends Component {
 
 		this.props.get_detail_banner(payload,
 			(res) => {
-
 				if(product.links && product.links !== '') {
 					actNav.navigate(navConstant.BannerDetail, {links: product.links})
 				} else {
 					actNav.navigate(navConstant.BannerDetail)
 				}
-				
 			},
 			(err) => {
 				console.log('err', err)
 			}
 		) 
-
 	}
 
-		handleLoadMoreProducts = () => {
-		// console.warn('halo')
+	handleLoadMoreProducts = () => {
 		let category_code = null;
 
 		this.props.categories.map(c => {
 			if(this.props.on_category !== "Default") {
-				
 				if(c.name == this.props.on_category) {
 					category_code = c.code
 				}
 
 			}
 		});
-
-		
 
 		if(this.props.current_page <= this.props.last_page) {
 			let params = {...this.props.params}
@@ -930,16 +820,15 @@ class Dashboard extends Component {
 		this.setState({
 			announcement: false
 		}, () => {
-			console.log('---success', success)
-			//if (success) {
-			//	success()
-			//}
+			if (success) {
+				success()
+			}
 		})
 	}
 
 	onRefresh = () => {
 		this.setState({refreshing: true}, () => {
-			//this.versionChecker();
+			this.versionChecker();
 			this.getProductList();
 			this.getCategories();
 			this.getProductPromo();
@@ -954,7 +843,6 @@ class Dashboard extends Component {
 		return products.map((product, index) => {
 			return (
 				<View key={index}>
-
 					<ProductItem
 						dashboard
 						search={this.state.search}
@@ -987,7 +875,6 @@ class Dashboard extends Component {
 		}
 
     if (Math.abs(dif) < 3) {
-      // console.log('unclear');
     } else if (dif < 0) {
 			if(this.state.modalVisible.filterComponent) {
 				this.hideFilterAnimation();
@@ -1000,9 +887,7 @@ class Dashboard extends Component {
 				this.showFilterAnimation();
 			}
     }
-
     this.offSet = currentOffset;
-
 	}
 
 	openAllCategories = () => {
@@ -1013,10 +898,7 @@ class Dashboard extends Component {
 		this.setModalVisible('openCategories', false)
 	}
 
-
-
   render() {
-		
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
 			outputRange: [-(width * 0.3), 0]
@@ -1033,8 +915,8 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [scaling.moderateScale(50), 0],
 		})
-    return (
-			
+		
+		return (
       <Container
 				backgroundColor ={'white'}
 				containerColor
@@ -1069,11 +951,6 @@ class Dashboard extends Component {
 				scrollEventThrottle={ 200 }
 			>
 
-        {/* <ProfileBlock
-					user = {this.props.user}
-					navigateToCampaign = {this.navigateToCampaign}
-				/> */}
-
         <View style={styles.whiteBackground}>
 
 				<Carousel
@@ -1084,10 +961,6 @@ class Dashboard extends Component {
 					onShare={onShare}
 				/>
       
-					
-					{/* <Announcement
-						data = {this.state.banner}
-					/> */}
           <PromoList
             product = {this.props.promoProduct}
 						user = {this.props.user}
@@ -1120,13 +993,11 @@ class Dashboard extends Component {
 							property={'dashboard.productList.title'}
 						/>
 						<TouchableOpacity onPress = {this.navigateToProductList}>
-
 							<StaticText
 								style={styles.productList.textBoldSmall}
 								property={'dashboard.productList.more'}
 							/>
 						</TouchableOpacity>
-
 						
 					</View>
 					<View style={styles.productList.rowContainer}>
@@ -1156,9 +1027,6 @@ class Dashboard extends Component {
 					onShare={onShare}
 				/>
 				
-				
-        
-
 				<PopUp
 					visible = {this.state.announcement}
 					closePopUpInfo = {this.closePopUpInfo}
@@ -1167,7 +1035,6 @@ class Dashboard extends Component {
 				/>
       </ScrollView>
 
-			
 			<CategoriesPopUp
 				changeCategory = {this.navigateToCategories}
 				categories = {this.props.categories}
@@ -1187,8 +1054,6 @@ class Dashboard extends Component {
       </Container>
 
     )
-					
-		
   }
 }
 

@@ -3,7 +3,6 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import StaticText from '@components/StaticText';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import { analytics } from '@helpers';
 
 class ButtonCount extends PureComponent {
 	constructor(){
@@ -14,8 +13,6 @@ class ButtonCount extends PureComponent {
 	}
 
 	addTotalItem(){
-		// let productName = this.props.data.name.split(" ").join("_");
-		// analytics.log(`Button_Tambah_Pressed_${productName}`)
 		this.props.addTotalItem();
 	}
 
@@ -42,7 +39,6 @@ class ButtonCount extends PureComponent {
 							style={styles.subcontainer.button}
 							onPress={this.decTotalItem}
 						>
-							{/* <Text style={styles.text.button}>-</Text> */}
 							<Icon name="minus" size={12} color="#E52546"/>
 						</TouchableOpacity>
 						<Text style={styles.text.counter}>{this.props.count}</Text>
@@ -51,14 +47,12 @@ class ButtonCount extends PureComponent {
 									style={styles.subcontainer.button}
 									onPress={this.addTotalItem}
 								>
-									{/* <Text style={styles.text.button}>+</Text> */}
 									<Icon name="plus" size={12} color="#E52546"/>
 								</View>)
 							: (<TouchableOpacity 
 									style={styles.subcontainer.button}
 									onPress={this.addTotalItem}
 								>
-									{/* <Text style={styles.text.button}>+</Text> */}
 									<Icon name="plus" size={12} color="#E52546"/>
 								</TouchableOpacity>)
 						}
@@ -78,11 +72,7 @@ class ButtonCount extends PureComponent {
 	}
 
 	render(){
-		return (
-			<>
-				{this._renderButton()}
-			</>
-		)
+		return this._renderButton()
 	}
 }
 

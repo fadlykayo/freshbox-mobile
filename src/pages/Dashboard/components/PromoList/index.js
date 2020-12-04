@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
-import { actNav, navConstant } from '@navigations';
+import { Text, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
 import ProductItem from '@components/ProductItem';
 import EmptyState from '@components/EmptyState';
 import images from '@assets';
 import styles from './styles'
 
 export default class PromoList extends Component {
-
   navigateToProduct = () => {
-    // actNav.navigate(navConstant.ProductList, {showPromo: true});
     this.props.navigateToPromo();
   }
 
@@ -34,7 +31,6 @@ export default class PromoList extends Component {
             dashboard
             toggleFavorite={this.props.toggleFavorite}
             changeTotalItem={this.changeTotalItem}
-            // productLength={this.props.product.length}
             openDetailProduct= {this.props.openDetailProduct}
           />
         </View>
@@ -44,7 +40,6 @@ export default class PromoList extends Component {
 
   renderContent = () => {
     if(this.props.loadingPromo) {
-      // console.log('masuk sini')
       return (
         <ActivityIndicator/>
       )
@@ -58,7 +53,6 @@ export default class PromoList extends Component {
           >
             {this.renderProduct(this.props.product)}
           </ScrollView>
-
         )
       } else {
         return (
@@ -73,11 +67,9 @@ export default class PromoList extends Component {
 
   render() {
     return (
-
         <View style = {styles.container}>
 
           <View style = {styles.top.container}>
-
             <View style = {styles.top.left}>
               <Text style = {styles.top.textPromo}>Special Deals!</Text>
             </View>
@@ -90,13 +82,9 @@ export default class PromoList extends Component {
           </View>
 
           <View style = {styles.promo.container}>
-            
             {this.renderContent()}
-            
           </View>
-
         </View>
-
     )
   }
 }
