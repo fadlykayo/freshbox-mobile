@@ -24,13 +24,13 @@ export default class PopUp extends Component {
       }
       // Linking.openURL('https://frshbox.app.link/downloadnow')
     } else {
-
       this.props.closePopUpInfo(CodePush.restartApp);
-      
-      
     }
-    
   } 
+
+  onPressLater = () => {
+    this.props.closePopUpInfo()
+  }
 
   render() {
     return (
@@ -43,15 +43,9 @@ export default class PopUp extends Component {
         <View style={{flex: 1}}>
           <>
             <View style={styles.modal.container}>
-              
             </View>
             <View style={styles.modal.card}>
-            
               <View style={styles.modal.content}>
-                {/* <Image
-                  source = {images.ilu_announcement}
-                  style = {styles.modal.image}
-                /> */}
                 <View style={styles.modal.textContainer}>
                   <StaticText
                     style={styles.modal.title}
@@ -73,19 +67,15 @@ export default class PopUp extends Component {
                 />
                 {
                   this.props.updateType == 'optional' ? 
-                  <TouchableOpacity style={{flex: 1}} onPress={this.props.closePopUpInfo}>
+                  <TouchableOpacity style={{flex: 1}} onPress={this.onPressLater}>
 
                     <StaticText
                       style={styles.modal.textBold}
                       property={'requireUpdate.later'}
                     />
-
                   </TouchableOpacity> : null
                 }
-                
-                
               </View>
-              
             </View>
           </> 
         </View>
