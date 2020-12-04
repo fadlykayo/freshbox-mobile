@@ -200,17 +200,15 @@ class SignIn extends Component {
     googleHandler(){
         socmed.googleLogin()
         .then((result) => {
-            // console.warn('masuk')
             let payload = {
                 header: {
                     onesignalToken: this.props.userId.userId
                 },
                 body: {
                     sosmed: "google",
-                    google_token: result.id
+                    google_token: result.user.id
                 }   
             }
-
             this.props.sign_in_socmed(payload,
                 () => {
                     // analytics.trackEvent('Login Methods', {type: 'Gmail'});
@@ -218,10 +216,10 @@ class SignIn extends Component {
                 },
                 (err) => {
                     let params = {
-                        name: result.name,
-                        email: result.email,
+                        name: result.user.name,
+                        email: result.user.email,
                         sosmed: "google",
-                        google_token: result.id
+                        google_token: result.user.id
                     }
                     // if(err.code == 404) {
                     //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
@@ -238,7 +236,7 @@ class SignIn extends Component {
                 })
         })
         .catch((err) => {
-            console.warn(err);
+             console.log('err', err);
         })
     }
 

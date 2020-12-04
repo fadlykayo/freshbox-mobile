@@ -38,7 +38,6 @@ export default class Carousel extends PureComponent {
   };
 
   startInterval() {
-    
     if(this.props.products !== null) {
       this.interval = setInterval(() => {
         if (this.state.scrollX === this.state.count * bannerWidth) {
@@ -95,8 +94,6 @@ export default class Carousel extends PureComponent {
       );
     };
   };
-
-
 
   renderCover(products) {
     if(this.props.rewardDetail && products.length !== 0) {
