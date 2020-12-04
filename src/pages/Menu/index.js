@@ -46,10 +46,11 @@ class Menu extends Component {
 
     async setupGoogleClient(){
         try {
-            await GoogleSignin.hasPlayServices({ autoResolve: true });
+            await GoogleSignin.hasPlayServices({ autoResolve: true, showPlayServicesUpdateDialog: true  });
             await GoogleSignin.configure({
-                iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
-                offlineAccess: false
+                // iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
+                webClientId: '73889112804-3lequnciqmah8j8pmu9poeh1onq1gh6h.apps.googleusercontent.com',
+                offlineAccess: true
             });
         }
         catch(err) {

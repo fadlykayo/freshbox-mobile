@@ -28,8 +28,8 @@ analysis.log = (type, payload) => {
   Analytics.logEvent(type, payload);
 };
 
-// analysis.setCurrentScreen = (screenName) => {
-//   Analytics.logScreenView(screenName, screenName);
-// };
+analysis.setCurrentScreen = async (screenName) => {
+  await Analytics.logEvent(screenName, {screenName})
+};
 
 export default analysis;

@@ -9,7 +9,7 @@ const helper = {};
 helper.facebookLogin = () => {
 	LoginManager.logOut();
 	return new Promise((resolve, reject) => {
-		LoginManager.logInWithReadPermissions(['public_profile','email'])
+		LoginManager.logInWithPermissions(['public_profile','email'])
 		.then((result) => {
 			if (result.isCancelled) {
 				alert('Login was cancelled');
@@ -39,7 +39,6 @@ helper.facebookLogin = () => {
 
 helper.googleLogin = () => {
 	return new Promise((resolve,reject) => {
-
 		GoogleSignin.revokeAccess()
 		.then(() => {
 			
@@ -52,6 +51,7 @@ helper.googleLogin = () => {
 					resolve(user);
 				})
 				.catch((err) => {
+					// console.warn('error signout',err);
 					reject(err)
 				})
 				.done();
@@ -61,12 +61,12 @@ helper.googleLogin = () => {
 			});
 		})
 		.catch((err) => {
-			
 			GoogleSignin.signIn()
 			.then((user) => {
 				resolve(user);
 			})
 			.catch((err) => {
+				// console.warn('error >>:',err);
 				reject(err)
 			})
 			.done();

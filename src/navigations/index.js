@@ -184,6 +184,7 @@ export const actNav = {
         params: params,
       }),
     );
+    analytics.setCurrentScreen(route);
     analytics.logEvent(route);
   },
   goBack: (key) => {

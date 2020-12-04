@@ -41,20 +41,27 @@
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
+          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "73889112804-3lequnciqmah8j8pmu9poeh1onq1gh6h.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "73889112804-3fj95ig6g7t9g75n2evct60npcvla02l.apps.googleusercontent.com",
+              "client_id": "73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.freshbox"
+                "bundle_id": "com.freshboxID"
               }
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }

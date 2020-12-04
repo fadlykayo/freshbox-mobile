@@ -81,7 +81,7 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
-		this.versionChecker();
+		// this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -934,7 +934,7 @@ class Dashboard extends Component {
 
 	onRefresh = () => {
 		this.setState({refreshing: true}, () => {
-			this.versionChecker();
+			// this.versionChecker();
 			this.getProductList();
 			this.getCategories();
 			this.getProductPromo();

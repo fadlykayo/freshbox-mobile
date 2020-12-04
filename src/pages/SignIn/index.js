@@ -238,7 +238,7 @@ class SignIn extends Component {
                 })
         })
         .catch((err) => {
-            // console.warn(err);
+            console.warn(err);
         })
     }
 
