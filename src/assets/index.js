@@ -5,14 +5,12 @@ images.background_profile = require('./background_profile.png');
 images.icon_back = require('./icon_back.png');
 images.icon_back_white = require('./icon_back_white.png');
 images.icon_error = require('./icon_error.png');
-images.icon_facebook = require('./icon_facebook.png');
 images.icon_favorite = require('./icon_favorite.png');
 images.icon_favorited = require('./icon_favorited.png');
 images.icon_forgot_password_success = require('./icon_forgot_password_success.png');
 images.icon_forgot_password = require('./icon_forgot_password.png');
 images.icon_hide_password = require('./icon_hide_password.png');
 images.icon_show_password = require('./icon_show_password.png');
-images.icon_google = require('./icon_google.png');
 images.icon_logo = require('./icon_logo.png');
 images.icon_logo_red = require('./icon_logo_red.png');
 images.icon_mail = require('./icon_mail.png');
@@ -75,5 +73,6 @@ images.ic_menu = require('./ic_menu.png');
 images.ic_menu_grey = require('./ic_menu_grey.png');
 images.ic_time = require('./ic_time.png');
 images.ic_checklist_combine = require('./ic_checklist_combine.png')
+images.icon_apple = require('./icon_apple.png')
 
 export default images;
