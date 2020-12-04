@@ -13,7 +13,7 @@ class Button extends PureComponent {
     }
 
     onPress () {
-        analytics.log(`Button_${this.props.title.split(".").join("_")}_Pressed`)
+        // analytics.log(`Button_${this.props.title.split(".").join("_")}_Pressed`);
         this.props.onPress();
     }
 

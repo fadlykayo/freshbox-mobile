@@ -191,7 +191,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: true,
+					// useNativeDriver: true,
 			 	}
 			)
 		}
@@ -209,7 +209,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: true,
+					// useNativeDriver: true,
 			 	}
 			)
 		}
@@ -226,7 +226,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: true,
+					// useNativeDriver: true,
 			 	}
 			)
 		}
@@ -246,7 +246,7 @@ class Dashboard extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: false,
+					// useNativeDriver: false,
 			 	}
 			)
 		}

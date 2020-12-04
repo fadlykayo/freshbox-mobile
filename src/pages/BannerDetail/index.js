@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity, Share } from 'react-native';
+import { View, Text, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity, Share } from 'react-native';
+import { WebView } from 'react-native-webview'; 
 import { actNav, navConstant } from '@navigations';
 import { language, analytics, hasObjectValue, encode64, onShare } from '@helpers';
 import moment from 'moment';
@@ -66,7 +67,7 @@ class BannerDetail extends Component {
             duration,
             easing,
             delay,
-            useNativeDriver: true,
+            // useNativeDriver: true,
           }
         )
       }
@@ -84,7 +85,7 @@ class BannerDetail extends Component {
             duration,
             easing,
             delay,
-            useNativeDriver: true,
+            // useNativeDriver: true,
           }
         )
       }

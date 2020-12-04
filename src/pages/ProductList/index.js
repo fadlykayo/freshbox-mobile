@@ -160,7 +160,7 @@ class ProductList extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: true,
+					// useNativeDriver: true,
 			 	}
 			)
 		}
@@ -178,7 +178,7 @@ class ProductList extends Component {
 					duration,
 					easing,
 					delay,
-					useNativeDriver: true,
+					// useNativeDriver: true,
 			 	}
 			)
 		}

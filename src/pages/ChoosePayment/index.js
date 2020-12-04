@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from 'react';
-import { View, Text, WebView, Platform, Image, BackHandler, ActivityIndicator } from 'react-native';
+import { View, Text, Platform, Image, BackHandler, ActivityIndicator } from 'react-native';
+import { WebView } from 'react-native-webview';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import Button from '@components/Button';
