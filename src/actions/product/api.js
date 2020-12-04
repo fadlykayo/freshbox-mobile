@@ -32,7 +32,6 @@ actions.get_products = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload2,dispatch, true)
         .then((res) => {
-        	console.log('Get Products res ->',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.get_products(res.data));
@@ -196,7 +195,6 @@ actions.get_promo = (req, success, failure) => {
 		
         requestHandler('get',payload,dispatch)
         .then((res) => {
-					console.warn('get Promo res', res);
         	if(res.code){
         		if(res.code == 200){
 							if(res.data.data.length == 0) {

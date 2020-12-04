@@ -81,7 +81,7 @@ class Dashboard extends Component {
 	}
 	
   componentDidMount() {
-		// this.versionChecker();
+		//this.versionChecker();
 		this.getProductList();
 		this.getCategories();
 		this.getBanner();
@@ -929,12 +929,17 @@ class Dashboard extends Component {
 	closePopUpInfo = (success) => {
 		this.setState({
 			announcement: false
-		}, () => success())
+		}, () => {
+			console.log('---success', success)
+			//if (success) {
+			//	success()
+			//}
+		})
 	}
 
 	onRefresh = () => {
 		this.setState({refreshing: true}, () => {
-			// this.versionChecker();
+			//this.versionChecker();
 			this.getProductList();
 			this.getCategories();
 			this.getProductPromo();
@@ -968,9 +973,6 @@ class Dashboard extends Component {
 	}
 
 	onScrollEvent = (e) => {
-		
-		
-
 		const currentOffset = e.nativeEvent.contentOffset.y;
 		const currentHeight = this.state.currentHeight;
 		const productListHeight = this.state.productListHeight;
