@@ -260,7 +260,7 @@ const changeCategory = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     newState.categories.map(item => {
         
-        if(item.name == payload.data.name) {
+        if(item.name == payload?.data?.name) {
             item.check = true
             newState.on_category = item.name
         }

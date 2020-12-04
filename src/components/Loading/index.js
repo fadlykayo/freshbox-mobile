@@ -21,6 +21,7 @@ class Loading extends PureComponent {
 					/> */}
 					<ActivityIndicator
 						size={'large'}
+						color="#00ff00"
 					/>
 					{/* <StaticText 
 						style={styles.loading.text}
