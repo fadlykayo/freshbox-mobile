@@ -60,3 +60,4 @@ buck-out/
 
 /android/gradle/wrapper/gradle-wrapper.jar
 env/
+package-lock.json
