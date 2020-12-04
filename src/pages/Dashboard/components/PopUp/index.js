@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, TouchableOpacity, Image, Platform, Linking } from 'react-native';
+import { View, Modal, TouchableOpacity, Platform, Linking } from 'react-native';
 import CodePush from "react-native-code-push";
 import StaticText from '@components/StaticText';
 import Button from '@components/Button';
-import images from '@assets';
 import styles from './styles';
 
 export default class PopUp extends Component {
@@ -38,7 +37,6 @@ export default class PopUp extends Component {
         animationType = 'fade'
         transparent = {true}
         visible = {this.props.visible}
-
       >
         <View style={{flex: 1}}>
           <>

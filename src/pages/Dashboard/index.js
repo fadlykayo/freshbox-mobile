@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, FlatList, TouchableOpacity, Share, RefreshControl, StatusBar } from 'react-native';
+import { View, Keyboard, ScrollView, Animated, Easing, Dimensions, Linking, Platform, TouchableOpacity, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { actNav, navConstant } from '@navigations';
 import { language, analytics, scaling,onShare } from '@helpers';
@@ -915,8 +915,8 @@ class Dashboard extends Component {
 			inputRange: [0, 1],
 			outputRange: [scaling.moderateScale(50), 0],
 		})
-    return (
-			
+		
+		return (
       <Container
 				backgroundColor ={'white'}
 				containerColor
@@ -993,7 +993,6 @@ class Dashboard extends Component {
 							property={'dashboard.productList.title'}
 						/>
 						<TouchableOpacity onPress = {this.navigateToProductList}>
-
 							<StaticText
 								style={styles.productList.textBoldSmall}
 								property={'dashboard.productList.more'}

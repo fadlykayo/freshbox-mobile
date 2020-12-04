@@ -16,17 +16,13 @@ class ProductItem extends PureComponent {
 	}
 
 	addTotalItem(){
-
 		let data;
 		if(this.props.bannerDetail) {
 			data = this.props.data.product;
 		} else {
 			data = this.props.data;
 		}
-
-		
-		
-		this.props.changeTotalItem(data,"inc");
+		this.props.changeTotalItem(data, "inc");
 	}
 
 	decTotalItem(){
@@ -53,12 +49,10 @@ class ProductItem extends PureComponent {
 		} else {
 			this.props.openDetailProduct(this.props.data);
 		}
-		analytics.log(`Product_Card_${data.name.replace(/[\W_]+/g,"")}_Clicked`, {name: data.name.replace(/[\W_]+/g,"")})
-
+		analytics.log(`Prduct_Card_${data.name.replace(/[\W_]+/g,"")}_Clicked`, {name: data.name.replace(/[\W_]+/g,"")})
 	}
 
 	render(){
-
 		let productImage;
 		let data;
 		let bannerPrice;
@@ -91,9 +85,6 @@ class ProductItem extends PureComponent {
 							onPress={this.openDetailProduct}
 							style={styles.subcontainer.product(this.props.dashboard)}
 						>
-						
-							
-							
 							<View style={styles.subcontainer.image(this.props.dashboard)}>
 								<Image
 									resizeMode={'contain'} 
@@ -113,15 +104,10 @@ class ProductItem extends PureComponent {
 									dashboard = {this.props.dashboard}
 								/>
 							</View> 
-							
 								<View style={{flex: -1}}>
 									<Content data={data} dashboard={this.props.dashboard} bannerPrice={bannerPrice}/>
 								</View> 
-
-						
-							
 						</TouchableOpacity>
-						
 					</View>
 					
 					<ButtonCount
@@ -132,12 +118,11 @@ class ProductItem extends PureComponent {
 						decTotalItem={this.decTotalItem}
 					/>
 				</View>
-
 			);
 
 		} else {
 
-					return(
+			return(
 			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
 				<View style={styles.subcontainer.card(this.props.dashboard)}>
 					<TouchableOpacity 
@@ -185,7 +170,6 @@ class ProductItem extends PureComponent {
 				
 			</View>
 		);
-
 		}
 	}
 }
