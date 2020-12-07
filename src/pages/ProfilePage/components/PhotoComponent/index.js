@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import React, {Component} from 'react';
+import {Text, ImageBackground, Image, TouchableOpacity} from 'react-native';
 import images from '@assets';
 import styles from './styles';
 
 class PhotoComponent extends Component {
-    constructor() {
-        super()
+    constructor () {
+        super();
         this.choosePhoto = this.choosePhoto.bind(this);
         this.navigateBack = this.navigateBack.bind(this);
     }
@@ -21,7 +21,7 @@ class PhotoComponent extends Component {
     render() {
         return (
             <ImageBackground
-                resizeMode={'stretch'} 
+                resizeMode={'stretch'}
                 source={images.background_profile}
                 style={styles.background}
             >
@@ -30,30 +30,30 @@ class PhotoComponent extends Component {
                     style={styles.touchableBackButton}
                 >
                     <Image
-                        resizeMode={'contain'} 
+                        resizeMode={'contain'}
                         source={images.icon_back_white}
                         style={styles.button.back}
                     />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={this.choosePhoto}>
-					<Image
-						resizeMode={'cover'} 
-                        source={ 
+                    <Image
+                        resizeMode={'cover'}
+                        source={
                             this.props.user.user.image == '' || this.props.user.user.image == null
-                            ? images.icon_img_ava_grey
-                            : {uri: this.props.user.user.images_sizes_url.original}
+                                ? images.icon_img_ava_grey
+                                : {uri: this.props.user.user.images_sizes_url.original}
                         }
-						style={
+                        style={
                             this.props.user.user.image == '' || this.props.user.user.image == null
-                            ? styles.photo.dummy
-                            : styles.photo.real
+                                ? styles.photo.dummy
+                                : styles.photo.real
                         }
-					/>
-				</TouchableOpacity>
+                    />
+                </TouchableOpacity>
                 <Text style={styles.user.name}>{this.props.user.user.name}</Text>
                 <Text style={styles.user.phone}>{this.props.user.user.phone_number}</Text>
-                
+
             </ImageBackground>
         );
     }

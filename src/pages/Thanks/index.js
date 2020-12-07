@@ -41,7 +41,6 @@ class Thanks extends Component {
     // }
 
     navigateBack(key) {
-        console.log(key)
         this.setState({
             isNavigateBack: true
         }, () => {

@@ -1,5 +1,5 @@
-import React,{ Component } from 'react';
-import { TouchableOpacity, View, Image, ScrollView, Text, Modal } from 'react-native';
+import React, {Component} from 'react';
+import {TouchableOpacity, View, Image, ScrollView, Text, Modal} from 'react-native';
 import ButtonFav from '@components/ButtonFav';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonCount from '@components/ButtonCount';
@@ -11,7 +11,7 @@ import BubbleComponent from './components/BubbleComponent';
 import styles from './styles';
 
 class ProductDetail extends Component {
-	constructor(){
+	constructor () {
 		super();
 		this.addTotalItem = this.addTotalItem.bind(this);
 		this.decTotalItem = this.decTotalItem.bind(this);
@@ -22,20 +22,20 @@ class ProductDetail extends Component {
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 	}
 
-	addTotalItem(){
-		this.props.changeTotalItem(this.props.data,"inc");
+	addTotalItem() {
+		this.props.changeTotalItem(this.props.data, "inc");
 	}
 
-	decTotalItem(){
-		this.props.changeTotalItem(this.props.data,"desc");
+	decTotalItem() {
+		this.props.changeTotalItem(this.props.data, "desc");
 	}
 
 	getPositionIndex(e) {
-		this.props.getPositionIndex(e)
+		this.props.getPositionIndex(e);
 	}
 
 	getPositionBubble() {
-		this.props.getPositionBubble()
+		this.props.getPositionBubble();
 	}
 
 	closeDetailProduct() {
@@ -50,8 +50,8 @@ class ProductDetail extends Component {
 		this.props.closeZoomImage();
 	}
 
-	render(){
-		if(this.props.modalVisible) {
+	render() {
+		if (this.props.modalVisible) {
 			return (
 				<View style={styles.background}>
 					<Modal
@@ -68,7 +68,7 @@ class ProductDetail extends Component {
 							<View style={styles.subcontainer.mid}>
 								<View style={styles.subcontainer.product}>
 									<ScrollView
-										ref={ e => { this.scrollRef = e }}
+										ref={e => {this.scrollRef = e;}}
 										horizontal={true}
 										pagingEnabled={true}
 										showsHorizontalScrollIndicator={false}
@@ -77,16 +77,17 @@ class ProductDetail extends Component {
 										contentContainerStyle={styles.image.content}
 										style={styles.image.style}
 									>
-										{this.props.data.images_sizes_url && this.props.data.images_sizes_url.original.map((image,index) => {
+										{this.props.data.images_sizes_url && this.props.data.images_sizes_url.original.map((image, index) => {
 											return (
 												<TouchableOpacity key={index} onPress={this.openZoomImage}>
 													<Image
-														resizeMode={'contain'} 
+														resizeMode={'contain'}
 														source={{uri: image}}
 														style={styles.icon.product}
 													/>
 												</TouchableOpacity>
-											)}
+											);
+										}
 										)}
 									</ScrollView>
 									<BubbleComponent
@@ -98,11 +99,11 @@ class ProductDetail extends Component {
 										bubble={this.props.bubble}
 									/>
 								</View>
-								<Content data={this.props.data} bannerPrice={this.props.bannerPrice}/>
+								<Content data={this.props.data} bannerPrice={this.props.bannerPrice} />
 								{
 									this.props.type == 'cart'
-									? 	null
-									:	<ButtonFav 
+										? null
+										: <ButtonFav
 											data={this.props.data}
 											user={this.props.user}
 											isFavorite={this.props.data.favorite}
@@ -123,13 +124,13 @@ class ProductDetail extends Component {
 								/>
 							</View>
 							<View style={styles.subcontainer.verification}>
-								<ProductStockVerificationText 
+								<ProductStockVerificationText
 									type={this.props.type}
 									count={this.props.data.count}
 									stock={this.props.data.stock}
 									maxQty={this.props.data.maxQty}
 								/>
-							</View>	
+							</View>
 						</View>
 						<ZoomImage
 							modalVisible={this.props.openImageDetail}
@@ -139,7 +140,7 @@ class ProductDetail extends Component {
 						/>
 					</Modal>
 				</View>
-				)
+			);
 		} else return null;
 	}
 }

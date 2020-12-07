@@ -274,7 +274,9 @@
       "resetPassword": "Ubah Password"
     },
     "button": {
-      "signOut": "Keluar"
+      "signOut": "Keluar",
+      "takePhoto": "Ambil gambar",
+      "openGallery": "Buka dari Galeri"
     }
   },
   "phonePage": {

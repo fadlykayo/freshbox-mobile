@@ -4,13 +4,13 @@ import { scaling } from '@helpers'
 
 export default styles = {
   container: (type) => ({
-    height: type == 'facebook' ? scaling.moderateScale(45) : scaling.moderateScale(60),
-    width: type == 'facebook' ? scaling.moderateScale(45) : scaling.moderateScale(60),
+    height: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
+    width: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
     marginHorizontal: 10,
   }),
   image: (type) => ({
-    height: type == 'facebook' ? scaling.moderateScale(45) : scaling.moderateScale(60),
-    width: type == 'facebook' ? scaling.moderateScale(45) : scaling.moderateScale(60),
+    height: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
+    width: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
     marginHorizontal: 10
   })
 }

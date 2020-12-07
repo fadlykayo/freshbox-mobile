@@ -80,7 +80,6 @@ class App extends Component {
         totalBytes: progress.totalBytes,
       },
     });
-    // console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
   }
   render() {
     return (
