@@ -10,6 +10,7 @@ export default class Facebook extends Component {
     this.state = {
     };
     this.onPressButton = this.onPressButton.bind(this);
+    this.selectImage = this.selectImage.bind(this);
   }
 
   componentDidMount() {
@@ -31,21 +32,26 @@ export default class Facebook extends Component {
         console.log("Google signin error", err.code, err.message);
     }
   }
-  
 
   onPressButton () {
     this.props.onPress();
   }
   
+  selectImage () {
+    switch (this.props.type) {
+      case 'facebook': return images.icon_facebook
+      case 'apple': return images.icon_apple
+      default: return images.icon_google
+    }
+  }
 
   render() {
     return (
-      
       <View style = { styles.container }>
         <TouchableWithoutFeedback onPress={this.onPressButton}>
           <Image
             resizeMode    = { 'contain' }
-            source        = { this.props.type == 'facebook' ? images.icon_facebook : images.icon_google }
+            source        = { this.selectImage() }
             style         = { styles.image(this.props.type) }
           />
         </TouchableWithoutFeedback>

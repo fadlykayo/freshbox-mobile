@@ -1,20 +1,23 @@
 import React,{ Component } from 'react';
-import { ScrollView, Keyboard, View, Text } from 'react-native';
+import { ScrollView, Keyboard, View, Platform } from 'react-native';
+import { connect } from 'react-redux';
+import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
+
+import actions from '@actions';
 import { actNav, navConstant } from '@navigations';
-import { validation, language } from '@helpers';
+import { validation, language, socmed } from '@helpers';
+
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import Button from '@components/Button';
 import StaticText from '@components/StaticText';
+
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
-import { socmed, analytics } from '@helpers';
 import Sosmed from './components/Sosmed';
 import styles from './styles';
-import { connect } from 'react-redux';
-import actions from '@actions';
 
 class SignIn extends Component {
     constructor(){
@@ -28,8 +31,11 @@ class SignIn extends Component {
                 phone: true,
                 password: true,
                 passwordLength: true,
-            }
+            },
+            credentialStateForUser: -1,
         }
+        this.authCredentialListener = null;
+        this.user = null;
         this.onChangeText = this.onChangeText.bind(this);
         this.submitPhone = this.submitPhone.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
@@ -42,10 +48,30 @@ class SignIn extends Component {
         this.clearData = this.clearData.bind(this);
         this.facebookHandler = this.facebookHandler.bind(this);
         this.googleHandler = this.googleHandler.bind(this);
+        this.appleHandler = this.appleHandler.bind(this);
+        this.fetchAndUpdateCredentialState = this.fetchAndUpdateCredentialState.bind(this);
+    }
+
+    componentDidMount() {
+        if (Platform.OS === 'ios') {
+            this.authCredentialListener = appleAuth.onCredentialRevoked(async () => {
+                console.log('Credential Revoked');
+                this.fetchAndUpdateCredentialState().catch(error =>
+                this.setState({ credentialStateForUser: `Error: ${error.code}` }),
+                );
+            });
+    
+            this.fetchAndUpdateCredentialState()
+                .then(res => this.setState({ credentialStateForUser: res }))
+                .catch(error => this.setState({ credentialStateForUser: `Error: ${error.code}` }))
+        }
     }
 
     componentWillUnmount() {
-        if(this.props.navigation.state.params.closeDrawer) {
+        if (Platform.OS === 'ios') {
+            this.authCredentialListener();
+        }
+        if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
     }
@@ -240,6 +266,72 @@ class SignIn extends Component {
         })
     }
 
+    async appleHandler (){
+        console.log('Beginning Apple Authentication');
+    
+        // start a login request
+        try {
+            console.log('test');
+
+          const appleAuthRequestResponse = await appleAuth.performRequest({
+            requestedOperation: appleAuth.Operation.LOGIN,
+            requestedScopes: [
+              appleAuth.Scope.EMAIL,
+              appleAuth.Scope.FULL_NAME,
+            ],
+          });
+    
+          console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+    
+          const {
+            user: newUser,
+            email,
+            nonce,
+            identityToken,
+            realUserStatus /* etc */,
+          } = appleAuthRequestResponse;
+    
+          this.user = newUser;
+          console.log(newUser, '====')
+          this.fetchAndUpdateCredentialState()
+            .then(res => this.setState({ credentialStateForUser: res }))
+            .catch(error =>
+              this.setState({ credentialStateForUser: `Error: ${error.code}` }),
+            );
+    
+          if (identityToken) {
+            // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
+            console.log(nonce, identityToken);
+          } else {
+            // no token - failed sign-in?
+          }
+    
+          if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
+            console.log("I'm a real person!");
+          }
+    
+          console.warn(`Apple Authentication Completed, ${this.user}, ${email}`);
+        } catch (error) {
+          if (error.code === appleAuth.Error.CANCELED) {
+            console.log('User canceled Apple Sign in.');
+          } else {
+            console.log('error', error);
+          }
+        }
+    };
+
+    async fetchAndUpdateCredentialState () {
+        if (this.user === null) {
+          this.setState({ credentialStateForUser: 'N/A' });
+        } else {
+          const credentialState = await appleAuth.getCredentialStateForUser(this.user);
+          if (credentialState === appleAuth.State.AUTHORIZED) {
+            this.setState({ credentialStateForUser: 'AUTHORIZED' });
+          } else {
+            this.setState({ credentialStateForUser: credentialState });
+          }
+        }
+    }
 
     render(){
         return(
@@ -302,7 +394,9 @@ class SignIn extends Component {
                             style={styles.socmedText}
                             property={'signIn.validation.social'}
                         />
+
                         <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                            {Platform.OS === 'ios' && <Sosmed type={'apple'} onPress={this.appleHandler}/> }
                             <Sosmed type={'facebook'} onPress={this.facebookHandler}/>
                             <Sosmed type={'google'} onPress={this.googleHandler}/>
                         </View>

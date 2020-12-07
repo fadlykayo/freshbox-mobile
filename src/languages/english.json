@@ -272,7 +272,9 @@
       "resetPassword": "Reset Password"
     },
     "button": {
-      "signOut": "SIGN OUT"
+      "signOut": "SIGN OUT",
+      "takePhoto": "Take Photo",
+      "openGallery": "Open from Gallery"
     }
   },
   "phonePage": {

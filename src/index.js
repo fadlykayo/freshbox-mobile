@@ -63,7 +63,6 @@ class App extends Component {
   };
 
   navigateWithDeepLink = (e) => {
-    console.log(e);
     const url = e.url.replace(/.*?:\/\//g, '');
     const id = url.match(/\/([^\/]+)\/?$/)[1];
     const routname = url.split('/')[0];
@@ -98,7 +97,6 @@ class App extends Component {
     } else if (routname === '2' && id) {
       this.setDetailProduct(id);
     } else {
-      console.warn('nonono');
       console.log(e);
     }
   };
