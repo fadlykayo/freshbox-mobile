@@ -64,7 +64,6 @@ class ProfilePage extends Component {
             }
         };
         
-
         ImagePicker.showImagePicker( options, (response) => {
             if (response.didCancel) {
                 // console.log('User cancelled image picker');
@@ -76,7 +75,6 @@ class ProfilePage extends Component {
                 // console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                // console.log("===>",response)
                 
 
                 let data = {
@@ -115,6 +113,7 @@ class ProfilePage extends Component {
 				        });
                     },
                     (err) => {
+                        console.log(err)
                         language.transformText('message.uploadPhotoError')
 			            .then(message => {
 			            	this.props.set_error_status({
