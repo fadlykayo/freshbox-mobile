@@ -52,7 +52,6 @@ actions.upload_photo = (req, success, failure) => {
 	payload.body = req.body;
 	
 	return dispatch => {
-		// console.log(payload);
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
@@ -63,7 +62,6 @@ actions.upload_photo = (req, success, failure) => {
         	}
         })
         .catch((err) => {
-					// console.warn(err)
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
