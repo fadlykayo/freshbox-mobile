@@ -14,7 +14,7 @@ class Content extends Component {
     }
 
     spacePhoneNumber(input) {
-        return input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+        return input?.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
     }
 
     navigateToPhonePage() {
@@ -40,7 +40,7 @@ class Content extends Component {
                         style={styles.text.title}
                         property={'profilePage.content.phone'}
                     />
-                    <Text style={styles.text.content}>{this.spacePhoneNumber(this.props.user.user.phone_number)}</Text>
+                    <Text style={styles.text.content}>{this.spacePhoneNumber(this.props.user?.user?.phone_number)}</Text>
                     <Image
                         resizeMode={'contain'} 
                         source={images.icon_arrow_right}
