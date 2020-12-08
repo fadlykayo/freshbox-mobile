@@ -270,7 +270,6 @@ class SignIn extends Component {
                 ],
             });
 
-            //console.log('appleAuthRequestResponse', appleAuthRequestResponse);
             const {
                 user: newUser,
                 email,
@@ -315,7 +314,6 @@ class SignIn extends Component {
                     this.setState({credentialStateForUser: res});
                 })
                 .catch(error => {
-                    console.log('masuk error', error);
                     this.setState({credentialStateForUser: `Error: ${error.code}`});
                 });
 
