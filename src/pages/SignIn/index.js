@@ -1,11 +1,11 @@
-import React,{ Component } from 'react';
-import { ScrollView, Keyboard, View, Platform } from 'react-native';
-import { connect } from 'react-redux';
-import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
+import React, {Component} from 'react';
+import {ScrollView, Keyboard, View, Platform} from 'react-native';
+import {connect} from 'react-redux';
+import {AppleButton, appleAuth} from '@invertase/react-native-apple-authentication';
 
 import actions from '@actions';
-import { actNav, navConstant } from '@navigations';
-import { validation, language, socmed } from '@helpers';
+import {actNav, navConstant} from '@navigations';
+import {validation, language, socmed} from '@helpers';
 
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -20,20 +20,20 @@ import Sosmed from './components/Sosmed';
 import styles from './styles';
 
 class SignIn extends Component {
-    constructor(){
+    constructor () {
         super();
-        this.state={
-            user:{
+        this.state = {
+            user: {
                 phone: '',
                 password: ''
             },
-            validateStatus:{
+            validateStatus: {
                 phone: true,
                 password: true,
                 passwordLength: true,
             },
             credentialStateForUser: -1,
-        }
+        };
         this.authCredentialListener = null;
         this.user = null;
         this.onChangeText = this.onChangeText.bind(this);
@@ -57,13 +57,13 @@ class SignIn extends Component {
             this.authCredentialListener = appleAuth.onCredentialRevoked(async () => {
                 console.log('Credential Revoked');
                 this.fetchAndUpdateCredentialState().catch(error =>
-                this.setState({ credentialStateForUser: `Error: ${error.code}` }),
+                    this.setState({credentialStateForUser: `Error: ${error.code}`}),
                 );
             });
-    
+
             this.fetchAndUpdateCredentialState()
-                .then(res => this.setState({ credentialStateForUser: res }))
-                .catch(error => this.setState({ credentialStateForUser: `Error: ${error.code}` }))
+                .then(res => this.setState({credentialStateForUser: res}))
+                .catch(error => this.setState({credentialStateForUser: `Error: ${error.code}`}));
         }
     }
 
@@ -72,23 +72,23 @@ class SignIn extends Component {
             this.authCredentialListener();
         }
         if (this.props.navigation.state.params.closeDrawer) {
-			this.props.navigation.state.params.closeDrawer();
-		}
+            this.props.navigation.state.params.closeDrawer();
+        }
     }
 
-    onChangeText(type,value){
+    onChangeText(type, value) {
         let user = JSON.parse(JSON.stringify(this.state.user));
         user[type] = value;
         this.setState({user});
     }
 
-    setValidation(type,value){
+    setValidation(type, value) {
         let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
         validateStatus[type] = value;
         this.setState({validateStatus});
     }
 
-    clearValidation(){
+    clearValidation() {
         let validateStatus = JSON.parse(JSON.stringify(this.state.validateStatus));
         validateStatus.phone = true;
         validateStatus.password = true;
@@ -96,34 +96,34 @@ class SignIn extends Component {
         this.setState({validateStatus});
     }
 
-    submitPhone(){
+    submitPhone() {
         let userPhone = this.state.user.phone.trim();
         this.clearValidation();
-        this.onChangeText('phone',userPhone);
+        this.onChangeText('phone', userPhone);
         this.formPassword.focus();
     }
 
-    submitPassword(){
+    submitPassword() {
         let userPassword = this.state.user.password.trim();
         this.clearValidation();
-        this.onChangeText('password',userPassword);
+        this.onChangeText('password', userPassword);
         this.formPassword.blur();
         this.signInValidation();
     }
 
-    signInValidation(){
+    signInValidation() {
         Keyboard.dismiss();
         this.clearValidation();
-        validation.signInEmail(this.state.user.phone,this.state.user.password)
-        .then(() => {
-            this.signInHandler();
-        })
-        .catch(err => {
-            this.setValidation(err,false);
-        });
+        validation.signInEmail(this.state.user.phone, this.state.user.password)
+            .then(() => {
+                this.signInHandler();
+            })
+            .catch(err => {
+                this.setValidation(err, false);
+            });
     }
 
-    signInHandler(){
+    signInHandler() {
         let payload = {
             header: {
                 onesignalToken: this.props.userId.userId
@@ -132,7 +132,7 @@ class SignIn extends Component {
                 phone_number: this.state.user.phone,
                 password: this.state.user.password
             }
-        }
+        };
 
         this.props.sign_in(payload,
             (res) => {
@@ -145,15 +145,15 @@ class SignIn extends Component {
                 }
             },
             (err) => {
-                if(err.code == 400) {
+                if (err.code == 400) {
                     language.transformText('message.invalidSignIn')
-                    .then(message => {
-                        this.props.set_error_status({
-                            status: true,
-                            title: 'formError.title.default',
-                            data: message,
+                        .then(message => {
+                            this.props.set_error_status({
+                                status: true,
+                                title: 'formError.title.default',
+                                data: message,
+                            });
                         });
-                    });
                 }
             }
         );
@@ -164,192 +164,196 @@ class SignIn extends Component {
         state.user = {
             phone: '',
             password: ''
-        }
+        };
         this.setState(state);
     }
 
-    navigateToRegister(){
+    navigateToRegister() {
         this.clearData();
-        actNav.navigate(navConstant.Register, { action: this.props.navigation.state.params.action, key: this.props.navigation.state.key });
+        actNav.navigate(navConstant.Register, {action: this.props.navigation.state.params.action, key: this.props.navigation.state.key});
     }
 
-    navigateToForgotPassword(){
+    navigateToForgotPassword() {
         this.clearData();
         actNav.navigate(navConstant.ForgotPassword);
     }
 
-    facebookHandler(){
+    facebookHandler() {
         socmed.facebookLogin()
-        .then((result) => {
-            let payload = {
-                header: {
-                    onesignalToken: this.props.userId.userId
-                },
-                body: {
-                    sosmed: "facebook",
-                    fb_token: result.id
-                }   
-            }
-
-            this.props.sign_in_socmed(payload,
-                () => {
-                    // analytics.trackEvent('Login Methods', {type: 'Facebook'});
-                    actNav.reset(navConstant.Product)
-                },
-                (err) => {
-                    let params = {
-                        name: result.name,
-                        email: result.email,
+            .then((result) => {
+                let payload = {
+                    header: {
+                        onesignalToken: this.props.userId.userId
+                    },
+                    body: {
                         sosmed: "facebook",
-                        fb_token: result.id
+                        fb_token: result.id,
+                        email: result.email,
                     }
-                    // if(err.code == 404) {
-                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                    // }
-                    switch (err.code) {
-                        case 404:
-                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                            break;
-                        case 400:
-                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});
-                            break;
-                        default:
-                            break;
-                    }
-                })
-        })
-        .catch((err) => {
-            // console.log(err);
-        })
+                };
+
+                this.props.sign_in_socmed(payload,
+                    () => {
+                        actNav.reset(navConstant.Dashboard);
+                    },
+                    (err) => {
+                        let params = {
+                            name: result.name,
+                            email: result.email,
+                            sosmed: "facebook",
+                            fb_token: result.id
+                        };
+                        switch (err.code) {
+                            case 404:
+                                actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                                break;
+                            case 400:
+                                actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+            })
+            .catch((err) => {
+                // console.log(err);
+            });
     }
 
-    googleHandler(){
+    googleHandler() {
         socmed.googleLogin()
-        .then((result) => {
-            let payload = {
-                header: {
-                    onesignalToken: this.props.userId.userId
-                },
-                body: {
-                    sosmed: "google",
-                    google_token: result.user.id
-                }   
-            }
-            this.props.sign_in_socmed(payload,
-                () => {
-                    // analytics.trackEvent('Login Methods', {type: 'Gmail'});
-                    actNav.reset(navConstant.Dashboard)
-                },
-                (err) => {
-                    let params = {
-                        name: result.user.name,
-                        email: result.user.email,
+            .then((result) => {
+                let payload = {
+                    header: {
+                        onesignalToken: this.props.userId.userId
+                    },
+                    body: {
                         sosmed: "google",
-                        google_token: result.user.id
+                        google_token: result.user.id,
+                        email: result.user.email,
                     }
-                    // if(err.code == 404) {
-                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                    // }
-                    switch (err.code) {
-                        case 404:
-                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                            break;
-                        case 400:
-                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});                            break;
-                        default:
-                            break;
-                    }
-                })
-        })
-        .catch((err) => {
-             console.log('err', err);
-        })
+                };
+                this.props.sign_in_socmed(payload,
+                    () => {
+                        actNav.reset(navConstant.Dashboard);
+                    },
+                    (err) => {
+                        let params = {
+                            name: result.user.name,
+                            email: result.user.email,
+                            sosmed: "google",
+                            google_token: result.user.id
+                        };
+                        switch (err.code) {
+                            case 404:
+                                actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                                break;
+                            case 400:
+                                actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
+                            default:
+                                break;
+                        }
+                    });
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
     }
 
-    async appleHandler (){
-        console.log('Beginning Apple Authentication');
-    
-        // start a login request
+    async appleHandler() {
         try {
-            console.log('test');
+            const appleAuthRequestResponse = await appleAuth.performRequest({
+                requestedOperation: appleAuth.Operation.LOGIN,
+                requestedScopes: [
+                    appleAuth.Scope.EMAIL,
+                    appleAuth.Scope.FULL_NAME,
+                ],
+            });
 
-          const appleAuthRequestResponse = await appleAuth.performRequest({
-            requestedOperation: appleAuth.Operation.LOGIN,
-            requestedScopes: [
-              appleAuth.Scope.EMAIL,
-              appleAuth.Scope.FULL_NAME,
-            ],
-          });
-    
-          console.log('appleAuthRequestResponse', appleAuthRequestResponse);
-    
-          const {
-            user: newUser,
-            email,
-            nonce,
-            identityToken,
-            realUserStatus /* etc */,
-          } = appleAuthRequestResponse;
-    
-          this.user = newUser;
-          console.log(newUser, '====')
-          this.fetchAndUpdateCredentialState()
-            .then(res => this.setState({ credentialStateForUser: res }))
-            .catch(error =>
-              this.setState({ credentialStateForUser: `Error: ${error.code}` }),
-            );
-    
-          if (identityToken) {
-            // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
-            console.log(nonce, identityToken);
-          } else {
-            // no token - failed sign-in?
-          }
-    
-          if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
-            console.log("I'm a real person!");
-          }
-    
-          console.warn(`Apple Authentication Completed, ${this.user}, ${email}`);
+            //console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+            const {
+                user: newUser,
+                email,
+                fullName
+            } = appleAuthRequestResponse;
+
+            this.user = newUser;
+            this.fetchAndUpdateCredentialState()
+                .then(res => {
+                    let payload = {
+                        header: {
+                            onesignalToken: this.props.userId.userId
+                        },
+                        body: {
+                            sosmed: "apple",
+                            apple_token: newUser,
+                            email: email,
+                        }
+                    };
+                    this.props.sign_in_socmed(payload,
+                        () => {
+                            actNav.reset(navConstant.Dashboard);
+                        },
+                        (err) => {
+                            let params = {
+                                name: `${fullName.givenName} ${fullName.familyName}`,
+                                email: email,
+                                sosmed: "apple",
+                                apple_token: newUser
+                            };
+
+                            switch (err.code) {
+                                case 404:
+                                    actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                                    break;
+                                case 400:
+                                    actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
+                                default:
+                                    break;
+                            }
+                        });
+                    this.setState({credentialStateForUser: res});
+                })
+                .catch(error => {
+                    console.log('masuk error', error);
+                    this.setState({credentialStateForUser: `Error: ${error.code}`});
+                });
+
         } catch (error) {
-          if (error.code === appleAuth.Error.CANCELED) {
-            console.log('User canceled Apple Sign in.');
-          } else {
             console.log('error', error);
-          }
         }
     };
 
-    async fetchAndUpdateCredentialState () {
+    async fetchAndUpdateCredentialState() {
         if (this.user === null) {
-          this.setState({ credentialStateForUser: 'N/A' });
+            this.setState({credentialStateForUser: 'N/A'});
         } else {
-          const credentialState = await appleAuth.getCredentialStateForUser(this.user);
-          if (credentialState === appleAuth.State.AUTHORIZED) {
-            this.setState({ credentialStateForUser: 'AUTHORIZED' });
-          } else {
-            this.setState({ credentialStateForUser: credentialState });
-          }
+            // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+            const credentialState = await appleAuth.getCredentialStateForUser(this.user);
+            if (credentialState === appleAuth.State.AUTHORIZED) {
+                this.setState({credentialStateForUser: 'AUTHORIZED'});
+            } else {
+                this.setState({credentialStateForUser: credentialState});
+            }
         }
     }
 
-    render(){
-        console.log(typeof Platform.Version)
-        return(
+    render() {
+        return (
             <Container
                 bgColorBottom={'white'}
                 bgColorTop={'red'}
             >
-                <NavigationBar 
+                <NavigationBar
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}
                 />
                 <ScrollView
-                    keyboardShouldPersistTaps={'handled'} 
+                    keyboardShouldPersistTaps={'handled'}
                     style={styles.container}
                 >
-                    <FormInput 
-                        ref={c => {this.formPhone = c}}
+                    <FormInput
+                        ref={c => {this.formPhone = c;}}
                         type={'phone'}
                         autoFocus={true}
                         keyboardType={'number-pad'}
@@ -363,8 +367,8 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.phone}
                         property={'signIn.validation.phone'}
                     />
-                    <FormInput 
-                        ref={c => {this.formPassword = c}}
+                    <FormInput
+                        ref={c => {this.formPassword = c;}}
                         type={'password'}
                         value={this.state.user.password}
                         isPassword={true}
@@ -381,7 +385,7 @@ class SignIn extends Component {
                         validation={this.state.validateStatus.passwordLength}
                         property={'signIn.validation.passwordLength'}
                     />
-                    <ForgotPassword 
+                    <ForgotPassword
                         onPress={this.navigateToForgotPassword}
                     />
                     <Button
@@ -391,35 +395,35 @@ class SignIn extends Component {
                     />
 
                     <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                        <StaticText 
+                        <StaticText
                             style={styles.socmedText}
                             property={'signIn.validation.social'}
                         />
 
                         <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                            {Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13 && <Sosmed type={'apple'} onPress={this.appleHandler}/> }
-                            <Sosmed type={'facebook'} onPress={this.facebookHandler}/>
-                            <Sosmed type={'google'} onPress={this.googleHandler}/>
+                            {Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13 && <Sosmed type={'apple'} onPress={this.appleHandler} />}
+                            <Sosmed type={'facebook'} onPress={this.facebookHandler} />
+                            <Sosmed type={'google'} onPress={this.googleHandler} />
                         </View>
                     </View>
-                    
-                    <Register 
+
+                    <Register
                         onPress={this.navigateToRegister}
                     />
                 </ScrollView>
             </Container>
-        )
+        );
     }
 }
 
 const mapStateToProps = state => ({
     userId: state.user.userId
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-    sign_in : (req,res,err) => dispatch(actions.auth.api.sign_in(req,res,err)),
-    sign_in_socmed: (req,res,err) => dispatch(actions.auth.api.sign_in_socmed(req,res,err)),
+    sign_in: (req, res, err) => dispatch(actions.auth.api.sign_in(req, res, err)),
+    sign_in_socmed: (req, res, err) => dispatch(actions.auth.api.sign_in_socmed(req, res, err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -65,12 +65,12 @@ class ProfilePage extends Component {
             maxHeight: 500,
             quality: Platform.OS == 'android' ? 0.9 : 0.6,
             storageOptions: {
-              skipBackup: true,
-              path: 'images'
+                skipBackup: true,
+                path: 'images'
             }
         };
-        
-        ImagePicker.showImagePicker( options, (response) => {
+
+        ImagePicker.showImagePicker(options, (response) => {
             if (response.didCancel) {
                 // console.log('User cancelled image picker');
             }
@@ -86,52 +86,52 @@ class ProfilePage extends Component {
                     type: response.type == undefined ? 'image/jpeg' : response.type,
                     name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
                     data: response.data
-                }
+                };
 
                 let formData = new FormData();
-                formData.append('image', data)
+                formData.append('image', data);
 
                 let payload = {
                     header: {
                         apiToken: this.props.user.authorization
                     },
                     body: formData
-                }
+                };
 
                 this.props.upload_photo(payload,
                     (res) => {
                         language.transformText('message.uploadPhotoSuccess')
-				        .then(message => {
-				        	this.props.set_success_status({
-				        		status: true,
-				        		data: message,
-				        		title: 'formSuccess.title.default'
-				        	});
-				        	setTimeout(() => {
-				        		this.props.set_success_status({
-				        			status: false,
-				        			data: '',
-				        			title: ''
-				        		});
-				        	},1000);
-				        });
+                            .then(message => {
+                                this.props.set_success_status({
+                                    status: true,
+                                    data: message,
+                                    title: 'formSuccess.title.default'
+                                });
+                                setTimeout(() => {
+                                    this.props.set_success_status({
+                                        status: false,
+                                        data: '',
+                                        title: ''
+                                    });
+                                }, 1000);
+                            });
                     },
                     (err) => {
-                        console.log(err)
+                        console.log(err);
                         language.transformText('message.uploadPhotoError')
-			            .then(message => {
-			            	this.props.set_error_status({
-			            		status: true,
-			            		title: 'formError.title.default',
-			            		data: message,
+                            .then(message => {
+                                this.props.set_error_status({
+                                    status: true,
+                                    title: 'formError.title.default',
+                                    data: message,
+                                });
                             });
-                        });
-                    })
+                    });
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
             }
-        })
+        });
         //const options = {
         //    title: 'Select Image',
         //    mediaType: 'photo',
@@ -159,51 +159,51 @@ class ProfilePage extends Component {
         //        // console.log("===>",response)
 
 
-            //    let data = {
-            //        uri: response.uri,
-            //        type: response.type == undefined ? 'image/jpeg' : response.type,
-            //        name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
-            //        data: response.data
-            //    }
+        //    let data = {
+        //        uri: response.uri,
+        //        type: response.type == undefined ? 'image/jpeg' : response.type,
+        //        name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
+        //        data: response.data
+        //    }
 
-            //    let formData = new FormData();
-            //    formData.append('image', data)
+        //    let formData = new FormData();
+        //    formData.append('image', data)
 
-            //    let payload = {
-            //        header: {
-            //            apiToken: this.props.user.authorization
-            //        },
-            //        body: formData
-            //    }
+        //    let payload = {
+        //        header: {
+        //            apiToken: this.props.user.authorization
+        //        },
+        //        body: formData
+        //    }
 
-            //    this.props.upload_photo(payload,
-            //        (res) => {
-            //            language.transformText('message.uploadPhotoSuccess')
-        	// 	        .then(message => {
-        	// 	        	this.props.set_success_status({
-        	// 	        		status: true,
-        	// 	        		data: message,
-        	// 	        		title: 'formSuccess.title.default'
-        	// 	        	});
-        	// 	        	setTimeout(() => {
-        	// 	        		this.props.set_success_status({
-        	// 	        			status: false,
-        	// 	        			data: '',
-        	// 	        			title: ''
-        	// 	        		});
-        	// 	        	},1000);
-        	// 	        });
-            //        },
-            //        (err) => {
-            //            language.transformText('message.uploadPhotoError')
-        	//             .then(message => {
-        	//             	this.props.set_error_status({
-        	//             		status: true,
-        	//             		title: 'formError.title.default',
-        	//             		data: message,
-            //                });
-            //            });
-            //        })
+        //    this.props.upload_photo(payload,
+        //        (res) => {
+        //            language.transformText('message.uploadPhotoSuccess')
+        // 	        .then(message => {
+        // 	        	this.props.set_success_status({
+        // 	        		status: true,
+        // 	        		data: message,
+        // 	        		title: 'formSuccess.title.default'
+        // 	        	});
+        // 	        	setTimeout(() => {
+        // 	        		this.props.set_success_status({
+        // 	        			status: false,
+        // 	        			data: '',
+        // 	        			title: ''
+        // 	        		});
+        // 	        	},1000);
+        // 	        });
+        //        },
+        //        (err) => {
+        //            language.transformText('message.uploadPhotoError')
+        //             .then(message => {
+        //             	this.props.set_error_status({
+        //             		status: true,
+        //             		title: 'formError.title.default',
+        //             		data: message,
+        //                });
+        //            });
+        //        })
 
         //        // You can also display the image using data:
         //        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -224,38 +224,38 @@ class ProfilePage extends Component {
     openFromGallery() {
         ImagePicker.launchImageLibrary({
             storageOptions: {
-              skipBackup: true,
-              path: 'images',
+                skipBackup: true,
+                path: 'images',
             },
             quality: 0.5,
             mediaType: 'photo',
             maxWidth: 1280,
             maxHeight: 720
-          }, (response) => {
-            console.log(response)
+        }, (response) => {
+            console.log(response);
             if (response.didCancel || response.error) {
-                console.warn('MASUK????')
-                this.setState({modalVisible: false})
+                console.warn('MASUK????');
+                this.setState({modalVisible: false});
             } else {
                 let data = {
                     uri: response.uri,
                     type: response.type == undefined ? 'image/jpeg' : response.type,
                     name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
                     data: response.data
-                }
+                };
 
-                console.log(data)
- 
+                console.log(data);
+
                 // let formData = new FormData();
                 // formData.append('image', data)
- 
+
                 // let payload = {
                 //     header: {
                 //         apiToken: this.props.user.authorization
                 //     },
                 //     body: formData
                 // }
- 
+
                 // this.props.upload_photo(payload,
                 //     (res) => {
                 //         language.transformText('message.uploadPhotoSuccess')
@@ -284,9 +284,9 @@ class ProfilePage extends Component {
                 //             });
                 //         });
                 //     })
-              this.setState({modalVisible: false})
+                this.setState({modalVisible: false});
             }
-          });
+        });
     }
 
     render() {
@@ -295,7 +295,7 @@ class ProfilePage extends Component {
                 bgColorBottom={'veryLightGrey'}
                 bgColorTop={'red'}
             >
-                <Modal
+                {/*<Modal
                     animationType={'slide'}
                     transparent={true}
                     // visible={true}
@@ -320,7 +320,7 @@ class ProfilePage extends Component {
 
                     </View>
 
-                </Modal>
+                </Modal>*/}
                 <View style={styles.container}>
                     <PhotoComponent
                         user={this.props.user}
