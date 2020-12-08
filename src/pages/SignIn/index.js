@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, Keyboard, View, Platform} from 'react-native';
 import {connect} from 'react-redux';
-import {AppleButton, appleAuth} from '@invertase/react-native-apple-authentication';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
 
 import actions from '@actions';
 import {actNav, navConstant} from '@navigations';
@@ -32,10 +32,7 @@ class SignIn extends Component {
                 password: true,
                 passwordLength: true,
             },
-            credentialStateForUser: -1,
         };
-        this.authCredentialListener = null;
-        this.user = null;
         this.onChangeText = this.onChangeText.bind(this);
         this.submitPhone = this.submitPhone.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
@@ -49,28 +46,10 @@ class SignIn extends Component {
         this.facebookHandler = this.facebookHandler.bind(this);
         this.googleHandler = this.googleHandler.bind(this);
         this.appleHandler = this.appleHandler.bind(this);
-        this.fetchAndUpdateCredentialState = this.fetchAndUpdateCredentialState.bind(this);
-    }
-
-    componentDidMount() {
-        if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13) {
-            this.authCredentialListener = appleAuth.onCredentialRevoked(async () => {
-                console.log('Credential Revoked');
-                this.fetchAndUpdateCredentialState().catch(error =>
-                    this.setState({credentialStateForUser: `Error: ${error.code}`}),
-                );
-            });
-
-            this.fetchAndUpdateCredentialState()
-                .then(res => this.setState({credentialStateForUser: res}))
-                .catch(error => this.setState({credentialStateForUser: `Error: ${error.code}`}));
-        }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13) {
-            this.authCredentialListener();
-        }
+
         if (this.props.navigation.state.params.closeDrawer) {
             this.props.navigation.state.params.closeDrawer();
         }
@@ -276,65 +255,44 @@ class SignIn extends Component {
                 fullName
             } = appleAuthRequestResponse;
 
-            this.user = newUser;
-            this.fetchAndUpdateCredentialState()
-                .then(res => {
-                    let payload = {
-                        header: {
-                            onesignalToken: this.props.userId.userId
-                        },
-                        body: {
-                            sosmed: "apple",
-                            apple_token: newUser,
-                            email: email,
-                        }
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "apple",
+                    apple_token: newUser,
+                    email: email,
+                }
+            };
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Dashboard);
+                },
+                (err) => {
+                    let params = {
+                        name: `${fullName.givenName} ${fullName.familyName}`,
+                        email: email,
+                        sosmed: "apple",
+                        apple_token: newUser
                     };
-                    this.props.sign_in_socmed(payload,
-                        () => {
-                            actNav.reset(navConstant.Dashboard);
-                        },
-                        (err) => {
-                            let params = {
-                                name: `${fullName.givenName} ${fullName.familyName}`,
-                                email: email,
-                                sosmed: "apple",
-                                apple_token: newUser
-                            };
 
-                            switch (err.code) {
-                                case 404:
-                                    actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
-                                    break;
-                                case 400:
-                                    actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
-                                default:
-                                    break;
-                            }
-                        });
-                    this.setState({credentialStateForUser: res});
-                })
-                .catch(error => {
-                    this.setState({credentialStateForUser: `Error: ${error.code}`});
+                    switch (err.code) {
+                        case 404:
+                            actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
+                        default:
+                            break;
+                    }
                 });
+
 
         } catch (error) {
             console.log('error', error);
         }
     };
-
-    async fetchAndUpdateCredentialState() {
-        if (this.user === null) {
-            this.setState({credentialStateForUser: 'N/A'});
-        } else {
-            // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
-            const credentialState = await appleAuth.getCredentialStateForUser(this.user);
-            if (credentialState === appleAuth.State.AUTHORIZED) {
-                this.setState({credentialStateForUser: 'AUTHORIZED'});
-            } else {
-                this.setState({credentialStateForUser: credentialState});
-            }
-        }
-    }
 
     render() {
         return (
