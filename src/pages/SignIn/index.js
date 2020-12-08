@@ -53,7 +53,7 @@ class SignIn extends Component {
     }
 
     componentDidMount() {
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13) {
             this.authCredentialListener = appleAuth.onCredentialRevoked(async () => {
                 console.log('Credential Revoked');
                 this.fetchAndUpdateCredentialState().catch(error =>
@@ -68,7 +68,7 @@ class SignIn extends Component {
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13) {
             this.authCredentialListener();
         }
         if (this.props.navigation.state.params.closeDrawer) {
@@ -334,6 +334,7 @@ class SignIn extends Component {
     }
 
     render(){
+        console.log(typeof Platform.Version)
         return(
             <Container
                 bgColorBottom={'white'}
@@ -396,7 +397,7 @@ class SignIn extends Component {
                         />
 
                         <View style={{flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                            {Platform.OS === 'ios' && <Sosmed type={'apple'} onPress={this.appleHandler}/> }
+                            {Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13 && <Sosmed type={'apple'} onPress={this.appleHandler}/> }
                             <Sosmed type={'facebook'} onPress={this.facebookHandler}/>
                             <Sosmed type={'google'} onPress={this.googleHandler}/>
                         </View>
