@@ -143,6 +143,7 @@ class Checkout extends Component {
 		modalVisible[type] = value;
 		this.setState({modalVisible});
 	}
+
 	getDeliveryDate(payload) {
 		this.setState({
 			date: {
@@ -160,6 +161,7 @@ class Checkout extends Component {
 		// 	}
 		// },this.showDeliveryTime)
 	}
+
 	getDeliveryTime = (payload) => {
 		this.setState({
 			delivery_time: payload
@@ -406,7 +408,6 @@ class Checkout extends Component {
 						// }
 
 						if (this.state.redirect_url.length !== 0) {
-
 							actNav.navigate(navConstant.ChoosePayment, {
 								...this.props.navigation.state.params,
 								token: this.state.token,
@@ -418,7 +419,6 @@ class Checkout extends Component {
 								validateTransactionStatus: this.validateTransactionStatus
 							});
 						} else {
-							// console.log('COD', res)
 							this.validateTransactionStatus();
 						}
 					});
@@ -440,7 +440,6 @@ class Checkout extends Component {
 	};
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
@@ -455,14 +454,12 @@ class Checkout extends Component {
 					invoice: '',
 					redirect_url: '',
 				}, () => {
-					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
 					this.props.navigation.state.params.createOrderHandler(res.data.invoice, paymentMethod);
 				});
 			},
 			(err) => {
 				if (paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
-					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
 					this.props.set_error_status({
 						status: true,

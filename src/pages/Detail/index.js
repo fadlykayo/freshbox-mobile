@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity, Platform, BackHandler } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {View, ScrollView, FlatList, RefreshControl, Text, TouchableOpacity, Platform, BackHandler} from 'react-native';
+import {actNav, navConstant} from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import DetailOrder from './components/DetailOrder';
 import CartComponent from './components/CartComponent';
 import TotalPrice from './components/TotalPrice';
 import AlertDialog from '@components/AlertDialog';
-import { language, analytics } from '@helpers';
+import {language, analytics} from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
 const BANK_TRANSFER = 'bank_transfer';
 
 class Detail extends Component {
-  	constructor(props) {
-		super(props)
+	constructor (props) {
+		super(props);
 		this.state = {
 			status: 'historyDetail.content.checkout',
 			totalPrice: 0,
@@ -33,28 +33,28 @@ class Detail extends Component {
 				reorder: false,
 			},
 			radio: [
-					{
-						name	: 'cod',
-						status: false,
-					},
-					{
-						name:'transfer',
-						status:true,
-					},
-					{
-						name:'gopay',
-						status:false,
-					},
-					{
-						name:'credit_card',
-						status:false,
-					},
-					
-				],
+				{
+					name: 'cod',
+					status: false,
+				},
+				{
+					name: 'transfer',
+					status: true,
+				},
+				{
+					name: 'gopay',
+					status: false,
+				},
+				{
+					name: 'credit_card',
+					status: false,
+				},
+
+			],
 			payment_type: 'transfer'
-			},
-			
-		this._onRefresh = this._onRefresh.bind(this);
+		},
+
+			this._onRefresh = this._onRefresh.bind(this);
 		this.navigateBack = this.navigateBack.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
@@ -70,26 +70,26 @@ class Detail extends Component {
 		this.onPressRadio = this.onPressRadio.bind(this);
 		// this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	}
-	
+
 	componentWillUnmount() {
-		if(this.state.isNavigateBack == true){
-			if (this.props.navigation.state.params.refreshHandler){
-				if(this.props.navigation.state.params.fromThanksPage) {
+		if (this.state.isNavigateBack == true) {
+			if (this.props.navigation.state.params.refreshHandler) {
+				if (this.props.navigation.state.params.fromThanksPage) {
 					return null;
 				} else {
 					this.props.navigation.state.params.refreshHandler();
 				}
 			}
-			else{
-				if(this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0){
+			else {
+				if (this.props.navigation.state.params.cancelInvoice && this.state.token.length > 0) {
 					this.props.navigation.state.params.cancelInvoice(this.state.token);
 				}
 			}
 		}
 		// BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 	}
-    
-    componentDidMount() {
+
+	componentDidMount() {
 		this.setDetailTransaction();
 		this.messageOrderSuccess();
 		this.clearNotification();
@@ -110,32 +110,32 @@ class Detail extends Component {
 	// }
 
 	clearNotification() {
-		if(this.props.notif) this.props.reset_notification();
+		if (this.props.notif) this.props.reset_notification();
 	}
 
 	//status itu payment method
-	validateTransactionStatus(paymentMethod, midtransObject){
-		
+	validateTransactionStatus(paymentMethod, midtransObject) {
+
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
 			type: 'validation',
 			invoice: this.state.invoice
-		}
-		this.props.detail_transaction(payload, 
+		};
+		this.props.detail_transaction(payload,
 			(res) => {
 				this.setState({
 					token: '',
 					invoice: '',
 					redirect_url: '',
-				},() => {
+				}, () => {
 					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
 					this.props.navigation.state.params.createOrderHandler(res.data.invoice);
-				})
+				});
 			},
 			(err) => {
-				if(paymentMethod == 'gopay') {
+				if (paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
@@ -146,11 +146,11 @@ class Detail extends Component {
 					});
 				}
 			}
-		)
+		);
 	}
 
-	cancelGopayInvoice (invoice) {
-		
+	cancelGopayInvoice(invoice) {
+
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -161,37 +161,37 @@ class Detail extends Component {
 			info: 'gopay'
 		};
 
-		this.props.cancel_invoice(payload, 
-			() => actNav.navigate(navConstant.Product), 
+		this.props.cancel_invoice(payload,
+			() => actNav.navigate(navConstant.Product),
 			(err) => {
-				console.log()
+				console.log();
 			}
-		)
+		);
 	}
 
 	messageOrderSuccess() {
-		if(this.props.navigation.state.params.createOrderSuccess){
+		if (this.props.navigation.state.params.createOrderSuccess) {
 			// console.log('====> ini message order', this.props.navigation.state.params.invoice)
-			if(this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
+			if (this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
 				language.transformText('message.paymentSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.createOrder'
+					.then(message => {
+						this.props.set_success_status({
+							status: true,
+							data: message,
+							title: 'formSuccess.title.createOrder'
+						});
 					});
-				});
 				this.props.navigation.state.params.createOrderSuccess = null;
 			}
 			else {
 				language.transformText('message.createOrderSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.createOrder'
+					.then(message => {
+						this.props.set_success_status({
+							status: true,
+							data: message,
+							title: 'formSuccess.title.createOrder'
+						});
 					});
-				});
 			}
 		} else {
 			this.props.set_error_status({
@@ -202,9 +202,8 @@ class Detail extends Component {
 		}
 	}
 
-	setDetailTransaction(){
-		if(this.props.navigation.state.params.action == 'history'){
-			console.warn(this.props.detailTransaction)
+	setDetailTransaction() {
+		if (this.props.navigation.state.params.action == 'history') {
 			this.setState({
 				status: this.props.detailTransaction.status,
 				totalPrice: this.props.detailTransaction.sub_total,
@@ -212,21 +211,21 @@ class Detail extends Component {
 				grandTotalPrice: this.props.detailTransaction.grand_total - this.props.detailTransaction.discount_ammount,
 			});
 		}
-		else{
+		else {
 			this.getDeliveryPrice();
 		}
 	}
 
-    getDeliveryPrice(){
+	getDeliveryPrice() {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
 			},
 			body: {},
 			params: {}
-		}
+		};
 
-		this.props.get_delivery_price(payload, 
+		this.props.get_delivery_price(payload,
 			() => {
 				this.setState({
 					status: 'historyDetail.content.checkout',
@@ -238,10 +237,10 @@ class Detail extends Component {
 			(err) => {
 				// console.log(err);
 			}
-		)
+		);
 	}
 
-	toggleFavorite(payload){
+	toggleFavorite(payload) {
 		if (payload.wishlisted == 1) {
 			let data = {
 				request: {
@@ -251,13 +250,13 @@ class Detail extends Component {
 					body: {}
 				},
 				favorite: payload,
-			}
+			};
 			this.props.delete_favorite(data,
-				() => {},
+				() => { },
 				(err) => {
 					// console.log(err);
 				}
-			)
+			);
 		}
 		else {
 			let data = {
@@ -270,17 +269,17 @@ class Detail extends Component {
 					}
 				},
 				favorite: payload
-			}
+			};
 			this.props.add_favorite(data,
-				() => {},
+				() => { },
 				(err) => {
 					// console.log(err);
 				}
-			)
+			);
 		}
 	}
 
-	toggleFavoriteHistory(payload){
+	toggleFavoriteHistory(payload) {
 		if (payload.product.wishlisted == 1) {
 			let data = {
 				request: {
@@ -290,13 +289,13 @@ class Detail extends Component {
 					body: {}
 				},
 				favorite: payload,
-			}
+			};
 			this.props.delete_favorite_history(data,
-				() => {},
+				() => { },
 				(err) => {
 					// console.log(err);
 				}
-			)
+			);
 		}
 		else {
 			let data = {
@@ -309,123 +308,123 @@ class Detail extends Component {
 					}
 				},
 				favorite: payload
-			}
+			};
 
 			this.props.add_favorite_history(data,
-				() => {},
+				() => { },
 				(err) => {
 					// console.log(err);
 				}
-			)
+			);
 		}
 	}
 
-    navigateToCart(){
-			//test
+	navigateToCart() {
+		//test
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
 			},
-			invoice: this.props.detailTransaction.invoice 
-		}
+			invoice: this.props.detailTransaction.invoice
+		};
 
 		this.props.reorder_transaction(payload,
 			() => {
-				actNav.reset(navConstant.Product,{
+				actNav.reset(navConstant.Product, {
 					action: 'reorder'
 				});
 			},
 			(err) => {
 				// console.log(err);
 			}
-		)
+		);
 	}
-    
-    navigateToChoosePayment(){
-		
+
+	navigateToChoosePayment() {
+
 		// if(this.state.token.length == 0){
 
-			let address = this.props.addresses.filter(address => address.primary == 1)[0];
-	
-			let payload = {
-				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
-				},
-				body: {
-					address_code: address.code,
-					request_shipping_date: this.props.navigation.state.params.date.value,
-					cash_on_delivery: this.state.radio[0].status,
-					coupon_code: this.props.coupon_code,
-					discount_ammount: this.props.discount,
-					payment_type: this.state.payment_type,
-				}
+		let address = this.props.addresses.filter(address => address.primary == 1)[0];
+
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+				address_code: address.code,
+				request_shipping_date: this.props.navigation.state.params.date.value,
+				cash_on_delivery: this.state.radio[0].status,
+				coupon_code: this.props.coupon_code,
+				discount_ammount: this.props.discount,
+				payment_type: this.state.payment_type,
 			}
+		};
 
-			// console.log('coba', payload)
-			
-			this.props.request_snap_token(payload,
-				res => {
-					if(res.redirect_url) {
-						this.setState({
-							token: res.token,
-							invoice: res.invoice,
-							redirect_url: res.redirect_url,
-							midtrans: res.midtrans_json
-						},() => {
+		// console.log('coba', payload)
 
-								if(this.state.radio[2].status == true) {
-									// analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
-								} else {
-									// analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
-								}
+		this.props.request_snap_token(payload,
+			res => {
+				if (res.redirect_url) {
+					this.setState({
+						token: res.token,
+						invoice: res.invoice,
+						redirect_url: res.redirect_url,
+						midtrans: res.midtrans_json
+					}, () => {
 
-								if(this.state.redirect_url.length !== 0) {
-									
-									actNav.navigate(navConstant.ChoosePayment,{
-										...this.props.navigation.state.params,
-										token: this.state.token,
-										invoice: this.state.invoice,
-										redirect_url: this.state.redirect_url,
-										midtrans: this.state.midtrans,
-										gopay: this.state.radio[2].status,
-										validateTransactionStatus: this.validateTransactionStatus
-									});
-								} else {
-									this.validateTransactionStatus();
-								}
-						});
+						if (this.state.radio[2].status == true) {
+							// analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+						} else {
+							// analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+						}
 
-					} else {
-						
-						this.setState({
-							invoice: res.invoice,
-						}, () => {
-							// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+						if (this.state.redirect_url.length !== 0) {
+
+							actNav.navigate(navConstant.ChoosePayment, {
+								...this.props.navigation.state.params,
+								token: this.state.token,
+								invoice: this.state.invoice,
+								redirect_url: this.state.redirect_url,
+								midtrans: this.state.midtrans,
+								gopay: this.state.radio[2].status,
+								validateTransactionStatus: this.validateTransactionStatus
+							});
+						} else {
 							this.validateTransactionStatus();
-						})
-					}
-				},
-				rej => {
-	
+						}
+					});
+
+				} else {
+
+					this.setState({
+						invoice: res.invoice,
+					}, () => {
+						// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+						this.validateTransactionStatus();
+					});
 				}
-			);
+			},
+			rej => {
+
+			}
+		);
 	}
 
-	navigateToTransferInstruction(){
-		actNav.navigate(navConstant.TransferInstruction,{refreshHandler: this.refreshHandler});
+	navigateToTransferInstruction() {
+		actNav.navigate(navConstant.TransferInstruction, {refreshHandler: this.refreshHandler});
 	}
 
 	navigateBack(key) {
 		this.setState({
 			isNavigateBack: true
 		}, () => {
-			if(key) actNav.goBack(key)
+			if (key) actNav.goBack(key);
 			else actNav.goBack();
 		});
 	}
 
-	refreshHandler(){
-		this.setState({refreshing: true},() => {
+	refreshHandler() {
+		this.setState({refreshing: true}, () => {
 			this._onRefresh();
 		});
 	}
@@ -436,29 +435,29 @@ class Detail extends Component {
 				apiToken: this.props.user.authorization,
 			},
 			invoice: this.props.detailTransaction.invoice
-		}
+		};
 
 		this.props.detail_transaction(payload,
 			() => {
-				
-				if(this.state.refreshing) this.setState({refreshing: false});
+
+				if (this.state.refreshing) this.setState({refreshing: false});
 			},
 			(err) => {
 				// console.log(err);
 			}
-		)
+		);
 	}
 
-	onPressRadio (type) {
+	onPressRadio(type) {
 		let radio = this.state.radio;
 
 		for (let index = 0; index < radio.length; index++) {
 			if (radio[index].name == type) {
-				radio[index].status = !radio[index].status
+				radio[index].status = !radio[index].status;
 			} else {
-				radio[index].status = false
+				radio[index].status = false;
 			}
-			
+
 		}
 		this.setState({
 			radio: radio,
@@ -470,16 +469,16 @@ class Detail extends Component {
 	clearCartAndReorder = () => {
 		return new Promise((resolve) => {
 			this.props.clear_products();
-			resolve()
+			resolve();
 		})
-		.then(() => {
-			this.navigateToCart();
-		})
-		
-	}
+			.then(() => {
+				this.navigateToCart();
+			});
+
+	};
 
 	cancelInvoice = () => {
-		
+
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -491,99 +490,99 @@ class Detail extends Component {
 		this.props.cancel_invoice(
 			payload,
 			() => {
-				this.setModalVisible('alertDialog', false)
-				actNav.goBack()
+				this.setModalVisible('alertDialog', false);
+				actNav.goBack();
 			},
 			() => {
-				this.setModalVisible('alertDialog', false)
+				this.setModalVisible('alertDialog', false);
 			}
-		)
-	}
+		);
+	};
 
 	cancelAlert = () => {
-		this.setModalVisible('alertDialog', false)
-	}
+		this.setModalVisible('alertDialog', false);
+	};
 
 	alertReorder = () => {
-		if(this.props.cart_product.length > 0) {
+		if (this.props.cart_product.length > 0) {
 			this.setModalVisible('reorder', true);
 		} else {
 			this.navigateToCart();
 		}
-		
-	}
+
+	};
 	cancelReorder = () => {
-		this.setModalVisible('reorder', false)
-	}
+		this.setModalVisible('reorder', false);
+	};
 
-	setModalVisible = (type,value) => {
-    let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
-    modalVisible[type] = value;
-    this.setState({modalVisible});
-  }
+	setModalVisible = (type, value) => {
+		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+		modalVisible[type] = value;
+		this.setState({modalVisible});
+	};
 
 
 
-  	render(){
-  	  	return(
-            <Container 				
-                bgColorBottom={'veryLightGrey'} 				
-                bgColorTop={'red'} 			
-            >
+	render() {
+		return (
+			<Container
+				bgColorBottom={'veryLightGrey'}
+				bgColorTop={'red'}
+			>
 				<NavigationBar
 					title={'historyDetail.navigationTitle'}
 					onPress={this.navigateBack}
 				/>
 				<ScrollView
-					refreshControl= {this.props.navigation.state.params.action == 'history'
+					refreshControl={this.props.navigation.state.params.action == 'history'
 						? <RefreshControl
-							  refreshing={this.state.refreshing}
-							  onRefresh={this.refreshHandler}
-							/>
+							refreshing={this.state.refreshing}
+							onRefresh={this.refreshHandler}
+						/>
 						: null
 					}
 					style={styles.container}
 				>
 					<DetailOrder
-							setDate={this.props.navigation.state.params.date}
-							addresses={this.props.addresses}
-							transaction={this.props.detailTransaction}
-							action={this.props.navigation.state.params.action}
+						setDate={this.props.navigation.state.params.date}
+						addresses={this.props.addresses}
+						transaction={this.props.detailTransaction}
+						action={this.props.navigation.state.params.action}
 					/>
 					<View style={styles.subcontainer}>
 						<FlatList
-						data={
-							this.props.navigation.state.params.action == 'history' 
-							? this.props.detailTransaction.details 
-							: this.props.cart_product
-						}
-						keyExtractor={(_,index) => index.toString()}
-						renderItem={({item,index}) => (
-							<CartComponent
-								data = {item}
-								index = {index} 
-								toggleFavorite={this.toggleFavorite}
-								toggleFavoriteHistory={this.toggleFavoriteHistory}
-								action={this.props.navigation.state.params.action}
-							/>
-						)}
+							data={
+								this.props.navigation.state.params.action == 'history'
+									? this.props.detailTransaction.details
+									: this.props.cart_product
+							}
+							keyExtractor={(_, index) => index.toString()}
+							renderItem={({item, index}) => (
+								<CartComponent
+									data={item}
+									index={index}
+									toggleFavorite={this.toggleFavorite}
+									toggleFavoriteHistory={this.toggleFavoriteHistory}
+									action={this.props.navigation.state.params.action}
+								/>
+							)}
 						/>
 					</View>
 
-					</ScrollView>
-					{
-						this.props.navigation.state.params.action !== 'history'
+				</ScrollView>
+				{
+					this.props.navigation.state.params.action !== 'history'
 						? <View style={styles.outerContainer}>
-								<View style={styles.radioContainer}>
-									<Text style={styles.text}>Transfer</Text><TouchableOpacity onPress = {() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
-								</View>
-								<View style={styles.radioContainer}>
-									<Text style={styles.text}>CreditCard</Text><TouchableOpacity onPress = {() => this.onPressRadio('credit_card')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[3].status)}></View></View></TouchableOpacity>
-								</View>
-								<View style={styles.radioContainer}>
-									<Text style={styles.text}>GoPay</Text><TouchableOpacity onPress = {() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
-								</View>
-								{/* <View style={styles.radioContainer}>
+							<View style={styles.radioContainer}>
+								<Text style={styles.text}>Transfer</Text><TouchableOpacity onPress={() => this.onPressRadio('transfer')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[1].status)}></View></View></TouchableOpacity>
+							</View>
+							<View style={styles.radioContainer}>
+								<Text style={styles.text}>CreditCard</Text><TouchableOpacity onPress={() => this.onPressRadio('credit_card')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[3].status)}></View></View></TouchableOpacity>
+							</View>
+							<View style={styles.radioContainer}>
+								<Text style={styles.text}>GoPay</Text><TouchableOpacity onPress={() => this.onPressRadio('gopay')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[2].status)}></View></View></TouchableOpacity>
+							</View>
+							{/* <View style={styles.radioContainer}>
 									<View>
 										<Text style={styles.text}>Cash On Delivery (COD)</Text>
 
@@ -596,10 +595,10 @@ class Detail extends Component {
 									</View>
 									<TouchableOpacity onPress = {() => this.onPressRadio('cod')}><View style={styles.radioOuter}><View style={styles.radioInner(this.state.radio[0].status)}></View></View></TouchableOpacity>
 								</View> */}
-							</View>
+						</View>
 						: null
-					}
-					
+				}
+
 
 				<TotalPrice
 					type={'red'}
@@ -631,8 +630,8 @@ class Detail extends Component {
 					requestCancel={this.cancelReorder}
 				/>
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 const mapStateToProps = (state) => ({
@@ -644,7 +643,7 @@ const mapStateToProps = (state) => ({
 	detailTransaction: state.transaction.detail,
 	transactions: state.transaction.transactions,
 	delivery_price: state.product.delivery_price,
-	minimumTrxFreeShippingCost : state.product.minimumTrxFreeShippingCost,
+	minimumTrxFreeShippingCost: state.product.minimumTrxFreeShippingCost,
 	additional: state.product.additional.credit_card,
 	discount: state.product.discount,
 	coupon_code: state.product.coupon_code,
@@ -653,18 +652,18 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	reset_notification: () => dispatch(actions.notif.reducer.reset_notification()),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
+	add_favorite: (req, res, err) => dispatch(actions.product.api.add_favorite(req, res, err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	delete_favorite: (req, res, err) => dispatch(actions.product.api.delete_favorite(req, res, err)),
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
-	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
-	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
+	get_delivery_price: (req, res, err) => dispatch(actions.product.api.get_delivery_price(req, res, err)),
+	request_snap_token: (req, res, err) => dispatch(actions.transaction.api.request_snap_token(req, res, err)),
 	clear_products: () => dispatch(actions.product.reducer.clear_products()),
-	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
-	reorder_transaction: (req,res,err) => dispatch(actions.transaction.api.reorder_transaction(req,res,err)),
-	add_favorite_history: (req,res,err) => dispatch(actions.transaction.api.add_favorite_history(req,res,err)),
-	delete_favorite_history: (req,res,err) => dispatch(actions.transaction.api.delete_favorite_history(req,res,err)),
-	cancel_invoice: (req,res,err) => dispatch(actions.transaction.api.cancel_invoice(req,res,err)),
+	detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
+	reorder_transaction: (req, res, err) => dispatch(actions.transaction.api.reorder_transaction(req, res, err)),
+	add_favorite_history: (req, res, err) => dispatch(actions.transaction.api.add_favorite_history(req, res, err)),
+	delete_favorite_history: (req, res, err) => dispatch(actions.transaction.api.delete_favorite_history(req, res, err)),
+	cancel_invoice: (req, res, err) => dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
