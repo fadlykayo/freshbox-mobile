@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.onReceived = this.onReceived.bind(this);
     this.onOpened = this.onOpened.bind(this);
@@ -146,22 +146,15 @@ class App extends Component {
 
   onReceived(notification) {
     if (notification.payload.title == 'Pembayaran Berhasil') {
-      // console.warn('test')
       this.props.get_notification(notification.payload);
-      // actNav.goBack();
     }
   }
 
   onOpened(openResult) {
     this.props.get_notification(openResult.notification.payload.additionalData);
-    // console.log('Message: ', openResult.notification.payload.body);
-    // console.log('Data: ', openResult.notification.payload.additionalData);
-    // console.log('isActive: ', openResult.notification.isAppInFocus);
-    // console.log('openResult: ', openResult);
   }
 
   onIds(device) {
-    // console.log('Device info: ', device);
     this.props.get_user_id(device);
   }
 

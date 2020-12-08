@@ -232,9 +232,7 @@ class ProfilePage extends Component {
             maxWidth: 1280,
             maxHeight: 720
         }, (response) => {
-            console.log(response);
             if (response.didCancel || response.error) {
-                console.warn('MASUK????');
                 this.setState({modalVisible: false});
             } else {
                 let data = {

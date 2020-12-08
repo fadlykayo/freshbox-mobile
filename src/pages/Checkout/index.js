@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { actNav, navConstant } from '@navigations';
-import moment, { min } from 'moment';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {View, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {actNav, navConstant} from '@navigations';
+import moment, {min} from 'moment';
 import id from 'moment/locale/id';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -13,19 +13,19 @@ import DeliveryPlace from './components/DeliveryPlace';
 import DiscountDetail from './components/DiscountDetail';
 import images from '@assets';
 import styles from './styles';
-import { language } from '@helpers';
+import {language} from '@helpers';
 import actions from '@actions';
 import FormInput from '@components/FormInput';
 
-moment.locale('id',id);
+moment.locale('id', id);
 
 class Checkout extends Component {
-  	constructor(props) {
-  		super(props)
+	constructor (props) {
+		super(props);
 		this.state = {
 			grandTotalPrice: 0,
 			date: null,
-			modalVisible:{
+			modalVisible: {
 				showDeliveryDate: false,
 				showPriceDetail: true,
 				showDiscountDetail: false,
@@ -39,8 +39,8 @@ class Checkout extends Component {
 			token: '',
 			invoice: '',
 			midtrans: '',
-			
-		}
+
+		};
 		this.getAddress = this.getAddress.bind(this);
 		this._renderLabel = this._renderLabel.bind(this);
 		this.cancelInvoice = this.cancelInvoice.bind(this);
@@ -65,10 +65,10 @@ class Checkout extends Component {
 	}
 
 	setVoucherLabel() {
-		if(this.props.discount == 0) {
+		if (this.props.discount == 0) {
 			this.setState({
 				voucherValidation: false
-			})
+			});
 		} else {
 			this.checkVoucherApi();
 		}
@@ -81,20 +81,20 @@ class Checkout extends Component {
 			},
 			body: {},
 			params: {}
-		}
+		};
 		this.props.get_delivery_date(
 			payload,
 			() => {
 				let state = this.state;
-				state.delivery_date = this.props.delivery_date
+				state.delivery_date = this.props.delivery_date;
 				// console.warn(state.delivery_date)
-				this.setState(state)
+				this.setState(state);
 				// console.warn('success')
 			},
 			(err) => {
-				
+
 			}
-		)
+		);
 	}
 
 	getDeliveryPrice() {
@@ -104,20 +104,20 @@ class Checkout extends Component {
 			},
 			body: {},
 			params: {}
-		}
+		};
 
-		this.props.get_delivery_price(payload, 
+		this.props.get_delivery_price(payload,
 			() => {
 				let state = this.state;
 
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
 
-				this.setState(state)
+				this.setState(state);
 			},
 			(err) => {
 				// console.log(err)
 			}
-		)
+		);
 	}
 
 	getAddress() {
@@ -127,30 +127,30 @@ class Checkout extends Component {
 			},
 			body: {},
 			params: {}
-		}
-		this.props.get_address(payload, 
+		};
+		this.props.get_address(payload,
 			() => {
 
 			},
 			(err) => {
 				// console.log(err)
 			}
-		)
+		);
 	}
 
-	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
-        modalVisible[type] = value;
-        this.setState({modalVisible});
-    }
-	getDeliveryDate(payload){
+	setModalVisible(type, value) {
+		let modalVisible = this.state.modalVisible;
+		modalVisible[type] = value;
+		this.setState({modalVisible});
+	}
+	getDeliveryDate(payload) {
 		this.setState({
-			date:{
+			date: {
 				origin: payload,
 				display: moment(payload).format('dddd, Do MMMM YYYY'),
 				value: moment(payload).format('YYYY-MM-DD HH:mm:ss'),
 			}
-		},this.closeDeliveryDate)
+		}, this.closeDeliveryDate);
 		//for later
 		// this.setState({
 		// 	date:{
@@ -163,119 +163,119 @@ class Checkout extends Component {
 	getDeliveryTime = (payload) => {
 		this.setState({
 			delivery_time: payload
-		},this.closeDeliveryDate)
-	}
+		}, this.closeDeliveryDate);
+	};
 
-	navigateToChooseAddress(){
+	navigateToChooseAddress() {
 		actNav.navigate(navConstant.ChooseAddress);
 	}
 
-	addressDateValidation = (method) =>{
+	addressDateValidation = (method) => {
 		let address = this.props.addresses.filter(address => address.primary == 1);
-		if(address.length == 0){
+		if (address.length == 0) {
 			language.transformText('message.emptyAddress')
-			.then(message => {
-				this.props.set_error_status({
-					status: true,
-					title: 'formError.title.emptyAddress',
-					data: message,
-				});
-			});
-		}
-		else{
-			if(this.state.date == null){
-				language.transformText('message.emptyDate')
 				.then(message => {
 					this.props.set_error_status({
 						status: true,
-						title: 'formError.title.emptyDate',
+						title: 'formError.title.emptyAddress',
 						data: message,
 					});
 				});
+		}
+		else {
+			if (this.state.date == null) {
+				language.transformText('message.emptyDate')
+					.then(message => {
+						this.props.set_error_status({
+							status: true,
+							title: 'formError.title.emptyDate',
+							data: message,
+						});
+					});
 			}
-			else{
+			else {
 				let today = new Date();
 				let todayHour = today.getHours();
 				let todayMin = today.getMinutes();
-				let tomorrowDate = today.getDate()+1;
+				let tomorrowDate = today.getDate() + 1;
 				let stateDate = new Date(this.state.date.origin).getDate();
-				if(todayHour <= 21 || (todayHour == 21 && todayMin < 55)){
+				if (todayHour <= 21 || (todayHour == 21 && todayMin < 55)) {
 					this.navigateToChoosePayment(method);
 				} else {
-					if(tomorrowDate == stateDate){
-						language.transformText('message.expiredDate','id',{
+					if (tomorrowDate == stateDate) {
+						language.transformText('message.expiredDate', 'id', {
 							date: this.state.date.display ? this.state.date.dispatch : '',
 						})
-						.then(message => {
-							this.props.set_error_status({
-								status: true,
-								title: 'formError.title.expiredDate',
-								data: message,
+							.then(message => {
+								this.props.set_error_status({
+									status: true,
+									title: 'formError.title.expiredDate',
+									data: message,
+								});
 							});
-						});
 					}
-					else{
+					else {
 						this.navigateToChoosePayment(method);
 					}
 				}
 			}
 		}
-	}
+	};
 
-	cancelInvoice(token){
-        let payload = {
+	cancelInvoice(token) {
+		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
 			body: {
-                token: token,
-            }
-        }
-        
-        this.props.cancel_checkout(payload,
-            res => {
-				// console.log(res);
-            },
-            rej => {
+				token: token,
+			}
+		};
 
-            }
-        );
+		this.props.cancel_checkout(payload,
+			res => {
+				// console.log(res);
+			},
+			rej => {
+
+			}
+		);
 	}
 
-	navigateToDetail(address){
+	navigateToDetail(address) {
 		let payload = {};
-		
+
 		payload.address_code = address.code;
 		payload.request_shipping_date = this.state.date.value;
 
-		actNav.navigate(navConstant.Detail, 
+		actNav.navigate(navConstant.Detail,
 			{
-				action: 'checkout', 
-				transaction: payload, 
+				action: 'checkout',
+				transaction: payload,
 				date: this.state.date,
 				cancelInvoice: this.cancelInvoice,
 				...this.props.navigation.state.params
 			}
-		)
+		);
 	}
-	
+
 	openDeliveryDate() {
-		this.setModalVisible('showDeliveryDate',true);
+		this.setModalVisible('showDeliveryDate', true);
 	}
-	
-	closeDeliveryDate(){
-		this.setModalVisible('showDeliveryDate',false);
-		this.setModalVisible('showDeliveryTime',false);
+
+	closeDeliveryDate() {
+		this.setModalVisible('showDeliveryDate', false);
+		this.setModalVisible('showDeliveryTime', false);
 	}
 	openDiscountDetail = () => {
 		this.setModalVisible('showDiscountDetail', true);
-	}
+	};
 	closeDiscountDetail = () => {
 		this.setModalVisible('showDiscountDetail', false);
-	}
+	};
 	showDeliveryTime = () => {
 		this.setModalVisible('showDeliveryTime', true);
-	}
+	};
 
 	_renderLabel() {
 		if (this.state.date == null) return null;
@@ -286,13 +286,13 @@ class Checkout extends Component {
 					property={'checkout.content.chooseDate'}
 				/>
 			</View>
-		)
+		);
 	}
 
 	_renderVoucherInput = () => {
 		return (
 			<View style={styles.subcontainer.voucher.container}>
-				<FormInput 
+				<FormInput
 					type={'voucher'}
 					autoFocus={false}
 					value={this.state.coupon_code}
@@ -305,14 +305,14 @@ class Checkout extends Component {
 					cancelVoucherAPI={this.cancelVoucherAPI}
 				/>
 			</View>
-		)
-	}
+		);
+	};
 
 	onChangeTextVoucher = (type, value) => {
 		let coupon_code = this.state.coupon_code;
 		coupon_code = value;
 		this.setState({coupon_code});
-	}
+	};
 
 	checkVoucherApi = () => {
 		let payload = {
@@ -323,27 +323,27 @@ class Checkout extends Component {
 				coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
 				subtotal: this.props.totalPrice,
 			}
-		}
-        
+		};
+
 		this.props.check_voucher_api(payload,
 			res => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.totalPrice
+				state.grandTotalPrice = this.props.totalPrice;
 				state.voucherValidation = true;
 				this.setState(state);
 			},
 			rej => {
 				let state = this.state;
-				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount
+				state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
 				state.voucherValidation = false;
 				this.setState(state);
 			}
 		);
-	}
+	};
 
 	cancelVoucherAPI = () => {
-		if(this.props.coupon_code !== '' && this.state.voucherValidation == true) {
-			
+		if (this.props.coupon_code !== '' && this.state.voucherValidation == true) {
+
 			let payload = {
 				header: {
 					apiToken: this.props.user ? this.props.user.authorization : ''
@@ -352,8 +352,8 @@ class Checkout extends Component {
 					coupon_code: this.props.coupon_code == '' ? this.state.coupon_code : this.props.coupon_code,
 					// subtotal: this.props.totalPrice
 				}
-			}
-			
+			};
+
 			this.props.cancel_voucher(payload,
 				res => {
 					let state = this.state;
@@ -365,103 +365,102 @@ class Checkout extends Component {
 					// console.log(rej)
 				}
 			);
-		} 
+		}
 
-	}
+	};
 
 	navigateToChoosePayment = (method) => {
-		
+
 		// if(this.state.token.length == 0){
 
-			let address = this.props.addresses.filter(address => address.primary == 1)[0];
-	
-			let payload = {
-				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
-				},
-				body: {
-					address_code: address.code,
-					request_shipping_date: this.state.date.value,
-					cash_on_delivery: method == 'cod' ? true : false,
-					coupon_code: this.props.coupon_code,
-					discount_ammount: this.props.discount,
-					payment_type: method,
-				}
+		let address = this.props.addresses.filter(address => address.primary == 1)[0];
+
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+			body: {
+				address_code: address.code,
+				request_shipping_date: this.state.date.value,
+				cash_on_delivery: method == 'cod' ? true : false,
+				coupon_code: this.props.coupon_code,
+				discount_ammount: this.props.discount,
+				payment_type: method,
 			}
-			
-			this.props.request_snap_token(payload,
-				res => {
-					if(res.redirect_url) {
-						this.setState({
-							token: res.token,
-							invoice: res.invoice,
-							redirect_url: res.redirect_url,
-							midtrans: res.midtrans_json
-						},() => {
+		};
 
-								// if(this.state.radio[2].status == true) {
-								// 	analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
-								// } else {
-								// 	analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
-								// }
+		this.props.request_snap_token(payload,
+			res => {
+				if (res.redirect_url) {
+					this.setState({
+						token: res.token,
+						invoice: res.invoice,
+						redirect_url: res.redirect_url,
+						midtrans: res.midtrans_json
+					}, () => {
 
-								if(this.state.redirect_url.length !== 0) {
-									
-									actNav.navigate(navConstant.ChoosePayment,{
-										...this.props.navigation.state.params,
-										token: this.state.token,
-										invoice: this.state.invoice,
-										redirect_url: this.state.redirect_url,
-										midtrans: this.state.midtrans,
-										gopay: method == 'gopay' ? true : false,
-										method: method,
-										validateTransactionStatus: this.validateTransactionStatus
-									});
-								} else {
-									// console.log('COD', res)
-									this.validateTransactionStatus();
-								}
-						});
+						// if(this.state.radio[2].status == true) {
+						// 	analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
+						// } else {
+						// 	analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
+						// }
 
-					} else {
-						
-						this.setState({
-							invoice: res.invoice,
-						}, () => {
-							// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+						if (this.state.redirect_url.length !== 0) {
+
+							actNav.navigate(navConstant.ChoosePayment, {
+								...this.props.navigation.state.params,
+								token: this.state.token,
+								invoice: this.state.invoice,
+								redirect_url: this.state.redirect_url,
+								midtrans: this.state.midtrans,
+								gopay: method == 'gopay' ? true : false,
+								method: method,
+								validateTransactionStatus: this.validateTransactionStatus
+							});
+						} else {
+							// console.log('COD', res)
 							this.validateTransactionStatus();
-						})
-					}
-				},
-				rej => {
-	
+						}
+					});
+
+				} else {
+
+					this.setState({
+						invoice: res.invoice,
+					}, () => {
+						// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
+						this.validateTransactionStatus();
+					});
 				}
-			);
-	}
+			},
+			rej => {
+
+			}
+		);
+	};
 
 	validateTransactionStatus = (paymentMethod, midtransObject) => {
-		
+
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
 			type: 'validation',
 			invoice: this.state.invoice
-		}
-		this.props.detail_transaction(payload, 
+		};
+		this.props.detail_transaction(payload,
 			(res) => {
 				this.setState({
 					token: '',
 					invoice: '',
 					redirect_url: '',
-				},() => {
+				}, () => {
 					// analytics.trackEvent('Purchase Orders', {status: 'Success'})
 					this.props.navigation.state.params.createOrderHandler(res.data.invoice, paymentMethod);
-				})
+				});
 			},
 			(err) => {
-				console.warn('err checkout', err.data.status)
-				if(paymentMethod == 'gopay') {
+				if (paymentMethod == 'gopay') {
 					this.cancelGopayInvoice(midtransObject.transaction_details.order_id);
 					// analytics.trackEvent('Purchase Orders', {status: 'Failed'})
 				} else {
@@ -472,10 +471,10 @@ class Checkout extends Component {
 					});
 				}
 			}
-		)
-	}
+		);
+	};
 
-	cancelGopayInvoice (invoice) {
+	cancelGopayInvoice(invoice) {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
@@ -486,34 +485,34 @@ class Checkout extends Component {
 			info: 'gopay'
 		};
 
-		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log())
+		this.props.cancel_invoice(payload, () => actNav.navigate(navConstant.Product), () => console.log());
 	}
 
-messageOrderSuccess = () => {
-		if(this.props.navigation.state.params.createOrderSuccess){
-			if(this.props.navigation.state.params.invoice == 'credit_card') {
+	messageOrderSuccess = () => {
+		if (this.props.navigation.state.params.createOrderSuccess) {
+			if (this.props.navigation.state.params.invoice == 'credit_card') {
 				language.transformText('message.paymentSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.createOrder'
+					.then(message => {
+						this.props.set_success_status({
+							status: true,
+							data: message,
+							title: 'formSuccess.title.createOrder'
+						});
 					});
-				});
 				this.props.navigation.state.params.createOrderSuccess = null;
 			}
 			else {
 				language.transformText('message.createOrderSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.createOrder'
+					.then(message => {
+						this.props.set_success_status({
+							status: true,
+							data: message,
+							title: 'formSuccess.title.createOrder'
+						});
 					});
-				});
 			}
 		}
-	}
+	};
 
 	// renderPriceDetail = () => {
 	// 	return (
@@ -534,16 +533,16 @@ messageOrderSuccess = () => {
 	render() {
 		// console.warn(this.props.cart)
 		return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
+			<Container
+				bgColorBottom={'veryLightGrey'}
+				bgColorTop={'red'}
 			>
 				<NavigationBar
 					cancelVoucher={this.cancelVoucherAPI}
 					title={'checkout.navigationTitle'}
 				/>
 				<ScrollView style={styles.container}>
-				{this._renderVoucherInput()}
+					{this._renderVoucherInput()}
 					<DeliveryPlace
 						type={'white'}
 						address={'checkout.content.otherAddress'}
@@ -553,19 +552,19 @@ messageOrderSuccess = () => {
 					/>
 					<View style={styles.subcontainer.bottom}>
 						{/* {this._renderLabel()} */}
-						<TouchableOpacity 
-							style={styles.subcontainer.buttonDate} 
+						<TouchableOpacity
+							style={styles.subcontainer.buttonDate}
 							onPress={this.openDeliveryDate}
 						>
-							{ 
-								this.state.date == null 
-								? 	<StaticText
+							{
+								this.state.date == null
+									? <StaticText
 										style={styles.text.date}
 										property={'checkout.content.chooseDate'}
 									/>
-								: 	<Text style={styles.text.dateChoosen}>{this.state.date.display}</Text>
+									: <Text style={styles.text.dateChoosen}>{this.state.date.display}</Text>
 							}
-							
+
 							<View style={styles.subcontainer.icon}>
 								<Image
 									source={images.icon_calendar}
@@ -581,31 +580,31 @@ messageOrderSuccess = () => {
 							/>
 							<View>
 								<StaticText
-									property	= 'checkout.content.confirmDate'
-									style			= { styles.text.confirmDate }
+									property='checkout.content.confirmDate'
+									style={styles.text.confirmDate}
 								/>
-							{/* <StaticText
+								{/* <StaticText
 									property	= 'checkout.content.confirmPerson'
 									style			= { styles.text.confirmPerson }
 								/> */}
 
 							</View>
-							
+
 						</View>
 
-					
+
 					</View>
-					<View style = {styles.subcontainer.totalprice }>
+					<View style={styles.subcontainer.totalprice}>
 						<TotalPrice
 							type={'red'}
 							title={'checkout.content.checkout'}
 							subTotal={this.props.totalPrice}
 							grandTotal={this.state.grandTotalPrice}
 							delivery_price={this.props.delivery_price}
-							discount = {this.props.discount}
+							discount={this.props.discount}
 							onPress={this.addressDateValidation}
 							action={'checkout'}
-							additional = {this.props.additional}
+							additional={this.props.additional}
 							checkout={true}
 							freeShipping={this.props.minimumTrxFreeShippingCost}
 							openDiscountDetail={this.openDiscountDetail}
@@ -615,95 +614,95 @@ messageOrderSuccess = () => {
 					<View style={styles.subcontainer.paymentMethod}>
 						<View style={styles.subcontainer.paymentText}>
 							<StaticText
-									style={styles.paymentText}
-									property={'checkout.content.payment'}
-								/>
+								style={styles.paymentText}
+								property={'checkout.content.payment'}
+							/>
 						</View>
 						<View style={styles.outerContainer}>
 
-							<TouchableOpacity onPress	=	{() => this.addressDateValidation('transfer')}>
-								<View style	=	{styles.radioContainer}>
+							<TouchableOpacity onPress={() => this.addressDateValidation('transfer')}>
+								<View style={styles.radioContainer}>
 									<StaticText
-										style			=	{styles.text.methods}
-										property	=	{'checkout.methods.transfer'}
+										style={styles.text.methods}
+										property={'checkout.methods.transfer'}
 									/>
-									<View 
-										style	=	{styles.payment.imageContainer('transfer')}>
+									<View
+										style={styles.payment.imageContainer('transfer')}>
 										<Image
-											resizeMode	=	{'contain'}
-											source			=	{images.icon_logo_bca}
-											style				=	{styles.bank.bca}
+											resizeMode={'contain'}
+											source={images.icon_logo_bca}
+											style={styles.bank.bca}
 										/>
 										<Image
-											resizeMode	=	{'contain'}
-											source			=	{images.icon_logo_mandiri}
-											style				=	{styles.bank.mandiri}
+											resizeMode={'contain'}
+											source={images.icon_logo_mandiri}
+											style={styles.bank.mandiri}
 										/>
 										<Image
-											resizeMode	=	{'contain'}
-											source			=	{images.bri_bank}
-											style				=	{styles.bank.bri}
+											resizeMode={'contain'}
+											source={images.bri_bank}
+											style={styles.bank.bri}
 										/>
-										
+
 									</View>
-												<Image
-													resizeMode	=	{'contain'} 
-													source			=	{images.icon_arrow_right_red}
-													style				=	{styles.icon}
-												/>
+									<Image
+										resizeMode={'contain'}
+										source={images.icon_arrow_right_red}
+										style={styles.icon}
+									/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity 
-								onPress = {() => this.addressDateValidation('credit_card')}>
-								<View 
-									style	=	{styles.radioContainer}>
-				
+							<TouchableOpacity
+								onPress={() => this.addressDateValidation('credit_card')}>
+								<View
+									style={styles.radioContainer}>
+
 									<StaticText
-										style			=	{styles.text.methods}
-										property	=	{'checkout.methods.creditCard'}
+										style={styles.text.methods}
+										property={'checkout.methods.creditCard'}
 									/>
-									<View 
-										style	=	{styles.payment.imageContainer('credit_card')}>
+									<View
+										style={styles.payment.imageContainer('credit_card')}>
 										<Image
 											// resizeMode={'contain'}
-											source	=	{images.icon_visa}
-											style		=	{styles.bank.visa}
+											source={images.icon_visa}
+											style={styles.bank.visa}
 										/>
 										<Image
-											resizeMode	=	{'contain'}
-											source			=	{images.master_card}
-											style				=	{styles.bank.master}
+											resizeMode={'contain'}
+											source={images.master_card}
+											style={styles.bank.master}
 										/>
-										
+
 									</View>
-												<Image
-													resizeMode	=	{'contain'} 
-													source			=	{images.icon_arrow_right_red}
-													style				=	{styles.icon}
-												/>
+									<Image
+										resizeMode={'contain'}
+										source={images.icon_arrow_right_red}
+										style={styles.icon}
+									/>
 								</View>
 							</TouchableOpacity>
-							<TouchableOpacity 
-								onPress	=	{() => this.addressDateValidation('gopay')}>
-								<View 
-									style	=	{styles.radioContainer}>
+							<TouchableOpacity
+								onPress={() => this.addressDateValidation('gopay')}>
+								<View
+									style={styles.radioContainer}>
 									<StaticText
-										style			=	{styles.text.methods}
-										property	=	{'checkout.methods.gopay'}
+										style={styles.text.methods}
+										property={'checkout.methods.gopay'}
 									/>
 									<View style={styles.payment.imageContainer('gopay')}>
 										<Image
-											resizeMode	=	{'contain'}
-											source			=	{images.logo_gopay}
-											style				=	{styles.bank.gopay}
+											resizeMode={'contain'}
+											source={images.logo_gopay}
+											style={styles.bank.gopay}
 										/>
-										
+
 									</View>
-												<Image
-													resizeMode	=	{'contain'} 
-													source			=	{images.icon_arrow_right_red}
-													style				=	{styles.icon}
-												/>
+									<Image
+										resizeMode={'contain'}
+										source={images.icon_arrow_right_red}
+										style={styles.icon}
+									/>
 								</View>
 							</TouchableOpacity>
 							{/* <TouchableOpacity onPress = {() => this.addressDateValidation('cod')}>
@@ -726,7 +725,7 @@ messageOrderSuccess = () => {
 												/>
 								</View>
 							</TouchableOpacity> */}
-							
+
 						</View>
 
 					</View>
@@ -734,28 +733,28 @@ messageOrderSuccess = () => {
 				</ScrollView>
 
 				<DeliveryDate
-					getDeliveryDate		=	{this.getDeliveryDate}
-					modalVisible			=	{this.state.modalVisible.showDeliveryDate}
-					closeDeliveryDate	=	{this.closeDeliveryDate}
-					dates							=	{this.state.delivery_date}
-					// dateChosen				=	{this.state.date.origin}
+					getDeliveryDate={this.getDeliveryDate}
+					modalVisible={this.state.modalVisible.showDeliveryDate}
+					closeDeliveryDate={this.closeDeliveryDate}
+					dates={this.state.delivery_date}
+				// dateChosen				=	{this.state.date.origin}
 				/>
 				<DiscountDetail
-					getDeliveryDate		=	{this.getDeliveryDate}
-					modalVisible			=	{this.state.modalVisible.showDiscountDetail}
-					closeDeliveryDate	=	{this.closeDiscountDetail}
-					dates							=	{this.state.delivery_date}
-					freeShipping			=	{this.props.minimumTrxFreeShippingCost}
-					additional 				= {this.props.additional}
-					delivery_price		=	{this.props.delivery_price}
-					discount 					= {this.props.discount}
-					subTotal					=	{this.props.totalPrice}
-					grandTotal				=	{this.state.grandTotalPrice}
+					getDeliveryDate={this.getDeliveryDate}
+					modalVisible={this.state.modalVisible.showDiscountDetail}
+					closeDeliveryDate={this.closeDiscountDetail}
+					dates={this.state.delivery_date}
+					freeShipping={this.props.minimumTrxFreeShippingCost}
+					additional={this.props.additional}
+					delivery_price={this.props.delivery_price}
+					discount={this.props.discount}
+					subTotal={this.props.totalPrice}
+					grandTotal={this.state.grandTotalPrice}
 				/>
 				{/* {this.renderPriceDetail()} */}
 			</Container>
 		);
-  	}
+	}
 }
 
 const mapStateToProps = (state) => ({
@@ -773,16 +772,16 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	get_address: (req,res,err) => dispatch(actions.user.api.get_address(req,res,err)),
+	get_address: (req, res, err) => dispatch(actions.user.api.get_address(req, res, err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	cancel_checkout: (req,res,err) => dispatch(actions.transaction.api.cancel_checkout(req,res,err)),
-	get_delivery_price: (req,res,err) => dispatch(actions.product.api.get_delivery_price(req,res,err)),
-	get_delivery_date: (req, res, err) => dispatch(actions.utility.api.delivery_date(req,res,err)),
-	check_voucher_api: (req,res,err) => dispatch(actions.voucher.api.checkVoucherValidity(req,res,err)),
+	cancel_checkout: (req, res, err) => dispatch(actions.transaction.api.cancel_checkout(req, res, err)),
+	get_delivery_price: (req, res, err) => dispatch(actions.product.api.get_delivery_price(req, res, err)),
+	get_delivery_date: (req, res, err) => dispatch(actions.utility.api.delivery_date(req, res, err)),
+	check_voucher_api: (req, res, err) => dispatch(actions.voucher.api.checkVoucherValidity(req, res, err)),
 	cancel_voucher: (req, res, err) => dispatch(actions.voucher.api.cancel_voucher(req, res, err)),
-	request_snap_token: (req,res,err) => dispatch(actions.transaction.api.request_snap_token(req,res,err)),
-	cancel_invoice: (req,res,err) => dispatch(actions.transaction.api.cancel_invoice(req,res,err)),
-	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
+	request_snap_token: (req, res, err) => dispatch(actions.transaction.api.request_snap_token(req, res, err)),
+	cancel_invoice: (req, res, err) => dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
+	detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
