@@ -414,7 +414,7 @@ class Checkout extends Component {
 								invoice: this.state.invoice,
 								redirect_url: this.state.redirect_url,
 								midtrans: this.state.midtrans,
-								gopay: method == 'gopay' ? true : false,
+								//gopay: method == 'gopay' ? true : false,
 								method: method,
 								validateTransactionStatus: this.validateTransactionStatus
 							});

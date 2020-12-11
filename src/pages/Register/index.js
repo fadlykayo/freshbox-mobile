@@ -272,9 +272,9 @@ class Register extends Component {
                     <FormInput
                         ref={c => {this.formFullName = c;}}
                         type={'fullName'}
-                        autoFocus={this.props.navigation.state.params.socmed == undefined ? true : false}
+                        autoFocus={this.props.navigation.state.params.socmed == undefined || this.props.navigation.state.params.socmed.sosmed == 'apple' ? true : false}
                         value={this.state.user.fullName}
-                        editable={this.props.navigation.state.params.socmed == undefined ? true : false}
+                        editable={this.props.navigation.state.params.socmed == undefined || this.props.navigation.state.params.socmed.sosmed == 'apple' ? true : false}
                         onChangeText={this.onChangeText}
                         label={'register.formLabel.fullName'}
                         placeholder={'register.formLabel.fullName'}
