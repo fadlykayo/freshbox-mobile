@@ -151,8 +151,8 @@ android {
         applicationId "com.freshbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 28
-        versionName "1.9.2"
+        versionCode 29
+        versionName "2.0.0"
         multiDexEnabled true
         manifestPlaceholders = [onesignal_app_id: "c1f39bb2-11d8-4ebf-b836-61a0131fb3fa",
                                 onesignal_google_project_number: "REMOTE"]
