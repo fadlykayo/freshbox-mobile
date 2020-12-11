@@ -255,39 +255,46 @@ class SignIn extends Component {
                 fullName
             } = appleAuthRequestResponse;
 
-            let payload = {
-                header: {
-                    onesignalToken: this.props.userId.userId
-                },
-                body: {
-                    sosmed: "apple",
-                    apple_token: newUser,
-                    email: email,
-                }
-            };
-            this.props.sign_in_socmed(payload,
-                () => {
-                    actNav.reset(navConstant.Dashboard);
-                },
-                (err) => {
-                    let params = {
-                        name: `${fullName.givenName} ${fullName.familyName}`,
-                        email: email,
+            if (email) {
+                let payload = {
+                    header: {
+                        onesignalToken: this.props.userId.userId
+                    },
+                    body: {
                         sosmed: "apple",
-                        apple_token: newUser
-                    };
-
-                    switch (err.code) {
-                        case 404:
-                            actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
-                            break;
-                        case 400:
-                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
-                        default:
-                            break;
+                        apple_token: newUser,
+                        email: email,
                     }
-                });
+                };
 
+                this.props.sign_in_socmed(payload,
+                    () => {
+                        actNav.reset(navConstant.Dashboard);
+                    },
+                    (err) => {
+                        let params = {
+                            name: `${fullName.givenName} ${fullName.familyName}`,
+                            email: email,
+                            sosmed: "apple",
+                            apple_token: newUser
+                        };
+
+                        switch (err.code) {
+                            case 404:
+                                actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                                break;
+                            case 400:
+                                actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
+                            default:
+                                break;
+                        }
+                    });
+
+            } else {
+                actNav.navigate(navConstant.AppleSignIn, {
+                    apple_token: newUser
+                });
+            }
 
         } catch (error) {
             console.log('error', error);

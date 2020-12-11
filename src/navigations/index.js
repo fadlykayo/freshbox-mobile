@@ -1,6 +1,6 @@
 import {Animated, Easing, Dimensions} from 'react-native';
 import {NavigationActions, createAppContainer, StackActions} from 'react-navigation';
-import {createStackNavigator, TransitionPresets } from 'react-navigation-stack';
+import {createStackNavigator, TransitionPresets} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import SplashScreen from '@pages/SplashScreen';
@@ -34,6 +34,7 @@ import Dashboard from '@pages/Dashboard';
 import BannerDetail from '@pages/BannerDetail';
 import Campaigns from '@pages/Campaigns';
 import Thanks from '@pages/Thanks';
+import AppleSignIn from '@pages/AppleSignIn';
 import {analytics} from '@helpers';
 
 let _navigator;
@@ -59,6 +60,7 @@ export const AppNavigator = createStackNavigator(
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
     SignIn: {screen: SignIn},
+    AppleSignIn: {screen: AppleSignIn},
     Register: {screen: Register},
     ForgotPassword: {screen: ForgotPassword},
     Cart: {screen: Cart},
@@ -108,6 +110,7 @@ export const navConstant = {
   SplashScreen: 'SplashScreen',
   Menu: 'Menu',
   SignIn: 'SignIn',
+  AppleSignIn: 'AppleSignIn',
   Register: 'Register',
   ForgotPassword: 'ForgotPassword',
   Cart: 'Cart',

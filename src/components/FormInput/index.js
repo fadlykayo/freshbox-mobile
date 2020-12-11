@@ -1,21 +1,21 @@
-import React,{ Component } from 'react';
-import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
+import React, {Component} from 'react';
+import {View, TextInput, TouchableOpacity, Image, Text} from 'react-native';
 import StaticText from '@components/StaticText';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '@components/Button';
-import { language } from '@helpers';
-import { colour } from '@styles';
+import {language} from '@helpers';
+import {colour} from '@styles';
 import images from '@assets';
 import styles from './styles';
 
 class FormInput extends Component {
-    constructor(props){
+    constructor (props) {
         super(props);
-        this.state={
+        this.state = {
             isFocused: false,
-			isSecret: props.isPassword ? props.isPassword : false,
-			isPassword: props.isPassword ? props.isPassword : false,
-			autoFocus: props.autoFocus ? props.autoFocus : false,
+            isSecret: props.isPassword ? props.isPassword : false,
+            isPassword: props.isPassword ? props.isPassword : false,
+            autoFocus: props.autoFocus ? props.autoFocus : false,
             multiline: props.multiline ? props.multiline : false,
             editable: props.editable ? props.editable : true,
             textContentType: props.textContentType ? props.textContentType : 'none',
@@ -23,7 +23,7 @@ class FormInput extends Component {
             returnKeyType: props.returnKeyType ? props.returnKeyType : 'done',
             maxLength: props.maxLength ? props.maxLength : 9999,
             placeholder: '',
-        }
+        };
         this.onBlur = this.onBlur.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.blur = this.blur.bind(this);
@@ -37,104 +37,104 @@ class FormInput extends Component {
         this.voucherAPI = this.voucherAPI.bind(this);
     }
 
-    componentDidMount(){
-        if(this.props.placeholder) this.getPlaceholder();
+    componentDidMount() {
+        if (this.props.placeholder) this.getPlaceholder();
     }
 
-    onFocus(){
+    onFocus() {
         this.focusHandler(true);
-        if(this.props.onFocusHandler) this.props.onFocusHandler()
+        if (this.props.onFocusHandler) this.props.onFocusHandler();
     }
 
-    onBlur(){
+    onBlur() {
         this.focusHandler(false);
-        if(this.props.onBlurHandler) this.props.onBlurHandler()
+        if (this.props.onBlurHandler) this.props.onBlurHandler();
     }
 
-    blur(){
+    blur() {
         this.TextInput.blur();
     }
 
-    focus(){
+    focus() {
         this.TextInput.focus();
     }
 
-    focusHandler(value){
+    focusHandler(value) {
         let state = this.state;
         state.isFocused = value;
         this.setState(state);
     }
 
-    showPasswordHandler(){
+    showPasswordHandler() {
         let state = this.state;
         state.isSecret = !state.isSecret;
         this.setState(state);
     }
 
-    onChangeText(value){
-		this.props.onChangeText(this.props.type,value);
+    onChangeText(value) {
+        this.props.onChangeText(this.props.type, value);
     }
 
     voucherAPI() {
         this.props.voucherAPI();
     }
 
-    onSubmitEditing(){
+    onSubmitEditing() {
         this.blur();
-        if(this.props.onSubmitEditing) this.props.onSubmitEditing();
+        if (this.props.onSubmitEditing) this.props.onSubmitEditing();
     }
 
-    getPlaceholder(){
+    getPlaceholder() {
         language.transformText(this.props.placeholder)
-        .then((res) => {
-            this.setState({placeholder: res});
-        });
+            .then((res) => {
+                this.setState({placeholder: res});
+            });
     }
-    
-    _renderLabel(props){
-        if(this.state.isFocused == false && props.value.length == 0) return null;
+
+    _renderLabel(props) {
+        if (this.state.isFocused == false && props.value?.length == 0) return null;
         else return (
-            <StaticText 
+            <StaticText
                 style={styles.label}
                 property={props.label}
             />
-        )
+        );
     }
 
-    _renderShowPasswordButton(props){
-        if(this.state.isPassword == false) return null;
+    _renderShowPasswordButton(props) {
+        if (this.state.isPassword == false) return null;
         else {
-            if(props.value.length == 0) return null;
+            if (props.value?.length == 0) return null;
             else {
-                if(this.state.isSecret == true){
-                    return(
+                if (this.state.isSecret == true) {
+                    return (
                         <TouchableOpacity style={styles.showPasswordButton} onPress={this.showPasswordHandler}>
                             <Image
-                                resizeMode={'contain'} 
+                                resizeMode={'contain'}
                                 source={images.icon_show_password}
                                 style={styles.icon}
                             />
                         </TouchableOpacity>
-                    )
+                    );
                 } else {
-                    return(
+                    return (
                         <TouchableOpacity style={styles.showPasswordButton} onPress={this.showPasswordHandler}>
                             <Image
-                                resizeMode={'contain'} 
+                                resizeMode={'contain'}
                                 source={images.icon_hide_password}
                                 style={styles.icon}
                             />
                         </TouchableOpacity>
-                    )
+                    );
                 }
             }
         }
     }
 
-    _renderVoucherChecker () {
-        if(!this.props.statusVerification) {
+    _renderVoucherChecker() {
+        if (!this.props.statusVerification) {
             return (
-                <LinearGradient colors= {['#D9003E', '#F90040']} style={styles.showVoucherButton}>
+                <LinearGradient colors={['#D9003E', '#F90040']} style={styles.showVoucherButton}>
                     <TouchableOpacity onPress={this.props.voucherAPI}>
                         <StaticText
                             style={styles.textVoucher}
@@ -142,7 +142,7 @@ class FormInput extends Component {
                         />
                     </TouchableOpacity>
                 </LinearGradient>
-            )
+            );
 
         } else {
             return (
@@ -153,43 +153,43 @@ class FormInput extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-            )
+            );
         }
     }
 
-    _renderContent () {
-        if(!this.props.statusVerification) {
+    _renderContent() {
+        if (!this.props.statusVerification) {
             return (
                 <>
-                <TextInput
-                    ref={c => {this.TextInput = c}}
-                    style={styles.formInput}
-                    autoCapitalize={'none'}
-                    autoFocus={this.state.autoFocus}
-                    multiline={this.state.multiline}
-                    onChangeText={this.onChangeText}
-                    value={this.props.value}
-                    numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
-                    placeholder={this.state.placeholder}
-                    placeholderTextColor = {colour.grey}
-                    maxLength={this.state.maxLength}
-                    editable={this.props.editable}
-                    keyboardType={this.state.keyboardType}
-                    returnKeyType={this.state.returnKeyType}
-                    secureTextEntry={this.state.isSecret}
-                    textContentType={this.state.textContentType}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    underlineColorAndroid='transparent'
-                    onSubmitEditing={this.onSubmitEditing}
-                />
-                {this.props.multiline ? null : <View style={styles.underline(this.props.type)}/> }
-                {this._renderShowPasswordButton(this.props)}
+                    <TextInput
+                        ref={c => {this.TextInput = c;}}
+                        style={styles.formInput}
+                        autoCapitalize={'none'}
+                        autoFocus={this.state.autoFocus}
+                        multiline={this.state.multiline}
+                        onChangeText={this.onChangeText}
+                        value={this.props.value}
+                        numberOfLines={this.state.multiline ? this.props.numberOfLines : null}
+                        placeholder={this.state.placeholder}
+                        placeholderTextColor={colour.grey}
+                        maxLength={this.state.maxLength}
+                        editable={this.props.editable}
+                        keyboardType={this.state.keyboardType}
+                        returnKeyType={this.state.returnKeyType}
+                        secureTextEntry={this.state.isSecret}
+                        textContentType={this.state.textContentType}
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}
+                        underlineColorAndroid='transparent'
+                        onSubmitEditing={this.onSubmitEditing}
+                    />
+                    {this.props.multiline ? null : <View style={styles.underline(this.props.type)} />}
+                    {this._renderShowPasswordButton(this.props)}
                 </>
-            )
+            );
         } else {
             return (
-                <View style ={styles.successVoucher}>
+                <View style={styles.successVoucher}>
                     <Text style={styles.successText}>{this.props.value}</Text>
                     <Image
                         resizeMode={'contain'}
@@ -198,19 +198,19 @@ class FormInput extends Component {
                     />
                 </View>
 
-            )
+            );
         }
 
     }
 
-    render(){
+    render() {
         return (
             <View style={styles.container(this.state.multiline)}>
                 {this._renderLabel(this.props)}
                 {this._renderContent()}
                 {this.props.type == 'voucher' ? this._renderVoucherChecker() : null}
             </View>
-        )
+        );
     }
 }
 

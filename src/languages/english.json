@@ -105,6 +105,7 @@
     "validation": {
       "fullName": "Please enter your name",
       "emailFormat": "Please enter your email with a valid email format",
+      "email": "Please enter email that matches your apple id",
       "emailLength": "Please enter your email",
       "password": "Your password must be at least 8 characters",
       "passwordLength": "Please enter your password",

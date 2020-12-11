@@ -1,16 +1,15 @@
-import { Dimensions } from 'react-native';
-import { colour } from '@styles';
-import { scaling } from '@helpers';
+import {Dimensions} from 'react-native';
+import {scaling} from '@helpers';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const styles = {
-    container:{
+    container: {
         flex: 1,
         paddingHorizontal: scaling.moderateScale(30),
         paddingTop: width * 0.05,
     },
-    content:{
+    content: {
         justifyContent: 'center',
     },
     subcontainer: {
@@ -18,6 +17,6 @@ const styles = {
             paddingVertical: width * 0.05,
         }
     }
-}
+};
 
 export default styles;

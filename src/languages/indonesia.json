@@ -108,6 +108,7 @@
       "fullName": "Tolong masukkan nama anda",
       "emailFormat": "Tolong masukkan email anda dengan format yang benar",
       "emailLength": "Tolong masukkan email anda",
+      "email": "Tolong masukan email yang cocok dengan apple id anda",
       "password": "Kata sandi minimal 8 karakter",
       "passwordLength": "Tolong masukkan kata sandi",
       "phone": "Tolong masukkan nomor telepon diantara 10 sampai 13 digit",
