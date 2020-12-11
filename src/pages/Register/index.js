@@ -185,6 +185,7 @@ class Register extends Component {
                 sosmed: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.sosmed : '',
                 fb_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.fb_token !== undefined ? this.props.navigation.state.params.socmed.fb_token : '' : '',
                 google_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.google_token !== undefined ? this.props.navigation.state.params.socmed.google_token : '' : '',
+                apple_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.apple_token !== undefined ? this.props.navigation.state.params.socmed.apple_token : '' : '',
             }
         };
 
