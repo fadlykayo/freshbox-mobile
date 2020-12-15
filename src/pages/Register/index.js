@@ -47,11 +47,7 @@ class Register extends Component {
     }
 
     navigateBack() {
-        if (props.navigation.state.params.socmed.sosmed == 'apple') {
-            actNav.reset(navConstant.SignIn);
-        } else {
-            actNav.goBack();
-        }
+        actNav.goBack();
     }
 
     closeDialogRegisterSuccess() {

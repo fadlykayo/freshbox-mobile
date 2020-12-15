@@ -77,7 +77,8 @@
       "social": "atau masuk dengan"
     },
     "button": {
-      "signIn": "Masuk"
+      "signIn": "Masuk",
+      "confirm": "Konfirmasi"
     },
     "content": {
       "newToFreshbox": "Baru di FreshBox? ",
@@ -810,7 +811,9 @@
     "expiredDate": "Anda tidak dapat melakukan pemesanan untuk tanggal {date} karena telah melewati jam 22:00 WIB, silahkan mengganti tanggal pemesanan anda.",
     "serverError": "Terjadi gangguan pada server atau jaringan tidak stabil, silahkan coba beberapa saat lagi.",
     "copyData": "Data berhasil disalin",
-    "errorNumberTaken": "Nomor telepon sudah digunakan"
+    "errorNumberTaken": "Nomor telepon sudah digunakan",
+    "confirmHideEmailTitle": "Apakah anda yakin?",
+    "confirmHideEmail": "Anda menggunakan apple sign in dengan mode hide my email, anda tidak bisa menggunakan login dengan akun sosial media lainnya."
   },
   "dialog": {
     "clearProduct": "Apakah anda yakin ingin menghapus {item} dari keranjang belanja?",

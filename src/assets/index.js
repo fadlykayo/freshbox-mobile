@@ -1,4 +1,4 @@
-const images = {}
+const images = {};
 
 images.background_welcome = require('./background_welcome.png');
 images.background_profile = require('./background_profile.png');
@@ -72,7 +72,7 @@ images.ilu_announcement = require('./ilu_announcement.png');
 images.ic_menu = require('./ic_menu.png');
 images.ic_menu_grey = require('./ic_menu_grey.png');
 images.ic_time = require('./ic_time.png');
-images.ic_checklist_combine = require('./ic_checklist_combine.png')
-images.icon_apple = require('./icon_apple.png')
+images.ic_checklist_combine = require('./ic_checklist_combine.png');
+images.icon_apple = require('./apple.png');
 
 export default images;

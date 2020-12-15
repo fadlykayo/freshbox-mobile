@@ -77,7 +77,8 @@
       "social": "or enter with"
     },
     "button": {
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "confirm": "Confirm"
     },
     "content": {
       "newToFreshbox": "New to Freshbox? ",
@@ -806,7 +807,9 @@
     "expiredDate": "You cannot place an order for {date} because it has passed 22:00 WIB, please change your order date.",
     "serverError": "A server error has occurred, this might be caused by unstable connection. Please try again later.",
     "copyData": "Successfully copied data",
-    "errorNumberTaken": "Phone number already taken"
+    "errorNumberTaken": "Phone number already taken",
+    "confirmHideEmailTitle": "Are you sure ?",
+    "confirmHideEmail": "You're using hide my email for apple sign in, you are unable to using multiple social media sign-in."
   },
   "dialog": {
     "clearProduct": "Are you sure you want to delete {item} from cart?",

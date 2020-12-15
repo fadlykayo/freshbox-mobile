@@ -17,6 +17,7 @@ import StaticText from '@components/StaticText';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import Sosmed from './components/Sosmed';
+import Modal from './components/ModalConfirmation';
 import styles from './styles';
 
 class SignIn extends Component {
@@ -32,6 +33,8 @@ class SignIn extends Component {
                 password: true,
                 passwordLength: true,
             },
+            showModal: false,
+            params: null,
         };
         this.onChangeText = this.onChangeText.bind(this);
         this.submitPhone = this.submitPhone.bind(this);
@@ -46,10 +49,10 @@ class SignIn extends Component {
         this.facebookHandler = this.facebookHandler.bind(this);
         this.googleHandler = this.googleHandler.bind(this);
         this.appleHandler = this.appleHandler.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
     }
 
     componentWillUnmount() {
-
         if (this.props.navigation.state.params.closeDrawer) {
             this.props.navigation.state.params.closeDrawer();
         }
@@ -250,56 +253,59 @@ class SignIn extends Component {
             });
 
             const {
-                user: newUser,
                 email,
-                fullName
+                fullName,
+                identityToken
             } = appleAuthRequestResponse;
 
-            if (email) {
-                let payload = {
-                    header: {
-                        onesignalToken: this.props.userId.userId
-                    },
-                    body: {
+            let payload = {
+                header: {
+                    onesignalToken: this.props.userId.userId
+                },
+                body: {
+                    sosmed: "apple",
+                    apple_token: identityToken,
+                }
+            };
+
+            this.props.sign_in_socmed(payload,
+                () => {
+                    actNav.reset(navConstant.Dashboard);
+                },
+                (err) => {
+                    console.log(err);
+                    let params = {
+                        name: fullName?.givenName ? `${fullName.givenName} ${fullName.familyName}` : '',
+                        email: err.data.email,
                         sosmed: "apple",
-                        apple_token: newUser,
-                        email: email,
+                        apple_token: identityToken
+                    };
+
+                    switch (err.code) {
+                        case 403:
+                            this.setState({
+                                params,
+                                showModal: true
+                            });
+                            break;
+                        case 404:
+                            actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                            break;
+                        case 400:
+                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
+                        default:
+                            break;
                     }
-                };
-
-                this.props.sign_in_socmed(payload,
-                    () => {
-                        actNav.reset(navConstant.Dashboard);
-                    },
-                    (err) => {
-                        let params = {
-                            name: `${fullName.givenName} ${fullName.familyName}`,
-                            email: email,
-                            sosmed: "apple",
-                            apple_token: newUser
-                        };
-
-                        switch (err.code) {
-                            case 404:
-                                actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
-                                break;
-                            case 400:
-                                actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
-                            default:
-                                break;
-                        }
-                    });
-
-            } else {
-                actNav.navigate(navConstant.AppleSignIn, {
-                    apple_token: newUser
                 });
-            }
 
         } catch (error) {
             console.log('error', error);
         }
     };
+
+    onCloseModal() {
+        actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: this.state.params});
+    }
 
     render() {
         return (
@@ -307,6 +313,13 @@ class SignIn extends Component {
                 bgColorBottom={'white'}
                 bgColorTop={'red'}
             >
+                <Modal
+                    modalVisible={this.state.showModal}
+                    closeModal={() => this.setState({
+                        showModal: false
+                    })}
+                    onCloseModal={this.onCloseModal}
+                />
                 <NavigationBar
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}

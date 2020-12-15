@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback } from 'react-native';
-import { validation, language } from '@helpers';
-import { actNav, navConstant } from '@navigations';
+import React, {Component} from 'react';
+import {ScrollView, View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback} from 'react-native';
+import {validation, language} from '@helpers';
+import {actNav, navConstant} from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import Button from '@components/Button';
@@ -10,10 +10,10 @@ import CountDown from './components/CountDown';
 import Verification from './components/Verification';
 import styles from './styles';
 import actions from '@actions';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 class OTP extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
             isFocused: false,
@@ -35,8 +35,8 @@ class OTP extends Component {
     }
 
     componentDidMount() {
-        this.startTimer()
-        if(this.props.navigation.state.params.verifyOTP) {
+        this.startTimer();
+        if (this.props.navigation.state.params.verifyOTP) {
             this.resendOTP();
         };
     }
@@ -55,25 +55,25 @@ class OTP extends Component {
             body: {
                 phone_number: this.props.navigation.state.params.phone_number
             }
-        }
+        };
         this.setState(state, () => {
             this.startTimer();
             this.props.otp_resend(payload,
-                () => {},
+                () => { },
                 (err) => {
                     // console.log(err)
-                })
-        })
+                });
+        });
     }
 
     _renderCountDown() {
         let seconds = this.state.seconds;
-        let minute = seconds/60;
+        let minute = seconds / 60;
         let rminute = Math.floor(minute);
-        let newSeconds = Math.floor((minute-rminute)*60);
-        
+        let newSeconds = Math.floor((minute - rminute) * 60);
+
         if (seconds >= 0) {
-            return (<Text style={styles.static.text.red}>(0{rminute}.{newSeconds < 10 ? `0${newSeconds}` : newSeconds})</Text>)
+            return (<Text style={styles.static.text.red}>(0{rminute}.{newSeconds < 10 ? `0${newSeconds}` : newSeconds})</Text>);
         }
     }
 
@@ -84,40 +84,40 @@ class OTP extends Component {
             setTimeout(() => {
                 newSeconds -= 1;
                 this.setState({seconds: newSeconds}, () => {
-                    this.startTimer()
-                })
-            }, 1000)
+                    this.startTimer();
+                });
+            }, 1000);
         }
         else {
-            this.setState({ countDownOver: true }, () => {
-                this.stopTimer()
-            })
+            this.setState({countDownOver: true}, () => {
+                this.stopTimer();
+            });
         }
     }
 
     stopTimer() {
-        clearTimeout(this.seconds)
+        clearTimeout(this.seconds);
     }
 
     onChangeText(type, value) {
         let state = this.state;
         state[type] = value;
         this.setState(state);
-        if(this.state.otp.length == 4) {
+        if (this.state.otp.length == 4) {
             this.submitOTP();
         };
     }
 
     navigateBack() {
         // actNav.goBack();
-        actNav.reset(navConstant.Menu)
+        actNav.reset(navConstant.Menu);
     }
 
-    blur(){
+    blur() {
         this.TextInput.blur(navConstant.menu);
     }
 
-    focus(){
+    focus() {
         this.TextInput.focus();
     }
 
@@ -127,72 +127,75 @@ class OTP extends Component {
             state.isFocused = false;
             this.setState(state, () => {
                 this.blur();
-            })
+            });
         }
         else {
             state.isFocused = true;
             this.setState(state, () => {
-                this.focus()
-            })
+                this.focus();
+            });
         }
     }
 
     submitOTP() {
         validation.otp(this.state.otp)
-        .then(() => {
-            let payload = {
-                header: {},
-                body: {
-                    phone_number: this.props.navigation.state.params.phone_number,
-                    otp: this.state.otp
-                }
-            }
+            .then(() => {
+                let payload = {
+                    header: {},
+                    body: {
+                        phone_number: this.props.navigation.state.params.phone_number,
+                        otp: this.state.otp
+                    }
+                };
 
-            this.props.otp_verification(payload,
-                () => {
-                    this.stopTimer();
-                    if (this.props.navigation.state.params.action == 'guestLogin') {
-                        this.props.navigation.goBack(this.props.navigation.state.params.key)
-                    }
-                    else {
-                        actNav.reset(navConstant.Product)
-                    }
-                },
-                (err) => {
-                    language.transformText('message.errorOTP')
-			        .then(message => {
-			        	this.props.set_error_status({
-			        		status: true,
-			        		title: 'formError.title.default',
-			        		data: message,
+                console.log('payload', payload);
+
+                this.props.otp_verification(payload,
+                    () => {
+                        this.stopTimer();
+                        if (this.props.navigation.state.params.action == 'guestLogin') {
+                            this.props.navigation.goBack(this.props.navigation.state.params.key);
+                        }
+                        else {
+                            actNav.reset(navConstant.Product);
+                        }
+                    },
+                    (err) => {
+                        console.log(err, '=====');
+                        language.transformText('message.errorOTP')
+                            .then(message => {
+                                this.props.set_error_status({
+                                    status: true,
+                                    title: 'formError.title.default',
+                                    data: message,
+                                });
+                            });
+                    });
+
+            })
+            .catch(() => {
+                language.transformText('message.invalidPhoneFormat')
+                    .then(message => {
+                        this.props.set_error_status({
+                            status: true,
+                            title: 'formError.title.default',
+                            data: message,
                         });
                     });
-                })
-            
-        })
-        .catch(() => {
-            language.transformText('message.invalidPhoneFormat')
-			.then(message => {
-				this.props.set_error_status({
-					status: true,
-					title: 'formError.title.default',
-					data: message,
-                });
             });
-        })
     }
 
     render() {
         return (
             <Container
-				bgColorBottom={'veryLightGrey'}
-				bgColorTop={'red'}
-			>
+                bgColorBottom={'veryLightGrey'}
+                bgColorTop={'red'}
+            >
                 <NavigationBar
                     title={'otp.navigationTitle'}
                     onPress={this.navigateBack}
                 />
-                <ScrollView 
+                <ScrollView
                     style={styles.container}
                     contentContainerStyle={styles.content}
                 >
@@ -218,7 +221,7 @@ class OTP extends Component {
                         </View>
                     </TouchableWithoutFeedback>
                     <TextInput
-                        ref={c => {this.TextInput = c}}
+                        ref={c => {this.TextInput = c;}}
                         autoFocus={true}
                         keyboardType={'number-pad'}
                         contextMenuHidden={true}
@@ -244,9 +247,9 @@ class OTP extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    otp_verification: (req,res,err) => dispatch(actions.auth.api.otp_verification(req,res,err)),
-    otp_resend: (req,res,err) => dispatch(actions.auth.api.otp_resend(req,res,err)),
+    otp_verification: (req, res, err) => dispatch(actions.auth.api.otp_verification(req, res, err)),
+    otp_resend: (req, res, err) => dispatch(actions.auth.api.otp_resend(req, res, err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-})
+});
 
 export default connect(null, mapDispatchToProps)(OTP);

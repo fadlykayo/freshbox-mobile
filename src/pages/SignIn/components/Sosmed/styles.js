@@ -1,16 +1,14 @@
-import { Dimensions } from 'react-native';
-import { colour } from '@styles';
-import { scaling } from '@helpers'
+import {scaling} from '@helpers';
 
 export default styles = {
   container: (type) => ({
-    height: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
-    width: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
+    height: scaling.moderateScale(type == 'google' ? 60 : type == 'apple' ? 50 : 45),
+    width: scaling.moderateScale(type == 'google' ? 60 : type == 'apple' ? 50 : 45),
     marginHorizontal: 10,
   }),
   image: (type) => ({
-    height: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
-    width: type == 'google' ? scaling.moderateScale(60) : scaling.moderateScale(45),
+    height: scaling.moderateScale(type == 'google' ? 60 : type == 'apple' ? 50 : 45),
+    width: scaling.moderateScale(type == 'google' ? 60 : type == 'apple' ? 50 : 45),
     marginHorizontal: 10
   })
-}
+};

@@ -16,7 +16,7 @@ import NetworkError from '../NetworkError';
 import styles from './styles';
 
 class Container extends PureComponent {
-  constructor() {
+  constructor () {
     super();
     this.closeModalNetworkError = this.closeModalNetworkError.bind(this);
     this.closeModalError = this.closeModalError.bind(this);
@@ -75,12 +75,12 @@ class Container extends PureComponent {
                   translucent={false}
                 />
               ) : (
-                <StatusBar
-                  barStyle="dark-content"
-                  hidden={false}
-                  translucent={false}
-                />
-              )}
+                  <StatusBar
+                    barStyle="dark-content"
+                    hidden={false}
+                    translucent={false}
+                  />
+                )}
               {this.props.children}
               {/* <Loading
                                 modalVisible = {this.props.network.isLoading}

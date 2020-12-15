@@ -1,23 +1,23 @@
-import React,{ Component } from 'react';
-import { View, Image, TouchableWithoutFeedback } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, TouchableWithoutFeedback} from 'react-native';
 import styles from './styles';
 import StaticText from '@components/StaticText';
 import images from '@assets';
 
 class ServerError extends Component {
-	constructor(){
+	constructor () {
 		super();
 	}
 
-	render(){
-		if(this.props.modalVisible == true){
-			return(
+	render() {
+		if (this.props.modalVisible == true) {
+			return (
 				<TouchableWithoutFeedback onPress={this.props.closeModal}>
 					<View style={styles.overlay}>
 						<View style={styles.container}>
 							<View style={styles.subcontainer.left}>
 								<Image
-									resizeMode={'contain'} 
+									resizeMode={'contain'}
 									source={images.icon_error}
 									style={styles.logo}
 								/>
@@ -35,7 +35,7 @@ class ServerError extends Component {
 						</View>
 					</View>
 				</TouchableWithoutFeedback>
-			)
+			);
 		} else {
 			return null;
 		}
