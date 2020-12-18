@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, FlatList, Dimensions } from 'react-native';
-import { actNav, navConstant } from '@navigations';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {View, FlatList, Dimensions} from 'react-native';
+import {actNav, navConstant} from '@navigations';
 import Container from '@components/Container';
-import AlertDialog from '@components/AlertDialog'; 
+import AlertDialog from '@components/AlertDialog';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
-import { language, onShare } from '@helpers';
+import {language, onShare} from '@helpers';
 import styles from './styles';
 import actions from '@actions';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 class Cart extends Component {
-	constructor(props) {
+	constructor (props) {
 		super(props);
-		this.state = { 
+		this.state = {
 			totalPrice: 0,
 			search: false,
 			scrollX: 0,
@@ -27,10 +27,11 @@ class Cart extends Component {
 				openProduct: false,
 				alertDialog: false,
 				modalLoginConfirmation: false,
+				modalPhoneConfirmation: false,
 				openImageDetail: false,
 			},
 			selectedProduct: null,
-		}
+		};
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.navigateToSignIn = this.navigateToSignIn.bind(this);
@@ -46,104 +47,104 @@ class Cart extends Component {
 		this.openZoomImage = this.openZoomImage.bind(this);
 		this.closeZoomImage = this.closeZoomImage.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
+		this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
 	}
 
 	shouldComponentUpdate(nextProps) {
-		if(nextProps.cart_product.length == 0){
+		if (nextProps.cart_product.length == 0) {
 			actNav.goBack();
 		}
 		return true;
 	}
 
-	setModalVisible(type,value){
-        let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
-        modalVisible[type] = value;
-        this.setState({modalVisible});
-    }
-
-	openZoomImage(){
-		this.setModalVisible('openImageDetail',true);
+	setModalVisible(type, value) {
+		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
+		modalVisible[type] = value;
+		this.setState({modalVisible});
 	}
 
-	closeZoomImage(){
-		this.setModalVisible('openImageDetail',false);
+	openZoomImage() {
+		this.setModalVisible('openImageDetail', true);
+	}
+
+	closeZoomImage() {
+		this.setModalVisible('openImageDetail', false);
 	}
 
 	getPositionIndex(e) {
-        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
-            this.getPositionBubble();
-        })
-    }
-    
-    getPositionBubble() {
-        let position = Math.round(this.state.scrollX/(width* 0.18));
+		this.setState({scrollX: e.nativeEvent.contentOffset.x}, () => {
+			this.getPositionBubble();
+		});
+	}
 
-        if (this.state.bubble != position) {
-            this.setState({ bubble: position })
-        }
-    }
+	getPositionBubble() {
+		let position = Math.round(this.state.scrollX / (width * 0.18));
+
+		if (this.state.bubble != position) {
+			this.setState({bubble: position});
+		}
+	}
 
 	navigateToProduct() {
 		this.props.remove_empty_items();
-		actNav.reset(navConstant.Product)
+		actNav.reset(navConstant.Product);
 	}
 
 	navigateBack() {
 		this.props.remove_empty_items();
-		actNav.goBack()
+		actNav.reset(navConstant.Product);
 	}
 
-	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
-        modalVisible[type] = value;
+	setModalVisible(type, value) {
+		let modalVisible = this.state.modalVisible;
+		modalVisible[type] = value;
 		this.setState({modalVisible});
 	}
-	
-	openDetailProduct(payload){
+
+	openDetailProduct(payload) {
 		this.props.detail_product(payload);
-		this.setModalVisible('openProduct',true);
-	}
-	
-	closeDetailProduct(){
-		if(this.props.setModalVisible) {
-			this.props.set_modal_visible(!this.props.setModalVisible)
-		  }
-		this.setModalVisible('openProduct',false);
+		this.setModalVisible('openProduct', true);
 	}
 
-	changeTotalItem(payload,type){
-		if(payload.count == 1 && type == 'desc'){
-			this.setState({selectedProduct: payload},() => {
-				this.setModalVisible('alertDialog',true);
-			});
+	closeDetailProduct() {
+		if (this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible);
 		}
-		else{
-			this.props.change_total(payload,type);
-		}
+		this.setModalVisible('openProduct', false);
 	}
 
-	clearProductConfirmation(){
-		this.props.change_total(this.state.selectedProduct,'desc');
-		this.setModalVisible('alertDialog',false);
-		this.setModalVisible('openProduct',false);
-	}
-
-	clearProductCancelation(){
-		this.setModalVisible('alertDialog',false);
-	}
-
-	navigateToCheckout(){
-		if(this.props.cart_product.length == 0){
-			language.transformText('message.emptyCart')
-			.then(message => {
-				this.props.set_error_status({
-					status: true,
-					title: 'formError.title.emptyCart',
-					data: message,
-				});
+	changeTotalItem(payload, type) {
+		if (payload.count == 1 && type == 'desc') {
+			this.setState({selectedProduct: payload}, () => {
+				this.setModalVisible('alertDialog', true);
 			});
 		}
 		else {
+			this.props.change_total(payload, type);
+		}
+	}
+
+	clearProductConfirmation() {
+		this.props.change_total(this.state.selectedProduct, 'desc');
+		this.setModalVisible('alertDialog', false);
+		this.setModalVisible('openProduct', false);
+	}
+
+	clearProductCancelation() {
+		this.setModalVisible('alertDialog', false);
+	}
+
+	navigateToCheckout() {
+		if (this.props.cart_product.length == 0) {
+			language.transformText('message.emptyCart')
+				.then(message => {
+					this.props.set_error_status({
+						status: true,
+						title: 'formError.title.emptyCart',
+						data: message,
+					});
+				});
+		} else {
 			this.props.remove_empty_items();
 			let buyProducts = [];
 			this.props.cart_product.map((cart) => {
@@ -152,7 +153,7 @@ class Cart extends Component {
 					qty: cart.count,
 				});
 			});
-			if(this.props.user){
+			if (this.props.user && this.props.user.user.phone_number) {
 				let payload = {
 					header: {
 						apiToken: this.props.user.authorization
@@ -162,34 +163,43 @@ class Cart extends Component {
 
 				this.props.bulk_add_products(payload,
 					(res) => {
-						actNav.navigate(navConstant.Checkout,{
+						actNav.navigate(navConstant.Checkout, {
 							key: this.props.navigation.state.key,
 							createOrderHandler: this.props.navigation.state.params.createOrderHandler
 						});
 					},
-					(err) => {}
-				)
-			}
-			else {
-				this.setModalVisible('modalLoginConfirmation',true);
+					(err) => { }
+				);
+			} else if (this.props.user && !this.props.user.user.phone_number) {
+				this.setModalVisible('modalPhoneConfirmation', true);
+			} else {
+				this.setModalVisible('modalLoginConfirmation', true);
 			}
 		}
 	}
 
-	navigateToSignIn(){
-		this.setModalVisible('modalLoginConfirmation',false);
-		actNav.navigate(navConstant.SignIn,{
+	navigateToSignIn() {
+		this.setModalVisible('modalLoginConfirmation', false);
+		actNav.navigate(navConstant.SignIn, {
 			action: 'guestLogin'
 		});
 	};
 
-	render(){
+	navigateToPhonePage() {
+		this.setModalVisible('modalPhoneConfirmation', false);
+		actNav.navigate(navConstant.PhonePage, {
+			type: 'otp',
+			isName: true
+		});
+	}
+
+	render() {
 		return (
 			<Container
 				bgColorBottom={'veryLightGrey'}
 				bgColorTop={'red'}
 			>
-				<NavigationBar 
+				<NavigationBar
 					title={'cart.navigationTitle'}
 					onPress={this.props.navigation.state.params.action == 'history' ? this.navigateToProduct : this.navigateBack}
 				/>
@@ -197,14 +207,14 @@ class Cart extends Component {
 					<View style={{flex: 1}}>
 						<FlatList
 							data={this.props.cart_product}
-							keyExtractor={(item,index) => index.toString()}
-							renderItem={({item,index}) => (
+							keyExtractor={(item, index) => index.toString()}
+							renderItem={({item, index}) => (
 								<ProductItem
 									search={this.state.search}
 									key={index}
 									data={item}
 									type={'cart'}
-									index={index+1}
+									index={index + 1}
 									user={this.props.user}
 									changeTotalItem={this.changeTotalItem}
 									productLength={this.props.cart_product.length}
@@ -236,11 +246,19 @@ class Cart extends Component {
 					onShare={onShare}
 				/>
 				<ModalLoginConfirmation
-					onPress={this.navigateToSignIn} 
+					button={'button.login'}
+					message={'modal.content.loginConfirmation'}
+					onPress={this.navigateToSignIn}
 					modalVisible={this.state.modalVisible.modalLoginConfirmation}
 				/>
+				<ModalLoginConfirmation
+					button={'button.ok'}
+					message={'modal.content.addPhoneNumber'}
+					onPress={this.navigateToPhonePage}
+					modalVisible={this.state.modalVisible.modalPhoneConfirmation}
+				/>
 				<AlertDialog
-					modalVisible={this.state.modalVisible.alertDialog} 
+					modalVisible={this.state.modalVisible.alertDialog}
 					content={'dialog.clearProduct'}
 					params={{
 						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
@@ -265,14 +283,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	detail_product: (index) => dispatch(actions.product.reducer.detail_product(index)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
+	get_products: (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
-	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
+	change_total: (payload, type) => dispatch(actions.product.reducer.change_total(payload, type)),
+	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 	remove_empty_items: () => dispatch(actions.product.reducer.remove_empty_items()),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

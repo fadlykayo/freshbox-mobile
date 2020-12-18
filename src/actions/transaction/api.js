@@ -135,11 +135,9 @@ actions.request_snap_token = (req, success, failure) => {
 	payload.header = req.header;
 	payload.body = req.body;
 	payload.params = req.params;
-	// console.log('request snap token payload', payload)
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
-				// console.log('Request Snap Token res ->',res);
 				if (res.code) {
 					if (res.code == 200) {
 						// analytics.trackEvent('Purchase Orders', {status: 'Pending'});
@@ -148,7 +146,6 @@ actions.request_snap_token = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Request Snap Token err ->', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -157,7 +154,6 @@ actions.request_snap_token = (req, success, failure) => {
 							if (err.data) {
 								failure(err);
 								return (
-
 									dispatch(actNetwork.set_error_status({
 										status: true,
 										data: err.code_message,
@@ -178,15 +174,16 @@ actions.request_snap_token = (req, success, failure) => {
 											}));
 										})
 								);
-							}
-							else {
+							} else if (err.data.update_profile) {
+								failure(err);
+								return;
+							} else {
 								return dispatch(actNetwork.set_error_status({
 									status: true,
 									data: JSON.stringify(err)
 								}));
 							}
-						default:
-							dispatch(actNetwork.set_error_status({
+						default: dispatch(actNetwork.set_error_status({
 								status: true,
 								data: JSON.stringify(err)
 							}));

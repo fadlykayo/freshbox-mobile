@@ -14,6 +14,7 @@ import HistoryPage from '@pages/HistoryPage';
 import Detail from '@pages/Detail';
 import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
+import NamePage from '@pages/ChangeName';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
 import DrawerPage from '@pages/DrawerPage';
@@ -34,7 +35,6 @@ import Dashboard from '@pages/Dashboard';
 import BannerDetail from '@pages/BannerDetail';
 import Campaigns from '@pages/Campaigns';
 import Thanks from '@pages/Thanks';
-import AppleSignIn from '@pages/AppleSignIn';
 import {analytics} from '@helpers';
 
 let _navigator;
@@ -60,7 +60,6 @@ export const AppNavigator = createStackNavigator(
     SplashScreen: {screen: SplashScreen},
     Menu: {screen: Menu},
     SignIn: {screen: SignIn},
-    AppleSignIn: {screen: AppleSignIn},
     Register: {screen: Register},
     ForgotPassword: {screen: ForgotPassword},
     Cart: {screen: Cart},
@@ -68,6 +67,7 @@ export const AppNavigator = createStackNavigator(
     ProductList: {screen: ProductList},
     Detail: {screen: Detail},
     PhonePage: {screen: PhonePage},
+    NamePage: {screen: NamePage},
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
     Checkout: {screen: Checkout},
@@ -110,7 +110,6 @@ export const navConstant = {
   SplashScreen: 'SplashScreen',
   Menu: 'Menu',
   SignIn: 'SignIn',
-  AppleSignIn: 'AppleSignIn',
   Register: 'Register',
   ForgotPassword: 'ForgotPassword',
   Cart: 'Cart',
@@ -120,6 +119,7 @@ export const navConstant = {
   Detail: 'Detail',
   ProfilePage: 'ProfilePage',
   PhonePage: 'PhonePage',
+  NamePage: 'NamePage',
   AddressPage: 'AddressPage',
   ResetPasswordPage: 'ResetPasswordPage',
   Favourites: 'Favourites',

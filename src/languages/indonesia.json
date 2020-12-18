@@ -297,6 +297,22 @@
       "phone": "Tolong masukkan nomor telepon anda diantara 10 sampai 13 digit angka"
     }
   },
+  "namePage": {
+    "navigationTitle": "Nama",
+    "label": {
+      "phone": "Nama"
+    },
+    "formLabel": {
+      "phone": "Nama"
+    },
+    "button": {
+      "edit": "Ubah",
+      "save": "Simpan"
+    },
+    "validation": {
+      "phone": "Tolong masukkan nama anda"
+    }
+  },
   "addressPage": {
     "navigationTitle": "Alamat",
     "label": {
@@ -776,14 +792,16 @@
     "close": "Tutup",
     "login": "Masuk",
     "yes": "Ya",
-    "no": "Tidak"
+    "no": "Tidak",
+    "ok": "OK"
   },
   "modal": {
     "title": {
       "loginConfirmation": "Sebelum anda membayar"
     },
     "content": {
-      "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran."
+      "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran.",
+      "addPhoneNumber": "Mohon verifikasi nomor telepon dahulu sebelum anda melakukan pembayaran."
     }
   },
   "message": {

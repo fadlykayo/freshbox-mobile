@@ -46,6 +46,15 @@ validation.otp = (input) => new Promise((res, rej) => {
     else rej();
 });
 
+validation.updateProfile = (phone, name) => new Promise((res, rej) => {
+    if (phoneRegex.test(phone) == true) {
+        if (name.length > 0) res();
+        else rej('name');
+    } else {
+        rej('phone');
+    } 
+});
+
 validation.register = (user, socmed) => new Promise((res, rej) => {
     if (user.fullName.length > 0) {
         if (user.email.length > 0) {

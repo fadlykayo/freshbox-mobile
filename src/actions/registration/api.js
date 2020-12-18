@@ -73,13 +73,11 @@ actions.register_user_socmed = (req,success,failure) => {
         requestHandler('post',payload,dispatch)
         .then((res) => {
         	if(res.code){
-						// console.log('register user res ->',res);
 						dispatch(actReducerAuth.sign_in(res.data));
         		success(res);
         	}
         })
         .catch((err) => {
-        	// console.log('register user err ->', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

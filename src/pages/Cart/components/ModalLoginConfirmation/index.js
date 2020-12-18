@@ -1,45 +1,45 @@
-import React, { PureComponent } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, {PureComponent} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import StaticText from '@components/StaticText';
 import styles from './styles';
 
 class ModalLoginConfirmation extends PureComponent {
-	constructor(){
-		super()
+	constructor () {
+		super();
 		this.onPress = this.onPress.bind(this);
 	}
 
-	onPress(){
+	onPress() {
 		this.props.onPress();
 	}
 
-	render(){
-		if(this.props.modalVisible == true){
+	render() {
+		if (this.props.modalVisible == true) {
 			return (
 				<View style={styles.background}>
 					<View style={styles.container}>
-						<StaticText 
+						<StaticText
 							style={styles.text.title}
 							property={'modal.title.loginConfirmation'}
 						/>
-						<StaticText 
+						<StaticText
 							style={styles.text.content}
-							property={'modal.content.loginConfirmation'}
+							property={this.props.message}
 						/>
 						<TouchableOpacity
 							onPress={this.onPress}
 							style={styles.button}
 						>
-							<StaticText 
+							<StaticText
 								style={styles.text.button}
-								property={'button.login'}
+								property={this.props.button}
 							/>
 						</TouchableOpacity>
 					</View>
 				</View>
-			)
+			);
 		}
-		else{
+		else {
 			return null;
 		}
 	}

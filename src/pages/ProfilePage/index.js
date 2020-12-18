@@ -24,8 +24,6 @@ class ProfilePage extends Component {
         this.navigateLogOut = this.navigateLogOut.bind(this);
         this.choosePhoto = this.choosePhoto.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.launchCamera = this.launchCamera.bind(this);
-        this.openFromGallery = this.openFromGallery.bind(this);
     }
 
     componentWillUnmount() {
@@ -40,6 +38,10 @@ class ProfilePage extends Component {
 
     navigateToPhonePage() {
         actNav.navigate(navConstant.PhonePage);
+    }
+
+    navigateToNamePage() {
+        actNav.navigate(navConstant.NamePage);
     }
 
     navigateToAddressPage() {
@@ -73,14 +75,11 @@ class ProfilePage extends Component {
         ImagePicker.showImagePicker(options, (response) => {
             if (response.didCancel) {
                 // console.log('User cancelled image picker');
-            }
-            else if (response.error) {
+            } else if (response.error) {
                 // console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
+            } else if (response.customButton) {
                 // console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
+            } else {
                 let data = {
                     uri: response.uri,
                     type: response.type == undefined ? 'image/jpeg' : response.type,
@@ -127,163 +126,13 @@ class ProfilePage extends Component {
                                 });
                             });
                     });
-
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
             }
         });
-        //const options = {
-        //    title: 'Select Image',
-        //    mediaType: 'photo',
-        //    maxWidth: 500,
-        //    maxHeight: 500,
-        //    quality: Platform.OS == 'android' ? 0.9 : 0.6,
-        //    storageOptions: {
-        //      skipBackup: true,
-        //      path: 'images'
-        //    }
-        //};
-
-
-        //ImagePicker.showImagePicker( options, (response) => {
-        //    if (response.didCancel) {
-        //        // console.log('User cancelled image picker');
-        //    }
-        //    else if (response.error) {
-        //        // console.log('ImagePicker Error: ', response.error);
-        //    }
-        //    else if (response.customButton) {
-        //        // console.log('User tapped custom button: ', response.customButton);
-        //    }
-        //    else {
-        //        // console.log("===>",response)
-
-
-        //    let data = {
-        //        uri: response.uri,
-        //        type: response.type == undefined ? 'image/jpeg' : response.type,
-        //        name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
-        //        data: response.data
-        //    }
-
-        //    let formData = new FormData();
-        //    formData.append('image', data)
-
-        //    let payload = {
-        //        header: {
-        //            apiToken: this.props.user.authorization
-        //        },
-        //        body: formData
-        //    }
-
-        //    this.props.upload_photo(payload,
-        //        (res) => {
-        //            language.transformText('message.uploadPhotoSuccess')
-        // 	        .then(message => {
-        // 	        	this.props.set_success_status({
-        // 	        		status: true,
-        // 	        		data: message,
-        // 	        		title: 'formSuccess.title.default'
-        // 	        	});
-        // 	        	setTimeout(() => {
-        // 	        		this.props.set_success_status({
-        // 	        			status: false,
-        // 	        			data: '',
-        // 	        			title: ''
-        // 	        		});
-        // 	        	},1000);
-        // 	        });
-        //        },
-        //        (err) => {
-        //            language.transformText('message.uploadPhotoError')
-        //             .then(message => {
-        //             	this.props.set_error_status({
-        //             		status: true,
-        //             		title: 'formError.title.default',
-        //             		data: message,
-        //                });
-        //            });
-        //        })
-
-        //        // You can also display the image using data:
-        //        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        //    }
-        //})
     }
 
     toggleModal() {
         this.setState({
             modalVisible: !this.state.modalVisible
-        });
-    }
-
-    launchCamera() {
-
-    }
-
-    openFromGallery() {
-        ImagePicker.launchImageLibrary({
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-            quality: 0.5,
-            mediaType: 'photo',
-            maxWidth: 1280,
-            maxHeight: 720
-        }, (response) => {
-            if (response.didCancel || response.error) {
-                this.setState({modalVisible: false});
-            } else {
-                let data = {
-                    uri: response.uri,
-                    type: response.type == undefined ? 'image/jpeg' : response.type,
-                    name: response.fileName == undefined ? 'ImageProfile.jpg' : response.fileName,
-                    data: response.data
-                };
-
-                console.log(data);
-
-                // let formData = new FormData();
-                // formData.append('image', data)
-
-                // let payload = {
-                //     header: {
-                //         apiToken: this.props.user.authorization
-                //     },
-                //     body: formData
-                // }
-
-                // this.props.upload_photo(payload,
-                //     (res) => {
-                //         language.transformText('message.uploadPhotoSuccess')
-                //          .then(message => {
-                //              this.props.set_success_status({
-                //                  status: true,
-                //                  data: message,
-                //                  title: 'formSuccess.title.default'
-                //              });
-                //              setTimeout(() => {
-                //                  this.props.set_success_status({
-                //                      status: false,
-                //                      data: '',
-                //                      title: ''
-                //                  });
-                //              },1000);
-                //          });
-                //     },
-                //     (err) => {
-                //         language.transformText('message.uploadPhotoError')
-                //          .then(message => {
-                //              this.props.set_error_status({
-                //                  status: true,
-                //                  title: 'formError.title.default',
-                //                  data: message,
-                //             });
-                //         });
-                //     })
-                this.setState({modalVisible: false});
-            }
         });
     }
 
@@ -293,37 +142,12 @@ class ProfilePage extends Component {
                 bgColorBottom={'veryLightGrey'}
                 bgColorTop={'red'}
             >
-                {/*<Modal
-                    animationType={'slide'}
-                    transparent={true}
-                    // visible={true}
-                    visible={this.state.modalVisible}
-                    onRequestClose={this.toggleModal}
-                >
-
-                    <TouchableOpacity style={styles.touchable} onPress={this.toggleModal}></TouchableOpacity>
-                    <View style={styles.modal}>
-                        <View style={{ marginBottom: 30}}>
-                        <Button
-                            type={'white'}
-                            onPress={this.launchCamera}
-                            title={'profilePage.button.takePhoto'}
-                        />
-                        </View>
-                        <Button
-                            type={'white'}
-                            onPress={this.openFromGallery}
-                            title={'profilePage.button.openGallery'}
-                        />
-
-                    </View>
-
-                </Modal>*/}
                 <View style={styles.container}>
                     <PhotoComponent
                         user={this.props.user}
                         navigateBack={this.navigateBack}
                         choosePhoto={this.choosePhoto}
+                        onChangeName={this.navigateToNamePage}
                     />
 
                     <Content

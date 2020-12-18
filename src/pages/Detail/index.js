@@ -360,8 +360,6 @@ class Detail extends Component {
 			}
 		};
 
-		// console.log('coba', payload)
-
 		this.props.request_snap_token(payload,
 			res => {
 				if (res.redirect_url) {

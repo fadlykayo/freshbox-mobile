@@ -373,8 +373,6 @@ class Checkout extends Component {
 
 	navigateToChoosePayment = (method) => {
 
-		// if(this.state.token.length == 0){
-
 		let address = this.props.addresses.filter(address => address.primary == 1)[0];
 
 		let payload = {
@@ -401,12 +399,6 @@ class Checkout extends Component {
 						midtrans: res.midtrans_json
 					}, () => {
 
-						// if(this.state.radio[2].status == true) {
-						// 	analytics.trackEvent('Preferred Payment Method', {Method: 'GoPay'});
-						// } else {
-						// 	analytics.trackEvent('Preferred Payment Method', {Method: 'Transfer/CreditCard'});
-						// }
-
 						if (this.state.redirect_url.length !== 0) {
 							actNav.navigate(navConstant.ChoosePayment, {
 								...this.props.navigation.state.params,
@@ -424,17 +416,20 @@ class Checkout extends Component {
 					});
 
 				} else {
-
 					this.setState({
 						invoice: res.invoice,
 					}, () => {
-						// analytics.trackEvent('Preferred Payment Method', {Method: 'Cash On Delivery'});
 						this.validateTransactionStatus();
 					});
 				}
 			},
 			rej => {
-
+				if (rej.data.update_profile) {
+					actNav.navigate(navConstant.PhonePage, {
+						type: 'otp',
+						isName: true
+					});
+				}
 			}
 		);
 	};
@@ -511,24 +506,7 @@ class Checkout extends Component {
 		}
 	};
 
-	// renderPriceDetail = () => {
-	// 	return (
-	// 		<DeliveryDate
-	// 			type={'price'}
-	// 			getDeliveryDate={this.getDeliveryDate}
-	// 			modalVisible={this.state.modalVisible.showDeliveryDate}
-	// 			closeDeliveryDate={this.closePriceDetail}
-	// 			dates={this.state.delivery_date}
-	// 		/>
-	// 	)
-	// }
-
-	// closePriceDetail = () => {
-	// 	this.setModalVisible('showPriceDetail', false);
-	// }
-
 	render() {
-		// console.warn(this.props.cart)
 		return (
 			<Container
 				bgColorBottom={'veryLightGrey'}
@@ -580,11 +558,6 @@ class Checkout extends Component {
 									property='checkout.content.confirmDate'
 									style={styles.text.confirmDate}
 								/>
-								{/* <StaticText
-									property	= 'checkout.content.confirmPerson'
-									style			= { styles.text.confirmPerson }
-								/> */}
-
 							</View>
 
 						</View>
@@ -702,27 +675,6 @@ class Checkout extends Component {
 									/>
 								</View>
 							</TouchableOpacity>
-							{/* <TouchableOpacity onPress = {() => this.addressDateValidation('cod')}>
-								<View style={styles.radioContainer}>
-								<View>
-
-									<StaticText
-										style={styles.text.methods}
-										property={'checkout.methods.COD'}
-									/>
-									<StaticText
-										style={styles.text.codText}
-										property={'checkout.methods.codWarning'}
-									/>
-								</View>
-												<Image
-													resizeMode={'contain'} 
-													source={images.icon_arrow_right_red}
-													style={styles.icon}
-												/>
-								</View>
-							</TouchableOpacity> */}
-
 						</View>
 
 					</View>

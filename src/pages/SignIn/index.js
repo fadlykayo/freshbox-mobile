@@ -50,6 +50,7 @@ class SignIn extends Component {
         this.googleHandler = this.googleHandler.bind(this);
         this.appleHandler = this.appleHandler.bind(this);
         this.onCloseModal = this.onCloseModal.bind(this);
+        this.registerSocmed = this.registerSocmed.bind(this);
     }
 
     componentWillUnmount() {
@@ -119,7 +120,6 @@ class SignIn extends Component {
         this.props.sign_in(payload,
             (res) => {
                 if (this.props.navigation.state.params.action == "menuLogin") {
-                    // analytics.trackEvent('Login Methods', {type: 'Phone Number'});
                     actNav.reset(navConstant.Product);
                 }
                 else if (this.props.navigation.state.params.action == "guestLogin") {
@@ -226,6 +226,7 @@ class SignIn extends Component {
                             sosmed: "google",
                             google_token: result.user.id
                         };
+                        console.log(err, '====');
                         switch (err.code) {
                             case 404:
                                 actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
@@ -240,6 +241,48 @@ class SignIn extends Component {
             .catch((err) => {
                 console.log('err', err);
             });
+    }
+
+    registerSocmed(email, apple_token, name) {
+        let payload = {
+            header: {
+                onesignalToken: this.props.userId.userId
+            },
+            body: {
+                name:'',
+                email,
+                sosmed: 'apple',
+                fb_token: '',
+                google_token: '',
+                apple_token,
+            }
+        };
+
+        this.props.register_user_socmed(payload,
+            (res) => {
+                if (res.code == 201) {
+                    let payloadSignin = {
+                        header: {
+                            onesignalToken: this.props.userId.userId
+                        },
+                        body: {
+                            sosmed: "apple",
+                            apple_token: apple_token,
+                        }
+                    };
+                    this.props.sign_in_socmed(payloadSignin,
+                        () => {
+                            actNav.reset(navConstant.Dashboard);
+                        },
+                        (err) => {
+                        });
+                }
+
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
     }
 
     async appleHandler() {
@@ -273,7 +316,6 @@ class SignIn extends Component {
                     actNav.reset(navConstant.Dashboard);
                 },
                 (err) => {
-                    console.log(err);
                     let params = {
                         name: fullName?.givenName ? `${fullName.givenName} ${fullName.familyName}` : '',
                         email: err.data.email,
@@ -282,14 +324,8 @@ class SignIn extends Component {
                     };
 
                     switch (err.code) {
-                        case 403:
-                            this.setState({
-                                params,
-                                showModal: true
-                            });
-                            break;
                         case 404:
-                            actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
+                            this.registerSocmed(params.email, params.apple_token, params.name);
                             break;
                         case 400:
                             actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true}); break;
@@ -313,13 +349,13 @@ class SignIn extends Component {
                 bgColorBottom={'white'}
                 bgColorTop={'red'}
             >
-                <Modal
+                {/*<Modal
                     modalVisible={this.state.showModal}
                     closeModal={() => this.setState({
                         showModal: false
                     })}
                     onCloseModal={this.onCloseModal}
-                />
+                />*/}
                 <NavigationBar
                     title={'signIn.navigationTitle'}
                     onPress={actNav.goBack}
@@ -400,6 +436,7 @@ const mapDispatchToProps = dispatch => ({
     sign_in: (req, res, err) => dispatch(actions.auth.api.sign_in(req, res, err)),
     sign_in_socmed: (req, res, err) => dispatch(actions.auth.api.sign_in_socmed(req, res, err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+    register_user_socmed: (req, res, err) => dispatch(actions.registration.api.register_user_socmed(req, res, err))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

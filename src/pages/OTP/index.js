@@ -20,6 +20,7 @@ class OTP extends Component {
             seconds: 60,
             countDownOver: false,
             otp: '',
+            name: '',
         };
         this.seconds = null;
         this.startTimer = this.startTimer.bind(this);
@@ -148,20 +149,18 @@ class OTP extends Component {
                     }
                 };
 
-                console.log('payload', payload);
-
                 this.props.otp_verification(payload,
                     () => {
                         this.stopTimer();
                         if (this.props.navigation.state.params.action == 'guestLogin') {
                             this.props.navigation.goBack(this.props.navigation.state.params.key);
-                        }
-                        else {
+                        } else if (this.props.navigation.state.params.isCart) {
+                            actNav.reset(navConstant.Cart);
+                        } else {
                             actNav.reset(navConstant.Product);
                         }
                     },
                     (err) => {
-                        console.log(err, '=====');
                         language.transformText('message.errorOTP')
                             .then(message => {
                                 this.props.set_error_status({

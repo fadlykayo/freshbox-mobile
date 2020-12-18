@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { actNav, navConstant } from '@navigations';
-import { validation } from '@helpers';
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import {actNav, navConstant} from '@navigations';
+import {validation} from '@helpers';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import FormInput from '@components/FormInput';
@@ -9,22 +9,26 @@ import VerificationText from '@components/VerificationText';
 import InputText from './components/InputText';
 import Button from '@components/Button';
 import styles from './styles';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import actions from '@actions';
 
 class PhonePage extends Component {
-  	constructor(props) {
-  		super(props)
+	constructor (props) {
+		super(props);
 		this.state = {
 			user: {
 				phone: props.user ? props.user.user.phone_number : '',
+				name: props.user ? props.user.user.name : '',
 			},
-            validateStatus:{
-                phone: true,
+			isName: props.navigation.state.params.isName,
+			validateStatus: {
+				phone: true,
+				name: true,
 			},
 			isEdit: false,
-			focus: true
-		}
+			focus: true,
+			type: props.navigation.state.params.type,
+		};
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
 		this.onChangeText = this.onChangeText.bind(this);
@@ -36,88 +40,112 @@ class PhonePage extends Component {
 		this.formatPhoneNumber = this.formatPhoneNumber.bind(this);
 	}
 
-	editPhonePage() {
-		this.setState({isEdit: true})
+	componentDidMount() {
+		if (this.props.navigation.state.params.type === 'otp') {
+			this.setState({isEdit: true});
+		}
 	}
 
-	setValidation(type,value){
-        let validateStatus = this.state.validateStatus;
-        validateStatus[type] = value;
-        this.setState({validateStatus});
-    }
+	editPhonePage() {
+		this.setState({isEdit: true});
+	}
 
-    clearValidation(){
-        let validateStatus = this.state.validateStatus;
-        validateStatus.phone = true;
-        this.setState({validateStatus});
-    }
+	setValidation(type, value) {
+		let validateStatus = this.state.validateStatus;
+		validateStatus[type] = value;
+		this.setState({validateStatus});
+	}
 
-	onChangeText(type,value){
+	clearValidation() {
+		let validateStatus = this.state.validateStatus;
+		validateStatus.phone = true;
+		this.setState({validateStatus});
+	}
+
+	onChangeText(type, value) {
 		let user = this.state.user;
-        user[type] = value;
-        this.setState({user});
-    }
+		user[type] = value;
+		this.setState({user});
+	}
 
-	submitPhone(){
-		let userPhone = this.state.user.phone.trim();
-        this.clearValidation();
-		this.onChangeText('phone',userPhone);
+	submitPhone() {
+		let userPhone = this.state.user.phone ? this.state.user.phone.trim() : '';
+		this.clearValidation();
+		this.onChangeText('phone', userPhone);
+		this.onChangeText('name', this.state.user.name);
 		this.phoneValidation();
 	}
 
-	phoneValidation(){
-        validation.phone(this.state.user.phone)
-        .then(() => {
-			if(this.state.validateStatus.phone == false) this.setValidation('phone',true);
-			this.updatePhoneHandler();
-        })
-        .catch(() => {
-            this.setValidation('phone',false);
-        })
+	phoneValidation() {
+		validation.updateProfile(this.state.user.phone, this.state.user.name)
+			.then(() => {
+				if (this.state.validateStatus.phone == false) this.setValidation('phone', true);
+				if (this.state.validateStatus.name == false) this.setValidation('name', true);
+				this.updatePhoneHandler();
+			})
+			.catch((type) => {
+				this.setValidation(type, false);
+			});
 	}
 
 	spacePhoneNumber(input) {
-        return input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+		return input ? input.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/, '') : '';
 	}
-	
-	formatPhoneNumber() {
-		this.onChangeText('phone',this.state.user.phone.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,''))
-	}
-	
-	updatePhoneHandler(){
 
+	formatPhoneNumber() {
+		this.onChangeText('phone', this.state.user.phone.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/, ''));
+	}
+
+	updatePhoneHandler() {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
 			},
 			body: {
-				phone_number: this.state.user.phone
+				phone_number: this.state.user.phone,
 			}
+		};
+
+		if (this.state.isName) {
+			payload.body.name = this.state.user.name;
+		};
+
+		if (this.state.user.phone !== this.props.user.user.phone_number) {
+			this.props.update_user(payload,
+				(success) => {
+					let params = {
+						action: 'phone',
+						phone_number: this.state.user.phone,
+						verifyOTP: true,
+					}
+					if (this.state.isName) {
+						params.isCart = true
+					};
+					actNav.navigate(navConstant.OTP, params);
+				},
+				(err) => {
+						console.log(err)
+				});
+		} else {
+			this.setState({isEdit: false})
 		}
-		this.props.update_user(payload,
-			(success) => {
-				actNav.goBack()
-			},
-			(err) => {
-				// console.log(err)
-			})
 	}
 
-  	render() {
-  	  	return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
+	render() {
+		return (
+			<Container
+				bgColorBottom={'veryLightGrey'}
+				bgColorTop={'red'}
 			>
 				<NavigationBar
 					title={'phonePage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
-					<View style={styles.container}>
-						<View style={styles.formPhone}>
-						{ this.state.isEdit ? (
+				<View style={styles.container}>
+					<View style={styles.formPhone}>
+						{this.state.isEdit ? (
 							<View>
-								<FormInput 
+								<FormInput
 									type={'phone'}
 									keyboardType={'number-pad'}
 									value={this.state.user.phone}
@@ -130,33 +158,59 @@ class PhonePage extends Component {
 									validation={this.state.validateStatus.phone}
 									property={'phonePage.validation.phone'}
 								/>
+								{
+									this.state.isName && (
+										<>
+											<FormInput
+												type={'name'}
+												value={this.state.user.name}
+												onChangeText={this.onChangeText}
+												label={'namePage.formLabel.phone'}
+												placeholder={'namePage.formLabel.phone'}
+												onSubmitEditing={this.submit}
+											/>
+											<VerificationText
+												validation={this.state.validateStatus.name}
+												property={'namePage.validation.phone'}
+											/>
+									</>
+									)
+								}
 							</View>
 						) : (
-							<InputText
-								label={'phonePage.label.phone'}
-								input={this.spacePhoneNumber(this.props.user.user.phone_number)}
-							/>
-						)}
-						</View>
-						<View style={styles.buttonPlace}>
-							<Button
-								type={this.state.isEdit ? 'red' : 'white'}
-								title={this.state.isEdit ? 'phonePage.button.save' : 'phonePage.button.edit'}
-								onPress={this.state.isEdit ? this.submitPhone : this.editPhonePage}
-							/>
-						</View>
-  	  	  			</View>
+							<>
+								<InputText
+									label={'phonePage.label.phone'}
+									input={this.spacePhoneNumber(this.props.user.user.phone_number)}
+								/>
+								{
+									this.state.isName &&	<InputText
+										label={'namePage.label.phone'}
+										input={this.props.user.user.name}
+									/>
+								}
+								</>
+							)}
+					</View>
+					<View style={styles.buttonPlace}>
+						<Button
+							type={this.state.isEdit ? 'red' : 'white'}
+							title={this.state.isEdit ? 'phonePage.button.save' : 'phonePage.button.edit'}
+							onPress={this.state.isEdit ? this.submitPhone : this.editPhonePage}
+						/>
+					</View>
+				</View>
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 const mapStateToProps = (state) => ({
 	user: state.user.data
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
-	update_user: (req,res,err) => dispatch(actions.user.api.update_user(req,res,err))
-})
+	update_user: (req, res, err) => dispatch(actions.user.api.update_user(req, res, err))
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(PhonePage);
+export default connect(mapStateToProps, mapDispatchToProps)(PhonePage);

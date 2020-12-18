@@ -51,7 +51,9 @@ class PhotoComponent extends Component {
                         }
                     />
                 </TouchableOpacity>
-                <Text style={styles.user.name}>{this.props.user?.user?.name}</Text>
+                <TouchableOpacity onPress={this.props.onChangeName}>
+                    <Text style={styles.user.name}>{this.props.user?.user?.name}</Text>
+                </TouchableOpacity>
                 <Text style={styles.user.phone}>{this.props.user?.user?.phone_number}</Text>
 
             </ImageBackground>

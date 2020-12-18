@@ -295,6 +295,22 @@
       "phone": "Please enter your phone number at least between 10 to 13 digits"
     }
   },
+  "namePage": {
+    "navigationTitle": "Name",
+    "label": {
+      "phone": "Name"
+    },
+    "formLabel": {
+      "phone": "Name"
+    },
+    "button": {
+      "edit": "Edit",
+      "save": "Save"
+    },
+    "validation": {
+      "phone": "Please enter your nam"
+    }
+  },
   "addressPage": {
     "navigationTitle": "Address",
     "label": {
@@ -772,14 +788,16 @@
     "close": "Close",
     "login": "Sign In",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "ok": "OK"
   },
   "modal": {
     "title": {
       "loginConfirmation": "Before you pay"
     },
     "content": {
-      "loginConfirmation": "Please login before you make a payment."
+      "loginConfirmation": "Please login before you make a payment.",
+      "addPhoneNumber": "Please verify phone number before you make a payment."
     }
   },
   "message": {
