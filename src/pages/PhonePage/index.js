@@ -117,6 +117,10 @@ class PhonePage extends Component {
 		};
 
 		if (this.state.user.phone !== this.props.user.user.phone_number) {
+			if (!this.state.isName) {
+				payload.body.profile_page = true;
+			};
+
 			this.props.update_user(payload,
 				(success) => {
 					let params = {
@@ -126,8 +130,10 @@ class PhonePage extends Component {
 					}
 					if (this.state.isName) {
 						params.isCart = true
-					};
-					actNav.goBack();
+						actNav.navigate(navConstant.OTP, params);
+					} else {
+						actNav.goBack()
+					}
 				},
 				(err) => {
 						console.log(err)
