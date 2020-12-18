@@ -249,7 +249,7 @@ class SignIn extends Component {
                 onesignalToken: this.props.userId.userId
             },
             body: {
-                name:'',
+                name: name,
                 email,
                 sosmed: 'apple',
                 fb_token: '',

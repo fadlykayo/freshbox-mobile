@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   product: state.product.products,
   promoProduct: state.product.promoProduct,
+  setModalVisible: state.product.setModalVisible,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.onReceived = this.onReceived.bind(this);
     this.onOpened = this.onOpened.bind(this);
@@ -140,6 +141,9 @@ class App extends Component {
       nextAppState === 'active'
     ) {
       Linking.addEventListener('url', this.handleDeepLink);
+      if (this.props.setModalVisible) {
+        this.props.set_modal_visible(false);
+      }
     }
     this.setState({appState: nextAppState});
   };

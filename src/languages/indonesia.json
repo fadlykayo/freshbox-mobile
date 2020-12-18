@@ -797,11 +797,13 @@
   },
   "modal": {
     "title": {
-      "loginConfirmation": "Sebelum anda membayar"
+      "loginConfirmation": "Sebelum anda membayar",
+      "changePhoneConfirmation": "Sebelum anda mengganti"
     },
     "content": {
       "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran.",
-      "addPhoneNumber": "Mohon verifikasi nomor telepon dahulu sebelum anda melakukan pembayaran."
+      "addPhoneNumber": "Mohon verifikasi nomor telepon dahulu sebelum anda melakukan pembayaran.",
+      "changePhoneConfirmation": "Pastikan nomor telepon anda benar dan aktif."
     }
   },
   "message": {

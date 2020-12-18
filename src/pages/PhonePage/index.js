@@ -8,8 +8,10 @@ import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import InputText from './components/InputText';
 import Button from '@components/Button';
+import StaticText from '@components/StaticText';
 import styles from './styles';
 import {connect} from 'react-redux';
+import ModalConfirmation from './components/ModalConfirmation';
 import actions from '@actions';
 
 class PhonePage extends Component {
@@ -28,6 +30,7 @@ class PhonePage extends Component {
 			isEdit: false,
 			focus: true,
 			type: props.navigation.state.params.type,
+			modalConfirmation: false
 		};
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
@@ -81,7 +84,10 @@ class PhonePage extends Component {
 			.then(() => {
 				if (this.state.validateStatus.phone == false) this.setValidation('phone', true);
 				if (this.state.validateStatus.name == false) this.setValidation('name', true);
-				this.updatePhoneHandler();
+				this.setState({
+					modalConfirmation: true
+				})
+				//this.updatePhoneHandler();
 			})
 			.catch((type) => {
 				this.setValidation(type, false);
@@ -141,8 +147,18 @@ class PhonePage extends Component {
 					title={'phonePage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
+				<ModalConfirmation
+					button={'button.ok'}
+					message={'modal.content.changePhoneConfirmation'}
+					onPress={this.updatePhoneHandler}
+					modalVisible={this.state.modalConfirmation}
+					onPressClose={() => this.setState({
+						modalConfirmation: false
+					})}
+				/>
 				<View style={styles.container}>
 					<View style={styles.formPhone}>
+			
 						{this.state.isEdit ? (
 							<View>
 								<FormInput
@@ -193,6 +209,10 @@ class PhonePage extends Component {
 							)}
 					</View>
 					<View style={styles.buttonPlace}>
+						<StaticText
+							style={styles.text}
+							property={'modal.content.changePhoneConfirmation'}
+						/>
 						<Button
 							type={this.state.isEdit ? 'red' : 'white'}
 							title={this.state.isEdit ? 'phonePage.button.save' : 'phonePage.button.edit'}

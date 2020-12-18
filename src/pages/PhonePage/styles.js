@@ -18,6 +18,14 @@ const styles = {
         flex: 1,
         justifyContent: 'flex-end',
         paddingBottom: width * 0.05,
+    },
+    text: {
+        fontFamily: 'Avenir-Roman',
+        fontSize: scaling.moderateScale(14),
+        color: colour.red,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: scaling.moderateScale(10),
     }
 }
 
