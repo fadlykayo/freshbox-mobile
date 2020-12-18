@@ -146,6 +146,7 @@ actions.request_snap_token = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
+				console.log(err)
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {

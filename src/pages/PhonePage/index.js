@@ -127,7 +127,7 @@ class PhonePage extends Component {
 					if (this.state.isName) {
 						params.isCart = true
 					};
-					actNav.navigate(navConstant.OTP, params);
+					actNav.goBack();
 				},
 				(err) => {
 						console.log(err)

@@ -110,8 +110,8 @@ class OTP extends Component {
     }
 
     navigateBack() {
-        // actNav.goBack();
-        actNav.reset(navConstant.Menu);
+        actNav.goBack();
+        //actNav.reset(navConstant.Menu);
     }
 
     blur() {

@@ -799,7 +799,7 @@
     "content": {
       "loginConfirmation": "Please login before you make a payment.",
       "addPhoneNumber": "Please verify phone number before you make a payment.",
-      "changePhoneConfirmation": "Please make sure your phone number are valid and active"
+      "changePhoneConfirmation": "Please make sure your phone number are valid and active. If you need any help please contact our customer service."
     }
   },
   "message": {

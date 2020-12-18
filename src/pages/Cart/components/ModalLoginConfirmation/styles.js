@@ -33,7 +33,7 @@ const styles = {
 		content:{
             fontFamily: 'Avenir-Book',
             fontSize: scaling.moderateScale(12),
-            color: colour.grey,
+            color: colour.black,
 			marginBottom: scaling.moderateScale(10),
 		},
 		button:{

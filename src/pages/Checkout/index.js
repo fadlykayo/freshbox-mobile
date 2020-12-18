@@ -13,6 +13,8 @@ import DeliveryPlace from './components/DeliveryPlace';
 import DiscountDetail from './components/DiscountDetail';
 import images from '@assets';
 import styles from './styles';
+import ModalLoginConfirmation from './components/ModalLoginConfirmation';
+
 import {language} from '@helpers';
 import actions from '@actions';
 import FormInput from '@components/FormInput';
@@ -30,6 +32,7 @@ class Checkout extends Component {
 				showPriceDetail: true,
 				showDiscountDetail: false,
 				showDeliveryTime: false,
+				showModalPhone: false
 			},
 			delivery_date: [],
 			coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
@@ -425,10 +428,12 @@ class Checkout extends Component {
 			},
 			rej => {
 				if (rej.data.update_profile) {
-					actNav.navigate(navConstant.PhonePage, {
-						type: 'otp',
-						isName: true
-					});
+					this.setState({
+						modalVisible: {
+							...this.state.modalVisible,
+							showModalPhone: true
+						}
+					})
 				}
 			}
 		);
@@ -515,6 +520,25 @@ class Checkout extends Component {
 				<NavigationBar
 					cancelVoucher={this.cancelVoucherAPI}
 					title={'checkout.navigationTitle'}
+				/>
+				<ModalLoginConfirmation
+					button={'button.ok'}
+					message={'modal.content.addPhoneNumber'}
+					onPress={() => {
+						actNav.navigate(navConstant.PhonePage, {
+							type: 'otp',
+							isName: true
+						})
+					}}
+					onCloseModal={() => {
+						this.setState({
+							modalVisible: {
+								...this.state.modalVisible,
+								showModalPhone: false
+							}
+						})
+					}}
+					modalVisible={this.state.modalVisible.showModalPhone}
 				/>
 				<ScrollView style={styles.container}>
 					{this._renderVoucherInput()}

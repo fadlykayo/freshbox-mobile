@@ -15,15 +15,14 @@ const styles = {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		zIndex: 22,
-
+		zIndex: 20,
 	},
 	container:{
 		width: width * 0.8,
 		backgroundColor: colour.white,
 		padding: scaling.moderateScale(10),
 		borderRadius: scaling.moderateScale(5),
-		zIndex: 22,
+		zIndex: 21,
 	},
 	text:{
 		title:{
