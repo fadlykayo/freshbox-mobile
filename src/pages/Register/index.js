@@ -176,8 +176,6 @@ class Register extends Component {
                 name: this.state.user.fullName,
                 email: this.state.user.email,
                 phone_number: this.state.user.phone,
-                // password: this.state.user.password,
-                // password_confirmation: this.state.user.confirmPassword,
                 sosmed: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.sosmed : '',
                 fb_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.fb_token !== undefined ? this.props.navigation.state.params.socmed.fb_token : '' : '',
                 google_token: this.props.navigation.state.params.socmed !== undefined ? this.props.navigation.state.params.socmed.google_token !== undefined ? this.props.navigation.state.params.socmed.google_token : '' : '',
@@ -185,6 +183,7 @@ class Register extends Component {
             }
         };
 
+        //console.log(JSON.stringify(payload, null, 2))
         this.props.register_user_socmed(payload,
             (res) => {
                 if (res.code == 201) {
@@ -193,9 +192,9 @@ class Register extends Component {
                         key: this.props.navigation.state.params.key,
                         phone_number: this.state.user.phone
                     });
-                } else {
+                } else if (res.code == 200) {
                     // console.log(res)
-                    // actNav.reset(navConstant.Product)
+                     actNav.reset(navConstant.Product)
                 }
             },
             (err) => {
