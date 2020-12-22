@@ -21,11 +21,14 @@ class PhonePage extends Component {
 			user: {
 				phone: props.user ? props.user.user.phone_number : '',
 				name: props.user ? props.user.user.name : '',
+				email: props.user ? props.user.user.email : ''
 			},
 			isName: props.navigation.state.params.isName,
+			isEmail: this.props.user.user.email.includes("privaterelay.appleid.com"),
 			validateStatus: {
 				phone: true,
 				name: true,
+				email: true
 			},
 			isEdit: false,
 			focus: true,
@@ -80,10 +83,11 @@ class PhonePage extends Component {
 	}
 
 	phoneValidation() {
-		validation.updateProfile(this.state.user.phone, this.state.user.name)
+		validation.updateProfile(this.state.user.phone, this.state.user.name, this.state.user.email)
 			.then(() => {
 				if (this.state.validateStatus.phone == false) this.setValidation('phone', true);
 				if (this.state.validateStatus.name == false) this.setValidation('name', true);
+				if (this.state.validateStatus.email == false) this.setValidation('email', true);
 				this.setState({
 					modalConfirmation: true
 				})
@@ -114,6 +118,9 @@ class PhonePage extends Component {
 
 		if (this.state.isName) {
 			payload.body.name = this.state.user.name;
+		};
+		if (this.state.isEmail) {
+			payload.body.email = this.state.user.email;
 		};
 
 		if (this.state.user.phone !== this.props.user.user.phone_number) {
@@ -198,6 +205,24 @@ class PhonePage extends Component {
 									</>
 									)
 								}
+								{
+									this.state.isEmail && (
+										<>
+											<FormInput
+												type={'email'}
+												value={this.state.user.email}
+												onChangeText={this.onChangeText}
+												label={'namePage.formLabel.email'}
+												placeholder={'namePage.formLabel.email'}
+												onSubmitEditing={this.submit}
+											/>
+											<VerificationText
+												validation={this.state.validateStatus.email}
+												property={'namePage.validation.email'}
+											/>
+										</>
+									)
+								}
 							</View>
 						) : (
 							<>
@@ -206,10 +231,20 @@ class PhonePage extends Component {
 									input={this.spacePhoneNumber(this.props.user.user.phone_number)}
 								/>
 								{
-									this.state.isName &&	<InputText
-										label={'namePage.label.phone'}
-										input={this.props.user.user.name}
-									/>
+									this.state.isName && (
+											<InputText
+												label={'namePage.label.phone'}
+												input={this.props.user.user.name}
+											/>
+									)	
+								}
+								{
+									this.state.isEmail && (
+										<InputText
+											label={'namePage.label.email'}
+											input={this.props.user.user.email}
+										/>
+									)
 								}
 								</>
 							)}

@@ -46,10 +46,14 @@ validation.otp = (input) => new Promise((res, rej) => {
     else rej();
 });
 
-validation.updateProfile = (phone, name) => new Promise((res, rej) => {
+validation.updateProfile = (phone, name, email) => new Promise((res, rej) => {
     if (phoneRegex.test(phone) == true) {
-        if (name.length > 0) res();
-        else rej('name');
+        if (!email.includes("privaterelay.appleid.com")) {
+            if (name.length > 0) res();
+            else rej('name');
+        } else {
+            rej('email')
+        }
     } else {
         rej('phone');
     } 

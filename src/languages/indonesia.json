@@ -300,17 +300,20 @@
   "namePage": {
     "navigationTitle": "Nama",
     "label": {
-      "phone": "Nama"
+      "phone": "Nama",
+      "email": "Email"
     },
     "formLabel": {
-      "phone": "Nama"
+      "phone": "Nama",
+      "email": "Email"
     },
     "button": {
       "edit": "Ubah",
       "save": "Simpan"
     },
     "validation": {
-      "phone": "Tolong masukkan nama anda"
+      "phone": "Tolong masukkan nama anda",
+      "email": "Tolong ganti email anda"
     }
   },
   "addressPage": {

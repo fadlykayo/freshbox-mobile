@@ -298,17 +298,20 @@
   "namePage": {
     "navigationTitle": "Name",
     "label": {
-      "phone": "Name"
+      "phone": "Name",
+      "email": "Email"
     },
     "formLabel": {
-      "phone": "Name"
+      "phone": "Name",
+      "email": "Email"
     },
     "button": {
       "edit": "Edit",
       "save": "Save"
     },
     "validation": {
-      "phone": "Please enter your nam"
+      "phone": "Please enter your name",
+      "email": "Please change your email"
     }
   },
   "addressPage": {
