@@ -6,6 +6,13 @@ let today = new Date().getFullYear().toString().slice(1, 4);
 
 const validation = {};
 
+validation.email = (input) => new Promise((res, rej) => {
+    if (input.length > 0) {
+        if (emailRegex.test(input) == true) res();
+        else rej();
+    } else rej();
+});
+
 validation.emailFormat = (input) => new Promise((res, rej) => {
     if (emailRegex.test(input) == true) res();
     else rej();
@@ -48,12 +55,8 @@ validation.otp = (input) => new Promise((res, rej) => {
 
 validation.updateProfile = (phone, name, email) => new Promise((res, rej) => {
     if (phoneRegex.test(phone) == true) {
-        if (!email.includes("privaterelay.appleid.com")) {
-            if (name.length > 0) res();
-            else rej('name');
-        } else {
-            rej('email')
-        }
+        if (name.length > 0) res();
+        else rej('name');
     } else {
         rej('phone');
     } 

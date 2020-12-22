@@ -21,6 +21,7 @@ class ProfilePage extends Component {
         this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
         this.navigateToAddressPage = this.navigateToAddressPage.bind(this);
         this.navigateToResetPasswordPage = this.navigateToResetPasswordPage.bind(this);
+        this.navigateToEmailPage = this.navigateToEmailPage.bind(this);
         this.navigateLogOut = this.navigateLogOut.bind(this);
         this.choosePhoto = this.choosePhoto.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -136,6 +137,11 @@ class ProfilePage extends Component {
         });
     }
 
+    navigateToEmailPage() {
+        console.log('masuk')
+        actNav.navigate(navConstant.EmailPage);
+    }
+
     render() {
         return (
             <Container
@@ -155,6 +161,8 @@ class ProfilePage extends Component {
                         navigateToPhonePage={this.navigateToPhonePage}
                         navigateToAddressPage={this.navigateToAddressPage}
                         navigateToResetPasswordPage={this.navigateToResetPasswordPage}
+                        navigateToEmailPage={this.navigateToEmailPage}
+                        email={this.props.user.user.email}
                     />
                     <View style={styles.subcontainer.bottom}>
                         <Button

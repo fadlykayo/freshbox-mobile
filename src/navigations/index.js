@@ -14,6 +14,7 @@ import HistoryPage from '@pages/HistoryPage';
 import Detail from '@pages/Detail';
 import ProfilePage from '@pages/ProfilePage';
 import PhonePage from '@pages/PhonePage';
+import EmailPage from '@pages/EmailPage';
 import NamePage from '@pages/ChangeName';
 import AddressPage from '@pages/AddressPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
@@ -67,6 +68,7 @@ export const AppNavigator = createStackNavigator(
     ProductList: {screen: ProductList},
     Detail: {screen: Detail},
     PhonePage: {screen: PhonePage},
+    EmailPage: {screen: EmailPage},
     NamePage: {screen: NamePage},
     AddressPage: {screen: AddressPage},
     ResetPasswordPage: {screen: ResetPasswordPage},
@@ -119,6 +121,7 @@ export const navConstant = {
   Detail: 'Detail',
   ProfilePage: 'ProfilePage',
   PhonePage: 'PhonePage',
+  EmailPage: 'EmailPage',
   NamePage: 'NamePage',
   AddressPage: 'AddressPage',
   ResetPasswordPage: 'ResetPasswordPage',

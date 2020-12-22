@@ -8,31 +8,34 @@ import FormInput from '@components/FormInput';
 import VerificationText from '@components/VerificationText';
 import InputText from './components/InputText';
 import Button from '@components/Button';
+import StaticText from '@components/StaticText';
 import styles from './styles';
 import {connect} from 'react-redux';
 import actions from '@actions';
 
-class ChangeName extends Component {
+class PhonePage extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			name: props.user ? props.user.user.name : '',
+			user: {
+				email: props.user ? props.user.user.email : ''
+			},
 			validateStatus: {
-				name: true,
+				email: true
 			},
 			isEdit: false,
 			focus: true,
+			type: props.navigation.state.params.type,
 		};
 		this.setValidation = this.setValidation.bind(this);
 		this.clearValidation = this.clearValidation.bind(this);
 		this.onChangeText = this.onChangeText.bind(this);
-		this.submit = this.submit.bind(this);
-		this.nameValidation = this.nameValidation.bind(this);
-		this.updateNameHandler = this.updateNameHandler.bind(this);
-		this.setEdit = this.setEdit.bind(this);
+		this.submitPhone = this.submitPhone.bind(this);
+		this.updatePhoneHandler = this.updatePhoneHandler.bind(this);
+		this.editPhonePage = this.editPhonePage.bind(this);
 	}
 
-	setEdit() {
+	editPhonePage() {
 		this.setState({isEdit: true});
 	}
 
@@ -49,45 +52,38 @@ class ChangeName extends Component {
 	}
 
 	onChangeText(type, value) {
-		this.setState({name: value});
+		let user = this.state.user;
+		user[type] = value;
+		this.setState({user});
 	}
 
-	submit() {
+	submitPhone() {
 		this.clearValidation();
-		this.onChangeText('name', this.state.name);
-		this.nameValidation();
+		this.onChangeText('email', this.state.user.email);
+		this.updatePhoneHandler();
 	}
 
-	nameValidation() {
-		validation.fullName(this.state.name)
-			.then(() => {
-				if (this.state.validateStatus.name == false) this.setValidation('name', true);
-				this.updateNameHandler();
-			})
-			.catch(() => {
-				this.setValidation('name', false);
-			});
-	}
-
-	updateNameHandler() {
+	updatePhoneHandler() {
 		let payload = {
 			header: {
 				apiToken: this.props.user.authorization
 			},
 			body: {
-				name: this.state.name
+				email: this.state.user.email,
 			}
 		};
-		console.log('====', this.state);
 
-		this.props.update_user(payload,
-			(success) => {
-				console.log(success);
-				//actNav.goBack();
-			},
-			(err) => {
-				// console.log(err)
-			});
+		if (this.state.user.email !== this.props.user.user.email) {
+			this.props.update_user(payload,
+				(success) => {
+						actNav.goBack()
+				},
+				(err) => {
+						console.log(err)
+				});
+		} else {
+			this.setState({isEdit: false})
+		}
 	}
 
 	render() {
@@ -97,38 +93,39 @@ class ChangeName extends Component {
 				bgColorTop={'red'}
 			>
 				<NavigationBar
-					title={'namePage.navigationTitle'}
+					title={'emailPage.navigationTitle'}
 					onPress={actNav.goBack}
 				/>
 				<View style={styles.container}>
 					<View style={styles.formPhone}>
+			
 						{this.state.isEdit ? (
 							<View>
 								<FormInput
-									type={'name'}
-									value={this.state.name}
+									type={'email'}
+									value={this.state.user.email}
 									onChangeText={this.onChangeText}
-									label={'namePage.formLabel.phone'}
-									placeholder={'namePage.formLabel.phone'}
+									label={'namePage.formLabel.email'}
+									placeholder={'namePage.formLabel.email'}
 									onSubmitEditing={this.submit}
 								/>
 								<VerificationText
-									validation={this.state.validateStatus.name}
-									property={'namePage.validation.phone'}
+									validation={this.state.validateStatus.email}
+									property={'namePage.validation.email'}
 								/>
 							</View>
 						) : (
 								<InputText
-									label={'namePage.label.phone'}
-									input={this.props.user.user.name}
+									label={'namePage.label.email'}
+									input={this.props.user.user.email}
 								/>
 							)}
 					</View>
 					<View style={styles.buttonPlace}>
 						<Button
 							type={this.state.isEdit ? 'red' : 'white'}
-							title={this.state.isEdit ? 'namePage.button.save' : 'namePage.button.edit'}
-							onPress={this.state.isEdit ? this.submit : this.setEdit}
+							title={this.state.isEdit ? 'phonePage.button.save' : 'phonePage.button.edit'}
+							onPress={this.state.isEdit ? this.submitPhone : this.editPhonePage}
 						/>
 					</View>
 				</View>
@@ -145,4 +142,4 @@ const mapDispatchToProps = (dispatch) => ({
 	update_user: (req, res, err) => dispatch(actions.user.api.update_user(req, res, err))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangeName);
+export default connect(mapStateToProps, mapDispatchToProps)(PhonePage);

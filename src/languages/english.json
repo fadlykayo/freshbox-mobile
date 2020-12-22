@@ -271,13 +271,17 @@
       "comma": ", ",
       "kecamatan": ", Kec. ",
       "kelurahan": ", Kel. ",
-      "resetPassword": "Reset Password"
+      "resetPassword": "Reset Password",
+      "email": "Email"
     },
     "button": {
       "signOut": "SIGN OUT",
       "takePhoto": "Take Photo",
       "openGallery": "Open from Gallery"
     }
+  },
+  "emailPage": {
+    "navigationTitle": "Email"
   },
   "phonePage": {
     "navigationTitle": "Phone Number",

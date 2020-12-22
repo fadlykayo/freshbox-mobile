@@ -79,6 +79,7 @@ class PhonePage extends Component {
 		this.clearValidation();
 		this.onChangeText('phone', userPhone);
 		this.onChangeText('name', this.state.user.name);
+		this.onChangeText('email', this.state.user.email);
 		this.phoneValidation();
 	}
 
@@ -87,7 +88,7 @@ class PhonePage extends Component {
 			.then(() => {
 				if (this.state.validateStatus.phone == false) this.setValidation('phone', true);
 				if (this.state.validateStatus.name == false) this.setValidation('name', true);
-				if (this.state.validateStatus.email == false) this.setValidation('email', true);
+				//if (this.state.validateStatus.email == false) this.setValidation('email', true);
 				this.setState({
 					modalConfirmation: true
 				})
@@ -119,9 +120,9 @@ class PhonePage extends Component {
 		if (this.state.isName) {
 			payload.body.name = this.state.user.name;
 		};
-		if (this.state.isEmail) {
-			payload.body.email = this.state.user.email;
-		};
+		//if (this.state.isEmail) {
+		//	payload.body.email = this.state.user.email;
+		//};
 
 		if (this.state.user.phone !== this.props.user.user.phone_number) {
 			if (!this.state.isName) {
@@ -205,7 +206,7 @@ class PhonePage extends Component {
 									</>
 									)
 								}
-								{
+								{/*{
 									this.state.isEmail && (
 										<>
 											<FormInput
@@ -222,7 +223,7 @@ class PhonePage extends Component {
 											/>
 										</>
 									)
-								}
+								}*/}
 							</View>
 						) : (
 							<>
@@ -238,14 +239,14 @@ class PhonePage extends Component {
 											/>
 									)	
 								}
-								{
+								{/*{
 									this.state.isEmail && (
 										<InputText
 											label={'namePage.label.email'}
 											input={this.props.user.user.email}
 										/>
 									)
-								}
+								}*/}
 								</>
 							)}
 					</View>

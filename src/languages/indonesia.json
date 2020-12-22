@@ -265,6 +265,9 @@
       "address": "Alamat Pengiriman"
     }
   },
+  "emailPage": {
+    "navigationTitle": "Email"
+  },
   "profilePage": {
     "content": {
       "phone": "Nomor Telepon",
@@ -273,7 +276,8 @@
       "comma": ", ",
       "kecamatan": ", Kec. ",
       "kelurahan": ", Kel. ",
-      "resetPassword": "Ubah Password"
+      "resetPassword": "Ubah Password",
+      "email": "Email"
     },
     "button": {
       "signOut": "Keluar",

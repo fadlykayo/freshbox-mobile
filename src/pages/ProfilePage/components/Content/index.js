@@ -11,6 +11,7 @@ class Content extends Component {
         this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
         this.navigateToAddressPage = this.navigateToAddressPage.bind(this);
         this.navigateToResetPasswordPage = this.navigateToResetPasswordPage.bind(this);
+        this.navigateToEmailPage = this.navigateToEmailPage.bind(this);
     }
 
     spacePhoneNumber(input) {
@@ -29,9 +30,32 @@ class Content extends Component {
         this.props.navigateToResetPasswordPage();
     }
 
+    navigateToEmailPage() {
+        this.props.navigateToEmailPage();
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                {
+                    this.props.email.includes("privaterelay.appleid.com") && (
+                        <TouchableOpacity 
+                            onPress={this.navigateToEmailPage}
+                            style={styles.subcontainer.phone}
+                        >
+                            <StaticText
+                                style={styles.text.title}
+                                property={'profilePage.content.email'}
+                            />
+                            <Text style={styles.text.content}>{this.props.user?.user?.email}</Text>
+                            <Image
+                                resizeMode={'contain'} 
+                                source={images.icon_arrow_right}
+                                style={styles.icon.send}
+                            />
+                        </TouchableOpacity>
+                    )
+                }
                 <TouchableOpacity 
                     onPress={this.navigateToPhonePage}
                     style={styles.subcontainer.phone}
