@@ -7,5 +7,8 @@
 		<!-- production -->
 		<string moduleConfig="true" name="CodePushDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
     <!-- staging -->
-    <!-- <string moduleConfig="true" name="CodePushDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string> -->
+    <!--<string name="app_name">Freshbox</string>
+    <string name="facebook_app_id">672686353357966</string>
+    <string name="fb_login_protocol_scheme">fb[672686353357966]</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string>-->
 </resources>
