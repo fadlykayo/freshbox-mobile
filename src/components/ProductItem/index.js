@@ -49,7 +49,7 @@ class ProductItem extends PureComponent {
 		} else {
 			this.props.openDetailProduct(this.props.data);
 		}
-		analytics.log(`Prduct_Card_${data.name.replace(/[\W_]+/g,"")}_Clicked`, {name: data.name.replace(/[\W_]+/g,"")})
+		analytics.log(`Prduct_Card_Clicked`, {name: data.name.replace(/[\W_]+/g,"")})
 	}
 
 	render(){
