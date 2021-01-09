@@ -101,11 +101,12 @@ class HistoryPage extends Component {
 			invoice: input.invoice
 		}
 		this.props.detail_transaction(payload,
-			() => {
+			(res) => {
+				console.log(res.data.status)
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					refreshHandler: this.refreshHandler,
-					createOrderSuccess: input.status === "paid" ? true: false,
+					createOrderSuccess: res.data.status === "cancel" ? false: true,
 				});
 			},
 			(err) => {
