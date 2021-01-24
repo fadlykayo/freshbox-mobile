@@ -542,7 +542,15 @@ class Dashboard extends Component {
 	}
 
 	changeTotalItem = (payload,type) => {
-		this.props.change_total(payload,type);
+		if(payload.isClaim && type === 'inc') {
+			this.props.set_error_status({
+				status: true,
+				title: 'formError.title.outOfClaim',
+				data: `${payload.name}: ${payload.quota_claim}`,
+			});
+		} else {
+			this.props.change_total(payload,type);
+		}
 	}
 
 	openZoomImage = () => {

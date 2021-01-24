@@ -319,7 +319,16 @@ class BannerDetail extends Component {
 	}
 
   changeTotalItem = (payload,type) => {
-		this.props.change_total(payload,type);
+    // this.props.change_total(payload,type);
+    if(payload.isClaim && type === 'inc') {
+			this.props.set_error_status({
+				status: true,
+				title: 'formError.title.outOfClaim',
+				data: `${payload.name}: ${payload.quota_claim}`,
+			});
+		} else {
+			this.props.change_total(payload,type);
+		}
 	}
 
   setModalVisible = (type,value) => {
@@ -673,6 +682,7 @@ const mapDispatchToProps = dispatch => ({
   search_products: (req, res, err) => dispatch(actions.product.api.search_products(req, res, err)),
   change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
   set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+  set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BannerDetail);

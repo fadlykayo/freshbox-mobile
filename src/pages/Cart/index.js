@@ -120,7 +120,15 @@ class Cart extends Component {
 			});
 		}
 		else {
-			this.props.change_total(payload, type);
+			if(payload.isClaim && type === 'inc') {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.outOfClaim',
+					data: `${payload.name}: ${payload.quota_claim}`,
+				});
+			} else {
+				this.props.change_total(payload,type);
+			}
 		}
 	}
 
@@ -180,9 +188,16 @@ class Cart extends Component {
 
 	navigateToSignIn() {
 		this.setModalVisible('modalLoginConfirmation', false);
-		actNav.navigate(navConstant.SignIn, {
-			action: 'guestLogin'
-		});
+		if(this.props.cart_product.length > 0) {
+			actNav.navigate(navConstant.SignIn, {
+				action: 'guestLogin',
+				totalProduct: this.props.cart_product.length
+			});
+		} else {
+			actNav.navigate(navConstant.SignIn, {
+				action: 'guestLogin'
+			});
+		}
 	};
 
 	navigateToPhonePage() {

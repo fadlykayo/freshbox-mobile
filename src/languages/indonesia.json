@@ -785,7 +785,8 @@
       "outOfStock": "Jumlah Barang Berlebih",
       "expiredDate": "Waktu Pemesanan Telah Habis",
       "serverError": "Gangguan Koneksi",
-      "paymentCanceled": "Pembayaran Batal"
+      "paymentCanceled": "Pembayaran Batal",
+      "outOfClaim": "You have reach max order qty for"
     }
   },
   "formSuccess": {

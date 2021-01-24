@@ -90,6 +90,9 @@ const getProductDashboard = (state, payload) => {
         } else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     });
@@ -144,6 +147,9 @@ const getProducts = (state, payload) => {
         } else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     });
@@ -177,6 +183,9 @@ const getFavorites = (state, payload) => {
         else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     }).filter(e => e.stock > 0);
@@ -306,6 +315,9 @@ const searchData = (state, payload) => {
         else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     });
@@ -352,6 +364,9 @@ const getPromo = (state, payload) => {
         else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     });
@@ -374,8 +389,20 @@ const editTotal = (state, payload) => {
         newState.currentDetail.products.map((e, i) => {
             if (e.product.code === payload.data.code) {
                 if (payload.type == 'inc') {
-
-                    e.product.count += 1;
+                    if(e.product.total_claim_product === undefined ||
+                        e.product.quota_claim === 0
+                        ) {
+                        e.product.count += 1;
+                    } else {
+                        if(e.product.count < e.product.quota_claim &&
+                            (e.product.total_claim_product === null ||
+                            parseInt(e.product.total_claim_product) <
+                            e.product.quota_claim) ) {
+                            e.product.count += 1;
+                        } else {
+                            e.product.isClaim = true;
+                        }
+                    }
                 } else {
                     e.product.count -= 1;
                 }
@@ -384,17 +411,105 @@ const editTotal = (state, payload) => {
     }
 
     if (payload.type == "inc") {
-        if (indexProducts != -1) newState.products[indexProducts].count += 1;
-        if (indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
-        if (indexCart != -1) newState.cart.products[indexCart].count += 1;
-        if (indexPromo != -1) newState.promoProduct[indexPromo].count += 1;
-        if (indexDetail) newState.detail.count += 1;
+        if (indexProducts != -1) {
+            if(newState.products[indexProducts].total_claim_product === undefined ||
+                newState.products[indexProducts].quota_claim === 0
+                ) {
+                newState.products[indexProducts].count += 1;
+            } else {
+                if(newState.products[indexProducts].count < newState.products[indexProducts].quota_claim &&
+                    (newState.products[indexProducts].total_claim_product === null ||
+                    parseInt(newState.products[indexProducts].total_claim_product) <
+                    newState.products[indexProducts].quota_claim) ) {
+                    newState.products[indexProducts].count += 1;
+                } else {
+                    newState.products[indexProducts].isClaim = true;
+                }
+                if(newState.products[indexProducts].count === newState.products[indexProducts].quota_claim ){
+                    newState.products[indexProducts].isClaim = true;
+                }
+            }
+        }
+        if (indexFavorite != -1) {
+            newState.wishlist.products[indexFavorite].count += 1;
+            if(newState.wishlist.products[indexFavorite].total_claim_product === undefined ||
+                newState.wishlist.products[indexFavorite].quota_claim === 0
+                ) {
+                newState.wishlist.products[indexFavorite].count += 1;
+            } else {
+                if(newState.wishlist.products[indexFavorite].count < newState.wishlist.products[indexFavorite].quota_claim &&
+                    (newState.wishlist.products[indexFavorite].total_claim_product === null ||
+                    parseInt(newState.wishlist.products[indexFavorite].total_claim_product) <
+                    newState.wishlist.products[indexFavorite].quota_claim)) {
+                    newState.wishlist.products[indexFavorite].count += 1;
+                } else {
+                    newState.wishlist.products[indexFavorite].isClaim = true
+                }
+                if(newState.wishlist.products[indexFavorite].count === newState.wishlist.products[indexFavorite].quota_claim ){
+                    newState.wishlist.products[indexFavorite].isClaim = true;
+                }
+            }
+        }
+        if (indexCart != -1) {
+            if(newState.cart.products[indexCart].total_claim_product === undefined ||
+                newState.cart.products[indexCart].quota_claim === 0
+                ) {
+                newState.cart.products[indexCart].count += 1;
+            } else {
+                if(newState.cart.products[indexCart].count < newState.cart.products[indexCart].quota_claim &&
+                    (newState.cart.products[indexCart].total_claim_product === null ||
+                    parseInt(newState.cart.products[indexCart].total_claim_product) <
+                    newState.cart.products[indexCart].quota_claim)) {
+                    newState.cart.products[indexCart].count += 1;
+                } else {
+                    newState.cart.products[indexCart].isClaim = true
+                }
+                if(newState.cart.products[indexCart].count === newState.cart.products[indexCart].quota_claim ){
+                    newState.cart.products[indexCart].isClaim = true;
+                }
+            }
+        }
+        if (indexPromo != -1) {
+            if(newState.promoProduct[indexPromo].total_claim_product === undefined ||
+                newState.promoProduct[indexPromo].quota_claim === 0
+                ) {
+                newState.promoProduct[indexPromo].count += 1;
+            } else {
+                if(newState.promoProduct[indexPromo].count < newState.promoProduct[indexPromo].quota_claim &&
+                    (newState.promoProduct[indexPromo].total_claim_product === null ||
+                        parseInt(newState.promoProduct[indexPromo].total_claim_product) <
+                        newState.promoProduct[indexPromo].quota_claim) ) {
+                        newState.promoProduct[indexPromo].count += 1;
+                } else {
+                    newState.promoProduct[indexPromo].isClaim = true;
+                }
+                if(newState.promoProduct[indexPromo].count === newState.promoProduct[indexPromo].quota_claim ){
+                    newState.promoProduct[indexPromo].isClaim = true;
+                }
+            }
+        }
+        if (indexDetail) {
+            newState.detail.count += 1;
+            console.warn('5.......todo')
+        }
     }
     else {
-        if (indexProducts != -1) newState.products[indexProducts].count -= 1;
-        if (indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
-        if (indexCart != -1) newState.cart.products[indexCart].count -= 1;
-        if (indexPromo != -1) newState.promoProduct[indexPromo].count -= 1;
+        if (indexProducts != -1) {
+            newState.products[indexProducts].count -= 1;
+            newState.products[indexProducts].isClaim = false
+        }
+        if (indexFavorite != -1) {
+            newState.wishlist.products[indexFavorite].count -= 1;
+            newState.wishlist.products[indexFavorite].isClaim =  false
+        }
+        if (indexCart != -1) {
+            newState.cart.products[indexCart].count -= 1;
+            newState.cart.products[indexCart].isClaim = false;
+        }
+        if (indexPromo != -1) {
+            newState.promoProduct[indexPromo].count -= 1;
+            newState.promoProduct[indexPromo].isClaim = false;
+        }
         if (indexDetail) newState.detail.count -= 1;
     }
 
@@ -531,6 +646,9 @@ const editFavorite = (state, payload) => {
         else {
             if (!e.count) e.count = 0;
             if (!e.maxQty) e.maxQty = 1000;
+            if(e.total_claim_product !== undefined) {
+                e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+            }
             return e;
         }
     });
@@ -829,6 +947,9 @@ const getProductDetail = (state, payload) => {
             if (findProduct === -1) {
                 if (!e.count) e.count = 0;
                 if (!e.maxQty) e.maxQty = 1000;
+                if(e.total_claim_product !== undefined) {
+                    e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim
+                }
                 newState.detail = e;
 
                 // newState.products.push(newState.detail)
