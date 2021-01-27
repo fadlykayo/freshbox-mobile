@@ -45,7 +45,7 @@ class Thanks extends Component {
             isNavigateBack: true
         }, () => {
             if (key) actNav.goBack(key)
-            else actNav.goBack();
+            else actNav.reset(navConstant.Dashboard);
         });
     }
 

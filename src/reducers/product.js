@@ -40,7 +40,8 @@ const initialState = {
     currentDetail: [{
         product: []
     }],
-    setModalVisible: false
+    setModalVisible: false,
+    productMaxClaim: []
 };
 
 const getProductDashboard = (state, payload) => {
@@ -384,6 +385,7 @@ const editTotal = (state, payload) => {
     const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
     const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
     const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && newState.detail.code === payload.data.code;
+    let new_products = newState.currentDetail.new_products
     if (newState.currentDetail.products && newState.currentDetail.products.length > 0) {
         const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code);
         newState.currentDetail.products.map((e, i) => {
@@ -397,23 +399,73 @@ const editTotal = (state, payload) => {
                         if(e.product.count < e.product.quota_claim &&
                             (e.product.total_claim_product === null ||
                             parseInt(e.product.total_claim_product) <
-                            e.product.quota_claim) ) {
+                            e.product.quota_claim)) {
                             e.product.count += 1;
                         } else {
+                            e.product.isClaim = true
+                        }
+                        if(e.product.count === e.product.quota_claim ){
+                            e.product.isClaim = true;
+                        } else if(e.product.count === e.product.quota_claim - parseInt(e.product.total_claim_product)){
                             e.product.isClaim = true;
                         }
                     }
                 } else {
                     e.product.count -= 1;
+                    e.product.isClaim = false
                 }
             }
         });
     }
 
+    if(newState.currentDetail.new_products && Object.values(newState.currentDetail.new_products).length > 0) {
+        let temp;
+        for(const items in new_products) {
+            temp = new_products[items]
+            for(let obj in temp) {
+                if(obj !== 'info') {
+                if (temp[obj].product.code === payload.data.code) {
+                    if(payload.type === "inc") {
+                        if(temp[obj].product.total_claim_product === undefined ||
+                            temp[obj].product.total_claim_product === null ||
+                            temp[obj].product.quota_claim === 0 ||
+                            temp[obj].product.quota_claim === null
+                            ) {
+                            temp[obj].product.count += 1;
+                        } else {
+                            if(temp[obj].product.count < temp[obj].product.quota_claim &&
+                                (temp[obj].product.total_claim_product === null ||
+                                parseInt(temp[obj].product.total_claim_product) <
+                                temp[obj].product.quota_claim) ) {
+                                temp[obj].product.count += 1;
+                            } else {
+                                temp[obj].product.isClaim = true;
+                            }
+                            if(temp[obj].product.count === temp[obj].product.quota_claim ){
+                                temp[obj].product.isClaim = true;
+                                console.warn('kena')
+                            } else if(temp[obj].product.count <= temp[obj].product.quota_claim - parseInt(temp[obj].product.total_claim_product)) {
+                                temp[obj].product.isClaim = true;
+                            }
+                        }
+                    } else {
+                        temp[obj].product.count -= 1;
+                        temp[obj].product.isClaim = false
+                    }
+                }
+            }
+        }
+    }
+    // else {
+    //     temp[obj].product.count -= 1;
+    //     temp[obj].product.isClaim = false
+    // }
+    }
     if (payload.type == "inc") {
         if (indexProducts != -1) {
             if(newState.products[indexProducts].total_claim_product === undefined ||
-                newState.products[indexProducts].quota_claim === 0
+                newState.products[indexProducts].quota_claim === 0 ||
+                newState.products[indexProducts].quota_claim === null
                 ) {
                 newState.products[indexProducts].count += 1;
             } else {
@@ -427,13 +479,16 @@ const editTotal = (state, payload) => {
                 }
                 if(newState.products[indexProducts].count === newState.products[indexProducts].quota_claim ){
                     newState.products[indexProducts].isClaim = true;
+                } else if(newState.products[indexProducts].count <= newState.products[indexProducts].quota_claim - parseInt(newState.products[indexProducts].total_claim_product)) {
+                    newState.products[indexProducts].isClaim = true;
                 }
             }
         }
         if (indexFavorite != -1) {
             newState.wishlist.products[indexFavorite].count += 1;
             if(newState.wishlist.products[indexFavorite].total_claim_product === undefined ||
-                newState.wishlist.products[indexFavorite].quota_claim === 0
+                newState.wishlist.products[indexFavorite].quota_claim === 0 ||
+                newState.wishlist.products[indexFavorite].quota_claim === null
                 ) {
                 newState.wishlist.products[indexFavorite].count += 1;
             } else {
@@ -447,12 +502,15 @@ const editTotal = (state, payload) => {
                 }
                 if(newState.wishlist.products[indexFavorite].count === newState.wishlist.products[indexFavorite].quota_claim ){
                     newState.wishlist.products[indexFavorite].isClaim = true;
+                } else if(newState.wishlist.products[indexFavorite].count === newState.wishlist.products[indexFavorite].quota_claim - parseInt(newState.wishlist.products[indexFavorite].total_claim_product)){
+                    newState.wishlist.products[indexFavorite].isClaim = true;
                 }
             }
         }
         if (indexCart != -1) {
             if(newState.cart.products[indexCart].total_claim_product === undefined ||
-                newState.cart.products[indexCart].quota_claim === 0
+                newState.cart.products[indexCart].quota_claim === 0 ||
+                newState.cart.products[indexCart].quota_claim === null
                 ) {
                 newState.cart.products[indexCart].count += 1;
             } else {
@@ -466,12 +524,15 @@ const editTotal = (state, payload) => {
                 }
                 if(newState.cart.products[indexCart].count === newState.cart.products[indexCart].quota_claim ){
                     newState.cart.products[indexCart].isClaim = true;
+                } else if (newState.cart.products[indexCart].count === newState.cart.products[indexCart].quota_claim - parseInt(newState.cart.products[indexCart].total_claim_product)) {
+                    newState.cart.products[indexCart].isClaim = true;
                 }
             }
         }
         if (indexPromo != -1) {
             if(newState.promoProduct[indexPromo].total_claim_product === undefined ||
-                newState.promoProduct[indexPromo].quota_claim === 0
+                newState.promoProduct[indexPromo].quota_claim === 0 ||
+                newState.promoProduct[indexPromo].quota_claim === null
                 ) {
                 newState.promoProduct[indexPromo].count += 1;
             } else {
@@ -485,12 +546,31 @@ const editTotal = (state, payload) => {
                 }
                 if(newState.promoProduct[indexPromo].count === newState.promoProduct[indexPromo].quota_claim ){
                     newState.promoProduct[indexPromo].isClaim = true;
+                } else if(newState.promoProduct[indexPromo].count === newState.promoProduct[indexPromo].quota_claim - parseInt(newState.promoProduct[indexPromo].total_claim_product)) {
+                    newState.promoProduct[indexPromo].isClaim = true;
                 }
             }
         }
         if (indexDetail) {
-            newState.detail.count += 1;
-            console.warn('5.......todo')
+            if(newState.detail.total_claim_product === undefined ||
+                newState.detail.quota_claim === 0 ||
+                newState.detail.quota_claim === null) {
+                    newState.detail.count += 1;
+            } else {
+                if(newState.detail.count < newState.detail.quota_claim &&
+                    (newState.detail.total_claim_product === null ||
+                        parseInt(newState.detail.total_claim_product) <
+                        newState.detail.quota_claim) ) {
+                        newState.detail.count += 1;
+                } else {
+                    newState.detail.isClaim = true;
+                }
+                if(newState.detail.count === newState.detail.quota_claim ){
+                    newState.detail.isClaim = true;
+                } else if(newState.detail.count === newState.detail.quota_claim - parseInt(newState.detail.total_claim_product)) {
+                    newState.detail.isClaim = true;
+                }
+            }
         }
     }
     else {
@@ -586,6 +666,7 @@ const clearProducts = (state) => {
     newState.cart.products = [];
     newState.total.count = 0;
     newState.total.price = 0;
+    newState.productMaxClaim = [];
 
     return newState;
 };
@@ -765,6 +846,7 @@ const reorderTransaction = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
     let newCart = newState.cart.products.slice();
     let productList = newState.products.slice();
+    let maxClaim = newState.productMaxClaim.slice()
     let total = 0;
     let count = 0;
 
@@ -772,12 +854,52 @@ const reorderTransaction = (state, payload) => {
         let cartIndex = newCart.findIndex(e => e.code == payload.data[i].product.code);
         if (cartIndex == -1) {
             // console.log(payload.data[i].product)
-            payload.data[i].product.count = payload.data[i].qty;
-            payload.data[i].product.maxQty = 1000;
-            newCart.push(payload.data[i].product);
+            if(payload.data[i].product.total_claim_product === undefined ||payload.data[i].product.quota_claim === 0) {
+                payload.data[i].product.count = payload.data[i].qty;
+                payload.data[i].product.maxQty = 1000;
+                newCart.push(payload.data[i].product);
+            } else {
+                if(parseInt(payload.data[i].product.total_claim_product) === payload.data[i].product.quota_claim) {
+                    payload.data[i].product.count = payload.data[i].qty;
+                    payload.data[i].product.disable = true;
+                    payload.data[i].product.isClaim = true;
+                    payload.data[i].product.maxQty = 1000;
+                    // newCart.push(payload.data[i].product);
+                    maxClaim.push(payload.data[i].product)
+                } else if(payload.data[i].qty < payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)) {
+                    payload.data[i].product.count = payload.data[i].qty;
+                    payload.data[i].product.isClaim = false;
+                    payload.data[i].product.maxQty = 1000;
+                    newCart.push(payload.data[i].product);
+                } else if(payload.data[i].qty > payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)) {
+                    payload.data[i].product.count = payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)
+                    payload.data[i].product.isClaim = true;
+                    payload.data[i].product.maxQty = 1000;
+                    newCart.push(payload.data[i].product);
+                }
+            }
+            console.warn('get..............')
         } else {
+            console.warn('not get..............')
             // console.log(newCart[cartIndex])
-            newCart[cartIndex].count += payload.data[i].qty;
+            if(newCart[cartIndex].count.total_claim_product === undefined ||newCart[cartIndex].count.quota_claim === 0) {
+                newCart[cartIndex].count += payload.data[i].qty;
+            } else {
+                if(parseInt(payload.data[i].product.total_claim_product) === payload.data[i].product.quota_claim) {
+                    newCart[cartIndex].count = payload.data[i].qty;
+                    newCart[cartIndex].disable = true;
+                    newCart[cartIndex].isClaim = true;
+                    newCart[cartIndex].maxQty = 1000;
+                } else if(payload.data[i].qty < payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)) {
+                    newCart[cartIndex].count = payload.data[i].qty;
+                    newCart[cartIndex].isClaim = false;
+                    newCart[cartIndex].maxQty = 1000;
+                } else if(payload.data[i].qty > payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)) {
+                    newCart[cartIndex].count = payload.data[i].product.quota_claim - parseInt(payload.data[i].product.total_claim_product)
+                    newCart[cartIndex].isClaim = true;
+                    newCart[cartIndex].maxQty = 1000;
+                }
+            }
         }
     }
 
@@ -804,6 +926,7 @@ const reorderTransaction = (state, payload) => {
     newState.cart.products = newCart;
     newState.total.count = count;
     newState.total.price = total;
+    newState.productMaxClaim = maxClaim
 
     return newState;
 };
@@ -890,6 +1013,8 @@ getCurrentDetail = (state, payload) => {
 
     let cartList = newState.products.slice();
 
+    let new_products = payload.new_products
+
 
     for (x in incomingProducts) {
         let sameValue = false;
@@ -910,6 +1035,22 @@ getCurrentDetail = (state, payload) => {
 
     }
 
+    if(new_products && Object.values(new_products).length > 0) {
+        let temp;
+        for(const items in new_products) {
+            temp = new_products[items]
+            for(let obj in temp) {
+                if(obj !== 'info') {
+                if (!temp[obj].product.count) temp[obj].product.count = 0;
+                if (!temp[obj].product.maxQty) temp[obj].product.maxQty = 1000;
+                if(temp[obj].product.total_claim_product !== undefined) {
+                    temp[obj].product.isClaim = parseInt(temp[obj].product.total_claim_product) >= temp[obj].product.quota_claim
+                }
+            }
+        }
+    }
+}
+
 
 
 
@@ -926,6 +1067,7 @@ getCurrentDetail = (state, payload) => {
 
     newState.products = cartList;
     newState.currentDetail.products = incomingProducts;
+    newState.currentDetail.new_products = new_products
 
     // console.log('cartList', cartList)
 

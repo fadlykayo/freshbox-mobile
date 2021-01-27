@@ -182,16 +182,60 @@ class Detail extends Component {
 						});
 					});
 				this.props.navigation.state.params.createOrderSuccess = null;
-			}
-			else {
-				language.transformText('message.createOrderSuccess')
-					.then(message => {
-						this.props.set_success_status({
-							status: true,
-							data: message,
-							title: 'formSuccess.title.createOrder'
+			}	else {
+				if(this.props.detailTransaction.status === "pending_payment") {
+					this.props.detailTransaction.details.map(res => {
+						if(res.product.quota_claim === 0) {
+							language.transformText('message.createOrderSuccess')
+								.then(message => {
+								this.props.set_success_status({
+									status: true,
+									data: message,
+									title: 'formSuccess.title.createOrder'
+								});
+							});
+						} else {
+						let total = res.qty + parseInt(res.product.total_claim_product)
+						console.log(total, '----------------->')
+						console.log(res.qty)
+						console.log(res.product.total_claim_product)
+						if(total <= res.product.quota_claim) {
+							language.transformText('message.createOrderSuccess')
+							.then(message => {
+							this.props.set_success_status({
+								status: true,
+								data: message,
+								title: 'formSuccess.title.createOrder'
+							});
 						});
-					});
+						} else {
+							let payload = {
+								header: {
+									apiToken: this.props.user.authorization
+								},
+								body: {
+									invoice: this.props.detailTransaction.invoice
+								}
+							};
+							this.props.cancel_invoice(payload)
+							this.props.set_error_status({
+								status: true,
+								title: 'formError.title.outOfClaim',
+								data: `${res.product.name}: ${res.product.quota_claim}`,
+							});
+							}
+						}
+					})
+				} else {
+					language.transformText('message.createOrderSuccess')
+							.then(message => {
+							this.props.set_success_status({
+								status: true,
+								data: message,
+								title: 'formSuccess.title.createOrder'
+							});
+						});
+				}
 			}
 		} else {
 			this.props.set_error_status({

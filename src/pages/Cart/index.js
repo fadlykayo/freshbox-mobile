@@ -57,6 +57,28 @@ class Cart extends Component {
 		return true;
 	}
 
+	componentDidMount() {
+		if(this.props.productMaxClaim.length > 0 ) {
+			this.setAlertMaxClaim()
+		}
+	}
+
+	listProductMaxClaim () {
+		let maxProduct =  this.props.productMaxClaim
+		console.log(this.props.productMaxClaim)
+		for(let i = 0; i < maxProduct.length; i++) {
+			return `${maxProduct[i].name}: ${maxProduct[i].quota_claim}\n`
+		}
+	}
+
+	setAlertMaxClaim () {
+		this.props.set_error_status({
+			status: true,
+			title: 'formError.title.outOfClaim',
+			data: this.listProductMaxClaim(),
+		});
+	}
+
 	setModalVisible(type, value) {
 		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
 		modalVisible[type] = value;
@@ -294,7 +316,9 @@ const mapStateToProps = state => ({
 	total_count: state.product.total.count,
 	index_product: state.product.cart.index,
 	cart_product: state.product.cart.products,
-	setModalVisible: state.product.setModalVisible
+	setModalVisible: state.product.setModalVisible,
+	paramsPromo: state.product.paramsPromo,
+	productMaxClaim: state.product.productMaxClaim
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -306,6 +330,8 @@ const mapDispatchToProps = dispatch => ({
 	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 	remove_empty_items: () => dispatch(actions.product.reducer.remove_empty_items()),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	get_promo: (req,res,err) => dispatch(actions.product.api.get_promo(req,res,err)),
+	set_loading_status: (payload) => dispatch(actions.network.reducer.set_loading_status(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -644,6 +644,7 @@ class Dashboard extends Component {
 		this.props.reset_params();
 		this.getProductList(fromDashboard);
 		this.getHistoryData();
+		this.getProductPromo()
 	}
 
 	navigateToCategories = (category) => {
