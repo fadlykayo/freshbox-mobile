@@ -290,7 +290,12 @@ class Checkout extends Component {
     let selectedDate = this.state.date?.origin;
 
     if (
-      moment(selectedDate).format('YYYY-MM-DD') === this.props.delivery_date[0]
+      moment(selectedDate).format('YYYY-MM-DD') ===
+        this.props.delivery_date[0] &&
+      moment(this.props.delivery_date[3].current_system_time).diff(
+        moment(this.props.delivery_date[3].current_closing_time),
+        'hours',
+      ) < 0
     ) {
       return (
         <Text style={styles.text.confirmDate2}>
