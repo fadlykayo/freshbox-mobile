@@ -46,6 +46,7 @@ class Cart extends Component {
     this.getPositionBubble = this.getPositionBubble.bind(this);
     this.openZoomImage = this.openZoomImage.bind(this);
     this.closeZoomImage = this.closeZoomImage.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
     this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
   }
 

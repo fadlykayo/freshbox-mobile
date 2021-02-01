@@ -53,6 +53,12 @@ class SignIn extends Component {
         this.registerSocmed = this.registerSocmed.bind(this);
     }
 
+    componentDidMount() {
+        if(this.props.cart_product.length > 0 && this.props.navigation.state.params.action !== "guestLogin") {
+            this.props.clear_products()
+        }
+    }
+
     componentWillUnmount() {
         if (this.props.navigation.state.params.closeDrawer) {
             this.props.navigation.state.params.closeDrawer();
@@ -123,7 +129,13 @@ class SignIn extends Component {
                     actNav.reset(navConstant.Product);
                 }
                 else if (this.props.navigation.state.params.action == "guestLogin") {
-                    actNav.goBack();
+                    if(this.props.navigation.state.params.totalProduct > 0) {
+                        actNav.reset(navConstant.Dashboard);
+                        this.props.clear_products()
+
+                    } else {
+                        actNav.goBack();
+                    }
                 }
             },
             (err) => {
@@ -429,14 +441,16 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-    userId: state.user.userId
+    userId: state.user.userId,
+    cart_product: state.product.cart.products,
 });
 
 const mapDispatchToProps = dispatch => ({
     sign_in: (req, res, err) => dispatch(actions.auth.api.sign_in(req, res, err)),
     sign_in_socmed: (req, res, err) => dispatch(actions.auth.api.sign_in_socmed(req, res, err)),
     set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-    register_user_socmed: (req, res, err) => dispatch(actions.registration.api.register_user_socmed(req, res, err))
+    register_user_socmed: (req, res, err) => dispatch(actions.registration.api.register_user_socmed(req, res, err)),
+    clear_products: () => dispatch(actions.product.reducer.clear_products()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

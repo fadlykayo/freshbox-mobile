@@ -1179,7 +1179,7 @@ const cancelVoucher = (state, payload) => {
   return newState;
 };
 
-getCurrentDetail = (state, payload) => {
+const getCurrentDetail = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
 
   newState.currentDetail = payload;

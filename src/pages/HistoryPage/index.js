@@ -102,7 +102,6 @@ class HistoryPage extends Component {
 		}
 		this.props.detail_transaction(payload,
 			(res) => {
-				console.log(res.data.status)
 				actNav.navigate(navConstant.Detail,{
 					action: 'history',
 					refreshHandler: this.refreshHandler,
