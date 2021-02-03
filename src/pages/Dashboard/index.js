@@ -568,7 +568,7 @@ class Dashboard extends Component {
     let selectedProductCart = this.props.cart_product?.filter(
       (product) => product?.id === payload?.id,
     )[0];
-    if (payload.quota_claim === 0 && payload.on_promo === 1) {
+    if (payload.quota_claim === 0 && Number(payload.on_promo) === 1) {
       this.props.change_total(payload, type);
     } else if (Number(payload.total_claim_product) === payload.quota_claim) {
       // Handle add to cart for special deals deals products when claim limit is fulfilled
@@ -584,10 +584,10 @@ class Dashboard extends Component {
           1 +
           Number(selectedProductCart.total_claim_product) >
           selectedProductCart.quota_claim &&
-          selectedProductCart.on_promo === 1) ||
+          Number(selectedProductCart.on_promo) === 1) ||
         (Number(selectedProductCart.total_claim_product) ==
           selectedProductCart.quota_claim &&
-          selectedProductCart.on_promo === 1)
+          Number(selectedProductCart.on_promo) === 1)
       ) {
         this.props.set_error_status({
           status: true,

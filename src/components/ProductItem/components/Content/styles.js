@@ -28,11 +28,10 @@ const styles = {
 				marginTop: dashboard ? 20 : 5,
 				
 			}),
-			normal: (on_promo) => ({
+			normal: (on_promo, haveLimit) => ({
 				fontFamily: 'Avenir-Heavy',
 				fontSize: scaling.isIphone5s() ? scaling.moderateScale(13) : scaling.moderateScale(14),
 				color: colour.darkGrey,
-
 				paddingRight: 2,
 			})
 		},

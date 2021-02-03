@@ -10,6 +10,7 @@ import {
   Platform,
   BackHandler,
 } from 'react-native';
+import moment from 'moment';
 import {actNav, navConstant} from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -254,16 +255,19 @@ class Detail extends Component {
               }
             }
           });
-        } else {
-          language
-            .transformText('message.createOrderSuccess')
-            .then((message) => {
-              this.props.set_success_status({
-                status: true,
-                data: message,
-                title: 'formSuccess.title.createOrder',
-              });
+        } else if (this.props.detailTransaction.status === 'paid') {
+          const {request_shipping_date, request_shipping_date_old} = this.props.detailTransaction
+          const dateDisplay = moment(request_shipping_date).format('dddd, Do MMMM YYYY');
+          const dateDisplayOld = request_shipping_date_old && moment(request_shipping_date_old).format('dddd, Do MMMM YYYY') || moment(request_shipping_date).format('dddd, Do MMMM YYYY');
+          
+          if(dateDisplay !== dateDisplayOld) {
+            let newDate = moment(request_shipping_date).format('dddd, Do MMMM YYYY')
+            this.props.set_success_status({
+              status: true,
+              data: `Pesanan akan dikirimkan tanggal ${newDate} karena pembayaran anda melewati batas waktu untuk pengiriman besok.`,
+              title: 'formSuccess.title.paymentSuccess',
             });
+          }
         }
       }
     } else {
@@ -608,6 +612,7 @@ class Detail extends Component {
   };
 
   render() {
+    console.log(this.props.detailTransaction)
     return (
       <Container bgColorBottom={'veryLightGrey'} bgColorTop={'red'}>
         <NavigationBar

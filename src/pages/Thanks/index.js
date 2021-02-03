@@ -62,9 +62,12 @@ class Thanks extends Component {
 
     render() {
         const { transactionDetail } = this.props
-        const { invoice, checkout_date } = transactionDetail
-        const date = moment(checkout_date).format('dddd, Do MMMM YYYY')
-        const time = moment(checkout_date).format('LTS')
+        const { invoice, checkout_date, request_shipping_date, request_shipping_date_old, status } = transactionDetail
+        const datePayment = moment(checkout_date).format('dddd, Do MMMM YYYY')
+        const timePayment = moment(checkout_date).format('LTS')
+        const dateDelivery = moment(request_shipping_date).format('dddd, Do MMMM YYYY')
+        const dateDeliveryOld = moment(request_shipping_date_old).format('dddd, Do MMMM YYYY')
+
         return (
             <Container
                 bgColorBottom={'veryLightGrey'}
@@ -101,17 +104,40 @@ class Thanks extends Component {
                         <View style={styles.lineWrapper}>
                             <View style={styles.line} />
                         </View>
-                        <View style={[styles.dateWrapper]}>
-                            <Text style={[styles.alignText, styles.text.order]}>Delivery Date & Time</Text>
+                        <View style={{...styles.dateWrapper, paddingBottom: 0}}>
+                            <Text style={[styles.alignText, styles.text.order]}>Payment Date & Time</Text>
                             <View>
                                 <View style={[styles.iconWrapper, styles.alignText]}>
                                     <Image source={images.icon_calendar} style={styles.icon} />
-                                    <Text style={styles.text.date}>{date}</Text>
+                                    <Text style={styles.text.date}>{datePayment}</Text>
                                 </View>
                                 <View style={styles.iconWrapper}>
                                     <Image source={images.ic_time} style={styles.icon} />
-                                    <Text style={styles.text.date}>{time} WIB</Text>
+                                    <Text style={styles.text.date}>{timePayment} WIB</Text>
                                 </View>
+                            </View>
+                        </View>
+                        <View style={[styles.dateWrapper]}>
+                            <Text style={[styles.alignText, styles.text.order]}>Delivery Date & Time</Text>
+
+                            <View>
+                                <View style={[styles.iconWrapper, styles.alignText]}>
+                                    <Image source={images.icon_calendar} style={styles.icon} />
+                                    <Text style={styles.text.date}>{dateDelivery}</Text>
+                                </View>
+                                {
+                                    dateDelivery !== dateDeliveryOld &&
+                                    status === 'paid' &&
+                                    <View style={styles.info.container}>
+                                        <Image
+                                            style={styles.info.icon}
+                                            source={images.ic_info_grey}
+                                        />
+                                        <Text style={styles.info.text}>
+                                            Pembayaran Anda melewati batas waktu untuk tanggal pengiriman {dateDeliveryOld}
+                                        </Text>
+                                    </View>
+                                }
                             </View>
                         </View>
                     </View>

@@ -105,7 +105,7 @@ class ProductItem extends PureComponent {
 								/>
 							</View> 
 								<View style={{flex: -1}}>
-									<Content data={data} dashboard={this.props.dashboard} bannerPrice={bannerPrice}/>
+									<Content data={data} user={this.props.user} dashboard={this.props.dashboard} bannerPrice={bannerPrice}/>
 								</View> 
 						</TouchableOpacity>
 					</View>

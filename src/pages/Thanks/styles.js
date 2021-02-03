@@ -71,7 +71,7 @@ const styles = {
         borderColor: '#F4F4F4',
     },
     dateWrapper: {
-        padding: 20
+        padding: 20,
     },
     alignText: {
         marginBottom: 15
@@ -135,6 +135,28 @@ const styles = {
         },
         center: {
             alignItems: 'center'
+        }
+    },
+    info: {
+        container: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderRadius: 10,
+            padding: 10,
+            borderColor: colour.orange,
+        },
+        icon: {
+            width: 15,
+            height: 15,
+            marginRight: scaling.moderateScale(10),
+        },
+        text: {
+            fontFamily: 'Avenir-Medium',
+            fontSize: scaling.moderateScale(11),
+            color: colour.orange,
+            lineHeight: scaling.moderateScale(16),
+            paddingRight: scaling.moderateScale(20),
         }
     }
 

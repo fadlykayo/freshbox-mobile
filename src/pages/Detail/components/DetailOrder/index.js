@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import StaticText from '@components/StaticText';
-import styles from './styles';
+import {View, Text, Image} from 'react-native';
 import moment from 'moment';
 
+import image from '@assets';
+import StaticText from '@components/StaticText';
+import styles from './styles';
 class DetailOrder extends Component {
   constructor() {
     super();
@@ -40,6 +41,9 @@ class DetailOrder extends Component {
       const dateDisplay = moment(
         this.props.transaction.request_shipping_date,
       ).format('dddd, Do MMMM YYYY');
+      const dateDisplayOld = this.props.transaction.request_shipping_date_old && moment(this.props.transaction.request_shipping_date_old).format('dddd, Do MMMM YYYY') || moment(this.props.transaction.request_shipping_date).format('dddd, Do MMMM YYYY');
+      const status = this.props.transaction.status
+     
       return (
         <View style={styles.container}>
           <StaticText
@@ -59,6 +63,20 @@ class DetailOrder extends Component {
             property={'historyDetail.detail.deliveryDate'}
           />
           <Text style={styles.text.detail}>{dateDisplay}</Text>
+          {
+            dateDisplay !== dateDisplayOld &&
+            status === 'paid' &&
+            <View style={styles.info.container}>
+                <Image
+                    style={styles.info.icon}
+                    source={image.ic_info_grey}
+                />
+                <Text style={styles.info.text}>
+                    Pembayaran Anda melewati batas waktu untuk tanggal pengiriman {dateDisplayOld}
+                </Text>
+            </View>
+          }
+
           <StaticText
             style={styles.text.static}
             property={'historyDetail.detail.address'}

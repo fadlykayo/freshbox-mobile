@@ -788,6 +788,7 @@
     "title": {
       "default": "Success",
       "createOrder": "Order Success",
+      "paymentSuccess": "Payment Success",
       "copyData": "Successfully copied data"
     }
   },

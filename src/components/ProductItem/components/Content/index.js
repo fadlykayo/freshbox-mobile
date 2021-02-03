@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View } from 'react-native';
-import { Dimensions } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 import numeral from 'numeral';
@@ -46,7 +45,7 @@ class Content extends PureComponent {
 							}
 							
 							{
-								this.props.data.on_promo !== 1 ?
+								Number(this.props.data.on_promo) !== 1 ?
 								(
 									<View style={{flex: -1, flexDirection: 'row'}}>
 										<Text style={styles.text.price.normal(this.props.data.on_promo)}>
@@ -56,9 +55,6 @@ class Content extends PureComponent {
 											{productPromoPrice}
 
 										</Text>
-										
-										
-										
 									</View>
 								) : 
 								(	<View style={{flex: -1, marginTop: 0}}>
@@ -67,9 +63,12 @@ class Content extends PureComponent {
 												property={'productList.content.price'}
 											/>
 											{productPromoPrice}
-
 										</Text>
-
+										{
+											Number(this.props.data.quota_claim) > 0 &&
+											this.props.user &&
+											<Text style={styles.text.desc}>Claim Limit: {Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product)}</Text>
+										}
 									</View>
 										
 								)

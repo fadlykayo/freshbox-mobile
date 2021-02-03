@@ -793,6 +793,7 @@
     "title": {
       "default": "Sukses",
       "createOrder": "Pemesanan Sukses",
+      "paymentSuccess": "Pembayaran Berhasil",
       "copyData": "Data berhasil disalin"
     }
   },
