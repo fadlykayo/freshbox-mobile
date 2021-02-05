@@ -11,6 +11,21 @@ class Content extends PureComponent {
 		super()
 	}
 
+	renderQuotaClaim() {
+		let claimLimit;
+
+		if (Number(this.props.data.quota_claim) > 0) {
+			claimLimit = Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product || 0);
+		} 
+		// else if (Number(this.props.data.quota_claim) > 0) {
+		// 	claimLimit = Number(this.props.data.quota_claim);
+		// }
+
+		if (claimLimit !== undefined) {
+			return <Text style={styles.text.claimLimit}>Claim Limit: {claimLimit}</Text>
+		}
+	}
+
 	render(){
 		const productPrice = numeral(this.props.data.price).format('0,0');
 		let productPromoPrice;
@@ -64,17 +79,10 @@ class Content extends PureComponent {
 											/>
 											{productPromoPrice}
 										</Text>
-										{
-											Number(this.props.data.quota_claim) > 0 &&
-											this.props.user &&
-											<Text style={styles.text.desc}>Claim Limit: {Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product)}</Text>
-										}
+										{this.renderQuotaClaim()}
 									</View>
-										
 								)
 							}
-								
-
 						</View>
 			</View>
 		);

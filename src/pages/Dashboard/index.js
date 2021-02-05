@@ -329,6 +329,7 @@ class Dashboard extends Component {
       },
       params: this.props.params,
     };
+    
     this.props.get_products(
       payload,
       () => {
@@ -565,42 +566,63 @@ class Dashboard extends Component {
   };
 
   changeTotalItem = (payload, type) => {
-    let selectedProductCart = this.props.cart_product?.filter(
-      (product) => product?.id === payload?.id,
-    )[0];
-    if (payload.quota_claim === 0 && Number(payload.on_promo) === 1) {
-      this.props.change_total(payload, type);
-    } else if (Number(payload.total_claim_product) === payload.quota_claim) {
-      // Handle add to cart for special deals deals products when claim limit is fulfilled
-      this.props.set_error_status({
-        status: true,
-        title: 'formError.title.outOfClaim',
-        data: `${payload.name}: ${payload.quota_claim}`,
-      });
-    } else if (selectedProductCart && type === 'inc') {
-      // Handle add to cart for special deals deals products
-      if (
-        (selectedProductCart.count +
-          1 +
-          Number(selectedProductCart.total_claim_product) >
-          selectedProductCart.quota_claim &&
-          Number(selectedProductCart.on_promo) === 1) ||
-        (Number(selectedProductCart.total_claim_product) ==
-          selectedProductCart.quota_claim &&
-          Number(selectedProductCart.on_promo) === 1)
-      ) {
-        this.props.set_error_status({
-          status: true,
-          title: 'formError.title.outOfClaim',
-          data: `${payload.name}: ${payload.quota_claim}`,
-        });
-      } else {
-        // Handle add to cart for non special deals products
+    // let selectedProductCart = this.props.cart_product?.filter(
+    //   (product) => product?.id === payload?.id,
+    // )[0];
+
+    // if (payload.count == 1 && type == 'desc') {
+    //   this.setState({selectedProduct: payload}, () => {
+    //     this.setModalVisible('alertDialog', true);
+    //   });
+    // } else {
+      // console.log(this.props.cart_product)
+      // console.log('PAYLOAD', payload.count, payload.stock, payload.count + 1 === payload.stock)
+      // if (payload.count === payload.stock && type === 'inc') {
+      //   console.log('A')
+      //   this.props.set_error_status({
+      //     status: true,
+      //     title: 'formError.title.outOfClaim',
+      //     data: `${payload.name}: ${payload.stock}`,
+      //   });
+      // } else {
+      //   console.log('B')
+      console.log('PAYLOAD', payload)
         this.props.change_total(payload, type);
-      }
-    } else {
-      this.props.change_total(payload, type);
-    }
+      // }
+    // }
+
+    // if (payload.quota_claim === 0 && Number(payload.on_promo) === 1) {
+    //   // handle add to cart for special deals without limit
+    //   this.props.change_total(payload, type);
+    // } else if (Number(payload.total_claim_product) === payload.quota_claim) {
+    //   // Handle add to cart for special deals deals products when claim limit is fulfilled
+    //   this.props.set_error_status({
+    //     status: true,
+    //     title: 'formError.title.outOfClaim',
+    //     data: `${payload.name}: ${payload.quota_claim}`,
+    //   });
+    // } else if (payload && type === 'inc') {
+    //   if (!this.props.user && payload.count === payload.quota_claim) {
+    //     // handle limit add to cart for special deals when not logged in
+    //     this.props.set_error_status({
+    //       status: true,
+    //       title: 'formError.title.outOfClaim',
+    //       data: `${payload.name}: ${payload.quota_claim}`,
+    //     });
+    //   } else if ((payload.count + 1 + Number(payload.total_claim_product) > payload.quota_claim && Number(payload.on_promo) === 1) || (Number(payload.total_claim_product) == payload.quota_claim && Number(payload.on_promo) === 1)) {
+    //     // handle limit add to cart for special deals user logged in
+    //     this.props.set_error_status({
+    //       status: true,
+    //       title: 'formError.title.outOfClaim',
+    //       data: `${payload.name}: ${Number(payload.quota_claim) - Number(payload.total_claim_product)}`,
+    //     });
+    //   } else {
+    //     // Handle add to cart for non special deals products
+    //     this.props.change_total(payload, type);
+    //   }
+    // } else {
+    //   this.props.change_total(payload, type);
+    // }
   };
 
   openZoomImage = () => {
@@ -693,7 +715,6 @@ class Dashboard extends Component {
 
   refreshHandler = () => {
     let fromDashboard = true;
-    this.props.reset_params();
     this.getProductList(fromDashboard);
     this.getHistoryData();
     this.getProductPromo();
@@ -917,6 +938,7 @@ class Dashboard extends Component {
   };
 
   renderProducts = (products) => {
+    console.log(this.props.params)
     return products.map((product, index) => {
       return (
         <View key={index}>
@@ -942,6 +964,7 @@ class Dashboard extends Component {
     const currentHeight = this.state.currentHeight;
     const productListHeight = this.state.productListHeight;
     const dif = currentOffset - (this.offSet || 0);
+
     const transactionsShown = (currentOffset, height) => {
       let transactions = this.props.transactions;
       if (transactions !== undefined && transactions.length > 0) {
@@ -1170,6 +1193,7 @@ const mapDispatchToProps = (dispatch) => ({
   detail_transaction: (req, res, err) =>
     dispatch(actions.transaction.api.detail_transaction(req, res, err)),
   clear_products: () => dispatch(actions.product.reducer.clear_products()),
+  clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
   reset_params: () => dispatch(actions.product.reducer.reset_params()),
   get_banner: (req, res, err) =>
     dispatch(actions.banner.api.get_banner(req, res, err)),

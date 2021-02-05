@@ -39,9 +39,12 @@ const styles = {
 			fontFamily: 'Avenir-Roman',
 			fontSize: scaling.isIphone5s() ? scaling.moderateScale(11) : scaling.moderateScale(11),
 			color: colour.greyDesc,
-
-			// borderWidth: 1,
-			// height: 20,
+			marginVertical: 2,
+		},
+		claimLimit: {
+			fontFamily: 'Avenir-Roman',
+			fontSize: scaling.isIphone5s() ? scaling.moderateScale(11) : scaling.moderateScale(11),
+			color: colour.darkRedTransition,
 			marginVertical: 2,
 		}
 	}

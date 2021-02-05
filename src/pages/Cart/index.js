@@ -46,7 +46,7 @@ class Cart extends Component {
     this.getPositionBubble = this.getPositionBubble.bind(this);
     this.openZoomImage = this.openZoomImage.bind(this);
     this.closeZoomImage = this.closeZoomImage.bind(this);
-    this.setModalVisible = this.setModalVisible.bind(this);
+    // this.setModalVisible = this.setModalVisible.bind(this);
     this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
   }
 
@@ -85,9 +85,12 @@ class Cart extends Component {
     });
   }
 
-  setModalVisible(type, value) {
+  setModalVisible(type, value, type2, value2) {
     let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
     modalVisible[type] = value;
+    if (type2 && value2) {
+      modalVisible[type2] = value2;
+    }
     this.setState({modalVisible});
   }
 
@@ -138,25 +141,26 @@ class Cart extends Component {
   changeTotalItem(payload, type) {
     if (payload.count == 1 && type == 'desc') {
       this.setState({selectedProduct: payload}, () => {
-        this.setModalVisible('alertDialog', true);
+        this.setModalVisible('openProduct', false, 'alertDialog', true);
       });
     } else {
-      if (payload.isClaim && type === 'inc') {
-        this.props.set_error_status({
-          status: true,
-          title: 'formError.title.outOfClaim',
-          data: `${payload.name}: ${payload.quota_claim}`,
-        });
-      } else {
-        this.props.change_total(payload, type);
-      }
+      this.props.change_total(payload, type);
+      // if (payload.isClaim && type === 'inc') {
+      //   this.props.set_error_status({
+      //     status: true,
+      //     title: 'formError.title.outOfClaim',
+      //     data: `${payload.name}: ${payload.quota_claim}`,
+      //   });
+      // } else {
+        // this.props.change_total(payload, type);
+      // }
     }
   }
 
   clearProductConfirmation() {
-    this.props.change_total(this.state.selectedProduct, 'desc');
     this.setModalVisible('alertDialog', false);
-    this.setModalVisible('openProduct', false);
+    // this.setModalVisible('openProduct', false);
+    this.props.change_total(this.state.selectedProduct, 'desc');
   }
 
   clearProductCancelation() {
@@ -176,35 +180,76 @@ class Cart extends Component {
       this.props.remove_empty_items();
       let buyProducts = [];
       this.props.cart_product.map((cart) => {
-        buyProducts.push({
-          product_code: cart.code,
-          qty: cart.count,
-        });
-      });
-      if (this.props.user && this.props.user.user.phone_number) {
-        let payload = {
-          header: {
-            apiToken: this.props.user.authorization,
-          },
-          body: buyProducts,
-        };
+        // buyProducts.push({
+        //   product_code: cart.code,
+        //   qty: cart.count,
+        //   status_promo: cart.on_promo,
+        //   cart_price: cart.price,
+        //   cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
+        //   remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
+        // });
+        console.log(cart.on_promo, cart.quota_claim, cart.total_claim_product, cart.count)
+        console.log(Number(cart.on_promo) === 1, Number(cart.quota_claim) > 0, (Number(cart.quota_claim) - Number(cart.total_claim_product)) > Number(cart.count))
 
-        this.props.bulk_add_products(
-          payload,
-          (res) => {
-            actNav.navigate(navConstant.Checkout, {
-              key: this.props.navigation.state.key,
-              createOrderHandler: this.props.navigation.state.params
-                .createOrderHandler,
-            });
-          },
-          (err) => {},
-        );
-      } else if (this.props.user && !this.props.user.user.phone_number) {
-        this.setModalVisible('modalPhoneConfirmation', true);
-      } else {
-        this.setModalVisible('modalLoginConfirmation', true);
-      }
+        if (Number(cart.on_promo) === 1 && Number(cart.quota_claim) > 0 && Number(cart.count) > (Number(cart.quota_claim) - Number(cart.total_claim_product))) {
+          // kalau promo & kuota claim lebih dari 0 dan total calim lebih dari count means ada product normal, jadi di pecah
+         let normalProduct =  {
+            product_code: cart.code,
+            qty: Number(cart.count) - (Number(cart.quota_claim) - Number(cart.total_claim_product)),
+            status_promo: cart.on_promo,
+            cart_price: cart.price,
+            cart_promo_price: cart.price,
+            remaining_quota_claim: 0,
+          }
+
+          let promoProduct = {
+            product_code: cart.code,
+            qty: Number(cart.quota_claim) - Number(cart.total_claim_product),
+            status_promo: cart.on_promo,
+            cart_price: cart.price,
+            cart_promo_price:  cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price,
+            remaining_quota_claim: Number(cart.quota_claim) - Number(cart.total_claim_product),
+          }
+
+          buyProducts.push(normalProduct)
+          buyProducts.push(promoProduct)
+        } else {
+           buyProducts.push({
+            product_code: cart.code,
+            qty: cart.count,
+            status_promo: cart.on_promo,
+            cart_price: cart.price,
+            cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
+            remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
+          });
+        }
+      });
+
+      console.log('=====>', buyProducts)
+      // if (this.props.user && this.props.user.user.phone_number) {
+      //   let payload = {
+      //     header: {
+      //       apiToken: this.props.user.authorization,
+      //     },
+      //     body: buyProducts,
+      //   };
+
+      //   this.props.bulk_add_products(
+      //     payload,
+      //     (res) => {
+      //       actNav.navigate(navConstant.Checkout, {
+      //         key: this.props.navigation.state.key,
+      //         createOrderHandler: this.props.navigation.state.params
+      //           .createOrderHandler,
+      //       });
+      //     },
+      //     (err) => {},
+      //   );
+      // } else if (this.props.user && !this.props.user.user.phone_number) {
+      //   this.setModalVisible('modalPhoneConfirmation', true);
+      // } else {
+      //   this.setModalVisible('modalLoginConfirmation', true);
+      // }
     }
   }
 
@@ -231,6 +276,7 @@ class Cart extends Component {
   }
 
   render() {
+    console.log(this.props.cart_product)
     return (
       <Container bgColorBottom={'veryLightGrey'} bgColorTop={'red'}>
         <NavigationBar

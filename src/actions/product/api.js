@@ -28,7 +28,6 @@ actions.get_products = (req, success, failure) => {
 	payload2.header = req.header;
 	payload2.params = req.params;
 
-
 	return dispatch => {
 		requestHandler('get', payload2, dispatch, true)
 			.then((res) => {

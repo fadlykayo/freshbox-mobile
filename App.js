@@ -8,6 +8,8 @@ import {store, persistor} from './src/store';
 
 import Application from '@src';
 
+console.warn = function() {}
+
 Sentry.init({
   dsn: 'https://1d867be8f53c4413b0d4dc715e55975d@sentry.io/1722769',
 });
