@@ -254,8 +254,6 @@ actions.create_order = (req, success, failure) => {
 	payload.body = req.body;
 	payload.params = req.params;
 
-	console.log(payload)
-
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
@@ -398,8 +396,6 @@ actions.reorder_transaction = (req, success, failure) => {
 	payload.path = `${path.reorder}/${req.invoice}`;
 	payload.header = req.header;
 
-	console.log('===', payload)
-
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
@@ -409,10 +405,8 @@ actions.reorder_transaction = (req, success, failure) => {
 						success(res);
 					}
 				}
-				console.log('AFFFFFFF')
 			})
 			.catch((err) => {
-				console.log('Get Reorder Transaction err', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {

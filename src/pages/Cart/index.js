@@ -273,7 +273,6 @@ class Cart extends Component {
   }
 
   render() {
-    console.log(this.props.cart_product)
     return (
       <Container bgColorBottom={'veryLightGrey'} bgColorTop={'red'}>
         <NavigationBar

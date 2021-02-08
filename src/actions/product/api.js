@@ -198,7 +198,6 @@ actions.get_promo = (req, success, failure) => {
 							// analytics.trackEvent('Unavailable Promo', {product_geted: req.params.name})
 						}
 						success(res);
-						console.log(req.params, res.data)
 						dispatch(actReducer.get_promo(req.params, res.data));
 					}
 				}
@@ -276,7 +275,6 @@ actions.add_favorite = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				console.log('Add Favourite err', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -313,7 +311,6 @@ actions.delete_favorite = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				console.log('Delete Favourite err', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {

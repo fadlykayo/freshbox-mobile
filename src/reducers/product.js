@@ -389,10 +389,7 @@ const getPromo = (state, payload) => {
         currentCart[y] = Object.assign(
           {},
           incomingProducts[x],
-          // currentCart[y],
         );
-        console.log('INCOMING', incomingProducts[x])
-        console.log('EXIST',currentCart[y])
         break;
       }
     }
