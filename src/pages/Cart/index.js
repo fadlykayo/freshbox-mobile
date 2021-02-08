@@ -180,76 +180,73 @@ class Cart extends Component {
       this.props.remove_empty_items();
       let buyProducts = [];
       this.props.cart_product.map((cart) => {
-        // buyProducts.push({
-        //   product_code: cart.code,
-        //   qty: cart.count,
-        //   status_promo: cart.on_promo,
-        //   cart_price: cart.price,
-        //   cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
-        //   remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
-        // });
-        console.log(cart.on_promo, cart.quota_claim, cart.total_claim_product, cart.count)
-        console.log(Number(cart.on_promo) === 1, Number(cart.quota_claim) > 0, (Number(cart.quota_claim) - Number(cart.total_claim_product)) > Number(cart.count))
+        buyProducts.push({
+          product_code: cart.code,
+          qty: cart.count,
+          status_promo: cart.on_promo,
+          cart_price: cart.price,
+          cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
+          remaining_quota: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0) : 0 : 0,
+        });
 
-        if (Number(cart.on_promo) === 1 && Number(cart.quota_claim) > 0 && Number(cart.count) > (Number(cart.quota_claim) - Number(cart.total_claim_product))) {
-          // kalau promo & kuota claim lebih dari 0 dan total calim lebih dari count means ada product normal, jadi di pecah
-         let normalProduct =  {
-            product_code: cart.code,
-            qty: Number(cart.count) - (Number(cart.quota_claim) - Number(cart.total_claim_product)),
-            status_promo: cart.on_promo,
-            cart_price: cart.price,
-            cart_promo_price: cart.price,
-            remaining_quota_claim: 0,
-          }
+        // if (Number(cart.on_promo) === 1 && Number(cart.quota_claim) > 0 && Number(cart.count) > (Number(cart.quota_claim) - Number(cart.total_claim_product))) {
+        //   // kalau promo & kuota claim lebih dari 0 dan total calim lebih dari count means ada product normal, jadi di pecah
+        //  let normalProduct =  {
+        //     product_code: cart.code,
+        //     qty: Number(cart.count) - (Number(cart.quota_claim) - Number(cart.total_claim_product)),
+        //     status_promo: cart.on_promo,
+        //     cart_price: cart.price,
+        //     cart_promo_price: cart.price,
+        //     remaining_quota_claim: 0,
+        //   }
 
-          let promoProduct = {
-            product_code: cart.code,
-            qty: Number(cart.quota_claim) - Number(cart.total_claim_product),
-            status_promo: cart.on_promo,
-            cart_price: cart.price,
-            cart_promo_price:  cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price,
-            remaining_quota_claim: Number(cart.quota_claim) - Number(cart.total_claim_product),
-          }
+        //   let promoProduct = {
+        //     product_code: cart.code,
+        //     qty: Number(cart.quota_claim) - Number(cart.total_claim_product),
+        //     status_promo: cart.on_promo,
+        //     cart_price: cart.price,
+        //     cart_promo_price:  cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price,
+        //     remaining_quota_claim: Number(cart.quota_claim) - Number(cart.total_claim_product),
+        //   }
 
-          buyProducts.push(normalProduct)
-          buyProducts.push(promoProduct)
-        } else {
-           buyProducts.push({
-            product_code: cart.code,
-            qty: cart.count,
-            status_promo: cart.on_promo,
-            cart_price: cart.price,
-            cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
-            remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
-          });
-        }
+        //   buyProducts.push(normalProduct)
+        //   buyProducts.push(promoProduct)
+        // } else {
+        //    buyProducts.push({
+        //     product_code: cart.code,
+        //     qty: cart.count,
+        //     status_promo: cart.on_promo,
+        //     cart_price: cart.price,
+        //     cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
+        //     remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
+        //   });
+        // }
       });
 
-      console.log('=====>', buyProducts)
-      // if (this.props.user && this.props.user.user.phone_number) {
-      //   let payload = {
-      //     header: {
-      //       apiToken: this.props.user.authorization,
-      //     },
-      //     body: buyProducts,
-      //   };
+      if (this.props.user && this.props.user.user.phone_number) {
+        let payload = {
+          header: {
+            apiToken: this.props.user.authorization,
+          },
+          body: buyProducts,
+        };
 
-      //   this.props.bulk_add_products(
-      //     payload,
-      //     (res) => {
-      //       actNav.navigate(navConstant.Checkout, {
-      //         key: this.props.navigation.state.key,
-      //         createOrderHandler: this.props.navigation.state.params
-      //           .createOrderHandler,
-      //       });
-      //     },
-      //     (err) => {},
-      //   );
-      // } else if (this.props.user && !this.props.user.user.phone_number) {
-      //   this.setModalVisible('modalPhoneConfirmation', true);
-      // } else {
-      //   this.setModalVisible('modalLoginConfirmation', true);
-      // }
+        this.props.bulk_add_products(
+          payload,
+          (res) => {
+            actNav.navigate(navConstant.Checkout, {
+              key: this.props.navigation.state.key,
+              createOrderHandler: this.props.navigation.state.params
+                .createOrderHandler,
+            });
+          },
+          (err) => {},
+        );
+      } else if (this.props.user && !this.props.user.user.phone_number) {
+        this.setModalVisible('modalPhoneConfirmation', true);
+      } else {
+        this.setModalVisible('modalLoginConfirmation', true);
+      }
     }
   }
 

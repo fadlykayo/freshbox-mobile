@@ -95,6 +95,7 @@ class Dashboard extends Component {
     this.getCategories();
     this.getBanner();
     this.checkCart();
+    this.getProductPromo();
     this.handleDeepLink();
     this.getHistoryData();
     this.hideFilterAnimation();
@@ -383,9 +384,11 @@ class Dashboard extends Component {
   };
 
   navigateToCart = () => {
-    actNav.navigate(navConstant.Cart, {
-      createOrderHandler: this.createOrderHandler,
-    });
+    if (this.props.cart_product.length) {
+      actNav.navigate(navConstant.Cart, {
+        createOrderHandler: this.createOrderHandler,
+      });
+    }
   };
 
   createOrderHandler = (invoice, type) => {
@@ -661,6 +664,7 @@ class Dashboard extends Component {
       () => {
         actNav.navigate(navConstant.Detail, {
           action: 'history',
+          createOrderSuccess: true,
           refreshHandler: this.refreshHandler,
         });
       },
@@ -1018,6 +1022,8 @@ class Dashboard extends Component {
       inputRange: [0, 1],
       outputRange: [scaling.moderateScale(50), 0],
     });
+
+    console.log(this.props.product)
 
     return (
       <Container backgroundColor={'white'} containerColor>

@@ -435,6 +435,8 @@ class Checkout extends Component {
       },
     };
 
+    console.log('===== PAYLOAD', payload)
+
     this.props.request_snap_token(
       payload,
       (res) => {
