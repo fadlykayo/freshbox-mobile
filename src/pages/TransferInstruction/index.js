@@ -297,7 +297,23 @@ class TransferInstruction extends Component {
     }
 
     navigateBack() {
-        actNav.goBack()
+        console.log('HEHE')
+        let payload = {
+            header: {
+              apiToken: this.props.user.authorization,
+            },
+            invoice: this.props.detailTransaction.invoice,
+          };
+      
+          this.props.detail_transaction(
+            payload,
+            () => {
+                actNav.goBack();
+            },
+            (err) => {
+              // console.log(err);
+            },
+          );
     }
 
     render(){
@@ -345,10 +361,12 @@ class TransferInstruction extends Component {
 const mapStateToProps = (state) => ({
     detailTransaction: state.transaction.detail,
     discount: state.product.discount,
+    user: state.user.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
+    detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(TransferInstruction);

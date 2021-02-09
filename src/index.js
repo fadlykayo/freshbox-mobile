@@ -8,7 +8,7 @@ import actions from '@actions';
 const mapStateToProps = (state) => ({
   user: state.user,
   product: state.product.products,
-  promoProduct: state.product.promoProduct,
+  promoProduct: state.product.promoProduct.filter(x => !x.isClaim && x),
   setModalVisible: state.product.setModalVisible,
 });
 

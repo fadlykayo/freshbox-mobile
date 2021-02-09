@@ -569,7 +569,16 @@ class Dashboard extends Component {
   };
 
   changeTotalItem = (payload, type) => {
-    this.props.change_total(payload, type);
+    console.log(payload)
+    if (payload.count === payload.stock && type === 'inc') {
+      this.props.set_error_status({
+        status: true,
+        title: 'formError.title.outOfStock',
+        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+      });
+    } else {
+      this.props.change_total(payload, type);
+    }
   };
 
   openZoomImage = () => {
@@ -886,7 +895,6 @@ class Dashboard extends Component {
   };
 
   renderProducts = (products) => {
-    console.log(this.props.params)
     return products.map((product, index) => {
       return (
         <View key={index}>
@@ -966,8 +974,6 @@ class Dashboard extends Component {
       inputRange: [0, 1],
       outputRange: [scaling.moderateScale(50), 0],
     });
-
-    console.log(this.props.product)
 
     return (
       <Container backgroundColor={'white'} containerColor>

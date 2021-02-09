@@ -143,18 +143,15 @@ class Cart extends Component {
       this.setState({selectedProduct: payload}, () => {
         this.setModalVisible('openProduct', false, 'alertDialog', true);
       });
+    } else if (payload.count === payload.stock && type === 'inc') {
+      this.props.set_error_status({
+        status: true,
+        title: 'formError.title.outOfStock',
+        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+      });
     } else {
       this.props.change_total(payload, type);
-      // if (payload.isClaim && type === 'inc') {
-      //   this.props.set_error_status({
-      //     status: true,
-      //     title: 'formError.title.outOfClaim',
-      //     data: `${payload.name}: ${payload.quota_claim}`,
-      //   });
-      // } else {
-        // this.props.change_total(payload, type);
-      // }
-    }
+    } 
   }
 
   clearProductConfirmation() {
@@ -187,6 +184,7 @@ class Cart extends Component {
           cart_price: cart.price,
           cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
           remaining_quota: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0) : 0 : 0,
+          quota_claim: cart.quota_claim
         });
 
         // if (Number(cart.on_promo) === 1 && Number(cart.quota_claim) > 0 && Number(cart.count) > (Number(cart.quota_claim) - Number(cart.total_claim_product))) {
@@ -198,6 +196,7 @@ class Cart extends Component {
         //     cart_price: cart.price,
         //     cart_promo_price: cart.price,
         //     remaining_quota_claim: 0,
+        //     quota_claim: 0
         //   }
 
         //   let promoProduct = {
@@ -207,6 +206,7 @@ class Cart extends Component {
         //     cart_price: cart.price,
         //     cart_promo_price:  cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price,
         //     remaining_quota_claim: Number(cart.quota_claim) - Number(cart.total_claim_product),
+        //     quota_claim: cart.quota_claim
         //   }
 
         //   buyProducts.push(normalProduct)

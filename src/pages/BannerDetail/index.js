@@ -309,7 +309,8 @@ class BannerDetail extends Component {
     }, () => {
       this.setModalVisible('openProduct',true);
     })
-  this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
+
+    this.props.detail_product(hasObjectValue(this.props.currentDetail, 'new_products') ? payload : payload.product);
 	}
 
   openDetailProductPicture = (payload) => {
@@ -320,15 +321,15 @@ class BannerDetail extends Component {
 
   changeTotalItem = (payload,type) => {
     // this.props.change_total(payload,type);
-    if(payload.isClaim && type === 'inc') {
-			this.props.set_error_status({
-				status: true,
-				title: 'formError.title.outOfClaim',
-				data: `${payload.name}: ${payload.quota_claim}`,
-			});
-		} else {
-			this.props.change_total(payload,type);
-		}
+    if (payload.count === payload.stock && type === 'inc') {
+      this.props.set_error_status({
+        status: true,
+        title: 'formError.title.outOfStock',
+        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+      });
+    } else {
+      this.props.change_total(payload, type);
+    }
 	}
 
   setModalVisible = (type,value) => {
@@ -372,23 +373,18 @@ class BannerDetail extends Component {
   //render product list
 
   renderProductList = () => {
-    
     if(this.state.loadingProduct) {
       // promo will have new price if theres voucher id
-      return (
-        <ActivityIndicator/>
-      ) 
-      } else {
-        
-        if(this.props.currentDetail.products) {
-          return (
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              data = {this.props.currentDetail.products}
-              keyExtractor = {(item) => item.code}
-              renderItem = {({item, index}) => 
-
-
+      return <ActivityIndicator/>
+    } else {
+      console.log('0000000', this.props.currentDetail.products)
+      if(this.props.currentDetail.products) {
+        return (
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data = {this.props.currentDetail.products}
+            keyExtractor = {(item) => item.code}
+            renderItem = {({item, index}) => 
               <View style={styles.promo.card} key={index}>
                 <ProductItem
                   bannerDetail
@@ -403,68 +399,52 @@ class BannerDetail extends Component {
                   openDetailProduct= {this.openDetailProduct}
                 />
               </View>
-
-                
-              }
-            />
-          )
-        } else {
-          // return (
-          //   <Text>Shop Now!</Text>
-          // )
-          return (
-            null
-          )
-        }
+            }
+          />
+        )
+      } else {
+        return null
       }
-    
+    }
   }
 
   renderPromoCategories = () => {
     if(this.props.currentDetail.new_products) {
       return (
         <PromoList
-              categoriesProduct={this.props.currentDetail.new_products}
-              product={this.props.promoProduct}
-              user={this.props.user}
-              toggleFavorite={this.toggleFavorite}
-              openDetailProduct={this.openDetailProduct}
-              loadingPromo={this.state.loading.promoList}
-              // handleLoadMore={this.handleLoadMore}
-              navigateToCategories={this.navigateToCategories}
-              changeTotalItem={this.changeTotalItem}
-              fromSplashScreen={hasObjectValue(this.props.navigation.state, 'params') && this.props.navigation.state.params.fromSplashScreen}
-            />
+          categoriesProduct={this.props.currentDetail.new_products}
+          product={this.props.promoProduct}
+          user={this.props.user}
+          toggleFavorite={this.toggleFavorite}
+          openDetailProduct={this.openDetailProduct}
+          loadingPromo={this.state.loading.promoList}
+          // handleLoadMore={this.handleLoadMore}
+          navigateToCategories={this.navigateToCategories}
+          changeTotalItem={this.changeTotalItem}
+          fromSplashScreen={hasObjectValue(this.props.navigation.state, 'params') && this.props.navigation.state.params.fromSplashScreen}
+        />
       )
     }
-    return null
+
+    return null;
   }
 
-
   renderPromoList = () => {
-    // console.log('has valueeeeeeeee?', hasObjectValue(this.props.currentDetail, 'new_products') )
     return (
-      
-        <View style = {styles.promo.container}>
-        
-          {
-            this.props.currentDetail.products && this.props.currentDetail.products.length ? 
-            <View style = {styles.promo.titleContainer}>
-              <Text style = {styles.promo.titleText}>Produk Campaign</Text>
-              {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
-            </View> : null
+      <View style = {styles.promo.container}>
+        {
+          this.props.currentDetail.products && this.props.currentDetail.products.length ? 
+          <View style = {styles.promo.titleContainer}>
+            <Text style = {styles.promo.titleText}>Produk Campaign</Text>
+            {/* <Text style = {styles.promo.moreText}>Lihat Semua Produk</Text> */}
+          </View> : null
+        }
 
-          }
-
-          <View style = {styles.promo.cart}>
-            {/* {this.renderProductList()} */}
-            {hasObjectValue(this.props.currentDetail, 'new_products') ? this.renderPromoCategories() : this.renderProductList()}
-          </View>
-          
-          
-          
+        <View style = {styles.promo.cart}>
+          {this.renderProductList()}
+          {/* {hasObjectValue(this.props.currentDetail, 'new_products') ? this.renderPromoCategories() : this.renderProductList()} */}
         </View>
-
+      </View>
     )
   }
 
@@ -588,6 +568,8 @@ class BannerDetail extends Component {
           inputRange: [0, 1],
           outputRange: [0, -(width * 0.3)]
         })
+
+        console.log('productDetail',this.props.productDetail)
 
         return (
             <Container 

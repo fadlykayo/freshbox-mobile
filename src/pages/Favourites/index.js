@@ -174,15 +174,15 @@ class Favourites extends Component {
 	}
 
 	changeTotalItem(payload,type){
-		if(payload.isClaim && type === 'inc') {
-			this.props.set_error_status({
-				status: true,
-				title: 'formError.title.outOfClaim',
-				data: `${payload.name}: ${payload.quota_claim}`,
-			});
-		} else {
-			this.props.change_total(payload,type);
-		}
+		if (payload.count === payload.stock && type === 'inc') {
+      this.props.set_error_status({
+        status: true,
+        title: 'formError.title.outOfStock',
+        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+      });
+    } else {
+      this.props.change_total(payload, type);
+    }
 	}
 
 	clearProductConfirmation(){

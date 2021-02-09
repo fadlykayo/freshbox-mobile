@@ -127,6 +127,16 @@ class Detail extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.detailTransaction.status !== nextState.status) {
+      this.setState({
+        status: nextProps.detailTransaction.status,
+      })
+    }
+
+    return true;
+  }
+
   //status itu payment method
   validateTransactionStatus(paymentMethod, midtransObject) {
     let payload = {
@@ -189,9 +199,7 @@ class Detail extends Component {
   }
 
   messageOrderSuccess() {
-    console.log('===', this.props.navigation.state.params)
     if (this.props.navigation.state.params.createOrderSuccess) {
-      // console.log('====> ini message order', this.props.navigation.state.params.invoice)
       if (this.props.navigation.state.params.invoice == 'credit_card' || this.props.navigation.state.params.invoice == 'gopay') {
         language.transformText('message.paymentSuccess').then((message) => {
           this.props.set_success_status({
@@ -211,72 +219,6 @@ class Detail extends Component {
               title: 'formSuccess.title.createOrder',
             });
           });
-
-        // if (this.props.detailTransaction.status === 'pending_payment') {
-        //   this.props.detailTransaction.details.map((res) => {
-        //     if (res.product.quota_claim === 0) {
-        //       language
-        //         .transformText('message.createOrderSuccess')
-        //         .then((message) => {
-        //           this.props.set_success_status({
-        //             status: true,
-        //             data: message,
-        //             title: 'formSuccess.title.createOrder',
-        //           });
-        //         });
-        //     } else {
-        //       let total =
-        //         res.qty + parseInt(res.product.total_claim_product || 0);
-
-        //       if (total <= res.product.quota_claim) {
-        //         language
-        //           .transformText('message.createOrderSuccess')
-        //           .then((message) => {
-        //             this.props.set_success_status({
-        //               status: true,
-        //               data: message,
-        //               title: 'formSuccess.title.createOrder',
-        //             });
-        //           });
-        //       } else {
-        //         let payload = {
-        //           header: {
-        //             apiToken: this.props.user.authorization,
-        //           },
-        //           body: {
-        //             invoice: this.props.detailTransaction.invoice,
-        //           },
-        //         };
-
-        //         this.props.cancel_invoice(payload, () => {
-        //           this.setModalVisible('alertDialog', false);
-        //           this.setState({
-        //             status: 'cancel',
-        //           });
-        //         });
-
-        //         this.props.set_error_status({
-        //           status: true,
-        //           title: 'formError.title.outOfClaim',
-        //           data: `${res.product.name}: ${res.product.quota_claim}`,
-        //         });
-        //       }
-        //     }
-        //   });
-        // } else if (this.props.detailTransaction.status === 'paid') {
-        //   const {request_shipping_date, request_shipping_date_old} = this.props.detailTransaction
-        //   const dateDisplay = moment(request_shipping_date).format('dddd, Do MMMM YYYY');
-        //   const dateDisplayOld = request_shipping_date_old && moment(request_shipping_date_old).format('dddd, Do MMMM YYYY') || moment(request_shipping_date).format('dddd, Do MMMM YYYY');
-          
-        //   if(dateDisplay !== dateDisplayOld) {
-        //     let newDate = moment(request_shipping_date).format('dddd, Do MMMM YYYY')
-        //     this.props.set_success_status({
-        //       status: true,
-        //       data: `Pesanan akan dikirimkan tanggal ${newDate} karena pembayaran anda melewati batas waktu untuk pengiriman besok.`,
-        //       title: 'formSuccess.title.paymentSuccess',
-        //     });
-        //   }
-        // }
       } else if (this.props.detailTransaction.status === 'paid') {
         const {request_shipping_date, request_shipping_date_old} = this.props.detailTransaction
         const dateDisplay = moment(request_shipping_date).format('dddd, Do MMMM YYYY');
@@ -598,7 +540,6 @@ class Detail extends Component {
         invoice: this.props.detailTransaction.invoice,
       },
     };
-    console.log('TIGA');
     this.props.cancel_invoice(
       payload,
       () => {

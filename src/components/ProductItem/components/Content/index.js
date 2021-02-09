@@ -21,12 +21,13 @@ class Content extends PureComponent {
 		// 	claimLimit = Number(this.props.data.quota_claim);
 		// }
 
-		if (claimLimit !== undefined) {
-			return <Text style={styles.text.claimLimit}>Claim Limit: {claimLimit}</Text>
+		if (claimLimit !== undefined && Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product || 0) > 0) {
+			return <Text style={styles.text.claimLimit}>Limit Promo: {claimLimit}</Text>
 		}
 	}
 
-	render(){
+	render() {
+		console.log('THIS PROPS', this.props)
 		const productPrice = numeral(this.props.data.price).format('0,0');
 		let productPromoPrice;
 		if(this.props.bannerPrice && this.props.bannerPrice > 0) {
@@ -49,7 +50,7 @@ class Content extends PureComponent {
 					}
 
 						<View style={{paddingHorizontal: this.props.dashboard ? 15 : 0}}>
-							{ this.props.data.on_promo == 1 ? 
+							{ this.props.data.on_promo == 1 && Number(this.props.data.quota_claim) === 0 || this.props.data.on_promo == 1 && Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product || 0) > 0  ? 
 								<Text style={styles.text.price.promo(this.props.dashboard)}>
 										<StaticText
 											property={'productList.content.price'}
@@ -77,7 +78,7 @@ class Content extends PureComponent {
 											<StaticText
 												property={'productList.content.price'}
 											/>
-											{productPromoPrice}
+											{ Number(this.props.data.quota_claim) === 0 || Number(this.props.data.quota_claim) - Number(this.props.data.total_claim_product || 0) > 0 ? productPromoPrice : productPrice }
 										</Text>
 										{this.renderQuotaClaim()}
 									</View>

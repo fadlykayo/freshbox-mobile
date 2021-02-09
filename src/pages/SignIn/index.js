@@ -54,9 +54,9 @@ class SignIn extends Component {
     }
 
     componentDidMount() {
-        if(this.props.cart_product.length > 0 && this.props.navigation.state.params.action !== "guestLogin") {
-            this.props.clear_products()
-        }
+        // if(this.props.cart_product.length > 0 && this.props.navigation.state.params.action !== "guestLogin") {
+        //     this.props.clear_products()
+        // }
     }
 
     componentWillUnmount() {
@@ -131,8 +131,7 @@ class SignIn extends Component {
                 else if (this.props.navigation.state.params.action == "guestLogin") {
                     if(this.props.navigation.state.params.totalProduct > 0) {
                         actNav.reset(navConstant.Dashboard);
-                        this.props.clear_products()
-
+                        // this.props.clear_products()
                     } else {
                         actNav.goBack();
                     }

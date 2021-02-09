@@ -59,6 +59,13 @@ const getTransactions = (state, payload) => {
 
 const transactionDetail = (state, payload) => {
     let newState = JSON.parse(JSON.stringify(state));
+    console.log('transactionDetail', payload.data)
+    console.log('asdasd', newState.transactions)
+    let transactionIndex = newState.transactions.findIndex(x => x.invoice === payload.data.invoice);
+    if (transactionIndex !== -1) {
+        newState.transactions[transactionIndex] = payload.data;
+    }
+    console.log(transactionIndex)
     newState.detail = payload.data;
     return newState
 }

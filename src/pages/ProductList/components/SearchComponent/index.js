@@ -150,7 +150,7 @@ const mapStateToProps = state => ({
 	total_count: state.product.total.count,
 	productDetail: state.product.detail,
 	broadcast_message: state.utility.broadcast_message,
-	promoProduct: state.product.promoProduct,
+	promoProduct: state.product.promoProduct.filter(x => !x.isClaim && x),
 	network: state.network
 })
 

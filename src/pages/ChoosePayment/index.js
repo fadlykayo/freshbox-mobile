@@ -25,10 +25,7 @@ class ChoosePayment extends Component {
             refreshStatus: false,
         };
         this.navigationStateChangeHandler = this.navigationStateChangeHandler.bind(this);
-
     }
-
-
 
     componentDidMount() {
 
@@ -40,10 +37,6 @@ class ChoosePayment extends Component {
             this.GoPay();
             // this.checkPaymentGopay();
         }
-        this.setState({
-            paymentType: this.props.navigation.state.params.method
-        });
-
     }
 
     componentWillUnmount() {
@@ -66,6 +59,8 @@ class ChoosePayment extends Component {
             } else {
                 actNav.goBack();
             }
+
+            
         }
     }
 

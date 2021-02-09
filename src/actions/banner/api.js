@@ -23,6 +23,8 @@ actions.get_banner = (req, success, failure) => {
 					if (res.code == 200) {
 						dispatch(actReducer.get_banners(res.data));
 						success(res);
+
+						console.log('==---', res.data)
 					}
 				}
 			})

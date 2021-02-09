@@ -372,7 +372,7 @@ const getPromo = (state, payload) => {
   // newState.paramsPromo = params;
   // newState.paramsPromo.last_page = payload.data.last_page;
 
-  newState.promoProduct = [];
+  let promoProduct = [];
   let incomingProducts = payload.data.data;
   let currentCart = newState.cart.products.slice();
   let favoriteList = newState.wishlist.products.slice();
@@ -395,7 +395,7 @@ const getPromo = (state, payload) => {
     }
   }
 
-  newState.promoProduct = incomingProducts.map((e) => {
+  promoProduct = incomingProducts.map((e) => {
     let favoriteItem = favoriteList.filter((p) => e.code == p.code);
     if (favoriteItem.length > 0) {
       return favoriteItem[0];
@@ -412,6 +412,9 @@ const getPromo = (state, payload) => {
       return e;
     }
   });
+
+  let filteredProduct = promoProduct.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x);
+  newState.promoProduct = filteredProduct;
 
   let count = 0;
   let total = 0;

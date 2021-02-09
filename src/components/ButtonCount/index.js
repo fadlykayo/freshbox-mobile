@@ -42,7 +42,7 @@ class ButtonCount extends PureComponent {
 							<Icon name="minus" size={12} color="#E52546"/>
 						</TouchableOpacity>
 						<Text style={styles.text.counter}>{this.props.count}</Text>
-						{ this.props.data.stock == this.props.count
+						{/* { this.props.data.stock == this.props.count
 							? (<View 
 									style={styles.subcontainer.button}
 									onPress={this.addTotalItem}
@@ -55,7 +55,13 @@ class ButtonCount extends PureComponent {
 								>
 									<Icon name="plus" size={12} color="#E52546"/>
 								</TouchableOpacity>)
-						}
+						} */}
+						<TouchableOpacity 
+							style={styles.subcontainer.button}
+							onPress={this.addTotalItem}
+						>
+							<Icon name="plus" size={12} color="#E52546"/>
+						</TouchableOpacity>
 					</View>
 				)
 			}

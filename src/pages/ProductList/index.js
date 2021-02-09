@@ -673,15 +673,15 @@ class ProductList extends Component {
 	}
 
 	changeTotalItem(payload, type) {
-		if(payload.isClaim && type === 'inc') {
-			this.props.set_error_status({
-				status: true,
-				title: 'formError.title.outOfClaim',
-				data: `${payload.name}: ${payload.quota_claim}`,
-			});
-		} else {
-			this.props.change_total(payload, type);
-		}
+		if (payload.count === payload.stock && type === 'inc') {
+      this.props.set_error_status({
+        status: true,
+        title: 'formError.title.outOfStock',
+        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+      });
+    } else {
+      this.props.change_total(payload, type);
+    }
 	}
 
 	submitSearch() {
@@ -918,6 +918,10 @@ class ProductList extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, -(width * 0.3)]
 		});
+
+		let products = this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product;
+		let data = products && products.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x) || [];
+		console.log('PRODUCTLIST', data)
 		return (
 			<Container
 				bgColorBottom={'veryLightGrey'}
@@ -952,7 +956,7 @@ class ProductList extends Component {
 								contentContainerStyle={{marginLeft: 18}}
 								numColumns={2}
 								ref={(e) => {this.listRef = e;}}
-								data={this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product}
+								data={data}
 								onEndReachedThreshold={0.5}
 								onRefresh={this.refreshHandler}
 								refreshing={this.state.refreshing}
@@ -961,8 +965,6 @@ class ProductList extends Component {
 								ListFooterComponent={this.renderFlatListFooter.bind(this)}
 								renderItem={({item, index}) => (
 									<View style={styles.main.products.container} key={index}>
-
-
 										<ProductItem
 											dashboard
 											search={this.state.search}
