@@ -18,19 +18,16 @@ actions.get_banner = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('get', payload, dispatch)
 			.then((res) => {
-				// console.log('banner ====>', res)
 				if (res.code) {
 					if (res.code == 200) {
 						dispatch(actReducer.get_banners(res.data));
 						success(res);
-
-						console.log('==---', res.data)
+						console.log(res.data)
 					}
 				}
 			})
 			.catch((err) => {
 				if (!err.code) {
-					// dispatch(actNetwork.set_network_error_status(true));
 				} else {
 					switch (err.code) {
 						case 400: return failure(err);
@@ -49,20 +46,19 @@ actions.get_banner = (req, success, failure) => {
 actions.get_detail_banner = (req, success, failure) => {
 	payload.path = `${path.banners}${req.params.bannerID}`;
 	payload.header = req.header;
-	// console.log(payload.path)
+
 	return dispatch => {
 		requestHandler('get', payload, dispatch)
 			.then((res) => {
-				// console.log('banner detail ====>', res)
 				if (res.code) {
 					if (res.code == 200) {
 						dispatch(actReducer.get_detail_banner(res.data));
 						success(res);
+						console.log('GET DETAIL BANNER', res.data)
 					}
 				}
 			})
 			.catch((err) => {
-				// console.log('====> detail banner err', err)
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {

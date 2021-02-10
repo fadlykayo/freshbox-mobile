@@ -15,7 +15,6 @@ const initialState = {
 
 const getBanners = (state,payload) => {
     let newState = JSON.parse(JSON.stringify(state));
-    console.log('REDUCERS', payload.data)
     newState.banners = payload.data;
     return newState;
 }

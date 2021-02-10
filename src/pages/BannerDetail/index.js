@@ -377,7 +377,6 @@ class BannerDetail extends Component {
       // promo will have new price if theres voucher id
       return <ActivityIndicator/>
     } else {
-      console.log('0000000', this.props.currentDetail.products)
       if(this.props.currentDetail.products) {
         return (
           <FlatList
@@ -441,8 +440,8 @@ class BannerDetail extends Component {
         }
 
         <View style = {styles.promo.cart}>
-          {this.renderProductList()}
-          {/* {hasObjectValue(this.props.currentDetail, 'new_products') ? this.renderPromoCategories() : this.renderProductList()} */}
+          {/* {this.renderProductList()} */}
+          {this.props.currentDetail &&  this.props.currentDetail.new_products ? this.renderPromoCategories() : this.renderProductList()}
         </View>
       </View>
     )

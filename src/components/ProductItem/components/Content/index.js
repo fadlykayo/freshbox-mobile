@@ -27,14 +27,15 @@ class Content extends PureComponent {
 	}
 
 	render() {
-		console.log('THIS PROPS', this.props)
 		const productPrice = numeral(this.props.data.price).format('0,0');
 		let productPromoPrice;
+
 		if(this.props.bannerPrice && this.props.bannerPrice > 0) {
 			productPromoPrice = numeral(this.props.bannerPrice).format('0,0');
 		} else {
 			productPromoPrice = numeral(this.props.data.promo_price).format('0,0');
 		}
+		
 		return(
 			<View style={styles.container(this.props.dashboard)}>
 					{

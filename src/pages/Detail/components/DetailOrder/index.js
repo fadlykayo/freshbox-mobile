@@ -42,6 +42,7 @@ class DetailOrder extends Component {
         this.props.transaction.request_shipping_date,
       ).format('dddd, Do MMMM YYYY');
       const dateDisplayOld = this.props.transaction.request_shipping_date_old && moment(this.props.transaction.request_shipping_date_old).format('dddd, Do MMMM YYYY') || moment(this.props.transaction.request_shipping_date).format('dddd, Do MMMM YYYY');
+      const timePaid = moment(this.props.transaction.paid_date).format('HH:mm')
       const status = this.props.transaction.status
      
       return (
@@ -71,9 +72,14 @@ class DetailOrder extends Component {
                     style={styles.info.icon}
                     source={image.ic_info_grey}
                 />
-                <Text style={styles.info.text}>
-                    Pembayaran Anda melewati batas waktu untuk tanggal pengiriman {dateDisplayOld}
-                </Text>
+                <View>
+                  <Text style={styles.info.textTitle}>
+                      Pembayaran Berhasil
+                  </Text>
+                  <Text style={styles.info.text}>
+                      Namun Pembayaran Anda, jam {timePaid}, melewati batas waktu untuk tanggal pengiriman {dateDisplayOld}
+                  </Text>
+                </View>
             </View>
           }
 

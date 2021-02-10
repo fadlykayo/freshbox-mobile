@@ -78,8 +78,6 @@ class ChangeName extends Component {
 				name: this.state.name
 			}
 		};
-		console.log('====', this.state);
-
 		this.props.update_user(payload,
 			(success) => {
 				console.log(success);

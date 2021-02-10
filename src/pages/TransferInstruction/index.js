@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, Clipboard, ToastAndroid, Platform } from 'react-native';
-import { actNav } from '@navigations';
+import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import CountDown from './components/CountDown';
@@ -297,7 +297,6 @@ class TransferInstruction extends Component {
     }
 
     navigateBack() {
-        console.log('HEHE')
         let payload = {
             header: {
               apiToken: this.props.user.authorization,
@@ -307,8 +306,15 @@ class TransferInstruction extends Component {
       
           this.props.detail_transaction(
             payload,
-            () => {
+            (res) => {
                 actNav.goBack();
+
+                setTimeout(() => {
+                    actNav.navigate(navConstant.Thanks, {
+                        refreshHandler: () => {},
+                        invoice: res.data.payment_method,
+                    });
+                }, 1000)
             },
             (err) => {
               // console.log(err);

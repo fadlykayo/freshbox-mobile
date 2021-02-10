@@ -45,6 +45,13 @@ const styles = {
             height: 15,
             marginRight: scaling.moderateScale(10),
         },
+        textTitle: {
+            fontFamily: 'Avenir-Heavy',
+            fontSize: scaling.moderateScale(12),
+            color: colour.orange,
+            lineHeight: scaling.moderateScale(16),
+            paddingRight: scaling.moderateScale(20),
+        },
         text: {
             fontFamily: 'Avenir-Medium',
             fontSize: scaling.moderateScale(11),

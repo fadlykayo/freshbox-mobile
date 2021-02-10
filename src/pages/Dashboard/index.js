@@ -569,7 +569,6 @@ class Dashboard extends Component {
   };
 
   changeTotalItem = (payload, type) => {
-    console.log(payload)
     if (payload.count === payload.stock && type === 'inc') {
       this.props.set_error_status({
         status: true,

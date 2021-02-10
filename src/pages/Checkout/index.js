@@ -507,7 +507,7 @@ class Checkout extends Component {
           () => {
             this.props.navigation.state.params.createOrderHandler(
               res.data.invoice,
-              paymentMethod,
+              res.data.payment_method,
             );
           },
         );

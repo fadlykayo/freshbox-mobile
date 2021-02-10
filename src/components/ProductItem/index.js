@@ -62,6 +62,7 @@ class ProductItem extends PureComponent {
 		} else {
 			data = this.props.data;
 		}
+
 		if(this.props.bannerPrice) {
 			bannerPrice = this.props.bannerPrice;
 		} else {
@@ -121,7 +122,6 @@ class ProductItem extends PureComponent {
 			);
 
 		} else {
-			console.log('data', data)
 			return(
 			<View style={styles.container(this.props.index,this.props.productLength, this.props.search, data.stock, this.props.dashboard)}>
 				<View style={styles.subcontainer.card(this.props.dashboard)}>
