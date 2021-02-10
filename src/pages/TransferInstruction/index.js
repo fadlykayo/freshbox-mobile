@@ -308,13 +308,17 @@ class TransferInstruction extends Component {
             payload,
             (res) => {
                 actNav.goBack();
+                console.log(res.data.status)
 
-                setTimeout(() => {
-                    actNav.navigate(navConstant.Thanks, {
-                        refreshHandler: () => {},
-                        invoice: res.data.payment_method,
-                    });
-                }, 1000)
+                if (res.data.status === 'paid') {
+                    setTimeout(() => {
+                        actNav.navigate(navConstant.Thanks, {
+                            refreshHandler: () => {},
+                            invoice: res.data.payment_method,
+                        });
+                    }, 1000)
+                }
+
             },
             (err) => {
               // console.log(err);

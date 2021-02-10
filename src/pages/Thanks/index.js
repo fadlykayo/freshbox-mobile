@@ -131,14 +131,14 @@ class Thanks extends Component {
                                     <View style={styles.info.container}>
                                         <Image
                                             style={styles.info.icon}
-                                            source={image.ic_info_grey}
+                                            source={images.ic_info_grey}
                                         />
                                         <View>
                                             <Text style={styles.info.textTitle}>
                                                 Pembayaran Berhasil
                                             </Text>
                                             <Text style={styles.info.text}>
-                                                Namun Pembayaran Anda, jam {timePaid}, melewati batas waktu untuk tanggal pengiriman {dateDisplayOld}
+                                                Namun Pembayaran Anda, jam {timePayment}, melewati batas waktu untuk tanggal pengiriman {dateDeliveryOld}
                                             </Text>
                                         </View>
                                     </View>
