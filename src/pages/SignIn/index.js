@@ -208,9 +208,7 @@ class SignIn extends Component {
                         }
                     });
             })
-            .catch((err) => {
-                // console.log(err);
-            });
+            .catch((err) => {});
     }
 
     googleHandler() {
@@ -237,7 +235,6 @@ class SignIn extends Component {
                             sosmed: "google",
                             google_token: result.user.id
                         };
-                        console.log(err, '====');
                         switch (err.code) {
                             case 404:
                                 actNav.navigate(navConstant.Register, {action: 'menuLogin', socmed: params});
@@ -249,9 +246,7 @@ class SignIn extends Component {
                         }
                     });
             })
-            .catch((err) => {
-                console.log('err', err);
-            });
+            .catch((err) => {});
     }
 
     registerSocmed(email, apple_token, name) {
@@ -290,9 +285,7 @@ class SignIn extends Component {
                 }
 
             },
-            (err) => {
-                console.log(err);
-            }
+            (err) => {}
         );
     }
 
@@ -346,7 +339,6 @@ class SignIn extends Component {
                 });
 
         } catch (error) {
-            console.log('error', error);
         }
     };
 

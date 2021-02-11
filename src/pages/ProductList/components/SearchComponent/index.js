@@ -34,28 +34,6 @@ class SearchComponent extends Component {
 	}
 
 	handleBackButton = () => {
-		// this.setState({isLoading: true})
-		// let payload = {
-		// 	header: {
-		// 		apiToken: this.props.user ? this.props.user.authorization : ''
-		// 	},
-		// 	params: {
-		// 		page: 1,
-		// 		sort: "nama-az"
-		// 	}
-		// }
-
-		// // console.warn(this.props.params)
-		// this.props.get_products(payload,
-		// 	() => {
-		// 		this.setState({isLoading: false}, actNav.goBack());
-				
-		// 	},
-		// 	(err) => {
-		// 		console.log(err);
-		// 	}
-		// );
-		// actNav.goBack(this.props.navigation.state.params.refreshProducts)
 		this.props.backHandler();
 	}
 

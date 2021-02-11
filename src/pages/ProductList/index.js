@@ -215,9 +215,7 @@ class ProductList extends Component {
 					refreshHandler: this.refreshHandler,
 				});
 			},
-			(err) => {
-				console.log(err);
-			}
+			(err) => {}
 		);
 	}
 
@@ -381,9 +379,7 @@ class ProductList extends Component {
 			() => {
 				if (this.state.refreshing != false) this.setState({refreshing: false});
 			},
-			(err) => {
-				console.log(err);
-			}
+			(err) => {}
 		);
 	}
 
@@ -412,9 +408,7 @@ class ProductList extends Component {
 				if (this.state.refreshing != false) this.setState({refreshing: false});
 				if (this.props.navigation.state.params.action) this.navigateToCart();
 			},
-			(err) => {
-				console.log(err);
-			}
+			(err) => {}
 		);
 	}
 
@@ -428,9 +422,7 @@ class ProductList extends Component {
 			this.props.get_favorites(payload,
 				(success) => {
 				},
-				(err) => {
-					console.log(err);
-				});
+				(err) => {});
 		}
 	}
 
@@ -441,9 +433,7 @@ class ProductList extends Component {
 		};
 		this.props.get_categories(payload,
 			() => { },
-			(err) => {
-				console.log(err);
-			}
+			(err) => {}
 		);
 	}
 
@@ -527,9 +517,7 @@ class ProductList extends Component {
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {
-					console.log(err);
-				});
+				(err) => {});
 		} else if (input.name == 'Default') {
 			let payload = {
 				header: {
@@ -550,9 +538,7 @@ class ProductList extends Component {
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {
-					console.log(err);
-				});
+				(err) => {});
 		}
 		else {
 
@@ -592,9 +578,7 @@ class ProductList extends Component {
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {
-					console.log(err);
-				});
+				(err) => {});
 		}
 	}
 
@@ -646,9 +630,7 @@ class ProductList extends Component {
 			};
 			this.props.delete_favorite(data,
 				() => { },
-				(err) => {
-					console.log(err);
-				}
+				(err) => {}
 			);
 		}
 		else {
@@ -665,9 +647,7 @@ class ProductList extends Component {
 			};
 			this.props.add_favorite(data,
 				() => { },
-				(err) => {
-					console.log(err);
-				}
+				(err) => {}
 			);
 		}
 	}
@@ -747,9 +727,7 @@ class ProductList extends Component {
 				this.onChangeText('search', true);
 				// this.backToTop();
 			},
-			(err) => {
-				console.log(err);
-			});
+			(err) => {});
 
 	}
 
@@ -808,9 +786,7 @@ class ProductList extends Component {
 					refreshHandler: this.refreshHandler,
 				});
 			},
-			(err) => {
-				console.log('navigate to detail', err);
-			}
+			(err) => {}
 		);
 	}
 
@@ -921,7 +897,6 @@ class ProductList extends Component {
 
 		let products = this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product;
 		let data = products && products.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x) || [];
-		console.log('PRODUCTLIST', data)
 		return (
 			<Container
 				bgColorBottom={'veryLightGrey'}

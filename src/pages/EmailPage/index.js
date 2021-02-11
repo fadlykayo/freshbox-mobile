@@ -78,9 +78,7 @@ class PhonePage extends Component {
 				(success) => {
 						actNav.goBack()
 				},
-				(err) => {
-						console.log(err)
-				});
+				(err) => {});
 		} else {
 			this.setState({isEdit: false})
 		}

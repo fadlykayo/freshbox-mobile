@@ -79,13 +79,8 @@ class ChangeName extends Component {
 			}
 		};
 		this.props.update_user(payload,
-			(success) => {
-				console.log(success);
-				//actNav.goBack();
-			},
-			(err) => {
-				// console.log(err)
-			});
+			(success) => {},
+			(err) => {});
 	}
 
 	render() {

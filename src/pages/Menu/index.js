@@ -55,7 +55,6 @@ class Menu extends Component {
             });
         }
         catch(err) {
-            // console.log("Google signin error", err.code, err.message);
         }
     }
 
@@ -99,9 +98,7 @@ class Menu extends Component {
                     }
                 })
         })
-        .catch((err) => {
-            // console.log(err);
-        })
+        .catch((err) => {})
     }
 
     googleHandler(){
@@ -143,9 +140,7 @@ class Menu extends Component {
                     }
                 })
         })
-        .catch((err) => {
-            // console.log(err);
-        })
+        .catch((err) => {})
     }
 
     render(){

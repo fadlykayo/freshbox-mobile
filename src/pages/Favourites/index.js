@@ -37,7 +37,6 @@ class Favourites extends Component {
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
-		this.handleLoadMore = this.handleLoadMore.bind(this);
 		this.refreshHandler = this.refreshHandler.bind(this);
 		this.changeTotalItem = this.changeTotalItem.bind(this);
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -107,9 +106,7 @@ class Favourites extends Component {
 			() => {
 				this.setState({refreshing: false})
 			},
-			(err) => {
-				// console.log(err);
-			}
+			(err) => {}
 		)
 	}
 
@@ -133,26 +130,9 @@ class Favourites extends Component {
 			}
 			this.props.add_favorite(data,
 				() => {},
-				(err) => {
-					// console.log(err);
-				}
+				(err) => {}
 			)
 		}
-	}
-
-	handleLoadMore(){
-		// let payload = {
-		// 	header: {
-		// 		apiToken: this.props.user.authorization
-		// 	},
-		// 	params:{},
-		// }
-		// this.props.get_favorites(payload,
-		// 	() => {},
-		// 	(err) => {
-		//		console.log(err);
-		// 	}
-		// )
 	}
 
 	setModalVisible(type,value){
@@ -200,9 +180,7 @@ class Favourites extends Component {
 				this.setModalVisible('alertDialog',false);
 				this.setModalVisible('openProduct',false);
 			},
-			(err) => {
-				// console.log(err);
-			}
+			(err) => {}
 		)
 		
 	}
@@ -254,9 +232,7 @@ class Favourites extends Component {
 					createOrderSuccess: true,
 				});
 			},
-			(err) => {
-				// console.log(err);
-			}
+			(err) => {}
 		)
 	}
 

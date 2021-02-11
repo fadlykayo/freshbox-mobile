@@ -63,14 +63,11 @@ class DrawerPage extends Component {
 		}
 		this.props.get_products(payload,
 			() => {},
-			(err) => {
-				// console.log(err);
-			}
+			(err) => {}
 		);
 	}
 
   	navigateToOtherPage(payload){
-			// console.warn(payload)
 		let newPages = this.state.pages;
 
 		newPages.map((newPage) => {

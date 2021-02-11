@@ -160,9 +160,7 @@ class ResetPasswordPage extends Component {
 					},2000);
 				});
 			},
-			(err) => {
-				// console.log(err);
-			})
+			(err) => {})
 	}
 
 	createNewPassword() {
@@ -182,9 +180,7 @@ class ResetPasswordPage extends Component {
 			(res) => {
 				actNav.reset(navConstant.Product)
 			},
-			(err) => {
-				// console.log(err);
-			})
+			(err) => {})
 	}
 	  
 	closeDialogResetPasswordSuccess(){

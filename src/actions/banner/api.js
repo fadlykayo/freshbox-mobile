@@ -22,7 +22,6 @@ actions.get_banner = (req, success, failure) => {
 					if (res.code == 200) {
 						dispatch(actReducer.get_banners(res.data));
 						success(res);
-						console.log(res.data)
 					}
 				}
 			})
@@ -54,7 +53,6 @@ actions.get_detail_banner = (req, success, failure) => {
 					if (res.code == 200) {
 						dispatch(actReducer.get_detail_banner(res.data));
 						success(res);
-						console.log('GET DETAIL BANNER', res.data)
 					}
 				}
 			})

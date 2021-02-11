@@ -97,11 +97,8 @@ class AddressPage extends Component {
 			},
 		}
 		this.props.load_province(payload, 
-			(res) => {
-			},
-			(err) => {
-				// console.log(err)
-			})
+			(res) => {},
+			(err) => {})
 	}
 
 	loadCity() {
@@ -113,11 +110,8 @@ class AddressPage extends Component {
 				provinceCode: this.state.user.province.code
 			}
 			this.props.load_city(payload, 
-				(res) => {
-				},
-				(err) => {
-					// console.log(err)
-				})
+				(res) => {},
+				(err) => {})
 		}
 	}
 
@@ -130,11 +124,8 @@ class AddressPage extends Component {
 				cityCode: this.state.user.city.code
 			}
 			this.props.load_subdistrict(payload, 
-				(res) => {
-				},
-				(err) => {
-					// console.log(err)
-				})
+				(res) => {},
+				(err) => {})
 		}
 	}
 
@@ -147,11 +138,8 @@ class AddressPage extends Component {
 				subdistrictCode: this.state.user.subdistrict.code
 			}
 			this.props.load_zip_code(payload, 
-				(res) => {
-				},
-				(err) => {
-					// console.log(err)
-				})
+				(res) => {},
+				(err) => {})
 		}
 	}
 
@@ -278,19 +266,19 @@ class AddressPage extends Component {
 	addressValidation() {
 		//Update Validation
 		this.clearValidation();
-        validation.address(this.state.user)
-        .then(() => {
-			if (this.props.navigation.state.params.action == 'editAddress') {
-				this.updateHandler();
-			}
-			else {
-				this.addHandler();
-			}
-        })
-        .catch((err) => {
-            this.setValidation(err,false);
-        });
-		
+		validation
+			.address(this.state.user)
+			.then(() => {
+				if (this.props.navigation.state.params.action == 'editAddress') {
+					this.updateHandler();
+				}
+				else {
+					this.addHandler();
+				}
+			})
+			.catch((err) => {
+					this.setValidation(err,false);
+			});
 	}
 
 	updateHandler() {
@@ -317,7 +305,6 @@ class AddressPage extends Component {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
-				// console.log(err)
 			})
 	}
 
@@ -345,7 +332,6 @@ class AddressPage extends Component {
 				this.props.navigation.goBack(this.props.navigation.state.params.key)
 			},
 			(err) => {
-				// console.log(err)
 			})
 	}
 
@@ -368,7 +354,6 @@ class AddressPage extends Component {
 				actNav.goBack()
 			},
 			(err) => {
-				// console.log("error nih", err)
 			})
 	}
 

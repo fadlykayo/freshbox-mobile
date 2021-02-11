@@ -41,18 +41,15 @@ export default class Carousel extends PureComponent {
     if (this.props.products !== null) {
       this.interval = setInterval(() => {
         if (this.state.scrollX === this.state.count * bannerWidth) {
-          // console.log('disini')
           this.setState({
             count: Math.round((this.state.scrollX / bannerWidth) + 1),
           });
         } else {
           if (this.state.scrollX > this.state.count * bannerWidth) {
-            // console.log('disana')
             this.setState({
               count: Math.round((this.state.scrollX / bannerWidth) + 1),
             });
           } else {
-            // console.log('disana2')
             this.setState({
               count: Math.round((this.state.scrollX / bannerWidth) + 1),
             });

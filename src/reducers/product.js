@@ -615,7 +615,6 @@ else {
     currentCart[i].maxQty = payload.data.maxQty;
   }
 
-  // console.log(total, 'total')
   newState.total.count = count;
   newState.total.price = total;
   newState.cart.products = currentCart.filter(e => e.count > 0);
@@ -967,8 +966,6 @@ const setDiscountPrice = (state, payload) => {
   let discount = 0;
   let coupon_code = newState.coupon_code;
 
-  // console.log(payload)
-
   if (payload.grand_total_diskon > 0) {
     discount = payload.grand_total_diskon;
     coupon_code = payload.coupon_code;
@@ -1039,7 +1036,6 @@ const getCurrentDetail = (state, payload) => {
       incomingProducts[x].product.banner_harga_jual =
         incomingProducts[x].banner_harga_jual;
       cartList.push(incomingProducts[x].product);
-      // console.log(incomingProducts[x])
     }
   }
 
@@ -1083,8 +1079,6 @@ const getCurrentDetail = (state, payload) => {
   newState.products = cartList;
   newState.currentDetail.products = incomingProducts;
   newState.currentDetail.new_products = new_products;
-
-  // console.log('cartList', cartList)
 
   return newState;
 };

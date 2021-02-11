@@ -67,9 +67,7 @@ class VirtualAccount extends Component {
             (res) => {
                 this.props.navigation.state.params.createOrderHandler(res.invoice);
             },
-            (err) => {
-                // console.log(err);
-            }
+            (err) => {}
         )
     }
 

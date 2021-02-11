@@ -28,9 +28,7 @@ export default class Facebook extends Component {
             offlineAccess: true,
         });
     }
-    catch(err) {
-        console.log("Google signin error", err.code, err.message);
-    }
+    catch(err) {}
   }
 
   onPressButton () {

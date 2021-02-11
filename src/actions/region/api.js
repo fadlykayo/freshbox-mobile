@@ -23,7 +23,6 @@ actions.load_province = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Load Provinces res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.load_province(res.data))
@@ -32,7 +31,6 @@ actions.load_province = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Load Provinces err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -57,7 +55,6 @@ actions.load_city = (req,success,failure) => {
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Load Cities res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.load_city(res.data))
@@ -66,7 +63,6 @@ actions.load_city = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Load Cities err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -87,12 +83,10 @@ actions.load_subdistrict = (req,success,failure) => {
 	
 	payload.path = `${path.getSubdistrict}/${req.cityCode}`;
 	payload.header = req.header;
-	// console.log("subdistrict", payload)
 
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Load Subdistrict res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.load_subdistrict(res.data))
@@ -101,7 +95,6 @@ actions.load_subdistrict = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Load Subdistrict err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {
@@ -122,11 +115,9 @@ actions.load_zip_code = (req,success,failure) => {
 	
 	payload.path = `${path.getZipCode}/${req.subdistrictCode}`;
 	payload.header = req.header;
-	// console.log("zip_code", payload)
 	return dispatch => {
         requestHandler('get',payload,dispatch)
         .then((res) => {
-        	// console.log('Load Zip Code res',res);
         	if(res.code){
         		if(res.code == 200){
 					dispatch(actReducer.load_zip_code(res.data))
@@ -135,7 +126,6 @@ actions.load_zip_code = (req,success,failure) => {
         	}
         })
         .catch((err) => {
-        	// console.log('Load Zip Code err', err);
         	if(!err.code){
         		dispatch(actNetwork.set_network_error_status(true));
         	} else {

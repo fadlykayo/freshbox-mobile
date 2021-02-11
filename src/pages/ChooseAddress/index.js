@@ -33,9 +33,7 @@ class ChooseAddress extends Component {
 		}
 		this.props.get_address(payload, 
 			(res) => {},
-			(err) => {
-				// console.log(err)
-			})
+			(err) => {})
 	}
 
     updatePrimaryAddress(codeAddress) {
@@ -49,9 +47,7 @@ class ChooseAddress extends Component {
             (success) => {
                 actNav.goBack()
             }, 
-            (err) => {
-                // console.log(err)
-            })
+            (err) => {})
     }
 
     navigateToEditAddress(data) {

@@ -308,7 +308,6 @@ class TransferInstruction extends Component {
             payload,
             (res) => {
                 actNav.goBack();
-                console.log(res.data.status)
 
                 if (res.data.status === 'paid') {
                     setTimeout(() => {
@@ -320,9 +319,7 @@ class TransferInstruction extends Component {
                 }
 
             },
-            (err) => {
-              // console.log(err);
-            },
+            (err) => {},
           );
     }
 

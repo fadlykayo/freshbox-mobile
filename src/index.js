@@ -91,14 +91,12 @@ class App extends Component {
         },
         (err) => {
           actNav.reset(navConstant.Dashboard);
-          console.log('err', err);
         },
       );
       Linking.removeEventListener('url', this.handleDeepLink);
     } else if (routname === '2' && id) {
       this.setDetailProduct(id);
     } else {
-      console.log(e);
     }
   };
 
@@ -127,7 +125,6 @@ class App extends Component {
       },
       (err) => {
         actNav.reset(navConstant.Dashboard);
-        console.log('err', err);
       },
     );
   };

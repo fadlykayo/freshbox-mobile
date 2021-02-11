@@ -144,9 +144,7 @@ class BannerDetail extends Component {
             });
           }
         },
-        (err) => {
-          // console.log('navigate to detail', err);
-        }
+        (err) => { }
       )
     }
 
@@ -275,9 +273,7 @@ class BannerDetail extends Component {
       }
       this.props.delete_favorite(data,
         () => {},
-        (err) => {
-          console.log(err);
-        }
+        (err) => {}
       )
     }
     else {
@@ -294,9 +290,7 @@ class BannerDetail extends Component {
       }
       this.props.add_favorite(data,
         () => {},
-        (err) => {
-          console.log(err);
-        }
+        (err) => {}
       )
     }
   }
@@ -531,9 +525,7 @@ class BannerDetail extends Component {
             category: category
           })
         },
-        (err) => {
-          console.log('change category', err)
-        }
+        (err) => {}
       )	
     }
 
@@ -557,7 +549,6 @@ class BannerDetail extends Component {
     }
 
     render() {
-        // console.log('banner detil', this.props.currentDetail)
         let params = this.props.navigation.state.params;
         const introButton = this.showCheckout.interpolate({
           inputRange: [0, 1],
@@ -567,8 +558,6 @@ class BannerDetail extends Component {
           inputRange: [0, 1],
           outputRange: [0, -(width * 0.3)]
         })
-
-        console.log('productDetail',this.props.productDetail)
 
         return (
             <Container 

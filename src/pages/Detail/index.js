@@ -192,9 +192,7 @@ class Detail extends Component {
     this.props.cancel_invoice(
       payload,
       () => actNav.navigate(navConstant.Product),
-      (err) => {
-        console.log();
-      },
+      (err) => {},
     );
   }
 
@@ -279,9 +277,7 @@ class Detail extends Component {
             this.props.discount,
         });
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   }
 
@@ -299,9 +295,7 @@ class Detail extends Component {
       this.props.delete_favorite(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     } else {
       let data = {
@@ -318,9 +312,7 @@ class Detail extends Component {
       this.props.add_favorite(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     }
   }
@@ -339,9 +331,7 @@ class Detail extends Component {
       this.props.delete_favorite_history(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     } else {
       let data = {
@@ -359,9 +349,7 @@ class Detail extends Component {
       this.props.add_favorite_history(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     }
   }
@@ -382,9 +370,7 @@ class Detail extends Component {
           action: 'reorder',
         });
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   }
 
@@ -500,9 +486,7 @@ class Detail extends Component {
           this.setState({refreshing: false});
         }
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   }
 

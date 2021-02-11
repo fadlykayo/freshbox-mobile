@@ -141,9 +141,7 @@ class ContactUs extends Component {
 					},1000);
 				});
 			},
-			(err) => {
-				// console.log(err)
-			})
+			(err) => {})
 	}
 
   	render() {

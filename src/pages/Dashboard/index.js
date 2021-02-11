@@ -280,9 +280,7 @@ class Dashboard extends Component {
           }
         }
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -316,9 +314,7 @@ class Dashboard extends Component {
             }
           }
         },
-        (err) => {
-          console.log(err);
-        },
+        (err) => {},
       );
     }
   };
@@ -340,9 +336,7 @@ class Dashboard extends Component {
           }
         }
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -411,9 +405,7 @@ class Dashboard extends Component {
       () => {
         this.getProductPromo();
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -464,9 +456,7 @@ class Dashboard extends Component {
         }
         // this.backToTop();
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -508,9 +498,7 @@ class Dashboard extends Component {
       this.props.delete_favorite(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     } else {
       let data = {
@@ -527,9 +515,7 @@ class Dashboard extends Component {
       this.props.add_favorite(
         data,
         () => {},
-        (err) => {
-          // console.log(err);
-        },
+        (err) => {},
       );
     }
   };
@@ -620,9 +606,7 @@ class Dashboard extends Component {
           refreshHandler: this.refreshHandler,
         });
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -787,9 +771,7 @@ class Dashboard extends Component {
           fromPromo: true,
         });
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   };
 
@@ -813,9 +795,7 @@ class Dashboard extends Component {
           actNav.navigate(navConstant.BannerDetail);
         }
       },
-      (err) => {
-        console.log('err', err);
-      },
+      (err) => {},
     );
   };
 

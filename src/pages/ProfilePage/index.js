@@ -117,7 +117,6 @@ class ProfilePage extends Component {
                             });
                     },
                     (err) => {
-                        console.log(err);
                         language.transformText('message.uploadPhotoError')
                             .then(message => {
                                 this.props.set_error_status({
@@ -138,7 +137,6 @@ class ProfilePage extends Component {
     }
 
     navigateToEmailPage() {
-        console.log('masuk')
         actNav.navigate(navConstant.EmailPage);
     }
 

@@ -61,9 +61,7 @@ class OTP extends Component {
             this.startTimer();
             this.props.otp_resend(payload,
                 () => { },
-                (err) => {
-                    // console.log(err)
-                });
+                (err) => {});
         });
     }
 

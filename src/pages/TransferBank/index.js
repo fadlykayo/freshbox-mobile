@@ -233,10 +233,8 @@ class TransferBank extends Component {
     }
 
     openSpecificData(indexBank, indexType) {
-        // console.log("index bank: ", indexBank, "index type: ",indexType)
         let banks = this.state.banks.slice();
         banks[indexBank].types[indexType].isOpen = !banks[indexBank].types[indexType].isOpen;
-        // console.log(banks)
         this.setState({ banks })
     }
 

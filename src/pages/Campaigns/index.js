@@ -30,9 +30,7 @@ class Campaigns extends Component {
 				}
 				
 			},
-			(err) => {
-				console.log('err', err)
-			}
+			(err) => {}
 		) 
 
 	}

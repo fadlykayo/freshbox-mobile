@@ -92,9 +92,7 @@ class Checkout extends Component {
           delivery_date: this.props.delivery_date.slice(0, 3),
         });
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   }
 
@@ -116,14 +114,8 @@ class Checkout extends Component {
             this.props.totalPrice -
             this.props.discount,
         });
-
-        // let state = this.state;
-        // state.grandTotalPrice = this.props.delivery_price + this.props.totalPrice - this.props.discount;
-        // this.setState(state);
       },
-      (err) => {
-        // console.log(err)
-      },
+      (err) => {},
     );
   }
 
@@ -138,9 +130,7 @@ class Checkout extends Component {
     this.props.get_address(
       payload,
       () => {},
-      (err) => {
-        // console.log(err)
-      },
+      (err) => {},
     );
   }
 
@@ -161,14 +151,6 @@ class Checkout extends Component {
       },
       this.closeDeliveryDate,
     );
-    //for later
-    // this.setState({
-    // 	date:{
-    // 		origin: payload,
-    // 		display: moment(payload).format('dddd, Do MMMM YYYY'),
-    // 		value: moment(payload).format('YYYY-MM-DD HH:mm:ss'),
-    // 	}
-    // },this.showDeliveryTime)
   }
 
   getDeliveryTime = (payload) => {
@@ -246,9 +228,7 @@ class Checkout extends Component {
 
     this.props.cancel_checkout(
       payload,
-      (res) => {
-        // console.log(res);
-      },
+      (res) => {},
       (rej) => {},
     );
   }
@@ -409,9 +389,7 @@ class Checkout extends Component {
           state.voucherValidation = false;
           this.setState(state);
         },
-        (rej) => {
-          // console.log(rej)
-        },
+        (rej) => {},
       );
     }
   };

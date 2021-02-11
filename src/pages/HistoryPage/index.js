@@ -68,9 +68,7 @@ class HistoryPage extends Component {
 
 		this.props.get_transaction(payload, 
 			() => {},
-			(err) => {
-				// console.log(err);
-			})
+			(err) => {})
 	}
 
 	getRefreshData() {
@@ -88,9 +86,7 @@ class HistoryPage extends Component {
 			() => {
 				if(this.state.refreshing != false) this.setState({refreshing: false})
 			},
-			(err) => {
-				// console.log(err);
-			})
+			(err) => {})
 	}
 
 	navigateToDetail(input) {
@@ -108,9 +104,7 @@ class HistoryPage extends Component {
 					createOrderSuccess: res.data.status === "cancel" ? false: true,
 				});
 			},
-			(err) => {
-				// console.log(err);
-			}
+			(err) => {}
 		)
 	}
 

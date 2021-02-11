@@ -29,8 +29,6 @@ actions.cancel_invoice = (req, success, failure) => {
 			.then((res) => {
 				if (res.code) {
 					if (res.code == 200) {
-						// console.log('cancel invoice ==>', res)
-						// console.log('req', req)
 						dispatch(actReducer.cancel_transaction(req.body));
 						dispatch(actNetwork.set_error_status({
 							status: true,
@@ -92,7 +90,6 @@ actions.bulk_add_products = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
-				// console.log('Bulk Add Products res ->',res);
 				if (res.code) {
 					if (res.code == 200) {
 						success(res);
@@ -100,7 +97,6 @@ actions.bulk_add_products = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Bulk Add Products err ->', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -146,7 +142,6 @@ actions.request_snap_token = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err)
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -203,7 +198,6 @@ actions.cancel_checkout = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
-				// console.log('Cancel Checkout res ->',res);
 				if (res.code) {
 					if (res.code == 200) {
 						success(res.data);
@@ -211,7 +205,6 @@ actions.cancel_checkout = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Cancel Checkout err ->', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -257,7 +250,6 @@ actions.create_order = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
-				// console.log('Create Transaction res ->',res);
 				if (res.code) {
 					if (res.code == 200) {
 						success(res.data);
@@ -265,7 +257,6 @@ actions.create_order = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Create Transaction err ->', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -307,12 +298,10 @@ actions.get_transaction = (req, success, failure) => {
 	payload.header = req.header;
 	payload.params = req.params;
 
-	// console.log('payload trans', payload)
 
 	return dispatch => {
 		requestHandler('get', payload, dispatch)
 			.then((res) => {
-				// console.log('Get Transactions res',res);
 				if (res.code) {
 					if (res.code == 200) {
 						dispatch(actReducer.get_transaction(res.data));
@@ -431,7 +420,6 @@ actions.add_favorite_history = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('post', payload, dispatch)
 			.then((res) => {
-				// console.log('Add Favourite res',res);
 				if (res.code) {
 					if (res.code == 200) {
 						dispatch(actReducer.toggle_favorite({
@@ -442,7 +430,6 @@ actions.add_favorite_history = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Add Favourite err', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {
@@ -467,7 +454,6 @@ actions.delete_favorite_history = (req, success, failure) => {
 	return dispatch => {
 		requestHandler('delete', payload, dispatch)
 			.then((res) => {
-				// console.log('Delete Favourite res',res);
 				if (res.code) {
 					if (res.code == 200) {
 						dispatch(actReducer.toggle_favorite({
@@ -479,7 +465,6 @@ actions.delete_favorite_history = (req, success, failure) => {
 				}
 			})
 			.catch((err) => {
-				// console.log('Delete Favourite err', err);
 				if (!err.code) {
 					dispatch(actNetwork.set_network_error_status(true));
 				} else {

@@ -132,7 +132,6 @@ class Register extends Component {
                 }
             })
             .catch((err) => {
-                // console.log(err);
                 this.setValidation(err, false);
             });
     }
@@ -151,8 +150,6 @@ class Register extends Component {
             }
         };
 
-        // console.log(payload)
-
         this.props.register_user(payload,
             (res) => {
                 actNav.navigate(navConstant.OTP, {
@@ -161,9 +158,7 @@ class Register extends Component {
                     phone_number: this.state.user.phone
                 });
             },
-            (err) => {
-                // console.log(err);
-            }
+            (err) => {}
         );
     }
 
@@ -183,7 +178,6 @@ class Register extends Component {
             }
         };
 
-        //console.log(JSON.stringify(payload, null, 2))
         this.props.register_user_socmed(payload,
             (res) => {
                 if (res.code == 201) {
@@ -193,13 +187,10 @@ class Register extends Component {
                         phone_number: this.state.user.phone
                     });
                 } else if (res.code == 200) {
-                    // console.log(res)
                      actNav.reset(navConstant.Product)
                 }
             },
-            (err) => {
-                console.log(err);
-            }
+            (err) => {}
         );
     }
 

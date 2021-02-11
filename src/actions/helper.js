@@ -31,12 +31,10 @@ helper.get = (payload, dispatch, noLoading) => new Promise((resolve, reject) => 
             params: payload.params
         })
         .then(response => {
-            // console.log('http response',response);
             dispatch(actNetwork.set_loading_status(false));
             resolve(response.data);
         })
         .catch(error => {
-            // console.log('http error',error);
             dispatch(actNetwork.set_loading_status(false));
             if (error.response) {
                 if (error.response.data.code == 401) {
@@ -103,12 +101,10 @@ helper.put = (payload, dispatch) => new Promise((resolve, reject) => {
             }
         })
         .then(response => {
-            // console.log('http response',response);
             dispatch(actNetwork.set_loading_status(false));
             resolve(response.data);
         })
         .catch(error => {
-            // console.log('http error',error);
             dispatch(actNetwork.set_loading_status(false));
             if (error.response) {
                 if (error.response.data.code == 401) {
@@ -139,12 +135,10 @@ helper.delete = (payload, dispatch) => new Promise((resolve, reject) => {
             }
         })
         .then(response => {
-            // console.log('http response',response);
             dispatch(actNetwork.set_loading_status(false));
             resolve(response.data);
         })
         .catch(error => {
-            // console.log('http error',error);
             dispatch(actNetwork.set_loading_status(false));
             if (error.response) {
                 if (error.response.data.code == 401) {
