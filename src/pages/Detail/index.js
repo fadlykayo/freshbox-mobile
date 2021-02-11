@@ -557,7 +557,9 @@ class Detail extends Component {
     this.setState({modalVisible});
   };
 
+  
   render() {
+    console.log(this.props.detailTransaction)
     return (
       <Container bgColorBottom={'veryLightGrey'} bgColorTop={'red'}>
         <NavigationBar

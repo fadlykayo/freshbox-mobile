@@ -143,7 +143,6 @@ class TotalPrice extends Component {
         };
 
         if (this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
-
             if (this.props.grandTotal - this.props.delivery_price > this.props.freeShipping) {
                 let discountFormated = numeral(discount).format('0');
                 let grandTotalFormated = numeral(grandTotal).format('0');
@@ -154,12 +153,14 @@ class TotalPrice extends Component {
                 // deliveryPrice   = numeral(0).format('0,0');
                 grandTotal = numeral(adjustedGrandTotal).format('0,0');
             }
-            // console.warn(discount, deliveryPrice, grandTotal)
         }
 
         if (this.props.action == undefined || this.props.action == 'history') {
-            grandTotal = numeral(this.props.grandTotal).format('0,0');
+            // grandTotal = numeral(this.props.grandTotal).format('0,0');
+            grandTotal = numeral(this.props.subtotalHistory - this.props.discount).format('0,0');
         }
+
+        console.log(this.props)
 
         return (
             <View style={styles.container}>

@@ -89,16 +89,16 @@ class Dashboard extends Component {
     return true;
   }
 
-  componentDidMount() {
-    this.versionChecker();
-    this.getProductList();
-    this.getCategories();
-    this.getBanner();
-    this.checkCart();
-    this.getProductPromo();
-    this.handleDeepLink();
-    this.getHistoryData();
-    this.hideFilterAnimation();
+  async componentDidMount() {
+    await this.getProductList(true, true);
+    await this.getProductPromo();
+    await this.handleDeepLink();
+    await this.versionChecker();
+    await this.getCategories();
+    await this.getBanner();
+    await this.checkCart();
+    await this.getHistoryData();
+    await this.hideFilterAnimation();
   }
 
   componentWillUnmount = () => {
@@ -319,12 +319,19 @@ class Dashboard extends Component {
     }
   };
 
-  getProductList = (fromDashboard) => {
+  getProductList = (fromDashboard, refresh = false) => {
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
       },
-      params: this.props.params,
+      // params: this.props.params,
+      params: refresh ? {
+        per_page: String(this.props.product.length)
+      } : this.props.params,
+      // params: {
+      //   // page: 1,
+      //   per_page: String(this.props.product.length)
+      // }
     };
     
     this.props.get_products(
@@ -863,7 +870,7 @@ class Dashboard extends Component {
   onRefresh = () => {
     this.setState({refreshing: true}, () => {
       this.versionChecker();
-      this.getProductList();
+      this.getProductList(true, true);
       this.getCategories();
       this.getProductPromo();
       this.getBanner();

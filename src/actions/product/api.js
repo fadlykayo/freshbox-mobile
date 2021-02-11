@@ -9,7 +9,6 @@ const actions = {};
 let payload2 = {};
 let payload = {};
 
-
 actions.get_products = (req, success, failure) => {
 	payload2.path = path.getProducts;
 	payload2.header = req.header;

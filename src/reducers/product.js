@@ -120,25 +120,22 @@ const getProducts = (state, payload) => {
   newState.params.page = payload.data.current_page + 1;
   newState.last_page = payload.data.last_page;
 
-  if (payload.data.current_page == 1) {
-    existingProducts = incomingProducts;
-  } else {
-    for (x in incomingProducts) {
-      let sameValue = false;
-      for (y in existingProducts) {
-        if (incomingProducts[x].code == existingProducts[y].code) {
-          existingProducts[y] = Object.assign(
-            {},
-            existingProducts[y],
-            incomingProducts[x],
+  for (x in incomingProducts) {
+
+    let sameValue = false;
+    for (y in existingProducts) {
+      if (incomingProducts[x].code == existingProducts[y].code) {
+        existingProducts[y] = Object.assign(
+          {},
+          incomingProducts[x],
+          // existingProducts[y],
           );
-          sameValue = true;
-          break;
-        }
+        sameValue = true;
+        break;
       }
-      if (sameValue == false) {
-        existingProducts.push(incomingProducts[x]);
-      }
+    }
+    if (sameValue == false) {
+      existingProducts.push(incomingProducts[x]);
     }
   }
 
@@ -157,18 +154,25 @@ const getProducts = (state, payload) => {
   // }).filter(e => e.stock > 0);
 
   newState.products = existingProducts.map((e) => {
-    let cartItem = cartList.filter((p) => e.code == p.code);
-    if (cartItem.length > 0) {
-      return cartItem[0];
+    let cartItem = cartList.findIndex((p) => e.code == p.code);
+    if (cartItem !== -1) {
+      if (!e.count) {
+        e.count = cartList[cartItem].count;
+      }
+
+      if (!e.maxQty) {
+        e.maxQty = 1000;
+      }
+
+      cartList[cartItem] = e;
+
+      return e;
     } else {
       if (!e.count) {
         e.count = 0;
       }
       if (!e.maxQty) {
         e.maxQty = 1000;
-      }
-      if (e.total_claim_product !== undefined) {
-        e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim;
       }
       return e;
     }
