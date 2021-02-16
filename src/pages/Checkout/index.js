@@ -268,7 +268,21 @@ class Checkout extends Component {
 
   renderDateInfoText = () => {
     let selectedDate = this.state.date?.origin;
-    if (selectedDate && moment(selectedDate).diff(moment(this.props.delivery_date[3].current_system_time), 'day') === 0 && moment(this.props.delivery_date[3].current_system_time).diff(moment(this.props.delivery_date[3].current_closing_time), 'minute',) >= -60 && moment(this.props.delivery_date[3].current_system_time).diff(moment(this.props.delivery_date[3].current_closing_time), 'minute',) < 0) {
+    if (
+      selectedDate &&
+      moment(selectedDate).diff(
+        moment(this.props.delivery_date[3].current_system_time),
+        'day',
+      ) === 0 &&
+      moment(this.props.delivery_date[3].current_system_time).diff(
+        moment(this.props.delivery_date[3].current_closing_time),
+        'minute',
+      ) >= -60 &&
+      moment(this.props.delivery_date[3].current_system_time).diff(
+        moment(this.props.delivery_date[3].current_closing_time),
+        'minute',
+      ) < 0
+    ) {
       return (
         <Text style={styles.text.confirmDate2}>
           Pembayaran yang kami terima di atas jam{' '}

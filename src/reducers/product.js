@@ -16,6 +16,7 @@ const initialState = {
     last_page: 1,
   },
   promoProduct: [],
+  existingCart: [],
   products: [],
   categories: [],
   on_category: '',
@@ -472,6 +473,159 @@ const getPromo = (state, payload) => {
   newState.total.count = count;
   newState.total.price = total;
   newState.cart.products = currentCart;
+
+  return newState;
+};
+
+const getCart = (state, payload) => {
+  let newState = JSON.parse(JSON.stringify(state));
+
+  // newState.paramsPromo.page = payload.data.current_page + 1;
+  newState.paramsPromo.last_page = payload.data.last_page;
+
+  // newState.paramsPromo = params;
+  // newState.paramsPromo.last_page = payload.data.last_page;
+
+  let existingCart = [];
+  
+  let incomingProducts = payload.data;
+  let currentCart = newState.cart.products.slice();
+  let favoriteList = newState.wishlist.products.slice();
+
+  for (x in incomingProducts) {
+    for (y in currentCart) {
+      if (incomingProducts[x].code == currentCart[y].code) {
+        incomingProducts[x] = Object.assign(
+          {},
+          currentCart[y],
+          incomingProducts[x],
+        );
+
+        currentCart[y] = Object.assign(
+          {},
+          incomingProducts[x],
+        );
+        break;
+      }
+    }
+  }
+
+  existingCart = incomingProducts.map((e) => {
+    let favoriteItem = favoriteList.filter((p) => e.code == p.code);
+    if (favoriteItem.length > 0) {
+      return favoriteItem[0];
+    } else {
+      if (!e.count) {
+        e.count = e.qty && e.qty ? e.qty : 0;
+      }
+      if (!e.maxQty) {
+        e.maxQty = 1000;
+      }
+      if (e.total_claim_product !== undefined) {
+        e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim;
+      }
+      return e;
+    }
+  });
+
+  let filteredProduct = existingCart.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x);
+  newState.existingCart = filteredProduct;
+
+  let count = 0;
+  let total = 0;
+
+  // for(i in currentCart){
+  //   let promoQty = 0;
+  //   let normalQty = 0;
+  //   let promoPrice = currentCart[i].promo_price;
+
+  //   if (
+  //     currentCart[i].banner_harga_jual &&
+  //     currentCart[i].banner_harga_jual !== null
+  //   ) {
+  //     promoPrice = currentCart[i].banner_harga_jual;
+  //   }
+
+  //   if ((currentCart[i].total_claim_product === undefined || currentCart[i].total_claim_product === null) && Number(currentCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
+  //     if (Number(currentCart[i].quota_claim) === 0 ) {
+  //       promoQty = currentCart[i].count;
+  //     } else if (Number(currentCart[i].quota_claim) >= 0 && currentCart[i].count <= Number(currentCart[i].quota_claim)) {
+  //       promoQty = currentCart[i].count;
+  //     } else {
+  //       normalQty = currentCart[i].count - Number(currentCart[i].quota_claim);
+  //       promoQty = currentCart[i].count - normalQty;
+  //     }
+
+  //     total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
+  //   } else if (currentCart[i].quota_claim && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have claim limit
+  //     if (currentCart[i].count <= Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
+  //       promoQty = currentCart[i].count;
+  //     } else {
+  //       promoQty = Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product);
+  //     }
+
+  //     if (currentCart[i].count > Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
+  //       normalQty = currentCart[i].count - (Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product));
+  //     }
+  //     total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
+  //   } else if (!currentCart[i].total_claim_product && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+  //     promoQty = currentCart[i].count;
+  //     total = total + promoQty * promoPrice;
+  //   }  else { // Normal qty
+  //     normalQty = currentCart[i].count;
+  //     total = total + normalQty * currentCart[i].price;
+  //   }
+  //   count = count + currentCart[i].count;
+  //   currentCart[i].maxQty = payload.data.maxQty;
+  // }
+  for(i in existingCart){
+    let promoQty = 0;
+    let normalQty = 0;
+    let promoPrice = existingCart[i].promo_price;
+
+    if (
+      existingCart[i].banner_harga_jual &&
+      existingCart[i].banner_harga_jual !== null
+    ) {
+      promoPrice = existingCart[i].banner_harga_jual;
+    }
+
+    if ((existingCart[i].total_claim_product === undefined || existingCart[i].total_claim_product === null) && Number(existingCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
+      if (Number(existingCart[i].quota_claim) === 0 ) {
+        promoQty = existingCart[i].count;
+      } else if (Number(existingCart[i].quota_claim) >= 0 && existingCart[i].count <= Number(existingCart[i].quota_claim)) {
+        promoQty = existingCart[i].count;
+      } else {
+        normalQty = existingCart[i].count - Number(existingCart[i].quota_claim);
+        promoQty = existingCart[i].count - normalQty;
+      }
+
+      total = total + (promoQty * promoPrice) + (normalQty * existingCart[i].price);
+    } else if (existingCart[i].quota_claim && Number(existingCart[i].on_promo) === 1) { // if product is special deals and have claim limit
+      if (existingCart[i].count <= Number(existingCart[i].quota_claim) - Number(existingCart[i].total_claim_product)) {
+        promoQty = existingCart[i].count;
+      } else {
+        promoQty = Number(existingCart[i].quota_claim) - Number(existingCart[i].total_claim_product);
+      }
+
+      if (existingCart[i].count > Number(existingCart[i].quota_claim) - Number(existingCart[i].total_claim_product)) {
+        normalQty = existingCart[i].count - (Number(existingCart[i].quota_claim) - Number(existingCart[i].total_claim_product));
+      }
+      total = total + (promoQty * promoPrice) + (normalQty * existingCart[i].price);
+    } else if (!existingCart[i].total_claim_product && Number(existingCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      promoQty = existingCart[i].count;
+      total = total + promoQty * promoPrice;
+    }  else { // Normal qty
+      normalQty = existingCart[i].count;
+      total = total + normalQty * existingCart[i].price;
+    }
+    count = count + existingCart[i].count;
+    existingCart[i].maxQty = payload.data.maxQty;
+  }
+
+  newState.total.count = count;
+  newState.total.price = total;
+  newState.cart.products = existingCart;
 
   return newState;
 };
@@ -1143,6 +1297,8 @@ const productReducer = (state = initialState, action) => {
       return getFavorites(state, action.payload);
     case ct.GET_PROMO:
       return getPromo(state, action.payload);
+    case ct.GET_CART:
+      return getCart(state, action.payload);
     case ct.GET_DELIVERY_PRICE:
       return getDeliveryPrice(state, action.payload);
     case ct.SEARCH_PRODUCTS:

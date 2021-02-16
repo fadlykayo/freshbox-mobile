@@ -16,6 +16,13 @@ action.get_categories = (data) => ({
   },
 });
 
+action.get_cart = (data) => ({
+  type: ct.GET_CART,
+  payload: {
+    data,
+  },
+});
+
 action.get_favorites = (data) => ({
   type: ct.GET_FAVORITES,
   payload: {

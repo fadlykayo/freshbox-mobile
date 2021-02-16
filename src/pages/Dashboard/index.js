@@ -99,6 +99,7 @@ class Dashboard extends Component {
     await this.checkCart();
     await this.getHistoryData();
     await this.hideFilterAnimation();
+    await this.getCart()
   }
 
   componentWillUnmount = () => {
@@ -106,6 +107,7 @@ class Dashboard extends Component {
   };
 
   versionChecker = () => {
+    let version;
     if (Platform.OS == 'ios') {
       version = config.version.ios.split('-');
     } else {
@@ -309,6 +311,7 @@ class Dashboard extends Component {
           this.setLoading('promoList', false);
 
           if (this.props.navigation.state.params.action) {
+            // eslint-disable-next-line no-undef
             if (!fromDashboard) {
               this.navigateToCart();
             }
@@ -319,21 +322,33 @@ class Dashboard extends Component {
     }
   };
 
+  getCart = () => {
+    let payload = {
+      header: {
+        apiToken: this.props.user ? this.props.user.authorization : '',
+      },
+      params: '',
+    };
+    this.props.get_cart(payload)
+  }
+
   getProductList = (fromDashboard, refresh = false) => {
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
       },
       // params: this.props.params,
-      params: refresh ? {
-        per_page: String(this.props.product.length)
-      } : this.props.params,
+      params: refresh
+        ? {
+            per_page: String(this.props.product.length),
+          }
+        : this.props.params,
       // params: {
       //   // page: 1,
       //   per_page: String(this.props.product.length)
       // }
     };
-    
+
     this.props.get_products(
       payload,
       () => {
@@ -386,9 +401,51 @@ class Dashboard extends Component {
 
   navigateToCart = () => {
     if (this.props.cart_product.length) {
-      actNav.navigate(navConstant.Cart, {
-        createOrderHandler: this.createOrderHandler,
-      });
+      if (this.props.user.authorization) {
+        let buyProducts = [];
+        this.props.cart_product.map((cart) => {
+          buyProducts.push({
+            product_code: cart.code,
+            qty: cart.count,
+            status_promo: cart.on_promo,
+            cart_price: cart.price,
+            cart_promo_price:
+              Number(cart.on_promo) === 1
+                ? cart.banner_harga_jual
+                  ? cart.banner_harga_jual
+                  : cart.promo_price
+                : cart.promo_price,
+            remaining_quota:
+              Number(cart.on_promo) === 1
+                ? Number(cart.quota_claim) > 0
+                  ? Number(cart.quota_claim) -
+                    Number(cart.total_claim_product || 0)
+                  : 0
+                : 0,
+            quota_claim: cart.quota_claim,
+          });
+        });
+        let payload = {
+          header: {
+            apiToken: this.props.user.authorization,
+          },
+          body: buyProducts,
+        };
+
+        this.props.bulk_add_products(
+          payload,
+          (res) => {
+            actNav.navigate(navConstant.Cart, {
+              createOrderHandler: this.createOrderHandler,
+            });
+          },
+          (err) => {},
+        );
+      } else {
+        actNav.navigate(navConstant.Cart, {
+          createOrderHandler: this.createOrderHandler,
+        });
+      }
     }
   };
 
@@ -1120,6 +1177,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.search_products(req, res, err)),
   get_promo: (req, res, err) =>
     dispatch(actions.product.api.get_promo(req, res, err)),
+  get_cart: (req, res, err) =>
+    dispatch(actions.product.api.get_cart(req, res, err)),
   get_products: (req, res, err) =>
     dispatch(actions.product.api.get_products(req, res, err)),
   get_categories: (req, res, err) =>
@@ -1135,7 +1194,8 @@ const mapDispatchToProps = (dispatch) => ({
   detail_transaction: (req, res, err) =>
     dispatch(actions.transaction.api.detail_transaction(req, res, err)),
   clear_products: () => dispatch(actions.product.reducer.clear_products()),
-  clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
+  clear_product_lists: () =>
+    dispatch(actions.product.reducer.clear_product_lists()),
   reset_params: () => dispatch(actions.product.reducer.reset_params()),
   get_banner: (req, res, err) =>
     dispatch(actions.banner.api.get_banner(req, res, err)),
@@ -1155,6 +1215,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.reducer.set_modal_visible(payload)),
   get_product_detail: (req, res, err) =>
     dispatch(actions.product.api.get_product_detail(req, res, err)),
+  bulk_add_products: (req, res, err) =>
+    dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

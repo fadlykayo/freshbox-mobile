@@ -151,17 +151,71 @@ class Cart extends Component {
       });
     } else {
       this.props.change_total(payload, type);
-    } 
+    }
   }
 
   clearProductConfirmation() {
+    let buyProducts = this.checkCart()
+    buyProducts = buyProducts.filter(product => product.product_code !== this.state.selectedProduct.code)
     this.setModalVisible('alertDialog', false);
     // this.setModalVisible('openProduct', false);
     this.props.change_total(this.state.selectedProduct, 'desc');
+    this.postProductOfCart(buyProducts)
   }
 
   clearProductCancelation() {
     this.setModalVisible('alertDialog', false);
+  }
+
+  checkCart = () => {
+    let buyProducts = [];
+      this.props.cart_product.map((cart) => {
+        buyProducts.push({
+          product_code: cart.code,
+          qty: cart.count,
+          status_promo: cart.on_promo,
+          cart_price: cart.price,
+          cart_promo_price:
+            Number(cart.on_promo) === 1
+              ? cart.banner_harga_jual
+                ? cart.banner_harga_jual
+                : cart.promo_price
+              : cart.promo_price,
+          remaining_quota:
+            Number(cart.on_promo) === 1
+              ? Number(cart.quota_claim) > 0
+                ? Number(cart.quota_claim) -
+                  Number(cart.total_claim_product || 0)
+                : 0
+              : 0,
+          quota_claim: cart.quota_claim,
+        });
+      });
+
+      return buyProducts
+  }
+
+  postProductOfCart = (buyProducts, moveScreen = false) => {
+    let payload = {
+      header: {
+        apiToken: this.props.user.authorization,
+      },
+      body: buyProducts,
+    };
+
+    this.props.bulk_add_products(
+      payload,
+      (res) => {
+        if(moveScreen) {
+          actNav.navigate(navConstant.Checkout, {
+            key: this.props.navigation.state.key,
+            createOrderHandler: this.props.navigation.state.params
+              .createOrderHandler,
+          });
+        }
+      },
+      (err) => {},
+    );
   }
 
   navigateToCheckout() {
@@ -175,73 +229,9 @@ class Cart extends Component {
       });
     } else {
       this.props.remove_empty_items();
-      let buyProducts = [];
-      this.props.cart_product.map((cart) => {
-        buyProducts.push({
-          product_code: cart.code,
-          qty: cart.count,
-          status_promo: cart.on_promo,
-          cart_price: cart.price,
-          cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
-          remaining_quota: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0) : 0 : 0,
-          quota_claim: cart.quota_claim
-        });
-
-        // if (Number(cart.on_promo) === 1 && Number(cart.quota_claim) > 0 && Number(cart.count) > (Number(cart.quota_claim) - Number(cart.total_claim_product))) {
-        //   // kalau promo & kuota claim lebih dari 0 dan total calim lebih dari count means ada product normal, jadi di pecah
-        //  let normalProduct =  {
-        //     product_code: cart.code,
-        //     qty: Number(cart.count) - (Number(cart.quota_claim) - Number(cart.total_claim_product)),
-        //     status_promo: cart.on_promo,
-        //     cart_price: cart.price,
-        //     cart_promo_price: cart.price,
-        //     remaining_quota_claim: 0,
-        //     quota_claim: 0
-        //   }
-
-        //   let promoProduct = {
-        //     product_code: cart.code,
-        //     qty: Number(cart.quota_claim) - Number(cart.total_claim_product),
-        //     status_promo: cart.on_promo,
-        //     cart_price: cart.price,
-        //     cart_promo_price:  cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price,
-        //     remaining_quota_claim: Number(cart.quota_claim) - Number(cart.total_claim_product),
-        //     quota_claim: cart.quota_claim
-        //   }
-
-        //   buyProducts.push(normalProduct)
-        //   buyProducts.push(promoProduct)
-        // } else {
-        //    buyProducts.push({
-        //     product_code: cart.code,
-        //     qty: cart.count,
-        //     status_promo: cart.on_promo,
-        //     cart_price: cart.price,
-        //     cart_promo_price:  Number(cart.on_promo) === 1 ? cart.banner_harga_jual ?  cart.banner_harga_jual : cart.promo_price : cart.promo_price,
-        //     remaining_quota_claim: Number(cart.on_promo) === 1 ? Number(cart.quota_claim) > 0 ? Number(cart.quota_claim) - Number(cart.total_claim_product) : 0 : 0,
-        //   });
-        // }
-      });
-
+      let buyProducts = this.checkCart()
       if (this.props.user && this.props.user.user.phone_number) {
-        let payload = {
-          header: {
-            apiToken: this.props.user.authorization,
-          },
-          body: buyProducts,
-        };
-
-        this.props.bulk_add_products(
-          payload,
-          (res) => {
-            actNav.navigate(navConstant.Checkout, {
-              key: this.props.navigation.state.key,
-              createOrderHandler: this.props.navigation.state.params
-                .createOrderHandler,
-            });
-          },
-          (err) => {},
-        );
+        this.postProductOfCart(buyProducts, true)
       } else if (this.props.user && !this.props.user.user.phone_number) {
         this.setModalVisible('modalPhoneConfirmation', true);
       } else {
