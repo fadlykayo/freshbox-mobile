@@ -57,7 +57,7 @@ class ProfilePage extends Component {
         this.props.log_out();
         this.props.reset_products();
         this.props.reset_transaction();
-        actNav.reset(navConstant.Menu);
+        actNav.reset(navConstant.Dashboard);
     }
 
     choosePhoto() {
@@ -93,7 +93,7 @@ class ProfilePage extends Component {
 
                 let payload = {
                     header: {
-                        apiToken: this.props.user.authorization
+                        apiToken: this.props.user.authorization ? this.props.user.authorization : ''
                     },
                     body: formData
                 };
@@ -148,19 +148,19 @@ class ProfilePage extends Component {
             >
                 <View style={styles.container}>
                     <PhotoComponent
-                        user={this.props.user}
+                        user={this.props.user ? this.props.user : {}}
                         navigateBack={this.navigateBack}
                         choosePhoto={this.choosePhoto}
                         onChangeName={this.navigateToNamePage}
                     />
 
                     <Content
-                        user={this.props.user}
+                        user={this.props.user ? this.props.user : {}}
                         navigateToPhonePage={this.navigateToPhonePage}
                         navigateToAddressPage={this.navigateToAddressPage}
                         navigateToResetPasswordPage={this.navigateToResetPasswordPage}
                         navigateToEmailPage={this.navigateToEmailPage}
-                        email={this.props.user.user.email}
+                        email={this.props.user ? this.props.user.user.email : ''}
                     />
                     <View style={styles.subcontainer.bottom}>
                         <Button

@@ -323,13 +323,15 @@ class Dashboard extends Component {
   };
 
   getCart = () => {
-    let payload = {
-      header: {
-        apiToken: this.props.user ? this.props.user.authorization : '',
-      },
-      params: '',
-    };
-    this.props.get_cart(payload)
+    if(this.props.user.authorization) {
+      let payload = {
+        header: {
+          apiToken: this.props.user ? this.props.user.authorization : '',
+        },
+        params: '',
+      };
+      this.props.get_cart(payload)
+    }
   }
 
   getProductList = (fromDashboard, refresh = false) => {
