@@ -160,7 +160,9 @@ class Cart extends Component {
     this.setModalVisible('alertDialog', false);
     // this.setModalVisible('openProduct', false);
     this.props.change_total(this.state.selectedProduct, 'desc');
-    this.postProductOfCart(buyProducts)
+    if(this.props.user) {
+      this.postProductOfCart(buyProducts)
+    }
   }
 
   clearProductCancelation() {
@@ -188,7 +190,7 @@ class Cart extends Component {
                   Number(cart.total_claim_product || 0)
                 : 0
               : 0,
-          quota_claim: cart.quota_claim,
+          quota_claim: Number(cart.quota_claim || 0),
         });
       });
 

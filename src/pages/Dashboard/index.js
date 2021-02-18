@@ -427,7 +427,7 @@ class Dashboard extends Component {
                     Number(cart.total_claim_product || 0)
                   : 0
                 : 0,
-            quota_claim: cart.quota_claim,
+            quota_claim: Number(cart.quota_claim || 0),
           });
         });
         let payload = {

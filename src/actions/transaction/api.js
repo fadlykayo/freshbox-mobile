@@ -115,7 +115,14 @@ actions.bulk_add_products = (req, success, failure) => {
                   dispatch(actReducer.validate_cart(err.data));
                 });
               break;
-
+              case 403:
+                dispatch(
+                  actNetwork.set_error_status({
+                    status: true,
+                    data: JSON.stringify(err.code_message),
+                  }),
+                );
+              break;
             default:
               dispatch(
                 actNetwork.set_error_status({
