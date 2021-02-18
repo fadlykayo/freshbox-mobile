@@ -323,7 +323,7 @@ class Dashboard extends Component {
   };
 
   getCart = () => {
-    if(this.props.user.authorization) {
+    if(this.props.user) {
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : '',
@@ -332,6 +332,9 @@ class Dashboard extends Component {
       };
       this.props.get_cart(payload)
     }
+    // if(this.props.saved_carts.length > 0) {
+    //   this.props.get_saved_carts(this.props.saved_carts)
+    // }
   }
 
   getProductList = (fromDashboard, refresh = false) => {
@@ -403,7 +406,7 @@ class Dashboard extends Component {
 
   navigateToCart = () => {
     if (this.props.cart_product.length) {
-      if (this.props.user.authorization) {
+      if (this.props.user) {
         let buyProducts = [];
         this.props.cart_product.map((cart) => {
           buyProducts.push({
@@ -437,6 +440,9 @@ class Dashboard extends Component {
         this.props.bulk_add_products(
           payload,
           (res) => {
+            // if(this.props.saved_carts.length > 0) {
+            //   this.props.save_cart([])
+            // }
             actNav.navigate(navConstant.Cart, {
               createOrderHandler: this.createOrderHandler,
             });
@@ -444,6 +450,7 @@ class Dashboard extends Component {
           (err) => {},
         );
       } else {
+        // this.props.save_cart(this.props.cart_product)
         actNav.navigate(navConstant.Cart, {
           createOrderHandler: this.createOrderHandler,
         });
@@ -1172,6 +1179,7 @@ const mapStateToProps = (state) => ({
   last_page: state.product.last_page,
   announcement: state.utility.announcement,
   setModalVisible: state.product.setModalVisible,
+  saved_carts: state.carts.carts
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -1219,6 +1227,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.get_product_detail(req, res, err)),
   bulk_add_products: (req, res, err) =>
     dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+  save_cart: (payload) =>
+    dispatch(actions.cart.reducer.save_cart(payload)),
+  get_saved_carts: (req, res, err) =>
+    dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

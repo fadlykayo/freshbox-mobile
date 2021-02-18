@@ -23,6 +23,13 @@ action.get_cart = (data) => ({
   },
 });
 
+action.get_saved_carts = (data) => ({
+  type: ct.GET_SAVED_CARTS,
+  payload: {
+    data,
+  },
+});
+
 action.get_favorites = (data) => ({
   type: ct.GET_FAVORITES,
   payload: {

@@ -17,6 +17,7 @@ const initialState = {
   },
   promoProduct: [],
   existingCart: [],
+  savedCarts: [],
   products: [],
   categories: [],
   on_category: '',
@@ -626,6 +627,109 @@ const getCart = (state, payload) => {
   newState.total.count = count;
   newState.total.price = total;
   newState.cart.products = existingCart;
+
+  return newState;
+};
+
+const getSavedCarts = (state, payload) => {
+  let newState = JSON.parse(JSON.stringify(state));
+
+  let savedCarts = [];
+  
+  let incomingProducts = payload.data;
+  let currentCart = newState.cart.products.slice();
+  let favoriteList = newState.wishlist.products.slice();
+
+  for (x in incomingProducts) {
+    for (y in currentCart) {
+      if (incomingProducts[x].code == currentCart[y].code) {
+        incomingProducts[x] = Object.assign(
+          {},
+          currentCart[y],
+          incomingProducts[x],
+        );
+
+        currentCart[y] = Object.assign(
+          {},
+          incomingProducts[x],
+        );
+        break;
+      }
+    }
+  }
+
+  savedCarts = incomingProducts.map((e) => {
+    let favoriteItem = favoriteList.filter((p) => e.code == p.code);
+    if (favoriteItem.length > 0) {
+      return favoriteItem[0];
+    } else {
+      if (!e.count) {
+        e.count = 0;
+      }
+      if (!e.maxQty) {
+        e.maxQty = 1000;
+      }
+      if (e.total_claim_product !== undefined) {
+        e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim;
+      }
+      return e;
+    }
+  });
+
+  let filteredProduct = savedCarts.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x);
+  newState.savedCarts = filteredProduct;
+
+  let count = 0;
+  let total = 0;
+
+  for(i in savedCarts){
+    let promoQty = 0;
+    let normalQty = 0;
+    let promoPrice = savedCarts[i].promo_price;
+
+    if (
+      savedCarts[i].banner_harga_jual &&
+      savedCarts[i].banner_harga_jual !== null
+    ) {
+      promoPrice = savedCarts[i].banner_harga_jual;
+    }
+
+    if ((savedCarts[i].total_claim_product === undefined || savedCarts[i].total_claim_product === null) && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and not logged in yet
+      if (Number(savedCarts[i].quota_claim) === 0 ) {
+        promoQty = savedCarts[i].count;
+      } else if (Number(savedCarts[i].quota_claim) >= 0 && savedCarts[i].count <= Number(savedCarts[i].quota_claim)) {
+        promoQty = savedCarts[i].count;
+      } else {
+        normalQty = savedCarts[i].count - Number(savedCarts[i].quota_claim);
+        promoQty = savedCarts[i].count - normalQty;
+      }
+
+      total = total + (promoQty * promoPrice) + (normalQty * savedCarts[i].price);
+    } else if (savedCarts[i].quota_claim && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and have claim limit
+      if (savedCarts[i].count <= Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product)) {
+        promoQty = savedCarts[i].count;
+      } else {
+        promoQty = Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product);
+      }
+
+      if (savedCarts[i].count > Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product)) {
+        normalQty = savedCarts[i].count - (Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product));
+      }
+      total = total + (promoQty * promoPrice) + (normalQty * savedCarts[i].price);
+    } else if (!savedCarts[i].total_claim_product && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      promoQty = savedCarts[i].count;
+      total = total + promoQty * promoPrice;
+    }  else { // Normal qty
+      normalQty = savedCarts[i].count;
+      total = total + normalQty * savedCarts[i].price;
+    }
+    count = count + savedCarts[i].count;
+    savedCarts[i].maxQty = payload.data.maxQty;
+  }
+
+  newState.total.count = count;
+  newState.total.price = total;
+  newState.cart.products = savedCarts;
 
   return newState;
 };
@@ -1299,6 +1403,8 @@ const productReducer = (state = initialState, action) => {
       return getPromo(state, action.payload);
     case ct.GET_CART:
       return getCart(state, action.payload);
+    case ct.GET_SAVED_CARTS:
+      return getSavedCarts(state, action.payload);
     case ct.GET_DELIVERY_PRICE:
       return getDeliveryPrice(state, action.payload);
     case ct.SEARCH_PRODUCTS:

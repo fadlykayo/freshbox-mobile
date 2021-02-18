@@ -7,6 +7,7 @@ import region from './region';
 import utility from './utility';
 import notif from './notification';
 import banners from './banner'
+import carts from './carts'
 
 const rootReducer = combineReducers({
 	user,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	utility,
 	notif,
 	banners,
+	carts
 });
 
 export default rootReducer;
