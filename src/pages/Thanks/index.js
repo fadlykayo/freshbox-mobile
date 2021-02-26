@@ -76,7 +76,7 @@ class Thanks extends Component {
                 <NavigationBar
                     press={this.navigateBack}
                 />
-                <View style={styles.container}>
+                <ScrollView style={styles.container}>
                     <View style={styles.circleContainer}>
                         <View style={styles.circleBlue}>
                             <View style={styles.circleBlueDark} />
@@ -151,7 +151,7 @@ class Thanks extends Component {
                     }}>
                         <Text style={styles.button.home}>Kembali Ke Beranda</Text>
                     </TouchableOpacity>
-                </View>
+                </ScrollView>
             </Container>
         )
     }

@@ -23,6 +23,13 @@ action.get_cart = (data) => ({
   },
 });
 
+action.post_cart = (data) => ({
+  type: ct.POST_CART,
+  payload: {
+    data,
+  },
+});
+
 action.get_saved_carts = (data) => ({
   type: ct.GET_SAVED_CARTS,
   payload: {

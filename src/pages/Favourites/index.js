@@ -162,8 +162,61 @@ class Favourites extends Component {
       });
     } else {
       this.props.change_total(payload, type);
+	  this.storeCart(payload, type)
     }
 	}
+
+	storeCart = (cart, type) => {
+		if(this.props.user){
+		  let buyProducts = {
+			product_code: cart.code,
+			qty: 1,
+			status_promo: cart.on_promo,
+			cart_price: cart.price,
+			cart_promo_price:
+			  Number(cart.on_promo) === 1
+				? cart.banner_harga_jual
+				  ? cart.banner_harga_jual
+				  : cart.promo_price
+				: cart.promo_price,
+			remaining_quota:
+			  Number(cart.on_promo) === 1
+				? Number(cart.quota_claim) > 0
+				  ? Number(cart.quota_claim) -
+					Number(cart.total_claim_product || 0)
+				  : 0
+				: 0,
+			quota_claim: Number(cart.quota_claim || 0),
+			type: type
+		  };
+			let payload = {
+			  header: {
+				apiToken: this.props.user.authorization,
+			  },
+			  body: buyProducts,
+			};
+	
+			this.props.post_cart(
+			  payload,
+			  (res) => {
+				// this.getCart()
+			  },
+			  (err) => {},
+			);
+		  } 
+	  }
+
+	  getCart = () => {
+		if(this.props.user) {
+		  let payload = {
+			header: {
+			  apiToken: this.props.user ? this.props.user.authorization : '',
+			},
+			params: '',
+		  };
+		  this.props.get_cart(payload)
+		}
+	  }
 
 	clearProductConfirmation(){
 		let data = {
@@ -201,9 +254,9 @@ class Favourites extends Component {
 				});
 			});
 		}
-		else{
+		// else{
 			this.navigateToCart();
-		}
+		// }
 	}
 
 	navigateToCart(){

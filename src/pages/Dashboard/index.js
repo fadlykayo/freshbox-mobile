@@ -323,12 +323,11 @@ class Dashboard extends Component {
   };
 
   getCart = () => {
-    if(this.props.user) {
+    if(this.props.user && this.props.navigation.state.params.action !== 'reorder') {
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : '',
         },
-        params: '',
       };
       this.props.get_cart(payload)
     }
@@ -399,10 +398,52 @@ class Dashboard extends Component {
           data: `${message}\n\nOut of stock: ${outOfStockNames}`,
         });
       });
-    } else {
-      this.navigateToCart();
-    }
+      // this.navigateToCart();
+    } 
+    this.navigateToCart();
   };
+
+  storeCart = (cart, type) => {
+    if(this.props.user){
+      let buyProducts = {
+        product_code: cart.code,
+        qty: 1,
+        status_promo: cart.on_promo,
+        cart_price: cart.price,
+        cart_promo_price:
+          Number(cart.on_promo) === 1
+            ? cart.banner_harga_jual
+              ? cart.banner_harga_jual
+              : cart.promo_price
+            : cart.promo_price,
+        remaining_quota:
+          Number(cart.on_promo) === 1
+            ? Number(cart.quota_claim) > 0
+              ? Number(cart.quota_claim) -
+                Number(cart.total_claim_product || 0)
+              : 0
+            : 0,
+        quota_claim: Number(cart.quota_claim || 0),
+        type: type
+      };
+      console.log(buyProducts.qty)
+      console.log(buyProducts.type)
+        let payload = {
+          header: {
+            apiToken: this.props.user.authorization,
+          },
+          body: buyProducts,
+        };
+
+        this.props.post_cart(
+          payload,
+          (res) => {
+            // this.getCart()
+          },
+          (err) => {},
+        );
+      } 
+  }
 
   navigateToCart = () => {
     if (this.props.cart_product.length) {
@@ -436,25 +477,27 @@ class Dashboard extends Component {
           },
           body: buyProducts,
         };
-
-        this.props.bulk_add_products(
-          payload,
-          (res) => {
-            // if(this.props.saved_carts.length > 0) {
-            //   this.props.save_cart([])
-            // }
-            actNav.navigate(navConstant.Cart, {
-              createOrderHandler: this.createOrderHandler,
-            });
-          },
-          (err) => {},
-        );
-      } else {
-        // this.props.save_cart(this.props.cart_product)
-        actNav.navigate(navConstant.Cart, {
-          createOrderHandler: this.createOrderHandler,
-        });
+      //   this.props.bulk_add_products(
+      //     payload,
+      //     (res) => {
+      //       // if(this.props.saved_carts.length > 0) {
+      //       //   this.props.save_cart([])
+      //       // }
+      //       actNav.navigate(navConstant.Cart, {
+      //         createOrderHandler: this.createOrderHandler,
+      //       });
+      //     },
+      //     (err) => {},
+      //   );
+      // } else {
+      //   // this.props.save_cart(this.props.cart_product)
+      //   actNav.navigate(navConstant.Cart, {
+      //     createOrderHandler: this.createOrderHandler,
+      //   });
       }
+      actNav.navigate(navConstant.Cart, {
+        createOrderHandler: this.createOrderHandler,
+      });
     }
   };
 
@@ -636,6 +679,7 @@ class Dashboard extends Component {
       });
     } else {
       this.props.change_total(payload, type);
+      this.storeCart(payload, type)
     }
   };
 
@@ -942,6 +986,7 @@ class Dashboard extends Component {
       this.getBanner();
       this.checkCart();
       this.getHistoryData();
+      this.getCart()
     });
     this.setState({refreshing: false});
   };
@@ -1189,6 +1234,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.get_promo(req, res, err)),
   get_cart: (req, res, err) =>
     dispatch(actions.product.api.get_cart(req, res, err)),
+  post_cart: (req, res, err) =>
+    dispatch(actions.product.api.post_cart(req, res, err)),
   get_products: (req, res, err) =>
     dispatch(actions.product.api.get_products(req, res, err)),
   get_categories: (req, res, err) =>

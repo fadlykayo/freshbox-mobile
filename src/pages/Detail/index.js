@@ -366,7 +366,7 @@ class Detail extends Component {
     this.props.reorder_transaction(
       payload,
       () => {
-        actNav.reset(navConstant.Product, {
+        actNav.reset(navConstant.Dashboard, {
           action: 'reorder',
         });
       },

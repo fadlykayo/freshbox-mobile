@@ -653,7 +653,7 @@ class ProductList extends Component {
 	}
 
 	changeTotalItem(payload, type) {
-		if (payload.count === payload.stock && type === 'inc') {
+	if (payload.count === payload.stock && type === 'inc') {
       this.props.set_error_status({
         status: true,
         title: 'formError.title.outOfStock',
@@ -661,8 +661,61 @@ class ProductList extends Component {
       });
     } else {
       this.props.change_total(payload, type);
+	  this.storeCart(payload, type)
     }
 	}
+
+	storeCart = (cart, type) => {
+		if(this.props.user){
+		  let buyProducts = {
+			product_code: cart.code,
+			qty: 1,
+			status_promo: cart.on_promo,
+			cart_price: cart.price,
+			cart_promo_price:
+			  Number(cart.on_promo) === 1
+				? cart.banner_harga_jual
+				  ? cart.banner_harga_jual
+				  : cart.promo_price
+				: cart.promo_price,
+			remaining_quota:
+			  Number(cart.on_promo) === 1
+				? Number(cart.quota_claim) > 0
+				  ? Number(cart.quota_claim) -
+					Number(cart.total_claim_product || 0)
+				  : 0
+				: 0,
+			quota_claim: Number(cart.quota_claim || 0),
+			type: type
+		  };
+			let payload = {
+			  header: {
+				apiToken: this.props.user.authorization,
+			  },
+			  body: buyProducts,
+			};
+	
+			this.props.post_cart(
+			  payload,
+			  (res) => {
+				// this.getCart()
+			  },
+			  (err) => {},
+			);
+		  } 
+	  }
+
+	  getCart = () => {
+		if(this.props.user) {
+		  let payload = {
+			header: {
+			  apiToken: this.props.user ? this.props.user.authorization : '',
+			},
+			params: '',
+		  };
+		  this.props.get_cart(payload)
+		}
+	  }
 
 	submitSearch() {
 		let payload;
@@ -748,9 +801,9 @@ class ProductList extends Component {
 					});
 				});
 		}
-		else {
+		// else {
 			this.navigateToCart();
-		}
+		// }
 	}
 
 	navigateToCart() {
@@ -1074,6 +1127,10 @@ const mapDispatchToProps = dispatch => ({
 	detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
 	get_broadcast_message: (req, res, err) => dispatch(actions.utility.api.broadcast_message(req, res, err)),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	get_cart: (req, res, err) =>
+    dispatch(actions.product.api.get_cart(req, res, err)),
+  	post_cart: (req, res, err) =>
+    dispatch(actions.product.api.post_cart(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

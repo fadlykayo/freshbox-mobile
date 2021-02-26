@@ -97,6 +97,7 @@ actions.bulk_add_products = (req, success, failure) => {
         }
       })
       .catch((err) => {
+        console.warn(err.code)
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
         } else {
@@ -113,6 +114,7 @@ actions.bulk_add_products = (req, success, failure) => {
                     }),
                   );
                   dispatch(actReducer.validate_cart(err.data));
+                  failure(err)
                 });
               break;
               case 403:

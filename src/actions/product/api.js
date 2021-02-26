@@ -115,18 +115,55 @@ actions.get_categories = (req, success, failure) => {
 };
 
 actions.get_cart = (req, success, failure) => {
+  payload2.path = path.getCart;
+  payload2.header = req.header;
+  payload2.body = req.body;
+  payload2.params =  {
+    session_cart: 1
+  };
+
+  return (dispatch) => {
+    requestHandler('get', payload2, dispatch)
+      .then((res) => {
+        if (res.code) {
+          if (res.code === 200) {
+            dispatch(actReducer.get_cart(res.data));
+            success();
+          }
+        }
+      })
+      .catch((err) => {
+        if (!err.code) {
+        } else {
+          switch (err.code) {
+            case 400:
+              return failure(err);
+            default:
+              dispatch(
+                actNetwork.set_error_status({
+                  status: true,
+                  data: JSON.stringify(err),
+                }),
+              );
+          }
+        }
+      });
+  };
+};
+
+actions.post_cart = (req, success, failure) => {
   payload.path = path.getCart;
   payload.header = req.header;
   payload.body = req.body;
   payload.params = req.params;
 
   return (dispatch) => {
-    requestHandler('get', payload, dispatch)
+    requestHandler('post', payload, dispatch)
       .then((res) => {
         if (res.code) {
           if (res.code === 200) {
-            dispatch(actReducer.get_cart(res.data));
-            success();
+            dispatch(actReducer.post_cart(res.data));
+            success(res);
           }
         }
       })
