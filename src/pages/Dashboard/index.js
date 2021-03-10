@@ -426,8 +426,6 @@ class Dashboard extends Component {
         quota_claim: Number(cart.quota_claim || 0),
         type: type
       };
-      console.log(buyProducts.qty)
-      console.log(buyProducts.type)
         let payload = {
           header: {
             apiToken: this.props.user.authorization,

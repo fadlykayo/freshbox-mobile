@@ -26,7 +26,6 @@ actions.get_products = (req, success, failure) => {
       })
       .catch((err) => {
         if (!err.code) {
-          console.log(err);
         } else {
           switch (err.code) {
             case 400:

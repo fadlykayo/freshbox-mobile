@@ -559,7 +559,6 @@ class Detail extends Component {
 
   
   render() {
-    console.log(this.props.detailTransaction)
     return (
       <Container bgColorBottom={'veryLightGrey'} bgColorTop={'red'}>
         <NavigationBar
