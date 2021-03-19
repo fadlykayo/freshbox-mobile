@@ -14,8 +14,8 @@ class SearchComponent extends Component {
 		this.openDeliveryInfo = this.openDeliveryInfo.bind(this);
 	}
 
-	openAllCategories() {
-		this.props.openAllCategories()
+	openAllCategories(isArea = false) {
+		this.props.openAllCategories(isArea)
 	}
 
 	openDeliveryInfo = () => {
@@ -43,23 +43,36 @@ class SearchComponent extends Component {
 	}
 
 	renderContent = () => {
+		const selectedArea = this.props.listArea.filter(res => res.check)
 		if(this.props.modalVisible) {
 			return (
 				<>
-				<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
-        		<StaticText
+				<TouchableOpacity style={styles.subcontainer.part(true)} onPress = { () => this.openAllCategories(true)}>
+        		{/* <StaticText
         		  	style={styles.text.title}
         		  	property={'productList.filter.area'}
-        		/>
+        		/> */}
+				{
+					selectedArea.map(area => (
+						<Text style={styles.text.title}>
+							{area.name}
+						</Text>
+					))
+				}
+				<Image
+						resizeMode={'contain'} 
+						source={images.icon_dropdown}
+						style={styles.icon}
+					/>
         		{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
   	  			/> */}
-        	</View>
+        	</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.subcontainer.part(true)}
-					onPress = { this.openAllCategories }
+					onPress = { () => this.openAllCategories(false) }
 				>
 
 							<StaticText

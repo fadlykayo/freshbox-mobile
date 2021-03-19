@@ -11,27 +11,33 @@ class CategoryItems extends PureComponent {
 	}
 
 	changeCategory(){
-		this.props.changeCategory(this.props.category);
+		if(this.props.isArea) {
+			this.props.closeModal(this.props.category)
+		} else {
+			this.props.changeCategory(this.props.category);
+		}
 	}
 
 	_renderImage(category){
-		if(category.name.toLowerCase() == 'default'){
-			return(
-				<Image
-					resizeMode={'contain'} 
-					source={category.images_sizes_url.original[0]}
-					style={styles.icon.product}
-				/>
-			)
-		}
-		else {
-			return(
-				<Image
-					resizeMode={'contain'} 
-					source={{uri: category.images_sizes_url.original[0]}}
-					style={styles.icon.product}
-				/>
-			)
+		if(category.images_sizes_url) {
+			if(category.name.toLowerCase() == 'default'){
+				return(
+					<Image
+						resizeMode={'contain'} 
+						source={category.images_sizes_url.original[0]}
+						style={styles.icon.product}
+					/>
+				)
+			}
+			else {
+				return(
+					<Image
+						resizeMode={'contain'} 
+						source={{uri: category.images_sizes_url.original[0]}}
+						style={styles.icon.product}
+					/>
+				)
+			}
 		}
 	}
 

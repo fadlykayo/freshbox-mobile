@@ -864,5 +864,17 @@
   "popup": {
     "title": "Waspada Penipuan!",
     "button": "OK, Dimengerti"
+  },
+  "changesArea": {
+    "title": "Perbedaan Harga & Promo antar Lokasi!",
+    "contentMessage": {
+      "message1": "Lokasi yang anda pilih kemungkinan memiliki ",
+      "message2": "harga dan promo yang berbeda. ",
+      "message3":"Cek kembali pesanan yang telah anda pilih, kemungkinan ada perbedaan harga. Apakah anda yakin ingin mengganti lokasi anda?"
+    },
+    "button": {
+      "cancel": "Batal",
+      "next": "Lanjutkan"
+    }
   }
 }

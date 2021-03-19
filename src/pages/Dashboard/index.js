@@ -30,6 +30,7 @@ import PopUp from './components/PopUp';
 import actions from '@actions';
 import styles from './styles';
 import config from '../../config';
+import ChangesAreaPopUp from './components/ChangesAreaPopUp';
 
 const {width, height} = Dimensions.get('window');
 
@@ -51,6 +52,7 @@ class Dashboard extends Component {
         openImageDetail: false,
         checkout: false,
         filterComponent: false,
+        changesArea: false
       },
       loadingTransaction: false,
       refreshing: false,
@@ -75,6 +77,37 @@ class Dashboard extends Component {
       },
       promoCode: '',
       scrollY: '',
+      isArea: false,
+      listArea : [
+        {
+          check: true,
+          code: "CAT-0",
+          name: "Jakarta",
+          parent_count: 0,
+          parent_id: 0,
+          slug: "default",
+          position: 1
+        },
+        {
+          check: false,
+          code: "CAT-1",
+          name: "Bandung",
+          parent_count: 0,
+          parent_id: 0,
+          slug: "default",
+          position: 2
+        },
+        {
+          check: false,
+          code: "CAT-2",
+          name: "Surabaya",
+          parent_count: 0,
+          parent_id: 0,
+          slug: "default",
+          position: 3
+        }
+      ],
+      selectedTempArea: {}
     };
     this.offSet = 0;
     this.showCheckout = new Animated.Value(0);
@@ -1044,13 +1077,67 @@ class Dashboard extends Component {
     this.offSet = currentOffset;
   };
 
-  openAllCategories = () => {
+  openAllCategories = (isArea = false) => {
     this.setModalVisible('openCategories', true);
+    if(isArea) {
+      this.setState({
+        isArea: true
+      })
+    } 
   };
 
-  closeDialogCategories = () => {
+  closeDialogCategories = (isArea = false) => {
     this.setModalVisible('openCategories', false);
+    if(isArea) {
+      this.setState({
+        isArea: false
+      })
+    } 
   };
+
+  closePopUpChangesArea = () => {
+    this.setModalVisible('changesArea', false)
+  }
+
+  openPopUpChangesArea = () => {
+    this.setModalVisible('changesArea', true)
+  }
+
+  setSelectedArea = (area) => {
+    const data = {
+      ...area,
+      check: true
+    }
+    this.setState({
+      selectedTempArea: data
+    })
+  }
+
+  onConfirmSelectedArea = () => {
+    const areas = this.state.listArea
+    let area = this.state.selectedTempArea
+
+    areas.map((list) => {
+      if((list.name === area.name)) {
+        list.check = true
+      } else {
+        list.check = false
+      }
+      return list
+    })
+
+    this.setState({
+      listArea: areas
+    }, () => {
+      this.closePopUpChangesArea()
+    })
+  }
+  
+  onCancelSelectedArea = () => {
+    this.setState({
+      selectedTempArea: {}
+    })
+  }
 
   render() {
     const introButton = this.showCheckout.interpolate({
@@ -1089,7 +1176,8 @@ class Dashboard extends Component {
           showFilter={filterVisible}
           dismissFilter={filterHide}
           openAllCategories={this.openAllCategories}
-          // openDeliveryInfo = {this.openDeliveryInfo}
+          openDeliveryInfo = {this.openDeliveryInfo}
+          listArea={this.state.listArea}
         />
 
         <ScrollView
@@ -1179,13 +1267,23 @@ class Dashboard extends Component {
             updateType={this.state.updateType}
             announcementMessage={this.state.announcementMessage}
           />
+          <ChangesAreaPopUp
+            visible={this.state.modalVisible.changesArea}
+            closePopUpInfo={this.closePopUpChangesArea}
+            onConfirmSelectedArea={this.onConfirmSelectedArea}
+            onCancelSelectedArea={this.onCancelSelectedArea}
+          />
         </ScrollView>
 
         <CategoriesPopUp
           changeCategory={this.navigateToCategories}
           categories={this.props.categories}
+          listArea={this.state.listArea}
           modalVisible={this.state.modalVisible.openCategories}
           closeDialogCategories={this.closeDialogCategories}
+          isArea={this.state.isArea}
+          openPopUpChangesArea={this.openPopUpChangesArea}
+          setSelectedArea={this.setSelectedArea}
         />
 
         <Checkout

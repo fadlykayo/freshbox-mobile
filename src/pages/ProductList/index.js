@@ -17,6 +17,7 @@ import images from '@assets';
 import {debounce} from 'lodash';
 import styles from './styles';
 import actions from '@actions';
+import ChangesAreaPopUp from './components/ChangesAreaPopUp';
 
 const {width, height} = Dimensions.get('window');
 
@@ -39,12 +40,44 @@ class ProductList extends Component {
 				openImageDetail: false,
 				checkout: false,
 				delivery: false,
+				changesArea: false
 			},
 			listLoading: false,
 			wasSearching: false,
 			broadcast_message: '',
 			drawerVisible: false,
-			defaultCategory: ''
+			defaultCategory: '',
+			isArea: false,
+			listArea : [
+				{
+					check: true,
+					code: "CAT-0",
+					name: "Jakarta",
+					parent_count: 0,
+					parent_id: 0,
+					slug: "default",
+					position: 1
+				},
+				{
+					check: false,
+					code: "CAT-1",
+					name: "Bandung",
+					parent_count: 0,
+					parent_id: 0,
+					slug: "default",
+					position: 2
+				},
+				{
+					check: false,
+					code: "CAT-2",
+					name: "Surabaya",
+					parent_count: 0,
+					parent_id: 0,
+					slug: "default",
+					position: 3
+				}
+			],
+			selectedTempArea: {}
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -582,9 +615,14 @@ class ProductList extends Component {
 		}
 	}
 
-	openAllCategories() {
+	openAllCategories(isArea = false) {
 		Keyboard.dismiss();
 		this.setModalVisible('openCategories', true);
+		if(isArea) {
+			this.setState({
+			  isArea: true
+			})
+		  } 
 	}
 
 	openDetailProduct = (payload) => {
@@ -600,8 +638,13 @@ class ProductList extends Component {
 		this.setModalVisible('openProduct', true);
 	};
 
-	closeDialogCategories() {
+	closeDialogCategories(isArea = false) {
 		this.setModalVisible('openCategories', false);
+		if(isArea) {
+			this.setState({
+			  isArea: false
+			})
+		  } 
 	}
 
 	closeDetailProduct() {
@@ -937,6 +980,47 @@ class ProductList extends Component {
 		this.props.navigation.state.params.refreshProduct = true;
 		actNav.goBack();
 	};
+	openPopUpChangesArea = () => {
+		this.setModalVisible('changesArea', true)
+	}
+	closePopUpChangesArea = () => {
+		this.setModalVisible('changesArea', false)
+	}
+	setSelectedArea = (area) => {
+		const data = {
+		  ...area,
+		  check: true
+		}
+		this.setState({
+		  selectedTempArea: data
+		})
+	}
+
+	onConfirmSelectedArea = () => {
+		const areas = this.state.listArea
+		let area = this.state.selectedTempArea
+	
+		areas.map((list) => {
+		  if((list.name === area.name)) {
+			list.check = true
+		  } else {
+			list.check = false
+		  }
+		  return list
+		})
+	
+		this.setState({
+		  listArea: areas
+		}, () => {
+		  this.closePopUpChangesArea()
+		})
+	  }
+	  
+	  onCancelSelectedArea = () => {
+		this.setState({
+		  selectedTempArea: {}
+		})
+	  }
 
 	render() {
 		const introButton = this.showCheckout.interpolate({
@@ -972,6 +1056,7 @@ class ProductList extends Component {
 					onCategory={this.props.on_category}
 					openAllCategories={this.openAllCategories}
 					openDeliveryInfo={this.openDeliveryInfo}
+					listArea={this.state.listArea}
 				/>
 
 				<Notes
@@ -1050,6 +1135,10 @@ class ProductList extends Component {
 					categories={this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
+					listArea={this.state.listArea}
+					isArea={this.state.isArea}
+					openPopUpChangesArea={this.openPopUpChangesArea}
+					setSelectedArea={this.setSelectedArea}
 				/>
 				<Modal
 					animationType='slide'

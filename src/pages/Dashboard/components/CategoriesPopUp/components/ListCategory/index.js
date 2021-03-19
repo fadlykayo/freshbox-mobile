@@ -9,16 +9,19 @@ class ListCategoryComponent extends PureComponent {
 	}
 
 	render(){
+		const data = this.props.isArea ?  this.props.listArea : this.props.categories
 		return(
 			<ScrollView style={styles.container}>
 				<View style={styles.categories}>
-					{ this.props.categories.map((category,index) => 
+					{ data.map((category,index) => 
 						<CategoryItems 
 							key={category.code}
 							category={category}
 							changeCategory={this.props.changeCategory}
 							length={this.props.categories.length-1}
 							index={index}
+							closeModal={this.props.closeModal}
+							isArea={this.props.isArea}
 						/>
 					)}
 				</View>

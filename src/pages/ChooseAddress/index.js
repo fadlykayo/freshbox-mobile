@@ -8,6 +8,7 @@ import AddressData from './components/AddressData';
 import styles from './styles';
 import { connect } from 'react-redux';
 import actions from '@actions';
+import ChangesAreaPopUp from './components/ChangesAreaPopUp'
 
 class ChooseAddress extends Component {
     constructor(props) {
@@ -17,6 +18,10 @@ class ChooseAddress extends Component {
         this.navigateToEditAddress = this.navigateToEditAddress.bind(this);
         this.navigateToAddAddress = this.navigateToAddAddress.bind(this);
         this.getAddress = this.getAddress.bind(this);
+        this.state = {
+            changesArea: false,
+            codeAddress: ''
+        }
     }
 
     componentDidMount() {
@@ -37,17 +42,10 @@ class ChooseAddress extends Component {
 	}
 
     updatePrimaryAddress(codeAddress) {
-        let payload ={
-            header: {
-                apiToken: this.props.user.authorization
-            },
-            code: codeAddress
-        }
-        this.props.set_primary_address(payload, 
-            (success) => {
-                actNav.goBack()
-            }, 
-            (err) => {})
+        this.setState({
+            changesArea: true,
+            codeAddress: codeAddress
+        })
     }
 
     navigateToEditAddress(data) {
@@ -61,6 +59,34 @@ class ChooseAddress extends Component {
 
     navigateBack() {
         actNav.goBack();
+    }
+
+    onConfirmSelectedArea = () => {
+        const { codeAddress } = this.state
+        if(codeAddress !== '') {
+            let payload ={
+                header: {
+                    apiToken: this.props.user.authorization
+                },
+                code: codeAddress
+            }
+            this.props.set_primary_address(payload, 
+                (success) => {
+                    this.setState({
+                        changesArea: false,
+                        codeAddress: ''
+                    })
+                }, 
+                (err) => {})
+    
+        }
+    }
+
+    onPressCancelChangesArea = () => {
+        this.setState({
+            changesArea: false,
+            codeAddress: ''
+        })
     }
 
     render() {
@@ -96,6 +122,11 @@ class ChooseAddress extends Component {
                         />
                     </View>
                 </View>
+                <ChangesAreaPopUp
+                    modalVisible={this.state.changesArea}
+                    onCancelSelectedArea={this.onPressCancelChangesArea}
+                    onConfirmSelectedArea={this.onConfirmSelectedArea}
+                />
             </Container>
         );
     }

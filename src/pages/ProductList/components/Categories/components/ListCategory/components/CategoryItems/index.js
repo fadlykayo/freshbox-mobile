@@ -11,7 +11,11 @@ class CategoryItems extends PureComponent {
 	}
 
 	changeCategory(){
-		this.props.changeCategory(this.props.category);
+		if(this.props.isArea) {
+			this.props.closeModal(this.props.category)
+		} else {
+			this.props.changeCategory(this.props.category);
+		}
 	}
 
 	_renderImage(category){

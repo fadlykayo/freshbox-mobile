@@ -18,27 +18,32 @@ const styles = {
         flex: 1,
         backgroundColor: 'transparent',
     },
-    container: {
-        flex: -1,
-        position: 'absolute',
-        bottom: -1 * (0.1 * width),
-        left: 0,
-        right: 0,
-        borderRadius: 20,
-        backgroundColor: colour.white,
-        paddingLeft: scaling.moderateScale(30),
-        paddingBottom: width * 0.1,
-        height: height,
-    },
-    subcontainer:{
-        title:{
+    container: (isArea = false) => {
+       return {
             flex: -1,
-            marginHorizontal: 5,
-            paddingBottom: scaling.moderateScale(10),
+            position: 'absolute',
+            bottom: -1 * (0.1 * width),
+            left: 0,
+            right: 0,
+            borderRadius: 20,
+            backgroundColor: colour.white,
+            paddingBottom: width * 0.1,
+            height: isArea ? height / 2.5 : height,
+        }
+    }  ,
+    subcontainer:{
+        title: (isArea = false) => {
+            return {
+                flex: -1,
+                marginHorizontal: 5,
+                paddingBottom: isArea ? 0 : scaling.moderateScale(10),
+            }
         },
-        button:{
-            alignItems: 'center',
-            paddingBottom: scaling.moderateScale(5),
+        button: (isArea = false) => {
+            return {
+                alignItems: 'center',
+                paddingBottom: isArea ? 0 : scaling.moderateScale(10),
+            }
         }
     },
     text:{
@@ -46,6 +51,7 @@ const styles = {
             fontFamily: 'Avenir-Heavy',
             fontSize: scaling.moderateScale(20),
             color: colour.darkGrey,
+            paddingLeft: scaling.moderateScale(30),
         }
     },
     icon:{

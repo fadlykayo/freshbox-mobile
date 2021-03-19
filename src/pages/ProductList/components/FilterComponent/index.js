@@ -7,15 +7,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import { colour } from '@styles';
 
 
-class SearchComponent extends Component {
+class FilterComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.openAllCategories = this.openAllCategories.bind(this);
 		this.openDeliveryInfo = this.openDeliveryInfo.bind(this);
 	}
 
-	openAllCategories() {
-		this.props.openAllCategories()
+	openAllCategories(isArea = false) {
+		this.props.openAllCategories(isArea)
 	}
 
 	openDeliveryInfo = () => {
@@ -43,22 +43,26 @@ class SearchComponent extends Component {
 	}
 	
 	render(){
+		const selectedArea = this.props.listArea.filter(res => res.check)
 		return (
     	<View style={styles.container}>
-        	<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
-        		<StaticText
-        		  	style={styles.text.title}
-        		  	property={'productList.filter.area'}
-        		/>
-        		{/* <Image
+        	<TouchableOpacity style={styles.subcontainer.part(true)} onPress = {() => this.openAllCategories(true)}>
+				{
+					selectedArea.map(area => (
+						<Text style={styles.text.title}>
+							{area.name}
+						</Text>
+					))
+				}
+        		<Image
   	  			  	resizeMode={'contain'} 
-  	  			  	source={images.ic_info_grey}
+  	  			  	source={images.icon_dropdown}
   	  			  	style={styles.icon}
-  	  			/> */}
-        	</View>
+  	  			/>
+        	</TouchableOpacity>
 			<TouchableOpacity
 				style={styles.subcontainer.part(true)}
-				onPress = { this.openAllCategories }
+				onPress = { () => this.openAllCategories(false) }
 			>
 				{ this.props.onCategory == 'Default'
 					? (
@@ -82,4 +86,4 @@ class SearchComponent extends Component {
 	}
 }
 
-export default SearchComponent;
+export default FilterComponent;
