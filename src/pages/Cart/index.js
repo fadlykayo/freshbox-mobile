@@ -333,19 +333,21 @@ class Cart extends Component {
             <FlatList
               data={this.props.cart_product}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({item, index}) => (
-                <ProductItem
-                  search={this.state.search}
-                  key={index}
-                  data={item}
-                  type={'cart'}
-                  index={index + 1}
-                  user={this.props.user}
-                  changeTotalItem={this.changeTotalItem}
-                  productLength={this.props.cart_product.length}
-                  openDetailProduct={this.openDetailProduct}
-                />
-              )}
+              renderItem={({item, index}) => {
+                return (
+                    <ProductItem
+                      search={this.state.search}
+                      key={index}
+                      data={item}
+                      type={'cart'}
+                      index={index + 1}
+                      user={this.props.user}
+                      changeTotalItem={this.changeTotalItem}
+                      productLength={this.props.cart_product.length}
+                      openDetailProduct={this.openDetailProduct}
+                    />
+                )
+              }}
             />
           </View>
           <Checkout

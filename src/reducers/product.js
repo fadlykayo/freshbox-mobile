@@ -1,6 +1,7 @@
 import ct from '@constants';
 import images from '@assets';
 import action from '../actions/product/reducer';
+import { hasObjectValue } from '@helpers';
 
 const initialState = {
   last_page: 0,
@@ -765,13 +766,14 @@ const getSavedCarts = (state, payload) => {
 
 const editTotal = (state,payload) => {
   let newState = JSON.parse(JSON.stringify(state));
+  const detailCode = hasObjectValue(newState.detail, 'code') && newState.detail.code
   let total = 0;
   let count = 0;
   const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
   const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
   const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
   const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
-  const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && newState.detail.code === payload.data.code;
+  const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && detailCode === payload.data.code;
 
   let new_products = newState.currentDetail.new_products;
   if (
