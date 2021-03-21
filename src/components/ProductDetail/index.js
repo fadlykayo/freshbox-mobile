@@ -9,6 +9,7 @@ import ScrollDown from './components/ScrollDown';
 import CountImage from './components/CountImage';
 import BubbleComponent from './components/BubbleComponent';
 import styles from './styles';
+import { hasObjectValue } from '@helpers';
 
 class ProductDetail extends Component {
 	constructor () {
@@ -77,7 +78,7 @@ class ProductDetail extends Component {
 										contentContainerStyle={styles.image.content}
 										style={styles.image.style}
 									>
-										{this.props.data.images_sizes_url && this.props.data.images_sizes_url.original.map((image, index) => {
+										{ hasObjectValue(this.props.data, 'images_sizes_url') && this.props.data.images_sizes_url.original.map((image, index) => {
 											return (
 												<TouchableOpacity key={index} onPress={this.openZoomImage}>
 													<Image
@@ -90,14 +91,18 @@ class ProductDetail extends Component {
 										}
 										)}
 									</ScrollView>
-									<BubbleComponent
-										images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
-										bubble={this.props.bubble}
-									/>
-									<CountImage
-										images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
-										bubble={this.props.bubble}
-									/>
+									{hasObjectValue(this.props.data, 'images_sizes_url') && 
+										<>
+											<BubbleComponent
+												images={this.props.data.images_sizes_url.original}
+												bubble={this.props.bubble}
+											/>
+											<CountImage
+												images={this.props.data.images_sizes_url.original}
+												bubble={this.props.bubble}
+											/>
+										</>
+									}
 								</View>
 								<Content data={this.props.data} bannerPrice={this.props.bannerPrice} />
 								{
@@ -132,12 +137,15 @@ class ProductDetail extends Component {
 								/>
 							</View>
 						</View>
-						<ZoomImage
-							modalVisible={this.props.openImageDetail}
-							closeZoomImage={this.closeZoomImage}
-							images={this.props.data.images_sizes_url && this.props.data.images_sizes_url.original}
-							bubble={this.props.bubble}
-						/>
+						{
+							hasObjectValue(this.props.data, 'images_sizes_url') &&
+							<ZoomImage
+								modalVisible={this.props.openImageDetail}
+								closeZoomImage={this.closeZoomImage}
+								images={this.props.data.images_sizes_url.original}
+								bubble={this.props.bubble}
+							/>
+						}
 					</Modal>
 				</View>
 			);

@@ -4,7 +4,7 @@ import ButtonCount from '@components/ButtonCount';
 import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
-import { scaling, analytics, onShare } from '@helpers';
+import { scaling, analytics, onShare, hasObjectValue } from '@helpers';
 import styles from './styles';
 
 class ProductItem extends PureComponent {
@@ -71,10 +71,10 @@ class ProductItem extends PureComponent {
 
 		if(Platform.OS == 'ios') {
 			
-			productImage = data.images_sizes_url.original[0];
+			productImage = hasObjectValue(data, 'images_sizes_url') ? data.images_sizes_url.original[0] : data.images;
 		} else {
 
-			productImage = data.images_sizes_url ? data.images_sizes_url.original[0] : data.images
+			productImage = hasObjectValue(data, 'images_sizes_url') ? data.images_sizes_url.original[0] : data.images;
 		}
 		if(this.props.dashboard) {
 
