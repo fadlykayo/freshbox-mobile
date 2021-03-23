@@ -872,6 +872,20 @@
       "message2": "harga dan promo yang berbeda. ",
       "message3":"Cek kembali pesanan yang telah anda pilih, kemungkinan ada perbedaan harga. Apakah anda yakin ingin mengganti lokasi anda?"
     },
+    "tooltip": {
+      "title": "Fitur Ganti Lokasi",
+      "content": {
+        "tip1": "Sekarang FreshBox sudah tersedia di ",
+        "tip2": "Jakarta, Bandung, dan Surabaya. ",
+        "tip3": "Tiap ",
+        "tip4": "lokasi kemungkinan memiliki ",
+        "tip5": "harga dan ",
+        "tip6": "promo yang berbeda - beda."
+      },
+      "button": {
+        "next": "Ok, Saya Mengerti"
+      }
+    },
     "button": {
       "cancel": "Batal",
       "next": "Lanjutkan"

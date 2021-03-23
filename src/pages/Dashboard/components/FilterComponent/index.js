@@ -96,11 +96,11 @@ class SearchComponent extends Component {
 	render(){
 		
 		return (
-    	<Animated.View style={styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter)}>
+    	<View style={styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter)}>
 
 				{this.renderContent()}
         	
-			</Animated.View>
+			</View>
 		);
 	}
 }

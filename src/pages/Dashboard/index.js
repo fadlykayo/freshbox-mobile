@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Keyboard,
@@ -10,6 +11,7 @@ import {
   Platform,
   TouchableOpacity,
   RefreshControl,
+  Text,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {actNav, navConstant} from '@navigations';
@@ -31,10 +33,19 @@ import actions from '@actions';
 import styles from './styles';
 import config from '../../config';
 import ChangesAreaPopUp from './components/ChangesAreaPopUp';
+import {copilot, walkthroughable, CopilotStep} from 'react-native-copilot';
+import {Svg, Defs, G, Path} from 'react-native-svg';
+import Button from '@components/Button';
 
 const {width, height} = Dimensions.get('window');
 
 class Dashboard extends Component {
+  static propTypes = {
+    start: PropTypes.func.isRequired,
+    copilotEvents: PropTypes.shape({
+      on: PropTypes.func.isRequired,
+    }).isRequired,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -134,6 +145,10 @@ class Dashboard extends Component {
     await this.hideFilterAnimation();
     await this.getCart()
   }
+
+  handleStepChange = (step) => {
+    console.log(`Current step is: ${step.name}`);
+  };
 
   componentWillUnmount = () => {
     this.removeLinking();
@@ -389,6 +404,8 @@ class Dashboard extends Component {
     this.props.get_products(
       payload,
       () => {
+        this.props.copilotEvents.on('stepChange', this.handleStepChange);
+        this.props.start();
         if (this.props.navigation.state.params.action) {
           if (!fromDashboard) {
             this.navigateToCart();
@@ -1170,15 +1187,22 @@ class Dashboard extends Component {
           openDrawerMenu={this.openDrawerMenu}
           clearSearch={this.clearSearch}
         />
+
+        <CopilotStep
+          order={1}>
+          <Content />
+        </CopilotStep>
+
         <FilterComponent
-          onCategory={this.props.on_category}
-          modalVisible={this.state.modalVisible.filterComponent}
-          showFilter={filterVisible}
-          dismissFilter={filterHide}
-          openAllCategories={this.openAllCategories}
-          openDeliveryInfo = {this.openDeliveryInfo}
-          listArea={this.state.listArea}
-        />
+            onCategory={this.props.on_category}
+            modalVisible={true}
+            showFilter={50}
+            dismissFilter={50}
+            openAllCategories={this.openAllCategories}
+            openDeliveryInfo = {this.openDeliveryInfo}
+            listArea={this.state.listArea}
+            {...copilot}
+          />
 
         <ScrollView
           style={styles.scrollView}
@@ -1376,4 +1400,116 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+const ArrowTooltip = () => {
+	return (
+	  <Svg width="80" height="132" viewBox="-0.5 -0.5 50 132">
+		  <Defs />
+        <G>
+          <Path
+            d="M 0 0 L 0 50 Q 0 50 10 50 L 300 50"
+            fill="none"
+            stroke="#ffffff"
+            strokeMiterlimit="10"
+            strokeDasharray={[5, 5]}
+            pointerEvents="auto"
+            strokeWidth={2}
+          />
+        </G>
+	  </Svg>
+	);
+  };
+
+  const Content = ({copilot}) => {
+    if(width) {
+      return (
+        <View style={{width: width / 2, height: 45, position: 'absolute', top: 60, borderRadius: 10, left: 0}} {...copilot}/>
+      );
+    } else null
+  };
+
+  const StepNumber = () => {
+	return <View />;
+  };
+  const TooltipComponent = ({
+	isFirstStep,
+	isLastStep,
+	handleNext,
+	handlePrev,
+	handleStop,
+	currentStep,
+  }) => {
+	return (
+	  <View
+		  style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+		}}>
+		<ArrowTooltip />
+		<View style={{backgroundColor: 'white', top: 0, borderRadius: 5, paddingHorizontal: 10, paddingVertical: 10}}>
+      <StaticText
+        style={styles.modal.title}
+        property={'changesArea.tooltip.title'}
+      />
+      <StaticText
+        style={styles.modal.text}
+        property={'changesArea.tooltip.content.tip1'}
+      />
+      <Text style={styles.modal.text}>
+      <StaticText
+        style={styles.modal.textBold}
+        property={'changesArea.tooltip.content.tip2'}
+      />
+      <StaticText
+        style={styles.modal.text}
+        property={'changesArea.tooltip.content.tip3'}
+      />
+      </Text>
+      <Text style={styles.modal.text}>
+        <StaticText
+          style={styles.modal.text}
+          property={'changesArea.tooltip.content.tip4'}
+        />
+        <StaticText
+        style={styles.modal.textBold}
+        property={'changesArea.tooltip.content.tip5'}
+      />
+      </Text>
+      <Text style={styles.modal.text}>
+        <StaticText
+          style={styles.modal.textBold}
+          property={'changesArea.tooltip.content.tip6'}
+        />
+      </Text>
+      <View style={styles.modal.buttonWrapper}>
+        <View style={styles.modal.button.container}>
+          <Button
+            type={'red'}
+            title={'changesArea.tooltip.button.next'}
+            onPress={() => handleStop()}
+            fontSize={styles.modal.button.fontButton}
+          />
+        </View>
+      </View>
+		</View>
+	  </View>
+	);
+  };
+
+export default copilot({
+	animated: true, // Can be true or false
+  overlay: 'svg', // Can be either view or svg
+  androidStatusBarVisible: false,
+  verticalOffset: 20,
+  stepNumberComponent: StepNumber,
+  tooltipComponent: TooltipComponent,
+  tooltipStyle: {
+    backgroundColor: 'unset',
+    top: 95,
+    left: 0
+  },
+  arrowColor: null,
+  backdropColor: 'rgba(0, 0, 0, 0.5)'
+})(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+
+// export default (connect(mapStateToProps, mapDispatchToProps)(Dashboard))
