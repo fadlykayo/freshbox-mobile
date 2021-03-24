@@ -48,8 +48,8 @@ class FilterComponent extends Component {
     	<View style={styles.container}>
         	<TouchableOpacity style={styles.subcontainer.part(true)} onPress = {() => this.openAllCategories(true)}>
 				{
-					selectedArea.map(area => (
-						<Text style={styles.text.title}>
+					selectedArea.map((area, index) => (
+						<Text key={index} style={styles.text.title}>
 							{area.name}
 						</Text>
 					))

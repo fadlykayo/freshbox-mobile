@@ -18,8 +18,12 @@ actions.get_products = (req, success, failure) => {
     requestHandler('get', payload2, dispatch, true)
       .then((res) => {
         if (res.code) {
+          const data = {
+            ...res.data,
+            branchID: req.params.branch_id
+          }
           if (res.code == 200) {
-            dispatch(actReducer.get_products(res.data));
+            dispatch(actReducer.get_products(data));
             success();
           }
         }
@@ -420,5 +424,35 @@ actions.get_product_detail = (req, success, failure) => {
       });
   };
 };
+
+actions.get_list_branch = (req, success, failure) => {
+	payload.path = `${path.branch}`;
+	payload.header = req.header;
+	return dispatch => {
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.get_list_branch(res.data))
+					success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+}
 
 export default actions;

@@ -8,7 +8,8 @@ const initialState = {
   params: {
     page: 1,
     sort: 'nama-az',
-    // stock: 'tersedia'
+    // stock: 'tersedia',
+    branch_id: 1
   },
   paramsPromo: {
     page: 1,
@@ -48,6 +49,8 @@ const initialState = {
   ],
   setModalVisible: false,
   productMaxClaim: [],
+  listBranch: [],
+  selectedBranch: {},
 };
 
 const getProductDashboard = (state, payload) => {
@@ -120,14 +123,14 @@ const getProducts = (state, payload) => {
   let incomingProducts = payload.data.data;
   let existingProducts = newState.products.slice();
 
-  newState.params.page = payload.data.current_page + 1;
-  newState.last_page = payload.data.last_page;
 
   for (x in incomingProducts) {
 
     let sameValue = false;
     for (y in existingProducts) {
       if (incomingProducts[x].code == existingProducts[y].code) {
+        console.log('triggerd ..........', incomingProducts[x].code == existingProducts[y].code)
+        console.log(payload.data.current_page);
         existingProducts[y] = Object.assign(
           {},
           incomingProducts[x],
@@ -138,7 +141,16 @@ const getProducts = (state, payload) => {
       }
     }
     if (sameValue == false) {
-      existingProducts.push(incomingProducts[x]);
+      if(newState.params.branch_id === payload.data.branchID && newState.params.page >= 1) {
+        existingProducts.push(incomingProducts[x]);
+        newState.params.page = payload.data.current_page + 1;
+        newState.last_page = payload.data.last_page;
+      } else {
+        existingProducts = incomingProducts
+        newState.params.branch_id = payload.data.branchID
+        newState.params.page = payload.data.current_page + 1
+        newState.last_page = payload.data.last_page;
+      }
     }
   }
 
@@ -1422,6 +1434,38 @@ const clearProductMaxClaim = (state, payload) => {
   return newState;
 };
 
+const getListBranch = (state, payload) => {
+  let newState = JSON.parse(JSON.stringify(state))
+  newState.listBranch = payload.data.data
+  let incomingBranch = newState.listBranch.map((branch, i) => {
+      return {
+          ...branch,
+          check: i == 0 ? true : false
+      }
+  })
+  const selectedIndex = incomingBranch.findIndex(come => come.check)
+  newState.selectedBranch = incomingBranch[selectedIndex]
+  newState.listBranch = incomingBranch
+  return newState
+}
+
+const changeBranch = (state, payload) => {
+  let newState = JSON.parse(JSON.stringify(state))
+  const listBranch = newState.listBranch
+  const changesActiveBranch = listBranch.map((list) => {
+  if((list.name === payload.name)) {
+        list.check = true
+      } else {
+        list.check = false
+      }
+      return list
+  })
+  const selectedIndex = changesActiveBranch.findIndex(come => come.check)
+  newState.selectedBranch = changesActiveBranch[selectedIndex]
+  newState.listBranch = changesActiveBranch
+  return newState
+}
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case ct.GET_PRODUCTS:
@@ -1474,6 +1518,8 @@ const productReducer = (state = initialState, action) => {
       return getProductDetail(state, action.payload);
     case ct.CLEAR_PRODUCT_MAX_CLAIM:
       return clearProductMaxClaim(state, action.payload);
+    case ct.GET_LIST_BRANCH: return getListBranch(state, action.payload);
+    case ct.CHANGE_BRANCH: return changeBranch(state, action.payload);
     case ct.RESET_PRODUCTS:
       return initialState;
     default:

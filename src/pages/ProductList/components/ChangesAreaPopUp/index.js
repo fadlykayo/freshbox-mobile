@@ -40,7 +40,7 @@ export default class ChangesAreaPopUp extends Component {
               <View style={styles.modal.content}>
                   <Image
 										resizeMode={'contain'}
-										source={images.empty_search}
+										source={images.multi_location}
                     style={styles.modal.image}
 									/>
                 <View style={styles.modal.textContainer}>

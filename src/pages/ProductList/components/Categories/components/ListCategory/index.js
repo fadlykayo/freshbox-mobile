@@ -15,7 +15,7 @@ class ListCategoryComponent extends PureComponent {
 				<View style={styles.categories}>
 					{ data.map((category,index) => 
 						<CategoryItems 
-							key={category.code}
+							key={ this.props.isArea ? category.id : category.code}
 							category={category}
 							changeCategory={this.props.changeCategory}
 							length={this.props.categories.length-1}

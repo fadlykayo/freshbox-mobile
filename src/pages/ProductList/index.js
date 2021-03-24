@@ -48,36 +48,7 @@ class ProductList extends Component {
 			drawerVisible: false,
 			defaultCategory: '',
 			isArea: false,
-			listArea : [
-				{
-					check: true,
-					code: "CAT-0",
-					name: "Jakarta",
-					parent_count: 0,
-					parent_id: 0,
-					slug: "default",
-					position: 1
-				},
-				{
-					check: false,
-					code: "CAT-1",
-					name: "Bandung",
-					parent_count: 0,
-					parent_id: 0,
-					slug: "default",
-					position: 2
-				},
-				{
-					check: false,
-					code: "CAT-2",
-					name: "Surabaya",
-					parent_count: 0,
-					parent_id: 0,
-					slug: "default",
-					position: 3
-				}
-			],
-			selectedTempArea: {}
+			selectedTempArea: {...this.props.selectedBranch}
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -416,13 +387,17 @@ class ProductList extends Component {
 		);
 	}
 
-	getProductList(unload) {
-
+	getProductList(unload, withBranch = false) {
+		const branchID = this.state.selectedTempArea.id
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : ''
 			},
-			params: this.props.params
+			params: {
+				...this.props.params,
+				branch_id: branchID,
+				page: withBranch? 1 : this.props.params.page
+			}
 		};
 
 		if (unload) {
@@ -432,12 +407,16 @@ class ProductList extends Component {
 				},
 				params: {
 					page: 1,
-					sort: 'nama-az'
+					sort: 'nama-az',
+					branch_id: branchID
 				}
 			};
 		}
 		this.props.get_products(payload,
 			() => {
+				if(withBranch) {
+					this.closePopUpChangesArea()
+				}
 				if (this.state.refreshing != false) this.setState({refreshing: false});
 				if (this.props.navigation.state.params.action) this.navigateToCart();
 			},
@@ -529,6 +508,7 @@ class ProductList extends Component {
 
 	changeCategory(input) {
 		// this.onChangeText('searchItem', '')
+		const branchID = this.state.selectedTempArea.id
 		if (this.props.navigation.state.params.fromBanner) {
 			let category = this.props.navigation.state.params.category;
 			let payload = {
@@ -540,7 +520,8 @@ class ProductList extends Component {
 					page: 1,
 					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
 					category_code: input.code,
-					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
+					branch_id: branchID
 				}
 			};
 			this.props.search_products(payload,
@@ -560,7 +541,8 @@ class ProductList extends Component {
 				params: {
 					page: 1,
 					sort: 'nama-az',
-					// stock: 'tersedia'
+					// stock: 'tersedia',
+					branch_id: branchID
 				}
 			};
 
@@ -585,6 +567,7 @@ class ProductList extends Component {
 					sort: 'nama-az',
 					// stock: 'tersedia',
 					category_code: input.code,
+					branch_id: branchID
 				}
 			};
 
@@ -600,6 +583,7 @@ class ProductList extends Component {
 						// stock: 'tersedia',
 						// on_promo: 1,
 						category_code: input.code,
+						branch_id: branchID
 					}
 				};
 			}
@@ -762,6 +746,7 @@ class ProductList extends Component {
 
 	submitSearch() {
 		let payload;
+		const branchID = this.state.selectedTempArea.id
 		this.setState({listLoading: false});
 		let category_code = null;
 
@@ -795,6 +780,7 @@ class ProductList extends Component {
 					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
 					sort: 'nama-az',
 					name: this.state.searchItem,
+					branch_id: branchID
 				}
 			};
 		} else {
@@ -809,6 +795,7 @@ class ProductList extends Component {
 					sort: 'nama-az',
 					name: this.state.searchItem,
 					// category_code: category_code,
+					branch_id: branchID
 				}
 			};
 		}
@@ -816,6 +803,7 @@ class ProductList extends Component {
 
 		if (this.state.searchItem === '') {
 			payload.params.category_code = category_code;
+			payload.params.branch_id = branchID;
 		}
 
 		this.props.search_products(payload,
@@ -997,23 +985,11 @@ class ProductList extends Component {
 	}
 
 	onConfirmSelectedArea = () => {
-		const areas = this.state.listArea
 		let area = this.state.selectedTempArea
 	
-		areas.map((list) => {
-		  if((list.name === area.name)) {
-			list.check = true
-		  } else {
-			list.check = false
-		  }
-		  return list
-		})
-	
-		this.setState({
-		  listArea: areas
-		}, () => {
-		  this.closePopUpChangesArea()
-		})
+		this.props.change_branch(area)
+
+		this.getProductList(true, true)
 	  }
 	  
 	  onCancelSelectedArea = () => {
@@ -1034,6 +1010,7 @@ class ProductList extends Component {
 
 		let products = this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product;
 		let data = products && products.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x) || [];
+		const {listBranch} = this.props
 		return (
 			<Container
 				bgColorBottom={'veryLightGrey'}
@@ -1056,7 +1033,7 @@ class ProductList extends Component {
 					onCategory={this.props.on_category}
 					openAllCategories={this.openAllCategories}
 					openDeliveryInfo={this.openDeliveryInfo}
-					listArea={this.state.listArea}
+					listArea={listBranch}
 				/>
 
 				<Notes
@@ -1130,12 +1107,18 @@ class ProductList extends Component {
 					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
 					onShare={onShare}
 				/>
+				<ChangesAreaPopUp
+					visible={this.state.modalVisible.changesArea}
+					closePopUpInfo={this.closePopUpChangesArea}
+					onConfirmSelectedArea={this.onConfirmSelectedArea}
+					onCancelSelectedArea={this.onCancelSelectedArea}
+				/>
 				<Categories
 					changeCategory={this.changeCategory}
 					categories={this.props.categories}
 					modalVisible={this.state.modalVisible.openCategories}
 					closeDialogCategories={this.closeDialogCategories}
-					listArea={this.state.listArea}
+					listArea={listBranch}
 					isArea={this.state.isArea}
 					openPopUpChangesArea={this.openPopUpChangesArea}
 					setSelectedArea={this.setSelectedArea}
@@ -1195,7 +1178,9 @@ const mapStateToProps = state => ({
 	promoProduct: state.product.promoProduct,
 	network: state.network,
 	currentDetail: state.product.currentDetail,
-	setModalVisible: state.product.setModalVisible
+	setModalVisible: state.product.setModalVisible,
+	listBranch: state.product.listBranch,
+	selectedBranch: state.product.selectedBranch,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -1220,6 +1205,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.product.api.get_cart(req, res, err)),
   	post_cart: (req, res, err) =>
     dispatch(actions.product.api.post_cart(req, res, err)),
+	change_branch: (payload) =>
+    dispatch(actions.product.reducer.change_branch(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

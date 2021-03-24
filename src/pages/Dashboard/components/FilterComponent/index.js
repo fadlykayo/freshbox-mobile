@@ -53,8 +53,8 @@ class SearchComponent extends Component {
         		  	property={'productList.filter.area'}
         		/> */}
 				{
-					selectedArea.map(area => (
-						<Text style={styles.text.title}>
+					selectedArea.map((area, index) => (
+						<Text key={index} style={styles.text.title}>
 							{area.name}
 						</Text>
 					))

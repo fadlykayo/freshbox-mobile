@@ -21,5 +21,10 @@ action.announcement = (payload) => ({
     payload: payload,
 })
 
+action.tourGuide = (payload) => ({
+    type: ct.TOUR_GUIDE,
+    payload: payload,
+})
+
 
 export default action;

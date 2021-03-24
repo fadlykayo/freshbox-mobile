@@ -74,5 +74,6 @@ images.ic_menu_grey = require('./ic_menu_grey.png');
 images.ic_time = require('./ic_time.png');
 images.ic_checklist_combine = require('./ic_checklist_combine.png');
 images.icon_apple = require('./apple.png');
+images.multi_location = require('./multi_location.png')
 
 export default images;

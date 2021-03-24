@@ -34,8 +34,7 @@ import styles from './styles';
 import config from '../../config';
 import ChangesAreaPopUp from './components/ChangesAreaPopUp';
 import {copilot, walkthroughable, CopilotStep} from 'react-native-copilot';
-import {Svg, Defs, G, Path} from 'react-native-svg';
-import Button from '@components/Button';
+import TooltipComponent from './components/TooltipComponent'
 
 const {width, height} = Dimensions.get('window');
 
@@ -89,36 +88,9 @@ class Dashboard extends Component {
       promoCode: '',
       scrollY: '',
       isArea: false,
-      listArea : [
-        {
-          check: true,
-          code: "CAT-0",
-          name: "Jakarta",
-          parent_count: 0,
-          parent_id: 0,
-          slug: "default",
-          position: 1
-        },
-        {
-          check: false,
-          code: "CAT-1",
-          name: "Bandung",
-          parent_count: 0,
-          parent_id: 0,
-          slug: "default",
-          position: 2
-        },
-        {
-          check: false,
-          code: "CAT-2",
-          name: "Surabaya",
-          parent_count: 0,
-          parent_id: 0,
-          slug: "default",
-          position: 3
-        }
-      ],
-      selectedTempArea: {}
+      selectedTempArea: {
+        id: 1
+      }
     };
     this.offSet = 0;
     this.showCheckout = new Animated.Value(0);
@@ -133,18 +105,36 @@ class Dashboard extends Component {
     return true;
   }
 
-  async componentDidMount() {
-    await this.getProductList(true, true);
-    await this.getProductPromo();
-    await this.handleDeepLink();
-    await this.versionChecker();
-    await this.getCategories();
-    await this.getBanner();
-    await this.checkCart();
-    await this.getHistoryData();
-    await this.hideFilterAnimation();
-    await this.getCart()
+   componentDidMount() {
+    this.getListBranch()
   }
+
+  getListBranch() {
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : '',
+			},
+		}
+		this.props.get_list_branch(payload, 
+      (res) => {
+        if(res) {
+          this.getProductList(true, true);
+          this.getProductPromo();
+          this.handleDeepLink();
+          this.versionChecker();
+          this.getCategories();
+          this.getBanner();
+          this.checkCart();
+          this.getHistoryData();
+          this.hideFilterAnimation();
+          this.getCart()
+        }
+      },
+      (err) => {
+        console.log(err, 'Errbranch')
+      }
+    )
+	}
 
   handleStepChange = (step) => {
     console.log(`Current step is: ${step.name}`);
@@ -302,8 +292,10 @@ class Dashboard extends Component {
     }
   };
 
-  getProductPromo = (fromDashboard) => {
+  getProductPromo = (fromDashboard = false, changeBranch = false) => {
+    const branchID = this.state.selectedTempArea.id
     let categories_code;
+    const { selectedBranch } = this.props
     this.setLoading('promoList', true);
 
     this.props.categories.map((c, i) => {
@@ -317,7 +309,7 @@ class Dashboard extends Component {
         apiToken: this.props.user ? this.props.user.authorization : '',
       },
       body: {},
-      params: {...this.props.paramsPromo},
+      params: {...this.props.paramsPromo , branch_id: branchID},
     };
     this.props.get_promo(
       payload,
@@ -384,7 +376,8 @@ class Dashboard extends Component {
     // }
   }
 
-  getProductList = (fromDashboard, refresh = false) => {
+  getProductList = (fromDashboard, refresh = false, withBranch = false) => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
@@ -393,8 +386,13 @@ class Dashboard extends Component {
       params: refresh
         ? {
             per_page: String(this.props.product.length),
+            branch_id: branchID
           }
-        : this.props.params,
+        : withBranch ? {
+          ...this.props.params,
+          page: 1,
+          branch_id: branchID
+        } : {...this.props.params, branch_id: branchID},
       // params: {
       //   // page: 1,
       //   per_page: String(this.props.product.length)
@@ -404,8 +402,12 @@ class Dashboard extends Component {
     this.props.get_products(
       payload,
       () => {
-        this.props.copilotEvents.on('stepChange', this.handleStepChange);
-        this.props.start();
+        this.closePopUpChangesArea()
+        console.log(this.props.tour_guide, 'tour -------->')
+        if(this.props.tour_guide) {
+          this.props.copilotEvents.on('stepChange', this.handleStepChange);
+          this.props.start();
+        }
         if (this.props.navigation.state.params.action) {
           if (!fromDashboard) {
             this.navigateToCart();
@@ -417,9 +419,12 @@ class Dashboard extends Component {
   };
 
   getBanner = () => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {
       header: '',
-      params: '',
+      params: {
+        branch_id: branchID
+      },
     };
     this.props.get_banner(
       payload,
@@ -525,23 +530,6 @@ class Dashboard extends Component {
           },
           body: buyProducts,
         };
-      //   this.props.bulk_add_products(
-      //     payload,
-      //     (res) => {
-      //       // if(this.props.saved_carts.length > 0) {
-      //       //   this.props.save_cart([])
-      //       // }
-      //       actNav.navigate(navConstant.Cart, {
-      //         createOrderHandler: this.createOrderHandler,
-      //       });
-      //     },
-      //     (err) => {},
-      //   );
-      // } else {
-      //   // this.props.save_cart(this.props.cart_product)
-      //   actNav.navigate(navConstant.Cart, {
-      //     createOrderHandler: this.createOrderHandler,
-      //   });
       }
       actNav.navigate(navConstant.Cart, {
         createOrderHandler: this.createOrderHandler,
@@ -584,6 +572,7 @@ class Dashboard extends Component {
   };
 
   submitSearch = (searchItem) => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
@@ -594,6 +583,7 @@ class Dashboard extends Component {
         // stock: 'tersedia',
         sort: 'nama-az',
         name: searchItem ? searchItem : this.state.searchItem,
+        branch_id: branchID
         // category_code: category_code,
       },
     };
@@ -822,10 +812,11 @@ class Dashboard extends Component {
     let fromDashboard = true;
     this.getProductList(fromDashboard);
     this.getHistoryData();
-    this.getProductPromo();
+    this.getProductPromo(false, true);
   };
 
   navigateToCategories = (category) => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {};
     switch (category.name.toUpperCase()) {
       case 'DEFAULT':
@@ -837,6 +828,7 @@ class Dashboard extends Component {
           params: {
             page: 1,
             sort: 'nama-az',
+            branch_id: branchID
           },
         };
         break;
@@ -851,6 +843,7 @@ class Dashboard extends Component {
             sort: 'nama-az',
             // category_code: category.code,
             on_promo: 1,
+            branch_id: branchID
           },
         };
 
@@ -867,6 +860,7 @@ class Dashboard extends Component {
             sort: 'nama-az',
             // stock: 'tersedia'
             category_code: category.code,
+            branch_id: branchID
           },
         };
 
@@ -903,6 +897,7 @@ class Dashboard extends Component {
   };
 
   navigateToPromo = () => {
+    const branchID = this.state.selectedTempArea.id
     let category_code;
     let category;
     let payload;
@@ -924,6 +919,7 @@ class Dashboard extends Component {
         // stock: 'tersedia',
         // category_code: category_code,
         on_promo: 1,
+        branch_id: branchID
       },
     };
     this.props.change_categories(category);
@@ -941,6 +937,7 @@ class Dashboard extends Component {
   };
 
   navigateToBannerDetail = (product) => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
@@ -948,6 +945,7 @@ class Dashboard extends Component {
       body: {},
       params: {
         bannerID: product.id,
+        branch_id: branchID
       },
     };
 
@@ -1131,23 +1129,12 @@ class Dashboard extends Component {
   }
 
   onConfirmSelectedArea = () => {
-    const areas = this.state.listArea
     let area = this.state.selectedTempArea
 
-    areas.map((list) => {
-      if((list.name === area.name)) {
-        list.check = true
-      } else {
-        list.check = false
-      }
-      return list
-    })
+    this.props.change_branch(area)
 
-    this.setState({
-      listArea: areas
-    }, () => {
-      this.closePopUpChangesArea()
-    })
+    this.getProductList(true, false, true)
+    this.getProductPromo(false, true);
   }
   
   onCancelSelectedArea = () => {
@@ -1174,6 +1161,8 @@ class Dashboard extends Component {
       outputRange: [scaling.moderateScale(50), 0],
     });
 
+    const {listBranch} = this.props
+
     return (
       <Container backgroundColor={'white'} containerColor>
         <SearchComponent
@@ -1189,7 +1178,10 @@ class Dashboard extends Component {
         />
 
         <CopilotStep
-          order={1}>
+          order={1}
+          name='tour_guide'
+          {...this.props}
+        >
           <Content />
         </CopilotStep>
 
@@ -1200,8 +1192,7 @@ class Dashboard extends Component {
             dismissFilter={50}
             openAllCategories={this.openAllCategories}
             openDeliveryInfo = {this.openDeliveryInfo}
-            listArea={this.state.listArea}
-            {...copilot}
+            listArea={listBranch}
           />
 
         <ScrollView
@@ -1302,7 +1293,7 @@ class Dashboard extends Component {
         <CategoriesPopUp
           changeCategory={this.navigateToCategories}
           categories={this.props.categories}
-          listArea={this.state.listArea}
+          listArea={listBranch}
           modalVisible={this.state.modalVisible.openCategories}
           closeDialogCategories={this.closeDialogCategories}
           isArea={this.state.isArea}
@@ -1344,7 +1335,10 @@ const mapStateToProps = (state) => ({
   last_page: state.product.last_page,
   announcement: state.utility.announcement,
   setModalVisible: state.product.setModalVisible,
-  saved_carts: state.carts.carts
+  saved_carts: state.carts.carts,
+  listBranch: state.product.listBranch,
+  selectedBranch: state.product.selectedBranch,
+  tour_guide: state.utility.tour_guide,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -1398,26 +1392,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.cart.reducer.save_cart(payload)),
   get_saved_carts: (req, res, err) =>
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
+  get_list_branch: (req,res,err) => dispatch(actions.product.api.get_list_branch(req,res,err)),
+  change_branch: (payload) =>
+    dispatch(actions.product.reducer.change_branch(payload)),
+  tourGuide: (payload) =>
+    dispatch(actions.utility.reducer.tourGuide(payload)),
 });
-
-const ArrowTooltip = () => {
-	return (
-	  <Svg width="80" height="132" viewBox="-0.5 -0.5 50 132">
-		  <Defs />
-        <G>
-          <Path
-            d="M 0 0 L 0 50 Q 0 50 10 50 L 300 50"
-            fill="none"
-            stroke="#ffffff"
-            strokeMiterlimit="10"
-            strokeDasharray={[5, 5]}
-            pointerEvents="auto"
-            strokeWidth={2}
-          />
-        </G>
-	  </Svg>
-	);
-  };
 
   const Content = ({copilot}) => {
     if(width) {
@@ -1429,71 +1409,6 @@ const ArrowTooltip = () => {
 
   const StepNumber = () => {
 	return <View />;
-  };
-  const TooltipComponent = ({
-	isFirstStep,
-	isLastStep,
-	handleNext,
-	handlePrev,
-	handleStop,
-	currentStep,
-  }) => {
-	return (
-	  <View
-		  style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-		}}>
-		<ArrowTooltip />
-		<View style={{backgroundColor: 'white', top: 0, borderRadius: 5, paddingHorizontal: 10, paddingVertical: 10}}>
-      <StaticText
-        style={styles.modal.title}
-        property={'changesArea.tooltip.title'}
-      />
-      <StaticText
-        style={styles.modal.text}
-        property={'changesArea.tooltip.content.tip1'}
-      />
-      <Text style={styles.modal.text}>
-      <StaticText
-        style={styles.modal.textBold}
-        property={'changesArea.tooltip.content.tip2'}
-      />
-      <StaticText
-        style={styles.modal.text}
-        property={'changesArea.tooltip.content.tip3'}
-      />
-      </Text>
-      <Text style={styles.modal.text}>
-        <StaticText
-          style={styles.modal.text}
-          property={'changesArea.tooltip.content.tip4'}
-        />
-        <StaticText
-        style={styles.modal.textBold}
-        property={'changesArea.tooltip.content.tip5'}
-      />
-      </Text>
-      <Text style={styles.modal.text}>
-        <StaticText
-          style={styles.modal.textBold}
-          property={'changesArea.tooltip.content.tip6'}
-        />
-      </Text>
-      <View style={styles.modal.buttonWrapper}>
-        <View style={styles.modal.button.container}>
-          <Button
-            type={'red'}
-            title={'changesArea.tooltip.button.next'}
-            onPress={() => handleStop()}
-            fontSize={styles.modal.button.fontButton}
-          />
-        </View>
-      </View>
-		</View>
-	  </View>
-	);
   };
 
 export default copilot({
