@@ -33,6 +33,7 @@ export default class ChangesAreaPopUp extends Component {
             <View style={styles.modal.container}>
             </View>
             
+            <View style={styles.modal.subcontainer}>
             <View style={styles.modal.card}>
             <TouchableOpacity style={styles.modal.containerIcon} onPress={this.onPressCancel}>
                 <Icon name="close" size={20} color='#D8D8D8' />
@@ -80,6 +81,7 @@ export default class ChangesAreaPopUp extends Component {
                   />
                 </View>
               </View>
+            </View>
             </View>
           </> 
         </View>

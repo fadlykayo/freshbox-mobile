@@ -14,6 +14,7 @@ let payload = {
 actions.get_banner = (req, success, failure) => {
 	payload.path = path.banners;
 	payload.header = req.header;
+	payload.params = req.params;
 
 	return dispatch => {
 		requestHandler('get', payload, dispatch)

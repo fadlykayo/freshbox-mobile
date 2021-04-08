@@ -28,7 +28,7 @@ const styles = {
             borderRadius: 20,
             backgroundColor: colour.white,
             paddingBottom: width * 0.1,
-            height: isArea ? height / 2.5 : height,
+            height: isArea ? scaling.verticalScale(height / 3) : height,
         }
     }  ,
     subcontainer:{

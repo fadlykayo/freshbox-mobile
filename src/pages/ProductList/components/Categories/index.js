@@ -17,7 +17,6 @@ class OpenCategories extends PureComponent {
 
 	closeModal = async (area) => {
 		await this.props.closeDialogCategories(true);
-		await this.props.openPopUpChangesArea()
 		await this.props.setSelectedArea(area)
 	}
 

@@ -356,22 +356,74 @@ class Detail extends Component {
 
   navigateToCart() {
     //test
+    const branchID = this.props.selectedBranch.id
     let payload = {
       header: {
         apiToken: this.props.user.authorization,
       },
       invoice: this.props.detailTransaction.invoice,
+      body: {
+        branch_id: branchID
+      }
     };
 
     this.props.reorder_transaction(
       payload,
-      () => {
-        actNav.reset(navConstant.Dashboard, {
-          action: 'reorder',
-        });
+      (res) => {
+        if(res) {
+          const data = this.checkCart(res.data)
+          let payloadData = {
+            header: {
+              apiToken: this.props.user.authorization,
+            },
+            body: data,
+          };
+          this.props.bulk_add_products(
+            payloadData,
+            (res) => {
+              // this.getCart()
+              if(res) {
+                actNav.reset(navConstant.Dashboard, {
+                  action: 'reorder',
+                });
+              }
+            },
+            (err) => {
+              console.warn(err);
+            },
+          );
+        }
       },
       (err) => {},
     );
+  }
+  checkCart = (cart_product) => {
+    let buyProducts = [];
+      cart_product.map((cart) => {
+        buyProducts.push({
+          product_code: cart.product.code,
+          qty: cart.product.count,
+          status_promo: cart.product.on_promo,
+          cart_price: cart.product.price,
+          cart_promo_price:
+            Number(cart.product.on_promo) === 1
+              ? cart.product.banner_harga_jual
+                ? cart.product.banner_harga_jual
+                : cart.product.promo_price
+              : cart.product.promo_price,
+          remaining_quota:
+            Number(cart.product.on_promo) === 1
+              ? Number(cart.product.quota_claim) > 0
+                ? Number(cart.product.quota_claim) -
+                  Number(cart.product.total_claim_product || 0)
+                : 0
+              : 0,
+          quota_claim: Number(cart.product.quota_claim || 0),
+        });
+      });
+
+
+      return buyProducts
   }
 
   navigateToChoosePayment() {
@@ -696,6 +748,7 @@ const mapStateToProps = (state) => ({
   additional: state.product.additional.credit_card,
   discount: state.product.discount,
   coupon_code: state.product.coupon_code,
+  selectedBranch: state.utility.selectedBranch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -726,6 +779,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.transaction.api.delete_favorite_history(req, res, err)),
   cancel_invoice: (req, res, err) =>
     dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
+    bulk_add_products: (req, res, err) =>
+    dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

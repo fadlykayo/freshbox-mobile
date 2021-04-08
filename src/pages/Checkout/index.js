@@ -12,13 +12,15 @@ import TotalPrice from '@components/TotalPrice';
 import DeliveryDate from './components/DeliveryDate';
 import DeliveryPlace from './components/DeliveryPlace';
 import DiscountDetail from './components/DiscountDetail';
+import AlertDialog from './components/AlertDialog';
 import images from '@assets';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import styles from './styles';
 
-import {language} from '@helpers';
+import {language, hasObjectValue } from '@helpers';
 import actions from '@actions';
 import FormInput from '@components/FormInput';
+import ChangesAreaPopUp from './components/ChangesAreaPopUp'
 
 moment.locale('id', id);
 
@@ -34,6 +36,8 @@ class Checkout extends Component {
         showDiscountDetail: false,
         showDeliveryTime: false,
         showModalPhone: false,
+        changesArea: false,
+        confirmAddress: false
       },
       delivery_date: [],
       coupon_code: this.props.coupon_code !== '' ? this.props.coupon_code : '',
@@ -43,6 +47,8 @@ class Checkout extends Component {
       token: '',
       invoice: '',
       midtrans: '',
+      selectedArea: {},
+      paymentMethod: ''
     };
     this.getAddress = this.getAddress.bind(this);
     this._renderLabel = this._renderLabel.bind(this);
@@ -55,6 +61,10 @@ class Checkout extends Component {
     this.closeDeliveryDate = this.closeDeliveryDate.bind(this);
     this.addressDateValidation = this.addressDateValidation.bind(this);
     this.navigateToChooseAddress = this.navigateToChooseAddress.bind(this);
+    this.checkBranch = this.checkBranch.bind(this)
+    this.onCancelSelectedArea = this.onCancelSelectedArea.bind(this)
+    this.onConfirmSelectedArea = this.onConfirmSelectedArea.bind(this)
+    this.closePopUpChangesArea = this.closePopUpChangesArea.bind(this)
     // this.onChangeTextVoucher = this.onChangeTextVoucher.bind(this);
     // this.checkVoucherApi = this.checkVoucherApi.bind(this);
   }
@@ -65,6 +75,51 @@ class Checkout extends Component {
     this.apiDeliveryDate();
     this.setVoucherLabel();
     this.messageOrderSuccess();
+    this.checkBranch()
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.checkBranch()
+      }
+    )
+  }
+
+  componentWillUnmount() {
+    this.willFocusListener.remove()
+  }
+  
+  checkBranch () {
+    const branchID = this.props.selectedBranch.id
+    let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : '',
+			},
+      params: {
+        branch_id: branchID
+      }
+		}
+
+    this.props.check_branch( payload,
+      (res) => {
+        if (res) {
+          if(!hasObjectValue(res.data, 'branch_id')) {
+            this.openPopUpChangesArea()
+          }
+        }
+      },
+      (err) => {
+        if(err !== null || err) {
+          const currentIndex = this.props.listBranch.findIndex(list => list.id === err.branch_id)
+          const selectedArea = this.props.listBranch[currentIndex]
+          this.setState({
+            selectedArea: selectedArea
+          })
+          this.openPopUpChangesArea()
+        } else {
+          this.openPopUpChangesArea()
+        }
+      }
+    )
   }
 
   setVoucherLabel() {
@@ -163,7 +218,10 @@ class Checkout extends Component {
   };
 
   navigateToChooseAddress() {
-    actNav.navigate(navConstant.ChooseAddress);
+    actNav.navigate(navConstant.ChooseAddress, {
+      action: 'checkout',
+      key: true
+    });
   }
 
   addressDateValidation = (method) => {
@@ -194,7 +252,11 @@ class Checkout extends Component {
         let tomorrowDate = today.getDate() + 1;
         let stateDate = new Date(this.state.date.origin).getDate();
         if (todayHour <= 21 || (todayHour == 21 && todayMin < 55)) {
-          this.navigateToChoosePayment(method);
+          this.setState({
+            paymentMethod: method,
+          }, () => {
+            this.setModalVisible('confirmAddress', true);
+          })
         } else {
           if (tomorrowDate == stateDate) {
             language
@@ -209,12 +271,26 @@ class Checkout extends Component {
                 });
               });
           } else {
-            this.navigateToChoosePayment(method);
+            this.setState({
+              paymentMethod: method,
+            }, () => {
+              this.setModalVisible('confirmAddress', true);
+            })
           }
         }
       }
     }
   };
+
+  onConfirmAddress = () => {
+    this.setModalVisible('confirmAddress', false);
+    this.navigateToChoosePayment(this.state.paymentMethod);
+  }
+  onCancelAddress = () => {
+    this.setState({
+      paymentMethod: '',
+    }, () => this.setModalVisible('confirmAddress', false))
+  }
 
   cancelInvoice(token) {
     let payload = {
@@ -250,6 +326,25 @@ class Checkout extends Component {
 
   openDeliveryDate() {
     this.setModalVisible('showDeliveryDate', true);
+  }
+
+  openPopUpChangesArea() {
+    this.setModalVisible('changesArea', true);
+  }
+
+  closePopUpChangesArea() {
+    this.setModalVisible('changesArea', false);
+  }
+
+  onConfirmSelectedArea = async () => {
+    await this.navigateToChooseAddress()
+    await this.closePopUpChangesArea()
+  }
+
+  onCancelSelectedArea = () =>  {
+    this.closePopUpChangesArea()
+    this.props.change_branch(this.state.selectedArea)
+    actNav.reset(navConstant.Dashboard);
   }
 
   closeDeliveryDate() {
@@ -354,6 +449,7 @@ class Checkout extends Component {
             ? this.state.coupon_code
             : this.props.coupon_code,
         subtotal: this.props.totalPrice,
+        branch_id: this.props.selectedBranch.id
       },
     };
 
@@ -424,7 +520,8 @@ class Checkout extends Component {
         coupon_code: this.props.coupon_code,
         discount_ammount: this.props.discount,
         payment_type: method,
-      },
+        branch_id: this.props.selectedBranch.id
+      }
     };
 
     this.props.request_snap_token(
@@ -486,7 +583,11 @@ class Checkout extends Component {
       },
       type: 'validation',
       invoice: this.state.invoice,
+      // params: {
+      //   branch_id: this.props.selectedBranch.id
+      // }
     };
+    
     this.props.detail_transaction(
       payload,
       (res) => {
@@ -584,6 +685,13 @@ class Checkout extends Component {
             });
           }}
           modalVisible={this.state.modalVisible.showModalPhone}
+        />
+        <ModalLoginConfirmation
+          button={'changesArea.button.next'}
+          message={'modal.content.addAddress'}
+          onPress={this.onConfirmSelectedArea}
+          modalVisible={this.state.modalVisible.changesArea}
+          onCloseModal={() => {}}
         />
         <ScrollView style={styles.container}>
           {this._renderVoucherInput()}
@@ -730,6 +838,14 @@ class Checkout extends Component {
           </View>
         </ScrollView>
 
+          <AlertDialog
+            modalVisible={this.state.modalVisible.confirmAddress}
+            content={'checkout.label.alertDialog'}
+            subcontent={this.props.addresses}
+            requestHandler={this.onConfirmAddress}
+            requestCancel={this.onCancelAddress}
+          />
+
         <DeliveryDate
           getDeliveryDate={this.getDeliveryDate}
           modalVisible={this.state.modalVisible.showDeliveryDate}
@@ -767,6 +883,8 @@ const mapStateToProps = (state) => ({
   delivery_date: state.utility.delivery_date,
   additional: state.product.additional.credit_card,
   cart: state.product.cart.products,
+  selectedBranch: state.utility.selectedBranch,
+  listBranch: state.utility.listBranch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -790,6 +908,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
   detail_transaction: (req, res, err) =>
     dispatch(actions.transaction.api.detail_transaction(req, res, err)),
+  check_branch: (req,res,err) => dispatch(actions.utility.api.check_branch(req,res,err)),
+  change_branch: (payload) =>
+    dispatch(actions.utility.reducer.change_branch(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

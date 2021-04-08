@@ -158,7 +158,8 @@
       "address": "Alamat",
       "addressDetails": "Alamat Detil (Opsi)",
       "voucher": "Kode Promo",
-      "button": "Gunakan"
+      "button": "Gunakan",
+      "alertDialog": "Alamat anda "
     },
     "content": {
       "price": "Rp. ",
@@ -812,7 +813,8 @@
     "content": {
       "loginConfirmation": "Harap login dahulu sebelum anda melakukan pembayaran.",
       "addPhoneNumber": "Mohon verifikasi nomor telepon dahulu sebelum anda melakukan pembayaran.",
-      "changePhoneConfirmation": "Pastikan nomor telepon anda benar dan aktif. Jika anda membutuhkan bantuan, silahkan kontak customer service kami"
+      "changePhoneConfirmation": "Pastikan nomor telepon anda benar dan aktif. Jika anda membutuhkan bantuan, silahkan kontak customer service kami",
+      "addAddress": "Pastikan alamat anda sesuai dengan area yg dipilih."
     }
   },
   "message": {

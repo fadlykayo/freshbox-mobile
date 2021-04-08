@@ -160,7 +160,6 @@ class TotalPrice extends Component {
             grandTotal = numeral(this.props.subtotalHistory - this.props.discount).format('0,0');
         }
 
-        console.log(this.props)
 
         return (
             <View style={styles.container}>

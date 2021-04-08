@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
+  Dimensions
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from '../styles'; 
@@ -9,20 +10,26 @@ import Button from '@components/Button';
 import StaticText from '@components/StaticText';
 import {Svg, Defs, G, Path} from 'react-native-svg';
 import actions from '@actions';
+import { scaling } from '@helpers';
+
+const { height, width } = Dimensions.get('window');
 
 const ArrowTooltip = () => {
 	return (
-	  <Svg width="80" height="132" viewBox="-0.5 -0.5 50 132">
+	  <Svg width="66px" height="56px" viewBox="-0.5 -0.5 50 56">
 		  <Defs />
         <G>
           <Path
-            d="M 0 0 L 0 50 Q 0 50 10 50 L 300 50"
+            d="M 7 0 L 7 37 Q 7 47 17 47 L 50.63 47"
             fill="none"
             stroke="#ffffff"
             strokeMiterlimit="10"
             strokeDasharray={[5, 5]}
             pointerEvents="auto"
             strokeWidth={2}
+          />
+          <Path
+          d="M 55.88 47 L 48.88 50.5 L 50.63 47 L 48.88 43.5 Z" fill="#ffffff" stroke="#ffffff" strokeMiterlimit="10"
           />
         </G>
 	  </Svg>
@@ -40,10 +47,9 @@ class TooltipComponent extends React.PureComponent {
                 style={{
               display: 'flex',
               flexDirection: 'row',
-              alignItems: 'flex-start',
               }}>
               <ArrowTooltip />
-              <View style={{backgroundColor: 'white', top: 0, borderRadius: 5, paddingHorizontal: 10, paddingVertical: 10}}>
+              <View style={{backgroundColor: 'white', top: 0, borderRadius: 5, paddingHorizontal: width * 0.02, paddingVertical: 10, marginTop: 25}}>
             <StaticText
               style={styles.modal.title}
               property={'changesArea.tooltip.title'}
@@ -83,7 +89,7 @@ class TooltipComponent extends React.PureComponent {
                 <Button
                   type={'red'}
                   title={'changesArea.tooltip.button.next'}
-                  onPress={() => handleStopTourGuide()}
+                  onPress={() => this.handleStopTourGuide()}
                   fontSize={styles.modal.button.fontButton}
                 />
               </View>

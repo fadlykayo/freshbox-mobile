@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Image, Animated, Easing, Text, Modal, TouchableHighlight, ActivityIndicator, Share, BackHandler, ScrollView, RefreshControl} from 'react-native';
-import {language, permission, encode64, onShare} from '@helpers';
+import {language, permission, encode64, onShare, hasObjectValue} from '@helpers';
 import {actNav, navConstant} from '@navigations';
 import Checkout from './components/Checkout';
 import ProductItem from '@components/ProductItem';
@@ -48,7 +48,7 @@ class ProductList extends Component {
 			drawerVisible: false,
 			defaultCategory: '',
 			isArea: false,
-			selectedTempArea: {...this.props.selectedBranch}
+			selectedTempArea: {...this.props.selectedBranch},
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -117,19 +117,32 @@ class ProductList extends Component {
 		return true;
 	}
 
-	// backButtonAndroid = () => {
-	// 	BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-	// }
-
-	// unMountBackButton = () => {
-	// 	this.backButtonAndroid.remove()
-	// }
-
-	// handleBackPress = async () => {
-	// 	await this.getProductList();
-	// 	actNav.goBack();
-	// 	return true
-	// }
+	// checkBranch = () => {
+	// 	const branchID = this.state.selectedTempArea.id
+	// 	let payload = {
+	// 			header: {
+	// 				apiToken: this.props.user ? this.props.user.authorization : '',
+	// 			},
+	// 	  params: {
+	// 		branch_id: branchID
+	// 	  }
+	// 		}
+	// 	  this.props.check_branch( payload,
+	// 		(res) => {
+	// 		  if (res) {
+	// 			this.getProductList();
+	// 		  }
+	// 		},
+	// 		(err) => {
+	// 		  this.openPopUpChangesArea()
+	// 		  // const currentArea = this.props.listBranch.findIndex(list => list.id === err.branch_id)
+	// 		  // const selectId = this.props.listBranch[currentArea]
+	// 		  // this.setState({
+	// 		  //   selectedTempArea: selectId
+	// 		  // })
+	// 		}
+	// 	  )
+	//   }
 
 	apiBroadcastMessage() {
 		let payload = {
@@ -348,7 +361,8 @@ class ProductList extends Component {
 					// per_page: this.props.product.length,
 					// stock: 'tersedia',
 					sort: 'nama-az',
-					on_promo: 1
+					on_promo: 1,
+					special_deals: 1
 				}
 			};
 		} else if (this.props.navigation.state.params.fromBanner) {
@@ -733,12 +747,16 @@ class ProductList extends Component {
 	  }
 
 	  getCart = () => {
+		const branchID = this.state.selectedTempArea.id
 		if(this.props.user) {
 		  let payload = {
 			header: {
 			  apiToken: this.props.user ? this.props.user.authorization : '',
 			},
-			params: '',
+			params: {
+				branch_id: branchID,
+				session_cart: 1
+			},
 		  };
 		  this.props.get_cart(payload)
 		}
@@ -975,27 +993,70 @@ class ProductList extends Component {
 		this.setModalVisible('changesArea', false)
 	}
 	setSelectedArea = (area) => {
-		const data = {
-		  ...area,
-		  check: true
+		if(area.id === this.props.selectedBranch.id) {
+			this.closeDialogCategories(true)
+		} else {
+			const data = {
+				...area,
+				check: true
+			  }
+				this.setState({
+				  selectedTempArea: data
+				})
+			  let payload = {
+					  header: {
+						  apiToken: this.props.user ? this.props.user.authorization : '',
+					  },
+				params: {
+				  branch_id: data.id
+				}
+				  }
+		  
+			 this.props.check_branch(payload,
+				(res) => {
+				  if(res) {
+					if(this.props.user) {
+					  if (hasObjectValue(res.data, 'branch_id')) {
+						const findIndex = this.props.listBranch.findIndex(list => list.id === res.data.branch_id)
+						const selected = this.props.listBranch[findIndex]
+						this.setState({
+						  selectedTempArea: selected
+						}, () => {
+						  this.getAllDataFromBranch()
+						})
+					  } else {
+						this.openPopUpChangesArea()
+					  }
+					} else {
+					  this.openPopUpChangesArea()
+					}
+				  }
+				},
+				(err) => {
+				  if(err === null || err) {
+					this.openPopUpChangesArea()
+				  }
+				}
+			  )
 		}
-		this.setState({
-		  selectedTempArea: data
-		})
 	}
 
 	onConfirmSelectedArea = () => {
-		let area = this.state.selectedTempArea
-	
-		this.props.change_branch(area)
-
-		this.getProductList(true, true)
-	  }
+		this.getAllDataFromBranch()
+	}
 	  
-	  onCancelSelectedArea = () => {
-		this.setState({
-		  selectedTempArea: {}
-		})
+	onCancelSelectedArea = async () => {
+		await this.openAllCategories(true)
+		await this.closePopUpChangesArea()
+	}
+	
+
+	  getAllDataFromBranch = async () => {
+		let area = this.state.selectedTempArea
+		this.props.change_branch(area)
+		await this.getProductList(true, true);
+		await this.getCart()
+		this.closePopUpChangesArea();
 	  }
 
 	render() {
@@ -1120,7 +1181,6 @@ class ProductList extends Component {
 					closeDialogCategories={this.closeDialogCategories}
 					listArea={listBranch}
 					isArea={this.state.isArea}
-					openPopUpChangesArea={this.openPopUpChangesArea}
 					setSelectedArea={this.setSelectedArea}
 				/>
 				<Modal
@@ -1179,8 +1239,8 @@ const mapStateToProps = state => ({
 	network: state.network,
 	currentDetail: state.product.currentDetail,
 	setModalVisible: state.product.setModalVisible,
-	listBranch: state.product.listBranch,
-	selectedBranch: state.product.selectedBranch,
+	listBranch: state.utility.listBranch,
+	selectedBranch: state.utility.selectedBranch,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -1206,7 +1266,8 @@ const mapDispatchToProps = dispatch => ({
   	post_cart: (req, res, err) =>
     dispatch(actions.product.api.post_cart(req, res, err)),
 	change_branch: (payload) =>
-    dispatch(actions.product.reducer.change_branch(payload)),
+    dispatch(actions.utility.reducer.change_branch(payload)),
+	check_branch: (req,res,err) => dispatch(actions.utility.api.check_branch(req,res,err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

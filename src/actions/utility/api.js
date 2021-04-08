@@ -110,4 +110,67 @@ actions.delivery_date = (req, success, failure) => {
 	};
 };
 
+actions.get_list_branch = (req, success, failure) => {
+	payload.path = `${path.branch}`;
+	payload.header = req.header;
+	return dispatch => {
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.get_list_branch(res.data))
+					success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400: return failure(err);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+}
+
+actions.check_branch = (req, success, failure) => {
+	payload.path = `${path.branchCheck}`;
+	payload.header = req.header;
+	payload.params = req.params
+	return dispatch => {
+        requestHandler('get',payload,dispatch)
+        .then((res) => {
+        	if(res.code){
+        		if(res.code == 200){
+					dispatch(actReducer.check_branch(res.data))
+					success(res);
+        		}
+        	}
+        })
+        .catch((err) => {
+        	if(!err.code){
+        		dispatch(actNetwork.set_network_error_status(true));
+        	} else {
+        		switch(err.code){
+        			case 400:
+						dispatch(actReducer.check_branch(err))
+						return failure(err.data);
+        			default:
+        				dispatch(actNetwork.set_error_status({
+        					status: true,
+        					data: JSON.stringify(err)
+        				}));
+        		}
+        	}
+        })
+    }
+}
+
 export default actions;

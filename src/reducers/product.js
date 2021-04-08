@@ -15,6 +15,7 @@ const initialState = {
     page: 1,
     sort: 'nama-az',
     on_promo: 1,
+    special_deals: 1,
     last_page: 1,
   },
   promoProduct: [],
@@ -49,8 +50,6 @@ const initialState = {
   ],
   setModalVisible: false,
   productMaxClaim: [],
-  listBranch: [],
-  selectedBranch: {},
 };
 
 const getProductDashboard = (state, payload) => {
@@ -129,8 +128,6 @@ const getProducts = (state, payload) => {
     let sameValue = false;
     for (y in existingProducts) {
       if (incomingProducts[x].code == existingProducts[y].code) {
-        console.log('triggerd ..........', incomingProducts[x].code == existingProducts[y].code)
-        console.log(payload.data.current_page);
         existingProducts[y] = Object.assign(
           {},
           incomingProducts[x],
@@ -632,7 +629,6 @@ const getCart = (state, payload) => {
     ) {
       promoPrice = existingCart[i].banner_harga_jual;
     }
-
     if ((existingCart[i].total_claim_product === undefined || existingCart[i].total_claim_product === null) && Number(existingCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
       if (Number(existingCart[i].quota_claim_original) === 0 ) {
         promoQty = existingCart[i].count;
@@ -642,7 +638,6 @@ const getCart = (state, payload) => {
         normalQty = existingCart[i].count - Number(existingCart[i].quota_claim_original);
         promoQty = existingCart[i].count - normalQty;
       }
-
       total = total + (promoQty * promoPrice) + (normalQty * existingCart[i].price);
     } else if (existingCart[i].quota_claim_original && Number(existingCart[i].on_promo) === 1) { // if product is special deals and have claim limit
       if (existingCart[i].count <= Number(existingCart[i].quota_claim_original) - Number(existingCart[i].total_claim_product)) {
@@ -1434,37 +1429,6 @@ const clearProductMaxClaim = (state, payload) => {
   return newState;
 };
 
-const getListBranch = (state, payload) => {
-  let newState = JSON.parse(JSON.stringify(state))
-  newState.listBranch = payload.data.data
-  let incomingBranch = newState.listBranch.map((branch, i) => {
-      return {
-          ...branch,
-          check: i == 0 ? true : false
-      }
-  })
-  const selectedIndex = incomingBranch.findIndex(come => come.check)
-  newState.selectedBranch = incomingBranch[selectedIndex]
-  newState.listBranch = incomingBranch
-  return newState
-}
-
-const changeBranch = (state, payload) => {
-  let newState = JSON.parse(JSON.stringify(state))
-  const listBranch = newState.listBranch
-  const changesActiveBranch = listBranch.map((list) => {
-  if((list.name === payload.name)) {
-        list.check = true
-      } else {
-        list.check = false
-      }
-      return list
-  })
-  const selectedIndex = changesActiveBranch.findIndex(come => come.check)
-  newState.selectedBranch = changesActiveBranch[selectedIndex]
-  newState.listBranch = changesActiveBranch
-  return newState
-}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -1518,8 +1482,6 @@ const productReducer = (state = initialState, action) => {
       return getProductDetail(state, action.payload);
     case ct.CLEAR_PRODUCT_MAX_CLAIM:
       return clearProductMaxClaim(state, action.payload);
-    case ct.GET_LIST_BRANCH: return getListBranch(state, action.payload);
-    case ct.CHANGE_BRANCH: return changeBranch(state, action.payload);
     case ct.RESET_PRODUCTS:
       return initialState;
     default:

@@ -12,15 +12,15 @@ const style = {
 			justifyContent: 'center', 
 			alignItems: 'center',
 		},
-		subcontainer: {
-			position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
-		},
 		containerIcon: {
 			marginHorizontal: 20,
 			alignItems: 'flex-end',
 			marginTop: 20,
 			position: 'absolute',
 			right: 0,
+		},
+		subcontainer : {
+			position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
 		},
 		card: {
 			backgroundColor: 'white',
@@ -32,7 +32,7 @@ const style = {
 		content: {
 			justifyContent: 'center',
 			alignItems: 'center',
-			paddingHorizontal: 20,
+			paddingHorizontal: width * 0.05
 		},
 		imageWrapper: {
 			alignItems: 'center',
@@ -87,8 +87,8 @@ const style = {
 		},
 		button: {
 			container: {
-				width: scaling.moderateScale(120),
-				marginHorizontal: 10
+				width: '100%',
+				paddingHorizontal: width * 0.05
 			}
 		},
 		buttonWrapper: {

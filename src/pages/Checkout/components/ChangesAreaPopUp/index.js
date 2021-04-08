@@ -12,7 +12,6 @@ export default class ChangesAreaPopUp extends Component {
   }
 
   onPressCancel = () => {
-    this.props.closePopUpInfo()
     this.props.onCancelSelectedArea()
   }
 
@@ -32,18 +31,17 @@ export default class ChangesAreaPopUp extends Component {
           <>
             <View style={styles.modal.container}>
             </View>
-            
             <View style={styles.modal.subcontainer}>
             <View style={styles.modal.card}>
-            <TouchableOpacity style={styles.modal.containerIcon} onPress={this.onPressCancel}>
+            {/* <TouchableOpacity style={styles.modal.containerIcon} onPress={this.onPressCancel}>
                 <Icon name="close" size={20} color='#D8D8D8' />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
               <View style={styles.modal.content}>
-                  <Image
+                  {/* <Image
 										resizeMode={'contain'}
 										source={images.multi_location}
                     style={styles.modal.image}
-									/>
+									/> */}
                 <View style={styles.modal.textContainer}>
                   <StaticText
                     style={styles.modal.title}
@@ -66,13 +64,13 @@ export default class ChangesAreaPopUp extends Component {
               </View>
 
               <View style={styles.modal.buttonWrapper}>
-                <View style={styles.modal.button.container}>
+                {/* <View style={styles.modal.button.container}>
                   <Button
                     type={'white'}
                     title={'changesArea.button.cancel'}
                     onPress={() => this.onPressCancel()}
                   />
-                </View>
+                </View> */}
                 <View style={styles.modal.button.container}>
                   <Button
                     type={'red'}

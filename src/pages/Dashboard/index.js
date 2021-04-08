@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {actNav, navConstant} from '@navigations';
-import {language, analytics, scaling, onShare} from '@helpers';
+import {language, analytics, scaling, onShare, hasObjectValue} from '@helpers';
 import Container from '@components/Container';
 import ProductDetail from '@components/ProductDetail';
 import SearchComponent from '../ProductList/components/SearchComponent';
@@ -62,9 +62,10 @@ class Dashboard extends Component {
         openImageDetail: false,
         checkout: false,
         filterComponent: false,
-        changesArea: false
+        changesArea: false,
       },
       loadingTransaction: false,
+      ignoreModalArea: false,
       refreshing: false,
       banner: [
         {
@@ -88,9 +89,9 @@ class Dashboard extends Component {
       promoCode: '',
       scrollY: '',
       isArea: false,
-      selectedTempArea: {
+      selectedTempArea: props.selectedBranch? props.selectedBranch : {
         id: 1
-      }
+      },
     };
     this.offSet = 0;
     this.showCheckout = new Animated.Value(0);
@@ -105,39 +106,72 @@ class Dashboard extends Component {
     return true;
   }
 
-   componentDidMount() {
-    this.getListBranch()
+   async componentDidMount () {
+    if(this.props.navigation.state.params.action !== 'reorder') {
+      this.checkBranch()
+    }
+    if(this.props.navigation.state.params.action === 'reorder') {
+      await this.getProductList(false, true);
+    }
+    await this.getCategories();
+    await this.checkCart();
+    await this.handleDeepLink();
+    await this.versionChecker();
+    await this.getHistoryData();
+    await this.hideFilterAnimation();
   }
 
-  getListBranch() {
+  checkBranch = () => {
+    const branchID = this.state.selectedTempArea.id
+    let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : '',
+			},
+      params: {
+        branch_id: branchID
+      }
+		}
+    if (this.props.user) {
+        this.props.check_branch( payload,
+        (res) => {
+          if (res) {
+              this.getListBranch()
+          }
+        },
+        (err) => {
+            this.setState({
+              ignoreModalArea: true
+            }, () => {
+              this.openPopUpChangesArea()
+            })
+        }
+      )
+    } else {
+       this.getListBranch()
+    }
+  }
+
+  getListBranch = () => {
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : '',
 			},
 		}
-		this.props.get_list_branch(payload, 
-      (res) => {
+		 this.props.get_list_branch(payload, 
+        (res) => {
         if(res) {
           this.getProductList(true, true);
           this.getProductPromo();
-          this.handleDeepLink();
-          this.versionChecker();
-          this.getCategories();
-          this.getBanner();
-          this.checkCart();
-          this.getHistoryData();
-          this.hideFilterAnimation();
           this.getCart()
+          this.getBanner();
         }
       },
-      (err) => {
-        console.log(err, 'Errbranch')
-      }
+      (err) => {}
     )
 	}
 
   handleStepChange = (step) => {
-    console.log(`Current step is: ${step.name}`);
+    console.warn(`Current step is: ${step.name}`);
   };
 
   componentWillUnmount = () => {
@@ -309,7 +343,10 @@ class Dashboard extends Component {
         apiToken: this.props.user ? this.props.user.authorization : '',
       },
       body: {},
-      params: {...this.props.paramsPromo , branch_id: branchID},
+      params: {
+        ...this.props.paramsPromo , 
+        branch_id: branchID,
+      },
     };
     this.props.get_promo(
       payload,
@@ -364,12 +401,20 @@ class Dashboard extends Component {
 
   getCart = () => {
     if(this.props.user && this.props.navigation.state.params.action !== 'reorder') {
+      const branchID = this.state.selectedTempArea.id
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : '',
         },
+        params: {
+          branch_id: branchID,
+          session_cart: 1
+        }
       };
-      this.props.get_cart(payload)
+      this.props.get_cart(payload,
+        (res) => {},
+        () => {}
+      )
     }
     // if(this.props.saved_carts.length > 0) {
     //   this.props.get_saved_carts(this.props.saved_carts)
@@ -386,24 +431,26 @@ class Dashboard extends Component {
       params: refresh
         ? {
             per_page: String(this.props.product.length),
-            branch_id: branchID
+            branch_id: branchID,
           }
         : withBranch ? {
           ...this.props.params,
           page: 1,
-          branch_id: branchID
-        } : {...this.props.params, branch_id: branchID},
+          branch_id: branchID,
+        } : {
+          ...this.props.params,
+          branch_id: branchID,
+        },
       // params: {
       //   // page: 1,
       //   per_page: String(this.props.product.length)
       // }
     };
 
+
     this.props.get_products(
       payload,
       () => {
-        this.closePopUpChangesArea()
-        console.log(this.props.tour_guide, 'tour -------->')
         if(this.props.tour_guide) {
           this.props.copilotEvents.on('stepChange', this.handleStepChange);
           this.props.start();
@@ -423,7 +470,7 @@ class Dashboard extends Component {
     let payload = {
       header: '',
       params: {
-        branch_id: branchID
+        branch_id: branchID,
       },
     };
     this.props.get_banner(
@@ -548,14 +595,17 @@ class Dashboard extends Component {
   };
 
   getCategories = () => {
+    const branchID = this.state.selectedTempArea.id
     let payload = {
       header: {},
-      params: {},
+      params: {
+        branch_id: branchID
+      },
     };
     this.props.get_categories(
       payload,
       () => {
-        this.getProductPromo();
+        // this.getProductPromo();
       },
       (err) => {},
     );
@@ -583,7 +633,7 @@ class Dashboard extends Component {
         // stock: 'tersedia',
         sort: 'nama-az',
         name: searchItem ? searchItem : this.state.searchItem,
-        branch_id: branchID
+        branch_id: branchID,
         // category_code: category_code,
       },
     };
@@ -828,7 +878,7 @@ class Dashboard extends Component {
           params: {
             page: 1,
             sort: 'nama-az',
-            branch_id: branchID
+            branch_id: branchID,
           },
         };
         break;
@@ -843,7 +893,8 @@ class Dashboard extends Component {
             sort: 'nama-az',
             // category_code: category.code,
             on_promo: 1,
-            branch_id: branchID
+            branch_id: branchID,
+            special_deals: 1
           },
         };
 
@@ -860,7 +911,7 @@ class Dashboard extends Component {
             sort: 'nama-az',
             // stock: 'tersedia'
             category_code: category.code,
-            branch_id: branchID
+            branch_id: branchID,
           },
         };
 
@@ -919,7 +970,8 @@ class Dashboard extends Component {
         // stock: 'tersedia',
         // category_code: category_code,
         on_promo: 1,
-        branch_id: branchID
+        special_deals: 1,
+        branch_id: branchID,
       },
     };
     this.props.change_categories(category);
@@ -945,7 +997,7 @@ class Dashboard extends Component {
       body: {},
       params: {
         bannerID: product.id,
-        branch_id: branchID
+        branch_id: branchID,
       },
     };
 
@@ -1102,12 +1154,14 @@ class Dashboard extends Component {
   };
 
   closeDialogCategories = (isArea = false) => {
-    this.setModalVisible('openCategories', false);
-    if(isArea) {
-      this.setState({
-        isArea: false
-      })
-    } 
+    if(!this.state.ignoreModalArea) {
+      this.setModalVisible('openCategories', false);
+      if(isArea) {
+        this.setState({
+          isArea: false
+        })
+      } 
+    }
   };
 
   closePopUpChangesArea = () => {
@@ -1119,28 +1173,95 @@ class Dashboard extends Component {
   }
 
   setSelectedArea = (area) => {
-    const data = {
-      ...area,
-      check: true
+    if(area.id === this.props.selectedBranch.id) {
+      this.closeDialogCategories(true)
+    } else {
+      const data = {
+        ...area,
+        check: true
+      }
+        this.setState({
+          selectedTempArea: data
+        })
+      let payload = {
+        header: {
+          apiToken: this.props.user ? this.props.user.authorization : '',
+        },
+        params: {
+          branch_id: data.id
+        }
+      }
+  
+     this.props.check_branch(payload,
+        (res) => {
+          if(res) {
+            if(this.props.user) {
+              if(hasObjectValue(res.data, 'branch_id')) {
+              const findIndex = this.props.listBranch.findIndex(list => list.id === res.data.branch_id)
+              const selected = this.props.listBranch[findIndex]
+              this.setState({
+                selectedTempArea: selected
+              }, () => {
+                if(this.state.ignoreModalArea) {
+                  this.setState({
+                    ignoreModalArea: false
+                  }, () => {
+                    this.getAllDataFromBranch()
+                    this.closeDialogCategories(true)
+                    
+                  })
+                } else {
+                  this.getAllDataFromBranch()
+                }
+              })
+              } else {
+                this.openPopUpChangesArea()
+              }
+            } else {
+              this.openPopUpChangesArea()
+            }
+          }
+        },
+        (err) => {
+          if(err || err === null) {
+            if(this.state.ignoreModalArea) {
+              this.setState({
+                ignoreModalArea: false
+              }, () => {
+                this.setModalVisible('openCategories', false);
+                this.openPopUpChangesArea()
+              })
+            } else {
+              this.openPopUpChangesArea()
+            }
+          }
+        }
+      )
     }
-    this.setState({
-      selectedTempArea: data
-    })
   }
 
   onConfirmSelectedArea = () => {
-    let area = this.state.selectedTempArea
-
-    this.props.change_branch(area)
-
-    this.getProductList(true, false, true)
-    this.getProductPromo(false, true);
+    this.getAllDataFromBranch()
+    if(this.state.ignoreModalArea) {
+      this.setState({
+        ignoreModalArea: false
+      })
+    }
   }
   
-  onCancelSelectedArea = () => {
-    this.setState({
-      selectedTempArea: {}
-    })
+  onCancelSelectedArea = async () => {
+    await this.openAllCategories(true)
+    await this.closePopUpChangesArea()
+  }
+
+  getAllDataFromBranch = async () => {
+    let area = this.state.selectedTempArea
+    this.props.change_branch(area)
+    await this.getProductList(true, false, true);
+    await this.getProductPromo(false, true);
+    await this.getCart()
+    await this.getBanner();
+    await this.closePopUpChangesArea();
   }
 
   render() {
@@ -1297,7 +1418,6 @@ class Dashboard extends Component {
           modalVisible={this.state.modalVisible.openCategories}
           closeDialogCategories={this.closeDialogCategories}
           isArea={this.state.isArea}
-          openPopUpChangesArea={this.openPopUpChangesArea}
           setSelectedArea={this.setSelectedArea}
         />
 
@@ -1336,8 +1456,8 @@ const mapStateToProps = (state) => ({
   announcement: state.utility.announcement,
   setModalVisible: state.product.setModalVisible,
   saved_carts: state.carts.carts,
-  listBranch: state.product.listBranch,
-  selectedBranch: state.product.selectedBranch,
+  listBranch: state.utility.listBranch,
+  selectedBranch: state.utility.selectedBranch,
   tour_guide: state.utility.tour_guide,
 });
 
@@ -1392,11 +1512,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.cart.reducer.save_cart(payload)),
   get_saved_carts: (req, res, err) =>
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
-  get_list_branch: (req,res,err) => dispatch(actions.product.api.get_list_branch(req,res,err)),
+  get_list_branch: (req,res,err) => dispatch(actions.utility.api.get_list_branch(req,res,err)),
   change_branch: (payload) =>
-    dispatch(actions.product.reducer.change_branch(payload)),
+    dispatch(actions.utility.reducer.change_branch(payload)),
   tourGuide: (payload) =>
     dispatch(actions.utility.reducer.tourGuide(payload)),
+    get_address: (req, success, failure) => dispatch(actions.user.api.get_address(req, success, failure)),
+    check_branch: (req,res,err) => dispatch(actions.utility.api.check_branch(req,res,err)),
 });
 
   const Content = ({copilot}) => {
@@ -1420,7 +1542,7 @@ export default copilot({
   tooltipComponent: TooltipComponent,
   tooltipStyle: {
     backgroundColor: 'unset',
-    top: 95,
+    top: scaling.moderateScale(80),
     left: 0
   },
   arrowColor: null,

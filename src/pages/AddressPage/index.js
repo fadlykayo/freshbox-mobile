@@ -282,57 +282,111 @@ class AddressPage extends Component {
 	}
 
 	updateHandler() {
-		let payload = {
-			header: {
-				apiToken: this.props.user.authorization
-			},
-			body: {
-				primary: true,
-				name: this.state.user.name,
-				receiver_name: this.state.user.receiver_name,
-				phone_number: this.state.user.phone,
-				province_code: this.state.user.province.code,
-				city_code: this.state.user.city.code,
-				subdistrict_code: this.state.user.subdistrict.code,
-				zip_code_code: this.state.user.zip_code.code,
-				address: this.state.user.address,
-				detail: this.state.user.addressDetail
-			},
-			data: this.props.address_detail
+		if (this.props.navigation.state.params.checkout) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: {
+					primary: false,
+					name: this.state.user.name,
+					receiver_name: this.state.user.receiver_name,
+					phone_number: this.state.user.phone,
+					province_code: this.state.user.province.code,
+					city_code: this.state.user.city.code,
+					subdistrict_code: this.state.user.subdistrict.code,
+					zip_code_code: this.state.user.zip_code.code,
+					address: this.state.user.address,
+					detail: this.state.user.addressDetail
+				},
+				data: this.props.address_detail
+			}
+			this.props.update_address(payload,
+				(res) => {
+					actNav.navigate(navConstant.ChooseAddress)
+				},
+				(err) => {
+				})
+		} else {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: {
+					primary: true,
+					name: this.state.user.name,
+					receiver_name: this.state.user.receiver_name,
+					phone_number: this.state.user.phone,
+					province_code: this.state.user.province.code,
+					city_code: this.state.user.city.code,
+					subdistrict_code: this.state.user.subdistrict.code,
+					zip_code_code: this.state.user.zip_code.code,
+					address: this.state.user.address,
+					detail: this.state.user.addressDetail
+				},
+				data: this.props.address_detail
+			}
+			this.props.update_address(payload,
+				(res) => {
+					this.props.navigation.goBack(this.props.navigation.state.params.key)
+				},
+				(err) => {
+				})
 		}
-		this.props.update_address(payload,
-			(res) => {
-				this.props.navigation.goBack(this.props.navigation.state.params.key)
-			},
-			(err) => {
-			})
 	}
 
 	addHandler() {
-		let payload = {
-			header: {
-				apiToken: this.props.user.authorization
-			},
-			body: {
-				primary: true,
-				name: this.state.user.name,
-				receiver_name: this.state.user.receiver_name,
-				phone_number: this.state.user.phone,
-				province_code: this.state.user.province.code,
-				city_code: this.state.user.city.code,
-				subdistrict_code: this.state.user.subdistrict.code,
-				zip_code_code: this.state.user.zip_code.code,
-				address: this.state.user.address,
-				detail: this.state.user.addressDetail
+		if (this.props.navigation.state.params.checkout) {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: {
+					primary: this.props.listAddress.length === 0 ? true : false,
+					name: this.state.user.name,
+					receiver_name: this.state.user.receiver_name,
+					phone_number: this.state.user.phone,
+					province_code: this.state.user.province.code,
+					city_code: this.state.user.city.code,
+					subdistrict_code: this.state.user.subdistrict.code,
+					zip_code_code: this.state.user.zip_code.code,
+					address: this.state.user.address,
+					detail: this.state.user.addressDetail
+				}
 			}
+			this.props.add_address(payload,
+				(res) => {
+					actNav.navigate(navConstant.ChooseAddress)
+				},
+				(err) => {
+			})
+			
+		} else {
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization
+				},
+				body: {
+					primary: true,
+					name: this.state.user.name,
+					receiver_name: this.state.user.receiver_name,
+					phone_number: this.state.user.phone,
+					province_code: this.state.user.province.code,
+					city_code: this.state.user.city.code,
+					subdistrict_code: this.state.user.subdistrict.code,
+					zip_code_code: this.state.user.zip_code.code,
+					address: this.state.user.address,
+					detail: this.state.user.addressDetail
+				}
+			}
+			this.props.add_address(payload,
+				(res) => {
+					this.props.navigation.goBack(this.props.navigation.state.params.key)
+				},
+				(err) => {
+			})
 		}
 
-		this.props.add_address(payload,
-			(res) => {
-				this.props.navigation.goBack(this.props.navigation.state.params.key)
-			},
-			(err) => {
-			})
 	}
 
 	editAddressPage() {
@@ -354,6 +408,7 @@ class AddressPage extends Component {
 				actNav.goBack()
 			},
 			(err) => {
+				
 			})
 	}
 
@@ -375,7 +430,11 @@ class AddressPage extends Component {
 	}
 
 	navigateBack() {
-		actNav.goBack()
+		if (this.props.navigation.state.params.checkout) {
+			actNav.navigate(navConstant.ChooseAddress)
+		} else {
+			actNav.goBack()
+		}
 	}
 
   	render() {
@@ -442,7 +501,8 @@ const mapStateToProps = (state) => ({
 	province: state.region.province,
 	city: state.region.city,
 	subdistrict: state.region.subdistrict,
-	zip_code: state.region.zip_code
+	zip_code: state.region.zip_code,
+	listAddress: state.user.address
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -456,6 +516,7 @@ const mapDispatchToProps = (dispatch) => ({
 	reset_region: () => dispatch(actions.region.reducer.reset_region()),
 	delete_address: (req,res,err) => dispatch(actions.user.api.delete_address(req,res,err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
+	check_branch: (req,res,err) => dispatch(actions.utility.api.check_branch(req,res,err)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(AddressPage);

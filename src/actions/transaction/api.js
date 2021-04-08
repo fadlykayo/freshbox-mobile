@@ -97,7 +97,6 @@ actions.bulk_add_products = (req, success, failure) => {
         }
       })
       .catch((err) => {
-        console.warn(err.code)
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
         } else {
@@ -355,7 +354,7 @@ actions.get_transaction = (req, success, failure) => {
 actions.detail_transaction = (req, success, failure) => {
   payload.path = `${path.transactionHistory}/${req.invoice}`;
   payload.header = req.header;
-  payload.params = {};
+  payload.params = req.params;
 
   return (dispatch) => {
     requestHandler('get', payload, dispatch)
@@ -411,6 +410,7 @@ actions.detail_transaction = (req, success, failure) => {
 actions.reorder_transaction = (req, success, failure) => {
   payload.path = `${path.reorder}/${req.invoice}`;
   payload.header = req.header;
+  payload.body = req.body
 
   return (dispatch) => {
     requestHandler('post', payload, dispatch)

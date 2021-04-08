@@ -142,16 +142,5 @@ action.get_product_detail = (data) => ({
   },
 });
 
-action.get_list_branch = (data) => ({
-  type: ct.GET_LIST_BRANCH,
-  payload: {
-      data
-  }
-})
-
-action.change_branch = (data) => ({
-  type: ct.CHANGE_BRANCH,
-  payload: data
-})
 
 export default action;

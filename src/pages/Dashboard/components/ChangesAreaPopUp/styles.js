@@ -12,6 +12,9 @@ const style = {
 			justifyContent: 'center', 
 			alignItems: 'center',
 		},
+		subcontainer: {
+			position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
+		},
 		containerIcon: {
 			marginHorizontal: 20,
 			alignItems: 'flex-end',
@@ -21,11 +24,9 @@ const style = {
 		},
 		card: {
 			backgroundColor: 'white',
-			position: 'absolute',
-			top: 100,
 			alignItems: 'center',
 			borderRadius: 10,
-			marginHorizontal: scaling.moderateScale(40),
+			marginHorizontal: width * 0.08,
 			paddingBottom: 40,
 		},
 		content: {

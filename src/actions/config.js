@@ -47,4 +47,5 @@ export const path = {
   banners: 'v1/banners/',
   version_checker: 'v1/general/versioning',
   branch: 'v1/branch',
+  branchCheck: 'v1/branch/check'
 };
