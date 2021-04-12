@@ -328,6 +328,7 @@ class BannerDetail extends Component {
     }
 	}
   storeCart = (cart, type) => {
+    const branchID = this.props.selectedBranch.id
     if(this.props.user){
       let buyProducts = {
         product_code: cart.code,
@@ -348,7 +349,9 @@ class BannerDetail extends Component {
               : 0
             : 0,
         quota_claim: Number(cart.quota_claim || 0),
-        type: type
+        type: type,
+        branch_id: branchID
+
       };
         let payload = {
           header: {
@@ -557,6 +560,7 @@ class BannerDetail extends Component {
     }
 
     navigateToCategories = (category) => {
+      const branchID = this.props.selectedBranch.id
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : ''
@@ -566,8 +570,10 @@ class BannerDetail extends Component {
           page:1,
           banner_id:this.props.currentDetail.new_products[category].info.banner_id ,
           category_code: this.props.currentDetail.new_products[category].info.category_code,
-          product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
-        }
+          product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
+          branch_id: branchID
+        },
+        isBannerCategory: true
       };
       let category_code = this.props.categories.filter((item) => {
         return item.name === category
@@ -697,7 +703,8 @@ const mapStateToProps = (state) => ({
     cart_product: state.product.cart.products,
     transactionDetail: state.transaction.detail,
     categories: state.product.categories,
-    setModalVisible: state.product.setModalVisible
+    setModalVisible: state.product.setModalVisible,
+    selectedBranch: state.utility.selectedBranch,
 });
 
 const mapDispatchToProps = dispatch => ({

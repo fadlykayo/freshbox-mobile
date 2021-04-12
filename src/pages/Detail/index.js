@@ -371,7 +371,7 @@ class Detail extends Component {
       payload,
       (res) => {
         if(res) {
-          const data = this.checkCart(res.data)
+          const data = this.checkCart(res.data, branchID)
           let payloadData = {
             header: {
               apiToken: this.props.user.authorization,
@@ -397,7 +397,7 @@ class Detail extends Component {
       (err) => {},
     );
   }
-  checkCart = (cart_product) => {
+  checkCart = (cart_product, branch_id) => {
     let buyProducts = [];
       cart_product.map((cart) => {
         buyProducts.push({
@@ -419,6 +419,8 @@ class Detail extends Component {
                 : 0
               : 0,
           quota_claim: Number(cart.product.quota_claim || 0),
+          branch_id: branch_id,
+          reorder: 1
         });
       });
 

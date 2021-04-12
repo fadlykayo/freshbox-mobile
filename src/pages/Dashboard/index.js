@@ -142,6 +142,7 @@ class Dashboard extends Component {
             this.setState({
               ignoreModalArea: true
             }, () => {
+              this.getListBranch(false)
               this.openPopUpChangesArea()
             })
         }
@@ -151,7 +152,7 @@ class Dashboard extends Component {
     }
   }
 
-  getListBranch = () => {
+  getListBranch = (change = true) => {
 		let payload = {
 			header: {
 				apiToken: this.props.user ? this.props.user.authorization : '',
@@ -160,10 +161,12 @@ class Dashboard extends Component {
 		 this.props.get_list_branch(payload, 
         (res) => {
         if(res) {
-          this.getProductList(true, true);
-          this.getProductPromo();
-          this.getCart()
-          this.getBanner();
+          if(change) {
+            this.getProductList(true, true);
+            this.getProductPromo();
+            this.getCart()
+            this.getBanner();
+          }
         }
       },
       (err) => {}
@@ -457,7 +460,7 @@ class Dashboard extends Component {
         }
         if (this.props.navigation.state.params.action) {
           if (!fromDashboard) {
-            this.navigateToCart();
+            this.validateCart()
           }
         }
       },
@@ -506,6 +509,7 @@ class Dashboard extends Component {
   };
 
   storeCart = (cart, type) => {
+    const branchID = this.state.selectedTempArea.id
     if(this.props.user){
       let buyProducts = {
         product_code: cart.code,
@@ -526,7 +530,8 @@ class Dashboard extends Component {
               : 0
             : 0,
         quota_claim: Number(cart.quota_claim || 0),
-        type: type
+        type: type,
+        branch_id: branchID
       };
         let payload = {
           header: {

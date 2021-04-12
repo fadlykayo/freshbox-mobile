@@ -428,6 +428,12 @@ actions.reorder_transaction = (req, success, failure) => {
         } else {
           switch (err.code) {
             case 400:
+              dispatch(
+                actNetwork.set_error_status({
+                  status: true,
+                  data: JSON.stringify(err.code_message),
+                }),
+              );
               return failure(err);
             default:
               dispatch(

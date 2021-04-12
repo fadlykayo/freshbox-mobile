@@ -329,6 +329,7 @@ class ProductList extends Component {
 		this.setState({refreshing: true}, () => {
 			if (this.state.search) {
 				this.backToDefault();
+				this.refreshProductList();
 			} else {
 				this.refreshProductList();
 				this.apiBroadcastMessage();
@@ -337,6 +338,7 @@ class ProductList extends Component {
 	}
 
 	refreshProductList() {
+		const branchID = this.state.selectedTempArea.id
 		let payload;
 
 		let category_code = null;
@@ -362,7 +364,8 @@ class ProductList extends Component {
 					// stock: 'tersedia',
 					sort: 'nama-az',
 					on_promo: 1,
-					special_deals: 1
+					special_deals: 1,
+					branch_id: branchID
 				}
 			};
 		} else if (this.props.navigation.state.params.fromBanner) {
@@ -376,7 +379,8 @@ class ProductList extends Component {
 					page: 1,
 					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
 					category_code: this.props.currentDetail.new_products[category].info.category_code,
-					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
+					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
+					branch_id: branchID
 				}
 			};
 		} else {
@@ -389,7 +393,8 @@ class ProductList extends Component {
 					// per_page: this.props.product.length,
 					// stock: 'tersedia',
 					sort: 'nama-az',
-					category_code: category_code
+					category_code: category_code,
+					branch_id: branchID
 				}
 			};
 		}
@@ -707,6 +712,7 @@ class ProductList extends Component {
 	}
 
 	storeCart = (cart, type) => {
+		const branchID = this.props.selectedBranch.id
 		if(this.props.user){
 		  let buyProducts = {
 			product_code: cart.code,
@@ -727,7 +733,8 @@ class ProductList extends Component {
 				  : 0
 				: 0,
 			quota_claim: Number(cart.quota_claim || 0),
-			type: type
+			type: type,
+			branch_id: branchID
 		  };
 			let payload = {
 			  header: {

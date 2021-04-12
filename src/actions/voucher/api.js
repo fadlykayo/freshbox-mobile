@@ -48,6 +48,12 @@ actions.checkVoucherValidity = (req, success, failure) => {
         } else {
           switch (err.code) {
             case 400:
+              if(err.data) {
+                dispatch(actNetwork.set_error_status({
+                  status: true,
+                  data: err.data
+                }));
+              }
               dispatch(actReducer.cancel_voucher(req.body.subtotal));
               failure(err);
               break;

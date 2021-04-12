@@ -52,7 +52,7 @@ class Cart extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.cart_product.length == 0) {
-      actNav.goBack();
+      actNav.reset(navConstant.Dashboard);
     }
     return true;
   }
@@ -123,7 +123,7 @@ class Cart extends Component {
 
   navigateBack() {
     this.props.remove_empty_items();
-    actNav.reset(navConstant.Product);
+    actNav.goBack()
   }
 
   openDetailProduct(payload) {
@@ -156,6 +156,7 @@ class Cart extends Component {
   }
 
   storeCart = (cart, type) => {
+    const branchID = this.props.selectedBranch.id
 		if(this.props.user){
 		  let buyProducts = {
 			product_code: cart.code,
@@ -176,7 +177,8 @@ class Cart extends Component {
 				  : 0
 				: 0,
 			quota_claim: Number(cart.quota_claim || 0),
-			type: type
+			type: type,
+      branch_id: branchID
 		  };
 			let payload = {
 			  header: {
@@ -214,7 +216,8 @@ class Cart extends Component {
     // this.setModalVisible('openProduct', false);
     this.props.change_total(this.state.selectedProduct, 'desc');
     if(this.props.user) {
-      this.postProductOfCart(buyProducts)
+      // this.postProductOfCart(buyProducts)
+      this.storeCart(this.state.selectedProduct, 'desc')
     }
   }
 
@@ -223,6 +226,7 @@ class Cart extends Component {
   }
 
   checkCart = () => {
+    const branchID = this.props.selectedBranch.id
     let buyProducts = [];
       this.props.cart_product.map((cart) => {
         buyProducts.push({
@@ -244,6 +248,7 @@ class Cart extends Component {
                 : 0
               : 0,
           quota_claim: Number(cart.quota_claim || 0),
+          branch_id: branchID
         });
       });
 
@@ -414,6 +419,7 @@ const mapStateToProps = (state) => ({
   setModalVisible: state.product.setModalVisible,
   paramsPromo: state.product.paramsPromo,
   productMaxClaim: state.product.productMaxClaim,
+  selectedBranch: state.utility.selectedBranch,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,7 @@ import actReducer from './reducer';
 import actNetwork from '../network/reducer';
 import requestHandler from '../helper';
 import {path} from '../config';
-import {analytics} from '@helpers';
+import {analytics, hasObjectValue} from '@helpers';
 
 const actions = {};
 
@@ -189,10 +189,11 @@ actions.post_cart = (req, success, failure) => {
 };
 
 actions.search_products = (req, success, failure) => {
+  let page = hasObjectValue(req, 'isBannerCategory') && req.isBannerCategory ? {page: 1} : {page: req.params.page}
   payload.path = path.getProducts;
   payload.header = req.header;
   payload.body = req.body;
-  payload.params = req.params;
+  payload.params = {...page ,...req.params};
 
   return (dispatch) => {
     requestHandler('get', payload, dispatch)

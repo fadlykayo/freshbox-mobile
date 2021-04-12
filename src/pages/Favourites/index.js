@@ -167,6 +167,7 @@ class Favourites extends Component {
 	}
 
 	storeCart = (cart, type) => {
+		const branchID = this.props.selectedBranch.id
 		if(this.props.user){
 		  let buyProducts = {
 			product_code: cart.code,
@@ -187,7 +188,8 @@ class Favourites extends Component {
 				  : 0
 				: 0,
 			quota_claim: Number(cart.quota_claim || 0),
-			type: type
+			type: type,
+			branch_id: branchID
 		  };
 			let payload = {
 			  header: {
@@ -385,7 +387,8 @@ const mapStateToProps = state => ({
 	index_product: state.product.cart.index,
 	cart_product: state.product.cart.products,
 	wishlist: state.product.wishlist.products,
-	setModalVisible: state.product.setModalVisible
+	setModalVisible: state.product.setModalVisible,
+	selectedBranch: state.utility.selectedBranch,
 });
 
 const mapDispatchToProps = dispatch => ({

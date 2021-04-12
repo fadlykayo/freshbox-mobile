@@ -1197,14 +1197,20 @@ const reorderTransaction = (state, payload) => {
       currentCart[i].banner_harga_jual &&
       currentCart[i].banner_harga_jual !== null
     ) {
-      promoPrice = currentCart[i].banner_harga_jual;
+      if(currentCart[i].count > 0) {
+        promoPrice = currentCart[i].banner_harga_jual;
+      }
     }
 
     if ((currentCart[i].total_claim_product === undefined || currentCart[i].total_claim_product === null) && Number(currentCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
       if (Number(currentCart[i].quota_claim) === 0 ) {
-        promoQty = currentCart[i].count;
+        if (currentCart[i].stock > 0) {
+          promoQty = currentCart[i].count;
+        }
       } else if (Number(currentCart[i].quota_claim) >= 0 && currentCart[i].count <= Number(currentCart[i].quota_claim)) {
-        promoQty = currentCart[i].count;
+        if (currentCart[i].stock > 0) {
+          promoQty = currentCart[i].count;
+        }
       } else {
         normalQty = currentCart[i].count - Number(currentCart[i].quota_claim);
         promoQty = currentCart[i].count - normalQty;
@@ -1213,7 +1219,9 @@ const reorderTransaction = (state, payload) => {
       total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
     } else if (currentCart[i].quota_claim && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have claim limit
       if (currentCart[i].count <= Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
-        promoQty = currentCart[i].count;
+        if (currentCart[i].stock > 0) {
+          promoQty = currentCart[i].count;
+        }
       } else {
         promoQty = Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product);
       }
@@ -1223,14 +1231,20 @@ const reorderTransaction = (state, payload) => {
       }
       total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
     } else if (Number(currentCart[i].total_claim_product) === 0 && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
-      promoQty = currentCart[i].count;
+      if (currentCart[i].stock > 0) {
+        promoQty = currentCart[i].count;
+      }
       total = total + promoQty * promoPrice;
     }  else { // Normal qty
       normalQty = currentCart[i].count;
-      total = total + normalQty * currentCart[i].price;
+      if(currentCart[i].stock > 0) {
+        total = total + normalQty * currentCart[i].price
+      }
     }
       
-    count = count + currentCart[i].count;
+    if ( currentCart[i].stock > 0 ) {
+      count = count + currentCart[i].count;
+    }
     currentCart[i].maxQty = payload.data.maxQty;
   }
 

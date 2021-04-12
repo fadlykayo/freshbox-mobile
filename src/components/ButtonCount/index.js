@@ -25,10 +25,14 @@ class ButtonCount extends PureComponent {
 			if(this.props.count == 0){
 				return(
 					<TouchableOpacity onPress={this.addTotalItem} style={[styles.container.base(this.props.dashboard),styles.container.add(this.props.dashboard,this.props.data.stock)]}>
-						<StaticText
-							style={styles.text.add}
-							property={'productList.content.addItem'}
-						/>
+						{
+							this.props.data.stock > 0 ?
+							<StaticText
+								style={styles.text.add}
+								property={'productList.content.addItem'}
+							/> :
+							null
+						}
 					</TouchableOpacity>
 				)
 			}
