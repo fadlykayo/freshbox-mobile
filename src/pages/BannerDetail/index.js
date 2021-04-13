@@ -497,7 +497,11 @@ class BannerDetail extends Component {
 
         <View style = {styles.promo.cart}>
           {/* {this.renderProductList()} */}
-          {this.props.currentDetail &&  this.props.currentDetail.new_products ? this.renderPromoCategories() : this.renderProductList()}
+          {this.props.currentDetail &&  this.props.currentDetail.new_products ? 
+          <View style={styles.promo.spaceBottom}>
+            {this.renderPromoCategories()}
+          </View> 
+          : this.renderProductList()}
         </View>
       </View>
     )

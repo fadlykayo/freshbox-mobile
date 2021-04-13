@@ -173,6 +173,9 @@ const styles = {
             marginRight: 5,
             // textAlign: 'center',
         },
+        spaceBottom: {
+            paddingBottom: 30
+        }
     },
     voucher: {
         container: {
