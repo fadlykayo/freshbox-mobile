@@ -11,7 +11,6 @@ import {
   Platform,
   TouchableOpacity,
   RefreshControl,
-  Text,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {actNav, navConstant} from '@navigations';
@@ -106,19 +105,32 @@ class Dashboard extends Component {
     return true;
   }
 
-   async componentDidMount () {
-    if(this.props.navigation.state.params.action !== 'reorder') {
-      this.checkBranch()
-    }
-    if(this.props.navigation.state.params.action === 'reorder') {
-      await this.getProductList(false, true);
-    }
-    await this.getCategories();
-    await this.checkCart();
-    await this.handleDeepLink();
-    await this.versionChecker();
-    await this.getHistoryData();
-    await this.hideFilterAnimation();
+    componentDidMount () {
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        if(this.props.navigation.state.params.action !== 'reorder') {
+          if(this.props.selectedBranch !== undefined) {
+            this.setState({
+              selectedTempArea: this.props.selectedBranch
+            }, () => {
+              this.checkBranch()
+            })
+          } else {
+            this.checkBranch()
+          }
+        }
+        if(this.props.navigation.state.params.action === 'reorder') {
+         this.getProductList(false, true);
+        }
+      }
+    )
+    this.getCategories();
+    this.checkCart();
+    this.handleDeepLink();
+    this.versionChecker();
+    this.getHistoryData();
+    this.hideFilterAnimation();
   }
 
   checkBranch = () => {
@@ -179,6 +191,7 @@ class Dashboard extends Component {
 
   componentWillUnmount = () => {
     this.removeLinking();
+    this.willFocusListener.remove()
   };
 
   versionChecker = () => {

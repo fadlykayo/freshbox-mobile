@@ -430,6 +430,21 @@ class ProductList extends Component {
 					branch_id: branchID
 				}
 			};
+		} else if (this.props.navigation.state.params.fromPromo) {
+			payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				params: {
+					page: 1,
+					// per_page: this.props.product.length,
+					// stock: 'tersedia',
+					sort: 'nama-az',
+					on_promo: 1,
+					special_deals: 1,
+					branch_id: branchID
+				}
+			};
 		}
 		this.props.get_products(payload,
 			() => {
@@ -808,6 +823,24 @@ class ProductList extends Component {
 					branch_id: branchID
 				}
 			};
+		} else if (this.props.navigation.state.params.fromPromo) {
+			let category = this.props.navigation.state.params.category;
+			payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : ''
+				},
+				body: {},
+				params: {
+					page: 1,
+					// per_page: this.props.product.length,
+					// stock: 'tersedia',
+					sort: 'nama-az',
+					on_promo: 1,
+					special_deals: 1,
+					name: this.state.searchItem,
+					branch_id: branchID
+				},
+			};
 		} else {
 			payload = {
 				header: {
@@ -1036,6 +1069,7 @@ class ProductList extends Component {
 					  }
 					} else {
 					  this.openPopUpChangesArea()
+					  console.log(this.state.selectedTempArea)
 					}
 				  }
 				},
@@ -1061,7 +1095,11 @@ class ProductList extends Component {
 	  getAllDataFromBranch = async () => {
 		let area = this.state.selectedTempArea
 		this.props.change_branch(area)
-		await this.getProductList(true, true);
+		if (this.state.searchItem !== '') {
+			this.submitSearch()
+		} else {
+			await this.refreshProductList()
+		}
 		await this.getCart()
 		this.closePopUpChangesArea();
 	  }
