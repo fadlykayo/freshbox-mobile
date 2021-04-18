@@ -1,14 +1,18 @@
 <resources>
-    <string name="app_name">Freshbox</string>
+    <!-- production -->
+    <!-- <string name="app_name">Freshbox</string>
     <string name="facebook_app_id">266227334002571</string>
     <string name="fb_login_protocol_scheme">fb[266227334002571]</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
-		<!-- production -->
-		<string moduleConfig="true" name="CodePushDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
+		<string moduleConfig="true" name="CodePushDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string> -->
+
+
     <!-- staging -->
-    <!--<string name="app_name">Freshbox</string>
+    <string name="app_name">Freshbox</string>
     <string name="facebook_app_id">672686353357966</string>
     <string name="fb_login_protocol_scheme">fb[672686353357966]</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string>-->
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">Q1Su-B_k2C9uxIJtobQCbp2EPIqCFeomdbc-g</string>
 </resources>
