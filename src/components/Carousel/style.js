@@ -98,16 +98,19 @@ module.exports = {
 
     emptyStateView: {
       flex: 1,
-      backgroundColor: colour.grey,
+      backgroundColor: colour.white,
       justifyContent: 'center',
       alignItems: 'center',
+      width: width,
+      paddingVertical: 1.5,
+      paddingHorizontal: 20,
     },
 
     emptyText: {
       // fontFamily: Fonts.sfBold,
       fontWeight: 'bold',
       fontSize: 14,
-      color: 'pink'
+      color: colour.hotPink
     },
 
     indicator: {

@@ -122,6 +122,7 @@ class Dashboard extends Component {
         }
         if(this.props.navigation.state.params.action === 'reorder') {
          this.getProductList(false, true);
+         actNav.reset(navConstant.Dashboard)
         }
       }
     )
@@ -155,7 +156,8 @@ class Dashboard extends Component {
               ignoreModalArea: true
             }, () => {
               this.getListBranch(false)
-              this.openPopUpChangesArea()
+              // this.openPopUpChangesArea()
+              this.onConfirmSelectedArea()
             })
         }
       )
@@ -518,6 +520,7 @@ class Dashboard extends Component {
       });
       // this.navigateToCart();
     } 
+
     this.navigateToCart();
   };
 

@@ -403,6 +403,7 @@ const mapDispatchToProps = dispatch => ({
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	post_cart: (req, res, err) => dispatch(actions.product.api.post_cart(req, res, err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

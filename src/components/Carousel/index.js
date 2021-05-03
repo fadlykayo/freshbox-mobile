@@ -150,7 +150,7 @@ export default class Carousel extends PureComponent {
             /> */}
             {/* <Text Style={{fontSize: 21, color: 'white'}}>{product.name_banner}</Text> */}
 
-            {/* <Text Style={Styles.cover.emptyText}>No Image Available</Text> */}
+            <Text style={Styles.cover.emptyText}>Nantikan Promo Menarik Lainnya di Kota Anda!</Text>
           </View>
         );
       }
@@ -228,9 +228,15 @@ export default class Carousel extends PureComponent {
         </ScrollView>
 
         { this.renderIndicator(this.props.products, position)}
-        <TouchableOpacity style={Styles.button.container} onPress={this.navigateToCampaign}>
-          <Text style={Styles.button.text}>Lihat Semua</Text>
-        </TouchableOpacity>
+        {
+          this.props.products?.length > 0 ? (
+            <TouchableOpacity style={Styles.button.container} onPress={this.navigateToCampaign}>
+              <Text style={Styles.button.text}>Lihat Semua</Text>
+            </TouchableOpacity>
+          ) 
+          :
+          null
+        }
       </View>
     );
   };

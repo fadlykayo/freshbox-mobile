@@ -1,6 +1,6 @@
 {
   "name": "appcenter-crashes",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "summary": "React Native plugin for AppCenter Crashes",
   "license": "MIT",
   "homepage": "https://github.com/Microsoft/appcenter-sdk-react-native/blob/master/appcenter-crashes/README.md",
@@ -19,10 +19,10 @@
   "vendored_frameworks": "AppCenterReactNativeShared/AppCenterReactNativeShared.framework",
   "dependencies": {
     "AppCenterReactNativeShared": [
-
+      "~> 4.0"
     ],
     "AppCenter/Crashes": [
-
+      "~> 4.0"
     ],
     "React-Core": [
 
