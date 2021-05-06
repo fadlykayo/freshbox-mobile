@@ -133,12 +133,15 @@ class Checkout extends Component {
   }
 
   apiDeliveryDate() {
+    const branchID = this.props.selectedBranch.id
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
       },
       body: {},
-      params: {},
+      params: {
+        branch_id: branchID
+      }
     };
     this.props.get_delivery_date(
       payload,
