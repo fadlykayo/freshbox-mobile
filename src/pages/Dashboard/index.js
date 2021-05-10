@@ -11,6 +11,7 @@ import {
   Platform,
   TouchableOpacity,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {actNav, navConstant} from '@navigations';
@@ -91,6 +92,9 @@ class Dashboard extends Component {
       selectedTempArea: props.selectedBranch? props.selectedBranch : {
         id: 1
       },
+      isOpenBannerDetail: {status: false, data: {}},
+      isOpenProductDetail: {status: false, data: {}}
+
     };
     this.offSet = 0;
     this.showCheckout = new Animated.Value(0);
@@ -234,31 +238,36 @@ class Dashboard extends Component {
 
   handleDeepLink = () => {
     if (Platform.OS === 'android') {
-      Linking.getInitialURL().then((url) => {
-        this.navigate(url);
-      });
+      Linking.addEventListener('url', this.handleOpenURL)
+      // Linking.getInitialURL().then((url) => {
+      //   this.navigate(url);
+      // });
     } else {
       Linking.addEventListener('url', this.handleOpenURL);
     }
   };
 
   handleOpenURL = (event) => {
-    this.navigate(event.url);
+    this.navigate(event);
   };
 
-  navigate = (url) => {
-    // const route = url.replace(/.*?:\/\//g, '');
-    // const routeName = route.split('/');
-    // const routeTarget = routeName[0];
-    // const product = routeName[1].split("_").join(" ");
+  navigate = (e) => {
+    const url = e.url.replace(/.*?:\/\//g, '');
+    const id = url.match(/\/([^\/]+)\/?$/)[1].split('?')[0];
+    const branchID = url.match(/\/([^\/]+)\/?$/)[1].split('?')[1].split('=')[1]
+    const routeTarget = url.split('/')[0]
+    const selectedAreaWeb = this.props.listBranch?.filter(branch => branch.id == branchID)[0]
+    this.setSelectedArea(selectedAreaWeb)
     // // console.warn(routeName)
-    // switch (routeTarget) {
-    // 	case 'ProductList':
-    // 		this.submitSearch(product);
-    // 		break;
-    // 	default:
-    // 		break;
-    // }
+    if(routeTarget == '1'){
+      this.setState({
+        isOpenBannerDetail: {status: true, data: {id: id}}
+      })
+    } else if(routeTarget == '2') {
+      this.setState({
+        isOpenProductDetail: {status: true, data: {id, id}}
+      })
+    }
   };
 
   removeLinking = () => {
@@ -765,6 +774,9 @@ class Dashboard extends Component {
   openDetailProduct = (payload) => {
     this.props.detail_product(payload);
     this.setModalVisible('openProduct', true);
+    this.setState({
+      isOpenProductDetail: {status: false, data: {}}
+    })
   };
 
   closeDetailProduct = () => {
@@ -1026,10 +1038,14 @@ class Dashboard extends Component {
       payload,
       (res) => {
         if (product.links && product.links !== '') {
-          actNav.navigate(navConstant.BannerDetail, {links: product.links});
+          actNav.navigate(navConstant.BannerDetail, {links: product.links, onBackground: true});
         } else {
           actNav.navigate(navConstant.BannerDetail);
         }
+        this.setState({isOpenBannerDetail:{
+          status: false,
+          data: {}
+        }})
       },
       (err) => {},
     );
@@ -1196,6 +1212,7 @@ class Dashboard extends Component {
   setSelectedArea = (area) => {
     if(area.id === this.props.selectedBranch.id) {
       this.closeDialogCategories(true)
+      this.getAllDataFromBranch()
     } else {
       const data = {
         ...area,
@@ -1283,7 +1300,41 @@ class Dashboard extends Component {
     await this.getCart()
     await this.getBanner();
     await this.closePopUpChangesArea();
+
+    if(this.state.isOpenBannerDetail.status) {
+      this.navigateToBannerDetail(this.state.isOpenBannerDetail.data)
+    }
+
+    if (this.state.isOpenProductDetail.status) {
+      this.setDetailProduct(this.state.isOpenProductDetail.data.id)
+    }
   }
+
+  setDetailProduct = (code) => {
+    const branchID = this.state.selectedTempArea.id
+    let payload = {
+      header: {
+        apiToken: this.props.user ? this.props.user.authorization : '',
+      },
+      body: {},
+      params: {
+        product_code: code,
+        branch_id: branchID
+      },
+    };
+
+    this.props.get_product_detail(
+      payload,
+      (res) => {
+        if (res.code === 200) {
+          this.openDetailProduct(res.data.data[0])
+        }
+      },
+      (err) => {
+        actNav.reset(navConstant.Dashboard);
+      },
+    );
+  };
 
   render() {
     const introButton = this.showCheckout.interpolate({

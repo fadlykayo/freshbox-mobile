@@ -259,7 +259,8 @@ dependencies {
     implementation "com.facebook.fresco:animated-gif:1.9.0"
     implementation "com.facebook.fresco:animated-webp:1.9.0"
     implementation "com.facebook.fresco:webpsupport:1.9.0"
-    implementation "com.facebook.android:facebook-android-sdk:[5,6)"
+    // implementation 'com.facebook.android:facebook-android-sdk:4.26.0'
+    implementation 'com.facebook.android:facebook-core:[8,9)'
     implementation 'com.google.firebase:firebase-analytics:17.2.0' // <---
 
     // implementation(project(":react-native-fbsdk")){

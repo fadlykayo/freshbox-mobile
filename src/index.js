@@ -57,77 +57,89 @@ class App extends Component {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  handleDeepLink = (e) => {
-    if (e) {
-      this.navigateWithDeepLink(e);
-    }
-  };
+  // handleDeepLink = (e) => {
+  //   if (e) {
+  //     this.navigateWithDeepLink(e);
+  //   }
+  // };
 
-  navigateWithDeepLink = (e) => {
-    const url = e.url.replace(/.*?:\/\//g, '');
-    const id = url.match(/\/([^\/]+)\/?$/)[1];
-    const routname = url.split('/')[0];
-    if (routname === '0') {
-      actNav.reset(navConstant.Dashboard);
-    } else if (routname === '1' && id) {
-      let payload = {
-        header: {
-          apiToken: this.props.user ? this.props.user.authorization : '',
-        },
-        body: {},
-        params: {
-          bannerID: id,
-        },
-      };
+  // navigateWithDeepLink = (e) => {
+  //   const url = e.url.replace(/.*?:\/\//g, '');
+  //   const id = url.match(/\/([^\/]+)\/?$/)[1].split('?')[0];
+  //   const branchID = url.match(/\/([^\/]+)\/?$/)[1].split('?')[1].split('=')[1]
+    // console.log(url, id, branchID, 'deeplink url');
+    // console.log(e.url, 'initial deeplink url');
+    // const id = url.split('/')[1]
+    // const routname = url.split('/')[0];
+    // const branchID = url.split('/')[2];
+    // if (routname === '0') {
+    //   actNav.reset(navConstant.Dashboard);
+    // } else if (routname === '1' && id) {
+      // let payload = {
+      //   header: {
+      //     apiToken: this.props.user ? this.props.user.authorization : '',
+      //   },
+      //   body: {},
+      //   params: {
+      //     bannerID: id,
+      //     branch_id: branchID
+      //   },
+      // };
 
-      this.props.get_detail_banner(
-        payload,
-        (res) => {
-          if (res) {
-            actNav.navigate(navConstant.BannerDetail, {
-              onbackground: true,
-            });
-          }
-        },
-        (err) => {
-          actNav.reset(navConstant.Dashboard);
-        },
-      );
-      Linking.removeEventListener('url', this.handleDeepLink);
-    } else if (routname === '2' && id) {
-      this.setDetailProduct(id);
-    } else {
-    }
-  };
+      // this.props.get_detail_banner(
+      //   payload,
+      //   (res) => {
+      //     if (res) {
+      //       // actNav.navigate(navConstant.BannerDetail, {
+      //       //   links: res.data.links,
+      //       // });
 
-  setDetailProduct = (code) => {
-    let payload = {
-      header: {
-        apiToken: this.props.user ? this.props.user.authorization : '',
-      },
-      body: {},
-      params: {
-        product_code: code,
-      },
-    };
+      //       const {data} = res
 
-    this.props.get_product_detail(
-      payload,
-      (res) => {
-        if (res.code === 200) {
-          this.props.set_modal_visible(true);
-        }
-        // if(res) {
-        //     actNav.navigate(navConstant.BannerDetail, {
-        //         onbackground: true
-        //     })
-        // }
-      },
-      (err) => {
-        actNav.reset(navConstant.Dashboard);
-      },
-    );
-  };
+      //       // if (data.links && data.links !== '') {
+      //       //   actNav.navigate(navConstant.BannerDetail, {links: data.links});
+      //       // } else {
+      //       //   actNav.navigate(navConstant.BannerDetail);
+      //       // }
+      //     }
+      //   },
+      //   (err) => {
+      //     actNav.reset(navConstant.Dashboard);
+      //   },
+      // );
+    //   Linking.removeEventListener('url', this.handleDeepLink);
+    // } else if (routname === '2' && id) {
+      // this.setDetailProduct(id, branchID);
+  //   } else {
+  //   }
+  // };
+
+
+
+  // setDetailProduct = (code, branchID) => {
+  //   let payload = {
+  //     header: {
+  //       apiToken: this.props.user ? this.props.user.authorization : '',
+  //     },
+  //     body: {},
+  //     params: {
+  //       product_code: code,
+  //       branch_id: branchID
+  //     },
+  //   };
+
+  //   this.props.get_product_detail(
+  //     payload,
+  //     (res) => {
+  //       if (res.code === 200) {
+  //         this.props.set_modal_visible(true);
+  //       }
+  //     },
+  //     (err) => {
+  //       actNav.reset(navConstant.Dashboard);
+  //     },
+  //   );
+  // };
 
   handleAppStateChange = (nextAppState) => {
     // if(nextAppState !== "active") {
