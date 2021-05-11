@@ -251,7 +251,7 @@ class Dashboard extends Component {
     this.navigate(event);
   };
 
-  navigate = (e) => {
+  navigate = async (e) => {
     const url = e.url.replace(/.*?:\/\//g, '');
     const id = url.match(/\/([^\/]+)\/?$/)[1].split('?')[0];
     const branchID = url.match(/\/([^\/]+)\/?$/)[1].split('?')[1].split('=')[1]
@@ -259,6 +259,7 @@ class Dashboard extends Component {
     const selectedAreaWeb = this.props.listBranch?.filter(branch => branch.id == branchID)[0]
     this.setSelectedArea(selectedAreaWeb)
     // // console.warn(routeName)
+    await actNav.navigate(navConstant.Dashboard)
     if(routeTarget == '1'){
       this.setState({
         isOpenBannerDetail: {status: true, data: {id: id}}

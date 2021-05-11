@@ -57,13 +57,14 @@ class App extends Component {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  // handleDeepLink = (e) => {
-  //   if (e) {
-  //     this.navigateWithDeepLink(e);
-  //   }
-  // };
+  handleDeepLink = (e) => {
+    if (e) {
+      this.navigateWithDeepLink(e);
+    }
+  };
 
-  // navigateWithDeepLink = (e) => {
+  navigateWithDeepLink = (e) => {
+    // actNav.reset(navConstant.Dashboard);
   //   const url = e.url.replace(/.*?:\/\//g, '');
   //   const id = url.match(/\/([^\/]+)\/?$/)[1].split('?')[0];
   //   const branchID = url.match(/\/([^\/]+)\/?$/)[1].split('?')[1].split('=')[1]
@@ -112,7 +113,7 @@ class App extends Component {
       // this.setDetailProduct(id, branchID);
   //   } else {
   //   }
-  // };
+  };
 
 
 
