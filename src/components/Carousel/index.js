@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable prettier/prettier */
 import React, {Component, PureComponent} from 'react';
 import {
   View,
@@ -7,7 +9,7 @@ import {
   Text,
   Image,
   Dimensions,
-  Share
+  Share,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {actNav, navConstant} from '@navigations';
@@ -16,11 +18,19 @@ import {analytics, encode64} from '@helpers';
 import Styles from './style';
 import ButtonFav from '@components/ButtonFav';
 import images from '@assets';
+import Config from '@config';
 
 const {height, width} = Dimensions.get('window');
 
 const bannerWidth = width;
+let webUrl = '';
 
+if (Config.env == 'production'){
+  webUrl = 'https://freshbox.id';
+} else if (Config.env == 'staging') {
+  // webUrl = 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com:3000'
+  webUrl = 'localhost:3000';
+}
 
 export default class Carousel extends PureComponent {
   constructor (props) {
@@ -30,12 +40,12 @@ export default class Carousel extends PureComponent {
       scrollX: 0,
       count: 0,
     };
-  };
+  }
 
 
   componentDidMount() {
     // this.startInterval();
-  };
+  }
 
   startInterval() {
     if (this.props.products !== null) {
@@ -53,23 +63,23 @@ export default class Carousel extends PureComponent {
             this.setState({
               count: Math.round((this.state.scrollX / bannerWidth) + 1),
             });
-          };
-        };
+          }
+        }
 
         if (this.state.count >= this.props.products.length) {
           this.setState({
             count: 0,
           });
-        };
+        }
 
         this.refs.cover.scrollTo({x: this.state.count * bannerWidth, animated: true});
       }, 4000);
     }
-  };
+  }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  };
+  }
 
   onScrollEvent = () => (e) => {
     this.setState({scrollX: e.nativeEvent.contentOffset.x});
@@ -89,8 +99,8 @@ export default class Carousel extends PureComponent {
           </View>
         </LinearGradient>
       );
-    };
-  };
+    }
+  }
 
   renderCover(products) {
     if (this.props.rewardDetail && products.length !== 0) {
@@ -119,7 +129,7 @@ export default class Carousel extends PureComponent {
                 <Image
                   style={Styles.cover.image(this.props.size)}
                   source={{uri: product.images_dashboard_mobile_url_original}}
-                  resizeMode='cover'
+                  resizeMode="cover"
                 />
               </TouchableOpacity>
               <View style={{position: 'absolute', right: 5, top: -10, zIndex: 9}}>
@@ -156,7 +166,7 @@ export default class Carousel extends PureComponent {
       }
     }
 
-  };
+  }
 
   navigateToBannerDetail = (product) => {
     this.props.navigateToBannerDetail(product);
@@ -183,11 +193,14 @@ export default class Carousel extends PureComponent {
       );
     }
 
-  };
+  }
 
   onShare = async (data) => {
+    const branchID = this.props.branch_id;
     let encryptCode = encode64.btoa(data.id);
-    const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`;
+    const url = `${webUrl}/link?code_link=1&code_data=${encryptCode}&branch_id=${branchID}`;
+    // const url = `192.168.100.62:3000/link?code_link=1&code_data=${encryptCode}&branch_id=${branchID}`
+
     // const product = data.name.split(" ").join("_");
     try {
       const result = await Share.share({
@@ -219,7 +232,7 @@ export default class Carousel extends PureComponent {
           horizontal
           pagingEnabled
           bounces={false}
-          ref='cover'
+          ref="cover"
           onScroll={this.onScrollEvent()}
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
@@ -230,14 +243,16 @@ export default class Carousel extends PureComponent {
         { this.renderIndicator(this.props.products, position)}
         {
           this.props.products?.length > 0 ? (
-            <TouchableOpacity style={Styles.button.container} onPress={this.navigateToCampaign}>
+          <TouchableOpacity
+            style={Styles.button.container}
+            onPress={this.navigateToCampaign}>
               <Text style={Styles.button.text}>Lihat Semua</Text>
             </TouchableOpacity>
-          ) 
+          )
           :
           null
         }
       </View>
     );
-  };
-};
+  }
+}

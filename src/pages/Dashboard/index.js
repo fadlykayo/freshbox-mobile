@@ -1406,6 +1406,7 @@ class Dashboard extends Component {
               navigateToCampaign={this.navigateToCampaign}
               user={this.props.user}
               onShare={onShare}
+              branch_id={this.state.selectedTempArea.id}
             />
 
             <PromoList

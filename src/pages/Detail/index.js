@@ -250,6 +250,7 @@ class Detail extends Component {
           this.props.detailTransaction.grand_total -
           this.props.detailTransaction.discount_ammount,
       });
+      console.log(this.props.detailTransaction)
     } else {
       this.getDeliveryPrice();
     }

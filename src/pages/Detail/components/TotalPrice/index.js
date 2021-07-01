@@ -119,6 +119,7 @@ class TotalPrice extends Component {
     }
 
     render() {
+        console.log(this.props.grandTotal, this.props.freeShipping, 'grand total')
         // const subTotal = numeral(this.props.subTotal).format('0,0');
         // const deliveryPrice = numeral(this.props.delivery_price).format('0,0');
         // const grandTotal = numeral(this.props.grandTotal).format('0,0');
@@ -156,8 +157,8 @@ class TotalPrice extends Component {
         }
 
         if (this.props.action == undefined || this.props.action == 'history') {
-            // grandTotal = numeral(this.props.grandTotal).format('0,0');
-            grandTotal = numeral(this.props.subtotalHistory - this.props.discount).format('0,0');
+            grandTotal = numeral(this.props.grandTotal).format('0,0');
+            // grandTotal = numeral(this.props.subtotalHistory - this.props.discount).format('0,0');
         }
 
 

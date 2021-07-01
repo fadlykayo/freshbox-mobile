@@ -1,14 +1,16 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList, Keyboard, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
-import AlertDialog from '@components/AlertDialog'; 
+import AlertDialog from '@components/AlertDialog';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
-import EmptyState from '@components/EmptyState'
+import EmptyState from '@components/EmptyState';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import { language, onShare } from '@helpers';
 import styles from './styles';
@@ -20,7 +22,7 @@ const { width, height } = Dimensions.get('window');
 class Favourites extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state = {
 			totalPrice: 0,
 			search: false,
 			scrollX: 0,
@@ -33,7 +35,7 @@ class Favourites extends Component {
 				openImageDetail: false,
 			},
 			selectedProduct: null,
-		}
+		};
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -56,13 +58,13 @@ class Favourites extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.closeDrawer) {
+		if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
 	}
 
 	openDrawerMenu = () => {
-        
+
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	}
@@ -78,14 +80,14 @@ class Favourites extends Component {
 	getPositionIndex(e) {
         this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
             this.getPositionBubble();
-        })
+        });
     }
-    
+
     getPositionBubble() {
-        let position = Math.round(this.state.scrollX/(width* 0.18));
+        let position = Math.round(this.state.scrollX / (width * 0.18));
 
         if (this.state.bubble != position) {
-            this.setState({ bubble: position })
+            this.setState({ bubble: position });
         }
     }
 
@@ -98,16 +100,16 @@ class Favourites extends Component {
 	getFavorites() {
 		let payload = {
 			header: {
-				apiToken: this.props.user.authorization
+				apiToken: this.props.user.authorization,
 			},
 			params:{},
-		}
+		};
 		this.props.get_favorites(payload,
 			() => {
-				this.setState({refreshing: false})
+				this.setState({refreshing: false});
 			},
-			(err) => {}
-		)
+			(_err) => {}
+		);
 	}
 
 	toggleFavorite(payload){
@@ -120,18 +122,18 @@ class Favourites extends Component {
 			let data = {
 				request: {
 					header: {
-						apiToken: this.props.user.authorization
+						apiToken: this.props.user.authorization,
 					},
 					body: {
-						product_code: payload.code
-					}
+						product_code: payload.code,
+					},
 				},
-				favorite: payload
-			}
+				favorite: payload,
+			};
 			this.props.add_favorite(data,
 				() => {},
-				(err) => {}
-			)
+				(_err) => {}
+			);
 		}
 	}
 
@@ -140,15 +142,15 @@ class Favourites extends Component {
         modalVisible[type] = value;
 		this.setState({modalVisible});
 	}
-	
+
 	openDetailProduct(payload){
 		this.props.detail_product(payload);
 		this.setModalVisible('openProduct',true);
 	}
-	
+
 	closeDetailProduct(){
-		if(this.props.setModalVisible) {
-			this.props.set_modal_visible(!this.props.setModalVisible)
+		if (this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible);
 		  }
 		this.setModalVisible('openProduct',false);
 	}
@@ -162,13 +164,13 @@ class Favourites extends Component {
       });
     } else {
       this.props.change_total(payload, type);
-	  this.storeCart(payload, type)
+	  this.storeCart(payload, type);
     }
 	}
 
 	storeCart = (cart, type) => {
-		const branchID = this.props.selectedBranch.id
-		if(this.props.user){
+		const branchID = this.props.selectedBranch.id;
+		if (this.props.user){
 		  let buyProducts = {
 			product_code: cart.code,
 			qty: 1,
@@ -189,7 +191,7 @@ class Favourites extends Component {
 				: 0,
 			quota_claim: Number(cart.quota_claim || 0),
 			type: type,
-			branch_id: branchID
+			branch_id: branchID,
 		  };
 			let payload = {
 			  header: {
@@ -197,26 +199,26 @@ class Favourites extends Component {
 			  },
 			  body: buyProducts,
 			};
-	
+
 			this.props.post_cart(
 			  payload,
-			  (res) => {
+			  (_res) => {
 				// this.getCart()
 			  },
-			  (err) => {},
+			  (_err) => {},
 			);
-		  } 
+		  }
 	  }
 
 	  getCart = () => {
-		if(this.props.user) {
+		if (this.props.user) {
 		  let payload = {
 			header: {
 			  apiToken: this.props.user ? this.props.user.authorization : '',
 			},
 			params: '',
 		  };
-		  this.props.get_cart(payload)
+		  this.props.get_cart(payload);
 		}
 	  }
 
@@ -224,20 +226,20 @@ class Favourites extends Component {
 		let data = {
 			request: {
 				header: {
-					apiToken: this.props.user.authorization
+					apiToken: this.props.user.authorization,
 				},
-				body: {}
+				body: {},
 			},
-			favorite: this.state.selectedProduct
-		}
+			favorite: this.state.selectedProduct,
+		};
 		this.props.delete_favorite(data,
 			() => {
 				this.setModalVisible('alertDialog',false);
 				this.setModalVisible('openProduct',false);
 			},
-			(err) => {}
-		)
-		
+			(_err) => {}
+		);
+
 	}
 
 	clearProductCancelation(){
@@ -246,7 +248,7 @@ class Favourites extends Component {
 
 	validateCart(){
 		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
-		if(outStockCart.length > 0){
+		if (outStockCart.length > 0){
 			language.transformText('message.outOfStock')
 			.then(message => {
 				this.props.set_error_status({
@@ -263,7 +265,7 @@ class Favourites extends Component {
 
 	navigateToCart(){
 		actNav.navigate(navConstant.Cart,{
-			createOrderHandler: this.createOrderHandler
+			createOrderHandler: this.createOrderHandler,
 		});
 	}
 
@@ -277,8 +279,8 @@ class Favourites extends Component {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
-			invoice: input
-		}
+			invoice: input,
+		};
 		this.refreshHandler();
 		this.props.detail_transaction(payload,
 			() => {
@@ -287,8 +289,8 @@ class Favourites extends Component {
 					createOrderSuccess: true,
 				});
 			},
-			(err) => {}
-		)
+			(_err) => {}
+		);
 	}
 
 	render(){
@@ -297,7 +299,7 @@ class Favourites extends Component {
 				bgColorBottom={'veryLightGrey'}
 				bgColorTop={'red'}
 			>
-				<NavigationBar 
+				<NavigationBar
 					title={'favourites.navigationTitle'}
 					menubar
 					openDrawer={this.openDrawerMenu}
@@ -306,24 +308,24 @@ class Favourites extends Component {
 					<View style={styles.subcontainer.cart}>
 
 						{
-							this.props.wishlist.length == 0 ? 
-							
+							this.props.wishlist.length === 0 ?
+
 							<EmptyState
 								image={images.empty_favorite}
-								property='emptyState.favorites'
+								property="emptyState.favorites"
 							/> :
 							<FlatList
 								data={this.props.wishlist}
 								onRefresh={this.refreshHandler}
 								refreshing={this.state.refreshing}
-								keyExtractor={(item,index) => index.toString()}
+								keyExtractor={(_item,index) => index.toString()}
 								renderItem={({item,index}) => (
 									<ProductItem
 										search={this.state.search}
 										key={index}
 										data={item}
 										type={'favorites'}
-										index={index+1}
+										index={index + 1}
 										user={this.props.user}
 										toggleFavorite={this.toggleFavorite}
 										changeTotalItem={this.changeTotalItem}
@@ -334,8 +336,8 @@ class Favourites extends Component {
 							/>
 
 						}
-						
-						
+
+
 					</View>
 					<Checkout
 						totalCount={this.props.total_count}
@@ -361,14 +363,14 @@ class Favourites extends Component {
 					onShare={onShare}
 				/>
 				<ModalLoginConfirmation
-					onPress={this.navigateToSignIn} 
+					onPress={this.navigateToSignIn}
 					modalVisible={this.state.modalVisible.modalLoginConfirmation}
 				/>
 				<AlertDialog
-					modalVisible={this.state.modalVisible.alertDialog} 
+					modalVisible={this.state.modalVisible.alertDialog}
 					content={'dialog.clearFavorite'}
 					params={{
-						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
+						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name,
 					}}
 					requestHandler={this.clearProductConfirmation}
 					requestCancel={this.clearProductCancelation}
