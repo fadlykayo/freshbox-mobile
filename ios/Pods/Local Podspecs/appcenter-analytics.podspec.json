@@ -1,6 +1,6 @@
 {
   "name": "appcenter-analytics",
-  "version": "4.0.0",
+  "version": "4.2.0",
   "summary": "React Native plugin for AppCenter Analytics",
   "license": "MIT",
   "homepage": "https://github.com/Microsoft/appcenter-sdk-react-native/blob/master/appcenter-analytics/README.md",
@@ -19,10 +19,10 @@
   "vendored_frameworks": "AppCenterReactNativeShared/AppCenterReactNativeShared.framework",
   "dependencies": {
     "AppCenterReactNativeShared": [
-
+      "~> 4.0"
     ],
     "AppCenter/Analytics": [
-
+      "~> 4.0"
     ],
     "React-Core": [
 

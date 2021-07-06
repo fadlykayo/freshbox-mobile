@@ -117,8 +117,8 @@ actions.get_cart = (req, success, failure) => {
   payload2.path = path.getCart;
   payload2.header = req.header;
   payload2.body = req.body;
-  payload2.params =  {
-    session_cart: 1
+  payload2.params = {
+    session_cart: 1,
   };
 
   return (dispatch) => {

@@ -8,29 +8,31 @@ const actions = {};
 let payload = {
   path: '',
   header: {},
-  body: {}
+  body: {},
 };
 
 actions.checkVoucherValidity = (req, success, failure) => {
-
   payload.path = path.checkVoucher;
   payload.header = req.header;
   payload.body = req.body;
 
-  return dispatch => {
+  return (dispatch) => {
     requestHandler('post', payload, dispatch)
       .then((res) => {
         if (res.code) {
           if (res.code == 200) {
-            if (res.data.grand_total_diskon <= 0 || res.data.grand_total_diskon == null) {
-
+            if (
+              res.data.grand_total_diskon <= 0 ||
+              res.data.grand_total_diskon == null
+            ) {
               if (!res.data.length) {
                 dispatch(actReducer.cancel_voucher(req.body.subtotal));
-                dispatch(actNetwork.set_error_status({
-                  status: true,
-                  data: res.code_message
-                }));
-
+                dispatch(
+                  actNetwork.set_error_status({
+                    status: true,
+                    data: res.code_message,
+                  }),
+                );
 
                 failure();
               }
@@ -38,7 +40,6 @@ actions.checkVoucherValidity = (req, success, failure) => {
               dispatch(actReducer.set_discount_total(res.data));
               success();
             }
-
           }
         }
       })
@@ -53,34 +54,36 @@ actions.checkVoucherValidity = (req, success, failure) => {
               break;
             case 403:
               dispatch(actReducer.cancel_voucher(req.body.subtotal));
-              dispatch(actNetwork.set_error_status({
-                status: true,
-                data: err.data.coupon_code[0]
-              }));
+              dispatch(
+                actNetwork.set_error_status({
+                  status: true,
+                  data: err.data.coupon_code[0],
+                }),
+              );
               failure();
               break;
             default:
               dispatch(actReducer.cancel_voucher(req.body.subtotal));
-              dispatch(actNetwork.set_error_status({
-                status: true,
-                data: err.code_message
-              }));
+              dispatch(
+                actNetwork.set_error_status({
+                  status: true,
+                  data: err.code_message,
+                }),
+              );
               failure();
               break;
           }
         }
       });
-
   };
 };
 
 actions.cancel_voucher = (req, success, failure) => {
-
   payload.path = path.cancelVoucher;
   payload.header = req.header;
   payload.body = req.body;
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(actReducer.cancel_voucher(req.body.subtotal));
     success();
   };

@@ -152,7 +152,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 33
-        versionName "2.4.0"
+        versionName "2.4.3"
         multiDexEnabled true
         manifestPlaceholders = [onesignal_app_id: "c1f39bb2-11d8-4ebf-b836-61a0131fb3fa",
                                 onesignal_google_project_number: "REMOTE"]
@@ -259,7 +259,7 @@ dependencies {
     implementation "com.facebook.fresco:animated-gif:1.9.0"
     implementation "com.facebook.fresco:animated-webp:1.9.0"
     implementation "com.facebook.fresco:webpsupport:1.9.0"
-    implementation "com.facebook.android:facebook-android-sdk:[5,6)"
+    implementation "com.facebook.android:facebook-android-sdk:[7.10,9)"
     implementation 'com.google.firebase:firebase-analytics:17.2.0' // <---
 
     // implementation(project(":react-native-fbsdk")){

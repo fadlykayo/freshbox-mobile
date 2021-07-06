@@ -86,7 +86,6 @@ actions.bulk_add_products = (req, success, failure) => {
       payload.body.splice(i, 1);
     }
   });
-
   return (dispatch) => {
     requestHandler('post', payload, dispatch)
       .then((res) => {
@@ -97,7 +96,6 @@ actions.bulk_add_products = (req, success, failure) => {
         }
       })
       .catch((err) => {
-        console.warn(err.code)
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
         } else {
@@ -114,16 +112,16 @@ actions.bulk_add_products = (req, success, failure) => {
                     }),
                   );
                   dispatch(actReducer.validate_cart(err.data));
-                  failure(err)
+                  failure(err);
                 });
               break;
-              case 403:
-                dispatch(
-                  actNetwork.set_error_status({
-                    status: true,
-                    data: JSON.stringify(err.code_message),
-                  }),
-                );
+            case 403:
+              dispatch(
+                actNetwork.set_error_status({
+                  status: true,
+                  data: JSON.stringify(err.code_message),
+                }),
+              );
               break;
             default:
               dispatch(

@@ -99,7 +99,7 @@ class Dashboard extends Component {
     await this.checkCart();
     await this.getHistoryData();
     await this.hideFilterAnimation();
-    await this.getCart()
+    await this.getCart();
   }
 
   componentWillUnmount = () => {
@@ -323,18 +323,21 @@ class Dashboard extends Component {
   };
 
   getCart = () => {
-    if(this.props.user && this.props.navigation.state.params.action !== 'reorder') {
+    if (
+      this.props.user &&
+      this.props.navigation.state.params.action !== 'reorder'
+    ) {
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : '',
         },
       };
-      this.props.get_cart(payload)
+      this.props.get_cart(payload);
     }
     // if(this.props.saved_carts.length > 0) {
     //   this.props.get_saved_carts(this.props.saved_carts)
     // }
-  }
+  };
 
   getProductList = (fromDashboard, refresh = false) => {
     let payload = {
@@ -345,6 +348,7 @@ class Dashboard extends Component {
       params: refresh
         ? {
             per_page: String(this.props.product.length),
+            // per_page: '400',
           }
         : this.props.params,
       // params: {
@@ -399,12 +403,12 @@ class Dashboard extends Component {
         });
       });
       // this.navigateToCart();
-    } 
+    }
     this.navigateToCart();
   };
 
   storeCart = (cart, type) => {
-    if(this.props.user){
+    if (this.props.user) {
       let buyProducts = {
         product_code: cart.code,
         qty: 1,
@@ -419,29 +423,28 @@ class Dashboard extends Component {
         remaining_quota:
           Number(cart.on_promo) === 1
             ? Number(cart.quota_claim) > 0
-              ? Number(cart.quota_claim) -
-                Number(cart.total_claim_product || 0)
+              ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0)
               : 0
             : 0,
         quota_claim: Number(cart.quota_claim || 0),
-        type: type
+        type: type,
       };
-        let payload = {
-          header: {
-            apiToken: this.props.user.authorization,
-          },
-          body: buyProducts,
-        };
+      let payload = {
+        header: {
+          apiToken: this.props.user.authorization,
+        },
+        body: buyProducts,
+      };
 
-        this.props.post_cart(
-          payload,
-          (res) => {
-            // this.getCart()
-          },
-          (err) => {},
-        );
-      } 
-  }
+      this.props.post_cart(
+        payload,
+        (res) => {
+          // this.getCart()
+        },
+        (err) => {},
+      );
+    }
+  };
 
   navigateToCart = () => {
     if (this.props.cart_product.length) {
@@ -475,23 +478,23 @@ class Dashboard extends Component {
           },
           body: buyProducts,
         };
-      //   this.props.bulk_add_products(
-      //     payload,
-      //     (res) => {
-      //       // if(this.props.saved_carts.length > 0) {
-      //       //   this.props.save_cart([])
-      //       // }
-      //       actNav.navigate(navConstant.Cart, {
-      //         createOrderHandler: this.createOrderHandler,
-      //       });
-      //     },
-      //     (err) => {},
-      //   );
-      // } else {
-      //   // this.props.save_cart(this.props.cart_product)
-      //   actNav.navigate(navConstant.Cart, {
-      //     createOrderHandler: this.createOrderHandler,
-      //   });
+        //   this.props.bulk_add_products(
+        //     payload,
+        //     (res) => {
+        //       // if(this.props.saved_carts.length > 0) {
+        //       //   this.props.save_cart([])
+        //       // }
+        //       actNav.navigate(navConstant.Cart, {
+        //         createOrderHandler: this.createOrderHandler,
+        //       });
+        //     },
+        //     (err) => {},
+        //   );
+        // } else {
+        //   // this.props.save_cart(this.props.cart_product)
+        //   actNav.navigate(navConstant.Cart, {
+        //     createOrderHandler: this.createOrderHandler,
+        //   });
       }
       actNav.navigate(navConstant.Cart, {
         createOrderHandler: this.createOrderHandler,
@@ -677,7 +680,7 @@ class Dashboard extends Component {
       });
     } else {
       this.props.change_total(payload, type);
-      this.storeCart(payload, type)
+      this.storeCart(payload, type);
     }
   };
 
@@ -984,7 +987,7 @@ class Dashboard extends Component {
       this.getBanner();
       this.checkCart();
       this.getHistoryData();
-      this.getCart()
+      this.getCart();
     });
     this.setState({refreshing: false});
   };
@@ -1222,7 +1225,7 @@ const mapStateToProps = (state) => ({
   last_page: state.product.last_page,
   announcement: state.utility.announcement,
   setModalVisible: state.product.setModalVisible,
-  saved_carts: state.carts.carts
+  saved_carts: state.carts.carts,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -1272,8 +1275,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.get_product_detail(req, res, err)),
   bulk_add_products: (req, res, err) =>
     dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
-  save_cart: (payload) =>
-    dispatch(actions.cart.reducer.save_cart(payload)),
+  save_cart: (payload) => dispatch(actions.cart.reducer.save_cart(payload)),
   get_saved_carts: (req, res, err) =>
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
 });

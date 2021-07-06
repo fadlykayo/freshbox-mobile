@@ -151,70 +151,71 @@ class Cart extends Component {
       });
     } else {
       this.props.change_total(payload, type);
-      this.storeCart(payload, type)
+      this.storeCart(payload, type);
     }
   }
 
   storeCart = (cart, type) => {
-		if(this.props.user){
-		  let buyProducts = {
-			product_code: cart.code,
-			qty: 1,
-			status_promo: cart.on_promo,
-			cart_price: cart.price,
-			cart_promo_price:
-			  Number(cart.on_promo) === 1
-				? cart.banner_harga_jual
-				  ? cart.banner_harga_jual
-				  : cart.promo_price
-				: cart.promo_price,
-			remaining_quota:
-			  Number(cart.on_promo) === 1
-				? Number(cart.quota_claim) > 0
-				  ? Number(cart.quota_claim) -
-					Number(cart.total_claim_product || 0)
-				  : 0
-				: 0,
-			quota_claim: Number(cart.quota_claim || 0),
-			type: type
-		  };
-			let payload = {
-			  header: {
-				apiToken: this.props.user.authorization,
-			  },
-			  body: buyProducts,
-			};
-	
-			this.props.post_cart(
-			  payload,
-			  (res) => {
-				// this.getCart()
-			  },
-			  (err) => {},
-			);
-		  } 
-	  }
+    if (this.props.user) {
+      let buyProducts = {
+        product_code: cart.code,
+        qty: 1,
+        status_promo: cart.on_promo,
+        cart_price: cart.price,
+        cart_promo_price:
+          Number(cart.on_promo) === 1
+            ? cart.banner_harga_jual
+              ? cart.banner_harga_jual
+              : cart.promo_price
+            : cart.promo_price,
+        remaining_quota:
+          Number(cart.on_promo) === 1
+            ? Number(cart.quota_claim) > 0
+              ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0)
+              : 0
+            : 0,
+        quota_claim: Number(cart.quota_claim || 0),
+        type: type,
+      };
+      let payload = {
+        header: {
+          apiToken: this.props.user.authorization,
+        },
+        body: buyProducts,
+      };
 
-    getCart = () => {
-      if(this.props.user) {
-        let payload = {
-          header: {
-            apiToken: this.props.user ? this.props.user.authorization : '',
-          },
-          params: '',
-        };
-        this.props.get_cart(payload)
-      }
+      this.props.post_cart(
+        payload,
+        (res) => {
+          // this.getCart()
+        },
+        (err) => {},
+      );
     }
+  };
+
+  getCart = () => {
+    if (this.props.user) {
+      let payload = {
+        header: {
+          apiToken: this.props.user ? this.props.user.authorization : '',
+        },
+        params: '',
+      };
+      this.props.get_cart(payload);
+    }
+  };
 
   clearProductConfirmation() {
-    let buyProducts = this.checkCart()
-    buyProducts = buyProducts.filter(product => product.product_code !== this.state.selectedProduct.code)
+    let buyProducts = this.checkCart();
+    buyProducts = buyProducts.filter(
+      (product) => product.product_code !== this.state.selectedProduct.code,
+    );
     this.setModalVisible('alertDialog', false);
     // this.setModalVisible('openProduct', false);
     this.props.change_total(this.state.selectedProduct, 'desc');
-    if(this.props.user) {
-      this.postProductOfCart(buyProducts)
+    if (this.props.user) {
+      this.postProductOfCart(buyProducts);
     }
   }
 
@@ -224,31 +225,30 @@ class Cart extends Component {
 
   checkCart = () => {
     let buyProducts = [];
-      this.props.cart_product.map((cart) => {
-        buyProducts.push({
-          product_code: cart.code,
-          qty: cart.count,
-          status_promo: cart.on_promo,
-          cart_price: cart.price,
-          cart_promo_price:
-            Number(cart.on_promo) === 1
+    this.props.cart_product.map((cart) => {
+      buyProducts.push({
+        product_code: cart.code,
+        qty: cart.count,
+        status_promo: cart.on_promo,
+        cart_price: cart.price,
+        cart_promo_price:
+          Number(cart.on_promo) === 1
+            ? cart.banner_harga_jual
               ? cart.banner_harga_jual
-                ? cart.banner_harga_jual
-                : cart.promo_price
-              : cart.promo_price,
-          remaining_quota:
-            Number(cart.on_promo) === 1
-              ? Number(cart.quota_claim) > 0
-                ? Number(cart.quota_claim) -
-                  Number(cart.total_claim_product || 0)
-                : 0
-              : 0,
-          quota_claim: Number(cart.quota_claim || 0),
-        });
+              : cart.promo_price
+            : cart.promo_price,
+        remaining_quota:
+          Number(cart.on_promo) === 1
+            ? Number(cart.quota_claim) > 0
+              ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0)
+              : 0
+            : 0,
+        quota_claim: Number(cart.quota_claim || 0),
       });
+    });
 
-      return buyProducts
-  }
+    return buyProducts;
+  };
 
   postProductOfCart = (buyProducts, moveScreen = false) => {
     let payload = {
@@ -261,17 +261,17 @@ class Cart extends Component {
     this.props.bulk_add_products(
       payload,
       (res) => {
-        if(moveScreen) {
+        if (moveScreen) {
           actNav.navigate(navConstant.Checkout, {
             key: this.props.navigation.state.key,
-            createOrderHandler: this.props.navigation.state.params
-              .createOrderHandler,
+            createOrderHandler:
+              this.props.navigation.state.params.createOrderHandler,
           });
         }
       },
       (err) => {},
     );
-  }
+  };
 
   navigateToCheckout() {
     if (this.props.cart_product.length == 0) {
@@ -284,9 +284,9 @@ class Cart extends Component {
       });
     } else {
       this.props.remove_empty_items();
-      let buyProducts = this.checkCart()
+      let buyProducts = this.checkCart();
       if (this.props.user && this.props.user.user.phone_number) {
-        this.postProductOfCart(buyProducts, true)
+        this.postProductOfCart(buyProducts, true);
       } else if (this.props.user && !this.props.user.user.phone_number) {
         this.setModalVisible('modalPhoneConfirmation', true);
       } else {
@@ -335,18 +335,18 @@ class Cart extends Component {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => {
                 return (
-                    <ProductItem
-                      search={this.state.search}
-                      key={index}
-                      data={item}
-                      type={'cart'}
-                      index={index + 1}
-                      user={this.props.user}
-                      changeTotalItem={this.changeTotalItem}
-                      productLength={this.props.cart_product.length}
-                      openDetailProduct={this.openDetailProduct}
-                    />
-                )
+                  <ProductItem
+                    search={this.state.search}
+                    key={index}
+                    data={item}
+                    type={'cart'}
+                    index={index + 1}
+                    user={this.props.user}
+                    changeTotalItem={this.changeTotalItem}
+                    productLength={this.props.cart_product.length}
+                    openDetailProduct={this.openDetailProduct}
+                  />
+                );
               }}
             />
           </View>

@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 import ct from '@constants';
 import images from '@assets';
 import action from '../actions/product/reducer';
-import { hasObjectValue } from '@helpers';
+import {hasObjectValue} from '@helpers';
 
 const initialState = {
   last_page: 0,
@@ -124,7 +125,6 @@ const getProducts = (state, payload) => {
   newState.last_page = payload.data.last_page;
 
   for (x in incomingProducts) {
-
     let sameValue = false;
     for (y in existingProducts) {
       if (incomingProducts[x].code == existingProducts[y].code) {
@@ -132,7 +132,7 @@ const getProducts = (state, payload) => {
           {},
           incomingProducts[x],
           // existingProducts[y],
-          );
+        );
         sameValue = true;
         break;
       }
@@ -186,48 +186,75 @@ const getProducts = (state, payload) => {
 
 const getFavorites = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
-  let incomingProducts = payload.data.data;
-  let existingProducts = newState.wishlist.products.slice();
-  let productList = newState.products.slice();
+  // let incomingProducts = payload.data.data;
+  // let existingProducts = newState.wishlist.products.slice();
+  // let productList = newState.products.slice();
 
-  for (x in incomingProducts) {
-    let sameValue = false;
-    for (y in existingProducts) {
-      if (incomingProducts[x].code == existingProducts[y].code) {
-        existingProducts[y] = Object.assign(
-          {},
-          existingProducts[y],
-          incomingProducts[x],
-        );
-        sameValue = true;
-        break;
-      }
-    }
-    if (sameValue == false) {
-      existingProducts.push(incomingProducts[x]);
-    }
-  }
+  // for (x in incomingProducts) {
+  //   let sameValue = false;
+  //   for (y in existingProducts) {
+  //     if (incomingProducts[x].code == existingProducts[y].code) {
+  //       existingProducts[y] = Object.assign(
+  //         {},
+  //         existingProducts[y],
+  //         incomingProducts[x],
+  //       );
+  //       sameValue = true;
+  //       break;
+  //     }
+  //   }
+  //   if (sameValue == false) {
+  //     existingProducts.push(incomingProducts[x]);
+  //   }
+  // }
 
-  newState.wishlist.products = existingProducts
-    .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-    .map((e) => {
-      let productItem = productList.filter((p) => e.code == p.code);
-      if (productItem.length > 0) {
-        return productItem[0];
-      } else {
-        if (!e.count) {
-          e.count = 0;
-        }
-        if (!e.maxQty) {
-          e.maxQty = 1000;
-        }
-        if (e.total_claim_product !== undefined) {
-          e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim;
-        }
-        return e;
+  // newState.wishlist.products = existingProducts
+  //   .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+  //   .map((e) => {
+  //     let productItem = productList.filter((p) => e.code == p.code);
+  //     if (productItem.length > 0) {
+  //       return productItem[0];
+  //     } else {
+  //       if (!e.count) {
+  //         e.count = 0;
+  //       }
+  //       if (!e.maxQty) {
+  //         e.maxQty = 1000;
+  //       }
+  //       if (e.total_claim_product !== undefined) {
+  //         e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim;
+  //       }
+  //       return e;
+  //     }
+  //   })
+  //   .filter((e) => e.stock > 0);
+  let cartList = newState.cart.products;
+  newState.wishlist.products = payload.data.data;
+
+  newState.wishlist.products = payload.data.data.map((e) => {
+    let cartItem = cartList.findIndex((p) => e.code == p.code);
+    if (cartItem !== -1) {
+      if (!e.count) {
+        e.count = cartList[cartItem].count;
       }
-    })
-    .filter((e) => e.stock > 0);
+
+      if (!e.maxQty) {
+        e.maxQty = 1000;
+      }
+
+      cartList[cartItem] = e;
+
+      return e;
+    } else {
+      if (!e.count) {
+        e.count = 0;
+      }
+      if (!e.maxQty) {
+        e.maxQty = 1000;
+      }
+      return e;
+    }
+  });
 
   return newState;
 };
@@ -314,6 +341,11 @@ const changeCategory = (state, payload) => {
 
 const getDetail = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
+
+  if (payload.data.product) {
+    payload.data = {...payload.data, ...payload.data.product};
+  }
+
   newState.detail = payload.data;
   return newState;
 };
@@ -393,10 +425,7 @@ const getPromo = (state, payload) => {
           incomingProducts[x],
         );
 
-        currentCart[y] = Object.assign(
-          {},
-          incomingProducts[x],
-        );
+        currentCart[y] = Object.assign({}, incomingProducts[x]);
         break;
       }
     }
@@ -420,13 +449,17 @@ const getPromo = (state, payload) => {
     }
   });
 
-  let filteredProduct = promoProduct.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x);
+  let filteredProduct = promoProduct.filter(
+    (x) =>
+      Number(x.quota_claim) === 0 ||
+      (Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x),
+  );
   newState.promoProduct = filteredProduct;
 
   let count = 0;
   let total = 0;
 
-  for(i in currentCart){
+  for (i in currentCart) {
     let promoQty = 0;
     let normalQty = 0;
     let promoPrice = currentCart[i].promo_price;
@@ -438,36 +471,66 @@ const getPromo = (state, payload) => {
       promoPrice = currentCart[i].banner_harga_jual;
     }
 
-    if ((currentCart[i].total_claim_product === undefined || currentCart[i].total_claim_product === null) && Number(currentCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
-      if (Number(currentCart[i].quota_claim) === 0 ) {
+    if (
+      (currentCart[i].total_claim_product === undefined ||
+        currentCart[i].total_claim_product === null) &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and not logged in yet
+      if (Number(currentCart[i].quota_claim) === 0) {
         promoQty = currentCart[i].count;
-      } else if (Number(currentCart[i].quota_claim) >= 0 && currentCart[i].count <= Number(currentCart[i].quota_claim)) {
+      } else if (
+        Number(currentCart[i].quota_claim) >= 0 &&
+        currentCart[i].count <= Number(currentCart[i].quota_claim)
+      ) {
         promoQty = currentCart[i].count;
       } else {
         normalQty = currentCart[i].count - Number(currentCart[i].quota_claim);
         promoQty = currentCart[i].count - normalQty;
       }
 
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (currentCart[i].quota_claim && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have claim limit
-      if (currentCart[i].count <= Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      currentCart[i].quota_claim &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have claim limit
+      if (
+        currentCart[i].count <=
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
         promoQty = currentCart[i].count;
       } else {
-        promoQty = Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product);
+        promoQty =
+          Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product);
       }
 
-      if (currentCart[i].count > Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
-        normalQty = currentCart[i].count - (Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product));
+      if (
+        currentCart[i].count >
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
+        normalQty =
+          currentCart[i].count -
+          (Number(currentCart[i].quota_claim) -
+            Number(currentCart[i].total_claim_product));
       }
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (!currentCart[i].total_claim_product && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      !currentCart[i].total_claim_product &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have no claim limit, promoQty * promo_price
       promoQty = currentCart[i].count;
       total = total + promoQty * promoPrice;
-    }  else { // Normal qty
+    } else {
+      // Normal qty
       normalQty = currentCart[i].count;
       total = total + normalQty * currentCart[i].price;
     }
-      
+
     count = count + currentCart[i].count;
     currentCart[i].maxQty = payload.data.maxQty;
   }
@@ -483,7 +546,7 @@ const getCart = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
 
   let existingCart = [];
-  
+
   let incomingProducts = payload.data;
   let currentCart = newState.cart.products.slice();
   let favoriteList = newState.wishlist.products.slice();
@@ -498,9 +561,11 @@ const getCart = (state, payload) => {
       temp = new_products[items];
       for (let obj in temp) {
         if (obj !== 'info') {
-          let currentCart = payload.data.filter((f) => temp[obj].product.code === f.code)
+          let currentCart = payload.data.filter(
+            (f) => temp[obj].product.code === f.code,
+          );
           if (currentCart.length > 0) {
-            for(x in currentCart) {
+            for (x in currentCart) {
               temp[obj].product.count = currentCart[x].qty;
             }
           }
@@ -509,15 +574,18 @@ const getCart = (state, payload) => {
     }
   }
 
-  if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
-      newState.currentDetail.products.map((e,i) => {
-        let currentCart = payload.data.filter((f) => e.product.code === f.code)
-          if(currentCart.length > 0 ) {
-              for(x in currentCart) {
-                e.product.count = currentCart[x].qty
-              }
-          }
-      })
+  if (
+    newState.currentDetail.products &&
+    newState.currentDetail.products.length > 0
+  ) {
+    newState.currentDetail.products.map((e, i) => {
+      let currentCart = payload.data.filter((f) => e.product.code === f.code);
+      if (currentCart.length > 0) {
+        for (x in currentCart) {
+          e.product.count = currentCart[x].qty;
+        }
+      }
+    });
   }
 
   for (x in incomingProducts) {
@@ -529,10 +597,7 @@ const getCart = (state, payload) => {
           incomingProducts[x],
         );
 
-        currentCart[y] = Object.assign(
-          {},
-          incomingProducts[x],
-        );
+        currentCart[y] = Object.assign({}, incomingProducts[x]);
         break;
       }
     }
@@ -552,14 +617,20 @@ const getCart = (state, payload) => {
       if (e.total_claim_product !== undefined) {
         e.isClaim = parseInt(e.total_claim_product) >= e.quota_claim_original;
       }
-      if(!e.quota_claim_original) {
+      if (!e.quota_claim_original) {
         // e.quota_claim_original = 12
       }
       return e;
     }
   });
 
-  let filteredProduct = existingCart.filter(x => Number(x.quota_claim_original) === 0 || Number(x.quota_claim_original) - Number(x.total_claim_product || 0) > 0 && x);
+  let filteredProduct = existingCart.filter(
+    (x) =>
+      Number(x.quota_claim_original) === 0 ||
+      (Number(x.quota_claim_original) - Number(x.total_claim_product || 0) >
+        0 &&
+        x),
+  );
   newState.existingCart = filteredProduct;
 
   let count = 0;
@@ -609,7 +680,7 @@ const getCart = (state, payload) => {
   //   count = count + currentCart[i].count;
   //   currentCart[i].maxQty = payload.data.maxQty;
   // }
-  for(i in existingCart){
+  for (i in existingCart) {
     let promoQty = 0;
     let normalQty = 0;
     let promoPrice = existingCart[i].promo_price;
@@ -621,32 +692,63 @@ const getCart = (state, payload) => {
       promoPrice = existingCart[i].banner_harga_jual;
     }
 
-    if ((existingCart[i].total_claim_product === undefined || existingCart[i].total_claim_product === null) && Number(existingCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
-      if (Number(existingCart[i].quota_claim_original) === 0 ) {
+    if (
+      (existingCart[i].total_claim_product === undefined ||
+        existingCart[i].total_claim_product === null) &&
+      Number(existingCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and not logged in yet
+      if (Number(existingCart[i].quota_claim_original) === 0) {
         promoQty = existingCart[i].count;
-      } else if (Number(existingCart[i].quota_claim_original) >= 0 && existingCart[i].count <= Number(existingCart[i].quota_claim_original)) {
+      } else if (
+        Number(existingCart[i].quota_claim_original) >= 0 &&
+        existingCart[i].count <= Number(existingCart[i].quota_claim_original)
+      ) {
         promoQty = existingCart[i].count;
       } else {
-        normalQty = existingCart[i].count - Number(existingCart[i].quota_claim_original);
+        normalQty =
+          existingCart[i].count - Number(existingCart[i].quota_claim_original);
         promoQty = existingCart[i].count - normalQty;
       }
 
-      total = total + (promoQty * promoPrice) + (normalQty * existingCart[i].price);
-    } else if (existingCart[i].quota_claim_original && Number(existingCart[i].on_promo) === 1) { // if product is special deals and have claim limit
-      if (existingCart[i].count <= Number(existingCart[i].quota_claim_original) - Number(existingCart[i].total_claim_product)) {
+      total = total + promoQty * promoPrice + normalQty * existingCart[i].price;
+    } else if (
+      existingCart[i].quota_claim_original &&
+      Number(existingCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have claim limit
+      if (
+        existingCart[i].count <=
+        Number(existingCart[i].quota_claim_original) -
+          Number(existingCart[i].total_claim_product)
+      ) {
         promoQty = existingCart[i].count;
       } else {
-        promoQty = Number(existingCart[i].quota_claim_original) - Number(existingCart[i].total_claim_product);
+        promoQty =
+          Number(existingCart[i].quota_claim_original) -
+          Number(existingCart[i].total_claim_product);
       }
 
-      if (existingCart[i].count > Number(existingCart[i].quota_claim_original) - Number(existingCart[i].total_claim_product)) {
-        normalQty = existingCart[i].count - (Number(existingCart[i].quota_claim_original) - Number(existingCart[i].total_claim_product));
+      if (
+        existingCart[i].count >
+        Number(existingCart[i].quota_claim_original) -
+          Number(existingCart[i].total_claim_product)
+      ) {
+        normalQty =
+          existingCart[i].count -
+          (Number(existingCart[i].quota_claim_original) -
+            Number(existingCart[i].total_claim_product));
       }
-      total = total + (promoQty * promoPrice) + (normalQty * existingCart[i].price);
-    } else if (!existingCart[i].total_claim_product && Number(existingCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      total = total + promoQty * promoPrice + normalQty * existingCart[i].price;
+    } else if (
+      !existingCart[i].total_claim_product &&
+      Number(existingCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have no claim limit, promoQty * promo_price
       promoQty = existingCart[i].count;
       total = total + promoQty * promoPrice;
-    }  else { // Normal qty
+    } else {
+      // Normal qty
       normalQty = existingCart[i].count;
       total = total + normalQty * existingCart[i].price;
     }
@@ -665,7 +767,7 @@ const getSavedCarts = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
 
   let savedCarts = [];
-  
+
   let incomingProducts = payload.data;
   let currentCart = newState.cart.products.slice();
   let favoriteList = newState.wishlist.products.slice();
@@ -679,10 +781,7 @@ const getSavedCarts = (state, payload) => {
           incomingProducts[x],
         );
 
-        currentCart[y] = Object.assign(
-          {},
-          incomingProducts[x],
-        );
+        currentCart[y] = Object.assign({}, incomingProducts[x]);
         break;
       }
     }
@@ -706,13 +805,17 @@ const getSavedCarts = (state, payload) => {
     }
   });
 
-  let filteredProduct = savedCarts.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x);
+  let filteredProduct = savedCarts.filter(
+    (x) =>
+      Number(x.quota_claim) === 0 ||
+      (Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x),
+  );
   newState.savedCarts = filteredProduct;
 
   let count = 0;
   let total = 0;
 
-  for(i in savedCarts){
+  for (i in savedCarts) {
     let promoQty = 0;
     let normalQty = 0;
     let promoPrice = savedCarts[i].promo_price;
@@ -724,32 +827,62 @@ const getSavedCarts = (state, payload) => {
       promoPrice = savedCarts[i].banner_harga_jual;
     }
 
-    if ((savedCarts[i].total_claim_product === undefined || savedCarts[i].total_claim_product === null) && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and not logged in yet
-      if (Number(savedCarts[i].quota_claim) === 0 ) {
+    if (
+      (savedCarts[i].total_claim_product === undefined ||
+        savedCarts[i].total_claim_product === null) &&
+      Number(savedCarts[i].on_promo) === 1
+    ) {
+      // if product is special deals and not logged in yet
+      if (Number(savedCarts[i].quota_claim) === 0) {
         promoQty = savedCarts[i].count;
-      } else if (Number(savedCarts[i].quota_claim) >= 0 && savedCarts[i].count <= Number(savedCarts[i].quota_claim)) {
+      } else if (
+        Number(savedCarts[i].quota_claim) >= 0 &&
+        savedCarts[i].count <= Number(savedCarts[i].quota_claim)
+      ) {
         promoQty = savedCarts[i].count;
       } else {
         normalQty = savedCarts[i].count - Number(savedCarts[i].quota_claim);
         promoQty = savedCarts[i].count - normalQty;
       }
 
-      total = total + (promoQty * promoPrice) + (normalQty * savedCarts[i].price);
-    } else if (savedCarts[i].quota_claim && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and have claim limit
-      if (savedCarts[i].count <= Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product)) {
+      total = total + promoQty * promoPrice + normalQty * savedCarts[i].price;
+    } else if (
+      savedCarts[i].quota_claim &&
+      Number(savedCarts[i].on_promo) === 1
+    ) {
+      // if product is special deals and have claim limit
+      if (
+        savedCarts[i].count <=
+        Number(savedCarts[i].quota_claim) -
+          Number(savedCarts[i].total_claim_product)
+      ) {
         promoQty = savedCarts[i].count;
       } else {
-        promoQty = Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product);
+        promoQty =
+          Number(savedCarts[i].quota_claim) -
+          Number(savedCarts[i].total_claim_product);
       }
 
-      if (savedCarts[i].count > Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product)) {
-        normalQty = savedCarts[i].count - (Number(savedCarts[i].quota_claim) - Number(savedCarts[i].total_claim_product));
+      if (
+        savedCarts[i].count >
+        Number(savedCarts[i].quota_claim) -
+          Number(savedCarts[i].total_claim_product)
+      ) {
+        normalQty =
+          savedCarts[i].count -
+          (Number(savedCarts[i].quota_claim) -
+            Number(savedCarts[i].total_claim_product));
       }
-      total = total + (promoQty * promoPrice) + (normalQty * savedCarts[i].price);
-    } else if (!savedCarts[i].total_claim_product && Number(savedCarts[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      total = total + promoQty * promoPrice + normalQty * savedCarts[i].price;
+    } else if (
+      !savedCarts[i].total_claim_product &&
+      Number(savedCarts[i].on_promo) === 1
+    ) {
+      // if product is special deals and have no claim limit, promoQty * promo_price
       promoQty = savedCarts[i].count;
       total = total + promoQty * promoPrice;
-    }  else { // Normal qty
+    } else {
+      // Normal qty
       normalQty = savedCarts[i].count;
       total = total + normalQty * savedCarts[i].price;
     }
@@ -764,16 +897,27 @@ const getSavedCarts = (state, payload) => {
   return newState;
 };
 
-const editTotal = (state,payload) => {
+const editTotal = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
-  const detailCode = hasObjectValue(newState.detail, 'code') && newState.detail.code
+  // const detailCode = hasObjectValue(newState.detail, 'code') && newState.detail.code
+  newState.detail = payload.data;
   let total = 0;
   let count = 0;
-  const indexProducts = newState.products.findIndex(e => e.code === payload.data.code);
-  const indexFavorite = newState.wishlist.products.findIndex(e => e.code === payload.data.code);
-  const indexCart = newState.cart.products.findIndex(e => e.code === payload.data.code);
-  const indexPromo = newState.promoProduct.findIndex(e => e.code === payload.data.code);
-  const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && detailCode === payload.data.code;
+  const indexProducts = newState.products.findIndex(
+    (e) => e.code === payload.data.code,
+  );
+  const indexFavorite = newState.wishlist.products.findIndex(
+    (e) => e.code === payload.data.code,
+  );
+  const indexCart = newState.cart.products.findIndex(
+    (e) => e.code === payload.data.code,
+  );
+  const indexPromo = newState.promoProduct.findIndex(
+    (e) => e.code === payload.data.code,
+  );
+  const indexDetail =
+    indexProducts == -1 && indexFavorite == -1 && indexPromo == -1;
+  // const indexDetail = indexProducts == -1 && indexFavorite == -1 && indexPromo == -1 && detailCode === payload.data.code;
 
   let new_products = newState.currentDetail.new_products;
   if (
@@ -797,72 +941,111 @@ const editTotal = (state,payload) => {
     }
   }
 
-  if(newState.currentDetail.products && newState.currentDetail.products.length > 0) {
-      const productIndex = newState.currentDetail.products.findIndex(e => e.product.code === payload.data.code)
-      newState.currentDetail.products.map((e,i) => {
-          if(e.product.code  === payload.data.code) {
-              if(payload.type == 'inc') {
-                  e.product.count += 1;
-              } else {
-                  e.product.count -= 1;
-              }
-          }
-      })
-  }
-  
-if (payload.type == "inc") {
-  if(indexProducts != -1) newState.products[indexProducts].count += 1;
-  if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count += 1;
-  if(indexCart != -1) newState.cart.products[indexCart].count += 1;
-  if(indexPromo != -1) newState.promoProduct[indexPromo].count += 1;
-  if(indexDetail) newState.detail.count += 1;
-}
-else {
-  if(indexProducts != -1) newState.products[indexProducts].count -= 1;
-  if(indexFavorite != -1) newState.wishlist.products[indexFavorite].count -= 1;
-  if(indexCart != -1) newState.cart.products[indexCart].count -= 1;
-      if(indexPromo != -1) newState.promoProduct[indexPromo].count -= 1;
-      if(indexDetail) newState.detail.count -= 1;
-  }
-
-  newState.detail = indexDetail ? newState.detail :indexProducts != -1 ? newState.products[indexProducts] : (indexFavorite != -1 ? newState.wishlist.products[indexFavorite] : newState.promoProduct[indexPromo]);
-
-  let productCart = newState.products.filter(e => e.count > 0);
-  let promoCart = newState.promoProduct.filter(e => e.count > 0);
-  let favoriteCart = newState.wishlist.products.filter(e => e.count > 0);
-  let currentCart = newState.cart.products.slice();
-  let newCart = productCart.length > 0 ? productCart : (favoriteCart.length > 0 ? favoriteCart : promoCart)
-
-  if(productCart.length > 0){
-      if(favoriteCart.length > 0){
-          for(x in favoriteCart){
-              let indexFav = productCart.findIndex(e => e.code == favoriteCart[x].code)
-              if (indexFav == -1) {
-                  newCart.push(favoriteCart[x])
-              }
-          }
-      } else if (promoCart.length > 0) {
-          for(x in promoCart){
-              let indexFav = productCart.findIndex(e => e.code == promoCart[x].code)
-              if (indexFav == -1) {
-                  newCart.push(promoCart[x])
-              }
-          }
+  if (
+    newState.currentDetail.products &&
+    newState.currentDetail.products.length > 0
+  ) {
+    const productIndex = newState.currentDetail.products.findIndex(
+      (e) => e.product.code === payload.data.code,
+    );
+    newState.currentDetail.products.map((e, i) => {
+      if (e.product.code === payload.data.code) {
+        if (payload.type == 'inc') {
+          e.product.count += 1;
+        } else {
+          e.product.count -= 1;
+        }
       }
+    });
   }
 
-  if(indexDetail) {
-      newCart.push(newState.detail)
+  if (payload.type == 'inc') {
+    if (indexProducts != -1) {
+      newState.products[indexProducts].count += 1;
+    }
+    if (indexFavorite != -1) {
+      newState.wishlist.products[indexFavorite].count += 1;
+    }
+    if (indexCart != -1) {
+      newState.cart.products[indexCart].count += 1;
+    }
+    if (indexPromo != -1) {
+      newState.promoProduct[indexPromo].count += 1;
+    }
+    if (indexDetail) {
+      newState.detail.count += 1;
+    }
+  } else {
+    if (indexProducts != -1) {
+      newState.products[indexProducts].count -= 1;
+    }
+    if (indexFavorite != -1) {
+      newState.wishlist.products[indexFavorite].count -= 1;
+    }
+    if (indexCart != -1) {
+      newState.cart.products[indexCart].count -= 1;
+    }
+    if (indexPromo != -1) {
+      newState.promoProduct[indexPromo].count -= 1;
+    }
+    if (indexDetail) {
+      newState.detail.count -= 1;
+    }
+  }
+
+  newState.detail = indexDetail
+    ? newState.detail
+    : indexProducts != -1
+    ? newState.products[indexProducts]
+    : indexFavorite != -1
+    ? newState.wishlist.products[indexFavorite]
+    : newState.promoProduct[indexPromo];
+
+  let productCart = newState.products.filter((e) => e.count > 0);
+  let promoCart = newState.promoProduct.filter((e) => e.count > 0);
+  let favoriteCart = newState.wishlist.products.filter((e) => e.count > 0);
+  let currentCart = newState.cart.products.slice();
+  let newCart =
+    productCart.length > 0
+      ? productCart
+      : favoriteCart.length > 0
+      ? favoriteCart
+      : promoCart;
+
+  if (productCart.length > 0) {
+    if (favoriteCart.length > 0) {
+      for (x in favoriteCart) {
+        let indexFav = productCart.findIndex(
+          (e) => e.code == favoriteCart[x].code,
+        );
+        if (indexFav == -1) {
+          newCart.push(favoriteCart[x]);
+        }
+      }
+    } else if (promoCart.length > 0) {
+      for (x in promoCart) {
+        let indexFav = productCart.findIndex(
+          (e) => e.code == promoCart[x].code,
+        );
+        if (indexFav == -1) {
+          newCart.push(promoCart[x]);
+        }
+      }
+    }
+  }
+
+  if (indexDetail) {
+    newCart.push(newState.detail);
   }
 
   for (x in newCart) {
-      let inputItem = currentCart.findIndex(e => e.code === newCart[x].code)
-      if (inputItem == -1) {
-          currentCart.push(newCart[x])
-      }
+    let inputItem = currentCart.findIndex((e) => e.code === newCart[x].code);
+    if (inputItem == -1) {
+      currentCart.push(newCart[x]);
+    }
   }
 
-  for(i in currentCart){
+  for (i in currentCart) {
     let promoQty = 0;
     let normalQty = 0;
     let promoPrice = currentCart[i].promo_price;
@@ -874,46 +1057,76 @@ else {
       promoPrice = currentCart[i].banner_harga_jual;
     }
 
-    if ((currentCart[i].total_claim_product === undefined || currentCart[i].total_claim_product === null) && Number(currentCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
-      if (Number(currentCart[i].quota_claim) === 0 ) {
+    if (
+      (currentCart[i].total_claim_product === undefined ||
+        currentCart[i].total_claim_product === null) &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and not logged in yet
+      if (Number(currentCart[i].quota_claim) === 0) {
         promoQty = currentCart[i].count;
-      } else if (Number(currentCart[i].quota_claim) >= 0 && currentCart[i].count <= Number(currentCart[i].quota_claim)) {
+      } else if (
+        Number(currentCart[i].quota_claim) >= 0 &&
+        currentCart[i].count <= Number(currentCart[i].quota_claim)
+      ) {
         promoQty = currentCart[i].count;
       } else {
         normalQty = currentCart[i].count - Number(currentCart[i].quota_claim);
         promoQty = currentCart[i].count - normalQty;
       }
 
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (currentCart[i].quota_claim && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have claim limit
-      if (currentCart[i].count <= Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      currentCart[i].quota_claim &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have claim limit
+      if (
+        currentCart[i].count <=
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
         promoQty = currentCart[i].count;
       } else {
-        promoQty = Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product);
+        promoQty =
+          Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product);
       }
 
-      if (currentCart[i].count > Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
-        normalQty = currentCart[i].count - (Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product));
+      if (
+        currentCart[i].count >
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
+        normalQty =
+          currentCart[i].count -
+          (Number(currentCart[i].quota_claim) -
+            Number(currentCart[i].total_claim_product));
       }
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (Number(currentCart[i].total_claim_product) === 0 && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      Number(currentCart[i].total_claim_product) === 0 &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have no claim limit, promoQty * promo_price
       promoQty = currentCart[i].count;
       total = total + promoQty * promoPrice;
-    }  else { // Normal qty
+    } else {
+      // Normal qty
       normalQty = currentCart[i].count;
       total = total + normalQty * currentCart[i].price;
     }
-      
+
     count = count + currentCart[i].count;
     currentCart[i].maxQty = payload.data.maxQty;
   }
 
   newState.total.count = count;
   newState.total.price = total;
-  newState.cart.products = currentCart.filter(e => e.count > 0);
+  newState.cart.products = currentCart.filter((e) => e.count > 0);
 
   return newState;
-}
+};
 
 const clearProductList = (state) => {
   let newState = JSON.parse(JSON.stringify(state));
@@ -941,24 +1154,38 @@ const clearProducts = (state) => {
 const editFavorite = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
 
-  const whislistIndex = newState.wishlist.products.findIndex((e) => e.code === payload.data.product.code);
-  const productWhislistIndex = newState.products.findIndex((e) => e.code === payload.data.product.code);
-  const promoProductWhislistIndex = newState.promoProduct.findIndex((e) => e.code === payload.data.product.code);
-  const promoCartWhislistIndex = newState.cart.products.findIndex((e) => e.code === payload.data.product.code);
+  const whislistIndex = newState.wishlist.products.findIndex(
+    (e) => e.code === payload.data.product.code,
+  );
+  const productWhislistIndex = newState.products.findIndex(
+    (e) => e.code === payload.data.product.code,
+  );
+  const promoProductWhislistIndex = newState.promoProduct.findIndex(
+    (e) => e.code === payload.data.product.code,
+  );
+  const promoCartWhislistIndex = newState.cart.products.findIndex(
+    (e) => e.code === payload.data.product.code,
+  );
 
   if (whislistIndex === -1) {
     payload.data.product.wishlisted = 1;
-    newState.products[productWhislistIndex] && (newState.products[productWhislistIndex].wishlisted = 1);
-    newState.promoProduct[productWhislistIndex] && (newState.promoProduct[promoProductWhislistIndex].wishlisted = 1);
-    newState.cart.products[productWhislistIndex] && (newState.cart.products[promoCartWhislistIndex].wishlisted = 1);
+    newState.products[productWhislistIndex] &&
+      (newState.products[productWhislistIndex].wishlisted = 1);
+    newState.promoProduct[productWhislistIndex] &&
+      (newState.promoProduct[promoProductWhislistIndex].wishlisted = 1);
+    newState.cart.products[productWhislistIndex] &&
+      (newState.cart.products[promoCartWhislistIndex].wishlisted = 1);
     newState.detail && (newState.detail.wishlisted = 1);
 
     newState.wishlist.products.push(payload.data.product);
   } else {
     payload.data.product.wishlisted = 0;
-    newState.products[productWhislistIndex] && (newState.products[productWhislistIndex].wishlisted = 0);
-    newState.promoProduct[promoProductWhislistIndex] && (newState.promoProduct[promoProductWhislistIndex].wishlisted = 0);
-    newState.cart.products[promoCartWhislistIndex] && (newState.cart.products[promoCartWhislistIndex].wishlisted = 0);
+    newState.products[productWhislistIndex] &&
+      (newState.products[productWhislistIndex].wishlisted = 0);
+    newState.promoProduct[promoProductWhislistIndex] &&
+      (newState.promoProduct[promoProductWhislistIndex].wishlisted = 0);
+    newState.cart.products[promoCartWhislistIndex] &&
+      (newState.cart.products[promoCartWhislistIndex].wishlisted = 0);
     newState.detail && (newState.detail.wishlisted = 0);
 
     newState.wishlist.products.splice(whislistIndex, 1);
@@ -967,9 +1194,8 @@ const editFavorite = (state, payload) => {
   // newState.products[productWhislistIndex].wishlisted = newState.products[productWhislistIndex]?.wishlisted == 1 ? 0 : 1;
   // newState.products[promoProductWhislistIndex].wishlisted = 1;
   // newState.products[promoCartWhislistIndex].wishlisted = 1;
-  
-  // newState.wishlist.products.push(payload.data.product);
 
+  // newState.wishlist.products.push(payload.data.product);
 
   // // newState.products.push(payload.product);
 
@@ -1175,13 +1401,15 @@ const reorderTransaction = (state, payload) => {
   }
 
   for (x in currentCart) {
-    let productIndex = productList.findIndex((e) => e.code == currentCart[x].code);
+    let productIndex = productList.findIndex(
+      (e) => e.code == currentCart[x].code,
+    );
     if (productIndex != -1) {
       productList[productIndex].count = currentCart[x].count;
     }
   }
 
-  for(i in currentCart){
+  for (i in currentCart) {
     let promoQty = 0;
     let normalQty = 0;
     let promoPrice = currentCart[i].promo_price;
@@ -1193,43 +1421,73 @@ const reorderTransaction = (state, payload) => {
       promoPrice = currentCart[i].banner_harga_jual;
     }
 
-    if ((currentCart[i].total_claim_product === undefined || currentCart[i].total_claim_product === null) && Number(currentCart[i].on_promo) === 1) { // if product is special deals and not logged in yet
-      if (Number(currentCart[i].quota_claim) === 0 ) {
+    if (
+      (currentCart[i].total_claim_product === undefined ||
+        currentCart[i].total_claim_product === null) &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and not logged in yet
+      if (Number(currentCart[i].quota_claim) === 0) {
         promoQty = currentCart[i].count;
-      } else if (Number(currentCart[i].quota_claim) >= 0 && currentCart[i].count <= Number(currentCart[i].quota_claim)) {
+      } else if (
+        Number(currentCart[i].quota_claim) >= 0 &&
+        currentCart[i].count <= Number(currentCart[i].quota_claim)
+      ) {
         promoQty = currentCart[i].count;
       } else {
         normalQty = currentCart[i].count - Number(currentCart[i].quota_claim);
         promoQty = currentCart[i].count - normalQty;
       }
 
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (currentCart[i].quota_claim && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have claim limit
-      if (currentCart[i].count <= Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      currentCart[i].quota_claim &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have claim limit
+      if (
+        currentCart[i].count <=
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
         promoQty = currentCart[i].count;
       } else {
-        promoQty = Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product);
+        promoQty =
+          Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product);
       }
 
-      if (currentCart[i].count > Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product)) {
-        normalQty = currentCart[i].count - (Number(currentCart[i].quota_claim) - Number(currentCart[i].total_claim_product));
+      if (
+        currentCart[i].count >
+        Number(currentCart[i].quota_claim) -
+          Number(currentCart[i].total_claim_product)
+      ) {
+        normalQty =
+          currentCart[i].count -
+          (Number(currentCart[i].quota_claim) -
+            Number(currentCart[i].total_claim_product));
       }
-      total = total + (promoQty * promoPrice) + (normalQty * currentCart[i].price);
-    } else if (Number(currentCart[i].total_claim_product) === 0 && Number(currentCart[i].on_promo) === 1) { // if product is special deals and have no claim limit, promoQty * promo_price
+      total = total + promoQty * promoPrice + normalQty * currentCart[i].price;
+    } else if (
+      Number(currentCart[i].total_claim_product) === 0 &&
+      Number(currentCart[i].on_promo) === 1
+    ) {
+      // if product is special deals and have no claim limit, promoQty * promo_price
       promoQty = currentCart[i].count;
       total = total + promoQty * promoPrice;
-    }  else { // Normal qty
+    } else {
+      // Normal qty
       normalQty = currentCart[i].count;
       total = total + normalQty * currentCart[i].price;
     }
-      
+
     count = count + currentCart[i].count;
     currentCart[i].maxQty = payload.data.maxQty;
   }
 
   newState.total.count = count;
   newState.total.price = total;
-  newState.cart.products = currentCart.filter(e => e.count > 0);
+  newState.cart.products = currentCart.filter((e) => e.count > 0);
 
   newState.products = productList;
   newState.cart.products = currentCart;
