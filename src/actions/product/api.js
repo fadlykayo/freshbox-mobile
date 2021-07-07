@@ -312,6 +312,7 @@ actions.add_favorite = (req, success, failure) => {
   return (dispatch) => {
     requestHandler('post', payload, dispatch)
       .then((res) => {
+        success(res);
         if (res.code) {
           if (res.code == 200) {
             dispatch(
@@ -324,6 +325,7 @@ actions.add_favorite = (req, success, failure) => {
         }
       })
       .catch((err) => {
+        failure(err);
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
         } else {
@@ -350,6 +352,7 @@ actions.delete_favorite = (req, success, failure) => {
   return (dispatch) => {
     requestHandler('delete', payload, dispatch)
       .then((res) => {
+        success(res);
         if (res.code) {
           if (res.code == 200) {
             dispatch(
@@ -363,6 +366,7 @@ actions.delete_favorite = (req, success, failure) => {
         }
       })
       .catch((err) => {
+        failure(err);
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
         } else {

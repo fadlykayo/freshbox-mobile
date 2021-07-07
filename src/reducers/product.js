@@ -1154,42 +1154,42 @@ const clearProducts = (state) => {
 const editFavorite = (state, payload) => {
   let newState = JSON.parse(JSON.stringify(state));
 
-  const whislistIndex = newState.wishlist.products.findIndex(
-    (e) => e.code === payload.data.product.code,
-  );
-  const productWhislistIndex = newState.products.findIndex(
-    (e) => e.code === payload.data.product.code,
-  );
-  const promoProductWhislistIndex = newState.promoProduct.findIndex(
-    (e) => e.code === payload.data.product.code,
-  );
-  const promoCartWhislistIndex = newState.cart.products.findIndex(
-    (e) => e.code === payload.data.product.code,
-  );
+  // const whislistIndex = newState.wishlist.products.findIndex(
+  //   (e) => e.code === payload.data.product.code,
+  // );
+  // const productWhislistIndex = newState.products.findIndex(
+  //   (e) => e.code === payload.data.product.code,
+  // );
+  // const promoProductWhislistIndex = newState.promoProduct.findIndex(
+  //   (e) => e.code === payload.data.product.code,
+  // );
+  // const promoCartWhislistIndex = newState.cart.products.findIndex(
+  //   (e) => e.code === payload.data.product.code,
+  // );
 
-  if (whislistIndex === -1) {
-    payload.data.product.wishlisted = 1;
-    newState.products[productWhislistIndex] &&
-      (newState.products[productWhislistIndex].wishlisted = 1);
-    newState.promoProduct[productWhislistIndex] &&
-      (newState.promoProduct[promoProductWhislistIndex].wishlisted = 1);
-    newState.cart.products[productWhislistIndex] &&
-      (newState.cart.products[promoCartWhislistIndex].wishlisted = 1);
-    newState.detail && (newState.detail.wishlisted = 1);
+  // if (whislistIndex === -1) {
+  //   payload.data.product.wishlisted = 1;
+  //   newState.products[productWhislistIndex] &&
+  //     (newState.products[productWhislistIndex].wishlisted = 1);
+  //   newState.promoProduct[productWhislistIndex] &&
+  //     (newState.promoProduct[promoProductWhislistIndex].wishlisted = 1);
+  //   newState.cart.products[productWhislistIndex] &&
+  //     (newState.cart.products[promoCartWhislistIndex].wishlisted = 1);
+  //   newState.detail && (newState.detail.wishlisted = 1);
 
-    newState.wishlist.products.push(payload.data.product);
-  } else {
-    payload.data.product.wishlisted = 0;
-    newState.products[productWhislistIndex] &&
-      (newState.products[productWhislistIndex].wishlisted = 0);
-    newState.promoProduct[promoProductWhislistIndex] &&
-      (newState.promoProduct[promoProductWhislistIndex].wishlisted = 0);
-    newState.cart.products[promoCartWhislistIndex] &&
-      (newState.cart.products[promoCartWhislistIndex].wishlisted = 0);
-    newState.detail && (newState.detail.wishlisted = 0);
+  //   newState.wishlist.products.push(payload.data.product);
+  // } else {
+  //   payload.data.product.wishlisted = 0;
+  //   newState.products[productWhislistIndex] &&
+  //     (newState.products[productWhislistIndex].wishlisted = 0);
+  //   newState.promoProduct[promoProductWhislistIndex] &&
+  //     (newState.promoProduct[promoProductWhislistIndex].wishlisted = 0);
+  //   newState.cart.products[promoCartWhislistIndex] &&
+  //     (newState.cart.products[promoCartWhislistIndex].wishlisted = 0);
+  //   newState.detail && (newState.detail.wishlisted = 0);
 
-    newState.wishlist.products.splice(whislistIndex, 1);
-  }
+  //   newState.wishlist.products.splice(whislistIndex, 1);
+  // }
 
   // newState.products[productWhislistIndex].wishlisted = newState.products[productWhislistIndex]?.wishlisted == 1 ? 0 : 1;
   // newState.products[promoProductWhislistIndex].wishlisted = 1;

@@ -614,8 +614,8 @@ class Dashboard extends Component {
       };
       this.props.delete_favorite(
         data,
-        () => {},
-        (err) => {},
+        this.isFavoriteSuccess,
+        this.isFavoriteSuccess,
       );
     } else {
       let data = {
@@ -631,10 +631,17 @@ class Dashboard extends Component {
       };
       this.props.add_favorite(
         data,
-        () => {},
-        (err) => {},
+        this.isFavoriteSuccess,
+        this.isFavoriteSuccess,
       );
     }
+  };
+
+  isFavoriteSuccess = async (payload) => {
+    try {
+      await this.getProductList(true, true);
+      await this.getProductPromo();
+    } catch (error) {}
   };
 
   openDrawerMenu = () => {
