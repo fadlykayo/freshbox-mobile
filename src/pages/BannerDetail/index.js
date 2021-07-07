@@ -17,9 +17,18 @@ import Button from '@components/Button';
 import images from '@assets';
 import styles from './style';
 import actions from '@actions';
+import Config from '@config';
+
 
 const { width, height } = Dimensions.get('window');
+let webUrl = ''
 
+if(Config.env == 'production'){
+  webUrl = 'https://freshbox.id'
+} else if (Config.env == 'staging') {
+  // webUrl = 'http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com:3000'
+  webUrl = 'localhost:3000'
+}
 
 class BannerDetail extends Component {
     constructor() {
@@ -193,8 +202,10 @@ class BannerDetail extends Component {
     }
 
     onShare = async (data) => {
+      const branchID = this.props.selectedBranch.id
       let encryptCode = encode64.btoa(data.id)
-      const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`
+      const url = `${webUrl}/link?code_link=1&code_data=${encryptCode}&branch_id=${branchID}`
+      // const url = `192.168.100.62:3000/link?code_link=1&code_data=${encryptCode}&branch_id=${branchID}`
       // const product = data.name.split(" ").join("_");
       try {
         const result = await Share.share({

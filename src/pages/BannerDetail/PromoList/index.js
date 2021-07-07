@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
+/* eslint-disable prettier/prettier */
+import React, { Component } from 'react';
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import ProductItem from '@components/ProductItem';
 import EmptyState from '@components/EmptyState';
 import images from '@assets';
-import styles from './styles'
+import styles from './styles';
 
 export default class PromoList extends Component {
 
@@ -14,7 +15,7 @@ export default class PromoList extends Component {
   }
 
   navigateToCategories = (category) => {
-    this.props.navigateToCategories(category)
+    this.props.navigateToCategories(category);
   }
 
   handleLoadMore = () => {
@@ -26,9 +27,9 @@ export default class PromoList extends Component {
   }
 
   renderProduct = (items) => {
-    let elemnt = []
-    for(const obj in items) {
-      if(obj !== 'info') {
+    let elemnt = [];
+    for (const obj in items) {
+      if (obj !== 'info') {
         elemnt.push(<View style={styles.promo.card} key={items[obj].product.code} >
           <ProductItem
             search={''}
@@ -43,13 +44,13 @@ export default class PromoList extends Component {
             openDetailProduct={this.props.openDetailProduct}
             bannerPrice={items[obj].banner_harga_jual}
           />
-        </View>)
+        </View>);
       }
     }
-    if(elemnt.length > 0) {
-      return elemnt
+    if (elemnt.length > 0) {
+      return elemnt;
     } else {
-     return null
+     return null;
     }
     // return elemnt
     // return items.map((item, index) => {
@@ -76,7 +77,7 @@ export default class PromoList extends Component {
     if (this.props.loadingPromo) {
       return (
         <ActivityIndicator />
-      )
+      );
     } else {
       if (this.props.product.length !== 0 || this.props.fromSplashScreen) {
         return (
@@ -88,20 +89,20 @@ export default class PromoList extends Component {
             {this.renderProduct(this.props.categoriesProduct[item])}
           </ScrollView>
 
-        )
+        );
       } else {
         return (
           <EmptyState
             property={'emptyState.search'}
             image={images.empty_search}
           />
-        )
+        );
       }
     }
   }
 
   render() {
-    let categories = Object.keys(this.props.categoriesProduct)
+    let categories = Object.keys(this.props.categoriesProduct);
     return (
 
 
@@ -117,7 +118,7 @@ export default class PromoList extends Component {
                 </View>
 
                 <TouchableOpacity onPress={() => {
-                  this.navigateToCategories(item)
+                  this.navigateToCategories(item);
                 }}>
                   <View style = {styles.top.right}>
                     <Text style = {styles.top.textMore}>Lihat Semua</Text>
@@ -131,13 +132,13 @@ export default class PromoList extends Component {
               </View>
 
             </View>
-          )
+          );
         }}
       />
 
 
 
 
-    )
+    );
   }
 }

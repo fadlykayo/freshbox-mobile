@@ -64,6 +64,7 @@ const transactionDetail = (state, payload) => {
         newState.transactions[transactionIndex] = payload.data;
     }
     newState.detail = payload.data;
+    console.log(newState, 'transaction detail');
     return newState
 }
 
