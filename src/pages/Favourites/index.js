@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
@@ -234,8 +235,11 @@ class Favourites extends Component {
 			() => {
 				this.setModalVisible('alertDialog',false);
 				this.setModalVisible('openProduct',false);
+				this.getFavorites();
 			},
-			(err) => {}
+			(err) => {
+				this.getFavorites();
+			}
 		);
 
 	}
