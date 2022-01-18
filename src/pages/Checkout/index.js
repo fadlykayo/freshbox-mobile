@@ -726,6 +726,27 @@ class Checkout extends Component {
                   />
                 </View>
               </TouchableOpacity>
+              {/* <TouchableOpacity
+                onPress={() => this.addressDateValidation('shopeepay')}>
+                <View style={styles.radioContainer}>
+                  <StaticText
+                    style={styles.text.methods}
+                    property={'checkout.methods.shopee'}
+                  />
+                  <View style={styles.payment.imageContainer('gopay')}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={images.icon_shopee}
+                      style={styles.bank.shopee}
+                    />
+                  </View>
+                  <Image
+                    resizeMode={'contain'}
+                    source={images.icon_arrow_right_red}
+                    style={styles.icon}
+                  />
+                </View>
+              </TouchableOpacity> */}
             </View>
           </View>
         </ScrollView>

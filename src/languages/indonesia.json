@@ -192,7 +192,8 @@
       "creditCard": "Kartu Kredit",
       "gopay": "GOPAY",
       "COD": "Cash on Delivery",
-      "codWarning": "Metode pembayaran ini tidak dapat dibatalkan"
+      "codWarning": "Metode pembayaran ini tidak dapat dibatalkan",
+      "shopee": "SHOPEE PAY"
     }
   },
   "productList": {
