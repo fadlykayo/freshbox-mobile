@@ -256,9 +256,7 @@
 -(void)handleRBATransactionWithTransactionResult:(MidtransTransactionResult *)result
                              withTransactionData:(MidtransTransaction *)transaction  {
     
-    Midtrans3DSController *secureController = [[Midtrans3DSController alloc] initWithToken:nil
-                                                                                 secureURL:[NSURL URLWithString:[result.additionalData objectForKey:@"redirect_url"]]];
-    secureController.transcationData = transaction;
+    Midtrans3DSController *secureController = [[Midtrans3DSController alloc] initWithToken:self.token.tokenId transactionResult:result transactionData:transaction];
     secureController.delegate = self;
     [secureController showWithCompletion:^(NSError *error) {
         if (error) {
@@ -274,10 +272,6 @@
 }
 
 - (void)rbaDidGetTransactionStatus:(MidtransTransactionResult *)transactionResult {
-    if (transactionResult.statusCode == 202) {
-        [self handleTransactionDeny:transactionResult];
-    } else {
-        [self handleTransactionSuccess:transactionResult];
-    }
+    [self handleTransactionSuccess:transactionResult];
 }
 @end

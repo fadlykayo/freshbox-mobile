@@ -56,8 +56,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self createCustomBackButton];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleGopayStatus:)
                                                  name:UIApplicationDidBecomeActiveNotification
@@ -240,22 +238,6 @@
     [transactionViewController presentAtPositionOfView:self.view.transactionDetailWrapper items:self.token.itemDetails grossAmount:self.token.transactionDetails.grossAmount];
 }
 
-- (void)createCustomBackButton{
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f,
-                                                                      0.0f,
-                                                                      24.0f,
-                                                                      24.0f)];
-    
-    UIImage *image = [UIImage imageNamed:@"back" inBundle:VTBundle compatibleWithTraitCollection:nil];
-    [backButton setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
-                forState:UIControlStateNormal];
-    [backButton addTarget:self
-                   action:@selector(backButtonDidTapped:)
-         forControlEvents:UIControlEventTouchUpInside];
-    self.backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = self.backBarButton;
-}
-
 - (void)backButtonDidTapped:(id)sender {
     
     if (payResult) {
@@ -291,7 +273,13 @@
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.isDirectPayment == YES) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:TRANSACTION_CANCELED object:nil];
+            }];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

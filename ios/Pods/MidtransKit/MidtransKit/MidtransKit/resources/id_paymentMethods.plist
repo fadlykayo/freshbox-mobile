@@ -132,9 +132,9 @@
 		<key>status</key>
 		<string>&quot;&quot;</string>
 		<key>title</key>
-		<string>e-Pay BRI</string>
+		<string>BRImo</string>
 		<key>description</key>
-		<string>Bayar menggunakan akun e-Pay BRI</string>
+		<string>Bayar menggunakan akun BRImo</string>
 		<key>id</key>
 		<string>bri_epay</string>
 		<key>identifier</key>
@@ -212,6 +212,20 @@
 		<key>shortName</key>
 		<string>atm bni</string>
 	</dict>
+    <dict>
+        <key>status</key>
+        <string>&quot;&quot;</string>
+        <key>title</key>
+        <string>BRI</string>
+        <key>description</key>
+        <string>Bayar dari ATM BRI atau internet banking</string>
+        <key>id</key>
+        <string>bri_va</string>
+        <key>identifier</key>
+        <string>bri_va</string>
+        <key>shortName</key>
+        <string>atm bri</string>
+    </dict>
 	<dict>
 		<key>status</key>
 		<string>&quot;&quot;</string>
@@ -272,9 +286,9 @@
 		<key>status</key>
 		<string>&quot;&quot;</string>
 		<key>title</key>
-		<string>Akulaku</string>
+		<string>Akulaku PayLater</string>
 		<key>description</key>
-		<string>Bayar dengan Akulaku</string>
+		<string>Bayar dengan Akulaku PayLater</string>
 		<key>id</key>
 		<string>akulaku</string>
 		<key>identifier</key>
@@ -323,6 +337,20 @@
         <string>qrisshopeepay</string>
         <key>shortName</key>
         <string>shopeepay</string>
+    </dict>
+    <dict>
+        <key>status</key>
+        <string>&quot;&quot;</string>
+        <key>title</key>
+        <string>UOB EZ Pay</string>
+        <key>description</key>
+        <string>Bayar melalui akun UOB/TMRW Anda</string>
+        <key>id</key>
+        <string>uob_ezpay</string>
+        <key>identifier</key>
+        <string>uob_ezpay</string>
+        <key>shortName</key>
+        <string>uob</string>
     </dict>
 </array>
 </plist>

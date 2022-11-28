@@ -83,10 +83,17 @@
  Virtual account number transaction, will not be nil if use bank transfer transaction except for Mandiri, because it's considered as Billpay
  */
 @property (nonatomic, readonly) NSString *virtualAccountNumber;
+@property (nonatomic, readonly) NSString *bank;
 
 @property (nonatomic, readonly) NSURL *redirectURL;
 @property (nonatomic,readonly) NSURL *qr_code_url;
 @property (nonatomic,readonly) NSURL *deeplink_url;
+
+@property (nonatomic,readonly) NSString *threeDSVersion;
+
+/*uob_ezpay*/
+@property (nonatomic, readonly) NSURL *uobEzpayWebUrl;
+@property (nonatomic,readonly) NSURL *uobEzpayDeeplinkUrl;
 
 ///---------------------
 /// @name Initialization

@@ -27,7 +27,7 @@
 			</dict>
 			<dict>
 				<key>content</key>
-				<string>Masukkan 70012 (kode perusahaan Midtrans) dan tekan ’Benar’</string>
+				<string>Masukkan 70012 (kode perusahaan Midtrans) dan tekan ‘Benar’</string>
 				<key>image</key>
 				<string>mandiri_atm_4</string>
 			</dict>
@@ -52,7 +52,7 @@
 		<array>
 			<dict>
 				<key>content</key>
-				<string>Login ke Mandiri Internet Banking (ib.bankmandiri.co.id)</string>
+				<string>Login ke Mandiri Internet Banking (https://ibank.bankmandiri.co.id/)</string>
 				<key>image</key>
 				<string></string>
 			</dict>

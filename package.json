@@ -5,10 +5,11 @@
   "scripts": {
     "android": "npx react-native run-android",
     "ios": "npx react-native run-ios",
-    "start": "react-native start",
+    "start": "npx react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "build:android": "cd android && ./gradlew assembleRelease"
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "clean": "yarn cache clean && cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.1.0",
@@ -27,7 +28,7 @@
     "numeral": "^2.0.6",
     "react": "16.13.1",
     "react-bootstrap": "^1.4.0",
-    "react-native": "0.63.3",
+    "react-native": "0.63.5",
     "react-native-code-push": "^6.4.0",
     "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^1.9.0",

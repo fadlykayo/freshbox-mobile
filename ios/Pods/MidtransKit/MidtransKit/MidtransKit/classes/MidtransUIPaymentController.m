@@ -34,6 +34,8 @@
 @property (nonatomic) MidtransLoadingView *loadingView;
 @property (nonatomic) SNPMaintainView *maintainView;
 @property (nonatomic) BOOL dismissButton;
+@property (nonatomic) BOOL isDirectPayment;
+
 
 @end
 
@@ -46,6 +48,19 @@
         self.paymentMethod = paymentMethod;
     }
     return self;
+}
+
+-(instancetype)initWithToken:(MidtransTransactionTokenResponse *)token
+           paymentMethodName:(MidtransPaymentListModel *)paymentMethod
+        directPaymentFeature:(BOOL)isDirectPayment{
+    self = [[[self class] alloc] initWithNibName:NSStringFromClass([self class]) bundle:VTBundle];
+    if (self) {
+        self.token = token;
+        self.paymentMethod = paymentMethod;
+        self.isDirectPayment = isDirectPayment;
+    }
+    return self;
+    
 }
 
 -(void)showBackButton:(BOOL)show  {
@@ -89,7 +104,6 @@
     }
 }
 - (void)dismissButtonDidTapped:(id)sender {
-    sleep(2);
     if (self.dismissButton) {
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:TRANSACTION_CANCELED object:nil];
@@ -234,7 +248,11 @@
         [self dismissDemoBadge];
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             NSDictionary *userInfo = @{TRANSACTION_RESULT_KEY:result};
-            [[NSNotificationCenter defaultCenter] postNotificationName:TRANSACTION_SUCCESS object:nil userInfo:userInfo];
+            if([result.transactionStatus isEqualToString:MIDTRANS_TRANSACTION_STATUS_DENY]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:TRANSACTION_DENY object:nil userInfo:userInfo];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:TRANSACTION_SUCCESS object:nil userInfo:userInfo];
+            }
         }];
         return;
     }
@@ -250,6 +268,7 @@
         id paymentID = self.paymentMethod.internalBaseClassIdentifier;
         if ([paymentID isEqualToString:MIDTRANS_PAYMENT_BCA_VA] ||
             [paymentID isEqualToString:MIDTRANS_PAYMENT_BNI_VA] ||
+            [paymentID isEqualToString:MIDTRANS_PAYMENT_BRI_VA] ||
             [paymentID isEqualToString:MIDTRANS_PAYMENT_PERMATA_VA] ||
             [paymentID isEqualToString:MIDTRANS_PAYMENT_ALL_VA] ||
             [paymentID isEqualToString:MIDTRANS_PAYMENT_OTHER_VA]) {

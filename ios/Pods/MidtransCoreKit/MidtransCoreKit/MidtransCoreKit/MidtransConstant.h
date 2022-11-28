@@ -10,12 +10,12 @@
  *  error domain
  */
 
-static NSString * const MIDTRANS_SDK_CURRENT_VERSION = @"1.12.1";
+static NSString * const MIDTRANS_SDK_CURRENT_VERSION = @"1.23.0";
 static NSString * const MIDTRANS_CUSTOMFIELD_1 = @"custom_field1";
 static NSString * const MIDTRANS_CUSTOMFIELD_2 = @"custom_field2";
 static NSString * const MIDTRANS_CUSTOMFIELD_3 = @"custom_field3";
 static NSString * const GOJEK_APP_ITUNES_LINK = @"itms://itunes.apple.com/us/app/apple-store/id944875099?mt=8";
-static NSString * const MIDTRANS_ERROR_DOMAIN = @"error.veritrans.co.id";
+static NSString * const MIDTRANS_ERROR_DOMAIN = @"error.midtrans.com";
 
 /**
  *  transaction status
@@ -52,12 +52,14 @@ static NSString * const MIDTRANS_PAYMENT_ECHANNEL = @"echannel";
 static NSString * const MIDTRANS_PAYMENT_PERMATA_VA = @"permata_va";
 static NSString * const MIDTRANS_PAYMENT_BCA_VA = @"bca_va";
 static NSString * const MIDTRANS_PAYMENT_BNI_VA = @"bni_va";
+static NSString * const MIDTRANS_PAYMENT_BRI_VA = @"bri_va";
 static NSString * const MIDTRANS_PAYMENT_ALL_VA = @"all_va";
 static NSString * const MIDTRANS_PAYMENT_OTHER_VA= @"other_va";
 static NSString * const MIDTRANS_PAYMENT_VA = @"va";
 static NSString * const MIDTRANS_PAYMENT_QRIS = @"qris";
 static NSString * const MIDTRANS_PAYMENT_SHOPEEPAY = @"shopeepay";
 static NSString * const MIDTRANS_PAYMENT_QRIS_SHOPEEPAY = @"qrisshopeepay";
+static NSString * const MIDTRANS_PAYMENT_UOB = @"uob_ezpay";
 
 static NSString * const MIDTRANS_PAYMENT_BRI_EPAY = @"bri_epay";
 static NSString * const MIDTRANS_PAYMENT_TELKOMSEL_CASH = @"telkomsel_cash";
@@ -109,28 +111,28 @@ static NSString * const MIDTRANS_MESSAGE_CARD_CVV_INVALID = @"CVV is invalid";
 static NSString * const MIDTRANS_MESSAGE_MERCHANT_SERVER_NOT_SET = @"Please set your merchant server URL in MidtransConfig";
 static NSString * const MIDTRANS_MESSAGE_CLIENT_KEY_NOT_SET = @"Please set your Veritrans Client Key in MidtransConfig";
 
-static NSString *const MIDTRANS_SANDBOX_API_URL = @"https://api.sandbox.veritrans.co.id/v2";
+static NSString *const MIDTRANS_SANDBOX_API_URL = @"https://api.sandbox.midtrans.com/v2";
 static NSString *const MIDTRANS_SANDBOX_MIXPANEL = @"cc005b296ca4ce612fe3939177c668bb";
 static NSString *const MIDTRANS_SANDBOX_SNAP = @"https://app.sandbox.midtrans.com/snap/v1";
-static NSString *const MIDTRANS_SANDBOX_BIN_URL = @"https://app.sandbox.midtrans.com/snap/v1/bank_bins";
+static NSString *const MIDTRANS_SANDBOX_BIN_URL = @"https://api.sandbox.midtrans.com/v1/bins/";
 
-static NSString *const MIDTRANS_PRODUCTION_API_URL = @"https://api.veritrans.co.id/v2";
+static NSString *const MIDTRANS_PRODUCTION_API_URL = @"https://api.midtrans.com/v2";
 static NSString *const MIDTRANS_PRODUCTION_SNAP = @"https://app.midtrans.com/snap/v1";
 static NSString *const MIDTRANS_PRODUCTION_MIXPANEL = @"0269722c477a0e085fde32e0248c6003";
-static NSString *const MIDTRANS_PRODUCTION_BIN_URL = @"https://app.midtrans.com/snap/v1/bank_bins";
+static NSString *const MIDTRANS_PRODUCTION_BIN_URL = @"https://api.midtrans.com/v1/bins/";
 
 /*uat*/
 
 static NSString *const MIDTRANS_UAT_API_URL = @"https://api.stg.midtrans.com/v2";
 static NSString *const MIDTRANS_UAT_MIXPANEL = @"cc005b296ca4ce612fe3939177c668bb";
-static NSString *const MIDTRANS_UAT_SNAP = @"https://app.stg.midtrans.com/snap/v1";
-static NSString *const MIDTRANS_UAT_BIN_URL = @"https://app.stg.midtrans.com/snap/v1/bank_bins";
+static NSString *const MIDTRANS_UAT_SNAP = @"https://midtrans-checkout.stg.veritrans.co.id/snap/v1";
+static NSString *const MIDTRANS_UAT_BIN_URL = @"https://midtrans-checkout.stg.veritrans.co.id/snap/v1/bank_bins";
 
 /*staging*/
 
-static NSString *const MIDTRANS_STAGING_API_URL = @"https://api.stg.veritrans.co.id/v2";
+static NSString *const MIDTRANS_STAGING_API_URL = @"https://app.stg.midtrans.com/snap/v2";
 static NSString *const MIDTRANS_STAGING_MIXPANEL = @"cc005b296ca4ce612fe3939177c668bb";
-static NSString *const MIDTRANS_STAGING_SNAP = @"https://app.stg.midtrans.com/snap/v1";
+static NSString *const MIDTRANS_STAGING_SNAP = @"https://app.stg.midtrans.com/snap/v1/snap/v1";
 static NSString *const MIDTRANS_STAGING_BIN_URL = @"https://app.stg.midtrans.com/snap/v1/bank_bins";
 
 static NSString *const MIDTRANS_TRACKING_CC_TOKEN = @"token";
@@ -207,6 +209,9 @@ static NSInteger const MIDTRANS_ERROR_CODE_INVALID_VALUE = -50;
 
 static NSString *const MIDTRANS_GOPAY_PREFIX_OLD = @"gojek://";
 static NSString *const MIDTRANS_GOPAY_PREFIX_NEW = @"https://gojek.link/";
+
+static NSString *const MIDTRANS_EXBIN_DATA = @"exbin_data";
+static NSInteger const MIDTRANS_SUPPORTED_BIN_LENGTH =  8;
 
 /**
  *  if needed we maybe need it as is to detect ios version and also device version

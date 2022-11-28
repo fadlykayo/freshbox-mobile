@@ -18,7 +18,7 @@
     "You will be redirected to BCA KlikPay page once you tap ‘Confirm Payment’ button": "You will be redirected to BCA KlikPay page once you tap ‘Confirm Payment’ button",
     "payment.failed": "Payment Failed",
     "payment.pending": "Payment Pending",
-    "payment.deny":"Payment Unsuccessful",
+    "payment.deny":"Payment Denied",
     "message.payment.deny":"Transaction denied! Please try again or try another payment method.",
     "payment.pay-at": "Pay at %@",
     "clickpay.invalid-number": "Invalid Debit Number",
@@ -156,5 +156,9 @@
     "Make sure payment has been completed within the Gojek app.":"Make sure payment has been completed within the Gojek app.",
     "Make sure the QR code successfully scanned and payment has been completed within the Gojek app.":"Make sure the QR code successfully scanned and payment has been completed within the Gojek app.",
     "Make sure payment has been completed within the Shopee app.":"Make sure payment has been completed within the Shopee app.",
-    "Make sure the QR code successfully scanned and payment has been completed within the Shopee app.":"Make sure the QR code successfully scanned and payment has been completed within the Shopee app."
+    "Make sure the QR code successfully scanned and payment has been completed within the Shopee app.":"Make sure the QR code successfully scanned and payment has been completed within the Shopee app.",
+    "Make sure payment has been completed within the UOB app.":"Make sure payment has been completed within the UOB app.",
+    "Pay with TMRW app":"Pay with TMRW app",
+    "Pay with UOB Web":"Pay with UOB Personal Internet Banking",
+    "Pay Now":"Pay Now",
 }

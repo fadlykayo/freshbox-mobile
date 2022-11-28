@@ -29,6 +29,7 @@
 #import "UIColor+SNP_HexString.h"
 #import "MIDAlfamartViewController.h"
 #import "MidShopeePayViewController.h"
+#import "MIDUobMenuController.h"
 #define DEFAULT_HEADER_HEIGHT 80;
 #define SMALL_HEADER_HEIGHT 40;
 
@@ -53,7 +54,6 @@
     if (self.responsePayment.transactionDetails.orderId) {
         [additionalData addEntriesFromDictionary:@{@"order id":self.responsePayment.transactionDetails.orderId}];
     }
-    [[SNPUITrackingManager shared] trackEventName:@"pg cc card details" additionalParameters:additionalData];
     self.view.delegate = self;
     if ([self.paymentMethodSelected isEqualToString:MIDTRANS_CREDIT_CARD_FORM]) {
         MidtransNewCreditCardViewController *creditCardVC  = [[MidtransNewCreditCardViewController alloc] initWithToken:nil paymentMethodName:nil andCreditCardData:nil andCompleteResponseOfPayment:nil];
@@ -195,7 +195,6 @@
                         model = [[MidtransPaymentListModel alloc] initWithDictionary:paymentList[index]];
                         model.status = enabledPayment.status;
                         [self.paymentMethodList addObject:model];
-                        [self redirectToPaymentMethodAtIndex:0];
                     }
                 }
                 else {
@@ -234,7 +233,6 @@
                         model = [[MidtransPaymentListModel alloc] initWithDictionary:paymentList[index]];
                         model.status = enabledPayment.status;
                         [self.paymentMethodList addObject:model];
-                        
                     }
                     mainIndex++;
                 }
@@ -316,6 +314,7 @@
         [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_BCA_VA] ||
         [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_ECHANNEL] ||
         [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_BNI_VA] ||
+        [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_BRI_VA] ||
         [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_PERMATA_VA]){
         
         MidtransPaymentListModel *vaTypeModel = [[MidtransPaymentListModel alloc] initWithDictionary:[paymentMethod dictionaryRepresentation]];
@@ -376,6 +375,13 @@
         [vc showDismissButton:self.singlePayment];
         [self.navigationController pushViewController:vc animated:!self.singlePayment];
     }
+    else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_UOB]) {
+        MIDUobMenuController *vc = [[MIDUobMenuController alloc] initWithToken:self.token
+                                                         paymentMethodName:paymentMethod];
+        vc.paymentResponse = self.responsePayment;
+        [vc showDismissButton:self.singlePayment];
+        [self.navigationController pushViewController:vc animated:!self.singlePayment];
+    }
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_CIMB_CLICKS] ||
              [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_MANDIRI_ECASH] ||
              [paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_BCA_KLIKPAY] ||
@@ -392,7 +398,7 @@
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_DANAMON_ONLINE]) {
         MIDDanamonOnlineViewController *vc = [[MIDDanamonOnlineViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod];
         [vc showDismissButton:self.singlePayment];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:!self.singlePayment];
     }
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_ALFAMART]) {
         MIDAlfamartViewController *vc = [[MIDAlfamartViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod];
@@ -420,13 +426,11 @@
         [self.navigationController pushViewController:vc animated:!self.singlePayment];
     }
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_GOPAY]) {
-        MidGopayViewController *midGopayVC = [[MidGopayViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod];
-        [midGopayVC showDismissButton:self.singlePayment];
+        MidGopayViewController *midGopayVC = [[MidGopayViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod directPaymentFeature:self.singlePayment];
         [self.navigationController pushViewController:midGopayVC animated:!self.singlePayment];
     }
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_SHOPEEPAY] ||[paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_QRIS_SHOPEEPAY] ) {
-        MidShopeePayViewController *midShopeepayVC = [[MidShopeePayViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod];
-        [midShopeepayVC showDismissButton:self.singlePayment];
+        MidShopeePayViewController *midShopeepayVC = [[MidShopeePayViewController alloc] initWithToken:self.token paymentMethodName:paymentMethod directPaymentFeature:self.singlePayment];
         [self.navigationController pushViewController:midShopeepayVC animated:!self.singlePayment];
     }
     else if ([paymentMethod.internalBaseClassIdentifier isEqualToString:MIDTRANS_PAYMENT_INDOMARET]) {

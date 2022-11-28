@@ -28,7 +28,11 @@
 @property (nonatomic, readwrite) NSString *deeplinkUrl;
 @property (nonatomic, readwrite) NSString *mandiriBillpayCompanyCode;
 @property (nonatomic, readwrite) NSString *virtualAccountNumber;
+@property (nonatomic, readwrite) NSString *bank;
 @property (nonatomic, readwrite) NSURL *redirectURL;
+@property (nonatomic, readwrite) NSURL *uobEzpayWebUrl;
+@property (nonatomic, readwrite) NSURL *uobEzpayDeeplinkUrl;
+@property (nonatomic, readwrite) NSString *threeDSVersion;
 
 @end
 
@@ -82,6 +86,7 @@
         if (response[@"va_numbers"]) {
             NSDictionary *vaData = response[@"va_numbers"][0];
             self.virtualAccountNumber = vaData[@"va_number"];
+            self.bank = vaData[@"bank"];
         }
         if (response[@"qr_code_url"]) {
             self.qrcodeUrl = response[@"qr_code_url"];
@@ -95,6 +100,14 @@
         
         if (response[@"redirect_url"]) {
             self.redirectURL = [NSURL URLWithString:response[@"redirect_url"]];
+        }
+        if (response[@"uob_ezpay_web_url"]) {
+            self.uobEzpayWebUrl = [NSURL URLWithString:response[@"uob_ezpay_web_url"]];
+        }if (response[@"uob_ezpay_deeplink_url"]) {
+            self.uobEzpayDeeplinkUrl = [NSURL URLWithString:response[@"uob_ezpay_deeplink_url"]];
+        }
+        if (response[@"three_ds_version"]) {
+            self.threeDSVersion = response[@"three_ds_version" ];
         }
         
         self.additionalData = mResponse;

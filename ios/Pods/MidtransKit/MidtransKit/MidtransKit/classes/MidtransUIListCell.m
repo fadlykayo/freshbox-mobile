@@ -24,6 +24,9 @@
     if ([paymentList.internalBaseClassIdentifier isEqualToString:@"echannel"]) {
         imagePath = @"mandiri_va";
     }
+    if ([paymentList.internalBaseClassIdentifier isEqualToString:@"bri_epay"]) {
+        imagePath = @"brimo";
+    }
     if ([paymentList.internalBaseClassIdentifier isEqualToString:@"credit_card"]) {
         if (response.promos.promos.count) {
             self.promoNotificationView.hidden =  NO;
@@ -61,6 +64,12 @@
         self.tscTextStatusLabel.hidden = YES;
 
     }
+}
+
+-(void) configureUobOptionList:(NSString *)uobOptionTitle withUobOptionDescription:(NSString*)uobOptionDescription optionImage:(NSString *)menuImage {
+    self.paymentMethodLogo.image = [UIImage imageNamed:menuImage inBundle:VTBundle compatibleWithTraitCollection:nil];
+    self.paymentMethodNameLabel.text = uobOptionTitle;
+    self.paymentMethodDescriptionLabel.text = uobOptionDescription;
 }
 
 @end

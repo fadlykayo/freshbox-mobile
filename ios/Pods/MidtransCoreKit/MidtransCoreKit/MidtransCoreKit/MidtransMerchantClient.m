@@ -388,8 +388,12 @@ NSString *const FETCH_MASKEDCARD_URL = @"%@/users/%@/tokens";
         dictionaryParameters[@"gopay"] = gopay;
     }
     if ([CONFIG shopeePayCallbackURL].length > 0) {
-        NSDictionary *shoopeePay = @{@"callback_url": [CONFIG callbackSchemeURL]};
+        NSDictionary *shoopeePay = @{@"callback_url": [CONFIG shopeePayCallbackURL]};
         dictionaryParameters[@"shopeepay"] = shoopeePay;
+    }
+    if ([CONFIG uobCallbackURL].length > 0) {
+        NSDictionary *shoopeePay = @{@"callback_url": [CONFIG uobCallbackURL]};
+        dictionaryParameters[@"uob_ezpay"] = shoopeePay;
     }
     
     NSString *URL = [NSString stringWithFormat:@"%@/%@", [CONFIG merchantURL], MIDTRANS_CORE_SNAP_MERCHANT_SERVER_CHARGE];

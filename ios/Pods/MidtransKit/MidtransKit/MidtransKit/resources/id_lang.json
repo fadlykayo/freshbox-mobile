@@ -19,7 +19,7 @@
     "You will be redirected to BCA KlikPay page once you tap ‘Confirm Payment’ button": "Anda akan diarahkan ke halaman BCA KlikPay setelah menekan tombol 'Konfirmasi Pembayaran'",
     "payment.failed": "Pembayaran gagal",
     "payment.pending": "Menunggu pembayaran",
-    "payment.deny":"Pembayaran tidak berhasil",
+    "payment.deny":"Pembayaran ditolak",
     "message.payment.deny":"Transaksi anda ditolak! Silakan ulangi lagi, atau coba dengan metode pembayaran lain.",
     "payment.pay-at": "Pembayaran di %@",
     "clickpay.invalid-number": "Masukkan nomor kartu debit yang benar",
@@ -151,6 +151,10 @@
     "Make sure payment has been completed within the Gojek app.":"Pastikan pembayaran telah berhasil dilakukan di dalam aplikasi Gojek.",
     "Make sure the QR code successfully scanned and payment has been completed within the Gojek app.":"Pastikan kode QR berhasil dipindai dan pembayaran sudah dilakukan di dalam aplikasi Gojek.",
     "Make sure payment has been completed within the Shopee app.":"Pastikan pembayaran telah berhasil dilakukan di dalam aplikasi Shopee.",
-    "Make sure the QR code successfully scanned and payment has been completed within the Shopee app.":"Pastikan kode QR berhasil dipindai dan pembayaran sudah dilakukan di dalam aplikasi Shopee."
+    "Make sure the QR code successfully scanned and payment has been completed within the Shopee app.":"Pastikan kode QR berhasil dipindai dan pembayaran sudah dilakukan di dalam aplikasi Shopee.",
+    "Make sure payment has been completed within the UOB app.":"Pastikan pembayaran telah berhasil dilakukan di dalam aplikasi UOB.",
+    "Pay with TMRW app":"Bayar melalui aplikasi TMRW",
+    "Pay with UOB Web":"Bayar melalu UOB Personal Internet Banking",
+    "Pay Now":"Bayar Sekarang"
 }
 

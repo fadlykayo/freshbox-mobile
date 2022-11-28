@@ -43,32 +43,20 @@
         case MidtransPaymentFeatureGOPAY:
             paymentMethodSelected = MIDTRANS_PAYMENT_GOPAY;
             break;
+        case MidtransPaymentFeatureShopeePay:
+            paymentMethodSelected = MIDTRANS_PAYMENT_SHOPEEPAY;
+            break;
         case MidtransPaymentFeatureBankTransfer:
             paymentMethodSelected = MIDTRANS_PAYMENT_BANK_TRANSFER;
             break;
         case MidtransPaymentFeatureKlikBCA:
             paymentMethodSelected = MIDTRANS_PAYMENT_KLIK_BCA;
             break;
-        case midtranspaymentfeatureBCAKlikPay:
+        case MidtransPaymentFeatureBCAKlikPay:
             paymentMethodSelected = MIDTRANS_PAYMENT_BCA_KLIKPAY;
-            break;
-        case  MidtransPaymentFeatureMandiriClickPay:
-            paymentMethodSelected = MIDTRANS_PAYMENT_MANDIRI_CLICKPAY;
             break;
         case  MidtransPaymentFeatureCIMBClicks:
             paymentMethodSelected = MIDTRANS_PAYMENT_CIMB_CLICKS;
-            break;
-        case MidtransPaymentFeatureMandiriEcash:
-            paymentMethodSelected = MIDTRANS_PAYMENT_MANDIRI_ECASH;
-            break;
-        case MidtransPaymentFeatureTelkomselEcash:
-            paymentMethodSelected = MIDTRANS_PAYMENT_TELKOMSEL_CASH;
-            break;
-        case MidtransPaymentFeatureXLTunai:
-            paymentMethodSelected = MIDTRANS_PAYMENT_XL_TUNAI;
-            break;
-        case MidtransPaymentFeatureIndosatDompetku:
-            paymentMethodSelected = MIDTRANS_PAYMENT_INDOSAT_DOMPETKU;
             break;
         case MidtransPaymentFeatureIndomaret:
             paymentMethodSelected = MIDTRANS_PAYMENT_INDOMARET;
@@ -76,14 +64,8 @@
         case MidtransPaymentFeatureAlfamart:
             paymentMethodSelected = MIDTRANS_PAYMENT_ALFAMART;
             break;
-        case MidtransPyamentFeatureDanamonOnline:
+        case MidtransPaymentFeatureDanamonOnline:
             paymentMethodSelected = MIDTRANS_PAYMENT_DANAMON_ONLINE;
-            break;
-        case MidtransPaymentFeatureKiosON:
-            paymentMethodSelected = MIDTRANS_PAYMENT_KIOS_ON;
-            break;
-        case MidtransPaymentFeatureGCI:
-            paymentMethodSelected = MIDTRANS_PAYMENT_GCI;
             break;
         case MidtransPaymentFeatureBRIEpay:
             paymentMethodSelected = MIDTRANS_PAYMENT_BRI_EPAY;
@@ -100,11 +82,17 @@
         case MidtransPaymentFeatureBankTransferBNIVA:
             paymentMethodSelected = MIDTRANS_PAYMENT_BNI_VA;
             break;
+        case MidtransPaymentFeatureBankTransferBRIVA:
+            paymentMethodSelected = MIDTRANS_PAYMENT_BRI_VA;
+            break;
         case MidtransPaymentFeatureBankTransferBCAVA:
             paymentMethodSelected = MIDTRANS_PAYMENT_BCA_VA;
             break;
         case MidtransPaymentFeatureBankTransferOtherVA:
             paymentMethodSelected = MIDTRANS_PAYMENT_OTHER_VA;
+            break;
+        case MidtransPaymentFeatureUOB:
+            paymentMethodSelected = MIDTRANS_PAYMENT_UOB;
             break;
         default:
             paymentMethodSelected = nil;
@@ -132,19 +120,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBar.translucent = false;
-    // to remove 1 px border below nav bar
-    
-    [self.navigationBar setBackgroundImage:[UIImage new]
-                            forBarPosition:UIBarPositionAny
-                                barMetrics:UIBarMetricsDefault];
-    [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationBar setShadowImage:[[UIImage alloc] init]];
-    self.navigationBar.titleTextAttributes = @{NSFontAttributeName:[[MidtransUIThemeManager shared].themeFont fontRegularWithSize:17],
-                                               NSForegroundColorAttributeName:[UIColor colorWithRed:3/255. green:3/255. blue:3/255. alpha:1]};
-    self.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationBar.tintColor = [[MidtransUIThemeManager shared] themeColor];
-    
+    [self setupNavigationBar];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transactionSuccess:) name:TRANSACTION_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transactionFailed:) name:TRANSACTION_FAILED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transactionDeny:) name:TRANSACTION_DENY object:nil];
@@ -160,6 +136,40 @@
         [self.paymentDelegate paymentViewController:self saveCard:sender.userInfo[TRANSACTION_RESULT_KEY]];
     }
 }
+
+- (void)setupNavigationBar {
+    self.navigationBar.translucent = NO;
+    [self.navigationBar setBackgroundImage:[UIImage new]
+                            forBarPosition:UIBarPositionAny
+                                barMetrics:UIBarMetricsDefault];
+    [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setShadowImage:[[UIImage alloc] init]];
+    self.navigationBar.tintColor = [[MidtransUIThemeManager shared] themeColor];
+    
+    if (@available(iOS 15.0, *)) {
+        self.navigationBar.backgroundColor = [UIColor whiteColor];
+        self.navigationBar.titleTextAttributes = @{NSFontAttributeName:[[MidtransUIThemeManager shared].themeFont fontRegularWithSize:17],
+                                                   NSForegroundColorAttributeName:[UIColor colorWithRed:3/255. green:3/255. blue:3/255. alpha:1]};
+        UIView * statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [[UIApplication sharedApplication] statusBarFrame].size.height)];
+        statusBarView.backgroundColor = [UIColor whiteColor];
+        statusBarView.tag = MIDTRANS_UI_PAYMENT_STATUS_BAR_TAG;
+        [self.view addSubview:statusBarView];
+    } else {
+        self.navigationBar.titleTextAttributes = @{NSFontAttributeName:[[MidtransUIThemeManager shared].themeFont fontRegularWithSize:17],
+                                                   NSForegroundColorAttributeName:[UIColor colorWithRed:3/255. green:3/255. blue:3/255. alpha:1]};
+        self.navigationBar.barTintColor = [UIColor whiteColor];
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    if (@available(iOS 13.0, *)) {
+        return UIStatusBarStyleDarkContent;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
+}
+
 - (void)saveCardFailed:(NSNotification *)sender {
     [self dismissDemoBadge];
     if ([self.paymentDelegate respondsToSelector:@selector(paymentViewController:saveCardFailed:)]) {

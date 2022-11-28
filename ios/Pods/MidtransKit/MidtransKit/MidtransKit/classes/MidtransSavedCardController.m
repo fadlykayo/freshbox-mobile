@@ -22,13 +22,13 @@
 @property (nonatomic,strong) NSMutableArray *cards;
 @property (nonatomic) MidtransPaymentMethodHeader *headerView;
 @property (nonatomic) MidtransSavedCardFooter *footerView;
-@property (nonatomic) NSArray *bankBinList;
 @property (nonatomic) MidtransPaymentRequestV2Response * responsePayment;
 @property (nonatomic) MTCreditCardPaymentType tokenType;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmountText;
 @property (weak, nonatomic) IBOutlet MIdtransUIBorderedView *totalAmountBorderedView;
 @property (weak, nonatomic) IBOutlet UILabel *orderIdLabel;
+@property (nonatomic) NSMutableArray *savedTokenArray;
 @end
 
 NSString *const kCreditCardTokenTypeOneClick = @"one_click";
@@ -45,24 +45,26 @@ NSString *const kCreditCardTokenTypeTwoClicks = @"two_clicks";
         self.paymentMethod = paymentMethod;
         self.responsePayment = responsePayment;
         self.creditCard = creditCard;
-        self.bankBinList = [NSJSONSerialization JSONObjectWithData:[[NSData alloc]
-                                                                    initWithContentsOfFile:[VTBundle pathForResource:@"bin" ofType:@"json"]]
-                                                           options:kNilOptions error:nil];
+        
+        self.savedTokenArray = [[NSMutableArray alloc]init];
+        if (self.creditCard.savedTokens) {
+            for (MidtransPaymentRequestV2SavedTokens *savedToken in self.creditCard.savedTokens){
+                [self.savedTokenArray addObject:savedToken];
+            }
+        }
     }
     return self;
 }
 
 - (NSString *)bankNameFromNumber:(NSString *)number {
-    for (NSDictionary *bankBin in self.bankBinList) {
-        NSString *bankName = bankBin[@"bank"];
-        NSArray *bins = bankBin[@"bins"];
-        for (NSString *bin in bins) {
-            if ([number containsString:bin]) {
-                return bankName;
-            }
+    NSString *bankName;
+    for (MidtransPaymentRequestV2SavedTokens *savedToken in self.savedTokenArray) {
+        if ([number isEqualToString:savedToken.maskedCard]) {
+            bankName = savedToken.binDetails.bankCode.lowercaseString;
+            break;
         }
     }
-    return nil;
+    return  bankName;
 }
 
 - (void)viewDidLoad {
@@ -184,7 +186,7 @@ NSString *const kCreditCardTokenTypeTwoClicks = @"two_clicks";
             if (selectedIndex == 1) {
                 [self showLoadingWithText:[VTClassHelper getTranslationFromAppBundleForString:@"Processing your transaction"]];
                 
-                MidtransPaymentCreditCard *paymentDetail = [MidtransPaymentCreditCard modelWithMaskedCard:card.maskedNumber customer:self.token.customerDetails saveCard:NO installment:nil];
+                MidtransPaymentCreditCard *paymentDetail = [MidtransPaymentCreditCard modelWithMaskedCard:card.maskedNumber customer:self.token.customerDetails saveCard:NO installment:nil promos:nil];
                 MidtransTransaction *transaction =
                 [[MidtransTransaction alloc] initWithPaymentDetails:paymentDetail
                                                               token:self.token];
@@ -212,6 +214,7 @@ NSString *const kCreditCardTokenTypeTwoClicks = @"two_clicks";
                                                     creditCard:self.creditCard
                                   andCompleteResponseOfPayment:self.responsePayment];
   //  vc.promos = self.promos;
+    vc.bankName = [self bankNameFromNumber:card.maskedNumber];
     vc.tokenType = self.tokenType;
     vc.currentMaskedCards = self.cards;
     vc.delegate = self;
@@ -256,17 +259,12 @@ NSString *const kCreditCardTokenTypeTwoClicks = @"two_clicks";
             self.tokenType = MTCreditCardPaymentTypeNormal;
         }
             
-        if (self.tokenType == MTCreditCardPaymentTypeOneclick) {
-            [self performOneClickWithCard:card];
+        NSMutableDictionary *additionalData = [NSMutableDictionary dictionaryWithDictionary:@{@"card mode":@"two click"}];
+        if (self.responsePayment.transactionDetails.orderId) {
+            [additionalData addEntriesFromDictionary:@{@"order id":self.responsePayment.transactionDetails.orderId}];
         }
-        else {
-            NSMutableDictionary *additionalData = [NSMutableDictionary dictionaryWithDictionary:@{@"card mode":@"two click"}];
-            if (self.responsePayment.transactionDetails.orderId) {
-                [additionalData addEntriesFromDictionary:@{@"order id":self.responsePayment.transactionDetails.orderId}];
-            }
-            [[SNPUITrackingManager shared] trackEventName:@"pg cc card details" additionalParameters:additionalData];
-            [self performTwoClicksWithCard:card];
-        }
+        [[SNPUITrackingManager shared] trackEventName:@"pg cc card details" additionalParameters:additionalData];
+        [self performTwoClicksWithCard:card];
     }
 }
 - (void)totalAmountBorderedViewTapped:(id) sender {
