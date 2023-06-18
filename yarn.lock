@@ -6481,10 +6481,10 @@ react-native-linear-gradient@^2.5.6:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
-react-native-onesignal@^3.9.2:
-  version "3.9.4"
-  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-3.9.4.tgz#886ea222471a8242aae5088e680684d1ae2a88c7"
-  integrity sha512-aQLLtqlz3+IUQPGM28VN6uoX/RKRw7JiHV9mun/Xd4P5wY1UtUwiT5RxwVGp2bn2ora8vCSNioaZdVhqupJLGg==
+react-native-onesignal@^4.1.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.5.1.tgz#f46007d0a30a7c4e42a531b7c4940f0bfdfbc326"
+  integrity sha512-9XtRwW/Hn3dTD7jxQiKIW4+o1bWNgm1jCUPK1SkjyPd7TiH4cnGuL9JGaAMCUvAWUAp9KC8ejShr6v8K0dGVGQ==
   dependencies:
     invariant "^2.2.2"
 
@@ -6534,10 +6534,10 @@ react-native-webview@^11.0.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@0.63.3:
-  version "0.63.3"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.3.tgz#4a7f6540e049ff41810887bbd1125abc4672f3bf"
-  integrity sha512-71wq13uNo5W8QVQnFlnzZ3AD+XgUBYGhpsxysQFW/hJ8GAt/J5o+Bvhy81FXichp6IBDJDh/JgfHH2gNji8dFA==
+react-native@0.63.5:
+  version "0.63.5"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.5.tgz#2c0d5dca527fb69bb481e89b2c86068f2641b62d"
+  integrity sha512-unjHZOcHek2xxPkBbyqGO//2Z/AriKTwtDzGTT/ujGMRE3odDJk8wKtZregurQ9cpTUtu1Bj5R5bJv3gQIG5zw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^4.10.0"
