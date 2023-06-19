@@ -125,22 +125,19 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 buildscript {
     repositories {
-        gradlePluginPortal()
-        // maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
         mavenCentral()
         jcenter()
         // Add the midtrans repository into the list of repositories
-        // maven { url "http://dl.bintray.com/pt-midtrans/maven" }
-        // maven { url "https://jitpack.io" }
+        maven { url "http://dl.bintray.com/pt-midtrans/maven" }
+        maven { url "https://jitpack.io" }
         // Add Google Play Services to Your Project
-        // maven { url "https://maven.google.com" }
+        maven { url "https://maven.google.com" }
     }
     dependencies {
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.10, 0.99.99]'
-
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.9, 0.99.99]'
     }
 }
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 
 android {
