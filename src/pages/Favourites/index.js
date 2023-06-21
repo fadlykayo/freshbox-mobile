@@ -1,23 +1,24 @@
+import {Dimensions, FlatList, Keyboard, View} from 'react-native';
 /* eslint-disable handle-callback-err */
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, FlatList, Keyboard, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import Container from '@components/Container';
-import AlertDialog from '@components/AlertDialog';
-import ProductItem from '@components/ProductItem';
-import ProductDetail from '@components/ProductDetail';
-import NavigationBar from '@components/NavigationBar';
-import Checkout from './components/Checkout';
-import EmptyState from '@components/EmptyState';
-import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import { language, onShare } from '@helpers';
-import styles from './styles';
-import actions from '@actions';
-import images from '@assets';
+
+import AlertDialog from '@components/AlertDialog';
+import Checkout from './components/Checkout';
+import Container from '@components/Container';
+import EmptyState from '@components/EmptyState';
 import FavouriteItem from './components/FavouriteItem';
+import ModalLoginConfirmation from './components/ModalLoginConfirmation';
+import NavigationBar from '@components/NavigationBar';
+import ProductDetail from '@components/ProductDetail';
+import ProductItem from '@components/ProductItem';
+import actions from '@actions';
+import { connect } from 'react-redux';
+import images from '@assets';
+import styles from './styles';
 
 const { width, height } = Dimensions.get('window');
 
@@ -132,9 +133,9 @@ class Favourites extends Component {
 				},
 				favorite: payload,
 			};
-			this.props.add_favorite(data,
-				() => {},
-				(err) => {}
+			this.props.delete_favorite(data,
+				this.getFavorites,
+				this.getFavorites
 			);
 		}
 	}
@@ -159,15 +160,15 @@ class Favourites extends Component {
 
 	changeTotalItem(payload,type){
 		if (payload.count === payload.stock && type === 'inc') {
-      this.props.set_error_status({
-        status: true,
-        title: 'formError.title.outOfStock',
-        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
-      });
-    } else {
-      this.props.change_total(payload, type);
-	  this.storeCart(payload, type);
-    }
+			this.props.set_error_status({
+				status: true,
+				title: 'formError.title.outOfStock',
+				data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
+			});
+		} else {
+			this.props.change_total(payload, type);
+			this.storeCart(payload, type);
+		}
 	}
 
 	storeCart = (cart, type) => {
@@ -202,7 +203,7 @@ class Favourites extends Component {
 			this.props.post_cart(
 			  payload,
 			  (res) => {
-				// this.getCart()
+				this.getCart();
 			  },
 			  (err) => {},
 			);
@@ -419,6 +420,8 @@ const mapDispatchToProps = dispatch => ({
 	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
 	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	post_cart: (req, res, err) =>
+	  dispatch(actions.product.api.post_cart(req, res, err)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Favourites);

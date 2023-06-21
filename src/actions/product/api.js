@@ -1,8 +1,8 @@
-import actReducer from './reducer';
 import actNetwork from '../network/reducer';
-import requestHandler from '../helper';
-import {path} from '../config';
+import actReducer from './reducer';
 import {analytics} from '@helpers';
+import {path} from '../config';
+import requestHandler from '../helper';
 
 const actions = {};
 

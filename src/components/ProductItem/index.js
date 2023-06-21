@@ -1,17 +1,18 @@
-import React, {PureComponent} from 'react';
 import {
-  View,
-  Image,
-  TouchableOpacity,
   ActivityIndicator,
+  Image,
   Platform,
   Share,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import React, {PureComponent} from 'react';
+import {analytics, hasObjectValue, onShare, scaling} from '@helpers';
+
 import ButtonCount from '@components/ButtonCount';
-import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import ButtonFav from '@components/ButtonFav';
 import Content from './components/Content';
-import {scaling, analytics, onShare, hasObjectValue} from '@helpers';
+import ProductStockVerificationText from '@components/ProductStockVerificationText';
 import styles from './styles';
 
 class ProductItem extends PureComponent {

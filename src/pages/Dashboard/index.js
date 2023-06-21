@@ -1,35 +1,36 @@
-import React, {Component} from 'react';
 import {
-  View,
-  Keyboard,
-  ScrollView,
   Animated,
-  Easing,
   Dimensions,
+  Easing,
+  Keyboard,
   Linking,
   Platform,
-  TouchableOpacity,
   RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {connect} from 'react-redux';
+import React, {Component} from 'react';
 import {actNav, navConstant} from '@navigations';
-import {language, analytics, scaling, onShare} from '@helpers';
-import Container from '@components/Container';
-import ProductDetail from '@components/ProductDetail';
-import SearchComponent from '../ProductList/components/SearchComponent';
-import Checkout from '../ProductList/components/Checkout';
+import {analytics, language, onShare, scaling} from '@helpers';
+
 import Carousel from '@components/Carousel';
-import PromoList from './components/PromoList';
-import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
 import CategoriesPopUp from './components/CategoriesPopUp';
-import ProductItem from '@components/ProductItem';
-import StaticText from '@components/StaticText';
+import Checkout from '../ProductList/components/Checkout';
+import Container from '@components/Container';
 import FilterComponent from './components/FilterComponent';
 import PopUp from './components/PopUp';
+import ProductDetail from '@components/ProductDetail';
+import ProductItem from '@components/ProductItem';
+import PromoList from './components/PromoList';
+import SearchComponent from '../ProductList/components/SearchComponent';
+import StaticText from '@components/StaticText';
+import TransactionBlock from './components/TransactionBlock';
 import actions from '@actions';
-import styles from './styles';
 import config from '../../config';
+import {connect} from 'react-redux';
+import styles from './styles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -612,11 +613,7 @@ class Dashboard extends Component {
         },
         favorite: payload,
       };
-      this.props.delete_favorite(
-        data,
-        this.isFavoriteSuccess,
-        this.isFavoriteSuccess,
-      );
+      this.props.delete_favorite(data, this.refetch, this.refetch);
     } else {
       let data = {
         request: {
@@ -629,20 +626,31 @@ class Dashboard extends Component {
         },
         favorite: payload,
       };
-      this.props.add_favorite(
-        data,
-        this.isFavoriteSuccess,
-        this.isFavoriteSuccess,
-      );
+      this.props.add_favorite(data, this.refetch, this.refetch);
     }
   };
 
-  isFavoriteSuccess = async (payload) => {
-    try {
-      await this.getProductList(true, true);
-      await this.getProductPromo();
-    } catch (error) {}
+  refetch = (payload) => {
+    this.getProductList(true, true);
+    this.getProductPromo();
+    this.getFavorites();
   };
+
+  getFavorites() {
+    let payload = {
+      header: {
+        apiToken: this.props.user.authorization,
+      },
+      params: {},
+    };
+    this.props.get_favorites(
+      payload,
+      () => {
+        this.setState({refreshing: false});
+      },
+      (err) => {},
+    );
+  }
 
   openDrawerMenu = () => {
     Keyboard.dismiss();
@@ -1285,6 +1293,8 @@ const mapDispatchToProps = (dispatch) => ({
   save_cart: (payload) => dispatch(actions.cart.reducer.save_cart(payload)),
   get_saved_carts: (req, res, err) =>
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
+  get_favorites: (req, res, err) =>
+    dispatch(actions.product.api.get_favorites(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

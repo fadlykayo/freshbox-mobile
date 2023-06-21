@@ -1,20 +1,21 @@
-import React, {PureComponent} from 'react';
 import {
-  View,
-  Image,
-  TouchableOpacity,
   ActivityIndicator,
+  Image,
   Platform,
   Share,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import ButtonCount from '@components/ButtonCount';
-import ProductStockVerificationText from '@components/ProductStockVerificationText';
-import ButtonFav from '@components/ButtonFav';
+import React, {PureComponent} from 'react';
 // import Content from '../../components/Content';
-import {scaling, analytics, onShare, hasObjectValue} from '@helpers';
-import styles from './styles';
+import {analytics, hasObjectValue, onShare, scaling} from '@helpers';
+
+import ButtonCount from '@components/ButtonCount';
+import ButtonFav from '@components/ButtonFav';
 // import Content from '../../../../components/ProductItem/components/Content';
 import FavouriteContent from './components/Content';
+import ProductStockVerificationText from '@components/ProductStockVerificationText';
+import styles from './styles';
 
 class FavouriteItem extends PureComponent {
   constructor() {
@@ -26,21 +27,21 @@ class FavouriteItem extends PureComponent {
 
   addTotalItem() {
     let data;
-    // if (this.props.bannerDetail) {
-    //   data = this.props.data.product;
-    // } else {
-    data = this.props.data;
-    // }
+    if (this.props.bannerDetail) {
+      data = this.props.data.product;
+    } else {
+      data = this.props.data;
+    }
     this.props.changeTotalItem(data, 'inc');
   }
 
   decTotalItem() {
     let data;
-    // if (this.props.bannerDetail) {
-    //   data = this.props.data.product;
-    // } else {
-    data = this.props.data;
-    // }
+    if (this.props.bannerDetail) {
+      data = this.props.data.product;
+    } else {
+      data = this.props.data;
+    }
     this.props.changeTotalItem(data, 'desc');
   }
 
@@ -74,11 +75,11 @@ class FavouriteItem extends PureComponent {
     data = this.props.data;
     // }
 
-    if (this.props.bannerPrice) {
-      bannerPrice = this.props.bannerPrice;
-    } else {
-      bannerPrice = this.props.data.banner_harga_jual;
-    }
+    // if (this.props.bannerPrice) {
+    //   bannerPrice = this.props.bannerPrice;
+    // } else {
+    //   bannerPrice = this.props.data.banner_harga_jual;
+    // }
 
     if (Platform.OS == 'ios') {
       productImage = hasObjectValue(data, 'images_sizes_url')
