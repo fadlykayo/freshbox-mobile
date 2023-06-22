@@ -8,7 +8,7 @@
     "start": "npx react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-		"clean:android": "cd android && ./gradlew clean",
+    "clean:android": "cd android && ./gradlew clean",
     "build:android": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
@@ -33,7 +33,7 @@
     "react": "18.1.0",
     "react-bootstrap": "^1.4.0",
     "react-native": "^0.70.8",
-    "react-native-code-push": "^6.4.0",
+    "react-native-code-push": "^7.0.4",
     "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-image-picker": "2.3.4",
