@@ -1,7 +1,7 @@
 <manifest
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-  package="com.freshbox">
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+  	package="com.freshbox">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -14,65 +14,65 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-      android:name=".MainApplication"
-      android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:requestLegacyExternalStorage="true"
-      android:usesCleartextTraffic="true"
-        android:allowBackup="false"
-      tools:replace="android:usesCleartextTraffic"
-      tools:targetApi="28"
-      android:theme="@style/AppTheme">
-      <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-        android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustResize"
-        android:screenOrientation="portrait" android:exported="true">
+				android:name=".MainApplication"
+				android:label="@string/app_name"
+				android:theme="@style/AppTheme"
+				android:icon="@mipmap/ic_launcher"
+				android:roundIcon="@mipmap/ic_launcher_round"
+				android:requestLegacyExternalStorage="true"
+				android:usesCleartextTraffic="true"
+				android:allowBackup="false"
+				tools:replace="android:usesCleartextTraffic"
+				tools:targetApi="28">
+				<activity
+						android:name=".MainActivity"
+						android:label="@string/app_name"
+						android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+						android:launchMode="singleTask"
+						android:windowSoftInputMode="adjustResize"
+						android:screenOrientation="portrait" android:exported="true">
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+					<intent-filter>
+							<action android:name="android.intent.action.MAIN" />
+							<category android:name="android.intent.category.LAUNCHER" />
+					</intent-filter>
 
-        <intent-filter android:label="@string/app_name">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data
-              android:scheme="http"
-              android:host="ec2-18-236-134-251.us-west-2.compute.amazonaws.com"
-              android:path="/password/reset"
-            />
-        </intent-filter>
+					<intent-filter android:label="@string/app_name">
+							<action android:name="android.intent.action.VIEW" />
+							<category android:name="android.intent.category.DEFAULT" />
+							<category android:name="android.intent.category.BROWSABLE" />
+							<data
+								android:scheme="http"
+								android:host="ec2-18-236-134-251.us-west-2.compute.amazonaws.com"
+								android:path="/password/reset"
+							/>
+					</intent-filter>
 
-        <intent-filter android:label="filter_react_native">
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
-          <data android:scheme="freshbox" android:host="payment" />
-        </intent-filter>
+					<intent-filter android:label="filter_react_native">
+							<action android:name="android.intent.action.VIEW" />
+							<category android:name="android.intent.category.DEFAULT" />
+							<category android:name="android.intent.category.BROWSABLE" />
+							<data android:scheme="freshbox" android:host="payment" />
+					</intent-filter>
 
-        <intent-filter android:label="filter_react_native">
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
-          <data android:scheme="freshbox" android:host="ProductList" />
-          <data android:scheme="http" android:host="ProductList" />
-        </intent-filter>
+					<intent-filter android:label="filter_react_native">
+							<action android:name="android.intent.action.VIEW" />
+							<category android:name="android.intent.category.DEFAULT" />
+							<category android:name="android.intent.category.BROWSABLE" />
+							<data android:scheme="freshbox" android:host="ProductList" />
+							<data android:scheme="http" android:host="ProductList" />
+					</intent-filter>
 
-        <intent-filter android:label="filter_react_native">
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
-          <data android:scheme="freshboxapp"/>
-        </intent-filter>
-      </activity>
-      <!-- check metadata below -->
-      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" android:exported="false"/>
-      <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFE52546" android:exported="false"/>
+					<intent-filter android:label="filter_react_native">
+							<action android:name="android.intent.action.VIEW" />
+							<category android:name="android.intent.category.DEFAULT" />
+							<category android:name="android.intent.category.BROWSABLE" />
+							<data android:scheme="freshboxapp"/>
+					</intent-filter>
+				</activity>
+				<!-- check metadata below -->
+				<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" android:exported="false"/>
+				<meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFE52546" android:exported="false"/>
     </application>
 
 </manifest>
