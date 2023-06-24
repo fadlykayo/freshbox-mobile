@@ -1,5 +1,9 @@
 import {Animated, Easing, Dimensions} from 'react-native';
-import {NavigationActions, createAppContainer, StackActions} from 'react-navigation';
+import {
+  NavigationActions,
+  createAppContainer,
+  StackActions,
+} from 'react-navigation';
 import {createStackNavigator, TransitionPresets} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 
@@ -144,7 +148,7 @@ export const navConstant = {
   Thanks: 'Thanks',
 };
 
-export const setNavigator = (navigatorRef) => {
+export const setNavigator = navigatorRef => {
   _navigator = navigatorRef;
 };
 
@@ -172,7 +176,7 @@ export const actNav = {
     analytics.setCurrentScreen(route);
     analytics.logEvent(route);
   },
-  goBack: (key) => {
+  goBack: key => {
     if (key) {
       _navigator.dispatch(
         NavigationActions.back({
