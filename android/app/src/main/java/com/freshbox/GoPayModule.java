@@ -6,19 +6,18 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
-import android.content.Intent;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
 import com.midtrans.sdk.corekit.core.Constants;
 import com.midtrans.sdk.corekit.core.LocalDataHandler;
 import com.midtrans.sdk.corekit.core.MidtransSDK;
-import com.midtrans.sdk.corekit.core.PaymentMethod;
+//import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.corekit.core.TransactionRequest;
-import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
+//import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
 import com.midtrans.sdk.corekit.models.UserAddress;
 import com.midtrans.sdk.corekit.models.UserDetail;
-import com.midtrans.sdk.corekit.models.snap.Gopay;
+//import com.midtrans.sdk.corekit.models.snap.Gopay;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
 
@@ -46,10 +45,10 @@ public class GoPayModule extends ReactContextBaseJavaModule {
 
 
       //init SDK
-      SdkUIFlowBuilder.init()
-              .setClientKey(config.getString("clientKey"))
-              .setContext(mContext)
-              .setTransactionFinishedCallback(new TransactionFinishedCallback() {
+      SdkUIFlowBuilder.init(
+              mContext,config.getString("clientKey"),
+              config.getString("urlMerchant"),
+              new TransactionFinishedCallback() {
                   public void onTransactionFinished(TransactionResult transactionResult) {
                       if(transactionResult.isTransactionCanceled()){
                           successCallback.invoke("canceled");
@@ -58,10 +57,8 @@ public class GoPayModule extends ReactContextBaseJavaModule {
                           successCallback.invoke(transactionResult.getStatus());
                       }
                   }
-              })
-              .setMerchantBaseUrl(config.getString("urlMerchant"))
+              } )
               .enableLog(true)
-              .setColorTheme(new CustomColorTheme("#E52546", "#FFFFFF", "#ACB3BB"))
               .buildSDK();
 
       //set user detail
@@ -84,14 +81,14 @@ public class GoPayModule extends ReactContextBaseJavaModule {
       userDetail.setUserAddresses(userAddresses);
       LocalDataHandler.saveObject("user_details", userDetail);
       TransactionRequest transactionRequest = new TransactionRequest(transID.getString("order_id"), transID.getInt("gross_amount"));
-      transactionRequest.setGopay(new Gopay("freshbox://payment"));
+//      transactionRequest.setGopay(new Gopay("freshbox://payment"));
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
 //      Intent intentA = new Intent();
 //      intentA.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //      mContext.startActivity(intentA);
 
 
-      MidtransSDK.getInstance().startPaymentUiFlow(mContext, PaymentMethod.GO_PAY, token);
+//      MidtransSDK.getInstance().startPaymentUiFlow(mContext, PaymentMethod.GO_PAY, token);
 
 
   }

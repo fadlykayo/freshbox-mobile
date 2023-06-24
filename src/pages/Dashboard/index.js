@@ -79,6 +79,7 @@ class Dashboard extends Component {
     this.offSet = 0;
     this.showCheckout = new Animated.Value(0);
     this.showFilterValue = new Animated.Value(0);
+    this.linking = null;
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.total_count == 0) {
@@ -99,7 +100,7 @@ class Dashboard extends Component {
     await this.checkCart();
     await this.getHistoryData();
     await this.hideFilterAnimation();
-    await this.getCart()
+    await this.getCart();
   }
 
   componentWillUnmount = () => {
@@ -125,7 +126,7 @@ class Dashboard extends Component {
     this.props.version_checker(
       payload,
       () => {},
-      (err) => {
+      err => {
         if (err.data.current_version.active > 0) {
           if (err.data.error_status !== 'notrelease') {
             if (err.data.error_status) {
@@ -144,19 +145,19 @@ class Dashboard extends Component {
 
   handleDeepLink = () => {
     if (Platform.OS === 'android') {
-      Linking.getInitialURL().then((url) => {
+      Linking.getInitialURL().then(url => {
         this.navigate(url);
       });
     } else {
-      Linking.addEventListener('url', this.handleOpenURL);
+      this.linking = Linking.addEventListener('url', this.handleOpenURL);
     }
   };
 
-  handleOpenURL = (event) => {
+  handleOpenURL = event => {
     this.navigate(event.url);
   };
 
-  navigate = (url) => {
+  navigate = url => {
     // const route = url.replace(/.*?:\/\//g, '');
     // const routeName = route.split('/');
     // const routeTarget = routeName[0];
@@ -172,7 +173,9 @@ class Dashboard extends Component {
   };
 
   removeLinking = () => {
-    Linking.removeEventListener('url', this.handleOpenURL);
+    if (this.linking) {
+      this.linking.remove();
+    }
   };
 
   // cart button slide up animation
@@ -254,7 +257,7 @@ class Dashboard extends Component {
     }
   };
 
-  getProductPromo = (fromDashboard) => {
+  getProductPromo = fromDashboard => {
     let categories_code;
     this.setLoading('promoList', true);
 
@@ -282,7 +285,7 @@ class Dashboard extends Component {
           }
         }
       },
-      (err) => {},
+      err => {},
     );
   };
 
@@ -317,24 +320,27 @@ class Dashboard extends Component {
             }
           }
         },
-        (err) => {},
+        err => {},
       );
     }
   };
 
   getCart = () => {
-    if(this.props.user && this.props.navigation.state.params.action !== 'reorder') {
+    if (
+      this.props.user &&
+      this.props.navigation.state.params.action !== 'reorder'
+    ) {
       let payload = {
         header: {
           apiToken: this.props.user ? this.props.user.authorization : '',
         },
       };
-      this.props.get_cart(payload)
+      this.props.get_cart(payload);
     }
     // if(this.props.saved_carts.length > 0) {
     //   this.props.get_saved_carts(this.props.saved_carts)
     // }
-  }
+  };
 
   getProductList = (fromDashboard, refresh = false) => {
     let payload = {
@@ -362,7 +368,7 @@ class Dashboard extends Component {
           }
         }
       },
-      (err) => {},
+      err => {},
     );
   };
 
@@ -373,15 +379,15 @@ class Dashboard extends Component {
     };
     this.props.get_banner(
       payload,
-      (res) => {},
-      (err) => {},
+      res => {},
+      err => {},
     );
   };
 
   validateCart = () => {
     let outStockCart = this.props.cart_product
       .slice()
-      .filter((item) => item.count > item.stock);
+      .filter(item => item.count > item.stock);
 
     let outOfStockNames = [];
     outStockCart.forEach((item, index) => {
@@ -391,7 +397,7 @@ class Dashboard extends Component {
     });
 
     if (outStockCart.length > 0) {
-      language.transformText('message.outOfStock').then((message) => {
+      language.transformText('message.outOfStock').then(message => {
         this.props.set_error_status({
           status: true,
           title: 'formError.title.outOfStock',
@@ -399,12 +405,12 @@ class Dashboard extends Component {
         });
       });
       // this.navigateToCart();
-    } 
+    }
     this.navigateToCart();
   };
 
   storeCart = (cart, type) => {
-    if(this.props.user){
+    if (this.props.user) {
       let buyProducts = {
         product_code: cart.code,
         qty: 1,
@@ -419,35 +425,34 @@ class Dashboard extends Component {
         remaining_quota:
           Number(cart.on_promo) === 1
             ? Number(cart.quota_claim) > 0
-              ? Number(cart.quota_claim) -
-                Number(cart.total_claim_product || 0)
+              ? Number(cart.quota_claim) - Number(cart.total_claim_product || 0)
               : 0
             : 0,
         quota_claim: Number(cart.quota_claim || 0),
-        type: type
+        type: type,
       };
-        let payload = {
-          header: {
-            apiToken: this.props.user.authorization,
-          },
-          body: buyProducts,
-        };
+      let payload = {
+        header: {
+          apiToken: this.props.user.authorization,
+        },
+        body: buyProducts,
+      };
 
-        this.props.post_cart(
-          payload,
-          (res) => {
-            // this.getCart()
-          },
-          (err) => {},
-        );
-      } 
-  }
+      this.props.post_cart(
+        payload,
+        res => {
+          // this.getCart()
+        },
+        err => {},
+      );
+    }
+  };
 
   navigateToCart = () => {
     if (this.props.cart_product.length) {
       if (this.props.user) {
         let buyProducts = [];
-        this.props.cart_product.map((cart) => {
+        this.props.cart_product.map(cart => {
           buyProducts.push({
             product_code: cart.code,
             qty: cart.count,
@@ -475,23 +480,23 @@ class Dashboard extends Component {
           },
           body: buyProducts,
         };
-      //   this.props.bulk_add_products(
-      //     payload,
-      //     (res) => {
-      //       // if(this.props.saved_carts.length > 0) {
-      //       //   this.props.save_cart([])
-      //       // }
-      //       actNav.navigate(navConstant.Cart, {
-      //         createOrderHandler: this.createOrderHandler,
-      //       });
-      //     },
-      //     (err) => {},
-      //   );
-      // } else {
-      //   // this.props.save_cart(this.props.cart_product)
-      //   actNav.navigate(navConstant.Cart, {
-      //     createOrderHandler: this.createOrderHandler,
-      //   });
+        //   this.props.bulk_add_products(
+        //     payload,
+        //     (res) => {
+        //       // if(this.props.saved_carts.length > 0) {
+        //       //   this.props.save_cart([])
+        //       // }
+        //       actNav.navigate(navConstant.Cart, {
+        //         createOrderHandler: this.createOrderHandler,
+        //       });
+        //     },
+        //     (err) => {},
+        //   );
+        // } else {
+        //   // this.props.save_cart(this.props.cart_product)
+        //   actNav.navigate(navConstant.Cart, {
+        //     createOrderHandler: this.createOrderHandler,
+        //   });
       }
       actNav.navigate(navConstant.Cart, {
         createOrderHandler: this.createOrderHandler,
@@ -500,7 +505,7 @@ class Dashboard extends Component {
   };
 
   createOrderHandler = (invoice, type) => {
-    new Promise((res) => {
+    new Promise(res => {
       actNav.goBackToTop();
       this.props.clear_products();
       res();
@@ -519,7 +524,7 @@ class Dashboard extends Component {
       () => {
         this.getProductPromo();
       },
-      (err) => {},
+      err => {},
     );
   };
 
@@ -533,7 +538,7 @@ class Dashboard extends Component {
     this.onChangeText('searchItem', '');
   };
 
-  submitSearch = (searchItem) => {
+  submitSearch = searchItem => {
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
@@ -554,7 +559,7 @@ class Dashboard extends Component {
 
     this.props.search_products(
       payload,
-      (success) => {
+      success => {
         this.onChangeText('search', true);
         if (searchItem) {
           actNav.navigate(navConstant.ProductList, {
@@ -570,7 +575,7 @@ class Dashboard extends Component {
         }
         // this.backToTop();
       },
-      (err) => {},
+      err => {},
     );
   };
 
@@ -589,7 +594,7 @@ class Dashboard extends Component {
         () => {
           this.setState({loadingTransaction: false});
         },
-        (err) => {
+        err => {
           this.setState({loadingTransaction: false});
         },
       );
@@ -598,7 +603,7 @@ class Dashboard extends Component {
     }
   }
 
-  toggleFavorite = (payload) => {
+  toggleFavorite = payload => {
     if (payload.wishlisted == 1) {
       let data = {
         request: {
@@ -612,7 +617,7 @@ class Dashboard extends Component {
       this.props.delete_favorite(
         data,
         () => {},
-        (err) => {},
+        err => {},
       );
     } else {
       let data = {
@@ -629,7 +634,7 @@ class Dashboard extends Component {
       this.props.add_favorite(
         data,
         () => {},
-        (err) => {},
+        err => {},
       );
     }
   };
@@ -651,7 +656,7 @@ class Dashboard extends Component {
     this.setState({loading});
   };
 
-  openDetailProduct = (payload) => {
+  openDetailProduct = payload => {
     this.props.detail_product(payload);
     this.setModalVisible('openProduct', true);
   };
@@ -663,7 +668,7 @@ class Dashboard extends Component {
     this.setModalVisible('openProduct', false);
   };
 
-  openDetailProductPicture = (payload) => {
+  openDetailProductPicture = payload => {
     this.props.detail_product(payload);
     this.setModalVisible('openProduct', true);
   };
@@ -677,7 +682,7 @@ class Dashboard extends Component {
       });
     } else {
       this.props.change_total(payload, type);
-      this.storeCart(payload, type)
+      this.storeCart(payload, type);
     }
   };
 
@@ -691,7 +696,7 @@ class Dashboard extends Component {
   };
 
   // get position of scrollbar
-  getPositionIndex = (e) => {
+  getPositionIndex = e => {
     this.setState({scrollX: e.nativeEvent.contentOffset.x}, () => {
       this.getPositionBubble();
     });
@@ -705,7 +710,7 @@ class Dashboard extends Component {
     }
   };
 
-  navigateToDetail = (input) => {
+  navigateToDetail = input => {
     let payload = {
       header: {
         apiToken: this.props.user.authorization,
@@ -721,7 +726,7 @@ class Dashboard extends Component {
           refreshHandler: this.refreshHandler,
         });
       },
-      (err) => {},
+      err => {},
     );
   };
 
@@ -762,7 +767,7 @@ class Dashboard extends Component {
           });
         }
       },
-      (err) => {
+      err => {
         console.warn('navigate to detail', err);
       },
     );
@@ -775,7 +780,7 @@ class Dashboard extends Component {
     this.getProductPromo();
   };
 
-  navigateToCategories = (category) => {
+  navigateToCategories = category => {
     let payload = {};
     switch (category.name.toUpperCase()) {
       case 'DEFAULT':
@@ -844,7 +849,7 @@ class Dashboard extends Component {
           reset(),
         );
       },
-      (err) => {
+      err => {
         if (this.state.modalVisible.openCategories) {
           this.closeDialogCategories();
         }
@@ -886,11 +891,11 @@ class Dashboard extends Component {
           fromPromo: true,
         });
       },
-      (err) => {},
+      err => {},
     );
   };
 
-  navigateToBannerDetail = (product) => {
+  navigateToBannerDetail = product => {
     let payload = {
       header: {
         apiToken: this.props.user ? this.props.user.authorization : '',
@@ -903,21 +908,21 @@ class Dashboard extends Component {
 
     this.props.get_detail_banner(
       payload,
-      (res) => {
+      res => {
         if (product.links && product.links !== '') {
           actNav.navigate(navConstant.BannerDetail, {links: product.links});
         } else {
           actNav.navigate(navConstant.BannerDetail);
         }
       },
-      (err) => {},
+      err => {},
     );
   };
 
   handleLoadMoreProducts = () => {
     let category_code = null;
 
-    this.props.categories.map((c) => {
+    this.props.categories.map(c => {
       if (this.props.on_category !== 'Default') {
         if (c.name == this.props.on_category) {
           category_code = c.code;
@@ -944,7 +949,7 @@ class Dashboard extends Component {
           state.currentHeight = state.currentHeight * 1.3;
           this.setState(state);
         },
-        (err) => {
+        err => {
           // console.warn(err);
         },
       );
@@ -962,7 +967,7 @@ class Dashboard extends Component {
     actNav.navigate(navConstant.ProductList, {showPromo: false});
   };
 
-  closePopUpInfo = (success) => {
+  closePopUpInfo = success => {
     this.setState(
       {
         announcement: false,
@@ -984,12 +989,12 @@ class Dashboard extends Component {
       this.getBanner();
       this.checkCart();
       this.getHistoryData();
-      this.getCart()
+      this.getCart();
     });
     this.setState({refreshing: false});
   };
 
-  renderProducts = (products) => {
+  renderProducts = products => {
     return products.map((product, index) => {
       return (
         <View key={index}>
@@ -1010,7 +1015,7 @@ class Dashboard extends Component {
     });
   };
 
-  onScrollEvent = (e) => {
+  onScrollEvent = e => {
     const currentOffset = e.nativeEvent.contentOffset.y;
     const currentHeight = this.state.currentHeight;
     const productListHeight = this.state.productListHeight;
@@ -1201,7 +1206,7 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user.data,
   on_category: state.product.on_category,
   categories: state.product.categories,
@@ -1222,10 +1227,10 @@ const mapStateToProps = (state) => ({
   last_page: state.product.last_page,
   announcement: state.utility.announcement,
   setModalVisible: state.product.setModalVisible,
-  saved_carts: state.carts.carts
+  saved_carts: state.carts.carts,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   search_products: (req, res, err) =>
     dispatch(actions.product.api.search_products(req, res, err)),
   get_promo: (req, res, err) =>
@@ -1244,7 +1249,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.delete_favorite(req, res, err)),
   add_favorite: (req, res, err) =>
     dispatch(actions.product.api.add_favorite(req, res, err)),
-  detail_product: (payload) =>
+  detail_product: payload =>
     dispatch(actions.product.reducer.detail_product(payload)),
   detail_transaction: (req, res, err) =>
     dispatch(actions.transaction.api.detail_transaction(req, res, err)),
@@ -1254,26 +1259,25 @@ const mapDispatchToProps = (dispatch) => ({
   reset_params: () => dispatch(actions.product.reducer.reset_params()),
   get_banner: (req, res, err) =>
     dispatch(actions.banner.api.get_banner(req, res, err)),
-  change_categories: (payload) =>
+  change_categories: payload =>
     dispatch(actions.product.reducer.change_categories(payload)),
   get_detail_banner: (req, res, err) =>
     dispatch(actions.banner.api.get_detail_banner(req, res, err)),
-  set_error_status: (payload) =>
+  set_error_status: payload =>
     dispatch(actions.network.reducer.set_error_status(payload)),
   change_total: (payload, type) =>
     dispatch(actions.product.reducer.change_total(payload, type)),
-  announcement: (payload) =>
+  announcement: payload =>
     dispatch(actions.utility.reducer.announcement(payload)),
   version_checker: (req, res, err) =>
     dispatch(actions.utility.api.version_checker(req, res, err)),
-  set_modal_visible: (payload) =>
+  set_modal_visible: payload =>
     dispatch(actions.product.reducer.set_modal_visible(payload)),
   get_product_detail: (req, res, err) =>
     dispatch(actions.product.api.get_product_detail(req, res, err)),
   bulk_add_products: (req, res, err) =>
     dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
-  save_cart: (payload) =>
-    dispatch(actions.cart.reducer.save_cart(payload)),
+  save_cart: payload => dispatch(actions.cart.reducer.save_cart(payload)),
   get_saved_carts: (req, res, err) =>
     dispatch(actions.product.reducer.get_saved_carts(req, res, err)),
 });
