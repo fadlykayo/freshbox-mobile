@@ -2,10 +2,10 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "30.0.3"
+        buildToolsVersion = "31.0.0"
         minSdkVersion = 21
-        compileSdkVersion = 33
-        targetSdkVersion = 33
+        compileSdkVersion = 31
+        targetSdkVersion = 31
 				ndkVersion = "20.1.5948944"
         // googlePlayServicesAuthVersion = "16.0.1"
         // androidXCore = "1.1.0"
@@ -22,7 +22,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.2.1")
-        classpath("com.google.gms:google-services:4.3.3")
+        classpath("com.google.gms:google-services:4.3.5")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -44,6 +44,7 @@ allprojects {
         //     name 'Google'
         // }
         google()
+				// jcenter()
         // Add the midtrans repository into the list of repositories
         maven { url "https://dl.bintray.com/pt-midtrans/maven" }
         maven { url "https://jitpack.io" }

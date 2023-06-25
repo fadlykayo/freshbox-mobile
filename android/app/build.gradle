@@ -140,7 +140,6 @@ buildscript {
     }
 }
 
-
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -256,8 +255,8 @@ dependencies {
     implementation "com.facebook.fresco:animated-webp:2.3.0"
     implementation "com.facebook.fresco:webpsupport:2.3.0"
     implementation "com.facebook.fresco:stetho:2.5.0"
-    implementation 'com.facebook.android:facebook-login:[8.1)'
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation "com.facebook.android:facebook-android-sdk:[7.10,9)"
+    implementation 'com.google.firebase:firebase-analytics:18.0.2'
     // implementation "com.google.firebase:firebase-messaging:17.5.0"
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
