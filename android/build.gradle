@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 31
         targetSdkVersion = 31
-				ndkVersion = "20.1.5948944"
+        ndkVersion = "20.1.5948944"
         // googlePlayServicesAuthVersion = "16.0.1"
         // androidXCore = "1.1.0"
         // kotlinVersion = "1.5.30"
@@ -22,7 +22,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.2.1")
-        classpath("com.google.gms:google-services:4.3.5")
+        classpath("com.google.gms:google-services:4.3.3")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -30,7 +30,7 @@ buildscript {
 
 allprojects {
     repositories {
-				mavenCentral()
+        mavenCentral()
         mavenLocal()
         maven {
             url("$rootDir/../node_modules/react-native/android")
@@ -39,12 +39,12 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
-        // maven {
-        //     url 'https://maven.google.com/'
-        //     name 'Google'
-        // }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
         google()
-				// jcenter()
+        // jcenter()
         // Add the midtrans repository into the list of repositories
         maven { url "https://dl.bintray.com/pt-midtrans/maven" }
         maven { url "https://jitpack.io" }
