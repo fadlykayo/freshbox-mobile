@@ -237,18 +237,6 @@ dependencies {
         implementation jscFlavor
     }
 
-    // implementation project(":react-native-onesignal")
-    // implementation project(":react-native-sentry")
-    // implementation project(":react-native-firebase")
-    // implementation project(":react-native-google-signin")
-    // implementation project(":react-native-code-push")
-    // implementation project(":appcenter-crashes")
-    // implementation project(":appcenter-analytics")
-    // implementation project(":appcenter")
-    // implementation project(":react-native-linear-gradient")
-    // implementation project(":react-native-image-picker")
-    // implementation project(":react-native-vector-icons")
-
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:17.5.0"
     implementation "com.google.android.gms:play-services-auth:19.0.0"
