@@ -190,7 +190,8 @@
       "creditCard": "Credit Card",
       "gopay": "GOPAY",
       "COD": "Cash on Delivery",
-      "codWarning": "This payment method cannot be cancelled"
+      "codWarning": "This payment method cannot be cancelled",
+			"shopee": "SHOPEE PAY"
     }
   },
   "productList": {
