@@ -1,9 +1,10 @@
+import {AppContainer, actNav, navConstant, setNavigator} from '@navigations';
+import {AppState, Linking, StatusBar, View} from 'react-native';
 import React, {Component} from 'react';
-import {StatusBar, View, AppState, Linking} from 'react-native';
-import {connect} from 'react-redux';
+
 import OneSignal from 'react-native-onesignal';
-import {AppContainer, setNavigator, actNav, navConstant} from '@navigations';
 import actions from '@actions';
+import {connect} from 'react-redux';
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -34,7 +35,7 @@ class App extends Component {
     this.onReceived = this.onReceived.bind(this);
     this.onOpened = this.onOpened.bind(this);
     this.onIds = this.onIds.bind(this);
-    OneSignal.init('c1f39bb2-11d8-4ebf-b836-61a0131fb3fa');
+    OneSignal.setAppId('c1f39bb2-11d8-4ebf-b836-61a0131fb3fa');
     this.state = {
       appState: AppState.currentState,
       onRestart: false,
@@ -44,16 +45,16 @@ class App extends Component {
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);
     Linking.addEventListener('url', this.handleDeepLink);
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('ids', this.onIds);
-    OneSignal.inFocusDisplaying(2);
+    // OneSignal.addEventListener('received', this.onReceived);
+    // OneSignal.addEventListener('opened', this.onOpened);
+    // OneSignal.addEventListener('ids', this.onIds);
+    // OneSignal.inFocusDisplaying(2);
   }
 
   componentWillUnmount() {
-    OneSignal.removeEventListener('received', this.onReceived);
-    OneSignal.removeEventListener('opened', this.onOpened);
-    OneSignal.removeEventListener('ids', this.onIds);
+    // OneSignal.removeEventListener('received', this.onReceived);
+    // OneSignal.removeEventListener('opened', this.onOpened);
+    // OneSignal.removeEventListener('ids', this.onIds);
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 

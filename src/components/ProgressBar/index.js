@@ -1,5 +1,5 @@
+import { Animated, Easing, I18nManager, View } from 'react-native';
 import React, { Component } from 'react';
-import { Animated, Easing, View, I18nManager } from 'react-native';
 
 const INDETERMINATE_WIDTH_FACTOR = 0.3;
 const BAR_WIDTH_ZERO_POSITION =

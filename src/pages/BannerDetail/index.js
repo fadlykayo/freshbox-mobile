@@ -1,22 +1,23 @@
+import { ActivityIndicator, Animated, Clipboard, Dimensions, Easing, FlatList, Image, Platform, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
 import React, { Component } from 'react';
-import { View, Text, Platform, Animated, Easing, Dimensions, Image, FlatList, ScrollView, ActivityIndicator, Clipboard, TouchableOpacity, Share } from 'react-native';
-import { WebView } from 'react-native-webview'; 
 import { actNav, navConstant } from '@navigations';
-import { language, analytics, hasObjectValue, encode64, onShare } from '@helpers';
-import moment from 'moment';
-import { connect } from 'react-redux';
+import { analytics, encode64, hasObjectValue, language, onShare } from '@helpers';
+
+import AlertDialog from '@components/AlertDialog';
+import Button from '@components/Button';
 import Checkout from '../ProductList/components/Checkout';
 import Container from '@components/Container';
-import PromoList from './PromoList'
-import AlertDialog from '@components/AlertDialog';
 import NavigationBar from '@components/NavigationBar';
-import { gopay } from '@helpers';
-import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
-import Button from '@components/Button';
-import images from '@assets';
-import styles from './style';
+import ProductItem from '@components/ProductItem';
+import PromoList from './PromoList'
+import { WebView } from 'react-native-webview';
 import actions from '@actions';
+import { connect } from 'react-redux';
+import { gopay } from '@helpers';
+import images from '@assets';
+import moment from 'moment';
+import styles from './style';
 
 const { width, height } = Dimensions.get('window');
 

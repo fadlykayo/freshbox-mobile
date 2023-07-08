@@ -1,35 +1,36 @@
-import React, {Component} from 'react';
 import {
-  View,
-  Keyboard,
-  ScrollView,
   Animated,
-  Easing,
   Dimensions,
+  Easing,
+  Keyboard,
   Linking,
   Platform,
-  TouchableOpacity,
   RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {connect} from 'react-redux';
+import React, {Component} from 'react';
 import {actNav, navConstant} from '@navigations';
-import {language, analytics, scaling, onShare} from '@helpers';
-import Container from '@components/Container';
-import ProductDetail from '@components/ProductDetail';
-import SearchComponent from '../ProductList/components/SearchComponent';
-import Checkout from '../ProductList/components/Checkout';
+import {analytics, language, onShare, scaling} from '@helpers';
+
 import Carousel from '@components/Carousel';
-import PromoList from './components/PromoList';
-import TransactionBlock from './components/TransactionBlock';
 import Categories from './components/Categories';
 import CategoriesPopUp from './components/CategoriesPopUp';
-import ProductItem from '@components/ProductItem';
-import StaticText from '@components/StaticText';
+import Checkout from '../ProductList/components/Checkout';
+import Container from '@components/Container';
 import FilterComponent from './components/FilterComponent';
 import PopUp from './components/PopUp';
+import ProductDetail from '@components/ProductDetail';
+import ProductItem from '@components/ProductItem';
+import PromoList from './components/PromoList';
+import SearchComponent from '../ProductList/components/SearchComponent';
+import StaticText from '@components/StaticText';
+import TransactionBlock from './components/TransactionBlock';
 import actions from '@actions';
-import styles from './styles';
 import config from '../../config';
+import {connect} from 'react-redux';
+import styles from './styles';
 
 const {width, height} = Dimensions.get('window');
 

@@ -1,22 +1,23 @@
+import {ActivityIndicator, Animated, BackHandler, Dimensions, Easing, FlatList, Image, Keyboard, Modal, Platform, RefreshControl, ScrollView, Share, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Image, Animated, Easing, Text, Modal, TouchableHighlight, ActivityIndicator, Share, BackHandler, ScrollView, RefreshControl} from 'react-native';
-import {language, permission, encode64, onShare} from '@helpers';
 import {actNav, navConstant} from '@navigations';
+import {encode64, language, onShare, permission} from '@helpers';
+
+import Categories from './components/Categories';
 import Checkout from './components/Checkout';
-import ProductItem from '@components/ProductItem';
-import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
-import StaticText from '@components/StaticText';
 import EmptyState from '@components/EmptyState';
-import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
-import Categories from './components/Categories';
-import images from '@assets';
-import {debounce} from 'lodash';
-import styles from './styles';
+import ProductDetail from '@components/ProductDetail';
+import ProductItem from '@components/ProductItem';
+import SearchComponent from './components/SearchComponent';
+import StaticText from '@components/StaticText';
 import actions from '@actions';
+import {connect} from 'react-redux';
+import {debounce} from 'lodash';
+import images from '@assets';
+import styles from './styles';
 
 const {width, height} = Dimensions.get('window');
 
