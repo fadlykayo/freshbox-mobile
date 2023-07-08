@@ -4,17 +4,16 @@ import { scaling } from '@helpers';
 
 const { width, height } = Dimensions.get('window');
 
+const defaultStyle = {
+	height: scaling.moderateScale(50),
+	width: width * 0.9,
+}
+
 const styles = {
 	container: {
-		position: 'absolute',
-		bottom: 0,
-		justifyContent: 'center',
-		height: scaling.moderateScale(50),
+		...defaultStyle,
 		opacity: 0.85,
-		width: width * 0.9,
 		borderRadius: 8,
-		marginHorizontal: width * 0.05,
-		marginBottom: scaling.moderateScale(15),
 	},
 	subcontainer: {
 		button: {
@@ -40,8 +39,11 @@ const styles = {
 	},
 	animated: {
 		checkout: (x, y, a, b) => ({
+			...defaultStyle,
 			bottom: x == 0 && y == true ? a : b,
 			position: 'absolute',
+			marginBottom: scaling.moderateScale(15),
+			marginHorizontal: width * 0.05,
 		}),
 	}
 };
