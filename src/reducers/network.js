@@ -75,6 +75,13 @@ const setErrorCodePush = (state, payload) => {
     });
 }
 
+const setInitialState = (state) => {
+    return {
+        ...state,
+        updateMessage: ''
+    }
+}
+
 const networkReducer = (state = initialState, action) => {
     switch(action.type){
         case ct.SET_LOADING_STATUS: return setLoadingStatus(state,action.payload);
@@ -85,6 +92,7 @@ const networkReducer = (state = initialState, action) => {
         case ct.CODEPUSH_ERR: return setErrorCodePush(state, action.payload);
         case ct.UPDATE_APP: return setUpdateStatus(state, action.payload);
         case ct.UPDATE_BYTES: return setUpdateBytes(state, action.payload);
+        case ct.CODEPUSH_INIT: return setInitialState(state);
         default: return state;
     };
 };
