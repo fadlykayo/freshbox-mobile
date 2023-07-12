@@ -179,6 +179,13 @@ const styles = {
       // marginRight: 10,
       marginRight: 5,
     },
+    shopee: {
+      height: scaling.moderateScale(34),
+      width: scaling.moderateScale(70),
+      // backgroundColor: 'blue',
+      // marginRight: 10,
+      marginRight: 5,
+    },
     visa: {
       height: scaling.moderateScale(20),
       width: scaling.moderateScale(49),

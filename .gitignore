@@ -20,6 +20,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+ios/.xcode.env.local
 
 # Android/IntelliJ
 #
@@ -28,6 +29,8 @@ build/
 .gradle
 local.properties
 *.iml
+*.hprof
+.cxx/
 
 # node.js
 #
@@ -48,16 +51,34 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
 
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
+/vendor/bundle/
 
-/android/gradle/wrapper/gradle-wrapper.jar
-env/
-package-lock.json
+# Custom
+.env*
+*env.js
+env.ts
+.eslintcache
+.vscode
+
+/android/sentry.properties
+/android/.project
+/android/.settings
+/android/app/.project
+/android/app/.classpath
+/android/app/.settings
+/android/app/release/
+
+/ios/sentry.properties
+/ios/GoogleService-Info.plist
+/ios/Pods/
+/ios/Podfile.lock

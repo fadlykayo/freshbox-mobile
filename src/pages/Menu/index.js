@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import { GoogleSignin } from '@react-native-community/google-signin';
@@ -13,171 +13,176 @@ import styles from './styles';
 import actions from '@actions';
 
 class Menu extends Component {
-    constructor(){
-        super();
-        this.googleHandler = this.googleHandler.bind(this);
-        this.facebookHandler = this.facebookHandler.bind(this);
-        this.navigateToSignIn = this.navigateToSignIn.bind(this);
-        this.navigateToProduct = this.navigateToProduct.bind(this);
-        this.setupGoogleClient = this.setupGoogleClient.bind(this);
-        this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
-        this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
-    }
+	constructor() {
+		super();
+		this.googleHandler = this.googleHandler.bind(this);
+		this.facebookHandler = this.facebookHandler.bind(this);
+		this.navigateToSignIn = this.navigateToSignIn.bind(this);
+		this.navigateToProduct = this.navigateToProduct.bind(this);
+		this.setupGoogleClient = this.setupGoogleClient.bind(this);
+		this.navigateToPrivacyPolicy = this.navigateToPrivacyPolicy.bind(this);
+		this.navigateToTermsConditions = this.navigateToTermsConditions.bind(this);
+	}
 
-    componentDidMount() {
-        this.setupGoogleClient();
-    }
+	componentDidMount() {
+		this.setupGoogleClient();
+	}
 
-    navigateToTermsConditions() {
-        actNav.navigate(navConstant.TermsConditions)
-    }
+	navigateToTermsConditions() {
+		actNav.navigate(navConstant.TermsConditions);
+	}
 
-    navigateToPrivacyPolicy() {
-        actNav.navigate(navConstant.PrivacyPolicy)
-    }
+	navigateToPrivacyPolicy() {
+		actNav.navigate(navConstant.PrivacyPolicy);
+	}
 
-    navigateToProduct() {
-        actNav.reset(navConstant.Product)
-    }
+	navigateToProduct() {
+		actNav.reset(navConstant.Product);
+	}
 
-    navigateToSignIn() {
-        actNav.navigate(navConstant.SignIn, { action: 'menuLogin' });
-    }
+	navigateToSignIn() {
+		actNav.navigate(navConstant.SignIn, { action: 'menuLogin' });
+	}
 
-    async setupGoogleClient(){
-        try {
-            await GoogleSignin.hasPlayServices({ autoResolve: true, showPlayServicesUpdateDialog: true  });
-            await GoogleSignin.configure({
-                // iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
-                webClientId: '73889112804-3lequnciqmah8j8pmu9poeh1onq1gh6h.apps.googleusercontent.com',
-                iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
-                offlineAccess: true,
-            });
-        }
-        catch(err) {
-        }
-    }
+	async setupGoogleClient() {
+		try {
+			await GoogleSignin.hasPlayServices({ autoResolve: true, showPlayServicesUpdateDialog: true });
+			await GoogleSignin.configure({
+				// webClientId: '1001907324369-g0s6r90m4ou1flacv3vhf0s62c85ukg1.apps.googleusercontent.com',
+				webClientId: '1001907324369-h5jbjeel8j06mgl4fqu0shod5uqpdjo5.apps.googleusercontent.com',
+				androidClientId: '1001907324369-g0s6r90m4ou1flacv3vhf0s62c85ukg1.apps.googleusercontent.com',
+				iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
+				offlineAccess: true,
+			});
+		}
+		catch (err) {
+			console.log('[Sign In Setup] Error #1: ', err);
+		}
+	}
 
-    facebookHandler(){
-        socmed.facebookLogin()
-        .then((result) => {
-            let payload = {
-                header: {
-                    onesignalToken: this.props.userId.userId
-                },
-                body: {
-                    sosmed: "facebook",
-                    fb_token: result.id
-                }   
-            }
+	facebookHandler() {
+		socmed.facebookLogin()
+			.then((result) => {
+				let payload = {
+					header: {
+						onesignalToken: this.props.userId.userId
+					},
+					body: {
+						sosmed: "facebook",
+						fb_token: result.id
+					}
+				};
 
-            this.props.sign_in_socmed(payload,
-                () => {
-                    // analytics.trackEvent('Login Methods', {type: 'Facebook'});
-                    actNav.reset(navConstant.Product)
-                },
-                (err) => {
-                    let params = {
-                        name: result.name,
-                        email: result.email,
-                        sosmed: "facebook",
-                        fb_token: result.id
-                    }
-                    // if(err.code == 404) {
-                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                    // }
-                    switch (err.code) {
-                        case 404:
-                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                            break;
-                        case 400:
-                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});
-                            break;
-                        default:
-                            break;
-                    }
-                })
-        })
-        .catch((err) => {})
-    }
+				this.props.sign_in_socmed(payload,
+					() => {
+						// analytics.trackEvent('Login Methods', {type: 'Facebook'});
+						actNav.reset(navConstant.Product);
+					},
+					(err) => {
+						let params = {
+							name: result.name,
+							email: result.email,
+							sosmed: "facebook",
+							fb_token: result.id
+						};
+						// if(err.code == 404) {
+						//     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+						// }
+						switch (err.code) {
+							case 404:
+								actNav.navigate(navConstant.Register, { action: 'menuLogin', socmed: params });
+								break;
+							case 400:
+								actNav.navigate(navConstant.OTP, { phone_number: err.data.phone_number, verifyOTP: true });
+								break;
+							default:
+								break;
+						}
+					});
+			})
+			.catch((err) => { });
+	}
 
-    googleHandler(){
-        socmed.googleLogin()
-        .then((result) => {
-            let payload = {
-                header: {
-                    onesignalToken: this.props.userId.userId
-                },
-                body: {
-                    sosmed: "google",
-                    google_token: result.id
-                }   
-            }
+	googleHandler() {
+		socmed.googleLogin()
+			.then((result) => {
+				let payload = {
+					header: {
+						onesignalToken: this.props.userId.userId
+					},
+					body: {
+						sosmed: "google",
+						google_token: result.id
+					}
+				};
 
-            this.props.sign_in_socmed(payload,
-                () => {
-                    // analytics.trackEvent('Login Methods', {type: 'Google'});
-                    actNav.reset(navConstant.Product)
-                },
-                (err) => {
-                    let params = {
-                        name: result.name,
-                        email: result.email,
-                        sosmed: "google",
-                        google_token: result.id
-                    }
-                    // if(err.code == 404) {
-                    //     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                    // }
-                    switch (err.code) {
-                        case 404:
-                            actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
-                            break;
-                        case 400:
-                            actNav.navigate(navConstant.OTP, {phone_number: err.data.phone_number, verifyOTP: true});                            break;
-                        default:
-                            break;
-                    }
-                })
-        })
-        .catch((err) => {})
-    }
+				this.props.sign_in_socmed(payload,
+					() => {
+						// analytics.trackEvent('Login Methods', {type: 'Google'});
+						actNav.reset(navConstant.Product);
+					},
+					(err) => {
+						console.log('[Sign In Menu] Error #1: ', err);
+						let params = {
+							name: result.name,
+							email: result.email,
+							sosmed: "google",
+							google_token: result.id
+						};
+						// if(err.code == 404) {
+						//     actNav.navigate(navConstant.Register,{action: 'menuLogin', socmed: params})
+						// }
+						switch (err.code) {
+							case 404:
+								actNav.navigate(navConstant.Register, { action: 'menuLogin', socmed: params });
+								break;
+							case 400:
+								actNav.navigate(navConstant.OTP, { phone_number: err.data.phone_number, verifyOTP: true }); break;
+							default:
+								break;
+						}
+					});
+			})
+			.catch((err) => {
+				console.log('[Sign In Menu] Error #2: ', err);
+			});
+	}
 
-    render(){
-        return(
-            <View style={styles.container}>
-                <ImageBackground
-                    resizeMode={'stretch'} 
-                    source={images.background_welcome}
-                    style={styles.background}
-                >
-                    <Container
-                        noBackground={true}
-                    >
-                        <Logo />
-                        <Content 
-                            getStartedHandler={this.navigateToProduct}
-                            facebookHandler={this.facebookHandler}
-                            emailHandler={this.navigateToSignIn}
-                            googleHandler={this.googleHandler}
-                        />
-                        <TermsConditions
-                            navigateToTermsConditions={this.navigateToTermsConditions}
-                            navigateToPrivacyPolicy={this.navigateToPrivacyPolicy}
-                        />
-                    </Container>
-                </ImageBackground>
-            </View>
-        )
-    }
+	render() {
+		return (
+			<View style={ styles.container }>
+				<ImageBackground
+					resizeMode={ 'stretch' }
+					source={ images.background_welcome }
+					style={ styles.background }
+				>
+					<Container
+						noBackground={ true }
+					>
+						<Logo />
+						<Content
+							getStartedHandler={ this.navigateToProduct }
+							facebookHandler={ this.facebookHandler }
+							emailHandler={ this.navigateToSignIn }
+							googleHandler={ this.googleHandler }
+						/>
+						<TermsConditions
+							navigateToTermsConditions={ this.navigateToTermsConditions }
+							navigateToPrivacyPolicy={ this.navigateToPrivacyPolicy }
+						/>
+					</Container>
+				</ImageBackground>
+			</View>
+		);
+	}
 }
 
 const mapStateToProps = state => ({
-    userId: state.user.userId
-})
+	userId: state.user.userId
+});
 
 const mapDispatchToProps = dispatch => ({
-    sign_in_socmed: (req,res,err) => dispatch(actions.auth.api.sign_in_socmed(req,res,err))
-})
+	sign_in_socmed: (req, res, err) => dispatch(actions.auth.api.sign_in_socmed(req, res, err))
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

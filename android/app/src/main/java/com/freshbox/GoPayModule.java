@@ -11,13 +11,14 @@ import android.content.Intent;
 import com.facebook.react.bridge.ReadableMap;
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
 import com.midtrans.sdk.corekit.core.Constants;
-import com.midtrans.sdk.corekit.core.LocalDataHandler;
+import com.midtrans.sdk.corekit.core.*;
 import com.midtrans.sdk.corekit.core.MidtransSDK;
 import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.corekit.core.TransactionRequest;
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
+import com.midtrans.sdk.corekit.models.BillingAddress;
 import com.midtrans.sdk.corekit.models.UserAddress;
-import com.midtrans.sdk.corekit.models.UserDetail;
+import com.midtrans.sdk.corekit.models.CustomerDetails;
 import com.midtrans.sdk.corekit.models.snap.Gopay;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
@@ -65,25 +66,27 @@ public class GoPayModule extends ReactContextBaseJavaModule {
               .buildSDK();
 
       //set user detail
-      UserDetail userDetail = new UserDetail();
-      userDetail.setUserFullName(userInfo.getString("fullName"));
+      CustomerDetails userDetail = new CustomerDetails();
+      userDetail.setLastName(userInfo.getString("fullName"));
       userDetail.setEmail(userInfo.getString("email"));
-      userDetail.setPhoneNumber(userInfo.getString("phoneNumber"));
-      userDetail.setUserId(userInfo.getString("userId"));
+      userDetail.setPhone(userInfo.getString("phoneNumber"));
+      userDetail.setCustomerIdentifier(userInfo.getString("userId"));
 
       //set address (optional)
-      ArrayList<UserAddress> userAddresses = new ArrayList<>();
-      UserAddress userAddress = new UserAddress();
+      ArrayList<BillingAddress> userAddresses = new ArrayList<>();
+      BillingAddress userAddress = new BillingAddress();
       userAddress.setAddress(userInfo.getString("address"));
       userAddress.setCity(userInfo.getString("city"));
-      userAddress.setCountry(userInfo.getString("country"));
-      userAddress.setZipcode(userInfo.getString("zipCode"));
-      userAddress.setAddressType(Constants.ADDRESS_TYPE_BOTH);
+      userAddress.setCountryCode(userInfo.getString("country"));
+      userAddress.setPostalCode(userInfo.getString("zipCode"));
+//      userAddress.setAddressType(Constants.ADDRESS_TYPE_BOTH);
       userAddresses.add(userAddress);
 
-      userDetail.setUserAddresses(userAddresses);
-      LocalDataHandler.saveObject("user_details", userDetail);
+//      userDetail.setUserAddresses(userAddresses);
+//      LocalDataHandler.saveObject("user_details", userDetail);
       TransactionRequest transactionRequest = new TransactionRequest(transID.getString("order_id"), transID.getInt("gross_amount"));
+      transactionRequest.setCustomerDetails(userDetail);
+      transactionRequest.setBillingAddressArrayList(userAddresses);
       transactionRequest.setGopay(new Gopay("freshbox://payment"));
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
 //      Intent intentA = new Intent();

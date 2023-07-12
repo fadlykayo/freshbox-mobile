@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 
-import {actNav, navConstant} from '@navigations';
+import { actNav, navConstant } from '@navigations';
 import id from 'moment/locale/id';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
@@ -16,7 +16,7 @@ import images from '@assets';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import styles from './styles';
 
-import {language} from '@helpers';
+import { language } from '@helpers';
 import actions from '@actions';
 import FormInput from '@components/FormInput';
 
@@ -92,7 +92,7 @@ class Checkout extends Component {
           delivery_date: this.props.delivery_date.slice(0, 3),
         });
       },
-      (err) => {},
+      (err) => { },
     );
   }
 
@@ -115,7 +115,7 @@ class Checkout extends Component {
             this.props.discount,
         });
       },
-      (err) => {},
+      (err) => { },
     );
   }
 
@@ -129,15 +129,15 @@ class Checkout extends Component {
     };
     this.props.get_address(
       payload,
-      () => {},
-      (err) => {},
+      () => { },
+      (err) => { },
     );
   }
 
   setModalVisible(type, value) {
     let modalVisible = this.state.modalVisible;
     modalVisible[type] = value;
-    this.setState({modalVisible});
+    this.setState({ modalVisible });
   }
 
   getDeliveryDate(payload) {
@@ -228,8 +228,8 @@ class Checkout extends Component {
 
     this.props.cancel_checkout(
       payload,
-      (res) => {},
-      (rej) => {},
+      (res) => { },
+      (rej) => { },
     );
   }
 
@@ -340,7 +340,7 @@ class Checkout extends Component {
   onChangeTextVoucher = (type, value) => {
     let coupon_code = this.state.coupon_code;
     coupon_code = value;
-    this.setState({coupon_code});
+    this.setState({ coupon_code });
   };
 
   checkVoucherApi = () => {
@@ -403,7 +403,7 @@ class Checkout extends Component {
           state.voucherValidation = false;
           this.setState(state);
         },
-        (rej) => {},
+        (rej) => { },
       );
     }
   };
@@ -726,6 +726,27 @@ class Checkout extends Component {
                   />
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.addressDateValidation('shopeepay')}>
+                <View style={styles.radioContainer}>
+                  <StaticText
+                    style={styles.text.methods}
+                    property={'checkout.methods.shopee'}
+                  />
+                  <View style={styles.payment.imageContainer('gopay')}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={images.icon_shopee}
+                      style={styles.bank.shopee}
+                    />
+                  </View>
+                  <Image
+                    resizeMode={'contain'}
+                    source={images.icon_arrow_right_red}
+                    style={styles.icon}
+                  />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -735,7 +756,7 @@ class Checkout extends Component {
           modalVisible={this.state.modalVisible.showDeliveryDate}
           closeDeliveryDate={this.closeDeliveryDate}
           dates={this.state.delivery_date}
-          // dateChosen				=	{this.state.date.origin}
+        // dateChosen				=	{this.state.date.origin}
         />
         <DiscountDetail
           getDeliveryDate={this.getDeliveryDate}

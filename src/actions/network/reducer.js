@@ -27,4 +27,8 @@ action.set_server_error_status = (payload) => ({
     payload
 });
 
+action.reset_codepush = () => ({
+    type: ct.CODEPUSH_INIT,
+});
+
 export default action;
