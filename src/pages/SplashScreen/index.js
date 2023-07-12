@@ -19,7 +19,7 @@ class SplashScreen extends Component {
 		};
 		this.InMemoryData = {
 			appLoaded: false
-		}
+		};
 	}
 
 	componentDidMount() {
@@ -54,7 +54,7 @@ class SplashScreen extends Component {
 		if (prevProps.codePushErr !== this.props.codePushErr && this.props.codePushErr) {
 			this.setState({
 				isError: true
-			})
+			});
 		}
 	}
 
@@ -62,15 +62,15 @@ class SplashScreen extends Component {
 		if (e) {
 			this.setState({
 				linking: e
-			})
+			});
 		}
 		// const route = e.url.replace(/.*?:\/\//g, '')
 		// use route to navigate
 		// ...
-	}
+	};
 
 	componentWillUnmount() {
-		Linking.removeEventListener('url', this.handleDeepLink)
+		Linking.removeEventListener('url', this.handleDeepLink);
 	}
 
 	versionChecker = () => {
@@ -120,7 +120,7 @@ class SplashScreen extends Component {
 		this.props.get_product_detail(payload,
 			(res) => {
 				if (res.code === 200) {
-					this.props.set_modal_visible(true)
+					this.props.set_modal_visible(true);
 				}
 				// if(res) {
 				//     actNav.navigate(navConstant.BannerDetail, {
@@ -131,12 +131,12 @@ class SplashScreen extends Component {
 			(err) => {
 				actNav.reset(navConstant.Dashboard);
 			}
-		)
-	}
+		);
+	};
 
 	checkOnBoarding = () => {
 		if (this.state.linking !== '') {
-			this.navigateWithDeepLink()
+			this.navigateWithDeepLink();
 		} else {
 			if (this.props.on_boarding) {
 				actNav.reset(navConstant.Dashboard);
@@ -149,8 +149,8 @@ class SplashScreen extends Component {
 
 	navigateWithDeepLink = () => {
 		const url = this.state.linking.replace(/.*?:\/\//g, '');
-		const id = url.match(/\/([^\/]+)\/?$/)[1]
-		const routname = url.split('/')[0]
+		const id = url.match(/\/([^\/]+)\/?$/)[1];
+		const routname = url.split('/')[0];
 		if (routname === "0") {
 			actNav.reset(navConstant.Dashboard);
 		} else if (routname === '1' && id) {
@@ -169,24 +169,24 @@ class SplashScreen extends Component {
 					if (res) {
 						actNav.reset(navConstant.BannerDetail, {
 							fromSplashScreen: true
-						})
+						});
 					}
 				},
 				(err) => {
 					actNav.reset(navConstant.Dashboard);
 				}
-			)
-			Linking.removeEventListener('url', this.handleDeepLink)
+			);
+			Linking.removeEventListener('url', this.handleDeepLink);
 		} else if (routname === '2' && id) {
 			actNav.reset(navConstant.Dashboard, {
 				id: id
 			});
-			this.setDetailProduct(id)
+			this.setDetailProduct(id);
 		}
 		else {
 			actNav.reset(navConstant.Dashboard);
 		}
-	}
+	};
 
 	_renderVersion() {
 		if (Platform.OS == "ios") {
@@ -202,28 +202,29 @@ class SplashScreen extends Component {
 		} else {
 			actNav.navigate(navConstant.OnBoarding);
 		}
-	}
+	};
 
 	render() {
-		const updateMessage = this.props.updateMessage ? this.props.updateMessage : 'Loading...'
+		console.log('this.props.updateMessage :>> ', this.props.updateMessage);
+		const updateMessage = this.props.updateMessage ? this.props.updateMessage : 'Loading...';
 		return (
-			<View style={styles.container}>
+			<View style={ styles.container }>
 				<Image
-					resizeMode={"contain"}
-					source={images.icon_logo}
-					style={styles.logo}
+					resizeMode={ "contain" }
+					source={ images.icon_logo }
+					style={ styles.logo }
 				/>
 
-				<View style={styles.update.container}>
-					<Text style={styles.update.text}>{updateMessage}</Text>
-					{this.props.updateMessage == "Downloading Updates..." ? (
+				<View style={ styles.update.container }>
+					<Text style={ styles.update.text }>{ updateMessage }</Text>
+					{ this.props.updateMessage == "Downloading Updates..." ? (
 						<>
-							<Text style={styles.update.text}>
-								{Number.isNaN(Math.round(
+							<Text style={ styles.update.text }>
+								{ Number.isNaN(Math.round(
 									(this.props.receivedBytes / this.props.totalBytes) * 100
 								) ? 0 : Math.round(
 									(this.props.receivedBytes / this.props.totalBytes) * 100
-								))}
+								)) }
 							</Text>
 							<ProgressBar
 								progress={
@@ -236,26 +237,26 @@ class SplashScreen extends Component {
 								}
 								color="white"
 								borderColor="white"
-								useNativeDriver={true}
+								useNativeDriver={ true }
 							/>
 
-							{this.state.updateType == "optional" ? (
-								<Text style={styles.update.skip}>Skip</Text>
-							) : null}
+							{ this.state.updateType == "optional" ? (
+								<Text style={ styles.update.skip }>Skip</Text>
+							) : null }
 						</>
-					) : null}
+					) : null }
 
-					{this.state.isError === true ? (
+					{ this.state.isError === true ? (
 						<TouchableOpacity
-							onPress={this._onPressCheckOnBoarding}
-							style={styles.skip.container}
+							onPress={ this._onPressCheckOnBoarding }
+							style={ styles.skip.container }
 						>
-							<Text style={styles.update.text}>Skip</Text>
+							<Text style={ styles.update.text }>Skip</Text>
 						</TouchableOpacity>
-					) : null}
+					) : null }
 				</View>
 
-				<Text style={styles.version}>V{this._renderVersion()}</Text>
+				<Text style={ styles.version }>V{ this._renderVersion() }</Text>
 			</View>
 		);
 	}
