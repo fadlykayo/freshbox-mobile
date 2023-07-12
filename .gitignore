@@ -79,6 +79,4 @@ env.ts
 /android/app/release/
 
 /ios/sentry.properties
-/ios/GoogleService-Info.plist
 /ios/Pods/
-/ios/Podfile.lock
