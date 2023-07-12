@@ -15,12 +15,12 @@ class SearchComponent extends Component {
 	}
 
 	openAllCategories() {
-		this.props.openAllCategories()
+		this.props.openAllCategories();
 	}
 
 	openDeliveryInfo = () => {
-		console.log();
-	}
+		// console.log();
+	};
 
 	onShare = async () => {
 		try {
@@ -29,7 +29,7 @@ class SearchComponent extends Component {
 			});
 
 			if (result.action == Share.sharedAction) {
-				if(result.activityType) {
+				if (result.activityType) {
 					// console.warn(result.activityType)
 				} else {
 					// console.warn(result)
@@ -40,53 +40,53 @@ class SearchComponent extends Component {
 		} catch (err) {
 			// console.warn(err.message)
 		}
-	}
+	};
 
 	renderContent = () => {
-		if(this.props.modalVisible) {
+		if (this.props.modalVisible) {
 			return (
 				<>
-				<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
-        		<StaticText
-        		  	style={styles.text.title}
-        		  	property={'productList.filter.area'}
-        		/>
-        		{/* <Image
+					<View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }>
+						<StaticText
+							style={ styles.text.title }
+							property={ 'productList.filter.area' }
+						/>
+						{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
   	  			/> */}
-        	</View>
-				<TouchableOpacity
-					style={styles.subcontainer.part(true)}
-					onPress = { this.openAllCategories }
-				>
+					</View>
+					<TouchableOpacity
+						style={ styles.subcontainer.part(true) }
+						onPress={ this.openAllCategories }
+					>
 
-							<StaticText
-								style={styles.text.title}
-								property={'productList.content.default'}
-							/>
+						<StaticText
+							style={ styles.text.title }
+							property={ 'productList.content.default' }
+						/>
 
-					<Image
-						resizeMode={'contain'} 
-						source={images.icon_view_categories}
-						style={styles.icon}
-					/>
-				</TouchableOpacity>
+						<Image
+							resizeMode={ 'contain' }
+							source={ images.icon_view_categories }
+							style={ styles.icon }
+						/>
+					</TouchableOpacity>
 				</>
-			)
+			);
 		} else {
-			return null
+			return null;
 		}
-	}
-	
-	render(){
-		
-		return (
-    	<Animated.View style={styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter)}>
+	};
 
-				{this.renderContent()}
-        	
+	render() {
+
+		return (
+			<Animated.View style={ styles.container(this.props.modalVisible, this.props.showFilter, this.props.dismissFilter) }>
+
+				{ this.renderContent() }
+
 			</Animated.View>
 		);
 	}

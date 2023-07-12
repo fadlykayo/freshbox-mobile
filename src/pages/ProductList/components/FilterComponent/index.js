@@ -15,12 +15,12 @@ class SearchComponent extends Component {
 	}
 
 	openAllCategories() {
-		this.props.openAllCategories()
+		this.props.openAllCategories();
 	}
 
 	openDeliveryInfo = () => {
-		console.log();
-	}
+		// console.log();
+	};
 
 	onShare = async () => {
 		try {
@@ -29,7 +29,7 @@ class SearchComponent extends Component {
 			});
 
 			if (result.action == Share.sharedAction) {
-				if(result.activityType) {
+				if (result.activityType) {
 					// console.warn(result.activityType)
 				} else {
 					// console.warn(result)
@@ -40,44 +40,44 @@ class SearchComponent extends Component {
 		} catch (err) {
 			// console.warn(err.message)
 		}
-	}
-	
-	render(){
+	};
+
+	render() {
 		return (
-    	<View style={styles.container}>
-        	<View style={styles.subcontainer.part(false)} onPress = {this.openDeliveryInfo}>
-        		<StaticText
-        		  	style={styles.text.title}
-        		  	property={'productList.filter.area'}
-        		/>
-        		{/* <Image
+			<View style={ styles.container }>
+				<View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }>
+					<StaticText
+						style={ styles.text.title }
+						property={ 'productList.filter.area' }
+					/>
+					{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
   	  			/> */}
-        	</View>
-			<TouchableOpacity
-				style={styles.subcontainer.part(true)}
-				onPress = { this.openAllCategories }
-			>
-				{ this.props.onCategory == 'Default'
-					? (
-						<StaticText
-							style={styles.text.title}
-							property={'productList.content.default'}
-						/>
-					)
-					: (
-						<Text style={styles.text.title} numberOfLines={1}>{this.props.onCategory}</Text>
-					)
-				}
-				<Image
-					resizeMode={'contain'} 
-					source={images.icon_view_categories}
-					style={styles.icon}
-				/>
-			</TouchableOpacity>
-      	</View>
+				</View>
+				<TouchableOpacity
+					style={ styles.subcontainer.part(true) }
+					onPress={ this.openAllCategories }
+				>
+					{ this.props.onCategory == 'Default'
+						? (
+							<StaticText
+								style={ styles.text.title }
+								property={ 'productList.content.default' }
+							/>
+						)
+						: (
+							<Text style={ styles.text.title } numberOfLines={ 1 }>{ this.props.onCategory }</Text>
+						)
+					}
+					<Image
+						resizeMode={ 'contain' }
+						source={ images.icon_view_categories }
+						style={ styles.icon }
+					/>
+				</TouchableOpacity>
+			</View>
 		);
 	}
 }

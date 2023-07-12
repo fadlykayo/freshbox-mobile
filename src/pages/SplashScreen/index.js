@@ -205,7 +205,6 @@ class SplashScreen extends Component {
 	};
 
 	render() {
-		console.log('this.props.updateMessage :>> ', this.props.updateMessage);
 		const updateMessage = this.props.updateMessage ? this.props.updateMessage : 'Loading...';
 		return (
 			<View style={ styles.container }>
