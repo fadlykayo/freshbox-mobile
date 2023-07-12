@@ -2,26 +2,27 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.2"
+        buildToolsVersion = "30.0.3"
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
-        supportLibVersion = "29.0.0"
-        googlePlayServicesAuthVersion = "16.0.1"
-        androidXCore = "1.1.0"
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+        ndkVersion = "21.1.6352462"
+        kotlinVersion = "1.6.0"
+        // googlePlayServicesAuthVersion = "16.0.1"
+        // androidXCore = "1.1.0"
     }
     repositories {
         google()
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        // jcenter()
+        // maven {
+        //     url 'https://maven.google.com/'
+        //     name 'Google'
+        // }
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.3")
-        classpath("com.google.gms:google-services:4.3.3") // <--- add this
+        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("com.google.gms:google-services:4.3.15")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -29,6 +30,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         mavenLocal()
         maven {
             url("$rootDir/../node_modules/react-native/android")
@@ -42,40 +44,9 @@ allprojects {
             name 'Google'
         }
         google()
-        jcenter()
+        // jcenter()
         // Add the midtrans repository into the list of repositories
-        maven { url "http://dl.bintray.com/pt-midtrans/maven" }
+        maven { url "https://dl.bintray.com/pt-midtrans/maven" }
         maven { url "https://jitpack.io" }
     }
 }
-
-// subprojects {
-//     afterEvaluate {project ->
-//         if (project.hasProperty("android")) {
-//             android {
-//                 compileSdkVersion 28
-//                 buildToolsVersion "28.0.3"
-//             }
-//         }
-//     }
-//     project.configurations.all {
-//         resolutionStrategy.eachDependency { details ->
-//             if (details.requested.group == 'com.android.support'
-//                     && !details.requested.name.contains('multidex') ) {
-//                 details.useVersion "26.1.0"
-//             }
-//         }
-//     }
-// }
-
-// configurations.all {
-// resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-// def requested = details.requested
-//     if (requested.group == 'com.google.android.gms') {
-//         details.useVersion '12.0.1'
-//     }
-//     if (requested.group == 'com.google.firebase') {
-//         details.useVersion '12.0.1'
-//         }
-//     }
-// }
