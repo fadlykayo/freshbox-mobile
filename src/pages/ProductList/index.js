@@ -1,27 +1,47 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, FlatList, Keyboard, TouchableOpacity, Dimensions, Platform, Image, Animated, Easing, Text, Modal, TouchableHighlight, ActivityIndicator, Share, BackHandler, ScrollView, RefreshControl} from 'react-native';
-import {language, permission, encode64, onShare} from '@helpers';
-import {actNav, navConstant} from '@navigations';
+import {
+	ActivityIndicator,
+	Animated,
+	BackHandler,
+	Dimensions,
+	Easing,
+	FlatList,
+	Image,
+	Keyboard,
+	Modal,
+	Platform,
+	RefreshControl,
+	ScrollView,
+	Share,
+	Text,
+	TouchableHighlight,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+/* eslint-disable react/jsx-no-duplicate-props */
+import React, { Component } from 'react';
+import { actNav, navConstant } from '@navigations';
+import { encode64, language, onShare, permission } from '@helpers';
+
+import Categories from './components/Categories';
 import Checkout from './components/Checkout';
-import ProductItem from '@components/ProductItem';
-import ProductDetail from '@components/ProductDetail';
 import Container from '@components/Container';
-import StaticText from '@components/StaticText';
 import EmptyState from '@components/EmptyState';
-import SearchComponent from './components/SearchComponent';
 import FilterComponent from './components/FilterComponent';
 import Notes from './components/Notes';
-import Categories from './components/Categories';
-import images from '@assets';
-import {debounce} from 'lodash';
-import styles from './styles';
+import ProductDetail from '@components/ProductDetail';
+import ProductItem from '@components/ProductItem';
+import SearchComponent from './components/SearchComponent';
+import StaticText from '@components/StaticText';
 import actions from '@actions';
+import { connect } from 'react-redux';
+import { debounce } from 'lodash';
+import images from '@assets';
+import styles from './styles';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class ProductList extends Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			refreshing: false,
@@ -44,7 +64,7 @@ class ProductList extends Component {
 			wasSearching: false,
 			broadcast_message: '',
 			drawerVisible: false,
-			defaultCategory: ''
+			defaultCategory: '',
 		};
 		this.listRef = null;
 		this.submitSearch = this.submitSearch.bind(this);
@@ -87,7 +107,9 @@ class ProductList extends Component {
 			this.getProductList();
 		}
 		if (this.props.navigation.state.params.detailProduct) {
-			this.openDetailProduct(this.props.navigation.state.params.detailProduct[0]);
+			this.openDetailProduct(
+				this.props.navigation.state.params.detailProduct[0],
+			);
 		}
 		this.checkCategory();
 		this.getFavorites();
@@ -103,12 +125,13 @@ class ProductList extends Component {
 		this.getProductList('unmount');
 	};
 
-
 	shouldComponentUpdate(nextProps, nextState) {
-
-		if (nextProps.total_count == 0) this.outroAnimate();
-		else {
-			if (this.props.total_count == 0 && nextProps.total_count == 1) this.introAnimate();
+		if (nextProps.total_count == 0) {
+			this.outroAnimate();
+		} else {
+			if (this.props.total_count == 0 && nextProps.total_count == 1) {
+				this.introAnimate();
+			}
 		}
 		return true;
 	}
@@ -130,10 +153,10 @@ class ProductList extends Component {
 	apiBroadcastMessage() {
 		let payload = {
 			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
+				apiToken: this.props.user ? this.props.user.authorization : '',
 			},
 			body: {},
-			params: {}
+			params: {},
 		};
 		this.props.get_broadcast_message(
 			payload,
@@ -143,9 +166,7 @@ class ProductList extends Component {
 				this.setState(state);
 				// console.warn('success')
 			},
-			(err) => {
-
-			}
+			(err) => { },
 		);
 	}
 
@@ -153,41 +174,41 @@ class ProductList extends Component {
 	introAnimate() {
 		this.showCheckout.setValue(0);
 		const createAnimation = (value, duration, easing, delay = 0) => {
-			return Animated.timing(
-				value,
-				{
-					toValue: 1,
-					duration,
-					easing,
-					delay,
-					// useNativeDriver: true,
-				}
-			);
+			return Animated.timing(value, {
+				toValue: 1,
+				duration,
+				easing,
+				delay,
+				// useNativeDriver: true,
+			});
 		};
-		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+		Animated.parallel([
+			createAnimation(this.showCheckout, 200, Easing.ease, 0),
+		]).start();
 	}
 
 	// cart button slide down animation
 	outroAnimate() {
 		this.showCheckout.setValue(0);
 		const createAnimation = (value, duration, easing, delay = 0) => {
-			return Animated.timing(
-				value,
-				{
-					toValue: 1,
-					duration,
-					easing,
-					delay,
-					// useNativeDriver: true,
-				}
-			);
+			return Animated.timing(value, {
+				toValue: 1,
+				duration,
+				easing,
+				delay,
+				// useNativeDriver: true,
+			});
 		};
-		Animated.parallel([createAnimation(this.showCheckout, 200, Easing.ease, 0)]).start();
+		Animated.parallel([
+			createAnimation(this.showCheckout, 200, Easing.ease, 0),
+		]).start();
 	}
 
 	// validate if cart not empty
 	checkCart() {
-		if (this.props.total_count > 0) this.introAnimate();
+		if (this.props.total_count > 0) {
+			this.introAnimate();
+		}
 	}
 
 	// check notification from onesignal
@@ -205,9 +226,10 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
-			invoice: input
+			invoice: input,
 		};
-		this.props.detail_transaction(payload,
+		this.props.detail_transaction(
+			payload,
 			() => {
 				actNav.navigate(navConstant.Detail, {
 					action: 'history',
@@ -215,7 +237,7 @@ class ProductList extends Component {
 					refreshHandler: this.refreshHandler,
 				});
 			},
-			(err) => {}
+			(err) => { },
 		);
 	}
 
@@ -240,7 +262,7 @@ class ProductList extends Component {
 
 	// get position of scrollbar
 	getPositionIndex(e) {
-		this.setState({scrollX: e.nativeEvent.contentOffset.x}, () => {
+		this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
 			this.getPositionBubble();
 		});
 	}
@@ -249,7 +271,7 @@ class ProductList extends Component {
 		let position = Math.round(this.state.scrollX / (width * 0.18));
 
 		if (this.state.bubble != position) {
-			this.setState({bubble: position});
+			this.setState({ bubble: position });
 		}
 	}
 
@@ -257,17 +279,21 @@ class ProductList extends Component {
 		if (this.state.search) {
 			if (index == length) {
 				return (
-					<TouchableOpacity style={styles.clear.button} onPress={this.backToDefault}>
+					<TouchableOpacity
+						style={ styles.clear.button }
+						onPress={ this.backToDefault }>
 						<StaticText
-							style={styles.clear.text}
-							property={'productList.button.clear'}
+							style={ styles.clear.text }
+							property={ 'productList.button.clear' }
 						/>
 					</TouchableOpacity>
 				);
+			} else {
+				return null;
 			}
-			else return null;
+		} else {
+			return null;
 		}
-		else return null;
 	}
 
 	backToDefault() {
@@ -275,7 +301,7 @@ class ProductList extends Component {
 		this.onChangeText('search', false);
 		this.onChangeText('searchItem', '');
 		this.props.reset_params();
-		this.setState({refreshing: true}, () => {
+		this.setState({ refreshing: true }, () => {
 			if (this.state.search) {
 				this.onChangeText('search', false);
 			}
@@ -284,7 +310,6 @@ class ProductList extends Component {
 	}
 
 	onChangeText(type, value) {
-
 		clearTimeout(this.timeout); //clear old timeout
 
 		let state = JSON.parse(JSON.stringify(this.state));
@@ -293,9 +318,8 @@ class ProductList extends Component {
 		this.setState(state, () => {
 			if (type == 'searchItem') {
 				this.timeout = setTimeout(() => this.submitSearch(), 500); //wait until user finish their input
-			};
+			}
 		});
-
 	}
 
 	clearSearch() {
@@ -305,11 +329,11 @@ class ProductList extends Component {
 	setModalVisible(type, value) {
 		let modalVisible = JSON.parse(JSON.stringify(this.state.modalVisible));
 		modalVisible[type] = value;
-		this.setState({modalVisible});
+		this.setState({ modalVisible });
 	}
 
 	refreshHandler() {
-		this.setState({refreshing: true}, () => {
+		this.setState({ refreshing: true }, () => {
 			if (this.state.search) {
 				this.backToDefault();
 			} else {
@@ -324,91 +348,100 @@ class ProductList extends Component {
 
 		let category_code = null;
 
-		this.props.categories.map(c => {
-			if (this.props.on_category !== "Default") {
-
+		this.props.categories.map((c) => {
+			if (this.props.on_category !== 'Default') {
 				if (c.name == this.props.on_category) {
 					category_code = c.code;
 				}
-
 			}
 		});
 
 		if (this.props.navigation.state.params.fromPromo) {
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				params: {
 					page: 1,
 					// per_page: this.props.product.length,
 					// stock: 'tersedia',
 					sort: 'nama-az',
-					on_promo: 1
-				}
+					on_promo: 1,
+				},
 			};
 		} else if (this.props.navigation.state.params.fromBanner) {
 			let category = this.props.navigation.state.params.category;
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
 					page: 1,
-					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
-					category_code: this.props.currentDetail.new_products[category].info.category_code,
-					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
-				}
+					banner_id:
+						this.props.currentDetail.new_products[category].info.banner_id,
+					category_code:
+						this.props.currentDetail.new_products[category].info.category_code,
+					product_detail_type:
+						this.props.currentDetail.new_products[category].info
+							.product_detail_type,
+				},
 			};
 		} else {
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				params: {
 					page: 1,
 					// per_page: this.props.product.length,
 					// stock: 'tersedia',
 					sort: 'nama-az',
-					category_code: category_code
-				}
+					category_code: category_code,
+				},
 			};
 		}
-		this.props.get_products(payload,
+		this.props.get_products(
+			payload,
 			() => {
-				if (this.state.refreshing != false) this.setState({refreshing: false});
+				if (this.state.refreshing != false) {
+					this.setState({ refreshing: false });
+				}
 			},
-			(err) => {}
+			(err) => { },
 		);
 	}
 
 	getProductList(unload) {
-
 		let payload = {
 			header: {
-				apiToken: this.props.user ? this.props.user.authorization : ''
+				apiToken: this.props.user ? this.props.user.authorization : '',
 			},
-			params: this.props.params
+			params: this.props.params,
 		};
 
 		if (unload) {
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				params: {
 					page: 1,
-					sort: 'nama-az'
-				}
+					sort: 'nama-az',
+				},
 			};
 		}
-		this.props.get_products(payload,
+		this.props.get_products(
+			payload,
 			() => {
-				if (this.state.refreshing != false) this.setState({refreshing: false});
-				if (this.props.navigation.state.params.action) this.navigateToCart();
+				if (this.state.refreshing != false) {
+					this.setState({ refreshing: false });
+				}
+				if (this.props.navigation.state.params.action) {
+					this.navigateToCart();
+				}
 			},
-			(err) => {}
+			(err) => { },
 		);
 	}
 
@@ -416,51 +449,54 @@ class ProductList extends Component {
 		if (this.props.user) {
 			let payload = {
 				header: {
-					apiToken: this.props.user.authorization
-				}
-			};
-			this.props.get_favorites(payload,
-				(success) => {
+					apiToken: this.props.user.authorization,
 				},
-				(err) => {});
+			};
+			this.props.get_favorites(
+				payload,
+				(success) => { },
+				(err) => { },
+			);
 		}
 	}
 
 	getCategories() {
 		let payload = {
 			header: {},
-			params: {}
+			params: {},
 		};
-		this.props.get_categories(payload,
+		this.props.get_categories(
+			payload,
 			() => { },
-			(err) => {}
+			(err) => { },
 		);
 	}
 
 	handleLoadMore() {
-
-		this.setState({listLoading: true});
+		this.setState({ listLoading: true });
 		let category_code = null;
 
-		this.props.categories.map(c => {
-			if (this.props.on_category !== "Default") {
-
+		this.props.categories.map((c) => {
+			if (this.props.on_category !== 'Default') {
 				if (c.name == this.props.on_category) {
 					category_code = c.code;
 				}
-
 			}
 		});
 
-		if (this.props.current_page <= this.props.last_page && this.props.product.length > 3) {
+		if (
+			this.props.current_page <= this.props.last_page &&
+			this.props.product.length > 3
+		) {
 			let payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
-				params: {...this.props.params}
+				params: { ...this.props.params },
 			};
-			this.props.get_products(payload,
+			this.props.get_products(
+				payload,
 				() => {
 					let state = JSON.parse(JSON.stringify(this.state));
 					state.currentHeight = state.currentHeight * 1.3;
@@ -469,10 +505,10 @@ class ProductList extends Component {
 				},
 				(err) => {
 					console.warn(err);
-				});
-
+				},
+			);
 		} else {
-			this.setState({listLoading: false});
+			this.setState({ listLoading: false });
 		}
 	}
 
@@ -490,8 +526,8 @@ class ProductList extends Component {
 
 	backToTop() {
 		if (this.props.product.length > 0) {
-			this.listRef.scrollToOffset({y: 0.5, animated: true});
-		};
+			this.listRef.scrollToOffset({ y: 0.5, animated: true });
+		}
 	}
 
 	changeCategory(input) {
@@ -500,51 +536,56 @@ class ProductList extends Component {
 			let category = this.props.navigation.state.params.category;
 			let payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
 					page: 1,
-					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
+					banner_id:
+						this.props.currentDetail.new_products[category].info.banner_id,
 					category_code: input.code,
-					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type
-				}
+					product_detail_type:
+						this.props.currentDetail.new_products[category].info
+							.product_detail_type,
+				},
 			};
-			this.props.search_products(payload,
+			this.props.search_products(
+				payload,
 				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {});
+				(err) => { },
+			);
 		} else if (input.name == 'Default') {
 			let payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
 					page: 1,
 					sort: 'nama-az',
 					// stock: 'tersedia'
-				}
+				},
 			};
 
-			this.props.search_products(payload,
+			this.props.search_products(
+				payload,
 				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {});
-		}
-		else {
-
+				(err) => { },
+			);
+		} else {
 			let payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
@@ -552,13 +593,13 @@ class ProductList extends Component {
 					sort: 'nama-az',
 					// stock: 'tersedia',
 					category_code: input.code,
-				}
+				},
 			};
 
 			if (input.name.toUpperCase() == 'SPECIAL DEALS') {
 				payload = {
 					header: {
-						apiToken: this.props.user ? this.props.user.authorization : ''
+						apiToken: this.props.user ? this.props.user.authorization : '',
 					},
 					body: {},
 					params: {
@@ -567,18 +608,20 @@ class ProductList extends Component {
 						// stock: 'tersedia',
 						// on_promo: 1,
 						category_code: input.code,
-					}
+					},
 				};
 			}
 
-			this.props.search_products(payload,
+			this.props.search_products(
+				payload,
 				() => {
 					this.props.change_categories(input);
 					this.checkCategory();
 					this.closeDialogCategories();
 					// this.backToTop();
 				},
-				(err) => {});
+				(err) => { },
+			);
 		}
 	}
 
@@ -591,7 +634,7 @@ class ProductList extends Component {
 		this.props.detail_product(payload);
 		if (payload.product_category_name !== this.props.on_category) {
 			let categoryPayload = {
-				name: "Default"
+				name: 'Default',
 			};
 
 			this.props.change_categories(categoryPayload);
@@ -622,119 +665,115 @@ class ProductList extends Component {
 			let data = {
 				request: {
 					header: {
-						apiToken: this.props.user.authorization
+						apiToken: this.props.user.authorization,
 					},
-					body: {}
+					body: {},
 				},
-				favorite: payload
+				favorite: payload,
 			};
-			this.props.delete_favorite(data,
-				() => { },
-				(err) => {}
-			);
-		}
-		else {
+			this.props.delete_favorite(data, this.refetch, this.refetch);
+		} else {
 			let data = {
 				request: {
 					header: {
-						apiToken: this.props.user.authorization
+						apiToken: this.props.user.authorization,
 					},
 					body: {
-						product_code: payload.code
-					}
+						product_code: payload.code,
+					},
 				},
-				favorite: payload
+				favorite: payload,
 			};
-			this.props.add_favorite(data,
-				() => { },
-				(err) => {}
-			);
+			this.props.add_favorite(data, this.refetch, this.refetch);
 		}
 	}
 
+	refetch = (payload) => {
+		this.getProductList(true, true);
+		this.getProductPromo();
+		this.getFavorites();
+	};
+
 	changeTotalItem(payload, type) {
-	if (payload.count === payload.stock && type === 'inc') {
-      this.props.set_error_status({
-        status: true,
-        title: 'formError.title.outOfStock',
-        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
-      });
-    } else {
-      this.props.change_total(payload, type);
-	  this.storeCart(payload, type)
-    }
+		if (payload.count === payload.stock && type === 'inc') {
+			this.props.set_error_status({
+				status: true,
+				title: 'formError.title.outOfStock',
+				data: `${ payload.name } hanya tersedia ${ payload.stock } ${ payload.unit }`,
+			});
+		} else {
+			this.props.change_total(payload, type);
+			this.storeCart(payload, type);
+		}
 	}
 
 	storeCart = (cart, type) => {
-		if(this.props.user){
-		  let buyProducts = {
-			product_code: cart.code,
-			qty: 1,
-			status_promo: cart.on_promo,
-			cart_price: cart.price,
-			cart_promo_price:
-			  Number(cart.on_promo) === 1
-				? cart.banner_harga_jual
-				  ? cart.banner_harga_jual
-				  : cart.promo_price
-				: cart.promo_price,
-			remaining_quota:
-			  Number(cart.on_promo) === 1
-				? Number(cart.quota_claim) > 0
-				  ? Number(cart.quota_claim) -
-					Number(cart.total_claim_product || 0)
-				  : 0
-				: 0,
-			quota_claim: Number(cart.quota_claim || 0),
-			type: type
-		  };
-			let payload = {
-			  header: {
-				apiToken: this.props.user.authorization,
-			  },
-			  body: buyProducts,
+		if (this.props.user) {
+			let buyProducts = {
+				product_code: cart.code,
+				qty: 1,
+				status_promo: cart.on_promo,
+				cart_price: cart.price,
+				cart_promo_price:
+					Number(cart.on_promo) === 1
+						? cart.banner_harga_jual
+							? cart.banner_harga_jual
+							: cart.promo_price
+						: cart.promo_price,
+				remaining_quota:
+					Number(cart.on_promo) === 1
+						? Number(cart.quota_claim) > 0
+							? Number(cart.quota_claim) - Number(cart.total_claim_product || 0)
+							: 0
+						: 0,
+				quota_claim: Number(cart.quota_claim || 0),
+				type: type,
 			};
-	
-			this.props.post_cart(
-			  payload,
-			  (res) => {
-				// this.getCart()
-			  },
-			  (err) => {},
-			);
-		  } 
-	  }
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				body: buyProducts,
+			};
 
-	  getCart = () => {
-		if(this.props.user) {
-		  let payload = {
-			header: {
-			  apiToken: this.props.user ? this.props.user.authorization : '',
-			},
-			params: '',
-		  };
-		  this.props.get_cart(payload)
+			this.props.post_cart(
+				payload,
+				(res) => {
+					// this.getCart()
+				},
+				(err) => { },
+			);
 		}
-	  }
+	};
+
+	getCart = () => {
+		if (this.props.user) {
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : '',
+				},
+				params: '',
+			};
+			this.props.get_cart(payload);
+		}
+	};
 
 	submitSearch() {
 		let payload;
-		this.setState({listLoading: false});
+		this.setState({ listLoading: false });
 		let category_code = null;
 
-		this.props.categories.map(c => {
-			if (this.props.on_category !== "Default") {
-
+		this.props.categories.map((c) => {
+			if (this.props.on_category !== 'Default') {
 				if (c.name == this.state.defaultCategory) {
 					category_code = c.code;
 				}
-
 			}
 		});
 
-		if (this.state.searchItem === "") {
+		if (this.state.searchItem === '') {
 			this.props.change_categories({
-				name: this.state.defaultCategory
+				name: this.state.defaultCategory,
 			});
 			this.checkCategory();
 		}
@@ -742,22 +781,26 @@ class ProductList extends Component {
 			let category = this.props.navigation.state.params.category;
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
 					page: 1,
-					banner_id: this.props.currentDetail.new_products[category].info.banner_id,
-					category_code: this.props.currentDetail.new_products[category].info.category_code,
-					product_detail_type: this.props.currentDetail.new_products[category].info.product_detail_type,
+					banner_id:
+						this.props.currentDetail.new_products[category].info.banner_id,
+					category_code:
+						this.props.currentDetail.new_products[category].info.category_code,
+					product_detail_type:
+						this.props.currentDetail.new_products[category].info
+							.product_detail_type,
 					sort: 'nama-az',
 					name: this.state.searchItem,
-				}
+				},
 			};
 		} else {
 			payload = {
 				header: {
-					apiToken: this.props.user ? this.props.user.authorization : ''
+					apiToken: this.props.user ? this.props.user.authorization : '',
 				},
 				body: {},
 				params: {
@@ -766,22 +809,22 @@ class ProductList extends Component {
 					sort: 'nama-az',
 					name: this.state.searchItem,
 					// category_code: category_code,
-				}
+				},
 			};
 		}
-
 
 		if (this.state.searchItem === '') {
 			payload.params.category_code = category_code;
 		}
 
-		this.props.search_products(payload,
+		this.props.search_products(
+			payload,
 			(success) => {
 				this.onChangeText('search', true);
 				// this.backToTop();
 			},
-			(err) => {});
-
+			(err) => { },
+		);
 	}
 
 	openDrawerMenu() {
@@ -790,25 +833,26 @@ class ProductList extends Component {
 	}
 
 	validateCart() {
-		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
+		let outStockCart = this.props.cart_product
+			.slice()
+			.filter((item) => item.count > item.stock);
 		if (outStockCart.length > 0) {
-			language.transformText('message.outOfStock')
-				.then(message => {
-					this.props.set_error_status({
-						status: true,
-						title: 'formError.title.outOfStock',
-						data: message,
-					});
+			language.transformText('message.outOfStock').then((message) => {
+				this.props.set_error_status({
+					status: true,
+					title: 'formError.title.outOfStock',
+					data: message,
 				});
+			});
 		}
 		// else {
-			this.navigateToCart();
+		this.navigateToCart();
 		// }
 	}
 
 	navigateToCart() {
 		actNav.navigate(navConstant.Cart, {
-			createOrderHandler: this.createOrderHandler
+			createOrderHandler: this.createOrderHandler,
 		});
 	}
 
@@ -817,10 +861,9 @@ class ProductList extends Component {
 			actNav.goBackToTop();
 			this.props.clear_products();
 			res();
-		})
-			.then(() => {
-				setTimeout(() => this.navigateToDetail(invoice, type), 1000);
-			});
+		}).then(() => {
+			setTimeout(() => this.navigateToDetail(invoice, type), 1000);
+		});
 	}
 
 	navigateToDetail(input, type) {
@@ -828,9 +871,10 @@ class ProductList extends Component {
 			header: {
 				apiToken: this.props.user.authorization,
 			},
-			invoice: input
+			invoice: input,
 		};
-		this.props.detail_transaction(payload,
+		this.props.detail_transaction(
+			payload,
 			() => {
 				actNav.navigate(navConstant.Detail, {
 					action: 'history',
@@ -839,7 +883,7 @@ class ProductList extends Component {
 					refreshHandler: this.refreshHandler,
 				});
 			},
-			(err) => {}
+			(err) => { },
 		);
 	}
 
@@ -847,28 +891,23 @@ class ProductList extends Component {
 		// console.warn('masuk')
 		if (!this.state.listLoading) {
 			return (
-				<View style={{flex: 1, height: 100, alignItems: 'center', marginRight: 18}}>
-					<Text style={styles.footer.text}>End of Category</Text>
+				<View
+					style={ { flex: 1, height: 100, alignItems: 'center', marginRight: 18 } }>
+					<Text style={ styles.footer.text }>End of Category</Text>
 				</View>
 			);
 		} else {
-			return (
-				<ActivityIndicator
-					size={'small'}
-				/>
-			);
+			return <ActivityIndicator size={ 'small' } />;
 		}
-
-
 	}
 
 	onShare = async (data) => {
 		let encryptCode = encode64.btoa(data.id);
-		const url = `https://freshbox.id/link?code_link=1&code_data=${encryptCode}`;
-		const product = data.name.split(" ").join("_");
+		const url = `https://freshbox.id/link?code_link=1&code_data=${ encryptCode }`;
+		const product = data.name.split(' ').join('_');
 		try {
 			const result = await Share.share({
-				message: `Beli ${data.name} Ga Pake Repot Hanya Di Freshbox! Klik disini: ${url}`,
+				message: `Beli ${ data.name } Ga Pake Repot Hanya Di Freshbox! Klik disini: ${ url }`,
 			});
 
 			if (result.action == Share.sharedAction) {
@@ -883,21 +922,24 @@ class ProductList extends Component {
 		} catch (err) {
 			// console.warn(err.message)
 		}
-
 	};
 
 	onScrollEvent = (e) => {
-
-		const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+		const isCloseToBottom = ({
+			layoutMeasurement,
+			contentOffset,
+			contentSize,
+		}) => {
 			const paddingToBottom = 20;
-			return layoutMeasurement.height + contentOffset.y >=
-				contentSize.height - paddingToBottom;
+			return (
+				layoutMeasurement.height + contentOffset.y >=
+				contentSize.height - paddingToBottom
+			);
 		};
 
 		if (isCloseToBottom(e.nativeEvent)) {
 			this.handleLoadMore();
 		}
-
 	};
 
 	renderProducts = (products) => {
@@ -905,30 +947,30 @@ class ProductList extends Component {
 			return (
 				<ProductItem
 					dashboard
-					search={this.state.search}
-					data={product}
-					index={index + 1}
-					type={'productList'}
-					user={this.props.user}
-					toggleFavorite={this.toggleFavorite}
-					changeTotalItem={this.changeTotalItem}
-					productLength={this.props.product.length}
-					openDetailProduct={this.openDetailProduct}
+					search={ this.state.search }
+					data={ product }
+					index={ index + 1 }
+					type={ 'productList' }
+					user={ this.props.user }
+					toggleFavorite={ this.toggleFavorite }
+					changeTotalItem={ this.changeTotalItem }
+					productLength={ this.props.product.length }
+					openDetailProduct={ this.openDetailProduct }
 				/>
 			);
 		});
 		return (
 			<ScrollView
-				style={styles.scrollView}
+				style={ styles.scrollView }
 				refreshControl={
-					<RefreshControl refreshing={this.state.refreshing} onRefresh={this.refreshHandler} />
+					<RefreshControl
+						refreshing={ this.state.refreshing }
+						onRefresh={ this.refreshHandler }
+					/>
 				}
-				onScroll={this.onScrollEvent}
-				scrollEventThrottle={0}
-			>
-				<View style={styles.main.products.container}>
-					{productCards}
-				</View>
+				onScroll={ this.onScrollEvent }
+				scrollEventThrottle={ 0 }>
+				<View style={ styles.main.products.container }>{ productCards }</View>
 			</ScrollView>
 		);
 	};
@@ -941,154 +983,161 @@ class ProductList extends Component {
 	render() {
 		const introButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
-			outputRange: [-(width * 0.3), 0]
+			outputRange: [-(width * 0.3), 0],
 		});
 		const outroButton = this.showCheckout.interpolate({
 			inputRange: [0, 1],
-			outputRange: [0, -(width * 0.3)]
+			outputRange: [0, -(width * 0.3)],
 		});
 
-		let products = this.props.navigation.state.params.showPromo ? this.props.promoProduct : this.props.product;
-		let data = products && products.filter(x => Number(x.quota_claim) === 0 || Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 && x) || [];
+		let products = this.props.navigation.state.params.showPromo
+			? this.props.promoProduct
+			: this.props.product;
+		let data =
+			(products &&
+				products.filter(
+					(x) =>
+						Number(x.quota_claim) === 0 ||
+						(Number(x.quota_claim) - Number(x.total_claim_product || 0) > 0 &&
+							x),
+				)) ||
+			[];
 		return (
 			<Container
-				bgColorBottom={'veryLightGrey'}
-				bgColorTop={'red'}
-				containerColor
-			>
+				bgColorBottom={ 'veryLightGrey' }
+				bgColorTop={ 'red' }
+				containerColor>
 				<SearchComponent
-					type={'searchItem'}
-					title={'productList.searchPlaceHolder'}
-					value={this.state.searchItem}
-					onChangeText={this.onChangeText}
-					onSubmitEditing={this.submitSearch}
-					openDrawerMenu={this.openDrawerMenu}
-					clearSearch={this.clearSearch}
-					backHandler={this.backHandler}
-					user={this.props.user}
-					params={this.props.params}
+					type={ 'searchItem' }
+					title={ 'productList.searchPlaceHolder' }
+					value={ this.state.searchItem }
+					onChangeText={ this.onChangeText }
+					onSubmitEditing={ this.submitSearch }
+					openDrawerMenu={ this.openDrawerMenu }
+					clearSearch={ this.clearSearch }
+					backHandler={ this.backHandler }
+					user={ this.props.user }
+					params={ this.props.params }
 				/>
 				<FilterComponent
-					onCategory={this.props.on_category}
-					openAllCategories={this.openAllCategories}
-					openDeliveryInfo={this.openDeliveryInfo}
+					onCategory={ this.props.on_category }
+					openAllCategories={ this.openAllCategories }
+					openDeliveryInfo={ this.openDeliveryInfo }
 				/>
 
-				<Notes
-					text={this.props.broadcast_message}
-				/>
-				<View style={styles.container}>
-					{
-						this.props.product.length > 0 ?
-							<FlatList
-								contentContainerStyle={{marginLeft: 18}}
-								numColumns={2}
-								ref={(e) => {this.listRef = e;}}
-								data={data}
-								onEndReachedThreshold={0.5}
-								onRefresh={this.refreshHandler}
-								refreshing={this.state.refreshing}
-								keyExtractor={(item) => item.code}
-								onEndReached={this.handleLoadMore}
-								ListFooterComponent={this.renderFlatListFooter.bind(this)}
-								renderItem={({item, index}) => (
-									<View style={styles.main.products.container} key={index}>
-										<ProductItem
-											dashboard
-											search={this.state.search}
-											data={item}
-											index={index + 1}
-											type={'productList'}
-											user={this.props.user}
-											toggleFavorite={this.toggleFavorite}
-											changeTotalItem={this.changeTotalItem}
-											productLength={this.props.product.length}
-											openDetailProduct={this.openDetailProduct}
-										/>
-
-									</View>
-								)}
-							/> :
-							<EmptyState
-								property={'emptyState.search'}
-								image={images.empty_search}
-							/>
-
-					}
-
+				<Notes text={ this.props.broadcast_message } />
+				<View style={ styles.container }>
+					{ this.props.product.length > 0 ? (
+						<FlatList
+							contentContainerStyle={ { marginLeft: 18 } }
+							numColumns={ 2 }
+							ref={ (e) => {
+								this.listRef = e;
+							} }
+							data={ data }
+							onEndReachedThreshold={ 0.5 }
+							onRefresh={ this.refreshHandler }
+							refreshing={ this.state.refreshing }
+							keyExtractor={ (item) => item.code }
+							onEndReached={ this.handleLoadMore }
+							ListFooterComponent={ this.renderFlatListFooter.bind(this) }
+							renderItem={ ({ item, index }) => (
+								<View style={ styles.main.products.container } key={ index }>
+									<ProductItem
+										dashboard
+										search={ this.state.search }
+										data={ item }
+										index={ index + 1 }
+										type={ 'productList' }
+										user={ this.props.user }
+										toggleFavorite={ this.toggleFavorite }
+										changeTotalItem={ this.changeTotalItem }
+										productLength={ this.props.product.length }
+										openDetailProduct={ this.openDetailProduct }
+									/>
+								</View>
+							) }
+						/>
+					) : (
+						<EmptyState
+							property={ 'emptyState.search' }
+							image={ images.empty_search }
+						/>
+					) }
 
 					<Checkout
-						introButton={introButton}
-						outroButton={outroButton}
-						validateCart={this.validateCart}
-						totalCount={this.props.total_count}
-						totalPrice={this.props.total_price}
-						modalVisible={this.state.modalVisible.checkout}
+						introButton={ introButton }
+						outroButton={ outroButton }
+						validateCart={ this.validateCart }
+						totalCount={ this.props.total_count }
+						totalPrice={ this.props.total_price }
+						modalVisible={ this.state.modalVisible.checkout }
 					/>
 				</View>
-				{/* </View> */}
+				{/* </View> */ }
 
 				<ProductDetail
-					type={'productList'}
-					user={this.props.user}
-					bubble={this.state.bubble}
-					scrollX={this.state.scrollX}
-					data={this.props.productDetail}
-					openZoomImage={this.openZoomImage}
-					closeZoomImage={this.closeZoomImage}
-					toggleFavorite={this.toggleFavorite}
-					changeTotalItem={this.changeTotalItem}
-					getPositionIndex={this.getPositionIndex}
-					getPositionBubble={this.getPositionBubble}
-					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct}
-					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
-					onShare={onShare}
+					type={ 'productList' }
+					user={ this.props.user }
+					bubble={ this.state.bubble }
+					scrollX={ this.state.scrollX }
+					data={ this.props.productDetail }
+					openZoomImage={ this.openZoomImage }
+					closeZoomImage={ this.closeZoomImage }
+					toggleFavorite={ this.toggleFavorite }
+					changeTotalItem={ this.changeTotalItem }
+					getPositionIndex={ this.getPositionIndex }
+					getPositionBubble={ this.getPositionBubble }
+					closeDetailProduct={ this.closeDetailProduct }
+					modalVisible={ this.state.modalVisible.openProduct }
+					modalVisible={
+						this.state.modalVisible.openProduct || this.props.setModalVisible
+					}
+					onShare={ onShare }
 				/>
 				<Categories
-					changeCategory={this.changeCategory}
-					categories={this.props.categories}
-					modalVisible={this.state.modalVisible.openCategories}
-					closeDialogCategories={this.closeDialogCategories}
+					changeCategory={ this.changeCategory }
+					categories={ this.props.categories }
+					modalVisible={ this.state.modalVisible.openCategories }
+					closeDialogCategories={ this.closeDialogCategories }
 				/>
 				<Modal
-					animationType='slide'
-					transparent={true}
-					visible={this.state.modalVisible.delivery}
-
-				>
-					<View style={{flex: 1}}>
-						<TouchableHighlight style={{flex: 1}} onPress={this.closeDeliveryInfo}>
+					animationType="slide"
+					transparent={ true }
+					visible={ this.state.modalVisible.delivery }>
+					<View style={ { flex: 1 } }>
+						<TouchableHighlight
+							style={ { flex: 1 } }
+							onPress={ this.closeDeliveryInfo }>
 							<>
-								<View style={styles.modal.container}>
-
-								</View>
-								<View style={styles.modal.card}>
-									<View style={styles.modal.content}>
+								<View style={ styles.modal.container } />
+								<View style={ styles.modal.card }>
+									<View style={ styles.modal.content }>
 										<Image
-											source={images.icon_favorited}
-											style={styles.modal.image}
+											source={ images.icon_favorited }
+											style={ styles.modal.image }
 										/>
 										<View>
-											<Text style={styles.modal.title}>Cities We Currently Serve</Text>
-											<Text style={styles.modal.text}>We are currently serving Jakarta, Depok, and Tangerang area. We will serve other areas soon!</Text>
+											<Text style={ styles.modal.title }>
+												Cities We Currently Serve
+											</Text>
+											<Text style={ styles.modal.text }>
+												We are currently serving Jakarta, Depok, and Tangerang
+												area. We will serve other areas soon!
+											</Text>
 										</View>
 									</View>
-
-
-
 								</View>
 							</>
 						</TouchableHighlight>
 					</View>
 				</Modal>
-
 			</Container>
 		);
 	}
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	notif: state.notif.notification,
 	user: state.user.data,
 	state: state.product,
@@ -1106,31 +1155,46 @@ const mapStateToProps = state => ({
 	promoProduct: state.product.promoProduct,
 	network: state.network,
 	currentDetail: state.product.currentDetail,
-	setModalVisible: state.product.setModalVisible
+	setModalVisible: state.product.setModalVisible,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 	reset_params: () => dispatch(actions.product.reducer.reset_params()),
 	clear_products: () => dispatch(actions.product.reducer.clear_products()),
-	clear_product_lists: () => dispatch(actions.product.reducer.clear_product_lists()),
-	add_favorite: (req, res, err) => dispatch(actions.product.api.add_favorite(req, res, err)),
-	get_products: (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
-	detail_product: (payload) => dispatch(actions.product.reducer.detail_product(payload)),
-	toggle_favorite: (payload) => dispatch(actions.product.reducer.toggle_favorite(payload)),
-	get_favorites: (req, res, err) => dispatch(actions.product.api.get_favorites(req, res, err)),
-	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	get_categories: (req, res, err) => dispatch(actions.product.api.get_categories(req, res, err)),
-	search_products: (req, res, err) => dispatch(actions.product.api.search_products(req, res, err)),
-	change_categories: (payload) => dispatch(actions.product.reducer.change_categories(payload)),
-	delete_favorite: (req, res, err) => dispatch(actions.product.api.delete_favorite(req, res, err)),
-	change_total: (payload, type) => dispatch(actions.product.reducer.change_total(payload, type)),
-	detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
-	get_broadcast_message: (req, res, err) => dispatch(actions.utility.api.broadcast_message(req, res, err)),
-	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
+	clear_product_lists: () =>
+		dispatch(actions.product.reducer.clear_product_lists()),
+	add_favorite: (req, res, err) =>
+		dispatch(actions.product.api.add_favorite(req, res, err)),
+	get_products: (req, res, err) =>
+		dispatch(actions.product.api.get_products(req, res, err)),
+	detail_product: (payload) =>
+		dispatch(actions.product.reducer.detail_product(payload)),
+	toggle_favorite: (payload) =>
+		dispatch(actions.product.reducer.toggle_favorite(payload)),
+	get_favorites: (req, res, err) =>
+		dispatch(actions.product.api.get_favorites(req, res, err)),
+	set_error_status: (payload) =>
+		dispatch(actions.network.reducer.set_error_status(payload)),
+	get_categories: (req, res, err) =>
+		dispatch(actions.product.api.get_categories(req, res, err)),
+	search_products: (req, res, err) =>
+		dispatch(actions.product.api.search_products(req, res, err)),
+	change_categories: (payload) =>
+		dispatch(actions.product.reducer.change_categories(payload)),
+	delete_favorite: (req, res, err) =>
+		dispatch(actions.product.api.delete_favorite(req, res, err)),
+	change_total: (payload, type) =>
+		dispatch(actions.product.reducer.change_total(payload, type)),
+	detail_transaction: (req, res, err) =>
+		dispatch(actions.transaction.api.detail_transaction(req, res, err)),
+	get_broadcast_message: (req, res, err) =>
+		dispatch(actions.utility.api.broadcast_message(req, res, err)),
+	set_modal_visible: (payload) =>
+		dispatch(actions.product.reducer.set_modal_visible(payload)),
 	get_cart: (req, res, err) =>
-    dispatch(actions.product.api.get_cart(req, res, err)),
-  	post_cart: (req, res, err) =>
-    dispatch(actions.product.api.post_cart(req, res, err)),
+		dispatch(actions.product.api.get_cart(req, res, err)),
+	post_cart: (req, res, err) =>
+		dispatch(actions.product.api.post_cart(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

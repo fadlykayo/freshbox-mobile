@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { Text, View } from 'react-native';
 import { actNav, navConstant } from '@navigations';
-import StaticText from '@components/StaticText';
+
 import Button from '@components/Button';
+import StaticText from '@components/StaticText';
+import actions from '@actions';
+import { connect } from 'react-redux';
 import numeral from 'numeral';
 import styles from './styles';
-import actions from '@actions';
 
 class TotalPrice extends Component {
 	constructor() {
@@ -14,10 +15,10 @@ class TotalPrice extends Component {
 		this._renderButton = this._renderButton.bind(this);
 		this.navigateToCart = this.navigateToCart.bind(this);
 		this.navigateToChoosePayment = this.navigateToChoosePayment.bind(this);
-		this.navigateToTransferInstruction = this.navigateToTransferInstruction.bind(this);
+		this.navigateToTransferInstruction =
+			this.navigateToTransferInstruction.bind(this);
 		this.cancelInvoice = this.cancelInvoice.bind(this);
 	}
-
 
 	cancelInvoice() {
 		this.props.modalVisible('alertDialog', true);
@@ -55,7 +56,7 @@ class TotalPrice extends Component {
 									onPress={ this.navigateToTransferInstruction }
 									title={ 'historyDetail.content.pay' }
 								/>
-								<View style={ { marginVertical: 5 } }></View>
+								<View style={ { marginVertical: 5 } } />
 								<Button
 									type={ 'white' }
 									onPress={ this.cancelInvoice }
@@ -104,10 +105,10 @@ class TotalPrice extends Component {
 							title={ 'historyDetail.content.reOrder' }
 						/>
 					);
-				default: return null;
+				default:
+					return null;
 			}
-		}
-		else {
+		} else {
 			return (
 				<Button
 					type={ this.props.type }
@@ -131,23 +132,29 @@ class TotalPrice extends Component {
 		let discount = numeral(this.props.additional).format('0,0');
 		let grandTotal = numeral(this.props.grandTotal).format('0,0');
 
-
-
 		if (this.props.discount) {
-
-			let totalDiscount = Number(this.props.additional) + Number(this.props.discount);
+			let totalDiscount =
+				Number(this.props.additional) + Number(this.props.discount);
 			discount = numeral(totalDiscount).format('0,0');
-
 		} else {
 			discount = numeral(this.props.additional).format('0,0');
-		};
+		}
 
-		if (this.props.freeShipping && this.props.freeShipping !== null && this.props.freeShipping > 0) {
-			if (this.props.grandTotal - this.props.delivery_price > this.props.freeShipping) {
+		if (
+			this.props.freeShipping &&
+			this.props.freeShipping !== null &&
+			this.props.freeShipping > 0
+		) {
+			if (
+				this.props.grandTotal - this.props.delivery_price >
+				this.props.freeShipping
+			) {
 				let discountFormated = numeral(discount).format('0');
 				let grandTotalFormated = numeral(grandTotal).format('0');
-				let discountAdd = parseInt(discountFormated) + this.props.delivery_price;
-				let adjustedGrandTotal = parseInt(grandTotalFormated) - this.props.delivery_price;
+				let discountAdd =
+					parseInt(discountFormated) + this.props.delivery_price;
+				let adjustedGrandTotal =
+					parseInt(grandTotalFormated) - this.props.delivery_price;
 
 				discount = numeral(discountAdd).format('0,0');
 				// deliveryPrice   = numeral(0).format('0,0');
@@ -157,7 +164,9 @@ class TotalPrice extends Component {
 
 		if (this.props.action == undefined || this.props.action == 'history') {
 			// grandTotal = numeral(this.props.grandTotal).format('0,0');
-			grandTotal = numeral(this.props.subtotalHistory - this.props.discount).format('0,0');
+			grandTotal = numeral(
+				this.props.subtotalHistory - this.props.discount,
+			).format('0,0');
 		}
 
 		return (
@@ -189,40 +198,37 @@ class TotalPrice extends Component {
 							{ deliveryPrice }
 						</Text>
 					</View>
-					{
-						this.props.action == undefined
-							? null
-							: (
-								<View>
-									<View style={ styles.subcontainer.price }>
-										<StaticText
-											style={ styles.text.title }
-											property={ 'checkout.content.adminCharge' }
-										/>
-										<Text style={ styles.text.price }>
-											<StaticText
-												style={ styles.text.price }
-												property={ 'checkout.content.price' }
-											/>
-											{ additional }
-										</Text>
-									</View>
-									<View style={ styles.subcontainer.price }>
-										<StaticText
-											style={ styles.text.title }
-											property={ 'checkout.content.discount' }
-										/>
-										<Text style={ styles.text.price }>
-											- <StaticText
-												style={ styles.text.price }
-												property={ 'checkout.content.price' }
-											/>
-											{ discount }
-										</Text>
-									</View>
-								</View>
-							)
-					}
+					{ this.props.action == undefined ? null : (
+						<View>
+							<View style={ styles.subcontainer.price }>
+								<StaticText
+									style={ styles.text.title }
+									property={ 'checkout.content.adminCharge' }
+								/>
+								<Text style={ styles.text.price }>
+									<StaticText
+										style={ styles.text.price }
+										property={ 'checkout.content.price' }
+									/>
+									{ additional }
+								</Text>
+							</View>
+							<View style={ styles.subcontainer.price }>
+								<StaticText
+									style={ styles.text.title }
+									property={ 'checkout.content.discount' }
+								/>
+								<Text style={ styles.text.price }>
+									-{ ' ' }
+									<StaticText
+										style={ styles.text.price }
+										property={ 'checkout.content.price' }
+									/>
+									{ discount }
+								</Text>
+							</View>
+						</View>
+					) }
 					<View style={ styles.subcontainer.price }>
 						<StaticText
 							style={ styles.text.total }
@@ -249,7 +255,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	cancel_invoice: (req, res, err) => dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
+	cancel_invoice: (req, res, err) =>
+		dispatch(actions.transaction.api.cancel_invoice(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TotalPrice);
