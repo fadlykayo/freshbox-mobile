@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Keyboard, Dimensions } from 'react-native';
+import { View, ScrollView, Keyboard, Dimensions, Linking, Image, TouchableOpacity } from 'react-native';
 import { actNav } from '@navigations';
 import { language } from '@helpers';
+import images from '@assets';
 import Container from '@components/Container';
 import NavigationBar from '@components/NavigationBar';
 import Button from '@components/Button';
+import StaticText from '@components/StaticText';
 import Dropdown from './components/Dropdown';
 import Logo from './components/Logo';
 import FormInput from '@components/FormInput';
@@ -13,11 +15,9 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import actions from '@actions';
 
-const { height, width } = Dimensions.get('window')
-
 class ContactUs extends Component {
-  	constructor(props) {
-  		super(props)
+	constructor(props) {
+		super(props);
 		this.state = {
 			subjects: [
 				{
@@ -42,7 +42,7 @@ class ContactUs extends Component {
 			subject: '',
 			message: '',
 			placeholder: '',
-		}
+		};
 		this.listRef = null;
 		this.onChangeText = this.onChangeText.bind(this);
 		this.submitInformation = this.submitInformation.bind(this);
@@ -57,53 +57,52 @@ class ContactUs extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.closeDrawer) {
+		if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
 	}
 
 	openDrawerMenu = () => {
-        
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
-	}
+	};
 
 	scrollToMessage() {
-		this.listRef.scrollTo({y: 115, animated: true})
+		this.listRef.scrollTo({ y: 115, animated: true });
 	}
 
-	submitSubject(value,nextValue) {
-		this.showDropdown(value,nextValue)
+	submitSubject(value, nextValue) {
+		this.showDropdown(value, nextValue);
 	}
 
-	showDropdown(value, nextValue){
+	showDropdown(value, nextValue) {
 		let isOpen = this.state.isOpen;
-		if(value != null && nextValue == null) {
+		if (value != null && nextValue == null) {
 			isOpen[value] = !isOpen[value];
-			this.setState({isOpen}, () => {
+			this.setState({ isOpen }, () => {
 				this.scrollToMessage();
 				this.formMessage.focus();
-			})
+			});
 		}
 		else {
 			Keyboard.dismiss();
 			isOpen[nextValue] = !isOpen[nextValue];
-			this.setState({isOpen});
-		}    
-    }
+			this.setState({ isOpen });
+		}
+	}
 
-	onChangeText(type,value){
-        let user = this.state;
-        user[type] = value;
-        this.setState({user});
+	onChangeText(type, value) {
+		let user = this.state;
+		user[type] = value;
+		this.setState({ user });
 	}
 
 	renderSubjectHistory(lang = 'id') {
-		if(this.props.navigation.state.params.action == 'history') {
-			language.transformText('contactUs.info.reviewProduct',lang,{ invoice: this.props.navigation.state.params.data.invoice})
-			.then((res) => {
-				this.setState({subject: res});
-			});
+		if (this.props.navigation.state.params.action == 'history') {
+			language.transformText('contactUs.info.reviewProduct', lang, { invoice: this.props.navigation.state.params.data.invoice })
+				.then((res) => {
+					this.setState({ subject: res });
+				});
 		}
 	}
 
@@ -116,104 +115,118 @@ class ContactUs extends Component {
 				subject: this.state.subject,
 				message: this.state.message
 			}
-		}
+		};
 
 		this.props.message_to_cs(payload,
 			(res) => {
 				let state = this.state;
 				language.transformText('message.sendInformationSuccess')
-				.then(message => {
-					this.props.set_success_status({
-						status: true,
-						data: message,
-						title: 'formSuccess.title.default'
-					});
-					setTimeout(() => {
+					.then(message => {
 						this.props.set_success_status({
-							status: false,
-							data: '',
-							title: ''
+							status: true,
+							data: message,
+							title: 'formSuccess.title.default'
 						});
-						state.subject = '';
-						state.message = '';
-						this.setState(state);
-						actNav.goBack();
-					},1000);
-				});
+						setTimeout(() => {
+							this.props.set_success_status({
+								status: false,
+								data: '',
+								title: ''
+							});
+							state.subject = '';
+							state.message = '';
+							this.setState(state);
+							actNav.goBack();
+						}, 1000);
+					});
 			},
-			(err) => {})
+			(err) => { });
 	}
 
-  	render() {
-  	  	return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
+	render() {
+		return (
+			<Container
+				bgColorBottom={ 'veryLightGrey' }
+				bgColorTop={ 'red' }
 			>
 				<NavigationBar
-					title={'contactUs.navigationTitle'}
-					onPress={actNav.goBack}
+					title={ 'contactUs.navigationTitle' }
+					onPress={ actNav.goBack }
 					menubar
-					openDrawer={this.openDrawerMenu}
+					openDrawer={ this.openDrawerMenu }
 				/>
 				<ScrollView
-					ref={(e) => { this.listRef = e}}
-					style={styles.container}
-					keyboardShouldPersistTaps={'handled'}
-                >
+					ref={ (e) => { this.listRef = e; } }
+					style={ styles.container }
+					keyboardShouldPersistTaps={ 'handled' }
+				>
 					<Logo />
+					<StaticText
+						style={ styles.label }
+						property={ 'contactUs.whatsapp' }
+					/>
+					<TouchableOpacity style={ styles.iconContainer } onPress={ () => Linking.openURL('https://wa.me/+628118337377') }>
+						<Image
+							style={ styles.icon }
+							source={ images.whatsapp }
+						/>
+					</TouchableOpacity>
+					<StaticText
+						style={ styles.label }
+						property={ 'contactUs.ticket' }
+					/>
 					{ this.props.navigation.state.params.action == 'history'
-						? ( <InputData
-								data={this.props.navigation.state.params.data}
-							/>)
-						: ( <Dropdown
-								type={'subject'}
-								data={this.state.subjects}
-								isOpen={this.state.isOpen.subject}
-								value={this.state.subject}
-								nextValue={null}
-								onChangeText={this.onChangeText}
-								label={'contactUs.content.subject'}
-								placeholder={'contactUs.content.subject'}
-								showDropdown={this.showDropdown}
-								submitSubject={this.submitSubject}
-							/>)
+						? <InputData
+							data={ this.props.navigation.state.params.data }
+						/>
+						: <Dropdown
+							type={ 'subject' }
+							data={ this.state.subjects }
+							isOpen={ this.state.isOpen.subject }
+							value={ this.state.subject }
+							nextValue={ null }
+							onChangeText={ this.onChangeText }
+							label={ 'contactUs.content.subject' }
+							placeholder={ 'contactUs.content.subject' }
+							showDropdown={ this.showDropdown }
+							submitSubject={ this.submitSubject }
+						/>
 					}
 					<FormInput
-						ref={c => {this.formMessage = c}}
-						returnKeyType={'done'}
-						type={'message'}
-						multiline={true}
-						numberOfLines={10}
-						onChangeText={this.onChangeText}
-						value={this.state.message}
-						onFocusHandler={this.scrollToMessage}
-						label={'contactUs.label.message'}
-						placeholder={'contactUs.content.message'}
-						onSubmitEditing={this.submitInformation}
+						ref={ c => { this.formMessage = c; } }
+						returnKeyType={ 'done' }
+						type={ 'message' }
+						multiline={ true }
+						numberOfLines={ 10 }
+						onChangeText={ this.onChangeText }
+						value={ this.state.message }
+						onFocusHandler={ this.scrollToMessage }
+						label={ 'contactUs.label.message' }
+						placeholder={ 'contactUs.content.message' }
+						onSubmitEditing={ this.submitInformation }
 					/>
-					
+
 				</ScrollView>
-				<View style={styles.subcontainer.bottom}>
+				<View style={ styles.subcontainer.bottom }>
 					<Button
-						type={'red'}
-						title={'contactUs.button.submit'}
-						onPress={this.submitInformation}
+						type={ 'red' }
+						title={ 'contactUs.button.submit' }
+						onPress={ this.submitInformation }
 					/>
 				</View>
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 const mapStateToProps = (state) => ({
 	user: state.user.data
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	set_success_status: (payload) => dispatch(actions.network.reducer.set_success_status(payload)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	message_to_cs: (req,res,err) => dispatch(actions.cs.api.message_to_cs(req,res,err)),
-})
+	message_to_cs: (req, res, err) => dispatch(actions.cs.api.message_to_cs(req, res, err)),
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(ContactUs);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);

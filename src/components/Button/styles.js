@@ -5,8 +5,8 @@ import { scaling } from '@helpers';
 const { width } = Dimensions.get('window');
 
 const styles = {
-    container: {
-		base:(borderRadius) => ({
+	container: {
+		base: (borderRadius) => ({
 			flex: -1,
 			justifyContent: 'center',
 			height: scaling.moderateScale(50),
@@ -25,17 +25,17 @@ const styles = {
 			borderColor: colour.red,
 			backgroundColor: colour.white,
 		}
-    },
-    staticText: {
+	},
+	staticText: {
 		red: (fontSize) => ({
 			fontFamily: 'Avenir-Heavy',
-        	fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
-        	color: colour.red
+			fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
+			color: colour.red
 		}),
 		white: (fontSize) => ({
 			fontFamily: 'Avenir-Heavy',
-        	fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
-        	color: colour.white
+			fontSize: fontSize ? scaling.moderateScale(fontSize) : scaling.moderateScale(14),
+			color: colour.white
 		})
 	},
 	touchable: {
@@ -44,6 +44,6 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 	}
-}
+};
 
 export default styles;

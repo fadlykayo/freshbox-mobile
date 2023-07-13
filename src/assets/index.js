@@ -75,5 +75,6 @@ images.ic_time = require('./ic_time.png');
 images.ic_checklist_combine = require('./ic_checklist_combine.png');
 images.icon_apple = require('./apple.png');
 images.icon_shopee = require('./ilu-shopee.png');
+images.whatsapp = require('./whatsapp.png');
 
 export default images;

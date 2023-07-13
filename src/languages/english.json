@@ -493,7 +493,12 @@
     },
     "button": {
       "submit": "Submit"
-    }
+    },
+		"whatsapp": "WhatsApp:  ",
+		"CS": "Customer Service",
+		"CS1": "Customer Service #1",
+		"CS2": "Customer Service #2",
+		"ticket": "Send Ticket: "
   },
   "drawerPage": {
     "content": {

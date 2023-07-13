@@ -495,7 +495,12 @@
     },
     "button": {
       "submit": "Kirim Pesan"
-    }
+    },
+		"whatsapp": "WhatsApp: ",
+		"CS": "Customer Service",
+		"CS1": "Customer Service #1",
+		"CS2": "Customer Service #2",
+		"ticket": "Kirim Tiket: "
   },
   "drawerPage": {
     "content": {
