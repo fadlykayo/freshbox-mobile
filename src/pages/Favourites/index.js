@@ -64,7 +64,6 @@ class Favourites extends Component {
 	}
 
 	openDrawerMenu = () => {
-
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
 	};
