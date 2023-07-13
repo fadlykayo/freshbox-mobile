@@ -22,26 +22,14 @@ const styles = {
 			marginBottom: width * 0.025,
 		}
 	},
-	label: {
-		fontFamily: 'Avenir-Heavy',
-		fontSize: scaling.moderateScale(14),
-		color: colour.darkGrey,
+	image: {
+		width: width,
+		height: (height - scaling.moderateScale(50)) / 2,
 	},
-	phone: {
-		fontFamily: 'Avenir-Roman',
-		fontSize: scaling.moderateScale(12),
-		color: colour.blue,
-		textDecorationLine: 'underline',
-		marginBottom: 10,
-	},
-	icon: {
-		height: 64,
-		width: 132,
-	},
-	iconContainer: {
+	imageContainer: {
 		flex: -1,
-		width: 140,
-		marginBottom: 30,
+		width: width,
+		height: (height - scaling.moderateScale(50)) / 2,
 	}
 };
 

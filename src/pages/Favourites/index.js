@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { View, FlatList, Keyboard, Dimensions } from 'react-native';
 import { actNav, navConstant } from '@navigations';
 import Container from '@components/Container';
-import AlertDialog from '@components/AlertDialog'; 
+import AlertDialog from '@components/AlertDialog';
 import ProductItem from '@components/ProductItem';
 import ProductDetail from '@components/ProductDetail';
 import NavigationBar from '@components/NavigationBar';
 import Checkout from './components/Checkout';
-import EmptyState from '@components/EmptyState'
+import EmptyState from '@components/EmptyState';
 import ModalLoginConfirmation from './components/ModalLoginConfirmation';
 import { language, onShare } from '@helpers';
 import styles from './styles';
@@ -20,7 +20,7 @@ const { width, height } = Dimensions.get('window');
 class Favourites extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state = {
 			totalPrice: 0,
 			search: false,
 			scrollX: 0,
@@ -33,7 +33,7 @@ class Favourites extends Component {
 				openImageDetail: false,
 			},
 			selectedProduct: null,
-		}
+		};
 		this.getFavorites = this.getFavorites.bind(this);
 		this.validateCart = this.validateCart.bind(this);
 		this.toggleFavorite = this.toggleFavorite.bind(this);
@@ -56,41 +56,40 @@ class Favourites extends Component {
 	}
 
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.closeDrawer) {
+		if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
 	}
 
 	openDrawerMenu = () => {
-        
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
+	};
+
+	openZoomImage() {
+		this.setModalVisible('openImageDetail', true);
 	}
 
-	openZoomImage(){
-		this.setModalVisible('openImageDetail',true);
-	}
-
-	closeZoomImage(){
-		this.setModalVisible('openImageDetail',false);
+	closeZoomImage() {
+		this.setModalVisible('openImageDetail', false);
 	}
 
 	getPositionIndex(e) {
-        this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
-            this.getPositionBubble();
-        })
-    }
-    
-    getPositionBubble() {
-        let position = Math.round(this.state.scrollX/(width* 0.18));
+		this.setState({ scrollX: e.nativeEvent.contentOffset.x }, () => {
+			this.getPositionBubble();
+		});
+	}
 
-        if (this.state.bubble != position) {
-            this.setState({ bubble: position })
-        }
-    }
+	getPositionBubble() {
+		let position = Math.round(this.state.scrollX / (width * 0.18));
 
-	refreshHandler(){
-		this.setState({refreshing: true},() => {
+		if (this.state.bubble != position) {
+			this.setState({ bubble: position });
+		}
+	}
+
+	refreshHandler() {
+		this.setState({ refreshing: true }, () => {
 			this.getFavorites();
 		});
 	}
@@ -100,20 +99,20 @@ class Favourites extends Component {
 			header: {
 				apiToken: this.props.user.authorization
 			},
-			params:{},
-		}
+			params: {},
+		};
 		this.props.get_favorites(payload,
 			() => {
-				this.setState({refreshing: false})
+				this.setState({ refreshing: false });
 			},
-			(err) => {}
-		)
+			(err) => { }
+		);
 	}
 
-	toggleFavorite(payload){
+	toggleFavorite(payload) {
 		if (payload.wishlisted == 1) {
-			this.setState({selectedProduct: payload},() => {
-				this.setModalVisible('alertDialog',true);
+			this.setState({ selectedProduct: payload }, () => {
+				this.setModalVisible('alertDialog', true);
 			});
 		}
 		else {
@@ -127,98 +126,98 @@ class Favourites extends Component {
 					}
 				},
 				favorite: payload
-			}
+			};
 			this.props.add_favorite(data,
-				() => {},
-				(err) => {}
-			)
+				() => { },
+				(err) => { }
+			);
 		}
 	}
 
-	setModalVisible(type,value){
-        let modalVisible = this.state.modalVisible;
-        modalVisible[type] = value;
-		this.setState({modalVisible});
-	}
-	
-	openDetailProduct(payload){
-		this.props.detail_product(payload);
-		this.setModalVisible('openProduct',true);
-	}
-	
-	closeDetailProduct(){
-		if(this.props.setModalVisible) {
-			this.props.set_modal_visible(!this.props.setModalVisible)
-		  }
-		this.setModalVisible('openProduct',false);
+	setModalVisible(type, value) {
+		let modalVisible = this.state.modalVisible;
+		modalVisible[type] = value;
+		this.setState({ modalVisible });
 	}
 
-	changeTotalItem(payload,type){
+	openDetailProduct(payload) {
+		this.props.detail_product(payload);
+		this.setModalVisible('openProduct', true);
+	}
+
+	closeDetailProduct() {
+		if (this.props.setModalVisible) {
+			this.props.set_modal_visible(!this.props.setModalVisible);
+		}
+		this.setModalVisible('openProduct', false);
+	}
+
+	changeTotalItem(payload, type) {
 		if (payload.count === payload.stock && type === 'inc') {
-      this.props.set_error_status({
-        status: true,
-        title: 'formError.title.outOfStock',
-        data: `${payload.name} hanya tersedia ${payload.stock} ${payload.unit}`,
-      });
-    } else {
-      this.props.change_total(payload, type);
-	  this.storeCart(payload, type)
-    }
+			this.props.set_error_status({
+				status: true,
+				title: 'formError.title.outOfStock',
+				data: `${ payload.name } hanya tersedia ${ payload.stock } ${ payload.unit }`,
+			});
+		} else {
+			this.props.change_total(payload, type);
+			this.storeCart(payload, type);
+		}
 	}
 
 	storeCart = (cart, type) => {
-		if(this.props.user){
-		  let buyProducts = {
-			product_code: cart.code,
-			qty: 1,
-			status_promo: cart.on_promo,
-			cart_price: cart.price,
-			cart_promo_price:
-			  Number(cart.on_promo) === 1
-				? cart.banner_harga_jual
-				  ? cart.banner_harga_jual
-				  : cart.promo_price
-				: cart.promo_price,
-			remaining_quota:
-			  Number(cart.on_promo) === 1
-				? Number(cart.quota_claim) > 0
-				  ? Number(cart.quota_claim) -
-					Number(cart.total_claim_product || 0)
-				  : 0
-				: 0,
-			quota_claim: Number(cart.quota_claim || 0),
-			type: type
-		  };
-			let payload = {
-			  header: {
-				apiToken: this.props.user.authorization,
-			  },
-			  body: buyProducts,
+		if (this.props.user) {
+			let buyProducts = {
+				product_code: cart.code,
+				qty: 1,
+				status_promo: cart.on_promo,
+				cart_price: cart.price,
+				cart_promo_price:
+					Number(cart.on_promo) === 1
+						? cart.banner_harga_jual
+							? cart.banner_harga_jual
+							: cart.promo_price
+						: cart.promo_price,
+				remaining_quota:
+					Number(cart.on_promo) === 1
+						? Number(cart.quota_claim) > 0
+							? Number(cart.quota_claim) -
+							Number(cart.total_claim_product || 0)
+							: 0
+						: 0,
+				quota_claim: Number(cart.quota_claim || 0),
+				type: type
 			};
-	
+			let payload = {
+				header: {
+					apiToken: this.props.user.authorization,
+				},
+				body: buyProducts,
+			};
+
 			this.props.post_cart(
-			  payload,
-			  (res) => {
-				// this.getCart()
-			  },
-			  (err) => {},
+				payload,
+				(res) => {
+					// this.getCart()
+				},
+				(err) => { },
 			);
-		  } 
-	  }
-
-	  getCart = () => {
-		if(this.props.user) {
-		  let payload = {
-			header: {
-			  apiToken: this.props.user ? this.props.user.authorization : '',
-			},
-			params: '',
-		  };
-		  this.props.get_cart(payload)
 		}
-	  }
+	};
 
-	clearProductConfirmation(){
+	getCart = () => {
+		if (this.props.user) {
+			let payload = {
+				header: {
+					apiToken: this.props.user ? this.props.user.authorization : '',
+				},
+				params: '',
+			};
+			this.props.get_cart(payload);
+		}
+	};
+
+	clearProductConfirmation() {
 		let data = {
 			request: {
 				header: {
@@ -227,45 +226,45 @@ class Favourites extends Component {
 				body: {}
 			},
 			favorite: this.state.selectedProduct
-		}
+		};
 		this.props.delete_favorite(data,
 			() => {
-				this.setModalVisible('alertDialog',false);
-				this.setModalVisible('openProduct',false);
+				this.setModalVisible('alertDialog', false);
+				this.setModalVisible('openProduct', false);
 			},
-			(err) => {}
-		)
-		
+			(err) => { }
+		);
+
 	}
 
-	clearProductCancelation(){
-		this.setModalVisible('alertDialog',false);
+	clearProductCancelation() {
+		this.setModalVisible('alertDialog', false);
 	}
 
-	validateCart(){
+	validateCart() {
 		let outStockCart = this.props.cart_product.slice().filter(item => item.count > item.stock);
-		if(outStockCart.length > 0){
+		if (outStockCart.length > 0) {
 			language.transformText('message.outOfStock')
-			.then(message => {
-				this.props.set_error_status({
-					status: true,
-					title: 'formError.title.outOfStock',
-					data: message,
+				.then(message => {
+					this.props.set_error_status({
+						status: true,
+						title: 'formError.title.outOfStock',
+						data: message,
+					});
 				});
-			});
 		}
 		// else{
-			this.navigateToCart();
+		this.navigateToCart();
 		// }
 	}
 
-	navigateToCart(){
-		actNav.navigate(navConstant.Cart,{
+	navigateToCart() {
+		actNav.navigate(navConstant.Cart, {
 			createOrderHandler: this.createOrderHandler
 		});
 	}
 
-	createOrderHandler(invoice){
+	createOrderHandler(invoice) {
 		actNav.goBackToTop();
 		this.navigateToDetail(invoice);
 	}
@@ -276,100 +275,100 @@ class Favourites extends Component {
 				apiToken: this.props.user.authorization,
 			},
 			invoice: input
-		}
+		};
 		this.refreshHandler();
 		this.props.detail_transaction(payload,
 			() => {
-				actNav.navigate(navConstant.Detail,{
+				actNav.navigate(navConstant.Detail, {
 					action: 'history',
 					createOrderSuccess: true,
 				});
 			},
-			(err) => {}
-		)
+			(err) => { }
+		);
 	}
 
-	render(){
+	render() {
 		return (
 			<Container
-				bgColorBottom={'veryLightGrey'}
-				bgColorTop={'red'}
+				bgColorBottom={ 'veryLightGrey' }
+				bgColorTop={ 'red' }
 			>
-				<NavigationBar 
-					title={'favourites.navigationTitle'}
+				<NavigationBar
+					title={ 'favourites.navigationTitle' }
 					menubar
-					openDrawer={this.openDrawerMenu}
+					openDrawer={ this.openDrawerMenu }
 				/>
-				<View style={styles.container}>
-					<View style={styles.subcontainer.cart}>
+				<View style={ styles.container }>
+					<View style={ styles.subcontainer.cart }>
 
 						{
-							this.props.wishlist.length == 0 ? 
-							
-							<EmptyState
-								image={images.empty_favorite}
-								property='emptyState.favorites'
-							/> :
-							<FlatList
-								data={this.props.wishlist}
-								onRefresh={this.refreshHandler}
-								refreshing={this.state.refreshing}
-								keyExtractor={(item,index) => index.toString()}
-								renderItem={({item,index}) => (
-									<ProductItem
-										search={this.state.search}
-										key={index}
-										data={item}
-										type={'favorites'}
-										index={index+1}
-										user={this.props.user}
-										toggleFavorite={this.toggleFavorite}
-										changeTotalItem={this.changeTotalItem}
-										productLength={this.props.wishlist.length}
-										openDetailProduct={this.openDetailProduct}
-									/>
-								)}
-							/>
+							this.props.wishlist.length == 0 ?
+
+								<EmptyState
+									image={ images.empty_favorite }
+									property='emptyState.favorites'
+								/> :
+								<FlatList
+									data={ this.props.wishlist }
+									onRefresh={ this.refreshHandler }
+									refreshing={ this.state.refreshing }
+									keyExtractor={ (item, index) => index.toString() }
+									renderItem={ ({ item, index }) => (
+										<ProductItem
+											search={ this.state.search }
+											key={ index }
+											data={ item }
+											type={ 'favorites' }
+											index={ index + 1 }
+											user={ this.props.user }
+											toggleFavorite={ this.toggleFavorite }
+											changeTotalItem={ this.changeTotalItem }
+											productLength={ this.props.wishlist.length }
+											openDetailProduct={ this.openDetailProduct }
+										/>
+									) }
+								/>
 
 						}
-						
-						
+
+
 					</View>
 					<Checkout
-						totalCount={this.props.total_count}
-						totalPrice={this.props.total_price}
-						validateCart={this.validateCart}
+						totalCount={ this.props.total_count }
+						totalPrice={ this.props.total_price }
+						validateCart={ this.validateCart }
 					/>
 				</View>
 				<ProductDetail
-					type={'favorites'}
-					user={this.props.user}
-					data={this.props.productDetail}
-					changeTotalItem={this.changeTotalItem}
-					toggleFavorite={this.toggleFavorite}
-					closeDetailProduct={this.closeDetailProduct}
-					modalVisible={this.state.modalVisible.openProduct || this.props.setModalVisible}
-					getPositionBubble={this.getPositionBubble}
-					getPositionIndex={this.getPositionIndex}
-					openZoomImage={this.openZoomImage}
-					closeZoomImage={this.closeZoomImage}
-					bubble={this.state.bubble}
-					scrollX={this.state.scrollX}
-					openImageDetail={this.state.modalVisible.openImageDetail}
-					onShare={onShare}
+					type={ 'favorites' }
+					user={ this.props.user }
+					data={ this.props.productDetail }
+					changeTotalItem={ this.changeTotalItem }
+					toggleFavorite={ this.toggleFavorite }
+					closeDetailProduct={ this.closeDetailProduct }
+					modalVisible={ this.state.modalVisible.openProduct || this.props.setModalVisible }
+					getPositionBubble={ this.getPositionBubble }
+					getPositionIndex={ this.getPositionIndex }
+					openZoomImage={ this.openZoomImage }
+					closeZoomImage={ this.closeZoomImage }
+					bubble={ this.state.bubble }
+					scrollX={ this.state.scrollX }
+					openImageDetail={ this.state.modalVisible.openImageDetail }
+					onShare={ onShare }
 				/>
 				<ModalLoginConfirmation
-					onPress={this.navigateToSignIn} 
-					modalVisible={this.state.modalVisible.modalLoginConfirmation}
+					onPress={ this.navigateToSignIn }
+					modalVisible={ this.state.modalVisible.modalLoginConfirmation }
 				/>
 				<AlertDialog
-					modalVisible={this.state.modalVisible.alertDialog} 
-					content={'dialog.clearFavorite'}
-					params={{
+					modalVisible={ this.state.modalVisible.alertDialog }
+					content={ 'dialog.clearFavorite' }
+					params={ {
 						item: this.state.selectedProduct == null ? '' : this.state.selectedProduct.name
-					}}
-					requestHandler={this.clearProductConfirmation}
-					requestCancel={this.clearProductCancelation}
+					} }
+					requestHandler={ this.clearProductConfirmation }
+					requestCancel={ this.clearProductCancelation }
 				/>
 			</Container>
 		);
@@ -389,17 +388,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	detail_product : (index) => dispatch(actions.product.reducer.detail_product(index)),
+	detail_product: (index) => dispatch(actions.product.reducer.detail_product(index)),
 	toggle_favorite: (index) => dispatch(actions.product.reducer.toggle_favorite(index)),
-	get_products : (req,res,err) => dispatch(actions.product.api.get_products(req,res,err)),
-	get_favorites: (req,res,err) => dispatch(actions.product.api.get_favorites(req,res,err)),
+	get_products: (req, res, err) => dispatch(actions.product.api.get_products(req, res, err)),
+	get_favorites: (req, res, err) => dispatch(actions.product.api.get_favorites(req, res, err)),
 	set_error_status: (payload) => dispatch(actions.network.reducer.set_error_status(payload)),
-	change_total : (payload,type) => dispatch(actions.product.reducer.change_total(payload,type)),
-	bulk_add_products: (req,res,err) => dispatch(actions.transaction.api.bulk_add_products(req,res,err)),
-	detail_transaction: (req,res,err) => dispatch(actions.transaction.api.detail_transaction(req,res,err)),
-	add_favorite: (req,res,err) => dispatch(actions.product.api.add_favorite(req,res,err)),
-	delete_favorite: (req,res,err) => dispatch(actions.product.api.delete_favorite(req,res,err)),
+	change_total: (payload, type) => dispatch(actions.product.reducer.change_total(payload, type)),
+	bulk_add_products: (req, res, err) => dispatch(actions.transaction.api.bulk_add_products(req, res, err)),
+	detail_transaction: (req, res, err) => dispatch(actions.transaction.api.detail_transaction(req, res, err)),
+	add_favorite: (req, res, err) => dispatch(actions.product.api.add_favorite(req, res, err)),
+	delete_favorite: (req, res, err) => dispatch(actions.product.api.delete_favorite(req, res, err)),
 	set_modal_visible: (payload) => dispatch(actions.product.reducer.set_modal_visible(payload)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Favourites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

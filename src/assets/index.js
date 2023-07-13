@@ -76,5 +76,7 @@ images.ic_checklist_combine = require('./ic_checklist_combine.png');
 images.icon_apple = require('./apple.png');
 images.icon_shopee = require('./ilu-shopee.png');
 images.whatsapp = require('./whatsapp.png');
+images.hubungi_kami_1 = require('./hubungi_kami_3jam.jpg');
+images.hubungi_kami_2 = require('./hubungi_kami_whatsapp.jpg');
 
 export default images;

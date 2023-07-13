@@ -155,64 +155,19 @@ class ContactUs extends Component {
 					menubar
 					openDrawer={ this.openDrawerMenu }
 				/>
-				<ScrollView
-					ref={ (e) => { this.listRef = e; } }
-					style={ styles.container }
-					keyboardShouldPersistTaps={ 'handled' }
-				>
-					<Logo />
-					<StaticText
-						style={ styles.label }
-						property={ 'contactUs.whatsapp' }
+				<View style={ { flex: 1, justifyContent: 'center', alignItems: 'center' } }>
+					<Image
+						style={ [styles.image] }
+						resizeMode={ 'contain' }
+						source={ images.hubungi_kami_1 }
 					/>
-					<TouchableOpacity style={ styles.iconContainer } onPress={ () => Linking.openURL('https://wa.me/+628118337377') }>
+					<TouchableOpacity style={ styles.imageContainer } onPress={ () => Linking.openURL('https://wa.me/+628118337377') } activeOpacity={ 0.8 }>
 						<Image
-							style={ styles.icon }
-							source={ images.whatsapp }
+							style={ styles.image }
+							resizeMode={ 'contain' }
+							source={ images.hubungi_kami_2 }
 						/>
 					</TouchableOpacity>
-					<StaticText
-						style={ styles.label }
-						property={ 'contactUs.ticket' }
-					/>
-					{ this.props.navigation.state.params.action == 'history'
-						? <InputData
-							data={ this.props.navigation.state.params.data }
-						/>
-						: <Dropdown
-							type={ 'subject' }
-							data={ this.state.subjects }
-							isOpen={ this.state.isOpen.subject }
-							value={ this.state.subject }
-							nextValue={ null }
-							onChangeText={ this.onChangeText }
-							label={ 'contactUs.content.subject' }
-							placeholder={ 'contactUs.content.subject' }
-							showDropdown={ this.showDropdown }
-							submitSubject={ this.submitSubject }
-						/>
-					}
-					<FormInput
-						ref={ c => { this.formMessage = c; } }
-						returnKeyType={ 'done' }
-						type={ 'message' }
-						multiline={ true }
-						numberOfLines={ 10 }
-						onChangeText={ this.onChangeText }
-						value={ this.state.message }
-						onFocusHandler={ this.scrollToMessage }
-						label={ 'contactUs.label.message' }
-						placeholder={ 'contactUs.content.message' }
-						onSubmitEditing={ this.submitInformation }
-					/>
-
-				</ScrollView>
-				<View style={ styles.subcontainer.bottom }>
-					<Button
-						type={ 'red' }
-						title={ 'contactUs.button.submit' }
-						onPress={ this.submitInformation }
-					/>
 				</View>
 			</Container>
 		);
