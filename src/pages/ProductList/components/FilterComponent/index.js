@@ -45,39 +45,40 @@ class SearchComponent extends Component {
 	render() {
 		return (
 			<View style={ styles.container }>
-				<View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }>
-					<StaticText
+				{/* <View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }> */ }
+				{/* <StaticText
 						style={ styles.text.title }
 						property={ 'productList.filter.area' }
-					/>
-					{/* <Image
+					/> */}
+				{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
   	  			/> */}
-				</View>
+				{/* </View> */ }
 				<TouchableOpacity
 					style={ styles.subcontainer.part(true) }
 					onPress={ this.openAllCategories }
 				>
-					{ this.props.onCategory == 'Default'
-						? (
-							<StaticText
-								style={ styles.text.title }
-								property={ 'productList.content.default' }
-							/>
-						)
-						: (
-							<Text style={ styles.text.title } numberOfLines={ 1 }>{ this.props.onCategory }</Text>
-						)
+					{
+						this.props.onCategory == 'Default'
+							? (
+								<StaticText
+									style={ styles.text.title }
+									property={ 'productList.content.default' }
+								/>
+							)
+							: (
+								<Text style={ styles.text.title } numberOfLines={ 1 }>{ this.props.onCategory }</Text>
+							)
 					}
 					<Image
 						resizeMode={ 'contain' }
 						source={ images.icon_view_categories }
 						style={ styles.icon }
 					/>
-				</TouchableOpacity>
-			</View>
+				</TouchableOpacity >
+			</View >
 		);
 	}
 }

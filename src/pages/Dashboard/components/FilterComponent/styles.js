@@ -5,7 +5,7 @@ import { scaling } from '@helpers';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
-	container:(y,a,b) => ({
+	container: (y, a, b) => ({
 		flex: -1,
 		height: y == true ? a : b,
 		borderBottomWidth: 1,
@@ -28,7 +28,7 @@ const styles = {
 		width: scaling.moderateScale(15),
 		height: scaling.moderateScale(15),
 		position: 'absolute',
-		right: 12
+		right: 20
 	},
 	text: {
 		title: {
@@ -37,6 +37,6 @@ const styles = {
 			color: colour.white,
 		},
 	},
-}
+};
 
 export default styles;

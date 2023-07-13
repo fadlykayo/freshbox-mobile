@@ -46,27 +46,25 @@ class SearchComponent extends Component {
 		if (this.props.modalVisible) {
 			return (
 				<>
-					<View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }>
-						<StaticText
+					{/* <View style={ styles.subcontainer.part(false) } onPress={ this.openDeliveryInfo }> */ }
+					{/* <StaticText
 							style={ styles.text.title }
 							property={ 'productList.filter.area' }
-						/>
-						{/* <Image
+						/> */}
+					{/* <Image
   	  			  	resizeMode={'contain'} 
   	  			  	source={images.ic_info_grey}
   	  			  	style={styles.icon}
   	  			/> */}
-					</View>
+					{/* </View> */ }
 					<TouchableOpacity
 						style={ styles.subcontainer.part(true) }
 						onPress={ this.openAllCategories }
 					>
-
 						<StaticText
 							style={ styles.text.title }
 							property={ 'productList.content.default' }
 						/>
-
 						<Image
 							resizeMode={ 'contain' }
 							source={ images.icon_view_categories }
