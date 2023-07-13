@@ -477,7 +477,7 @@
     }
   },
   "contactUs": {
-    "navigationTitle": "Hubungi Kami",
+    "navigationTitle": "Customer Service",
     "label": {
       "message": "Pesan"
     },
@@ -514,7 +514,7 @@
       "history": "Riwayat",
       "termsConditions": "Syarat & Ketentuan",
       "privacyPolicy": "Kebijakan Privasi",
-      "contactUs": "Bantuan"
+      "contactUs": "Customer Service"
     }
   },
   "chooseAddress": {

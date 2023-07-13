@@ -475,7 +475,7 @@
     }
   },
   "contactUs": {
-    "navigationTitle": "Contact Us",
+    "navigationTitle": "Customer Service",
     "label": {
       "message": "Message"
     },
@@ -511,7 +511,7 @@
       "favorite": "Favourite",
       "history": "History",
       "termsConditions": "Terms & Conditions",
-      "contactUs": "Contact Us"
+      "contactUs": "Customer Service"
     }
   },
   "chooseAddress": {
