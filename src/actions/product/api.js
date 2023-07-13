@@ -325,6 +325,7 @@ actions.add_favorite = (req, success, failure) => {
         }
       })
       .catch((err) => {
+        console.log(err);
         failure(err);
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));
@@ -366,6 +367,7 @@ actions.delete_favorite = (req, success, failure) => {
         }
       })
       .catch((err) => {
+        console.log(err);
         failure(err);
         if (!err.code) {
           dispatch(actNetwork.set_network_error_status(true));

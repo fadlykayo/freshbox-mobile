@@ -633,7 +633,8 @@ class Dashboard extends Component {
   refetch = (payload) => {
     this.getProductList(true, true);
     this.getProductPromo();
-    this.getFavorites();
+    this.getHistoryData();
+    this.getCategories();
   };
 
   getFavorites() {

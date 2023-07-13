@@ -689,9 +689,7 @@ class ProductList extends Component {
   }
 
   refetch = (payload) => {
-    this.getProductList(true, true);
-    this.getProductPromo();
-    this.getFavorites();
+    this.refreshProductList();
   };
 
   changeTotalItem(payload, type) {
@@ -1089,7 +1087,7 @@ class ProductList extends Component {
           getPositionIndex={this.getPositionIndex}
           getPositionBubble={this.getPositionBubble}
           closeDetailProduct={this.closeDetailProduct}
-          modalVisible={this.state.modalVisible.openProduct}
+          // modalVisible={this.state.modalVisible.openProduct}
           modalVisible={
             this.state.modalVisible.openProduct || this.props.setModalVisible
           }
@@ -1195,6 +1193,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.product.api.get_cart(req, res, err)),
   post_cart: (req, res, err) =>
     dispatch(actions.product.api.post_cart(req, res, err)),
+  get_promo: (req, res, err) =>
+    dispatch(actions.product.api.get_promo(req, res, err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
