@@ -9,15 +9,15 @@ import images from '@assets';
 import styles from './styles';
 
 class TermsConditions extends Component {
-  	constructor(props) {
-  		super(props)
+	constructor(props) {
+		super(props);
 		this.state = {
 			contents: [
 				{
 					title: 'privacyPolicy.content.info.collectData.title',
 					isOpen: false,
 					preInfo: {
-						data: "privacyPolicy.content.info.collectData.preInfo"	
+						data: "privacyPolicy.content.info.collectData.preInfo"
 					},
 					data: ['privacyPolicy.content.info.collectData.data.1', 'privacyPolicy.content.info.collectData.data.2']
 				},
@@ -25,7 +25,7 @@ class TermsConditions extends Component {
 					title: 'privacyPolicy.content.info.useData.title',
 					isOpen: false,
 					preInfo: {
-						data: "privacyPolicy.content.info.useData.preInfo"	
+						data: "privacyPolicy.content.info.useData.preInfo"
 					},
 					data: ['privacyPolicy.content.info.useData.data.1', 'privacyPolicy.content.info.useData.data.2', 'privacyPolicy.content.info.useData.data.3', 'privacyPolicy.content.info.useData.data.4', 'privacyPolicy.content.info.useData.data.5', 'privacyPolicy.content.info.useData.data.6', 'privacyPolicy.content.info.useData.data.7']
 				},
@@ -33,7 +33,7 @@ class TermsConditions extends Component {
 					title: 'privacyPolicy.content.info.disclosure.title',
 					isOpen: false,
 					preInfo: {
-						data: "privacyPolicy.content.info.disclosure.preInfo"	
+						data: "privacyPolicy.content.info.disclosure.preInfo"
 					},
 					data: ['privacyPolicy.content.info.disclosure.data.1', 'privacyPolicy.content.info.disclosure.data.2', 'privacyPolicy.content.info.disclosure.data.3', 'privacyPolicy.content.info.disclosure.data.4', 'privacyPolicy.content.info.disclosure.data.5', 'privacyPolicy.content.info.disclosure.data.6', 'privacyPolicy.content.info.disclosure.data.7']
 				},
@@ -62,22 +62,22 @@ class TermsConditions extends Component {
 					data: ['privacyPolicy.content.info.update.data.1']
 				},
 			]
-		}
+		};
 		this.navigateBack = this.navigateBack.bind(this);
 		this.openInfo = this.openInfo.bind(this);
 	}
 
 	componentWillUnmount() {
-		if(this.props.navigation.state.params.closeDrawer) {
+		if (this.props.navigation.state.params.closeDrawer) {
 			this.props.navigation.state.params.closeDrawer();
 		}
 	}
 
 	openDrawerMenu = () => {
-        
+
 		Keyboard.dismiss();
 		this.props.navigation.openDrawer();
-	}
+	};
 
 	navigateBack() {
 		actNav.goBack();
@@ -89,42 +89,42 @@ class TermsConditions extends Component {
 		this.setState(state);
 	}
 
-  	render() {
-  	  	return (
-			<Container 				
-				bgColorBottom={'veryLightGrey'} 				
-				bgColorTop={'red'} 			
+	render() {
+		return (
+			<Container
+				bgColorBottom={ 'veryLightGrey' }
+				bgColorTop={ 'red' }
 			>
 				<NavigationBar
-					title={'privacyPolicy.navigationTitle'}
-					onPress={this.navigateBack}
+					title={ 'privacyPolicy.navigationTitle' }
+					onPress={ this.navigateBack }
 					menubar
-					openDrawer={this.openDrawerMenu}
+					openDrawer={ this.openDrawerMenu }
 				/>
-				<ScrollView 
-					style={styles.container}
-					contentContainerStyle={styles.content}
+				<ScrollView
+					style={ styles.container }
+					contentContainerStyle={ styles.content }
 				>
-					<View style={styles.intro.place}>
-						<StaticText 
-							property={'privacyPolicy.content.introduction'}
-							style={styles.text.content} 
+					<View style={ styles.intro.place }>
+						<StaticText
+							property={ 'privacyPolicy.content.introduction' }
+							style={ styles.text.content }
 						/>
 					</View>
 					{ this.state.contents.map((content, index) => {
 						return (
 							<Content
-								key={index}
-								content={content}
-								index={index}
-								openInfo={this.openInfo}
+								key={ index }
+								content={ content }
+								index={ index }
+								openInfo={ this.openInfo }
 							/>
-						)
+						);
 					}) }
-  	  	  		</ScrollView>
+				</ScrollView>
 			</Container>
-  	  	);
-  	}
+		);
+	}
 }
 
 export default TermsConditions;
