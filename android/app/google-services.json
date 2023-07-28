@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1001907324369-7qaek55la7n09rkee68aofcqit2idlk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freshbox",
+            "certificate_hash": "913e227a4167cf70b1a0675f2ef64cb158f0403a"
+          }
+        },
+        {
           "client_id": "1001907324369-g0s6r90m4ou1flacv3vhf0s62c85ukg1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
