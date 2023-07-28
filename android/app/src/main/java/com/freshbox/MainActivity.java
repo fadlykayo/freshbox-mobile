@@ -1,4 +1,4 @@
-package com.freshbox;
+package com.freshboxid;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;

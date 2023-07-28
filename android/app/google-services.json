@@ -8,34 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1001907324369:android:852b7f4e76cdf2f6f4ccf0",
+        "mobilesdk_app_id": "1:1001907324369:android:5f6c542c5bf248d6f4ccf0",
         "android_client_info": {
-          "package_name": "com.freshbox"
+          "package_name": "com.freshboxid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1001907324369-7qaek55la7n09rkee68aofcqit2idlk6.apps.googleusercontent.com",
+          "client_id": "1001907324369-46knimdr73dd03r7s8l5m8b7lekajrh9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.freshbox",
-            "certificate_hash": "913e227a4167cf70b1a0675f2ef64cb158f0403a"
-          }
-        },
-        {
-          "client_id": "1001907324369-g0s6r90m4ou1flacv3vhf0s62c85ukg1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.freshbox",
-            "certificate_hash": "a43eacb38d14feaac408ffbff86c2c02878e87ad"
-          }
-        },
-        {
-          "client_id": "1001907324369-rm4vd393ruchb2tbtjqt31ba0cs785fj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.freshbox",
+            "package_name": "com.freshboxid",
             "certificate_hash": "bca183ce58ccc41cdb411c814488cb1f3c750d43"
+          }
+        },
+        {
+          "client_id": "1001907324369-u77ctbvjie7g8t77g70h3je039g24e1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freshboxid",
+            "certificate_hash": "913e227a4167cf70b1a0675f2ef64cb158f0403a"
           }
         },
         {

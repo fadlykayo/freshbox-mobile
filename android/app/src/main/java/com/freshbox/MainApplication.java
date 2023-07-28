@@ -1,4 +1,4 @@
-package com.freshbox;
+package com.freshboxid;
 
 import android.app.Application;
 import android.content.Context;
@@ -15,7 +15,7 @@ import com.microsoft.codepush.react.CodePush;
 import com.facebook.CallbackManager;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 // import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import com.freshbox.GoPayPackage;
+import com.freshboxid.GoPayPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost =
@@ -73,7 +73,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.freshbox.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.freshboxid.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

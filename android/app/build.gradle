@@ -151,7 +151,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.freshbox"
+        applicationId "com.freshboxid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 35
