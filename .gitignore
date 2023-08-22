@@ -70,7 +70,6 @@ env.ts
 .eslintcache
 .vscode
 
-/android/sentry.properties
 /android/.project
 /android/.settings
 /android/app/.project
@@ -78,5 +77,4 @@ env.ts
 /android/app/.settings
 /android/app/release/
 
-/ios/sentry.properties
 /ios/Pods/
