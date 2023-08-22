@@ -249,6 +249,7 @@ dependencies {
     implementation "com.facebook.fresco:webpsupport:2.3.0"
     implementation "com.facebook.fresco:stetho:2.5.0"
     implementation "com.facebook.android:facebook-android-sdk:[7.10,9)"
+		// implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation "com.google.firebase:firebase-analytics:18.0.2"
 		implementation "androidx.work:work-runtime-ktx:2.7.0"
     // implementation "com.google.firebase:firebase-messaging:17.5.0"
