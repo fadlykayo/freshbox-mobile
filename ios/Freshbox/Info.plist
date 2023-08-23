@@ -43,10 +43,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.freshboxID</string>
+			<string>com.freshbox.id</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.freshboxID</string>
+				<string>com.freshbox.id</string>
 			</array>
 		</dict>
 		<dict>

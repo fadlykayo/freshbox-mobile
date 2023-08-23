@@ -49,9 +49,7 @@ static void InitializeFlipper(UIApplication *application) {
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true]; // Initialize AppCenter analytics
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing]; // Initialize AppCenter crashes
 
-  if ([FIRApp defaultApp] == nil) {
-    [FIRApp configure]; //Firebase Init
-  }
+  [FIRApp configure]; //Firebase Init
 
   [[FBSDKApplicationDelegate sharedInstance] application:application // FBSDK init
                            didFinishLaunchingWithOptions:launchOptions];
