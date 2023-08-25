@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb266227334002571</string>
+				<string>fb682125877152592</string>
 				<string>freshbox</string>
 			</array>
 		</dict>
@@ -49,23 +49,15 @@
 				<string>com.freshbox.id</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>freshboxapp</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>freshboxapp</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>4lxj8ZUIC_UKNtq-Yhor_op8VeJ_MT0Pe8KH2</string>
 	<key>FacebookAppID</key>
-	<string>266227334002571</string>
+	<string>682125877152592</string>
+	<key>FacebookClientToken</key>
+	<string>2c76d5deef1c4ea1e623e74438994b00</string>
 	<key>FacebookDisplayName</key>
 	<string>Freshbox</string>
 	<key>LSApplicationQueriesSchemes</key>
