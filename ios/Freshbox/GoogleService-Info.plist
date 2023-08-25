@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r.apps.googleusercontent.com</string>
+	<string>1001907324369-5ts34coidm2o0s0u5c1gvmflai8jbv49.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r</string>
+	<string>com.googleusercontent.apps.1001907324369-5ts34coidm2o0s0u5c1gvmflai8jbv49</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>1001907324369-46knimdr73dd03r7s8l5m8b7lekajrh9.apps.googleusercontent.com</string>
+	<string>1001907324369-7qaek55la7n09rkee68aofcqit2idlk6.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyALPvQjkm-Ly2dGpQkZCVw8gvNp41T3ZmI</string>
 	<key>GCM_SENDER_ID</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1001907324369:ios:e9c766df5e305c3bf4ccf0</string>
+	<string>1:1001907324369:ios:ae3a5fb85cd2edcdf4ccf0</string>
 	<key>DATABASE_URL</key>
 	<string>https://freshbox-d3b71.firebaseio.com</string>
 </dict>
