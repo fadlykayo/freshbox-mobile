@@ -864,7 +864,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = RCWT9F32HU;
+						DevelopmentTeam = AD2N82KT2S;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1641,7 +1641,7 @@
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = RCWT9F32HU;
+				DEVELOPMENT_TEAM = AD2N82KT2S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(HOME)/Documents/FacebookSDK",
 					"$(inherited)",
@@ -1677,7 +1677,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RCWT9F32HU;
+				DEVELOPMENT_TEAM = AD2N82KT2S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(HOME)/Documents/FacebookSDK",
 					"$(inherited)",
