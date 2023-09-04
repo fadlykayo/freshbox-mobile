@@ -49,9 +49,9 @@ class Menu extends Component {
 			await GoogleSignin.hasPlayServices({ autoResolve: true, showPlayServicesUpdateDialog: true });
 			await GoogleSignin.configure({
 				// webClientId: '1001907324369-g0s6r90m4ou1flacv3vhf0s62c85ukg1.apps.googleusercontent.com',
-				webClientId: '1001907324369-h5jbjeel8j06mgl4fqu0shod5uqpdjo5.apps.googleusercontent.com',
+				webClientId: '1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r.apps.googleusercontent.com',
 				androidClientId: '1001907324369-7qaek55la7n09rkee68aofcqit2idlk6.apps.googleusercontent.com',
-				iosClientId: '73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa.apps.googleusercontent.com',
+				iosClientId: '1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r.apps.googleusercontent.com',
 				offlineAccess: true,
 			});
 		}

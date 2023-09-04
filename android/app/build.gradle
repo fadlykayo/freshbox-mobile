@@ -157,7 +157,7 @@ android {
         versionCode 35
         versionName "2.5.0"
         multiDexEnabled true
-        manifestPlaceholders = [onesignal_app_id: "c1f39bb2-11d8-4ebf-b836-61a0131fb3fa",
+        manifestPlaceholders = [onesignal_app_id: "70a7c916-7f43-4d7d-96a9-c5ab66b28397",
                                 onesignal_google_project_number: "REMOTE"]
     }
     signingConfigs {

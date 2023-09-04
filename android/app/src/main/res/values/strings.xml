@@ -6,7 +6,7 @@
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 		<!-- production -->
-		<string moduleConfig="true" name="CodePushDeploymentKey">AQZ0PqF04CgFP3vwpRFf3epGOupDxqj03sJuS</string>
+		<string moduleConfig="true" name="CodePushDeploymentKey">c_HXWFAmlyEIZBoKooAzMExpw9SFc3VayaTzx</string> <!-- STAGING -->
     <!-- staging -->
     <!--<string name="app_name">Freshbox</string>
     <string name="facebook_app_id">672686353357966</string>

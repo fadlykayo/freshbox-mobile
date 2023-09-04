@@ -34,7 +34,7 @@ class App extends Component {
 		this.onReceived = this.onReceived.bind(this);
 		this.onOpened = this.onOpened.bind(this);
 		this.onIds = this.onIds.bind(this);
-		OneSignal.init('c1f39bb2-11d8-4ebf-b836-61a0131fb3fa');
+		OneSignal.init('70a7c916-7f43-4d7d-96a9-c5ab66b28397');
 		this.state = {
 			appState: AppState.currentState,
 			onRestart: false,
