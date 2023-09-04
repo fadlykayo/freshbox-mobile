@@ -419,7 +419,6 @@ class SignIn extends Component {
 						/>
 
 						<View style={ { flex: -1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' } }>
-							{ Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 13 && <Sosmed type={ 'apple' } onPress={ this.appleHandler } /> }
 							<Sosmed type={ 'facebook' } onPress={ this.facebookHandler } />
 							<Sosmed type={ 'google' } onPress={ this.googleHandler } />
 						</View>

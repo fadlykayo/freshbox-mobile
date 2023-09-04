@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Freshbox</string>
-    <string name="facebook_app_id">1361043028170787</string>
-    <string name="fb_login_protocol_scheme">fb1361043028170787</string>
-		<string name="facebook_client_token">4175b20f62aa4acedbcdaea2d599b85e</string>
+    <string name="facebook_app_id">682125877152592</string>
+    <string name="fb_login_protocol_scheme">fb682125877152592</string>
+		<string name="facebook_client_token">2c76d5deef1c4ea1e623e74438994b00</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 		<!-- production -->
