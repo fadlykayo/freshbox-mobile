@@ -32,6 +32,7 @@
 		580DD00822F2F4B6002C2C8E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */; };
 		581F75C024695A62007B0F90 /* CodePush.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 581F758D24695A62007B0F90 /* CodePush.h */; };
 		58F8058022803A6F005B8C16 /* GoPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8057F22803A6F005B8C16 /* GoPay.m */; };
+		7CFCC3175487F0F2F06DF80A /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B3C640F8DF4C8142B12ACE /* libPods-OneSignalNotificationServiceExtension.a */; };
 		8C8E96CDADFE414C9562CD7D /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F428D0EC6C64B9992E89656 /* AppCenter-Config.plist */; };
 		8E727E50CB0E47BDA08EE733 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA552F3662694F3F8566CA22 /* AddressBook.framework */; };
 		930311492578BEEF00474928 /* libReact-RCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 930311482578BEEF00474928 /* libReact-RCTBlob.a */; };
@@ -51,6 +52,8 @@
 		A127121A2146595800BEC6E6 /* Avenir-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712172146595800BEC6E6 /* Avenir-Medium.ttf */; };
 		A127121B2146595800BEC6E6 /* Avenir-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712182146595800BEC6E6 /* Avenir-Black.ttf */; };
 		A127121C2146595800BEC6E6 /* Avenir-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A12712192146595800BEC6E6 /* Avenir-Light.ttf */; };
+		A5A8A5F22AA84BC700DCAD5A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A8A5F12AA84BC700DCAD5A /* NotificationService.swift */; };
+		A5A8A5F62AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A5A8A5EF2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC02460956724B55815AE04A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7A7B9983514E1C87E86EC6 /* libz.tbd */; };
 		D28871DEF10E4CB0B1D3D39E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */; };
 		D785CBF22576217C003176F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D785CBE12576217C003176F0 /* GoogleService-Info.plist */; };
@@ -331,6 +334,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		A5A8A5F42AA84BC700DCAD5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5A8A5EE2AA84BC700DCAD5A;
+			remoteInfo = OneSignalNotificationServiceExtension;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -339,6 +349,20 @@
 			remoteInfo = RCTBlob;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A5A8A5FA2AA84BC700DCAD5A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A5A8A5F62AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -367,7 +391,9 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = libReact.a; path = "../Debug-iphonesimulator/libReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F428D0EC6C64B9992E89656 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "Freshbox/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		2FEA0DDED6EC4EDE9B913A16 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
+		395D3B8C465C9BFCD0A5823F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		454764C7B15BCE761BBBBE7D /* Pods-Freshbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.debug.xcconfig"; path = "Target Support Files/Pods-Freshbox/Pods-Freshbox.debug.xcconfig"; sourceTree = "<group>"; };
+		4AA9383BF998F256D844FD8D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		580DCFCF22F2F4B6002C2C8E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		581F758D24695A62007B0F90 /* CodePush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CodePush.h; path = "../node_modules/react-native-code-push/ios/CodePush/CodePush.h"; sourceTree = "<group>"; };
 		58F8057F22803A6F005B8C16 /* GoPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPay.m; sourceTree = "<group>"; };
@@ -408,6 +434,10 @@
 		A141B2A8214811810073CC77 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleAppUtilities.framework"; sourceTree = "<group>"; };
 		A141B2A9214811810073CC77 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleSymbolUtilities.framework"; sourceTree = "<group>"; };
 		A141B2AA214811810073CC77 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleUtilities.framework"; sourceTree = "<group>"; };
+		A3B3C640F8DF4C8142B12ACE /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A8A5EF2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A8A5F12AA84BC700DCAD5A /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A5A8A5F32AA84BC700DCAD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B3C147BFD8AA4E7CBB087810 /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Freshbox.release.xcconfig"; path = "Target Support Files/Pods-Freshbox/Pods-Freshbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -475,6 +505,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5A8A5EC2AA84BC700DCAD5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CFCC3175487F0F2F06DF80A /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +672,7 @@
 				FA552F3662694F3F8566CA22 /* AddressBook.framework */,
 				87D368022696AC06A680950D /* libPods-Freshbox.a */,
 				E99EAE0619AF55CC427A78BD /* libPods-Freshbox-FreshboxTests.a */,
+				A3B3C640F8DF4C8142B12ACE /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -702,6 +741,7 @@
 				13B07FAE1A68108700A75B9A /* Freshbox */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FreshboxTests */,
+				A5A8A5F02AA84BC700DCAD5A /* OneSignalNotificationServiceExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				B1E33F959A5648DC8782ACFF /* Resources */,
@@ -721,6 +761,7 @@
 				00E356EE1AD99517003FC87E /* FreshboxTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Freshbox-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Freshbox-tvOSTests.xctest */,
+				A5A8A5EF2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -731,6 +772,15 @@
 				F49DA956310E43119BB9B96A /* libRNFirebase.a */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		A5A8A5F02AA84BC700DCAD5A /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				A5A8A5F12AA84BC700DCAD5A /* NotificationService.swift */,
+				A5A8A5F32AA84BC700DCAD5A /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -762,6 +812,8 @@
 				CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */,
 				5F3E5973AD9930C2CEE06AF3 /* Pods-Freshbox-FreshboxTests.debug.xcconfig */,
 				9639F146F486B6E2351A77F4 /* Pods-Freshbox-FreshboxTests.release.xcconfig */,
+				4AA9383BF998F256D844FD8D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				395D3B8C465C9BFCD0A5823F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -803,10 +855,12 @@
 				468972BE3FBA4AEE101ADC6A /* [CP] Copy Pods Resources */,
 				F548D898C7D4F20B9DF47499 /* [CP-User] [RNFB] Core Configuration */,
 				C54F4DD8C4234A7C0F0005CF /* [CP] Embed Pods Frameworks */,
+				A5A8A5FA2AA84BC700DCAD5A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A5A8A5F52AA84BC700DCAD5A /* PBXTargetDependency */,
 			);
 			name = Freshbox;
 			productName = "Hello World";
@@ -849,12 +903,31 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* Freshbox-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A5A8A5EE2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5A8A5F72AA84BC700DCAD5A /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				18AC71790562A3E40805E5DC /* [CP] Check Pods Manifest.lock */,
+				A5A8A5EB2AA84BC700DCAD5A /* Sources */,
+				A5A8A5EC2AA84BC700DCAD5A /* Frameworks */,
+				A5A8A5ED2AA84BC700DCAD5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = A5A8A5EF2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -866,6 +939,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = AD2N82KT2S;
 						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -883,6 +957,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
+					};
+					A5A8A5EE2AA84BC700DCAD5A = {
+						CreatedOnToolsVersion = 14.2;
+						DevelopmentTeam = AD2N82KT2S;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -958,6 +1037,7 @@
 				00E356ED1AD99517003FC87E /* FreshboxTests */,
 				2D02E47A1E0B4A5D006451C7 /* Freshbox-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* Freshbox-tvOSTests */,
+				A5A8A5EE2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1270,6 +1350,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5A8A5ED2AA84BC700DCAD5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1286,6 +1373,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		18AC71790562A3E40805E5DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1309,11 +1418,19 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Freshbox-FreshboxTests/Pods-Freshbox-FreshboxTests-frameworks.sh",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignal.framework/OneSignal",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalCore/OneSignalCore.framework/OneSignalCore",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalExtension/OneSignalExtension.framework/OneSignalExtension",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalOutcomes/OneSignalOutcomes.framework/OneSignalOutcomes",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalOutcomes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1443,11 +1560,19 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Freshbox/Pods-Freshbox-frameworks.sh",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignal.framework/OneSignal",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalCore/OneSignalCore.framework/OneSignalCore",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalExtension/OneSignalExtension.framework/OneSignalExtension",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalOutcomes/OneSignalOutcomes.framework/OneSignalOutcomes",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalOutcomes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1559,6 +1684,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5A8A5EB2AA84BC700DCAD5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A8A5F22AA84BC700DCAD5A /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1571,6 +1704,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* Freshbox-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		A5A8A5F52AA84BC700DCAD5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5A8A5EE2AA84BC700DCAD5A /* OneSignalNotificationServiceExtension */;
+			targetProxy = A5A8A5F42AA84BC700DCAD5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1636,9 +1774,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 454764C7B15BCE761BBBBE7D /* Pods-Freshbox.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AD2N82KT2S;
@@ -1664,6 +1805,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.freshbox.id;
 				PRODUCT_NAME = Freshbox;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Freshbox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1675,9 +1817,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE44538CF5D92DAA7138DECA /* Pods-Freshbox.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freshbox/Freshbox.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AD2N82KT2S;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1703,6 +1848,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.freshbox.id;
 				PRODUCT_NAME = Freshbox;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Freshbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1868,6 +2014,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1923,6 +2070,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1935,6 +2083,77 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A5A8A5F82AA84BC700DCAD5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AA9383BF998F256D844FD8D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AD2N82KT2S;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Facebook. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freshbox.id.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A5A8A5F92AA84BC700DCAD5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 395D3B8C465C9BFCD0A5823F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AD2N82KT2S;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Facebook. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freshbox.id.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1982,6 +2201,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5A8A5F72AA84BC700DCAD5A /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5A8A5F82AA84BC700DCAD5A /* Debug */,
+				A5A8A5F92AA84BC700DCAD5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StatusBar, View, AppState, Linking } from 'react-native';
+import { StatusBar, View, AppState, Linking, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
+
 import { AppContainer, setNavigator, actNav, navConstant } from '@navigations';
 import actions from '@actions';
 
@@ -31,31 +32,29 @@ const mapDispatchToProps = (dispatch) => ({
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.onReceived = this.onReceived.bind(this);
-		this.onOpened = this.onOpened.bind(this);
-		this.onIds = this.onIds.bind(this);
-		OneSignal.init('70a7c916-7f43-4d7d-96a9-c5ab66b28397');
 		this.state = {
 			appState: AppState.currentState,
 			onRestart: false,
 		};
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
+		OneSignal.setAppId('70a7c916-7f43-4d7d-96a9-c5ab66b28397');
+		OneSignal.setLogLevel(6, 0);
 		AppState.addEventListener('change', this.handleAppStateChange);
 		Linking.addEventListener('url', this.handleDeepLink);
-		OneSignal.addEventListener('received', this.onReceived);
-		OneSignal.addEventListener('opened', this.onOpened);
-		OneSignal.addEventListener('ids', this.onIds);
-		OneSignal.inFocusDisplaying(2);
+		await notificationHandler()
 	}
 
 	componentWillUnmount() {
-		OneSignal.removeEventListener('received', this.onReceived);
-		OneSignal.removeEventListener('opened', this.onOpened);
-		OneSignal.removeEventListener('ids', this.onIds);
 		AppState.removeEventListener('change', this.handleAppStateChange);
 	}
+
+	notificationHandler = async () => {
+		OneSignal.setNotificationWillShowInForegroundHandler(this.onReceived);
+		OneSignal.setNotificationOpenedHandler(this.onOpened);
+		await this.onIds()
+	} 
 
 	handleDeepLink = (e) => {
 		if (e) {
@@ -145,18 +144,30 @@ class App extends Component {
 		this.setState({ appState: nextAppState });
 	};
 
-	onReceived(notification) {
-		if (notification.payload.title == 'Pembayaran Berhasil') {
-			this.props.get_notification(notification.payload);
+	onReceived = (notificationReceivedEvent) => {
+		const notification = notificationReceivedEvent.getNotification();
+		const title = notification?.title
+		
+		if (title == 'Pembayaran Berhasil') {
+			const payload = typeof notification?.rawPayload === 'string' ? 
+				JSON.parse(notification?.rawPayload) :
+				notification?.rawPayload
+
+			this.props.get_notification(payload);
 		}
 	}
 
-	onOpened(openResult) {
-		this.props.get_notification(openResult.notification.payload.additionalData);
+	onOpened = (openedEvent) => {
+		const { notification } = openedEvent;
+		const additionalData = notification?.additionalData
+
+		this.props.get_notification(additionalData);
 	}
 
-	onIds(device) {
-		this.props.get_user_id(device);
+	async onIds() {
+		const deviceID = await OneSignal.getDeviceState();
+
+		this.props.get_user_id(deviceID.userId);
 	}
 
 	render() {
