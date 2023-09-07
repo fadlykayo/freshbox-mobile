@@ -199,7 +199,16 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
-  - OneSignal (2.16.5)
+  - OneSignalXCFramework (3.12.6):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.6)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.6)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.6)
+  - OneSignalXCFramework/OneSignalCore (3.12.6)
+  - OneSignalXCFramework/OneSignalExtension (3.12.6):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.6):
+    - OneSignalXCFramework/OneSignalCore
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
   - RCT-Folly (2021.04.26.00):
@@ -413,8 +422,8 @@ PODS:
     - React
   - react-native-image-picker (2.3.4):
     - React-Core
-  - react-native-onesignal (3.9.4):
-    - OneSignal (= 2.16.5)
+  - react-native-onesignal (4.5.2):
+    - OneSignalXCFramework (= 3.12.6)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -514,7 +523,7 @@ PODS:
   - Sentry (7.1.4):
     - Sentry/Core (= 7.1.4)
   - Sentry/Core (7.1.4)
-  - SocketRocket (0.6.1)
+  - SocketRocket (0.6.0)
   - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -553,6 +562,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - MidtransCoreKit
   - MidtransKit
+  - OneSignalXCFramework (< 4.0, >= 3.0)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -633,7 +643,7 @@ SPEC REPOS:
     - MidtransCoreKit
     - MidtransKit
     - nanopb
-    - OneSignal
+    - OneSignalXCFramework
     - OpenSSL-Universal
     - PromisesObjC
     - Sentry
@@ -786,7 +796,7 @@ SPEC CHECKSUMS:
   MidtransCoreKit: 75babce6e3978f33e55ea1a7da601003182d5a0d
   MidtransKit: 303fd1248581306897f849c622890bdbd2ce1b0c
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  OneSignal: b72068b06b359f22e27404edee87338f4b68e783
+  OneSignalXCFramework: ff1c970b7aeb4ac0fe48fb35393eb5d8bf378135
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
@@ -802,7 +812,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 2aa5dc1b9a02a81c0dcc70c00f2cbe1cd4b875c4
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: c6d75c4ab2cf46f9289f341242b219cb3c1180d3
-  react-native-onesignal: 5187b12401c959102a64bde48fbca39c5e3b8136
+  react-native-onesignal: ab800900cffeca4d9db70a05244013fc8a36ceb8
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: 494c61caaf9b7da0a0a612fa4ed570ab7ab5819b
@@ -829,11 +839,11 @@ SPEC CHECKSUMS:
   RNSentry: 68644ef607b780551cc555f084869764f2566652
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   Sentry: 1d3eb1a25f8c5333c88dd5603904a6d461cd9fcf
-  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 1561f557b0c2b6047a91f7619f666134e2288916
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 2b002ddfb2b81106138861f25490d8a2931ea8c9
+PODFILE CHECKSUM: 0e33b5a359d8f06404855ecb3eb1b4c3abbd1630
 
 COCOAPODS: 1.12.1

@@ -28,16 +28,17 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb682125877152592</string>
+				<!-- <string>freshbox</string> -->
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa</string>
+			<string>com.googleusercontent.apps.1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.73889112804-3iv7l3inaun9sgidmmrloovl864ffhfa</string>
+				<string>com.googleusercontent.apps.1001907324369-l350sb913u97kfarp0ilna02p2gd8h2r</string>
 			</array>
 		</dict>
 		<dict>
@@ -54,7 +55,7 @@
 		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
-	<string>4lxj8ZUIC_UKNtq-Yhor_op8VeJ_MT0Pe8KH2</string>
+	<string>uWyphbrRzVY7YHORLPWDZPbjwKqInTjtkUqwc</string>
 	<key>FacebookAppID</key>
 	<string>682125877152592</string>
 	<key>FacebookClientToken</key>
