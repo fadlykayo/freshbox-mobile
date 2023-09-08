@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View, AppState, Linking, Alert } from 'react-native';
+import { StatusBar, View, AppState, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
 
