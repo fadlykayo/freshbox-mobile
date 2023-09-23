@@ -2,7 +2,7 @@ export const url = '';
 
 const production = {
 	version: {
-		android: '2.5.0',
+		android: '2.5.1',
 		ios: '2.5.0',
 	},
 	// url: "http://ec2-18-236-134-251.us-west-2.compute.amazonaws.com/",
