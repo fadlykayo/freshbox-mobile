@@ -283,7 +283,8 @@
     "button": {
       "signOut": "Keluar",
       "takePhoto": "Ambil gambar",
-      "openGallery": "Buka dari Galeri"
+      "openGallery": "Buka dari Galeri",
+      "removeAccount": "Hapus Akun"
     }
   },
   "phonePage": {
@@ -855,7 +856,8 @@
     "clearFavorite": "Apakah anda yakin ingin menghapus {item} dari favorit?",
     "copyVoucher": "Copy voucher berhasil",
     "cancelInvoice": "Apakah anda yakin ingin membatalkan pesanan anda?",
-    "reorder": "Terima kasih! Untuk melanjutkan, kami akan mengganti shopping cart anda dengan produk-produk ini"
+    "reorder": "Terima kasih! Untuk melanjutkan, kami akan mengganti shopping cart anda dengan produk-produk ini",
+    "removeAccount": "Apakah anda yakin ingin menghapus akun ini?"
   },
   "verification": {
     "maxQuantity": "Hanya tersedia {qty} pack",

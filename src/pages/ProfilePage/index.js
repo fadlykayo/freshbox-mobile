@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import { View, Platform, Modal, Text, TouchableOpacity } from 'react-native';
+import { View, Platform, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
+
 import { actNav, navConstant } from '@navigations';
 import { language } from '@helpers';
 import Container from '@components/Container';
 import Button from '@components/Button';
+import AlertDialog from '@components/AlertDialog';
+import actions from '@actions';
+
 import PhotoComponent from './components/PhotoComponent';
 import Content from './components/Content';
 import styles from './styles';
-import actions from '@actions';
-import { connect } from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
 
 class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalVisible: false
+			modalVisible: false,
+			loading: false
 		};
 		this.navigateBack = this.navigateBack.bind(this);
 		this.navigateToPhonePage = this.navigateToPhonePage.bind(this);
@@ -24,7 +28,10 @@ class ProfilePage extends Component {
 		this.navigateToEmailPage = this.navigateToEmailPage.bind(this);
 		this.navigateLogOut = this.navigateLogOut.bind(this);
 		this.choosePhoto = this.choosePhoto.bind(this);
-		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleModalConfirmation = this.toggleModalConfirmation.bind(this);
+		this.resetData = this.resetData.bind(this);
+		this.onRemoveAccount = this.onRemoveAccount.bind(this);
+		this.setLoading = this.setLoading.bind(this);
 	}
 
 	componentWillUnmount() {
@@ -53,12 +60,35 @@ class ProfilePage extends Component {
 		actNav.navigate(navConstant.ResetPasswordPage, { action: 'profile' });
 	}
 
-	navigateLogOut() {
-		this.props.log_out();
+	resetData() {
 		this.props.reset_products();
 		this.props.reset_transaction();
 		actNav.reset(navConstant.Dashboard);
+	};
+
+	navigateLogOut() {
+		this.props.log_out();
+		this.resetData();
 	}
+
+	onRemoveAccount() {
+		this.setLoading(true)
+		let payload = {
+			header: {
+				apiToken: this.props.user ? this.props.user.authorization : ''
+			},
+		}
+
+		this.props.remove_account( payload,
+			() => {
+				this.toggleModalConfirmation()
+				this.resetData();
+				this.setLoading()
+			},
+			() => {
+				this.setLoading()
+			})
+	};
 
 	choosePhoto() {
 		const options = {
@@ -130,15 +160,21 @@ class ProfilePage extends Component {
 		});
 	}
 
-	toggleModal() {
+	toggleModalConfirmation() {
 		this.setState({
 			modalVisible: !this.state.modalVisible
 		});
-	}
+	};
 
 	navigateToEmailPage() {
 		actNav.navigate(navConstant.EmailPage);
-	}
+	};
+
+	setLoading(loading = false) {
+		this.setState({
+			loading
+		})
+	};
 
 	render() {
 		return (
@@ -169,7 +205,21 @@ class ProfilePage extends Component {
 							title={ 'profilePage.button.signOut' }
 						/>
 					</View>
+					<View style={ styles.subcontainer.bottom }>
+						<Button
+							type={ 'red' }
+							onPress={ this.toggleModalConfirmation }
+							title={ 'profilePage.button.removeAccount' }
+						/>
+					</View>
 				</View>
+				<AlertDialog
+					modalVisible={ this.state.modalVisible }
+					content={ 'dialog.removeAccount' }
+					requestHandler={ this.onRemoveAccount }
+					requestCancel={ this.toggleModalConfirmation }
+					showLoading={this.state.loading}
+				/>
 			</Container>
 		);
 	}
@@ -185,7 +235,8 @@ const mapDispatchToProps = (dispatch) => ({
 	log_out: () => dispatch(actions.auth.reducer.log_out()),
 	reset_products: () => dispatch(actions.product.reducer.reset_products()),
 	reset_transaction: () => dispatch(actions.transaction.reducer.reset_transaction()),
-	upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure))
+	upload_photo: (req, success, failure) => dispatch(actions.user.api.upload_photo(req, success, failure)),
+	remove_account: (req ,res, err) => dispatch(actions.auth.api.remove_account(req ,res ,err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

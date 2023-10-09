@@ -5,15 +5,16 @@ import { scaling } from '@helpers';
 const { height, width } = Dimensions.get('window')
 
 const styles = {
-    container: {
+    container: (loading = false) => ({
         position: 'absolute',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colour.blackTranslucent,
         width: width,
-        height: height
-    },
+        height: height,
+        opacity: loading ? 0.8 : 1
+    }),
     subcontainer: {
         box: {
             width: width * 0.8,
@@ -71,6 +72,14 @@ const styles = {
             color: colour.darkGrey,
             lineHeight: 20
         }
+    },
+    indicatorContainer: {
+        position: 'absolute',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width,
+        height: height,
     },
 }
 

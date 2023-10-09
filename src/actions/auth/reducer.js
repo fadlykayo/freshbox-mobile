@@ -13,4 +13,11 @@ action.log_out = () => ({
     type: ct.LOG_OUT
 });
 
+action.remove_account = data => ({
+    type: ct.REMOVE_ACCOUNT,
+    payload: {
+        data
+    }
+});
+
 export default action;
