@@ -852,7 +852,7 @@
     "copyVoucher": "Coupon code copied",
     "cancelInvoice": "Are you sure you want to cancel this order?",
     "reorder": "Thank you for your order! We need to empty your current cart to continue",
-    "removeAccount": "Are you sure you want to delete this account?"
+    "removeAccount": "Confirm Account Closure\n\nWe want to make sure that you really want to close your account. This action will disable all your data from our application.\n\nIf you have any questions or need additional assistance, feel free to contact our customer support team at cs@freshbox.id or whatsapp to 08118337377"
   },
   "verification": {
     "maxQuantity": "Only {qty} pack",
