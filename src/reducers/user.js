@@ -52,8 +52,7 @@ const getUserID = (state,payload) => {
     return newState;
 }
 
-const removeAccount = (state, payload) => {
-    // payload todo
+const removeAccount = (state) => {
     return log_out(state)
 }
 
@@ -66,7 +65,7 @@ const user = (state = initialState, action) => {
         case ct.GET_ADDRESS_DETAIL: return get_address_detail(state, action.payload)
         case ct.UPDATE_USER: return update_user(state,action.payload)
         case ct.USER_ID: return getUserID(state, action.payload)
-        case ct.REMOVE_ACCOUNT: return removeAccount(state, action.payload)
+        case ct.REMOVE_ACCOUNT: return removeAccount(state)
         default: return state;
     };
 };
