@@ -239,17 +239,21 @@ actions.reset_password = (req, success, failure) => {
 };
 
 actions.remove_account = (req, success, failure) => {
-	payload.path = path.remove_account;
 	payload.header = req.header;
+	payload.url = path.remove_account
+	payload.method = 'DELETE'
 
 	return (dispatch) => {
-		requestHandler('get', payload, dispatch, true)
+		requestHandler('custom', payload, dispatch, true)
 			.then((res) => {
-				if (res.code) {
-					if (res.code === 200) {
-						dispatch(actReducer.remove_account(res.data));
-						success();
-					}
+				if (res.status && res.status === 200) {
+					return res.json()
+				}
+			})
+			.then((response) => {
+				if(response && response.message && response.message.includes("success")) {
+					dispatch(actReducer.remove_account(response));
+					success();
 				}
 			})
 			.catch((err) => {

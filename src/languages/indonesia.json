@@ -857,7 +857,7 @@
     "copyVoucher": "Copy voucher berhasil",
     "cancelInvoice": "Apakah anda yakin ingin membatalkan pesanan anda?",
     "reorder": "Terima kasih! Untuk melanjutkan, kami akan mengganti shopping cart anda dengan produk-produk ini",
-    "removeAccount": "Konfirmasi Penutupan Akun\n\nKami ingin memastikan bahwa Anda benar-benar ingin menutup akun Anda. Tindakan ini akan menonaktifkan semua data Anda dari aplikasi kami.\n\nJika Anda memiliki pertanyaan atau perlu bantuan tambahan, jangan ragu untuk menghubungi tim dukungan pelanggan kami di cs@freshbox.id atau whatsapp ke 08118337377"
+    "removeAccount": "Konfirmasi Penghapusan Akun\n\nKami ingin memastikan bahwa Anda benar-benar ingin menghapus akun Anda. Tindakan ini akan menghapus semua data Anda dari aplikasi kami.\n\nJika Anda memiliki pertanyaan atau perlu bantuan tambahan, jangan ragu untuk menghubungi tim dukungan pelanggan kami di cs@freshbox.id atau whatsapp ke 08118337377"
   },
   "verification": {
     "maxQuantity": "Hanya tersedia {qty} pack",

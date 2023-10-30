@@ -46,6 +46,5 @@ export const path = {
   cancelVoucher: 'v1/voucher/cancel',
   banners: 'v1/banners/',
   version_checker: 'v1/general/versioning',
-  // path todo
-  remove_account: 'v1/product'
+  remove_account: 'https://api2.freshbox.id/api/v1/user/delete'
 };
