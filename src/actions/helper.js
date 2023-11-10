@@ -10,6 +10,7 @@ const requestHandler = (type, payload, dispatch, noLoading) => {
         case 'post': return helper.post(payload, dispatch);
         case 'put': return helper.put(payload, dispatch);
         case 'delete': return helper.delete(payload, dispatch);
+        case 'custom': return helper.custom(payload, dispatch);
         default: return helper.get(payload, dispatch, noLoading);
     }
 };
@@ -155,6 +156,39 @@ helper.delete = (payload, dispatch) => new Promise((resolve, reject) => {
                 dispatch(actNetwork.set_network_error_status(true));
             }
         });
+});
+
+helper.custom = (payload, dispatch) => new Promise((resolve, reject) => {
+    dispatch(actNetwork.set_loading_status(true));
+    fetch( payload.url, {
+        method: payload.method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': payload.header.apiToken ? payload.header.apiToken : '',
+          'X-Player': payload.header.onesignalToken ? payload.header.onesignalToken : '',
+        }
+    })
+    .then(response => {
+      dispatch(actNetwork.set_loading_status(false));
+      resolve(response);
+    })
+    .catch(error => {
+      dispatch(actNetwork.set_loading_status(false));
+      if (error) {
+        if (error?.response?.data?.code == 401) {
+            Alert.alert(
+                'Unauthorized',
+                'You are not allowed to use this application.',
+                [
+                    {text: 'OK', onPress: () => null},
+                ],
+                {cancelable: false}
+            );
+        } else reject(error);
+      } else {
+        dispatch(actNetwork.set_network_error_status(true));
+      }
+    });
 });
 
 export default requestHandler;

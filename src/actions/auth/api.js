@@ -238,4 +238,38 @@ actions.reset_password = (req, success, failure) => {
 	};
 };
 
+actions.remove_account = (req, success, failure) => {
+	payload.header = req.header;
+	payload.url = path.remove_account
+	payload.method = 'DELETE'
+
+	return (dispatch) => {
+		requestHandler('custom', payload, dispatch, true)
+			.then((res) => {
+				if (res.status && res.status === 200) {
+					return res.json()
+				}
+			})
+			.then((response) => {
+				if(response && response.message && response.message.includes("success")) {
+					dispatch(actReducer.remove_account(response));
+					success();
+				}
+			})
+			.catch((err) => {
+				switch (err.code) {
+					case 400:
+						return failure(err);
+					default:
+						dispatch(
+							actNetwork.set_error_status({
+								status: true,
+								data: JSON.stringify(err),
+							}),
+						);
+				}
+			});
+	};
+};
+
 export default actions;

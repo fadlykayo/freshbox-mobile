@@ -13,6 +13,10 @@ action.log_out = () => ({
     type: ct.LOG_OUT
 })
 
+action.remove_account = () => ({
+    type: ct.REMOVE_ACCOUNT
+})
+
 action.get_address = (data) => ({
     type: ct.GET_ADDRESS,
     payload: {
